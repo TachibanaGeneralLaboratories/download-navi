@@ -15,7 +15,7 @@ License
 
     Copyright (C) 2018 Tachibana General Laboratories, LLC
     Copyright (C) 2018 Yaroslav Pronin <proninyaroslav@mail.ru>
-    This file is part of DownloadNavi.
+    This file is part of Download Navi.
     Download Navi is free software: you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
     the Free Software Foundation, either version 3 of the License, or
