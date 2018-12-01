@@ -1,0 +1,75 @@
+<resources>
+    <!-- Global string -->
+    <string name="app_name">DownloadNavi</string>
+    <string name="foreground_notification">Foreground notification</string>
+    <string name="def">Default</string>
+    <string name="progress_notification">Progress notification</string>
+    <string name="shutdown">Shutdown</string>
+    <!-- 1 d. 1 h. 1 m -->
+    <string name="elapsed_time_format_d_h_mm">%1$d d. %2$d h. %3$d m</string>
+    <!-- 1 h. 1 m. 1 s -->
+    <string name="elapsed_time_format_h_mm_ss">%1$d h. %2$d m. %3$d s</string>
+    <!-- 1 m. 1 s -->
+    <string name="elapsed_time_format_mm_ss">%1$d m. %2$d s</string>
+    <!-- 1 s -->
+    <string name="elapsed_time_format_ss">%1$d s</string>
+    <string name="ok">OK</string>
+    <string name="cancel">Cancel</string>
+    <string name="wifi_only">Wi-Fi only</string>
+    <string name="connect">Connect</string>
+    <string name="add">Add</string>
+    <string name="not_available">N/A</string>
+
+    <!-- Download progress notification -->
+    <!-- cur/total (percent) • ETA • download speed -->
+    <string name="downloading_notify_template" formatted="false">%1$s/%2$s (%3$d%%) \u2022 %4$s \u2022 %5$s/s</string>
+    <!-- cur/total (percent) • Pause -->
+    <string name="pause_notify_template" formatted="false">%1$s/%2$s (%3$d%%) \u2022 Pause</string>
+    <string name="pause">Pause</string>
+    <string name="resume">Resume</string>
+    <string name="stop">Stop</string>
+
+    <!-- Foreground notification -->
+    <string name="download_count_notify_template" formatted="false">Downloading: %1$d Total: %2$d</string>
+    <string name="app_running_in_the_background">DownloadNavi running in the background</string>
+    <string name="pause_all">Pause all</string>
+    <string name="resume_all">Resume all</string>
+    <string name="stop_all">Stop all</string>
+
+    <!-- Finish notification -->
+    <string name="download_finished_notify">Download finished</string>
+    <string name="open_using">Open using</string>
+
+    <!-- Error notification -->
+    <string name="download_error_notify_title">Download error</string>
+    <string name="download_error_notify_template">Error: %1$s</string>
+    <string name="download_error_cannot_add">Cannot add download</string>
+
+    <!-- Add download dialog -->
+    <string name="add_download">Add download</string>
+    <string name="download_link">Link</string>
+    <string name="download_name">Name</string>
+    <string name="download_size" formatted="false">Size: %1$s</string>
+    <string name="download_free_space" formatted="false">Storage: %1$s free</string>
+    <string name="download_retry">Retry</string>
+    <string name="download_advanced">Advanced</string>
+    <string name="download_user_agent">User agent</string>
+    <string name="download_checksum">Checksum</string>
+    <string name="download_error_empty_link">Please enter link</string>
+    <string name="download_error_empty_name">Please enter name</string>
+    <string name="download_error_no_enough_free_space" formatted="false">Not enough free space: %1$s free, but file size is %2$s</string>
+    <string name="download_error_name_is_not_correct" formatted="false">Correct name is \"%1$s\"</string>
+    <string name="download_error_unable_to_add_download">Unable to add download</string>
+    <string name="fetch_error_default_fmt" formatted="false">Error: %1$s</string>
+    <string name="fetch_error_invalid_url" formatted="false">Invalid URL: %1$s</string>
+    <string name="fetch_error_network_disconnected">network is disconnected</string>
+    <string name="fetch_error_http_response" formatted="false">Error: server returned HTTP %1$d code</string>
+    <string name="fetch_error_io" formatted="false">IO error: %1$s</string>
+    <string name="add_download_error_unable_to_create_file">Unable to create file</string>
+    <string name="partial_download_not_supported">This download doesn\'t support pause and downloading by pieces</string>
+    <string name="download_pieces_number_title" formatted="false">Number of pieces: %1$d</string>
+    <string name="download_description">Description</string>
+
+    <!-- Add user agent dialog -->
+    <string name="dialog_add_user_agent_title">Add user agent</string>
+</resources>
