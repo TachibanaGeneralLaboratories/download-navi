@@ -1,4 +1,4 @@
-DownloadNavi
+Download Navi
 =====================
 
 Free as in Freedom download manager for Android. 
@@ -13,9 +13,10 @@ See [CONTRIBUTING.md](CONTRIBUTING.md)
 License
 ---
 
+    Copyright (C) 2018 Tachibana General Laboratories, LLC
     Copyright (C) 2018 Yaroslav Pronin <proninyaroslav@mail.ru>
     This file is part of DownloadNavi.
-    DownloadNavi is free software: you can redistribute it and/or modify
+    Download Navi is free software: you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
     the Free Software Foundation, either version 3 of the License, or
     (at your option) any later version.

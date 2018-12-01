@@ -1,6 +1,6 @@
 <resources>
     <!-- Global string -->
-    <string name="app_name">DownloadNavi</string>
+    <string name="app_name">Download Navi</string>
     <string name="foreground_notification">Foreground notification</string>
     <string name="def">Default</string>
     <string name="progress_notification">Progress notification</string>
@@ -31,7 +31,7 @@
 
     <!-- Foreground notification -->
     <string name="download_count_notify_template" formatted="false">Downloading: %1$d Total: %2$d</string>
-    <string name="app_running_in_the_background">DownloadNavi running in the background</string>
+    <string name="app_running_in_the_background">Download Navi running in the background</string>
     <string name="pause_all">Pause all</string>
     <string name="resume_all">Resume all</string>
     <string name="stop_all">Stop all</string>
