@@ -2,8 +2,9 @@
     <!-- Global string -->
     <string name="app_name">Download Navi</string>
     <string name="foreground_notification">Foreground notification</string>
-    <string name="def">Default</string>
-    <string name="progress_notification">Progress notification</string>
+    <string name="download_running">In progress</string>
+    <string name="download_queued">Queued</string>
+    <string name="done_label">Done</string>
     <string name="shutdown">Shutdown</string>
     <!-- 1 d. 1 h. 1 m -->
     <string name="elapsed_time_format_d_h_mm">%1$d d. %2$d h. %3$d m</string>
@@ -21,6 +22,7 @@
     <string name="not_available">N/A</string>
 
     <!-- Download progress notification -->
+    <string name="download_ticker_notify" formatted="false">Download %1$s</string>
     <!-- cur/total (percent) • ETA • download speed -->
     <string name="downloading_notify_template" formatted="false">%1$s/%2$s (%3$d%%) \u2022 %4$s \u2022 %5$s/s</string>
     <!-- cur/total (percent) • Pause -->
@@ -59,7 +61,6 @@
     <string name="download_error_empty_name">Please enter name</string>
     <string name="download_error_no_enough_free_space" formatted="false">Not enough free space: %1$s free, but file size is %2$s</string>
     <string name="download_error_name_is_not_correct" formatted="false">Correct name is \"%1$s\"</string>
-    <string name="download_error_unable_to_add_download">Unable to add download</string>
     <string name="fetch_error_default_fmt" formatted="false">Error: %1$s</string>
     <string name="fetch_error_invalid_url" formatted="false">Invalid URL: %1$s</string>
     <string name="fetch_error_network_disconnected">network is disconnected</string>

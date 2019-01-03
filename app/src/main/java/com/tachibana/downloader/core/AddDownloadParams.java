@@ -1,6 +1,6 @@
 /*
- * Copyright (C) 2018 Tachibana General Laboratories, LLC
- * Copyright (C) 2018 Yaroslav Pronin <proninyaroslav@mail.ru>
+ * Copyright (C) 2018, 2019 Tachibana General Laboratories, LLC
+ * Copyright (C) 2018, 2019 Yaroslav Pronin <proninyaroslav@mail.ru>
  *
  * This file is part of Download Navi.
  *
@@ -24,27 +24,29 @@ import android.net.Uri;
 import android.os.Parcel;
 import android.os.Parcelable;
 
-import java.util.HashMap;
+import com.tachibana.downloader.core.entity.DownloadInfo;
 
-public class AddDownloadParams implements Parcelable
+import androidx.databinding.BaseObservable;
+import androidx.databinding.Bindable;
+import androidx.databinding.library.baseAdapters.BR;
+
+public class AddDownloadParams extends BaseObservable implements Parcelable
 {
-    public String url;
+    private String url;
     /* SAF storage */
-    public Uri filePath;
-    public String fileName;
-    public String description;
-    public String mimeType;
-    public String etag;
-    public String userAgent;
-    public int numPieces = DownloadInfo.MIN_PIECES;
-    public long totalBytes = -1;
-    public boolean wifiOnly = false;
-    public boolean partialSupport = true;
+    private Uri filePath;
+    private String fileName;
+    private String description;
+    private String mimeType;
+    private String etag;
+    private String userAgent;
+    private int numPieces = DownloadInfo.MIN_PIECES;
+    private long totalBytes = -1;
+    private boolean wifiOnly = false;
+    private boolean partialSupport = true;
+    private boolean retry = true;
 
-    public AddDownloadParams(String url)
-    {
-        this.url = url;
-    }
+    public AddDownloadParams() {}
 
     public AddDownloadParams(Parcel source)
     {
@@ -59,23 +61,154 @@ public class AddDownloadParams implements Parcelable
         partialSupport = source.readByte() != 0;
         wifiOnly = source.readByte() != 0;
         numPieces = source.readInt();
+        retry = source.readByte() != 0;
     }
 
     public DownloadInfo toDownloadInfo()
     {
         DownloadInfo info = new DownloadInfo(filePath, url, fileName, mimeType);
-        info.setTotalBytes(totalBytes);
-        info.setDescription(description);
-        info.setWiFiOnly(wifiOnly);
-        info.setPartialSupport(partialSupport);
+        info.totalBytes = totalBytes;
+        info.description = description;
+        info.wifiOnly = wifiOnly;
+        info.partialSupport = partialSupport;
         info.setNumPieces((partialSupport && totalBytes > 0 ? numPieces : DownloadInfo.MIN_PIECES));
-
-        HashMap<String, String> headers = new HashMap<>();
-        headers.put("User-Agent", userAgent);
-        headers.put("ETag", etag);
-        info.setHeaders(headers);
+        info.retry = retry;
 
         return info;
+    }
+
+    @Bindable
+    public String getUrl()
+    {
+        return url;
+    }
+
+    public void setUrl(String url)
+    {
+        this.url = url;
+        notifyPropertyChanged(BR.url);
+    }
+
+    public Uri getFilePath()
+    {
+        return filePath;
+    }
+
+    public void setFilePath(Uri filePath)
+    {
+        this.filePath = filePath;
+    }
+
+    @Bindable
+    public String getFileName()
+    {
+        return fileName;
+    }
+
+    public void setFileName(String fileName)
+    {
+        this.fileName = fileName;
+        notifyPropertyChanged(BR.fileName);
+    }
+
+    @Bindable
+    public String getDescription()
+    {
+        return description;
+    }
+
+    public void setDescription(String description)
+    {
+        this.description = description;
+        notifyPropertyChanged(BR.description);
+    }
+
+    public String getMimeType()
+    {
+        return mimeType;
+    }
+
+    public void setMimeType(String mimeType)
+    {
+        this.mimeType = mimeType;
+    }
+
+    public String getEtag()
+    {
+        return etag;
+    }
+
+    public void setEtag(String etag)
+    {
+        this.etag = etag;
+    }
+
+    public String getUserAgent()
+    {
+        return userAgent;
+    }
+
+    public void setUserAgent(String userAgent)
+    {
+        this.userAgent = userAgent;
+    }
+
+    @Bindable
+    public int getNumPieces()
+    {
+        return numPieces;
+    }
+
+    public void setNumPieces(int numPieces)
+    {
+        this.numPieces = numPieces;
+        notifyPropertyChanged(BR.numPieces);
+    }
+
+    @Bindable
+    public long getTotalBytes()
+    {
+        return totalBytes;
+    }
+
+    public void setTotalBytes(long totalBytes)
+    {
+        this.totalBytes = totalBytes;
+        notifyPropertyChanged(BR.totalBytes);
+    }
+
+    @Bindable
+    public boolean isWifiOnly()
+    {
+        return wifiOnly;
+    }
+
+    public void setWifiOnly(boolean wifiOnly)
+    {
+        this.wifiOnly = wifiOnly;
+        notifyPropertyChanged(BR.wifiOnly);
+    }
+
+    public boolean isPartialSupport()
+    {
+        return partialSupport;
+    }
+
+    public void setPartialSupport(boolean partialSupport)
+    {
+        this.partialSupport = partialSupport;
+    }
+
+    @Bindable
+    public boolean isRetry()
+    {
+        return retry;
+    }
+
+    public void setRetry(boolean retry)
+    {
+        this.retry = retry;
+        notifyPropertyChanged(BR.retry);
     }
 
     @Override
@@ -98,6 +231,7 @@ public class AddDownloadParams implements Parcelable
         dest.writeByte((byte)(partialSupport ? 1 : 0));
         dest.writeByte((byte)(wifiOnly ? 1 : 0));
         dest.writeInt(numPieces);
+        dest.writeByte((byte)(retry ? 1 : 0));
     }
 
     public static final Creator<AddDownloadParams> CREATOR =
@@ -131,6 +265,7 @@ public class AddDownloadParams implements Parcelable
                 ", totalBytes=" + totalBytes +
                 ", wifiOnly=" + wifiOnly +
                 ", partialSupport=" + partialSupport +
+                ", retry=" + retry +
                 '}';
     }
 }

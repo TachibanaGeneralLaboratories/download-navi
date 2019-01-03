@@ -1,6 +1,6 @@
 /*
- * Copyright (C) 2018 Tachibana General Laboratories, LLC
- * Copyright (C) 2018 Yaroslav Pronin <proninyaroslav@mail.ru>
+ * Copyright (C) 2018, 2019 Tachibana General Laboratories, LLC
+ * Copyright (C) 2018, 2019 Yaroslav Pronin <proninyaroslav@mail.ru>
  *
  * This file is part of Download Navi.
  *
@@ -21,13 +21,12 @@
 package com.tachibana.downloader.core;
 
 import android.content.Context;
-import android.os.Handler;
-import android.os.HandlerThread;
 import android.os.ParcelFileDescriptor;
-import android.os.SystemClock;
 import android.util.Log;
 
-import com.tachibana.downloader.core.storage.DownloadStorage;
+import com.tachibana.downloader.core.entity.DownloadInfo;
+import com.tachibana.downloader.core.entity.DownloadPiece;
+import com.tachibana.downloader.core.storage.DataRepository;
 import com.tachibana.downloader.core.utils.FileUtils;
 import com.tachibana.downloader.core.utils.Utils;
 
@@ -37,56 +36,43 @@ import java.io.IOException;
 import java.io.InterruptedIOException;
 import java.util.List;
 import java.util.UUID;
+import java.util.concurrent.Callable;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.TimeUnit;
 
-import static com.tachibana.downloader.core.DownloadInfo.STATUS_CANCELLED;
-import static com.tachibana.downloader.core.DownloadInfo.STATUS_FILE_ERROR;
-import static com.tachibana.downloader.core.DownloadInfo.STATUS_INSUFFICIENT_SPACE_ERROR;
-import static com.tachibana.downloader.core.DownloadInfo.STATUS_PAUSED;
-import static com.tachibana.downloader.core.DownloadInfo.STATUS_RUNNING;
-import static com.tachibana.downloader.core.DownloadInfo.STATUS_SUCCESS;
-import static com.tachibana.downloader.core.DownloadInfo.STATUS_UNKNOWN_ERROR;
-import static com.tachibana.downloader.core.DownloadInfo.STATUS_WAITING_FOR_NETWORK;
+import static com.tachibana.downloader.core.StatusCode.STATUS_CANCELLED;
+import static com.tachibana.downloader.core.StatusCode.STATUS_FILE_ERROR;
+import static com.tachibana.downloader.core.StatusCode.STATUS_INSUFFICIENT_SPACE_ERROR;
+import static com.tachibana.downloader.core.StatusCode.STATUS_PAUSED;
+import static com.tachibana.downloader.core.StatusCode.STATUS_RUNNING;
+import static com.tachibana.downloader.core.StatusCode.STATUS_SUCCESS;
+import static com.tachibana.downloader.core.StatusCode.STATUS_UNKNOWN_ERROR;
+import static com.tachibana.downloader.core.StatusCode.STATUS_WAITING_FOR_NETWORK;
 
 /*
  * Represent one task of downloading.
  */
 
-public class DownloadThread extends Thread
+public class DownloadThread implements Callable<DownloadResult>
 {
     @SuppressWarnings("unused")
     private static final String TAG = DownloadThread.class.getSimpleName();
 
-    private static final String PROGRESS_THREAD_NAME = "progress";
-    private static final int SYNC_TIME = 1000; /* ms */
-
     private DownloadInfo info;
     private UUID id;
-    private Handler handler;
-    private boolean cancel;
     /* Stop and delete */
+    private boolean cancel;
     private boolean pause;
     private boolean running;
     private ExecutorService exec;
-    private DownloadStorage storage;
+    private DataRepository repo;
     private Context context;
-    private HandlerThread progressThread;
-    private Handler progressHandler;
-    private long downloadBytes;
-    /* Time when current sample started */
-    private long speedSampleStart;
-    /* Historical bytes/second speed of this download */
-    private long speed;
-    /* Bytes transferred since current sample started */
-    private long speedSampleBytes;
 
-    public DownloadThread(UUID id, Context context, Handler handler)
+    public DownloadThread(UUID id, Context context, DataRepository repo)
     {
         this.id = id;
-        this.handler = handler;
-        this.storage = new DownloadStorage(context);
+        this.repo = repo;
         this.context = context;
     }
 
@@ -109,65 +95,60 @@ public class DownloadThread extends Thread
         return running;
     }
 
-    public long getDownloadBytes()
-    {
-        return downloadBytes;
-    }
-
     @Override
-    public void run()
+    public DownloadResult call()
     {
         running = true;
         StopRequest ret = null;
         try {
-            info = storage.getInfoById(id);
+            info = repo.getInfoById(id);
             if (info == null) {
                 Log.w(TAG, "Info " + id + " is null, skipping");
-                if (handler != null)
-                    handler.sendMessage(DownloadMsg.makeCancelledMsg(id));
-                return;
+                return new DownloadResult(id, DownloadResult.Status.CANCELLED);
             }
 
-            if (info.getStatusCode() == STATUS_SUCCESS) {
+            if (info.statusCode == STATUS_SUCCESS) {
                 Log.w(TAG, id + " already finished, skipping");
-                if (handler != null)
-                    handler.sendMessage(DownloadMsg.makeFinishedMsg(id));
-                return;
+                return new DownloadResult(id, DownloadResult.Status.FINISHED);
             }
 
-            info.setStatusCode(STATUS_RUNNING);
-            info.setStatusMsg(null);
+            info.statusCode = STATUS_RUNNING;
+            info.statusMsg = null;
             writeToDatabase();
 
             if ((ret = execDownload()) != null) {
-                info.setStatusCode(ret.getFinalStatus());
-                info.setStatusMsg(ret.getMessage());
+                info.statusCode = ret.getFinalStatus();
+                info.statusMsg = ret.getMessage();
             } else {
-                info.setStatusCode(STATUS_SUCCESS);
+                info.statusCode = STATUS_SUCCESS;
             }
 
             checkPiecesStatus();
 
         } catch (Throwable t) {
             Log.e(TAG, Log.getStackTraceString(t));
-            info.setStatusCode(STATUS_UNKNOWN_ERROR);
-            info.setStatusMsg(t.getMessage());
+            if (info != null) {
+                info.statusCode = STATUS_UNKNOWN_ERROR;
+                info.statusMsg = t.getMessage();
+            }
 
         } finally {
             finalizeThread();
-            if (handler != null && info != null) {
-                switch (info.getStatusCode()) {
-                    case STATUS_PAUSED:
-                        handler.sendMessage(DownloadMsg.makePausedMsg(id));
-                        break;
-                    case STATUS_CANCELLED:
-                        handler.sendMessage(DownloadMsg.makeCancelledMsg(id));
-                        break;
-                    default:
-                        handler.sendMessage(DownloadMsg.makeFinishedMsg(id));
-                }
+        }
+
+        DownloadResult.Status status = DownloadResult.Status.FINISHED;
+        if (info != null) {
+            switch (info.statusCode) {
+                case STATUS_PAUSED:
+                    status = DownloadResult.Status.PAUSED;
+                    break;
+                case STATUS_CANCELLED:
+                    status = DownloadResult.Status.CANCELLED;
+                    break;
             }
         }
+
+        return new DownloadResult(id, status);
     }
 
     private void finalizeThread()
@@ -175,13 +156,13 @@ public class DownloadThread extends Thread
         if (info != null) {
             writeToDatabase();
 
-            if (info.isStatusError()) {
+            if (StatusCode.isStatusError(info.statusCode)) {
                 /* When error, free up any disk space */
                 ParcelFileDescriptor pfd = null;
                 FileOutputStream fout = null;
                 try {
                     pfd = context.getContentResolver()
-                            .openFileDescriptor(info.getFilePath(), "rw");
+                            .openFileDescriptor(info.filePath, "rw");
                     fout = new FileOutputStream(pfd.getFileDescriptor());
 
                     FileUtils.ftruncate(fout, 0);
@@ -201,35 +182,34 @@ public class DownloadThread extends Thread
 
     private void checkPiecesStatus()
     {
-        List<DownloadPiece> pieces = storage.getPiecesById(id);
+        List<DownloadPiece> pieces = repo.getPiecesById(id);
         if (pieces == null || pieces.isEmpty()) {
             String errMsg = "Download deleted or missing";
-            info.setStatusCode(STATUS_CANCELLED);
-            info.setStatusMsg(errMsg);
+            info.statusCode = STATUS_CANCELLED;
+            info.statusMsg = errMsg;
             Log.i(TAG, "id=" + id + ", " + errMsg);
 
         } else if (pieces.size() != info.getNumPieces()) {
             String errMsg = "Some pieces are missing";
-            info.setStatusCode(STATUS_UNKNOWN_ERROR);
-            info.setStatusMsg(errMsg);
+            info.statusCode = STATUS_UNKNOWN_ERROR;
+            info.statusMsg = errMsg;
             Log.i(TAG, "id=" + id + ", " + errMsg);
 
         } else {
             /* If we just finished a chunked file, record total size */
-            if (info.getTotalBytes() == -1 && pieces.size() == 1)
-                info.setTotalBytes(pieces.get(0).getCurBytes());
+            if (info.totalBytes == -1 && pieces.size() == 1)
+                info.totalBytes = pieces.get(0).curBytes;
 
             /* Check pieces status if we are not cancelled or paused */
             StopRequest ret;
             if ((ret = checkPauseStop()) != null) {
-                info.setStatusCode(ret.getFinalStatus());
+                info.statusCode = ret.getFinalStatus();
             } else {
                 for (DownloadPiece piece : pieces) {
-                    int status = piece.getStatusCode();
                     /* TODO: maybe change handle status behaviour */
-                    if (status != STATUS_SUCCESS || status > info.getStatusCode()) {
-                        info.setStatusCode(status);
-                        info.setStatusMsg(piece.getStatusMsg());
+                    if (piece.statusCode != STATUS_SUCCESS || piece.statusCode > info.statusCode) {
+                        info.statusCode = piece.statusCode;
+                        info.statusMsg = piece.statusMsg;
                         break;
                     }
                 }
@@ -247,7 +227,7 @@ public class DownloadThread extends Thread
                 return new StopRequest(STATUS_WAITING_FOR_NETWORK);
 
             /* Pre-flight disk space requirements, when known */
-            if (info.getTotalBytes() > 0) {
+            if (info.totalBytes > 0) {
                 if ((ret = allocFileSpace()) != null)
                     return ret;
             }
@@ -256,9 +236,8 @@ public class DownloadThread extends Thread
                     Executors.newSingleThreadExecutor() :
                     Executors.newFixedThreadPool(info.getNumPieces()));
 
-            startUpdateProgress();
             for (int i = 0; i < info.getNumPieces(); i++)
-                exec.submit(new PieceThread(id, i, context));
+                exec.submit(new PieceThread(id, i, context, repo));
             exec.shutdown();
             /* Wait "forever" */
             if (!exec.awaitTermination(Long.MAX_VALUE, TimeUnit.NANOSECONDS))
@@ -266,74 +245,9 @@ public class DownloadThread extends Thread
 
         } catch (InterruptedException e) {
             requestCancel();
-        } finally {
-            stopUpdateProgress();
         }
 
         return null;
-    }
-
-    private Runnable updateProgress = new Runnable()
-    {
-        @Override
-        public void run()
-        {
-            List<DownloadPiece> pieces = storage.getPiecesById(id);
-            if (pieces != null) {
-                long downloadBytes = 0;
-                for (DownloadPiece piece : pieces)
-                    downloadBytes += piece.getCurBytes() - info.pieceStartPos(piece);
-
-                long now = SystemClock.elapsedRealtime();
-                long sampleDelta = now - speedSampleStart;
-
-                if (sampleDelta > 500) {
-                    long sampleSpeed = ((downloadBytes - speedSampleBytes) * 1000) / sampleDelta;
-                    if (speed == 0)
-                        speed = sampleSpeed;
-                    else
-                        speed = (speed * 3 + sampleSpeed) / 4;
-
-                    speedSampleStart = now;
-                    speedSampleBytes = downloadBytes;
-                }
-
-                DownloadThread.this.downloadBytes = downloadBytes;
-                handler.sendMessage(DownloadMsg.makeProgressChangedMsg(id, downloadBytes, speed));
-            }
-
-            progressHandler.postDelayed(this, SYNC_TIME);
-        }
-    };
-
-    private void startUpdateProgress()
-    {
-        if (progressHandler != null || progressThread != null)
-            return;
-
-        speed = 0;
-        speedSampleStart = 0;
-        speedSampleBytes = 0;
-
-        progressThread = new HandlerThread(PROGRESS_THREAD_NAME);
-        progressThread.start();
-        progressHandler = new Handler(progressThread.getLooper());
-        progressHandler.postDelayed(updateProgress, SYNC_TIME);
-    }
-
-    private void stopUpdateProgress()
-    {
-        if (progressHandler == null || progressThread == null)
-            return;
-
-        progressHandler.removeCallbacks(updateProgress);
-        progressThread.quitSafely();
-
-        progressHandler = null;
-        progressThread = null;
-        speed = 0;
-        speedSampleStart = 0;
-        speedSampleBytes = 0;
     }
 
     private StopRequest allocFileSpace()
@@ -342,7 +256,7 @@ public class DownloadThread extends Thread
         FileDescriptor outFd = null;
         try {
             try {
-                outPfd = context.getContentResolver().openFileDescriptor(info.getFilePath(), "rw");
+                outPfd = context.getContentResolver().openFileDescriptor(info.filePath, "rw");
                 outFd = outPfd.getFileDescriptor();
 
             } catch (IOException e) {
@@ -350,7 +264,7 @@ public class DownloadThread extends Thread
             }
 
             try {
-                FileUtils.fallocate(context, outFd, info.getTotalBytes());
+                FileUtils.fallocate(context, outFd, info.totalBytes);
 
             } catch (InterruptedIOException e) {
                 requestCancel();
@@ -375,14 +289,14 @@ public class DownloadThread extends Thread
 
     private void writeToDatabase()
     {
-        storage.updateInfo(info, false, false);
+        repo.updateInfo(context, info, false, false);
     }
 
     public StopRequest checkPauseStop()
     {
         if (pause)
             return new StopRequest(STATUS_PAUSED, "Download paused");
-        else if (cancel)
+        else if (cancel || Thread.currentThread().isInterrupted())
             return new StopRequest(STATUS_CANCELLED, "Download cancelled");
 
         return null;

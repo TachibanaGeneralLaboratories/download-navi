@@ -1,6 +1,6 @@
 /*
- * Copyright (C) 2018 Tachibana General Laboratories, LLC
- * Copyright (C) 2018 Yaroslav Pronin <proninyaroslav@mail.ru>
+ * Copyright (C) 2018, 2019 Tachibana General Laboratories, LLC
+ * Copyright (C) 2018, 2019 Yaroslav Pronin <proninyaroslav@mail.ru>
  *
  * This file is part of Download Navi.
  *
@@ -18,12 +18,23 @@
  * along with Download Navi.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package com.tachibana.downloader.core;
+package com.tachibana.downloader.core.entity;
 
 import android.os.Parcel;
 import android.os.Parcelable;
 
+import com.tachibana.downloader.core.StatusCode;
+
 import java.util.UUID;
+
+import androidx.annotation.NonNull;
+import androidx.room.ColumnInfo;
+import androidx.room.Entity;
+import androidx.room.ForeignKey;
+import androidx.room.Ignore;
+import androidx.room.Index;
+
+import static androidx.room.ForeignKey.CASCADE;
 
 /*
  * The class encapsulates information about piece of download.
@@ -40,15 +51,25 @@ import java.util.UUID;
  * then the entire file is downloaded in only one piece.
  */
 
+@Entity(primaryKeys = {"pieceIndex", "infoId"},
+        indices = {@Index(value = "infoId")},
+        foreignKeys = @ForeignKey(
+                entity = DownloadInfo.class,
+                parentColumns = "id",
+                childColumns = "infoId",
+                onDelete = CASCADE))
 public class DownloadPiece implements Parcelable
 {
-    private UUID infoId;
-    private int index;
-    private long size;
-    private long curBytes;
-    private int statusCode = DownloadInfo.STATUS_PENDING;
-    private int numFailed = 0;
-    private String statusMsg;
+    @ColumnInfo(name = "pieceIndex")
+    public int index;
+    @NonNull
+    public UUID infoId;
+    public long size;
+    public long curBytes;
+    public int statusCode = StatusCode.STATUS_PENDING;
+    public int numFailed = 0;
+    public String statusMsg;
+    public long speed;
 
     public static final int MAX_RETRIES = 5;
 
@@ -60,7 +81,8 @@ public class DownloadPiece implements Parcelable
         this.curBytes = curBytes;
     }
 
-    public DownloadPiece(Parcel source)
+    @Ignore
+    public DownloadPiece(@NonNull Parcel source)
     {
         infoId = (UUID)source.readSerializable();
         size = source.readLong();
@@ -105,78 +127,14 @@ public class DownloadPiece implements Parcelable
                 }
             };
 
-    public UUID getInfoId()
-    {
-        return infoId;
-    }
-
-    public int getIndex()
-    {
-        return index;
-    }
-
-    public long getCurBytes()
-    {
-        return curBytes;
-    }
-
-    public long getSize()
-    {
-        return size;
-    }
-
-    public void setSize(long size)
-    {
-        this.size = size;
-    }
-
-    public void setCurBytes(long bytes)
-    {
-        this.curBytes = bytes;
-    }
-
-    public int getStatusCode()
-    {
-        return statusCode;
-    }
-
-    public int getNumFailed()
-    {
-        return numFailed;
-    }
-
-    public void setNumFailed(int numFailed)
-    {
-        this.numFailed = numFailed;
-    }
-
-    public void incNumFailed()
-    {
-        this.numFailed++;
-    }
-
-    public String getStatusMsg()
-    {
-        return statusMsg;
-    }
-
-    public void setStatusMsg(String statusMsg)
-    {
-        this.statusMsg = statusMsg;
-    }
-
-    public void setStatusCode(int statusCode)
-    {
-        this.statusCode = statusCode;
-    }
 
     @Override
     public int hashCode()
     {
         int prime = 31, result = 1;
 
-        result = prime * result + ((infoId == null) ? 0 : infoId.hashCode());
         result = prime * result + index;
+        result = prime * result + (infoId == null ? 0 : infoId.hashCode());
 
         return result;
     }
@@ -192,20 +150,21 @@ public class DownloadPiece implements Parcelable
 
         DownloadPiece piece = (DownloadPiece)o;
 
-        return (infoId == null || infoId.equals(piece.infoId)) && index == piece.index;
+        return infoId == piece.infoId && index == piece.index;
     }
 
     @Override
     public String toString()
     {
         return "DownloadPiece{" +
-                "infoId=" + infoId +
-                ", index=" + index +
+                "index=" + index +
+                ", infoId=" + infoId +
                 ", size=" + size +
                 ", curBytes=" + curBytes +
                 ", statusCode=" + statusCode +
                 ", numFailed=" + numFailed +
                 ", statusMsg='" + statusMsg + '\'' +
+                ", speed=" + speed +
                 '}';
     }
 }

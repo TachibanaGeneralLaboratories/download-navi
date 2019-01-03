@@ -1,6 +1,6 @@
 /*
- * Copyright (C) 2018 Tachibana General Laboratories, LLC
- * Copyright (C) 2018 Yaroslav Pronin <proninyaroslav@mail.ru>
+ * Copyright (C) 2018, 2019 Tachibana General Laboratories, LLC
+ * Copyright (C) 2018, 2019 Yaroslav Pronin <proninyaroslav@mail.ru>
  *
  * This file is part of Download Navi.
  *
@@ -25,8 +25,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 
 import com.tachibana.downloader.R;
-import com.tachibana.downloader.core.DownloadInfo;
-import com.tachibana.downloader.core.storage.DownloadStorage;
+import com.tachibana.downloader.core.entity.DownloadInfo;
 import com.tachibana.downloader.core.utils.Utils;
 import com.tachibana.downloader.settings.SettingsManager;
 
@@ -42,6 +41,10 @@ import androidx.work.WorkManager;
 import androidx.work.Worker;
 import androidx.work.WorkerParameters;
 
+/*
+ * TODO: undone work; handle work status (e.g for retry)
+ */
+
 public class DownloadScheduler extends Worker
 {
     @SuppressWarnings("unused")
@@ -55,33 +58,32 @@ public class DownloadScheduler extends Worker
         super(context, params);
     }
 
-    public static void runDownload(Context context, UUID id)
+    public static void runDownload(Context context, DownloadInfo info)
     {
-        if (id == null || context == null)
+        if (info == null || context == null)
             return;
 
         Data data = new Data.Builder()
                 .putString(TAG_ACTION, DownloadService.ACTION_RUN_DOWNLOAD)
-                .putString(TAG_ID, id.toString())
+                .putString(TAG_ID, info.id.toString())
                 .build();
         OneTimeWorkRequest work = new OneTimeWorkRequest.Builder(DownloadScheduler.class)
                 .setInputData(data)
-                .setConstraints(getConstraints(context, id))
+                .setConstraints(getConstraints(context, info))
                 .build();
         WorkManager.getInstance().enqueue(work);
     }
 
-    private static Constraints getConstraints(Context context, UUID id)
+    private static Constraints getConstraints(Context context, DownloadInfo info)
     {
         NetworkType netType = NetworkType.CONNECTED;
-        DownloadInfo info = new DownloadStorage(context).getInfoById(id);
         SharedPreferences pref = SettingsManager.getPreferences(context);
 
         if (pref.getBoolean(context.getString(R.string.pref_key_wifi_only),
                             SettingsManager.Default.enableRoaming))
             netType = NetworkType.NOT_ROAMING;
-        if (info != null && info.isWifiOnly() || pref.getBoolean(context.getString(R.string.pref_key_wifi_only),
-                                                                 SettingsManager.Default.wifiOnly))
+        if (info != null && info.wifiOnly || pref.getBoolean(context.getString(R.string.pref_key_wifi_only),
+                                                             SettingsManager.Default.wifiOnly))
             netType = NetworkType.UNMETERED;
 
         return new Constraints.Builder()
@@ -96,26 +98,26 @@ public class DownloadScheduler extends Worker
         Data data = getInputData();
         String action = data.getString(TAG_ACTION);
         if (action == null)
-            return Result.FAILURE;
+            return Result.failure();
 
         if (action.equals(DownloadService.ACTION_RUN_DOWNLOAD))
             return runDownloadAction(data);
 
-        return Result.FAILURE;
+        return Result.failure();
     }
 
     private Result runDownloadAction(Data data)
     {
         String uuid = data.getString(TAG_ID);
         if (uuid == null)
-            return Result.FAILURE;
+            return Result.failure();
 
         UUID id;
         try {
             id = UUID.fromString(uuid);
 
         } catch (IllegalArgumentException e) {
-            return Result.FAILURE;
+            return Result.failure();
         }
 
         Intent i = new Intent(getApplicationContext(), DownloadService.class);
@@ -123,6 +125,6 @@ public class DownloadScheduler extends Worker
         i.putExtra(DownloadService.TAG_DOWNLOAD_ID, id);
         Utils.startServiceBackground(getApplicationContext(), i);
 
-        return Result.SUCCESS;
+        return Result.success();
     }
 }

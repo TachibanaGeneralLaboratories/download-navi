@@ -1,6 +1,6 @@
 /*
- * Copyright (C) 2018 Tachibana General Laboratories, LLC
- * Copyright (C) 2018 Yaroslav Pronin <proninyaroslav@mail.ru>
+ * Copyright (C) 2019 Tachibana General Laboratories, LLC
+ * Copyright (C) 2019 Yaroslav Pronin <proninyaroslav@mail.ru>
  *
  * This file is part of Download Navi.
  *
@@ -18,30 +18,35 @@
  * along with Download Navi.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package com.tachibana.downloader.core.storage;
+package com.tachibana.downloader.core;
 
-import android.content.Context;
-import android.database.sqlite.SQLiteDatabase;
+import java.util.concurrent.Executor;
+import java.util.concurrent.Executors;
 
 /*
- * The class provides concurrent access to torrents storage.
+ * Global executor pools for the whole application.
+ *
+ * Grouping tasks like this avoids the effects of task starvation (e.g. disk reads don't wait behind
+ * webservice requests).
  */
 
-public class ConnectionManager
+public class AppExecutors
 {
-    private final static ConnectionManager INSTANCE = new ConnectionManager();
-    private DatabaseHelper helper;
+    private final Executor databaseIO;
 
-    private ConnectionManager()
+    private AppExecutors(Executor databaseIO)
     {
-        /* Nothing */
+        this.databaseIO = databaseIO;
     }
 
-    public static synchronized SQLiteDatabase getDatabase(Context context)
+    public AppExecutors()
     {
-        if (INSTANCE.helper == null)
-            INSTANCE.helper = new DatabaseHelper(context);
+        this(Executors.newFixedThreadPool(2));
+    }
 
-        return INSTANCE.helper.getWritableDatabase();
+    public Executor databaseIO()
+    {
+        return databaseIO;
     }
 }
+

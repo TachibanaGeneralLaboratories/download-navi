@@ -1,6 +1,6 @@
 /*
- * Copyright (C) 2018 Tachibana General Laboratories, LLC
- * Copyright (C) 2018 Yaroslav Pronin <proninyaroslav@mail.ru>
+ * Copyright (C) 2018, 2019 Tachibana General Laboratories, LLC
+ * Copyright (C) 2018, 2019 Yaroslav Pronin <proninyaroslav@mail.ru>
  *
  * This file is part of Download Navi.
  *
@@ -26,7 +26,10 @@ import android.os.ParcelFileDescriptor;
 import android.os.SystemClock;
 import android.util.Log;
 
-import com.tachibana.downloader.core.storage.DownloadStorage;
+import com.tachibana.downloader.core.entity.DownloadInfo;
+import com.tachibana.downloader.core.entity.DownloadPiece;
+import com.tachibana.downloader.core.entity.Header;
+import com.tachibana.downloader.core.storage.DataRepository;
 import com.tachibana.downloader.core.utils.FileUtils;
 import com.tachibana.downloader.core.utils.Utils;
 
@@ -39,22 +42,22 @@ import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.ProtocolException;
 import java.security.GeneralSecurityException;
-import java.util.Map;
+import java.util.List;
 import java.util.UUID;
 
-import static com.tachibana.downloader.core.DownloadInfo.STATUS_BAD_REQUEST;
-import static com.tachibana.downloader.core.DownloadInfo.STATUS_CANCELLED;
-import static com.tachibana.downloader.core.DownloadInfo.STATUS_CANNOT_RESUME;
-import static com.tachibana.downloader.core.DownloadInfo.STATUS_FILE_ERROR;
-import static com.tachibana.downloader.core.DownloadInfo.STATUS_HTTP_DATA_ERROR;
-import static com.tachibana.downloader.core.DownloadInfo.STATUS_RUNNING;
-import static com.tachibana.downloader.core.DownloadInfo.STATUS_SUCCESS;
-import static com.tachibana.downloader.core.DownloadInfo.STATUS_TOO_MANY_REDIRECTS;
-import static com.tachibana.downloader.core.DownloadInfo.STATUS_UNHANDLED_HTTP_CODE;
-import static com.tachibana.downloader.core.DownloadInfo.STATUS_UNHANDLED_REDIRECT;
-import static com.tachibana.downloader.core.DownloadInfo.STATUS_UNKNOWN_ERROR;
-import static com.tachibana.downloader.core.DownloadInfo.STATUS_WAITING_FOR_NETWORK;
-import static com.tachibana.downloader.core.DownloadInfo.STATUS_WAITING_TO_RETRY;
+import static com.tachibana.downloader.core.StatusCode.STATUS_BAD_REQUEST;
+import static com.tachibana.downloader.core.StatusCode.STATUS_CANCELLED;
+import static com.tachibana.downloader.core.StatusCode.STATUS_CANNOT_RESUME;
+import static com.tachibana.downloader.core.StatusCode.STATUS_FILE_ERROR;
+import static com.tachibana.downloader.core.StatusCode.STATUS_HTTP_DATA_ERROR;
+import static com.tachibana.downloader.core.StatusCode.STATUS_RUNNING;
+import static com.tachibana.downloader.core.StatusCode.STATUS_SUCCESS;
+import static com.tachibana.downloader.core.StatusCode.STATUS_TOO_MANY_REDIRECTS;
+import static com.tachibana.downloader.core.StatusCode.STATUS_UNHANDLED_HTTP_CODE;
+import static com.tachibana.downloader.core.StatusCode.STATUS_UNHANDLED_REDIRECT;
+import static com.tachibana.downloader.core.StatusCode.STATUS_UNKNOWN_ERROR;
+import static com.tachibana.downloader.core.StatusCode.STATUS_WAITING_FOR_NETWORK;
+import static com.tachibana.downloader.core.StatusCode.STATUS_WAITING_TO_RETRY;
 import static java.net.HttpURLConnection.HTTP_INTERNAL_ERROR;
 import static java.net.HttpURLConnection.HTTP_OK;
 import static java.net.HttpURLConnection.HTTP_PARTIAL;
@@ -83,20 +86,24 @@ public class PieceThread extends Thread
     /* Details from the last time we pushed a database update */
     private long lastUpdateBytes = 0;
     private long lastUpdateTime = 0;
+    /* Time when current sample started */
+    private long speedSampleStart;
+    /* Bytes transferred since current sample started */
+    private long speedSampleBytes;
     /*
      * Flag indicating if we've made forward progress transferring file data
      * from a remote server.
      */
     private boolean madeProgress = false;
     private int networkType;
-    private DownloadStorage storage;
+    private DataRepository repo;
     private Context context;
 
-    public PieceThread(UUID infoId, int pieceIndex, Context context)
+    public PieceThread(UUID infoId, int pieceIndex, Context context, DataRepository repo)
     {
         this.infoId = infoId;
         this.pieceIndex = pieceIndex;
-        this.storage = new DownloadStorage(context);
+        this.repo = repo;
         this.context = context;
     }
 
@@ -105,20 +112,20 @@ public class PieceThread extends Thread
     {
         StopRequest ret;
         try {
-            piece = storage.getPieceByIndex(infoId, pieceIndex);
+            piece = repo.getPiece(pieceIndex, infoId);
             if (piece == null) {
                 Log.w(TAG, "Piece " + pieceIndex + " is null, skipping");
                 return;
             }
 
-            if (piece.getStatusCode() == STATUS_SUCCESS) {
+            if (piece.statusCode == STATUS_SUCCESS) {
                 Log.w(TAG, pieceIndex + " already finished, skipping");
                 return;
             }
 
             do {
-                piece.setStatusCode(STATUS_RUNNING);
-                piece.setStatusMsg(null);
+                piece.statusCode = STATUS_RUNNING;
+                piece.statusMsg = null;
                 writeToDatabase();
                 /*
                  * Remember which network this download started on;
@@ -131,14 +138,14 @@ public class PieceThread extends Thread
                 if ((ret = execDownload()) != null)
                     handleRequest(ret);
                 else
-                    piece.setStatusCode(STATUS_SUCCESS);
+                    piece.statusCode = STATUS_SUCCESS;
 
-            } while (piece != null && piece.getStatusCode() == STATUS_WAITING_TO_RETRY);
+            } while (piece != null && piece.statusCode == STATUS_WAITING_TO_RETRY);
 
         } catch (Throwable t) {
             Log.e(TAG, Log.getStackTraceString(t));
-            piece.setStatusCode(STATUS_UNKNOWN_ERROR);
-            piece.setStatusMsg(t.getMessage());
+            piece.statusCode = STATUS_UNKNOWN_ERROR;
+            piece.statusMsg = t.getMessage();
 
         } finally {
             finalizeThread();
@@ -153,34 +160,34 @@ public class PieceThread extends Thread
         else
             Log.i(TAG, "piece=" + pieceIndex + ", " + request);
 
-        piece.setStatusCode(request.getFinalStatus());
-        piece.setStatusMsg(request.getMessage());
+        piece.statusCode = request.getFinalStatus();
+        piece.statusMsg = request.getMessage();
         /*
          * Nobody below our level should request retries, since we handle
          * failure counts at this level
          */
-        if (piece.getStatusCode() == STATUS_WAITING_TO_RETRY)
+        if (piece.statusCode == STATUS_WAITING_TO_RETRY)
             throw new IllegalStateException("Execution should always throw final error codes");
 
         /* Some errors should be retryable, unless we fail too many times */
-        if (isStatusRetryable(piece.getStatusCode())) {
-            piece.incNumFailed();
+        if (isStatusRetryable(piece.statusCode)) {
+            ++piece.numFailed;
 
-            if (piece.getNumFailed() < DownloadPiece.MAX_RETRIES) {
+            if (piece.numFailed < DownloadPiece.MAX_RETRIES) {
                 NetworkInfo netInfo = Utils.getActiveNetworkInfo(context);
                 if (netInfo != null && netInfo.getType() == networkType && netInfo.isConnected())
                     /* Underlying network is still intact, use normal backoff */
-                    piece.setStatusCode(STATUS_WAITING_TO_RETRY);
+                    piece.statusCode = STATUS_WAITING_TO_RETRY;
                 else
                     /* Network changed, retry on any next available */
-                    piece.setStatusCode(STATUS_WAITING_FOR_NETWORK);
+                    piece.statusCode = STATUS_WAITING_FOR_NETWORK;
 
-                if (storage.getHeadersById(infoId).get("ETag") == null && madeProgress) {
+                if (getETag(repo.getHeadersById(infoId)) == null && madeProgress) {
                     /*
                      * However, if we wrote data and have no ETag to verify
                      * contents against later, we can't actually resume
                      */
-                    piece.setStatusCode(STATUS_CANNOT_RESUME);
+                    piece.statusCode = STATUS_CANNOT_RESUME;
                 }
             }
         }
@@ -194,22 +201,22 @@ public class PieceThread extends Thread
 
     private StopRequest execDownload()
     {
-        DownloadInfo info = storage.getInfoById(infoId);
+        DownloadInfo info = repo.getInfoById(infoId);
         if (info == null)
             return new StopRequest(STATUS_CANCELLED, "Download deleted or missing");
 
         startPos = info.pieceStartPos(piece);
         endPos = info.pieceEndPos(piece);
 
-        boolean resuming = piece.getCurBytes() != startPos;
+        boolean resuming = piece.curBytes != startPos;
         final StopRequest[] ret = new StopRequest[1];
 
         HttpConnection connection;
         try {
-            connection = new HttpConnection(info.getUrl());
+            connection = new HttpConnection(info.url);
 
         } catch (MalformedURLException e) {
-            return new StopRequest(STATUS_BAD_REQUEST, "bad url " + info.getUrl(), e);
+            return new StopRequest(STATUS_BAD_REQUEST, "bad url " + info.url, e);
         } catch (GeneralSecurityException e) {
             return new StopRequest(STATUS_UNKNOWN_ERROR, "Unable to create SSLContext");
         }
@@ -229,7 +236,7 @@ public class PieceThread extends Thread
             {
                 switch (code) {
                     case HTTP_OK:
-                        if (piece.getSize() >= 0 || resuming) {
+                        if (piece.size >= 0 || resuming) {
                             ret[0] = new StopRequest(STATUS_CANNOT_RESUME,
                                     "Expected partial, but received OK");
                             return;
@@ -237,7 +244,7 @@ public class PieceThread extends Thread
                         ret[0] = transferData(conn);
                         break;
                     case HTTP_PARTIAL:
-                        if (piece.getSize() < 0 || !resuming) {
+                        if (piece.size < 0 || !resuming) {
                             ret[0] = new StopRequest(STATUS_CANNOT_RESUME,
                                     "Expected OK, but received partial");
                         }
@@ -294,14 +301,15 @@ public class PieceThread extends Thread
 
     private void addRequestHeaders(HttpURLConnection conn, boolean resuming)
     {
-        Map<String, String> headers = storage.getHeadersById(infoId);
-        for (Map.Entry<String, String> header : headers.entrySet()) {
-            if (header.getKey().equals("ETag"))
+        String etag = null;
+        for (Header header : repo.getHeadersById(infoId)) {
+            if ("ETag".equals(header.name)) {
+                etag = header.value;
                 continue;
-            conn.addRequestProperty(header.getKey(), header.getValue());
-            if (header.getKey().equals("User-Agent") &&
-                    conn.getRequestProperty("User-Agent") == null)
-                conn.addRequestProperty("User-Agent", header.getValue());
+            }
+            conn.addRequestProperty(header.name, header.value);
+            if ("User-Agent".equals(header.name) && conn.getRequestProperty("User-Agent") == null)
+                conn.addRequestProperty("User-Agent", header.value);
         }
         /*
          * Defeat transparent gzip compression, since it doesn't allow us to
@@ -313,13 +321,10 @@ public class PieceThread extends Thread
          * streaming large downloads after cancelled.
          */
         conn.setRequestProperty("Connection", "close");
-        if (resuming) {
-            String etag = headers.get("ETag");
-            if (etag != null)
-                conn.addRequestProperty("If-Match", etag);
-        }
-        String rangeRequest = "bytes=" + piece.getCurBytes() + "-";
-        if (piece.getSize() > 0)
+        if (resuming && etag != null)
+            conn.addRequestProperty("If-Match", etag);
+        String rangeRequest = "bytes=" + piece.curBytes + "-";
+        if (piece.size > 0)
             rangeRequest += endPos;
         conn.addRequestProperty("Range", rangeRequest);
     }
@@ -330,7 +335,7 @@ public class PieceThread extends Thread
 
     private StopRequest transferData(HttpURLConnection conn)
     {
-        DownloadInfo info = storage.getInfoById(infoId);
+        DownloadInfo info = repo.getInfoById(infoId);
         if (info == null)
             return new StopRequest(STATUS_CANCELLED, "Download deleted or missing");
 
@@ -338,7 +343,7 @@ public class PieceThread extends Thread
          * To detect when we're really finished, we either need a length, closed
          * connection, or chunked encoding.
          */
-        boolean hasLength = piece.getSize() != -1;
+        boolean hasLength = piece.size != -1;
         boolean isConnectionClose = "close".equalsIgnoreCase(conn.getHeaderField("Connection"));
         boolean isEncodingChunked = "chunked".equalsIgnoreCase(conn.getHeaderField("Transfer-Encoding"));
 
@@ -361,12 +366,12 @@ public class PieceThread extends Thread
             }
 
             try {
-                outPfd = context.getContentResolver().openFileDescriptor(info.getFilePath(), "rw");
+                outPfd = context.getContentResolver().openFileDescriptor(info.filePath, "rw");
                 outFd = outPfd.getFileDescriptor();
                 fout = new FileOutputStream(outFd);
 
                 /* Move into place to begin writing */
-                FileUtils.lseek(fout, piece.getCurBytes());
+                FileUtils.lseek(fout, piece.curBytes);
 
             } catch (InterruptedIOException e) {
                 return new StopRequest(STATUS_CANCELLED, "Download cancelled");
@@ -423,7 +428,7 @@ public class PieceThread extends Thread
                 fout.write(buffer, 0, len);
 
                 madeProgress = true;
-                piece.setCurBytes(piece.getCurBytes() + len);
+                piece.curBytes += len;
                 if ((ret = updateProgress(outFd)) != null)
                     return ret;
 
@@ -433,15 +438,15 @@ public class PieceThread extends Thread
                 return new StopRequest(STATUS_FILE_ERROR, e);
             }
 
-            if (piece.getSize() != -1 && piece.getCurBytes() >= endPos + 1)
+            if (piece.size != -1 && piece.curBytes >= endPos + 1)
                 break;
         }
 
         /* Finished without error; verify length if known */
-        if (piece.getSize() != -1 && piece.getCurBytes() != endPos + 1) {
+        if (piece.size != -1 && piece.curBytes != endPos + 1) {
             return new StopRequest(STATUS_HTTP_DATA_ERROR,
                     "Piece length mismatch; found "
-                    + piece.getCurBytes() + " instead of " + endPos + 1);
+                    + piece.curBytes + " instead of " + endPos + 1);
         }
 
         return null;
@@ -450,7 +455,19 @@ public class PieceThread extends Thread
     private StopRequest updateProgress(FileDescriptor outFd) throws IOException
     {
         long now = SystemClock.elapsedRealtime();
-        long currentBytes = piece.getCurBytes();
+        long currentBytes = piece.curBytes;
+
+        final long sampleDelta = now - speedSampleStart;
+        if (sampleDelta > 500) {
+            long sampleSpeed = ((currentBytes - speedSampleBytes) * 1000) / sampleDelta;
+            if (piece.speed == 0)
+                piece.speed = sampleSpeed;
+            else
+                piece.speed = ((piece.speed * 3) + sampleSpeed) / 4;
+
+            speedSampleStart = now;
+            speedSampleBytes = currentBytes;
+        }
 
         long bytesDelta = currentBytes - lastUpdateBytes;
         long timeDelta = now - lastUpdateTime;
@@ -474,14 +491,24 @@ public class PieceThread extends Thread
 
     private StopRequest writeToDatabaseOrCancel()
     {
-        return storage.updatePiece(piece) ?
+        return repo.updatePiece(piece) > 0 ?
                 null :
                 new StopRequest(STATUS_CANCELLED, "Download deleted or missing");
     }
 
     private void writeToDatabase()
     {
-        storage.updatePiece(piece);
+        repo.updatePiece(piece);
+    }
+
+    private Header getETag(List<Header> headers)
+    {
+        for (Header header : headers) {
+            if ("ETag".equals(header.name))
+                return header;
+        }
+
+        return null;
     }
 
     private boolean isStatusRetryable(int statusCode)

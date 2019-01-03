@@ -1,6 +1,6 @@
 /*
- * Copyright (C) 2018 Tachibana General Laboratories, LLC
- * Copyright (C) 2018 Yaroslav Pronin <proninyaroslav@mail.ru>
+ * Copyright (C) 2018, 2019 Tachibana General Laboratories, LLC
+ * Copyright (C) 2018, 2019 Yaroslav Pronin <proninyaroslav@mail.ru>
  *
  * This file is part of Download Navi.
  *
@@ -24,46 +24,24 @@ import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.webkit.WebView;
 import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.tachibana.downloader.R;
-import com.tachibana.downloader.core.storage.UserAgentStorage;
+import com.tachibana.downloader.core.entity.UserAgent;
 
 import androidx.annotation.NonNull;
 
-public class UserAgentAdapter extends ArrayAdapter<String>
+public class UserAgentAdapter extends ArrayAdapter<UserAgent>
 {
-    private UserAgentStorage storage;
+    private DeleteListener deleteListener;
 
-    public UserAgentAdapter(@NonNull Context context)
+    public UserAgentAdapter(@NonNull Context context, DeleteListener deleteListener)
     {
         super(context, R.layout.spinner_user_agent_item);
 
-        storage = new UserAgentStorage(context);
-        /* System user agent is always first */
-        add(new WebView(context).getSettings().getUserAgentString());
-        addAll(storage.getAll());
-    }
-
-    public void removeAgent(String userAgent)
-    {
-        remove(userAgent);
-
-        if (userAgent != null)
-            storage.delete(userAgent);
-    }
-
-    public int addAgent(String userAgent)
-    {
-        add(userAgent);
-
-        if (userAgent != null)
-            storage.add(userAgent);
-
-        return getPosition(userAgent);
+        this.deleteListener = deleteListener;
     }
 
     @Override
@@ -74,13 +52,19 @@ public class UserAgentAdapter extends ArrayAdapter<String>
             view = inflater.inflate(R.layout.spinner_user_agent_item, parent, false);
         }
 
-        TextView textView = view.findViewById(android.R.id.text1);
-        textView.setText(getItem(position));
+        UserAgent userAgent = getItem(position);
+        if (userAgent != null) {
+            TextView textView = view.findViewById(android.R.id.text1);
+            textView.setText(userAgent.userAgent);
+        }
 
-        /* Ignore system user agent */
+        /* Ignore manually added user agents (e.g system user agent) and null */
         ImageView deleteButton = view.findViewById(R.id.delete);
-        if (position != 0)
-            deleteButton.setOnClickListener((View v) -> removeAgent(getItem(position)));
+        if (userAgent != null && userAgent.id > 0)
+            deleteButton.setOnClickListener((View v) -> {
+                if (deleteListener != null)
+                    deleteListener.onDelete(userAgent);
+            });
         else
             deleteButton.setVisibility(View.GONE);
 
@@ -95,9 +79,17 @@ public class UserAgentAdapter extends ArrayAdapter<String>
             view = inflater.inflate(R.layout.spinner_user_agent_view, parent, false);
         }
 
-        TextView textView = view.findViewById(android.R.id.text1);
-        textView.setText(getItem(position));
+        UserAgent userAgent = getItem(position);
+        if (userAgent != null) {
+            TextView textView = view.findViewById(android.R.id.text1);
+            textView.setText(userAgent.userAgent);
+        }
 
         return view;
+    }
+
+    public interface DeleteListener
+    {
+        void onDelete(UserAgent userAgent);
     }
 }
