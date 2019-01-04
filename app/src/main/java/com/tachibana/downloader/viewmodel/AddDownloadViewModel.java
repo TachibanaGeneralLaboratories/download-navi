@@ -279,7 +279,9 @@ public class AddDownloadViewModel extends AndroidViewModel
 
         /* Sync wait inserting */
         try {
-            new Thread(() -> repo.addInfo(getApplication(), info, headers)).join();
+            Thread t = new Thread(() -> repo.addInfo(getApplication(), info, headers));
+            t.start();
+            t.join();
 
         } catch (InterruptedException e) {
             return;
