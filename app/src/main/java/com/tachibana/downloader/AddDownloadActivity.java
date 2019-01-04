@@ -45,7 +45,11 @@ public class AddDownloadActivity extends AppCompatActivity
         FragmentManager fm = getSupportFragmentManager();
         addDownloadDialog = (AddDownloadDialog)fm.findFragmentByTag(TAG_DOWNLOAD_DIALOG);
         if (addDownloadDialog == null) {
-            addDownloadDialog = AddDownloadDialog.newInstance();
+            String url = null;
+            Intent i = getIntent();
+            if (i != null && i.getData() != null)
+                url = i.getData().toString();
+            addDownloadDialog = AddDownloadDialog.newInstance(url);
             addDownloadDialog.show(fm, TAG_DOWNLOAD_DIALOG);
         }
     }

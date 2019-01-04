@@ -70,6 +70,8 @@ public class AddDownloadDialog extends DialogFragment
     private static final String TAG_ADD_USER_AGENT_DIALOG = "add_user_agent_dialog";
     private static final int CREATE_FILE_REQUEST_CODE = 1;
     private static final String TAG_USER_AGENT_SPINNER_POS = "user_agent_spinner_pos";
+    private static final String TAG_URL = "url";
+    private static final String TAG_CONN_IMMEDIATELY = "conn_immediately";
 
     /* In the absence of any parameter need set 0 or null */
 
@@ -79,12 +81,14 @@ public class AddDownloadDialog extends DialogFragment
     private AddDownloadViewModel viewModel;
     private DialogAddDownloadBinding binding;
     private int userAgentSpinnerPos = 0;
+    boolean connImmediately = false;
 
-    public static AddDownloadDialog newInstance()
+    public static AddDownloadDialog newInstance(String url)
     {
         AddDownloadDialog frag = new AddDownloadDialog();
 
         Bundle args = new Bundle();
+        args.putString(TAG_URL, url);
         frag.setArguments(args);
 
         return frag;
@@ -131,8 +135,10 @@ public class AddDownloadDialog extends DialogFragment
         binding = DataBindingUtil.inflate(i, R.layout.dialog_add_download, null, false);
         binding.setModel(viewModel);
 
-        if (savedInstanceState != null)
+        if (savedInstanceState != null) {
             userAgentSpinnerPos = savedInstanceState.getInt(TAG_USER_AGENT_SPINNER_POS);
+            connImmediately = savedInstanceState.getBoolean(TAG_CONN_IMMEDIATELY);
+        }
 
         initLayoutView();
 
@@ -159,17 +165,24 @@ public class AddDownloadDialog extends DialogFragment
             public void onStopTrackingTouch(SeekBar seekBar) { /* Nothing */}
         });
 
-        /* Inserting a link from the clipboard */
-        String clipboard = Utils.getClipboard(activity.getApplicationContext());
-        String url = null;
-        if (clipboard != null) {
-            String c = clipboard.toLowerCase();
-            if (c.startsWith(Utils.HTTP_PREFIX) ||
-                c.startsWith(Utils.HTTPS_PREFIX) ||
-                c.startsWith(Utils.FTP_PREFIX)) {
-                url = clipboard;
+        /* Init link field */
+        if (TextUtils.isEmpty(viewModel.params.getUrl())) {
+            connImmediately = true;
+            String url = getArguments().getString(TAG_URL);
+            if (TextUtils.isEmpty(url)) {
+                connImmediately = false;
+                /* Inserting a link from the clipboard */
+                String clipboard = Utils.getClipboard(activity.getApplicationContext());
+                if (clipboard != null) {
+                    String c = clipboard.toLowerCase();
+                    if (c.startsWith(Utils.HTTP_PREFIX) ||
+                        c.startsWith(Utils.HTTPS_PREFIX) ||
+                        c.startsWith(Utils.FTP_PREFIX)) {
+                        url = clipboard;
+                    }
+                }
             }
-            if (url != null && TextUtils.isEmpty(viewModel.params.getUrl()))
+            if (url != null)
                 viewModel.params.setUrl(url);
         }
 
@@ -253,6 +266,12 @@ public class AddDownloadDialog extends DialogFragment
             });
             negativeButton.setOnClickListener((View v) ->
                     finish(new Intent(), FragmentCallback.ResultCode.CANCEL));
+
+            /* Emulate connect button click */
+            if (connImmediately) {
+                connImmediately = false;
+                positiveButton.callOnClick();
+            }
         });
     }
 
@@ -312,6 +331,7 @@ public class AddDownloadDialog extends DialogFragment
     public void onSaveInstanceState(Bundle outState)
     {
         outState.putInt(TAG_USER_AGENT_SPINNER_POS, userAgentSpinnerPos);
+        outState.putBoolean(TAG_CONN_IMMEDIATELY, connImmediately);
 
         super.onSaveInstanceState(outState);
     }
