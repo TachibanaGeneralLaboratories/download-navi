@@ -22,7 +22,7 @@
     <string name="not_available">N/A</string>
 
     <!-- Download progress notification -->
-    <string name="download_ticker_notify" formatted="false">Download %1$s</string>
+    <string name="download_ticker_notify" formatted="false">Downloading %1$s</string>
     <!-- cur/total (percent) • ETA • download speed -->
     <string name="downloading_notify_template" formatted="false">%1$s/%2$s (%3$d%%) \u2022 %4$s \u2022 %5$s/s</string>
     <!-- cur/total (percent) • Pause -->

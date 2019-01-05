@@ -539,6 +539,12 @@ public class AddDownloadDialog extends DialogFragment
         }
         viewModel.addDownload(data.getData());
 
+        Toast.makeText(activity.getApplicationContext(),
+                String.format(getString(R.string.download_ticker_notify),
+                              viewModel.params.getFileName()),
+                Toast.LENGTH_SHORT)
+                .show();
+
         finish(new Intent(), FragmentCallback.ResultCode.OK);
     }
 
