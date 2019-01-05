@@ -22,6 +22,7 @@ package com.tachibana.downloader;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 
 import com.tachibana.downloader.core.utils.Utils;
 import com.tachibana.downloader.dialog.AddDownloadDialog;
@@ -47,9 +48,13 @@ public class AddDownloadActivity extends AppCompatActivity
         addDownloadDialog = (AddDownloadDialog)fm.findFragmentByTag(TAG_DOWNLOAD_DIALOG);
         if (addDownloadDialog == null) {
             String url = null;
-            Intent i = getIntent();
-            if (i != null && i.getData() != null)
-                url = i.getData().toString();
+            Intent i = getIntent();;
+            if (i != null) {
+                if (i.getData() != null)
+                    url = i.getData().toString();
+                else
+                    url = i.getStringExtra(Intent.EXTRA_TEXT);
+            }
             addDownloadDialog = AddDownloadDialog.newInstance(url);
             addDownloadDialog.show(fm, TAG_DOWNLOAD_DIALOG);
         }
