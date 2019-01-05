@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<shortcuts xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <shortcut
+        android:enabled="true"
+        android:icon="@mipmap/ic_shortcut_add"
+        android:shortcutId="addDownload"
+        android:shortcutLongLabel="@string/add_download"
+        android:shortcutShortLabel="@string/add_download">
+        <intent
+            android:action="android.intent.action.VIEW"
+            android:targetClass="com.tachibana.downloader.AddDownloadActivity"
+            android:targetPackage="com.tachibana.downloader" />
+    </shortcut>
+</shortcuts>
