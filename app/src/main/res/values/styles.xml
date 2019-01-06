@@ -36,6 +36,8 @@
     </style>
 
     <style name="BaseTheme.Dark" parent="BaseTheme">
+        <item name="colorPrimary">@color/dark_theme_primary</item>
+        <item name="colorPrimaryDark">@color/dark_theme_primary_dark</item>
         <item name="android:textColorPrimary">@color/text_primary_inverse</item>
         <item name="android:textColorSecondary">@color/text_secondary_inverse</item>
         <item name="android:textColorPrimaryInverse">@color/text_primary</item>
@@ -57,6 +59,8 @@
     </style>
 
     <style name="BaseTheme.Black" parent="BaseTheme.Dark">
+        <item name="colorPrimary">@color/black_theme_primary</item>
+        <item name="colorPrimaryDark">@color/black_theme_primary_dark</item>
         <item name="background">@color/black</item>
         <item name="backgroundBlank">@color/black</item>
         <item name="android:windowBackground">@color/black</item>
