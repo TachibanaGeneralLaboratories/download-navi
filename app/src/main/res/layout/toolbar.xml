@@ -9,5 +9,6 @@
     app:layout_scrollFlags="enterAlways"
     android:transitionName="actionBar"
     app:popupTheme="?attr/popupTheme"
+    android:elevation="@dimen/toolbar_elevation"
     android:theme="@style/ThemeOverlay.AppCompat.ActionBar"
     android:focusable="true" />

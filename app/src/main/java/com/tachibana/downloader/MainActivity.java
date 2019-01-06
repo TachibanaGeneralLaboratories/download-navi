@@ -75,6 +75,9 @@ public class MainActivity extends AppCompatActivity
         viewPager = findViewById(R.id.download_list_viewpager);
 
         toolbar.setTitle(R.string.app_name);
+        /* Disable elevation for portrait mode */
+        if (!Utils.isTwoPane(this) && Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP)
+            toolbar.setElevation(0);
 
         if (drawerLayout != null) {
             toggle = new ActionBarDrawerToggle(this,
