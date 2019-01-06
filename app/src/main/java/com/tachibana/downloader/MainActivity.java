@@ -20,35 +20,83 @@
 
 package com.tachibana.downloader;
 
-import android.content.Intent;
+import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
+import androidx.coordinatorlayout.widget.CoordinatorLayout;
+import androidx.drawerlayout.widget.DrawerLayout;
+import androidx.viewpager.widget.ViewPager;
 
+import android.os.Build;
 import android.os.Bundle;
-import android.view.View;
-import android.widget.Button;
 
+import com.google.android.material.navigation.NavigationView;
+import com.google.android.material.tabs.TabLayout;
+import com.tachibana.downloader.adapter.DownloadListPagerAdapter;
 import com.tachibana.downloader.core.utils.Utils;
 import com.tachibana.downloader.receiver.NotificationReceiver;
 
 public class MainActivity extends AppCompatActivity
 {
+    private CoordinatorLayout coordinatorLayout;
+    private Toolbar toolbar;
+    private DrawerLayout drawerLayout;
+    private NavigationView navigationView;
+    private ActionBarDrawerToggle toggle;
+    private TabLayout tabLayout;
+    private ViewPager viewPager;
+    private DownloadListPagerAdapter adapter;
+
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
         setTheme(Utils.getAppTheme(getApplicationContext()));
         super.onCreate(savedInstanceState);
 
-        setContentView(R.layout.activity_main);
-
-        if (getIntent().getAction() != null && getIntent().getAction()
-                .equals(NotificationReceiver.NOTIFY_ACTION_SHUTDOWN_APP)) {
+        if (getIntent().getAction() != null &&
+            getIntent().getAction().equals(NotificationReceiver.NOTIFY_ACTION_SHUTDOWN_APP)) {
             finish();
             return;
         }
 
-        Button b = findViewById(R.id.button);
-        b.setOnClickListener((View v) -> {
-            startActivity(new Intent(this, AddDownloadActivity.class));
-        });
+        setContentView(R.layout.activity_main);
+        Utils.showColoredStatusBar_KitKat(this);
+
+        initLayout();
+    }
+
+    private void initLayout()
+    {
+        toolbar = findViewById(R.id.toolbar);
+        coordinatorLayout = findViewById(R.id.coordinator);
+        navigationView = findViewById(R.id.navigation_view);
+        drawerLayout = findViewById(R.id.drawer_layout);
+        tabLayout = findViewById(R.id.download_list_tabs);
+        viewPager = findViewById(R.id.download_list_viewpager);
+
+        toolbar.setTitle(R.string.app_name);
+
+        if (drawerLayout != null) {
+            toggle = new ActionBarDrawerToggle(this,
+                    drawerLayout,
+                    toolbar,
+                    R.string.open_navigation_drawer,
+                    R.string.close_navigation_drawer);
+            drawerLayout.addDrawerListener(toggle);
+        }
+
+        adapter = new DownloadListPagerAdapter(getApplicationContext(), getSupportFragmentManager());
+        viewPager.setAdapter(adapter);
+        viewPager.setOffscreenPageLimit(DownloadListPagerAdapter.NUM_FRAGMENTS);
+        tabLayout.setupWithViewPager(viewPager);
+    }
+
+    @Override
+    protected void onPostCreate(Bundle savedInstanceState)
+    {
+        super.onPostCreate(savedInstanceState);
+
+        if (toggle != null)
+            toggle.syncState();
     }
 }

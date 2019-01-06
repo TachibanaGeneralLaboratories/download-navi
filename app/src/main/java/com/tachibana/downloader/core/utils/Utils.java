@@ -33,7 +33,9 @@ import android.net.NetworkCapabilities;
 import android.net.NetworkInfo;
 import android.net.Uri;
 import android.os.Build;
+import android.view.View;
 import android.widget.ProgressBar;
+import android.widget.RelativeLayout;
 
 import com.tachibana.downloader.R;
 import com.tachibana.downloader.settings.SettingsManager;
@@ -322,5 +324,26 @@ public class Utils
         }
 
         return true;
+    }
+
+    /*
+     * Colored status bar in KitKat.
+     */
+
+    public static void showColoredStatusBar_KitKat(Activity activity)
+    {
+        RelativeLayout statusBar = activity.findViewById(R.id.statusBarKitKat);
+
+        if (Build.VERSION.SDK_INT == Build.VERSION_CODES.KITKAT)
+            statusBar.setVisibility(View.VISIBLE);
+    }
+
+    /*
+     * Don't use app context (its doesn't reload after configuration changes)
+     */
+
+    public static boolean isTwoPane(Context context)
+    {
+        return context.getResources().getBoolean(R.bool.isTwoPane);
     }
 }

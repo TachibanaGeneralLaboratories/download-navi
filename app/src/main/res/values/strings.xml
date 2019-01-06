@@ -20,6 +20,8 @@
     <string name="connect">Connect</string>
     <string name="add">Add</string>
     <string name="not_available">N/A</string>
+    <string name="open_navigation_drawer">Open navigation drawer</string>
+    <string name="close_navigation_drawer">Close navigation drawer</string>
 
     <!-- Download progress notification -->
     <string name="download_ticker_notify" formatted="false">Downloading %1$s</string>
@@ -73,4 +75,8 @@
 
     <!-- Add user agent dialog -->
     <string name="dialog_add_user_agent_title">Add user agent</string>
+
+    <!-- Main activity -->
+    <string name="fragment_title_queued">Queued</string>
+    <string name="fragment_title_completed">Completed</string>
 </resources>

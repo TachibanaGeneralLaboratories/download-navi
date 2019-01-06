@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".MainActivity">
+
+    <include
+        layout="@layout/statusbar_kitkat" />
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:fitsSystemWindows="true"
+        android:gravity="center">
+
+        <include
+            layout="@layout/toolbar" />
+
+        <View
+            android:id="@+id/toolbar_divider"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="?attr/divider"
+            android:layout_below="@id/toolbar" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="horizontal"
+            android:layout_below="@id/toolbar_divider">
+
+            <com.google.android.material.navigation.NavigationView
+                android:id="@+id/navigation_view"
+                android:layout_width="@dimen/navigation_drawer_width"
+                android:layout_height="match_parent"
+                app:elevation="0dp"
+                android:background="?attr/background" />
+
+            <View
+                android:id="@+id/content_divider"
+                android:layout_width="1dp"
+                android:layout_height="match_parent"
+                android:background="?attr/divider" />
+
+            <include
+                layout="@layout/content_main" />
+        </LinearLayout>
+    </RelativeLayout>
+</FrameLayout>
