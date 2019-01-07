@@ -128,6 +128,8 @@ public class AddDownloadViewModel extends AndroidViewModel
         if (params.getUrl() == null || fetchTask != null && fetchTask.getStatus() != FetchLinkTask.Status.FINISHED)
             return;
 
+        params.setUrl(Utils.normalizeURL(params.getUrl()));
+
         fetchTask = new FetchLinkTask(this);
         fetchTask.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, params.getUrl());
     }

@@ -41,6 +41,7 @@ import com.tachibana.downloader.receiver.NotificationReceiver;
 
 public class MainActivity extends AppCompatActivity
 {
+    /* Android data binding doesn't work with layout aliases */
     private CoordinatorLayout coordinatorLayout;
     private Toolbar toolbar;
     private DrawerLayout drawerLayout;

@@ -58,9 +58,9 @@ import androidx.core.content.ContextCompat;
 public class Utils
 {
     public static final String INFINITY_SYMBOL = "\u221e";
-    public static final String HTTP_PREFIX = "http";
-    public static final String HTTPS_PREFIX = "https";
-    public static final String FTP_PREFIX = "ftp";
+    public static final String HTTP_PREFIX = "http://";
+    public static final String HTTPS_PREFIX = "https://";
+    public static final String FTP_PREFIX = "ftp://";
     public static final String DEFAULT_DOWNLOAD_FILENAME = "downloadfile";
     private static final String CONTENT_DISPOSITION_PATTERN = "attachment;\\s*filename\\s*=\\s*\"([^\"]*)\"";
 
@@ -280,13 +280,13 @@ public class Utils
     }
 
     /*
-     * Returns the link as "(http[s]|udp)://[www.]name.domain/...".
+     * Returns the link as "(http[s]|ftp)://[www.]name.domain/...".
      */
 
     public static String normalizeURL(String url)
     {
         if (!url.startsWith(HTTP_PREFIX) && !url.startsWith(HTTPS_PREFIX) && !url.startsWith(FTP_PREFIX))
-            return HTTP_PREFIX + "://" + url;
+            return HTTP_PREFIX + url;
         else
             return url;
     }
