@@ -10,6 +10,7 @@
         <attr name="defaultSelectRect" format="reference" />
         <attr name="transparentRoundRipple" format="reference" />
         <attr name="divider" format="reference" />
+        <attr name="dialogRectRipple" format="reference" />
     </declare-styleable>
 
     <declare-styleable name="Theme">

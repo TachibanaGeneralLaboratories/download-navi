@@ -33,6 +33,7 @@
         <item name="defaultSelectRect">@drawable/default_select_rect</item>
         <item name="transparentRoundRipple">@drawable/transparent_round_ripple</item>
         <item name="divider">@drawable/divider</item>
+        <item name="dialogRectRipple">@drawable/default_rect_ripple</item>
     </style>
 
     <style name="BaseTheme.Dark" parent="BaseTheme">
@@ -56,6 +57,7 @@
         <item name="defaultSelectRect">@drawable/default_select_rect_dark</item>
         <item name="transparentRoundRipple">@drawable/transparent_round_ripple_dark</item>
         <item name="divider">@drawable/divider_dark</item>
+        <item name="dialogRectRipple">@drawable/dialog_rect_ripple_dark</item>
     </style>
 
     <style name="BaseTheme.Black" parent="BaseTheme.Dark">

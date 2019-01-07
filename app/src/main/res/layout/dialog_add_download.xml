@@ -121,7 +121,7 @@
                     android:id="@+id/expandable_spinner"
                     android:layout_width="wrap_content"
                     android:layout_height="48dp"
-                    android:background="?attr/defaultRectRipple"
+                    android:background="?attr/dialogRectRipple"
                     android:layout_marginBottom="8dp">
 
                     <RelativeLayout
