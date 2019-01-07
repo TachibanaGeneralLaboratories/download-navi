@@ -182,6 +182,9 @@ public class AddDownloadViewModel extends AndroidViewModel
                 @Override
                 public void onResponseHandle(HttpURLConnection conn, int code, String message)
                 {
+                    if (viewModel.get() == null)
+                        return;
+
                     switch (code) {
                         case HttpURLConnection.HTTP_OK:
                             viewModel.get().parseOkHeaders(conn);
@@ -195,7 +198,10 @@ public class AddDownloadViewModel extends AndroidViewModel
                 @Override
                 public void onMovedPermanently(String newUrl)
                 {
-                    /* Nothing */
+                    if (viewModel.get() == null)
+                        return;
+
+                    viewModel.get().params.setUrl(newUrl);
                 }
 
                 @Override
