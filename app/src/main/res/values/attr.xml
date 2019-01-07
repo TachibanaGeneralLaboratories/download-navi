@@ -12,10 +12,6 @@
         <attr name="divider" format="reference" />
     </declare-styleable>
 
-    <declare-styleable name="LightColorView">
-        <attr name="lightColor" format="color" />
-    </declare-styleable>
-
     <declare-styleable name="Theme">
         <attr name="morphButtonStyle" format="reference"/>
     </declare-styleable>

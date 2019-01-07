@@ -27,9 +27,12 @@ import androidx.coordinatorlayout.widget.CoordinatorLayout;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.viewpager.widget.ViewPager;
 
+import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
+import android.view.View;
 
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.navigation.NavigationView;
 import com.google.android.material.tabs.TabLayout;
 import com.tachibana.downloader.adapter.DownloadListPagerAdapter;
@@ -46,6 +49,7 @@ public class MainActivity extends AppCompatActivity
     private TabLayout tabLayout;
     private ViewPager viewPager;
     private DownloadListPagerAdapter adapter;
+    private FloatingActionButton fab;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -73,6 +77,7 @@ public class MainActivity extends AppCompatActivity
         drawerLayout = findViewById(R.id.drawer_layout);
         tabLayout = findViewById(R.id.download_list_tabs);
         viewPager = findViewById(R.id.download_list_viewpager);
+        fab = findViewById(R.id.add_fab);
 
         toolbar.setTitle(R.string.app_name);
         /* Disable elevation for portrait mode */
@@ -92,6 +97,8 @@ public class MainActivity extends AppCompatActivity
         viewPager.setAdapter(adapter);
         viewPager.setOffscreenPageLimit(DownloadListPagerAdapter.NUM_FRAGMENTS);
         tabLayout.setupWithViewPager(viewPager);
+
+        fab.setOnClickListener((View v) -> startActivity(new Intent(this, AddDownloadActivity.class)));
     }
 
     @Override
