@@ -35,6 +35,8 @@
         <item name="transparentRectRipple">@drawable/transparent_rect_ripple</item>
         <item name="divider">@drawable/divider</item>
         <item name="dialogRectRipple">@drawable/default_rect_ripple</item>
+        <item name="android:popupMenuStyle">@style/PopupMenu</item>
+        <item name="popupMenuStyle">@style/PopupMenu</item>
     </style>
 
     <style name="BaseTheme.Dark" parent="BaseTheme">
@@ -60,6 +62,8 @@
         <item name="transparentRectRipple">@drawable/transparent_rect_ripple_dark</item>
         <item name="divider">@drawable/divider_dark</item>
         <item name="dialogRectRipple">@drawable/dialog_rect_ripple_dark</item>
+        <item name="android:popupMenuStyle">@style/PopupMenu_Dark</item>
+        <item name="popupMenuStyle">@style/PopupMenu_Dark</item>
     </style>
 
     <style name="BaseTheme.Black" parent="BaseTheme.Dark">
@@ -176,5 +180,13 @@
     </style>
 
     <style name="Theme.AppCompat.Translucent.Black" parent="Theme.AppCompat.Translucent.Dark">
+    </style>
+
+    <style name="PopupMenu" parent="ThemeOverlay.AppCompat.Light">
+        <item name="android:popupBackground">@drawable/popup_menu_light</item>
+    </style>
+
+    <style name="PopupMenu_Dark" parent="ThemeOverlay.AppCompat.Dark">
+        <item name="android:popupBackground">@drawable/popup_menu_dark</item>
     </style>
 </resources>
