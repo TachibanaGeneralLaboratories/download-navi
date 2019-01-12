@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <com.tachibana.downloader.customview.EmptyRecyclerView
+            android:id="@+id/download_list"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:paddingTop="@dimen/widget_margin"
+            android:paddingRight="@dimen/widget_margin"
+            android:paddingLeft="@dimen/widget_margin"
+            android:paddingBottom="@{@dimen/fab_size + @dimen/fab_margin}"
+            android:clipToPadding="false"
+            android:scrollbars="vertical"
+            android:scrollbarStyle="outsideOverlay" /> <!-- Need for padding -->
+
+        <TextView
+            android:id="@+id/empty_view_download_list"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:text="@string/download_list_empty"
+            style="@style/BaseTheme.EmptyView" />
+    </FrameLayout>
+</layout>

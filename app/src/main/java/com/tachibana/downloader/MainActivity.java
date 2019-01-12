@@ -84,6 +84,7 @@ public class MainActivity extends AppCompatActivity
         /* Disable elevation for portrait mode */
         if (!Utils.isTwoPane(this) && Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP)
             toolbar.setElevation(0);
+        setSupportActionBar(toolbar);
 
         if (drawerLayout != null) {
             toggle = new ActionBarDrawerToggle(this,

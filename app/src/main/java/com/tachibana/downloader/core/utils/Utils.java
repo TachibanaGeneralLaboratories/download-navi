@@ -40,6 +40,9 @@ import android.widget.RelativeLayout;
 import com.tachibana.downloader.R;
 import com.tachibana.downloader.settings.SettingsManager;
 
+import java.net.IDN;
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.security.GeneralSecurityException;
 import java.security.KeyStore;
 import java.security.cert.CertificateException;
@@ -285,6 +288,8 @@ public class Utils
 
     public static String normalizeURL(String url)
     {
+        url = IDN.toUnicode(url);
+
         if (!url.startsWith(HTTP_PREFIX) && !url.startsWith(HTTPS_PREFIX) && !url.startsWith(FTP_PREFIX))
             return HTTP_PREFIX + url;
         else
@@ -345,5 +350,38 @@ public class Utils
     public static boolean isTwoPane(Context context)
     {
         return context.getResources().getBoolean(R.bool.isTwoPane);
+    }
+
+    public static long calcETA(long totalBytes, long curBytes, long speed)
+    {
+        long left = totalBytes - curBytes;
+        if (left <= 0)
+            return 0;
+        if (speed <= 0)
+            return -1;
+
+        return left / speed;
+    }
+
+    /*
+     * For example, for https://docs.oracle.com/javase/8/docs/api/java/net/URL.html
+     * returns docs.oracle.com
+     */
+
+    static public String getHostFromUrl(String url)
+    {
+        URL uri;
+        try {
+            uri = new URL(url);
+
+        } catch (MalformedURLException e) {
+            return null;
+        }
+
+        String host = uri.getHost();
+        if (host == null)
+            return null;
+
+        return host.replaceAll("^www\\.", "");
     }
 }

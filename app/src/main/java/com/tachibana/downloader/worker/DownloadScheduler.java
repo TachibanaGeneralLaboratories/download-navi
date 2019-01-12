@@ -18,7 +18,7 @@
  * along with Download Navi.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package com.tachibana.downloader.service;
+package com.tachibana.downloader.worker;
 
 import android.content.Context;
 import android.content.Intent;
@@ -27,6 +27,7 @@ import android.content.SharedPreferences;
 import com.tachibana.downloader.R;
 import com.tachibana.downloader.core.entity.DownloadInfo;
 import com.tachibana.downloader.core.utils.Utils;
+import com.tachibana.downloader.service.DownloadService;
 import com.tachibana.downloader.settings.SettingsManager;
 
 import java.util.UUID;

@@ -44,7 +44,7 @@ import com.tachibana.downloader.core.storage.DataRepository;
 import com.tachibana.downloader.core.utils.FileUtils;
 import com.tachibana.downloader.core.utils.Utils;
 import com.tachibana.downloader.dialog.AddDownloadDialog;
-import com.tachibana.downloader.service.DownloadScheduler;
+import com.tachibana.downloader.worker.DownloadScheduler;
 
 import java.io.IOException;
 import java.lang.ref.WeakReference;
@@ -127,6 +127,7 @@ public class AddDownloadViewModel extends AndroidViewModel
     {
         if (params.getUrl() == null || fetchTask != null && fetchTask.getStatus() != FetchLinkTask.Status.FINISHED)
             return;
+
 
         params.setUrl(Utils.normalizeURL(params.getUrl()));
 
@@ -285,6 +286,7 @@ public class AddDownloadViewModel extends AndroidViewModel
         headers.add(new Header(info.id, "User-Agent", params.getUserAgent()));
         headers.add(new Header(info.id, "ETag", params.getEtag()));
 
+        /* TODO: rewrite to WorkManager */
         /* Sync wait inserting */
         try {
             Thread t = new Thread(() -> repo.addInfo(getApplication(), info, headers));

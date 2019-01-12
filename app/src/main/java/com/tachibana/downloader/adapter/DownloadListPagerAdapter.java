@@ -23,6 +23,8 @@ package com.tachibana.downloader.adapter;
 import android.content.Context;
 
 import com.tachibana.downloader.R;
+import com.tachibana.downloader.fragment.FinishedDownloadsFragment;
+import com.tachibana.downloader.fragment.QueuedDownloadsFragment;
 
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
@@ -49,9 +51,9 @@ public class DownloadListPagerAdapter extends FragmentPagerAdapter
         /* Stubs */
         switch (position) {
             case QUEUED_FRAG_POS:
-                return new Fragment();
+                return QueuedDownloadsFragment.newInstance();
             case COMPLETED_FRAG_POS:
-                return new Fragment();
+                return FinishedDownloadsFragment.newInstance();
             default:
                 return null;
         }

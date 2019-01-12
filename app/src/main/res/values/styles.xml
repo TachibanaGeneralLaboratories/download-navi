@@ -19,7 +19,7 @@
         <item name="android:textColorHint">@color/text_secondary</item>
         <item name="smallText">@style/TextAppearance.AppCompat.Small</item>
         <item name="background">@color/background</item>
-        <item name="backgroundBlank">@color/background_blank</item>
+        <item name="foreground">@color/foreground</item>
         <item name="windowActionModeOverlay">true</item>
         <item name="android:actionModeBackground">@color/action_mode</item>
         <item name="actionModeBackground">@color/action_mode</item> <!-- For pre-Lollipop -->
@@ -32,6 +32,7 @@
         <item name="defaultRoundRipple">@drawable/default_round_ripple</item>
         <item name="defaultSelectRect">@drawable/default_select_rect</item>
         <item name="transparentRoundRipple">@drawable/transparent_round_ripple</item>
+        <item name="transparentRectRipple">@drawable/transparent_rect_ripple</item>
         <item name="divider">@drawable/divider</item>
         <item name="dialogRectRipple">@drawable/default_rect_ripple</item>
     </style>
@@ -46,7 +47,7 @@
         <item name="android:textColorHint">@color/text_secondary_inverse</item>
         <item name="smallText">@style/TextAppearance.AppCompat.Small.Inverse</item>
         <item name="background">@color/background_dark</item>
-        <item name="backgroundBlank">@color/background_blank_dark</item>
+        <item name="foreground">@color/foreground_dark</item>
         <item name="android:windowBackground">@color/background_dark</item>
         <item name="actionBarPopupTheme">@style/ThemeOverlay.AppCompat.Dark</item>
         <item name="popupTheme">@style/ThemeOverlay.AppCompat.Dark</item>
@@ -56,6 +57,7 @@
         <item name="defaultRoundRipple">@drawable/default_round_ripple_dark</item>
         <item name="defaultSelectRect">@drawable/default_select_rect_dark</item>
         <item name="transparentRoundRipple">@drawable/transparent_round_ripple_dark</item>
+        <item name="transparentRectRipple">@drawable/transparent_rect_ripple_dark</item>
         <item name="divider">@drawable/divider_dark</item>
         <item name="dialogRectRipple">@drawable/dialog_rect_ripple_dark</item>
     </style>
@@ -64,12 +66,11 @@
         <item name="colorPrimary">@color/black_theme_primary</item>
         <item name="colorPrimaryDark">@color/black_theme_primary_dark</item>
         <item name="background">@color/black</item>
-        <item name="backgroundBlank">@color/black</item>
+        <item name="foreground">@color/foreground_black</item>
         <item name="android:windowBackground">@color/black</item>
         <item name="defaultRectRipple">@drawable/default_rect_ripple_black</item>
         <item name="defaultRoundRipple">@drawable/default_round_ripple_black</item>
         <item name="defaultSelectRect">@drawable/default_select_rect_black</item>
-        <item name="transparentRoundRipple">@drawable/transparent_round_ripple_black</item>
     </style>
 
     <style name="BaseTheme.Dialog" parent="Theme.AppCompat.Light.Dialog">

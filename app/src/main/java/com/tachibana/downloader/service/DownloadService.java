@@ -41,6 +41,7 @@ import android.util.Log;
 import com.tachibana.downloader.MainActivity;
 import com.tachibana.downloader.MainApplication;
 import com.tachibana.downloader.R;
+import com.tachibana.downloader.worker.DownloadScheduler;
 import com.tachibana.downloader.core.DownloadNotifier;
 import com.tachibana.downloader.core.entity.DownloadInfo;
 import com.tachibana.downloader.core.DownloadResult;

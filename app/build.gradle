@@ -7,8 +7,9 @@ android {
         minSdkVersion 19
         targetSdkVersion 28
         versionCode 1
-        versionName "1.0-alpha2"
+        versionName "1.0-alpha3"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+        vectorDrawables.useSupportLibrary = true
     }
     buildTypes {
         release {
@@ -36,6 +37,7 @@ dependencies {
     implementation 'androidx.appcompat:appcompat:1.0.2'
     implementation 'androidx.constraintlayout:constraintlayout:2.0.0-alpha3'
     implementation 'com.google.android.material:material:1.1.0-alpha02'
+    implementation 'androidx.recyclerview:recyclerview-selection:1.1.0-alpha01'
 
     /* Android Architecture Components */
     implementation 'android.arch.persistence.room:runtime:1.1.1'

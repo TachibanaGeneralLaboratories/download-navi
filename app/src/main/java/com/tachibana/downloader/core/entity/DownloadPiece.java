@@ -150,7 +150,14 @@ public class DownloadPiece implements Parcelable
 
         DownloadPiece piece = (DownloadPiece)o;
 
-        return infoId == piece.infoId && index == piece.index;
+        return infoId == piece.infoId &&
+                index == piece.index &&
+                size == piece.size &&
+                curBytes == piece.curBytes &&
+                speed == piece.speed &&
+                statusCode == piece.statusCode &&
+                numFailed == piece.numFailed &&
+                (statusMsg == null || statusMsg.equals(piece.statusMsg));
     }
 
     @Override

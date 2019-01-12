@@ -22,6 +22,7 @@ package com.tachibana.downloader.core.entity;
 
 import java.util.List;
 
+import androidx.annotation.Nullable;
 import androidx.room.Embedded;
 import androidx.room.Relation;
 
@@ -31,4 +32,22 @@ public class InfoAndPieces
     public DownloadInfo info;
     @Relation(parentColumn = "id", entityColumn = "infoId")
     public List<DownloadPiece> pieces;
+
+    @Override
+    public boolean equals(@Nullable Object o)
+    {
+        if (!(o instanceof InfoAndPieces))
+            return false;
+
+        if (o == this)
+            return true;
+
+        InfoAndPieces infoAndPieces = (InfoAndPieces)o;
+
+        if (pieces.size() != infoAndPieces.pieces.size())
+            return false;
+
+        return info.equals(infoAndPieces.info) &&
+                pieces.containsAll(infoAndPieces.pieces);
+    }
 }

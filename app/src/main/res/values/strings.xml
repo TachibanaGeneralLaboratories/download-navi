@@ -3,7 +3,6 @@
     <string name="app_name">Download Navi</string>
     <string name="foreground_notification">Foreground notification</string>
     <string name="download_running">In progress</string>
-    <string name="download_queued">Queued</string>
     <string name="done_label">Done</string>
     <string name="shutdown">Shutdown</string>
     <!-- 1 d. 1 h. 1 m -->
@@ -22,16 +21,17 @@
     <string name="not_available">N/A</string>
     <string name="open_navigation_drawer">Open navigation drawer</string>
     <string name="close_navigation_drawer">Close navigation drawer</string>
-
-    <!-- Download progress notification -->
-    <string name="download_ticker_notify" formatted="false">Downloading %1$s</string>
-    <!-- cur/total (percent) • ETA • download speed -->
-    <string name="downloading_notify_template" formatted="false">%1$s/%2$s (%3$d%%) \u2022 %4$s \u2022 %5$s/s</string>
-    <!-- cur/total (percent) • Pause -->
-    <string name="pause_notify_template" formatted="false">%1$s/%2$s (%3$d%%) \u2022 Pause</string>
+    <string name="error_template">Error: %1$s</string>
     <string name="pause">Pause</string>
     <string name="resume">Resume</string>
     <string name="stop">Stop</string>
+    <string name="pending">Pending</string>
+    <string name="delete">Delete</string>
+    <string name="share">Share</string>
+    <string name="menu">Menu</string>
+
+    <!-- Download progress notification -->
+    <string name="download_ticker_notify" formatted="false">Downloading %1$s</string>
 
     <!-- Foreground notification -->
     <string name="download_count_notify_template" formatted="false">Downloading: %1$d Total: %2$d</string>
@@ -44,9 +44,11 @@
     <string name="download_finished_notify">Download finished</string>
     <string name="open_using">Open using</string>
 
+    <!-- Pending notification -->
+    <string name="download_in_queue_ticker_notify" formatted="false">%1$s in queue</string>
+
     <!-- Error notification -->
     <string name="download_error_notify_title">Download error</string>
-    <string name="download_error_notify_template">Error: %1$s</string>
     <string name="download_error_cannot_add">Cannot add download</string>
 
     <!-- Add download dialog -->
@@ -79,4 +81,15 @@
     <!-- Main activity -->
     <string name="fragment_title_queued">Queued</string>
     <string name="fragment_title_completed">Completed</string>
+    <string name="download_list_empty">No downloads</string>
+
+    <!-- Download list item -->
+
+    <!-- downloaded/total • ETA • speed -->
+    <string name="download_queued_progress_template" formatted="false">%1$s/%2$s \u2022 %3$s \u2022 %4$s/s</string>
+    <!-- downloaded/total • status -->
+    <string name="download_queued_template" formatted="false">%1$s/%2$s \u2022 %3$s</string>
+    <!-- hostname • total -->
+    <string name="download_finished_template" formatted="false">%1$s \u2022 %2$s</string>
+    <string name="download_details">Details</string>
 </resources>

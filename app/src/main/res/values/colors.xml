@@ -4,7 +4,7 @@
     <color name="primary_dark">#E0E0E0</color>
     <color name="dark_theme_primary">#303030</color>
     <color name="dark_theme_primary_dark">#212121</color>
-    <color name="black_theme_primary">#212121</color>
+    <color name="black_theme_primary">#000000</color>
     <color name="black_theme_primary_dark">#000000</color>
     <color name="gray_dark">#727272</color>
     <color name="gray">#E0E0E0</color>
@@ -15,9 +15,10 @@
     <color name="accent_dark">#01579B</color>
     <color name="accent_light">#E1F5FE</color>
     <color name="background">#FFFFFF</color>
-    <color name="background_dark">#303030</color>
-    <color name="background_blank">#EDEDED</color>
-    <color name="background_blank_dark">#424242</color>
+    <color name="background_dark">#212121</color>
+    <color name="foreground">#FFFFFF</color>
+    <color name="foreground_dark">#303030</color>
+    <color name="foreground_black">#000000</color>
     <color name="background_dialog">#FFFFFF</color>
     <color name="background_dialog_dark">#424242</color>
     <color name="text_primary">#DE000000</color>

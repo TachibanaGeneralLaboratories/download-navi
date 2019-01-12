@@ -206,7 +206,28 @@ public class DownloadInfo implements Parcelable, Comparable<DownloadInfo>
     @Override
     public boolean equals(Object o)
     {
-        return o instanceof DownloadInfo && (o == this || id == ((DownloadInfo)o).id);
+        if (!(o instanceof DownloadInfo))
+            return false;
+
+        if (o == this)
+            return true;
+
+        DownloadInfo info = (DownloadInfo)o;
+
+        return id.equals(info.id) &&
+                (filePath == null || filePath.equals(info.filePath)) &&
+                (url == null || url.equals(info.url)) &&
+                (fileName == null || fileName.equals(info.fileName)) &&
+                (description == null || description.equals(info.description)) &&
+                (mimeType == null || mimeType.equals(info.mimeType)) &&
+                totalBytes == info.totalBytes &&
+                numPieces == info.numPieces &&
+                statusCode == info.statusCode &&
+                wifiOnly == info.wifiOnly &&
+                retry == info.retry &&
+                partialSupport == info.partialSupport &&
+                (statusMsg == null || statusMsg.equals(info.statusMsg)) &&
+                dateAdded == info.dateAdded;
     }
 
     @Override

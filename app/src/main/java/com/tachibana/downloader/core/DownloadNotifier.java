@@ -54,13 +54,13 @@ import androidx.core.content.ContextCompat;
 public class DownloadNotifier {
 
     private static final int TYPE_ACTIVE = 1;
-    private static final int TYPE_WAITING = 2;
+    private static final int TYPE_PENDING = 2;
     private static final int TYPE_COMPLETE = 3;
     /* The minimum amount of time that has to elapse before the progress bar gets updated, ms */
     private static final long MIN_PROGRESS_TIME = 2000;
 
     private static final String CHANNEL_ACTIVE = "active";
-    private static final String CHANNEL_WAITING = "waiting";
+    private static final String CHANNEL_PENDING = "pending";
     private static final String CHANNEL_COMPLETE = "complete";
 
     private Context context;
@@ -101,8 +101,8 @@ public class DownloadNotifier {
         notifyManager.createNotificationChannel(new NotificationChannel(CHANNEL_ACTIVE,
                 context.getText(R.string.download_running),
                 NotificationManager.IMPORTANCE_MIN));
-        notifyManager.createNotificationChannel(new NotificationChannel(CHANNEL_WAITING,
-                context.getText(R.string.download_queued),
+        notifyManager.createNotificationChannel(new NotificationChannel(CHANNEL_PENDING,
+                context.getText(R.string.pending),
                 NotificationManager.IMPORTANCE_DEFAULT));
         notifyManager.createNotificationChannel(new NotificationChannel(CHANNEL_COMPLETE,
                 context.getText(R.string.done_label),
@@ -189,8 +189,8 @@ public class DownloadNotifier {
             case TYPE_ACTIVE:
                 builder = new NotificationCompat.Builder(context, CHANNEL_ACTIVE);
                 break;
-            case TYPE_WAITING:
-                builder = new NotificationCompat.Builder(context, CHANNEL_WAITING);
+            case TYPE_PENDING:
+                builder = new NotificationCompat.Builder(context, CHANNEL_PENDING);
                 break;
             case TYPE_COMPLETE:
                 builder = new NotificationCompat.Builder(context, CHANNEL_COMPLETE);
@@ -209,7 +209,7 @@ public class DownloadNotifier {
                 else
                     builder.setSmallIcon(android.R.drawable.stat_sys_download);
                 break;
-            case TYPE_WAITING:
+            case TYPE_PENDING:
                 builder.setSmallIcon(android.R.drawable.stat_sys_warning);
                 break;
             case TYPE_COMPLETE:
@@ -221,7 +221,7 @@ public class DownloadNotifier {
         }
 
         /* Build action intents */
-        if (type == TYPE_ACTIVE || type == TYPE_WAITING) {
+        if (type == TYPE_ACTIVE || type == TYPE_PENDING) {
             if (type == TYPE_ACTIVE)
                 builder.setOngoing(true);
 
@@ -278,7 +278,7 @@ public class DownloadNotifier {
 
         /* Calculate and show progress */
         int progress = 0;
-        long ETA = calcETA(info.totalBytes, downloadBytes, speed);
+        long ETA = Utils.calcETA(info.totalBytes, downloadBytes, speed);
         if (type == TYPE_ACTIVE) {
             if (info.totalBytes > 0) {
                 progress = (int)((downloadBytes * 100) / info.totalBytes);
@@ -299,31 +299,39 @@ public class DownloadNotifier {
                         context.getString(R.string.download_ticker_notify),
                         info.fileName));
 
-                NotificationCompat.BigTextStyle bigTextStyle = new NotificationCompat.BigTextStyle();
+                NotificationCompat.BigTextStyle progressBigText = new NotificationCompat.BigTextStyle();
                 if (info.statusCode == StatusCode.STATUS_PAUSED) {
-                    bigTextStyle.bigText(String.format(context.getString(R.string.pause_notify_template),
+                    progressBigText.bigText(String.format(context.getString(R.string.download_queued_template),
                             Formatter.formatFileSize(context, downloadBytes),
                             Formatter.formatFileSize(context, info.totalBytes),
-                            progress));
+                            context.getString(R.string.pause)));
                 } else {
-                    bigTextStyle.bigText(String.format(context.getString(R.string.downloading_notify_template),
+                    progressBigText.bigText(String.format(context.getString(R.string.download_queued_progress_template),
                             Formatter.formatFileSize(context, downloadBytes),
                             Formatter.formatFileSize(context, info.totalBytes),
-                            progress,
                             (ETA == -1 ? Utils.INFINITY_SYMBOL :
                                     DateFormatUtils.formatElapsedTime(context, ETA)),
                             Formatter.formatFileSize(context, speed)));
                 }
-                builder.setStyle(bigTextStyle);
+                builder.setStyle(progressBigText);
                 break;
-            case TYPE_WAITING:
-                /* TODO: add wait notify */
+            case TYPE_PENDING:
+                builder.setContentTitle(info.fileName);
+                builder.setTicker(String.format(
+                        context.getString(R.string.download_in_queue_ticker_notify),
+                        info.fileName));
+                NotificationCompat.BigTextStyle pendingBigText = new NotificationCompat.BigTextStyle();
+                pendingBigText.bigText(String.format(context.getString(R.string.download_queued_template),
+                        Formatter.formatFileSize(context, downloadBytes),
+                        Formatter.formatFileSize(context, info.totalBytes),
+                        context.getString(R.string.pending)));
+                builder.setStyle(pendingBigText);
                 break;
             case TYPE_COMPLETE:
                 if (isError) {
                     builder.setContentTitle(info.fileName);
                     builder.setTicker(context.getString(R.string.download_error_notify_title));
-                    builder.setContentText(String.format(context.getString(R.string.download_error_notify_template), info.statusMsg));
+                    builder.setContentText(String.format(context.getString(R.string.error_template), info.statusMsg));
                 } else {
                     builder.setContentTitle(context.getString(R.string.download_finished_notify));
                     builder.setTicker(context.getString(R.string.download_finished_notify));
@@ -338,7 +346,7 @@ public class DownloadNotifier {
                 case TYPE_ACTIVE:
                     builder.setCategory(Notification.CATEGORY_PROGRESS);
                     break;
-                case TYPE_WAITING:
+                case TYPE_PENDING:
                     builder.setCategory(Notification.CATEGORY_STATUS);
                     break;
                 case TYPE_COMPLETE:
@@ -374,23 +382,15 @@ public class DownloadNotifier {
             activeNotifs.remove(notifyGroup.downloadId);
     }
 
-    private long calcETA(long totalBytes, long curBytes, long speed)
-    {
-        long left = totalBytes - curBytes;
-        if (left <= 0)
-            return 0;
-        if (speed <= 0)
-            return -1;
-
-        return left / speed;
-    }
-
     private static String makeNotificationTag(DownloadInfo info)
     {
-        /* TODO: add wait notify */
         if (info.statusCode == StatusCode.STATUS_RUNNING ||
             info.statusCode == StatusCode.STATUS_PAUSED)
             return TYPE_ACTIVE + ":" + info.id;
+        else if (info.statusCode == StatusCode.STATUS_PENDING ||
+                info.statusCode == StatusCode.STATUS_WAITING_FOR_NETWORK ||
+                info.statusCode == StatusCode.STATUS_WAITING_TO_RETRY)
+            return TYPE_PENDING + ":" + info.id;
         else if (StatusCode.isStatusCompleted(info.statusCode))
             return TYPE_COMPLETE + ":" + info.id;
         else
