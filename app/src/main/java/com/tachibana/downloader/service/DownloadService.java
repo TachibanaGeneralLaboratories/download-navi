@@ -133,6 +133,8 @@ public class DownloadService extends LifecycleService
     @Override
     public int onStartCommand(Intent intent, int flags, int startId)
     {
+        super.onStartCommand(intent, flags, startId);
+
         /* The first start */
         if (!isAlreadyRunning) {
             isAlreadyRunning = true;
@@ -254,6 +256,11 @@ public class DownloadService extends LifecycleService
     private void onCancelled(UUID id)
     {
         deleteDownloadTask(id);
+        /*
+         * Control deletion of the notification if the state
+         * of the remote object wasn't received by the manager
+         */
+        downloadNotifier.remove(id);
 
         checkShutdownService();
     }

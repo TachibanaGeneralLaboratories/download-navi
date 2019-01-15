@@ -143,6 +143,13 @@ public class DownloadNotifier {
         }
     }
 
+    public void remove(UUID infoId)
+    {
+        synchronized (activeNotifs) {
+            clearNotifs(activeNotifs.get(infoId), null);
+        }
+    }
+
     private boolean checkUpdateTime(DownloadInfo info)
     {
         NotificationGroup notifyGroup = activeNotifs.get(info.id);
