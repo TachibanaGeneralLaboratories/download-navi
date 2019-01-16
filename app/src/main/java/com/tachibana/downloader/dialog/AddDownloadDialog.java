@@ -54,15 +54,18 @@ import java.io.IOException;
 import java.net.ConnectException;
 import java.net.MalformedURLException;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.DialogFragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.lifecycle.ViewModelProviders;
+import io.reactivex.disposables.CompositeDisposable;
+import io.reactivex.disposables.Disposable;
+import io.reactivex.schedulers.Schedulers;
 
 public class AddDownloadDialog extends DialogFragment
-    implements BaseAlertDialog.OnClickListener
 {
     @SuppressWarnings("unused")
     private static final String TAG = AddDownloadDialog.class.getSimpleName();
@@ -79,9 +82,12 @@ public class AddDownloadDialog extends DialogFragment
     private AppCompatActivity activity;
     private UserAgentAdapter userAgentAdapter;
     private AddDownloadViewModel viewModel;
+    private BaseAlertDialog addLinkDialog;
+    private BaseAlertDialog.SharedViewModel dialogViewModel;
     private DialogAddDownloadBinding binding;
     private int userAgentSpinnerPos = 0;
-    boolean connImmediately = false;
+    private boolean connImmediately = false;
+    private CompositeDisposable disposable = new CompositeDisposable();
 
     public static AddDownloadDialog newInstance(String url)
     {
@@ -124,12 +130,47 @@ public class AddDownloadDialog extends DialogFragment
     }
 
     @Override
+    public void onStop()
+    {
+        super.onStop();
+
+        disposable.clear();
+    }
+
+    @NonNull
+    @Override
     public Dialog onCreateDialog(Bundle savedInstanceState)
     {
         if (activity == null)
             activity = (AppCompatActivity)getActivity();
 
         viewModel = ViewModelProviders.of(activity).get(AddDownloadViewModel.class);
+
+        FragmentManager fm = getFragmentManager();
+        if (fm != null)
+            addLinkDialog = (BaseAlertDialog)fm.findFragmentByTag(TAG_ADD_USER_AGENT_DIALOG);
+        dialogViewModel = ViewModelProviders.of(activity).get(BaseAlertDialog.SharedViewModel.class);
+        Disposable d = dialogViewModel.observeEvents()
+                .subscribe((event) -> {
+                    if (addLinkDialog == null)
+                        return;
+                    switch (event) {
+                        case POSITIVE_BUTTON_CLICKED:
+                            Dialog dialog = addLinkDialog.getDialog();
+                            if (dialog != null) {
+                                TextInputEditText editText = dialog.findViewById(R.id.text_input_dialog);
+                                String userAgent = editText.getText().toString();
+                                if (!TextUtils.isEmpty(userAgent))
+                                    disposable.add(viewModel.addUserAgent(new UserAgent(userAgent))
+                                            .subscribeOn(Schedulers.io())
+                                            .subscribe());
+                            }
+                        case NEGATIVE_BUTTON_CLICKED:
+                            addLinkDialog.dismiss();
+                            break;
+                    }
+                });
+        disposable.add(d);
 
         LayoutInflater i = LayoutInflater.from(activity);
         binding = DataBindingUtil.inflate(i, R.layout.dialog_add_download, null, false);
@@ -186,7 +227,11 @@ public class AddDownloadDialog extends DialogFragment
                 viewModel.params.setUrl(url);
         }
 
-        userAgentAdapter = new UserAgentAdapter(activity, viewModel::deleteUserAgent);
+        userAgentAdapter = new UserAgentAdapter(activity, (userAgent) -> {
+            disposable.add(viewModel.deleteUserAgent(userAgent)
+                    .subscribeOn(Schedulers.io())
+                    .subscribe());
+        });
         String systemUserAgent = new WebView(activity).getSettings().getUserAgentString();
         /* Get other user agents */
         viewModel.observerUserAgents().observe(this, (userAgentList) -> {
@@ -340,47 +385,16 @@ public class AddDownloadDialog extends DialogFragment
     {
         FragmentManager fm = getFragmentManager();
         if (fm != null && fm.findFragmentByTag(TAG_ADD_USER_AGENT_DIALOG) == null) {
-            BaseAlertDialog addLinkDialog = BaseAlertDialog.newInstance(
+            addLinkDialog = BaseAlertDialog.newInstance(
                     getString(R.string.dialog_add_user_agent_title),
                     null,
                     R.layout.dialog_text_input,
                     getString(R.string.ok),
                     getString(R.string.cancel),
-                    null,
-                    this);
+                    null);
 
             addLinkDialog.show(fm, TAG_ADD_USER_AGENT_DIALOG);
         }
-    }
-
-    @Override
-    public void onPositiveClicked(View v)
-    {
-        if (v == null)
-            return;
-
-        FragmentManager fm = getFragmentManager();
-        if (fm == null)
-            return;
-
-        if (fm.findFragmentByTag(TAG_ADD_USER_AGENT_DIALOG) != null) {
-            TextInputEditText editText = v.findViewById(R.id.text_input_dialog);
-            String userAgent = editText.getText().toString();
-            if (!TextUtils.isEmpty(userAgent))
-                viewModel.addUserAgent(new UserAgent(userAgent));
-        }
-    }
-
-    @Override
-    public void onNegativeClicked(View v)
-    {
-        /* Nothing */
-    }
-
-    @Override
-    public void onNeutralClicked(View v)
-    {
-        /* Nothing */
     }
 
     private void enableFetchMode()

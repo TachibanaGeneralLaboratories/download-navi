@@ -9,7 +9,6 @@
     android:clickable="true"
     android:focusable="true"
     android:foreground="?attr/transparentRectRipple"
-    card_view:cardUseCompatPadding="true"
     card_view:cardCornerRadius="4dp"
     card_view:cardBackgroundColor="?attr/foreground">
 

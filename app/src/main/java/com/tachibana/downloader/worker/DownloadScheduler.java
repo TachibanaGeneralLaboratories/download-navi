@@ -75,6 +75,21 @@ public class DownloadScheduler extends Worker
         WorkManager.getInstance().enqueue(work);
     }
 
+    public static void pauseDownload(Context context, DownloadInfo info)
+    {
+        if (info == null || context == null)
+            return;
+
+        Data data = new Data.Builder()
+                .putString(TAG_ACTION, DownloadService.ACTION_PAUSE_DOWNLOAD)
+                .putString(TAG_ID, info.id.toString())
+                .build();
+        OneTimeWorkRequest work = new OneTimeWorkRequest.Builder(DownloadScheduler.class)
+                .setInputData(data)
+                .build();
+        WorkManager.getInstance().enqueue(work);
+    }
+
     private static Constraints getConstraints(Context context, DownloadInfo info)
     {
         NetworkType netType = NetworkType.CONNECTED;
@@ -101,14 +116,6 @@ public class DownloadScheduler extends Worker
         if (action == null)
             return Result.failure();
 
-        if (action.equals(DownloadService.ACTION_RUN_DOWNLOAD))
-            return runDownloadAction(data);
-
-        return Result.failure();
-    }
-
-    private Result runDownloadAction(Data data)
-    {
         String uuid = data.getString(TAG_ID);
         if (uuid == null)
             return Result.failure();
@@ -121,8 +128,30 @@ public class DownloadScheduler extends Worker
             return Result.failure();
         }
 
+        switch (action) {
+            case DownloadService.ACTION_RUN_DOWNLOAD:
+                return runDownloadAction(id);
+            case DownloadService.ACTION_PAUSE_DOWNLOAD:
+                return runPauseAction(id);
+        }
+
+        return Result.failure();
+    }
+
+    private Result runDownloadAction(UUID id)
+    {
         Intent i = new Intent(getApplicationContext(), DownloadService.class);
         i.setAction(DownloadService.ACTION_RUN_DOWNLOAD);
+        i.putExtra(DownloadService.TAG_DOWNLOAD_ID, id);
+        Utils.startServiceBackground(getApplicationContext(), i);
+
+        return Result.success();
+    }
+
+    private Result runPauseAction(UUID id)
+    {
+        Intent i = new Intent(getApplicationContext(), DownloadService.class);
+        i.setAction(DownloadService.ACTION_PAUSE_DOWNLOAD);
         i.putExtra(DownloadService.TAG_DOWNLOAD_ID, id);
         Utils.startServiceBackground(getApplicationContext(), i);
 

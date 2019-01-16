@@ -267,16 +267,12 @@ public class DownloadNotifier {
         } else if (type == TYPE_COMPLETE) {
             builder.setAutoCancel(true);
             if (!isError) {
-                Intent intent = new Intent();
-                intent.setAction(Intent.ACTION_VIEW);
-                intent.setDataAndType(info.filePath, info.mimeType);
-                intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
-
                 PendingIntent openPendingIntent =
                         PendingIntent.getActivity(
                                 context,
                                 0,
-                                Intent.createChooser(intent, context.getString(R.string.open_using)),
+                                Intent.createChooser(Utils.createOpenFileIntent(info),
+                                        context.getString(R.string.open_using)),
                                 PendingIntent.FLAG_UPDATE_CURRENT);
 
                 builder.setContentIntent(openPendingIntent);

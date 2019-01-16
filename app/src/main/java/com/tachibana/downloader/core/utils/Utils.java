@@ -27,17 +27,22 @@ import android.content.ClipboardManager;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.res.Resources;
 import android.net.ConnectivityManager;
 import android.net.Network;
 import android.net.NetworkCapabilities;
 import android.net.NetworkInfo;
 import android.net.Uri;
 import android.os.Build;
+import android.text.TextUtils;
+import android.util.TypedValue;
 import android.view.View;
 import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 
 import com.tachibana.downloader.R;
+import com.tachibana.downloader.adapter.DownloadItem;
+import com.tachibana.downloader.core.entity.DownloadInfo;
 import com.tachibana.downloader.settings.SettingsManager;
 
 import java.net.IDN;
@@ -47,6 +52,8 @@ import java.security.GeneralSecurityException;
 import java.security.KeyStore;
 import java.security.cert.CertificateException;
 import java.security.cert.X509Certificate;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -57,6 +64,9 @@ import javax.net.ssl.X509TrustManager;
 
 import androidx.annotation.Nullable;
 import androidx.core.content.ContextCompat;
+
+import static com.tachibana.downloader.core.utils.MimeTypeUtils.DEFAULT_MIME_TYPE;
+import static com.tachibana.downloader.core.utils.MimeTypeUtils.MIME_TYPE_DELIMITER;
 
 public class Utils
 {
@@ -383,5 +393,105 @@ public class Utils
             return null;
 
         return host.replaceAll("^www\\.", "");
+    }
+
+    public static int getAttributeColor(Context context, int attributeId)
+    {
+        TypedValue typedValue = new TypedValue();
+        context.getTheme().resolveAttribute(attributeId, typedValue, true);
+        int colorRes = typedValue.resourceId;
+        int color = -1;
+        try {
+            color = context.getResources().getColor(colorRes);
+
+        } catch (Resources.NotFoundException e) {
+            return color;
+        }
+
+        return color;
+    }
+
+    public static Intent makeFileShareIntent(List<DownloadItem> items)
+    {
+        Intent i = new Intent();
+        String intentAction;
+        ArrayList<Uri> itemsUri = new ArrayList<>();
+        String intentMimeType = "";
+        String[] intentMimeParts = {"", ""};
+
+        for (DownloadItem item : items) {
+            if (item == null)
+                continue;
+
+            itemsUri.add(item.info.filePath);
+
+            String mimeType = item.info.mimeType;
+            if (TextUtils.isEmpty(mimeType)) {
+                intentMimeType = DEFAULT_MIME_TYPE;
+                continue;
+            }
+
+            /*
+             * If the intent mime type hasn't been set yet,
+             * set it to the mime type for this item
+             */
+            if (TextUtils.isEmpty(intentMimeType)) {
+                intentMimeType = mimeType;
+                if (!TextUtils.isEmpty(intentMimeType)) {
+                    intentMimeParts = intentMimeType.split(MIME_TYPE_DELIMITER);
+                    /* Guard against invalid mime types */
+                    if (intentMimeParts.length != 2)
+                        intentMimeType = DEFAULT_MIME_TYPE;
+                }
+                continue;
+            }
+
+            /*
+             * Either the mime type is already the default or it matches the current item's mime type.
+             * In either case, intentMimeType is already the correct value
+             */
+            if (TextUtils.equals(intentMimeType, DEFAULT_MIME_TYPE) ||
+                TextUtils.equals(intentMimeType, mimeType))
+                continue;
+
+            String[] mimeParts = mimeType.split(MIME_TYPE_DELIMITER);
+            if (!TextUtils.equals(intentMimeParts[0], mimeParts[0])) {
+                /* The top-level types don't match; fallback to the default mime type */
+                intentMimeType = DEFAULT_MIME_TYPE;
+            } else {
+                /* The mime type should be "{top-level type}/*" */
+                intentMimeType = intentMimeParts[0] + MIME_TYPE_DELIMITER + "*";
+            }
+        }
+
+        if (itemsUri.size() == 0 || itemsUri.size() == 1)
+            intentAction = Intent.ACTION_SEND;
+        else
+            intentAction = Intent.ACTION_SEND_MULTIPLE;
+
+        if (itemsUri.size() > 1)
+            i.putParcelableArrayListExtra(Intent.EXTRA_STREAM, itemsUri);
+        else
+            i.putExtra(Intent.EXTRA_STREAM, itemsUri.get(0));
+
+        /* If there is exactly one item shared, set the mail title */
+        if (items.size() == 1)
+            i.putExtra(Intent.EXTRA_SUBJECT, items.get(0).info.fileName);
+
+        i.setAction(intentAction);
+        i.setType(intentMimeType);
+        i.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+
+        return i;
+    }
+
+    public static Intent createOpenFileIntent(DownloadInfo info)
+    {
+        Intent i = new Intent();
+        i.setAction(Intent.ACTION_VIEW);
+        i.setDataAndType(info.filePath, info.mimeType);
+        i.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
+
+        return i;
     }
 }

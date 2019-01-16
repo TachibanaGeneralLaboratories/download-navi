@@ -34,7 +34,6 @@ import android.widget.Toast;
 import com.tachibana.downloader.MainApplication;
 import com.tachibana.downloader.R;
 import com.tachibana.downloader.core.AddDownloadParams;
-import com.tachibana.downloader.core.AppExecutors;
 import com.tachibana.downloader.core.HttpConnection;
 import com.tachibana.downloader.core.entity.DownloadInfo;
 import com.tachibana.downloader.core.entity.Header;
@@ -58,6 +57,7 @@ import androidx.documentfile.provider.DocumentFile;
 import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
+import io.reactivex.Completable;
 
 public class AddDownloadViewModel extends AndroidViewModel
 {
@@ -66,7 +66,6 @@ public class AddDownloadViewModel extends AndroidViewModel
 
     private FetchLinkTask fetchTask;
     private DataRepository repo;
-    private AppExecutors appExecutors;
     public AddDownloadParams params = new AddDownloadParams();
     public MutableLiveData<State> fetchState = new MutableLiveData<>();
 
@@ -99,7 +98,6 @@ public class AddDownloadViewModel extends AndroidViewModel
         super(application);
 
         repo = ((MainApplication)getApplication()).getRepository();
-        appExecutors = ((MainApplication)getApplication()).getAppExecutors();
         fetchState.setValue(new State(Status.UNKNOWN));
     }
 
@@ -108,19 +106,14 @@ public class AddDownloadViewModel extends AndroidViewModel
         return repo.observeUserAgents();
     }
 
-    public void deleteUserAgent(UserAgent userAgent) {
-        if (userAgent == null)
-            return;
-
-        appExecutors.databaseIO().execute(() -> repo.deleteUserAgent(userAgent));
+    public Completable deleteUserAgent(UserAgent userAgent)
+    {
+        return Completable.fromAction(() -> repo.deleteUserAgent(userAgent));
     }
 
-    public void addUserAgent(UserAgent userAgent)
+    public Completable addUserAgent(UserAgent userAgent)
     {
-        if (userAgent == null)
-            return;
-
-        appExecutors.databaseIO().execute(() -> repo.addUserAgent(userAgent));
+        return Completable.fromAction(() -> repo.addUserAgent(userAgent));
     }
 
     public void startFetchTask()

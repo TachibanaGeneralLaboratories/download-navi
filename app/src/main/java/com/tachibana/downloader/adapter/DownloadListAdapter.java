@@ -24,6 +24,7 @@ import android.content.Context;
 import android.text.format.Formatter;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
@@ -34,31 +35,42 @@ import android.widget.TextView;
 import com.tachibana.downloader.R;
 import com.tachibana.downloader.core.StatusCode;
 import com.tachibana.downloader.core.entity.DownloadPiece;
-import com.tachibana.downloader.core.entity.InfoAndPieces;
 import com.tachibana.downloader.core.utils.DateFormatUtils;
 import com.tachibana.downloader.core.utils.MimeTypeUtils;
 import com.tachibana.downloader.core.utils.Utils;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.widget.PopupMenu;
+import androidx.cardview.widget.CardView;
 import androidx.core.content.ContextCompat;
+import androidx.recyclerview.selection.ItemDetailsLookup;
+import androidx.recyclerview.selection.ItemKeyProvider;
+import androidx.recyclerview.selection.SelectionTracker;
 import androidx.recyclerview.widget.DiffUtil;
 import androidx.recyclerview.widget.ListAdapter;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.vectordrawable.graphics.drawable.AnimatedVectorDrawableCompat;
 
-public class DownloadListAdapter extends ListAdapter<InfoAndPieces, DownloadListAdapter.ViewHolder>
+public class DownloadListAdapter extends ListAdapter<DownloadItem, DownloadListAdapter.ViewHolder>
+    implements Selectable<DownloadItem>
 {
     private static final int VIEW_QUEUE = 0;
     private static final int VIEW_FINISH = 1;
 
     private ClickListener listener;
+    private SelectionTracker<DownloadItem> selectionTracker;
 
     public DownloadListAdapter(ClickListener listener)
     {
         super(diffCallback);
 
         this.listener = listener;
+    }
+
+    public void setSelectionTracker(SelectionTracker<DownloadItem> selectionTracker)
+    {
+        this.selectionTracker = selectionTracker;
     }
 
     @NonNull
@@ -76,7 +88,7 @@ public class DownloadListAdapter extends ListAdapter<InfoAndPieces, DownloadList
     @Override
     public int getItemViewType(int position)
     {
-        InfoAndPieces item = getItem(position);
+        DownloadItem item = getItem(position);
 
         return StatusCode.isStatusCompleted(item.info.statusCode) ? VIEW_FINISH : VIEW_QUEUE;
     }
@@ -84,21 +96,46 @@ public class DownloadListAdapter extends ListAdapter<InfoAndPieces, DownloadList
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position)
     {
-        InfoAndPieces item = getItem(position);
+        DownloadItem item = getItem(position);
+
+        if (selectionTracker != null)
+            holder.setSelected(selectionTracker.isSelected(item));
 
         if (holder instanceof QueueViewHolder) {
             QueueViewHolder queueHolder = (QueueViewHolder)holder;
-            queueHolder.bindTo(item, (QueueClickListener)listener);
+            queueHolder.bind(item, (QueueClickListener)listener);
         } else if (holder instanceof FinishViewHolder) {
             FinishViewHolder finishHolder = (FinishViewHolder)holder;
-            finishHolder.bindTo(item, (FinishClickListener)listener);
+            finishHolder.bind(item, (FinishClickListener)listener);
         }
     }
 
-    public static class ViewHolder extends RecyclerView.ViewHolder
+    @Override
+    public DownloadItem getItemKey(int position)
     {
+        return getItem(position);
+    }
+
+    @Override
+    public int getItemPosition(DownloadItem key)
+    {
+        return getCurrentList().indexOf(key);
+    }
+
+    interface ViewHolderWithDetails
+    {
+        ItemDetails getItemDetails();
+    }
+
+    public static class ViewHolder extends RecyclerView.ViewHolder
+        implements ViewHolderWithDetails
+    {
+        protected CardView cardView;
         protected TextView filename;
         protected TextView status;
+        /* For selection support */
+        private ItemDetails details = new ItemDetails();
+        private boolean isSelected;
 
         ViewHolder(View itemView)
         {
@@ -108,21 +145,39 @@ public class DownloadListAdapter extends ListAdapter<InfoAndPieces, DownloadList
             status = itemView.findViewById(R.id.status);
         }
 
-        void bindTo(InfoAndPieces item, ClickListener listener)
+        void bind(DownloadItem item, ClickListener listener)
         {
-            itemView.setOnClickListener((v) -> {
+            Context context = itemView.getContext();
+            details.adapterPosition = getAdapterPosition();
+            details.selectionKey = item;
+
+            cardView = (CardView)itemView;
+            if (isSelected)
+                cardView.setCardBackgroundColor(Utils.getAttributeColor(context, R.attr.selectableColor));
+            else
+                cardView.setCardBackgroundColor(Utils.getAttributeColor(context, R.attr.foreground));
+
+            cardView.setOnClickListener((v) -> {
+                /* Skip selecting and deselecting */
+                if (isSelected)
+                    return;
+
                 if (listener != null)
                     listener.onItemClicked(item);
             });
-            itemView.setOnLongClickListener((v) -> {
-                if (listener != null) {
-                    listener.onItemLongClicked(item);
-                    return true;
-                }
-                return false;
-            });
 
             filename.setText(item.info.fileName);
+        }
+
+        private void setSelected(boolean isSelected)
+        {
+            this.isSelected = isSelected;
+        }
+
+        @Override
+        public ItemDetails getItemDetails()
+        {
+            return details;
         }
     }
 
@@ -147,9 +202,9 @@ public class DownloadListAdapter extends ListAdapter<InfoAndPieces, DownloadList
             cancelButton = itemView.findViewById(R.id.cancel);
         }
 
-        void bindTo(InfoAndPieces item, QueueClickListener listener)
+        void bind(DownloadItem item, QueueClickListener listener)
         {
-            super.bindTo(item, listener);
+            super.bind(item, listener);
 
             if (item.info.partialSupport) {
                 pauseButton.setVisibility(View.VISIBLE);
@@ -239,9 +294,9 @@ public class DownloadListAdapter extends ListAdapter<InfoAndPieces, DownloadList
             error = itemView.findViewById(R.id.error);
         }
 
-        void bindTo(InfoAndPieces item, FinishClickListener listener)
+        void bind(DownloadItem item, FinishClickListener listener)
         {
-            super.bindTo(item, listener);
+            super.bind(item, listener);
 
             Context context = itemView.getContext();
 
@@ -298,38 +353,107 @@ public class DownloadListAdapter extends ListAdapter<InfoAndPieces, DownloadList
 
     public interface ClickListener
     {
-        void onItemClicked(@NonNull InfoAndPieces item);
-
-        void onItemLongClicked(@NonNull InfoAndPieces item);
+        void onItemClicked(@NonNull DownloadItem item);
     }
 
     public interface QueueClickListener extends ClickListener
     {
-        void onItemPauseClicked(@NonNull InfoAndPieces item);
+        void onItemPauseClicked(@NonNull DownloadItem item);
 
-        void onItemCancelClicked(@NonNull InfoAndPieces item);
+        void onItemCancelClicked(@NonNull DownloadItem item);
     }
 
     public interface FinishClickListener extends ClickListener
     {
-        void onItemMenuClicked(int menuId, @NonNull InfoAndPieces item);
+        void onItemMenuClicked(int menuId, @NonNull DownloadItem item);
     }
 
-    public static final DiffUtil.ItemCallback<InfoAndPieces> diffCallback = new DiffUtil.ItemCallback<InfoAndPieces>()
+    public static final DiffUtil.ItemCallback<DownloadItem> diffCallback = new DiffUtil.ItemCallback<DownloadItem>()
     {
         @Override
-        public boolean areContentsTheSame(@NonNull InfoAndPieces oldItem,
-                                          @NonNull InfoAndPieces newItem)
+        public boolean areContentsTheSame(@NonNull DownloadItem oldItem,
+                                          @NonNull DownloadItem newItem)
+        {
+            return oldItem.equalsContent(newItem);
+        }
+
+        @Override
+        public boolean areItemsTheSame(@NonNull DownloadItem oldItem,
+                                       @NonNull DownloadItem newItem)
         {
             return oldItem.equals(newItem);
         }
-
-        @Override
-        public boolean areItemsTheSame(@NonNull InfoAndPieces oldItem,
-                                       @NonNull InfoAndPieces newItem)
-        {
-            return oldItem.info.id.equals(newItem.info.id);
-        }
     };
 
+    /*
+     * Selection support stuff
+     */
+
+    public static final class KeyProvider extends ItemKeyProvider<DownloadItem>
+    {
+        Selectable<DownloadItem> selectable;
+
+        public KeyProvider(Selectable<DownloadItem> selectable)
+        {
+            super(SCOPE_MAPPED);
+
+            this.selectable = selectable;
+        }
+
+        @Nullable
+        @Override
+        public DownloadItem getKey(int position)
+        {
+            return selectable.getItemKey(position);
+        }
+
+        @Override
+        public int getPosition(@NonNull DownloadItem key)
+        {
+            return selectable.getItemPosition(key);
+        }
+    }
+
+    public static final class ItemDetails extends ItemDetailsLookup.ItemDetails<DownloadItem>
+    {
+        public DownloadItem selectionKey;
+        public int adapterPosition;
+
+        @Nullable
+        @Override
+        public DownloadItem getSelectionKey()
+        {
+            return selectionKey;
+        }
+
+        @Override
+        public int getPosition()
+        {
+            return adapterPosition;
+        }
+    }
+
+    public static class ItemLookup extends ItemDetailsLookup<DownloadItem>
+    {
+        private final RecyclerView recyclerView;
+
+        public ItemLookup(RecyclerView recyclerView)
+        {
+            this.recyclerView = recyclerView;
+        }
+
+        @Nullable
+        @Override
+        public ItemDetails<DownloadItem> getItemDetails(@NonNull MotionEvent e)
+        {
+            View view = recyclerView.findChildViewUnder(e.getX(), e.getY());
+            if (view != null) {
+                RecyclerView.ViewHolder viewHolder = recyclerView.getChildViewHolder(view);
+                if (viewHolder instanceof DownloadListAdapter.ViewHolder)
+                    return ((ViewHolder)viewHolder).getItemDetails();
+            }
+
+            return null;
+        }
+    }
 }

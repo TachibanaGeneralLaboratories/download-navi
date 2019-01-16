@@ -73,7 +73,7 @@ public class DownloadPiece implements Parcelable
 
     public static final int MAX_RETRIES = 5;
 
-    public DownloadPiece(UUID infoId, int index, long size, long curBytes)
+    public DownloadPiece(@NonNull UUID infoId, int index, long size, long curBytes)
     {
         this.infoId = infoId;
         this.index = index;
@@ -134,7 +134,7 @@ public class DownloadPiece implements Parcelable
         int prime = 31, result = 1;
 
         result = prime * result + index;
-        result = prime * result + (infoId == null ? 0 : infoId.hashCode());
+        result = prime * result + infoId.hashCode();
 
         return result;
     }
@@ -150,7 +150,7 @@ public class DownloadPiece implements Parcelable
 
         DownloadPiece piece = (DownloadPiece)o;
 
-        return infoId == piece.infoId &&
+        return infoId.equals(piece.infoId) &&
                 index == piece.index &&
                 size == piece.size &&
                 curBytes == piece.curBytes &&

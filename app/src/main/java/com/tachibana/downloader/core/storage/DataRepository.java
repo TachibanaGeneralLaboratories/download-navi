@@ -121,6 +121,30 @@ public class DataRepository
         }
     }
 
+    public void deleteInfoList(Context context, List<DownloadInfo> infoList, boolean withFile)
+    {
+        db.downloadDao().deleteInfoList(infoList);
+
+        for (DownloadInfo info : infoList) {
+            if (withFile) {
+                try {
+                    DocumentsContract.deleteDocument(context.getContentResolver(), info.filePath);
+
+                } catch (FileNotFoundException | SecurityException | IllegalStateException e) {
+                    Log.w(TAG, Log.getStackTraceString(e));
+                }
+
+            } else {
+                try {
+                    releaseUriPermission(context, info);
+
+                } catch (SecurityException e) {
+                    /* Ignore */
+                }
+            }
+        }
+    }
+
     public Flowable<List<InfoAndPieces>> observerAllInfoAndPieces()
     {
         return db.downloadDao().observerAllInfoAndPieces();

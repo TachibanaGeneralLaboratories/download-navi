@@ -22,7 +22,6 @@ package com.tachibana.downloader.core.storage;
 
 import android.content.Context;
 
-import com.tachibana.downloader.core.AppExecutors;
 import com.tachibana.downloader.core.entity.DownloadInfo;
 import com.tachibana.downloader.core.entity.DownloadPiece;
 import com.tachibana.downloader.core.entity.Header;
@@ -39,6 +38,8 @@ import androidx.room.Room;
 import androidx.room.RoomDatabase;
 import androidx.room.TypeConverters;
 import androidx.sqlite.db.SupportSQLiteDatabase;
+import io.reactivex.Completable;
+import io.reactivex.schedulers.Schedulers;
 
 @Database(entities = {DownloadInfo.class,
         DownloadPiece.class,
@@ -68,12 +69,12 @@ public abstract class AppDatabase extends RoomDatabase
 
     private final MutableLiveData<Boolean> isDatabaseCreated = new MutableLiveData<>();
 
-    public static AppDatabase getInstance(Context context, AppExecutors executors)
+    public static AppDatabase getInstance(Context context)
     {
         if (INSTANCE == null) {
             synchronized (AppDatabase.class) {
                 if (INSTANCE == null) {
-                    INSTANCE = buildDatabase(context.getApplicationContext(), executors);
+                    INSTANCE = buildDatabase(context.getApplicationContext());
                     INSTANCE.updateDatabaseCreated(context.getApplicationContext());
                 }
             }
@@ -82,20 +83,20 @@ public abstract class AppDatabase extends RoomDatabase
         return INSTANCE;
     }
 
-    private static AppDatabase buildDatabase(Context appContext, AppExecutors executors)
+    private static AppDatabase buildDatabase(Context appContext)
     {
         return Room.databaseBuilder(appContext, AppDatabase.class, DATABASE_NAME)
                 .addCallback(new Callback() {
                     @Override
                     public void onCreate(@NonNull SupportSQLiteDatabase db) {
                         super.onCreate(db);
-                        executors.databaseIO().execute(() -> {
-                            AppDatabase database = AppDatabase.getInstance(appContext, executors);
-                            database.runInTransaction(() -> {
-                                database.userAgentDao().add(defaultUserAgents);
-                            });
+                       Completable.fromAction(() -> {
+                            AppDatabase database = AppDatabase.getInstance(appContext);
+                            database.runInTransaction(() -> database.userAgentDao().add(defaultUserAgents));
                             database.setDatabaseCreated();
-                        });
+                        })
+                       .subscribeOn(Schedulers.io())
+                       .subscribe();
                     }
                 })
                 .build();

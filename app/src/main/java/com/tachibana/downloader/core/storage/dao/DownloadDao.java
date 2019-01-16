@@ -66,6 +66,9 @@ public abstract class DownloadDao
     @Delete
     public abstract void deleteInfo(DownloadInfo info);
 
+    @Delete
+    public abstract void deleteInfoList(List<DownloadInfo> infoList);
+
     @Update
     public abstract void updateInfo(DownloadInfo info);
 

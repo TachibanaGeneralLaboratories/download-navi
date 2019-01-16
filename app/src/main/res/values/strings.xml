@@ -29,6 +29,8 @@
     <string name="delete">Delete</string>
     <string name="share">Share</string>
     <string name="menu">Menu</string>
+    <string name="select_all">Select all</string>
+    <string name="share_via">Share via</string>
 
     <!-- Download progress notification -->
     <string name="download_ticker_notify" formatted="false">Downloading %1$s</string>
@@ -92,4 +94,8 @@
     <!-- hostname • total -->
     <string name="download_finished_template" formatted="false">%1$s \u2022 %2$s</string>
     <string name="download_details">Details</string>
+    <string name="deleting">Deleting</string>
+    <string name="delete_selected_download">Delete the selected download? This operation cannot be undone</string>
+    <string name="delete_selected_downloads">Delete the selected downloads? This operation cannot be undone</string>
+    <string name="delete_with_downloaded_file">Delete with downloaded file</string>
 </resources>

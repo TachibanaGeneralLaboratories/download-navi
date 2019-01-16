@@ -20,32 +20,46 @@
 
 package com.tachibana.downloader.fragment;
 
+import android.app.Dialog;
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.Parcelable;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.CheckBox;
 
 import com.tachibana.downloader.R;
+import com.tachibana.downloader.adapter.DownloadItem;
 import com.tachibana.downloader.adapter.DownloadListAdapter;
-import com.tachibana.downloader.core.entity.InfoAndPieces;
+import com.tachibana.downloader.core.utils.Utils;
 import com.tachibana.downloader.databinding.FragmentDownloadListBinding;
+import com.tachibana.downloader.dialog.BaseAlertDialog;
 import com.tachibana.downloader.viewmodel.DownloadsViewModel;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.view.ActionMode;
 import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
 import androidx.lifecycle.ViewModelProviders;
+import androidx.recyclerview.selection.SelectionPredicates;
+import androidx.recyclerview.selection.SelectionTracker;
+import androidx.recyclerview.selection.StorageStrategy;
 import androidx.recyclerview.widget.DefaultItemAnimator;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import io.reactivex.Flowable;
+import io.reactivex.Observable;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.CompositeDisposable;
+import io.reactivex.disposables.Disposable;
 import io.reactivex.functions.Predicate;
 import io.reactivex.schedulers.Schedulers;
 
@@ -57,18 +71,24 @@ public abstract class DownloadsFragment extends Fragment
     implements DownloadListAdapter.ClickListener
 {
     @SuppressWarnings("unused")
-    private static final String TAG = FinishedDownloadsFragment.class.getSimpleName();
+    private static final String TAG = DownloadsFragment.class.getSimpleName();
 
-    private static final String TAG_DOWNLOADS_LIST_STATE = "downloads_list_state";
+    private static final String TAG_DOWNLOAD_LIST_STATE = "download_list_state";
+    private static final String SELECTION_TRACKER_ID = "selection_tracker_0";
+    private static final String TAG_DELETE_DOWNLOADS_DIALOG = "delete_downloads_dialog";
 
     protected AppCompatActivity activity;
     protected DownloadListAdapter adapter;
     protected LinearLayoutManager layoutManager;
     /* Save state scrolling */
-    private Parcelable downloadsListState;
+    private Parcelable downloadListState;
+    private SelectionTracker<DownloadItem> selectionTracker;
+    private ActionMode actionMode;
     protected FragmentDownloadListBinding binding;
     protected DownloadsViewModel viewModel;
     protected CompositeDisposable disposable = new CompositeDisposable();
+    private BaseAlertDialog deleteDownloadsDialog;
+    private BaseAlertDialog.SharedViewModel dialogViewModel;
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
@@ -94,6 +114,49 @@ public abstract class DownloadsFragment extends Fragment
         binding.downloadList.setItemAnimator(animator);
         binding.downloadList.setEmptyView(binding.emptyViewDownloadList);
         binding.downloadList.setAdapter(adapter);
+
+        selectionTracker = new SelectionTracker.Builder<>(
+                SELECTION_TRACKER_ID,
+                binding.downloadList,
+                new DownloadListAdapter.KeyProvider(adapter),
+                new DownloadListAdapter.ItemLookup(binding.downloadList),
+                StorageStrategy.createParcelableStorage(DownloadItem.class))
+                .withSelectionPredicate(SelectionPredicates.createSelectAnything())
+                .build();
+
+        selectionTracker.addObserver(new SelectionTracker.SelectionObserver() {
+            @Override
+            public void onSelectionChanged()
+            {
+                super.onSelectionChanged();
+
+                if (selectionTracker.hasSelection() && actionMode == null) {
+                    actionMode = activity.startSupportActionMode(actionModeCallback);
+                    setActionModeTitle(selectionTracker.getSelection().size());
+
+                } else if (!selectionTracker.hasSelection()) {
+                    if (actionMode != null)
+                        actionMode.finish();
+                    actionMode = null;
+
+                } else {
+                    setActionModeTitle(selectionTracker.getSelection().size());
+                }
+            }
+
+            @Override
+            public void onSelectionRestored()
+            {
+                super.onSelectionRestored();
+
+                actionMode = activity.startSupportActionMode(actionModeCallback);
+                setActionModeTitle(selectionTracker.getSelection().size());
+            }
+        });
+
+        if (savedInstanceState != null)
+            selectionTracker.onRestoreInstanceState(savedInstanceState);
+        adapter.setSelectionTracker(selectionTracker);
 
         return binding.getRoot();
     }
@@ -124,6 +187,31 @@ public abstract class DownloadsFragment extends Fragment
             activity = (AppCompatActivity)getActivity();
 
         viewModel = ViewModelProviders.of(this).get(DownloadsViewModel.class);
+
+        FragmentManager fm = getFragmentManager();
+        if (fm != null)
+            deleteDownloadsDialog = (BaseAlertDialog)fm.findFragmentByTag(TAG_DELETE_DOWNLOADS_DIALOG);
+        dialogViewModel = ViewModelProviders.of(activity).get(BaseAlertDialog.SharedViewModel.class);
+
+        Disposable d = dialogViewModel.observeEvents()
+                .subscribe((event) -> {
+                    if (deleteDownloadsDialog == null)
+                        return;
+                    switch (event) {
+                        case POSITIVE_BUTTON_CLICKED:
+                            Dialog dialog = deleteDownloadsDialog.getDialog();
+                            if (dialog != null) {
+                                CheckBox withFile = dialog.findViewById(R.id.delete_with_file);
+                                deleteDownloads(withFile.isChecked());
+                            }
+                            if (actionMode != null)
+                                actionMode.finish();
+                        case NEGATIVE_BUTTON_CLICKED:
+                            deleteDownloadsDialog.dismiss();
+                            break;
+                    }
+                });
+        disposable.add(d);
     }
 
     @Override
@@ -131,8 +219,8 @@ public abstract class DownloadsFragment extends Fragment
     {
         super.onResume();
 
-        if (downloadsListState != null)
-            layoutManager.onRestoreInstanceState(downloadsListState);
+        if (downloadListState != null)
+            layoutManager.onRestoreInstanceState(downloadListState);
     }
 
     @Override
@@ -141,24 +229,26 @@ public abstract class DownloadsFragment extends Fragment
         super.onViewStateRestored(savedInstanceState);
 
         if (savedInstanceState != null)
-            downloadsListState = savedInstanceState.getParcelable(TAG_DOWNLOADS_LIST_STATE);
+            downloadListState = savedInstanceState.getParcelable(TAG_DOWNLOAD_LIST_STATE);
     }
 
     @Override
     public void onSaveInstanceState(@NonNull Bundle outState)
     {
-        downloadsListState = layoutManager.onSaveInstanceState();
-        outState.putParcelable(TAG_DOWNLOADS_LIST_STATE, downloadsListState);
+        downloadListState = layoutManager.onSaveInstanceState();
+        outState.putParcelable(TAG_DOWNLOAD_LIST_STATE, downloadListState);
+        selectionTracker.onSaveInstanceState(outState);
 
         super.onSaveInstanceState(outState);
     }
 
-    protected void subscribeAdapter(Predicate<InfoAndPieces> filter)
+    protected void subscribeAdapter(Predicate<DownloadItem> filter)
     {
         disposable.add(viewModel.observerAllInfoAndPieces()
                 .subscribeOn(Schedulers.io())
                 .flatMapSingle((infoAndPiecesList) ->
                         Flowable.fromIterable(infoAndPiecesList)
+                                .map(DownloadItem::new)
                                 .filter(filter)
                                 .toList()
                 )
@@ -171,11 +261,100 @@ public abstract class DownloadsFragment extends Fragment
     }
 
     @Override
-    public abstract void onItemClicked(@NonNull InfoAndPieces item);
+    public abstract void onItemClicked(@NonNull DownloadItem item);
 
-    @Override
-    public void onItemLongClicked(@NonNull InfoAndPieces item)
+    private void setActionModeTitle(int itemCount)
     {
+        actionMode.setTitle(String.valueOf(itemCount));
+    }
 
+    private final ActionMode.Callback actionModeCallback = new ActionMode.Callback()
+    {
+        @Override
+        public boolean onPrepareActionMode(ActionMode mode, Menu menu)
+        {
+            return false;
+        }
+
+        @Override
+        public boolean onCreateActionMode(ActionMode mode, Menu menu)
+        {
+            mode.getMenuInflater().inflate(R.menu.download_list_action_mode, menu);
+
+            return true;
+        }
+
+        @Override
+        public boolean onActionItemClicked(ActionMode mode, MenuItem item)
+        {
+            switch (item.getItemId()) {
+                case R.id.delete_menu:
+                    deleteDownloadsDialog();
+                    break;
+                case R.id.share_menu:
+                    shareDownloads();
+                    mode.finish();
+                    break;
+                case R.id.select_all_menu:
+                    selectAllDownloads();
+                    break;
+            }
+
+            return true;
+        }
+
+        @Override
+        public void onDestroyActionMode(ActionMode mode)
+        {
+            selectionTracker.clearSelection();
+        }
+    };
+
+    private void deleteDownloadsDialog()
+    {
+        FragmentManager fm = getFragmentManager();
+        if (fm != null && fm.findFragmentByTag(TAG_DELETE_DOWNLOADS_DIALOG) == null) {
+            deleteDownloadsDialog = BaseAlertDialog.newInstance(
+                    getString(R.string.deleting),
+                    (selectionTracker.getSelection().size() > 1 ?
+                            getString(R.string.delete_selected_downloads) :
+                            getString(R.string.delete_selected_download)),
+                    R.layout.dialog_delete_downloads,
+                    getString(R.string.ok),
+                    getString(R.string.cancel),
+                    null);
+
+            deleteDownloadsDialog.show(fm, TAG_DELETE_DOWNLOADS_DIALOG);
+        }
+    }
+
+    private void deleteDownloads(boolean withFile)
+    {
+        disposable.add(Observable.fromIterable(selectionTracker.getSelection())
+                .map((selection -> selection.info))
+                .toList()
+                .observeOn(Schedulers.io())
+                .flatMapCompletable((infoList) -> viewModel.deleteDownloads(infoList, withFile))
+                .subscribe());
+    }
+
+    private void shareDownloads()
+    {
+        disposable.add(Observable.fromIterable(selectionTracker.getSelection())
+                .toList()
+                .subscribe((items) -> {
+                    startActivity(Intent.createChooser(
+                            Utils.makeFileShareIntent(items),
+                            getString(R.string.share_via)));
+                }));
+    }
+
+    private void selectAllDownloads()
+    {
+        int n = adapter.getItemCount();
+        if (n > 0) {
+            selectionTracker.startRange(0);
+            selectionTracker.extendRange(adapter.getItemCount() - 1);
+        }
     }
 }

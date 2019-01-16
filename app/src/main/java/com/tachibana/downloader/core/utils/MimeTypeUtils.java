@@ -24,6 +24,9 @@ import java.util.HashMap;
 
 public class MimeTypeUtils
 {
+    public static final String DEFAULT_MIME_TYPE = "*/*";
+    public static final String MIME_TYPE_DELIMITER = "/";
+
     public enum Category
     {
         OTHER,

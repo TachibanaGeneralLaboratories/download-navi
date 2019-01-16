@@ -23,7 +23,6 @@ package com.tachibana.downloader.viewmodel;
 import android.app.Application;
 
 import com.tachibana.downloader.MainApplication;
-import com.tachibana.downloader.core.AppExecutors;
 import com.tachibana.downloader.core.entity.DownloadInfo;
 import com.tachibana.downloader.core.entity.InfoAndPieces;
 import com.tachibana.downloader.core.storage.DataRepository;
@@ -32,19 +31,18 @@ import java.util.List;
 
 import androidx.annotation.NonNull;
 import androidx.lifecycle.AndroidViewModel;
+import io.reactivex.Completable;
 import io.reactivex.Flowable;
 
 public class DownloadsViewModel extends AndroidViewModel
 {
     private DataRepository repo;
-    private AppExecutors appExecutors;
 
     public DownloadsViewModel(@NonNull Application application)
     {
         super(application);
 
         repo = ((MainApplication)getApplication()).getRepository();
-        appExecutors = ((MainApplication)getApplication()).getAppExecutors();
     }
 
     public Flowable<List<InfoAndPieces>> observerAllInfoAndPieces()
@@ -52,11 +50,13 @@ public class DownloadsViewModel extends AndroidViewModel
         return repo.observerAllInfoAndPieces();
     }
 
-    public void deleteDownload(DownloadInfo info)
+    public Completable deleteDownload(DownloadInfo info, boolean withFile)
     {
-        if (info == null)
-            return;
+        return Completable.fromAction(() -> repo.deleteInfo(getApplication(), info, withFile));
+    }
 
-        appExecutors.databaseIO().execute(() -> repo.deleteInfo(getApplication(), info, true));
+    public Completable deleteDownloads(List<DownloadInfo> infoList, boolean withFile)
+    {
+        return Completable.fromAction(() -> repo.deleteInfoList(getApplication(), infoList, withFile));
     }
 }

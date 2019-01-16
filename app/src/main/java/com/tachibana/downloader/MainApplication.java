@@ -22,34 +22,24 @@ package com.tachibana.downloader;
 
 import android.app.Application;
 
-import com.tachibana.downloader.core.AppExecutors;
 import com.tachibana.downloader.core.storage.AppDatabase;
 import com.tachibana.downloader.core.storage.DataRepository;
 
 public class MainApplication extends Application
 {
-    private AppExecutors appExecutors;
-
     @Override
     public void onCreate()
     {
         super.onCreate();
-
-        appExecutors = new AppExecutors();
     }
 
     public AppDatabase getDatabase()
     {
-        return AppDatabase.getInstance(this, appExecutors);
+        return AppDatabase.getInstance(this);
     }
 
     public DataRepository getRepository()
     {
         return DataRepository.getInstance(getDatabase());
-    }
-
-    public AppExecutors getAppExecutors()
-    {
-        return appExecutors;
     }
 }

@@ -69,6 +69,7 @@ public class DownloadService extends LifecycleService
     public static final String FOREGROUND_NOTIFY_CHAN_ID = "com.tachibana.downloader.FOREGROUND_NOTIFY_CHAN";
     public static final String ACTION_SHUTDOWN = "com.tachibana.downloader.service.DownloadService.ACTION_SHUTDOWN";
     public static final String ACTION_RUN_DOWNLOAD = "com.tachibana.downloader.service.ACTION_RUN_DOWNLOAD";
+    public static final String ACTION_PAUSE_DOWNLOAD = "com.tachibana.downloader.service.ACTION_PAUSE_DOWNLOAD";
     public static final String TAG_DOWNLOAD_ID = "download_id";
 
     private boolean isAlreadyRunning;
@@ -166,6 +167,9 @@ public class DownloadService extends LifecycleService
                 case NotificationReceiver.NOTIFY_ACTION_CANCEL:
                     cancelDownload((UUID)intent.getSerializableExtra(NotificationReceiver.TAG_ID));
                     break;
+                case ACTION_PAUSE_DOWNLOAD:
+                    pauseResumeDownload((UUID)intent.getSerializableExtra(TAG_DOWNLOAD_ID));
+                    break;
                 case NotificationReceiver.NOTIFY_ACTION_PAUSE_RESUME:
                     pauseResumeDownload((UUID)intent.getSerializableExtra(NotificationReceiver.TAG_ID));
                     break;
@@ -258,7 +262,7 @@ public class DownloadService extends LifecycleService
         deleteDownloadTask(id);
         /*
          * Control deletion of the notification if the state
-         * of the remote object wasn't received by the manager
+         * of the removed object wasn't received by the manager
          */
         downloadNotifier.remove(id);
 
@@ -325,7 +329,7 @@ public class DownloadService extends LifecycleService
 
     private void updateDownloadNotify(InfoAndPieces infoAndPieces)
     {
-        if (infoAndPieces == null || infoAndPieces.info == null)
+        if (infoAndPieces == null)
             return;
 
         boolean force = StatusCode.isStatusCompleted(infoAndPieces.info.statusCode) ||

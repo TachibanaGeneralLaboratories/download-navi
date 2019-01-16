@@ -22,11 +22,13 @@ package com.tachibana.downloader.fragment;
 
 import android.os.Bundle;
 
+import com.tachibana.downloader.adapter.DownloadItem;
 import com.tachibana.downloader.adapter.DownloadListAdapter;
 import com.tachibana.downloader.core.StatusCode;
-import com.tachibana.downloader.core.entity.InfoAndPieces;
+import com.tachibana.downloader.worker.DownloadScheduler;
 
 import androidx.annotation.NonNull;
+import io.reactivex.schedulers.Schedulers;
 
 public class QueuedDownloadsFragment extends DownloadsFragment
     implements DownloadListAdapter.QueueClickListener
@@ -48,25 +50,30 @@ public class QueuedDownloadsFragment extends DownloadsFragment
     {
         super.onStart();
 
-        subscribeAdapter((infoAndPieces) ->
-                !StatusCode.isStatusCompleted(infoAndPieces.info.statusCode));
+        subscribeAdapter((item) ->
+                !StatusCode.isStatusCompleted(item.info.statusCode));
     }
 
     @Override
-    public void onItemClicked(@NonNull InfoAndPieces item)
+    public void onItemClicked(@NonNull DownloadItem item)
     {
-
+        /* TODO: implement details dialog */
     }
 
     @Override
-    public void onItemPauseClicked(@NonNull InfoAndPieces item)
+    public void onItemPauseClicked(@NonNull DownloadItem item)
     {
-
+        if (item.info.statusCode == StatusCode.STATUS_PAUSED)
+            DownloadScheduler.runDownload(activity.getApplicationContext(), item.info);
+        else
+            DownloadScheduler.pauseDownload(activity.getApplicationContext(), item.info);
     }
 
     @Override
-    public void onItemCancelClicked(@NonNull InfoAndPieces item)
+    public void onItemCancelClicked(@NonNull DownloadItem item)
     {
-
+        disposable.add(viewModel.deleteDownload(item.info, true)
+                .subscribeOn(Schedulers.io())
+                .subscribe());
     }
 }
