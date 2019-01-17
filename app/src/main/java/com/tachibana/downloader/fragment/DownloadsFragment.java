@@ -179,20 +179,15 @@ public abstract class DownloadsFragment extends Fragment
     }
 
     @Override
-    public void onActivityCreated(@Nullable Bundle savedInstanceState)
+    public void onStart()
     {
-        super.onActivityCreated(savedInstanceState);
+        super.onStart();
 
-        if (activity == null)
-            activity = (AppCompatActivity)getActivity();
+        subscribeAlertDialog();
+    }
 
-        viewModel = ViewModelProviders.of(this).get(DownloadsViewModel.class);
-
-        FragmentManager fm = getFragmentManager();
-        if (fm != null)
-            deleteDownloadsDialog = (BaseAlertDialog)fm.findFragmentByTag(TAG_DELETE_DOWNLOADS_DIALOG);
-        dialogViewModel = ViewModelProviders.of(activity).get(BaseAlertDialog.SharedViewModel.class);
-
+    private void subscribeAlertDialog()
+    {
         Disposable d = dialogViewModel.observeEvents()
                 .subscribe((event) -> {
                     if (deleteDownloadsDialog == null)
@@ -212,6 +207,22 @@ public abstract class DownloadsFragment extends Fragment
                     }
                 });
         disposable.add(d);
+    }
+
+    @Override
+    public void onActivityCreated(@Nullable Bundle savedInstanceState)
+    {
+        super.onActivityCreated(savedInstanceState);
+
+        if (activity == null)
+            activity = (AppCompatActivity)getActivity();
+
+        viewModel = ViewModelProviders.of(this).get(DownloadsViewModel.class);
+
+        FragmentManager fm = getFragmentManager();
+        if (fm != null)
+            deleteDownloadsDialog = (BaseAlertDialog)fm.findFragmentByTag(TAG_DELETE_DOWNLOADS_DIALOG);
+        dialogViewModel = ViewModelProviders.of(activity).get(BaseAlertDialog.SharedViewModel.class);
     }
 
     @Override

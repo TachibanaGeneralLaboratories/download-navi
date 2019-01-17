@@ -71,20 +71,11 @@ public class FinishedDownloadsFragment extends DownloadsFragment
 
         subscribeAdapter((item) ->
                 StatusCode.isStatusCompleted(item.info.statusCode));
+        subscribeAlertDialog();
     }
 
-    @Override
-    public void onActivityCreated(@Nullable Bundle savedInstanceState)
+    private void subscribeAlertDialog()
     {
-        super.onActivityCreated(savedInstanceState);
-
-        if (savedInstanceState != null)
-            downloadForDeletion = savedInstanceState.getParcelable(TAG_DOWNLOAD_FOR_DELETION);
-
-        FragmentManager fm = getFragmentManager();
-        if (fm != null)
-            deleteDownloadDialog = (BaseAlertDialog)fm.findFragmentByTag(TAG_DELETE_DOWNLOAD_DIALOG);
-        dialogViewModel = ViewModelProviders.of(activity).get(BaseAlertDialog.SharedViewModel.class);
         Disposable d = dialogViewModel.observeEvents()
                 .subscribe((event) -> {
                     if (deleteDownloadDialog == null)
@@ -103,6 +94,20 @@ public class FinishedDownloadsFragment extends DownloadsFragment
                     }
                 });
         disposable.add(d);
+    }
+
+    @Override
+    public void onActivityCreated(@Nullable Bundle savedInstanceState)
+    {
+        super.onActivityCreated(savedInstanceState);
+
+        if (savedInstanceState != null)
+            downloadForDeletion = savedInstanceState.getParcelable(TAG_DOWNLOAD_FOR_DELETION);
+
+        FragmentManager fm = getFragmentManager();
+        if (fm != null)
+            deleteDownloadDialog = (BaseAlertDialog)fm.findFragmentByTag(TAG_DELETE_DOWNLOAD_DIALOG);
+        dialogViewModel = ViewModelProviders.of(activity).get(BaseAlertDialog.SharedViewModel.class);
     }
 
     @Override
