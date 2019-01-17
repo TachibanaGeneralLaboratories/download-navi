@@ -207,7 +207,7 @@ public class DownloadThread implements Callable<DownloadResult>
             } else {
                 for (DownloadPiece piece : pieces) {
                     /* TODO: maybe change handle status behaviour */
-                    if (piece.statusCode != STATUS_SUCCESS || piece.statusCode > info.statusCode) {
+                    if (piece.statusCode > info.statusCode) {
                         info.statusCode = piece.statusCode;
                         info.statusMsg = piece.statusMsg;
                         break;
