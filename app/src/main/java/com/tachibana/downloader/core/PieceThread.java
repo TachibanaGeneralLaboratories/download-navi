@@ -338,6 +338,9 @@ public class PieceThread extends Thread
         DownloadInfo info = repo.getInfoById(infoId);
         if (info == null)
             return new StopRequest(STATUS_CANCELLED, "Download deleted or missing");
+        StopRequest ret;
+        if ((ret = checkCancel()) != null)
+            return ret;
 
         /*
          * To detect when we're really finished, we either need a length, closed
@@ -411,6 +414,9 @@ public class PieceThread extends Thread
         byte[] buffer = new byte[BUFFER_SIZE];
         while (true) {
             StopRequest ret;
+            if ((ret = checkCancel()) != null)
+                return ret;
+
             int len = -1;
             try {
                 len = in.read(buffer);
@@ -533,5 +539,12 @@ public class PieceThread extends Thread
             return new StopRequest(STATUS_UNHANDLED_REDIRECT, error);
         else
             return new StopRequest(STATUS_UNHANDLED_HTTP_CODE, error);
+    }
+
+    private StopRequest checkCancel()
+    {
+        return (Thread.currentThread().isInterrupted() ?
+                new StopRequest(STATUS_CANCELLED, "Download cancelled") :
+                null);
     }
 }
