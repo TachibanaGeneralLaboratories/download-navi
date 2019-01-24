@@ -22,15 +22,21 @@ package com.tachibana.downloader;
 
 import android.app.Application;
 
+import com.tachibana.downloader.core.DownloadNotifier;
 import com.tachibana.downloader.core.storage.AppDatabase;
 import com.tachibana.downloader.core.storage.DataRepository;
 
 public class MainApplication extends Application
 {
+    private DownloadNotifier downloadNotifier;
+
     @Override
     public void onCreate()
     {
         super.onCreate();
+
+        downloadNotifier = new DownloadNotifier(this, getRepository());
+        downloadNotifier.startUpdate();
     }
 
     public AppDatabase getDatabase()

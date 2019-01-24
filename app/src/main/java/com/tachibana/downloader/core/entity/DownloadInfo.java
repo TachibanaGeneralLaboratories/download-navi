@@ -46,6 +46,24 @@ public class DownloadInfo implements Parcelable, Comparable<DownloadInfo>
 {
     /* Piece number can't be less or equal zero */
     public static final int MIN_PIECES = 1;
+    /*
+     * This download is visible but only shows in the notifications
+     * while it's in progress
+     */
+    public static final int VISIBILITY_VISIBLE = 0;
+    /*
+     * This download is visible and shows in the notifications while
+     * in progress and after completion
+     */
+    public static final int VISIBILITY_VISIBLE_NOTIFY_COMPLETED = 1;
+    /*
+     * This download doesn't show in the notifications
+     */
+    public static final int VISIBILITY_HIDDEN = 2;
+    /*
+     * This download shows in the notifications after completion ONLY
+     */
+    public static final int VISIBILITY_VISIBLE_NOTIFY_ONLY_COMPLETION = 3;
 
     @PrimaryKey
     @NonNull
@@ -66,6 +84,7 @@ public class DownloadInfo implements Parcelable, Comparable<DownloadInfo>
     public boolean partialSupport = true;
     public String statusMsg;
     public long dateAdded;
+    public int visibility = VISIBILITY_VISIBLE_NOTIFY_COMPLETED;
 
     public DownloadInfo(Uri filePath, String url,
                         String fileName, String mimeType)
@@ -93,6 +112,7 @@ public class DownloadInfo implements Parcelable, Comparable<DownloadInfo>
         retry = source.readByte() > 0;
         statusMsg = source.readString();
         dateAdded = source.readLong();
+        visibility = source.readInt();
     }
 
     @Override
@@ -117,6 +137,7 @@ public class DownloadInfo implements Parcelable, Comparable<DownloadInfo>
         dest.writeByte((byte)(retry ? 1 : 0));
         dest.writeString(statusMsg);
         dest.writeLong(dateAdded);
+        dest.writeInt(visibility);
     }
 
     public static final Parcelable.Creator<DownloadInfo> CREATOR =
@@ -227,7 +248,8 @@ public class DownloadInfo implements Parcelable, Comparable<DownloadInfo>
                 retry == info.retry &&
                 partialSupport == info.partialSupport &&
                 (statusMsg == null || statusMsg.equals(info.statusMsg)) &&
-                dateAdded == info.dateAdded;
+                dateAdded == info.dateAdded &&
+                visibility == info.visibility;
     }
 
     @Override
@@ -248,6 +270,7 @@ public class DownloadInfo implements Parcelable, Comparable<DownloadInfo>
                 ", partialSupport=" + partialSupport +
                 ", statusMsg='" + statusMsg + '\'' +
                 ", dateAdded=" + dateAdded +
+                ", visibility=" + visibility +
                 '}';
     }
 }

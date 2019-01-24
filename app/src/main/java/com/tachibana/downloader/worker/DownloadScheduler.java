@@ -81,7 +81,7 @@ public class DownloadScheduler extends Worker
             return;
 
         Data data = new Data.Builder()
-                .putString(TAG_ACTION, DownloadService.ACTION_PAUSE_DOWNLOAD)
+                .putString(TAG_ACTION, DownloadService.ACTION_PAUSE_RESUME_DOWNLOAD)
                 .putString(TAG_ID, info.id.toString())
                 .build();
         OneTimeWorkRequest work = new OneTimeWorkRequest.Builder(DownloadScheduler.class)
@@ -131,7 +131,7 @@ public class DownloadScheduler extends Worker
         switch (action) {
             case DownloadService.ACTION_RUN_DOWNLOAD:
                 return runDownloadAction(id);
-            case DownloadService.ACTION_PAUSE_DOWNLOAD:
+            case DownloadService.ACTION_PAUSE_RESUME_DOWNLOAD:
                 return runPauseAction(id);
         }
 
@@ -151,7 +151,7 @@ public class DownloadScheduler extends Worker
     private Result runPauseAction(UUID id)
     {
         Intent i = new Intent(getApplicationContext(), DownloadService.class);
-        i.setAction(DownloadService.ACTION_PAUSE_DOWNLOAD);
+        i.setAction(DownloadService.ACTION_PAUSE_RESUME_DOWNLOAD);
         i.putExtra(DownloadService.TAG_DOWNLOAD_ID, id);
         Utils.startServiceBackground(getApplicationContext(), i);
 

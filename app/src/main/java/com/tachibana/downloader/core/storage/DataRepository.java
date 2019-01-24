@@ -145,9 +145,9 @@ public class DataRepository
         }
     }
 
-    public Flowable<List<InfoAndPieces>> observerAllInfoAndPieces()
+    public Flowable<List<InfoAndPieces>> observeAllInfoAndPieces()
     {
-        return db.downloadDao().observerAllInfoAndPieces();
+        return db.downloadDao().observeAllInfoAndPieces();
     }
 
     public Single<List<DownloadInfo>> getAllInfoSingle()

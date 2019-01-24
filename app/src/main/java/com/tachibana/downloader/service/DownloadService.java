@@ -33,7 +33,6 @@ import androidx.lifecycle.LifecycleService;
 import io.reactivex.Observable;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.CompositeDisposable;
-import io.reactivex.disposables.Disposable;
 import io.reactivex.schedulers.Schedulers;
 
 import android.util.Log;
@@ -47,7 +46,6 @@ import com.tachibana.downloader.core.entity.DownloadInfo;
 import com.tachibana.downloader.core.DownloadResult;
 import com.tachibana.downloader.core.DownloadThread;
 import com.tachibana.downloader.core.StatusCode;
-import com.tachibana.downloader.core.entity.InfoAndPieces;
 import com.tachibana.downloader.core.storage.DataRepository;
 import com.tachibana.downloader.core.utils.Utils;
 import com.tachibana.downloader.receiver.NotificationReceiver;
@@ -69,7 +67,7 @@ public class DownloadService extends LifecycleService
     public static final String FOREGROUND_NOTIFY_CHAN_ID = "com.tachibana.downloader.FOREGROUND_NOTIFY_CHAN";
     public static final String ACTION_SHUTDOWN = "com.tachibana.downloader.service.DownloadService.ACTION_SHUTDOWN";
     public static final String ACTION_RUN_DOWNLOAD = "com.tachibana.downloader.service.ACTION_RUN_DOWNLOAD";
-    public static final String ACTION_PAUSE_DOWNLOAD = "com.tachibana.downloader.service.ACTION_PAUSE_DOWNLOAD";
+    public static final String ACTION_PAUSE_RESUME_DOWNLOAD = "com.tachibana.downloader.service.ACTION_PAUSE_RESUME_DOWNLOAD";
     public static final String TAG_DOWNLOAD_ID = "download_id";
 
     private boolean isAlreadyRunning;
@@ -81,7 +79,6 @@ public class DownloadService extends LifecycleService
     private SharedPreferences pref;
     private CompositeDisposable disposables = new CompositeDisposable();
     private HashMap<UUID, DownloadThread> tasks =  new HashMap<>();
-    private HashMap<UUID, Disposable> observableInfoList = new HashMap<>();
     private boolean requestShutdown;
 
     private void init()
@@ -90,7 +87,6 @@ public class DownloadService extends LifecycleService
         pref = SettingsManager.getPreferences(getApplicationContext());
         pref.registerOnSharedPreferenceChangeListener(this);
         notifyManager = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
-        downloadNotifier = new DownloadNotifier(getApplicationContext());
         repo = ((MainApplication)getApplication()).getRepository();
 
         makeNotifyChans(notifyManager);
@@ -100,14 +96,10 @@ public class DownloadService extends LifecycleService
     private void stopService()
     {
         disposables.clear();
-        observableInfoList.clear();
         pref.unregisterOnSharedPreferenceChangeListener(this);
         isAlreadyRunning = false;
         pref = null;
-
-        /* If manually shutdown */
-        if (requestShutdown)
-            clearNotifications();
+        downloadNotifier = null;
         requestShutdown = false;
 
         stopForeground(true);
@@ -125,7 +117,7 @@ public class DownloadService extends LifecycleService
     private void requestShutdown()
     {
         requestShutdown = true;
-        if (tasks.isEmpty())
+        if (checkShutdownService())
             stopService();
         else
             stopAllDownloads();
@@ -167,7 +159,7 @@ public class DownloadService extends LifecycleService
                 case NotificationReceiver.NOTIFY_ACTION_CANCEL:
                     cancelDownload((UUID)intent.getSerializableExtra(NotificationReceiver.TAG_ID));
                     break;
-                case ACTION_PAUSE_DOWNLOAD:
+                case ACTION_PAUSE_RESUME_DOWNLOAD:
                     pauseResumeDownload((UUID)intent.getSerializableExtra(TAG_DOWNLOAD_ID));
                     break;
                 case NotificationReceiver.NOTIFY_ACTION_PAUSE_RESUME:
@@ -177,36 +169,7 @@ public class DownloadService extends LifecycleService
         }
         /* TODO: autoloading of stopped downloads */
 
-        /* Clear old notifications */
-        clearNotifications();
-
         return START_STICKY;
-    }
-
-    private void clearNotifications()
-    {
-        try {
-            NotificationManager manager = (NotificationManager)getSystemService(NOTIFICATION_SERVICE);
-            if (manager != null)
-                manager.cancelAll();
-        } catch (SecurityException e) {
-            /* Ignore */
-        }
-    }
-
-    private void observeDownloadResult(DownloadResult result)
-    {
-        if (result == null)
-            return;
-
-        switch (result.status) {
-            case FINISHED:
-                onFinished(result.infoId);
-                break;
-            case CANCELLED:
-                onCancelled(result.infoId);
-                break;
-        }
     }
 
     private void onFinished(UUID id)
@@ -219,7 +182,8 @@ public class DownloadService extends LifecycleService
                 .filter((info) -> info != null)
                 .subscribe((info) -> {
                             handleInfoStatus(info);
-                            checkShutdownService();
+                            if (checkShutdownService())
+                                stopService();
                         },
                         (Throwable t) -> {
                             Log.e(TAG, "Getting info " + id + " error: " +
@@ -233,46 +197,30 @@ public class DownloadService extends LifecycleService
         if (info == null)
             return;
 
-        if (StatusCode.isStatusSuccess(info.statusCode)) {
-            downloadNotifier.update(info, true);
-        } else if (StatusCode.isStatusError(info.statusCode)) {
-            switch (info.statusCode) {
-                case HttpURLConnection.HTTP_UNAUTHORIZED:
-                    /* TODO: request authorization from user */
-                    break;
-                case HttpURLConnection.HTTP_PROXY_AUTH:
-                    /* TODO: proxy support */
-                    break;
-                default:
-                    downloadNotifier.update(info, true);
-                    break;
-            }
-        } else {
-            switch (info.statusCode) {
-                case StatusCode.STATUS_WAITING_TO_RETRY:
-                case StatusCode.STATUS_WAITING_FOR_NETWORK:
-                    DownloadScheduler.runDownload(getApplicationContext(), info);
-                    break;
-            }
+        switch (info.statusCode) {
+            case StatusCode.STATUS_WAITING_TO_RETRY:
+            case StatusCode.STATUS_WAITING_FOR_NETWORK:
+                DownloadScheduler.runDownload(getApplicationContext(), info);
+                break;
+            case HttpURLConnection.HTTP_UNAUTHORIZED:
+                /* TODO: request authorization from user */
+                break;
+            case HttpURLConnection.HTTP_PROXY_AUTH:
+                /* TODO: proxy support */
+                break;
         }
     }
 
     private void onCancelled(UUID id)
     {
         deleteDownloadTask(id);
-        /*
-         * Control deletion of the notification if the state
-         * of the removed object wasn't received by the manager
-         */
-        downloadNotifier.remove(id);
-
-        checkShutdownService();
+        if (checkShutdownService())
+            stopService();
     }
 
-    private void checkShutdownService()
+    private boolean checkShutdownService()
     {
-        if (tasks.isEmpty() || requestShutdown)
-            stopService();
+        return tasks.isEmpty() || requestShutdown;
     }
 
     private synchronized void runDownload(UUID id)
@@ -293,48 +241,27 @@ public class DownloadService extends LifecycleService
                         (Throwable t) -> Log.e(TAG, Log.getStackTraceString(t))
                 )
         );
-        observeInfo(id);
+    }
+
+    private void observeDownloadResult(DownloadResult result)
+    {
+        if (result == null)
+            return;
+
+        switch (result.status) {
+            case FINISHED:
+                onFinished(result.infoId);
+                break;
+            case PAUSED:
+            case CANCELLED:
+                onCancelled(result.infoId);
+                break;
+        }
     }
 
     private void deleteDownloadTask(UUID id)
     {
         tasks.remove(id);
-        stopObserveInfo(id);
-    }
-
-    private void observeInfo(UUID id)
-    {
-        Disposable d = observableInfoList.get(id);
-        if (d != null && !d.isDisposed())
-            return;
-
-        Disposable disposable = repo.observeInfoAndPiecesById(id)
-                        .subscribeOn(Schedulers.io())
-                        .observeOn(AndroidSchedulers.mainThread())
-                        .subscribe(this::updateDownloadNotify,
-                                (Throwable t) -> {
-                                    Log.e(TAG, "Getting info and pieces" + id + " error: " +
-                                            Log.getStackTraceString(t));
-                                });
-        observableInfoList.put(id, disposable);
-        disposables.add(disposable);
-    }
-
-    private void stopObserveInfo(UUID id)
-    {
-        Disposable d = observableInfoList.remove(id);
-        if (d != null && !d.isDisposed())
-            d.dispose();
-    }
-
-    private void updateDownloadNotify(InfoAndPieces infoAndPieces)
-    {
-        if (infoAndPieces == null)
-            return;
-
-        boolean force = StatusCode.isStatusCompleted(infoAndPieces.info.statusCode) ||
-                        infoAndPieces.info.statusCode == StatusCode.STATUS_PAUSED;
-        downloadNotifier.update(infoAndPieces, force);
     }
 
     private synchronized void pauseResumeDownload(UUID id)
@@ -351,10 +278,8 @@ public class DownloadService extends LifecycleService
                                 DownloadScheduler.runDownload(getApplicationContext(), info);
                             } else {
                                 DownloadThread task = tasks.get(id);
-                                if (task == null)
-                                    return;
-
-                                task.requestPause();
+                                if (task != null)
+                                    task.requestPause();
                             }
                         },
                         (Throwable t) -> {
@@ -381,12 +306,8 @@ public class DownloadService extends LifecycleService
         );
 
         DownloadThread task = tasks.get(id);
-        if (task == null) {
-            checkShutdownService();
-            return;
-        }
-
-        task.requestCancel();
+        if (task != null)
+            task.requestCancel();
     }
 
     private synchronized void pauseAllDownloads()

@@ -20,6 +20,10 @@
 
 package com.tachibana.downloader.core;
 
+import static android.app.DownloadManager.Request.VISIBILITY_HIDDEN;
+import static android.app.DownloadManager.Request.VISIBILITY_VISIBLE;
+import static android.app.DownloadManager.Request.VISIBILITY_VISIBLE_NOTIFY_COMPLETED;
+import static android.app.DownloadManager.Request.VISIBILITY_VISIBLE_NOTIFY_ONLY_COMPLETION;
 import static android.content.Context.NOTIFICATION_SERVICE;
 
 import android.app.Notification;
@@ -32,26 +36,39 @@ import android.os.Build;
 import android.os.SystemClock;
 import android.text.format.Formatter;
 import android.util.ArrayMap;
+import android.util.Log;
 
 import com.tachibana.downloader.R;
 import com.tachibana.downloader.core.entity.DownloadInfo;
 import com.tachibana.downloader.core.entity.DownloadPiece;
 import com.tachibana.downloader.core.entity.InfoAndPieces;
+import com.tachibana.downloader.core.storage.DataRepository;
 import com.tachibana.downloader.core.utils.DateFormatUtils;
 import com.tachibana.downloader.core.utils.Utils;
 import com.tachibana.downloader.receiver.NotificationReceiver;
 
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
 import java.util.UUID;
 
+import androidx.annotation.NonNull;
 import androidx.core.app.NotificationCompat;
 import androidx.core.content.ContextCompat;
+import io.reactivex.Completable;
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.disposables.CompositeDisposable;
+import io.reactivex.schedulers.Schedulers;
 
 /*
  * Update NotificationManager to reflect current download states.
  * Collapses similar downloads into a single notification.
  */
 
-public class DownloadNotifier {
+public class DownloadNotifier
+{
+    @SuppressWarnings("unused")
+    private static final String TAG = DownloadNotifier.class.getSimpleName();
 
     private static final int TYPE_ACTIVE = 1;
     private static final int TYPE_PENDING = 2;
@@ -70,6 +87,8 @@ public class DownloadNotifier {
      * when first shown
      */
     private final ArrayMap<UUID, NotificationGroup> activeNotifs = new ArrayMap<>();
+    private DataRepository repo;
+    private CompositeDisposable disposables = new CompositeDisposable();
 
     private class NotificationGroup
     {
@@ -85,12 +104,29 @@ public class DownloadNotifier {
         }
     }
 
-    public DownloadNotifier(Context context)
+    public DownloadNotifier(Context context, DataRepository repo)
     {
         this.context = context;
         notifyManager = (NotificationManager)context.getSystemService(NOTIFICATION_SERVICE);
+        this.repo = repo;
 
         makeNotifyChans();
+    }
+
+    public void startUpdate()
+    {
+        disposables.add(repo.observeAllInfoAndPieces()
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(this::update,
+                        (Throwable t) -> Log.e(TAG, "Getting info and pieces error: "
+                                + Log.getStackTraceString(t))
+                ));
+    }
+
+    public void stopUpdate()
+    {
+        disposables.clear();
     }
 
     private void makeNotifyChans()
@@ -109,44 +145,21 @@ public class DownloadNotifier {
                 NotificationManager.IMPORTANCE_DEFAULT));
     }
 
-    public void update(InfoAndPieces infoAndPieces, boolean force)
+    private void update(@NonNull List<InfoAndPieces> infoAndPiecesList)
     {
-        if (infoAndPieces == null || infoAndPieces.info == null ||
-            !(force || checkUpdateTime(infoAndPieces.info)))
-            return;
-
         synchronized (activeNotifs) {
-            int size = infoAndPieces.pieces.size();
-            long downloadBytes = 0;
-            long speed = 0;
+            HashSet<UUID> ids = new HashSet<>();
+            for (InfoAndPieces infoAndPieces : infoAndPiecesList) {
+                ids.add(infoAndPieces.info.id);
+                boolean force = StatusCode.isStatusCompleted(infoAndPieces.info.statusCode) ||
+                        infoAndPieces.info.statusCode == StatusCode.STATUS_PAUSED;
 
-            if (size > 0) {
-                for (DownloadPiece piece : infoAndPieces.pieces) {
-                    downloadBytes += piece.curBytes - infoAndPieces.info.pieceStartPos(piece);
-                    speed += piece.speed;
-                }
-                /* Average speed */
-                speed /= size;
+                if (!(force || checkUpdateTime(infoAndPieces.info)))
+                    continue;
+
+                updateWithLocked(infoAndPieces);
             }
-
-            updateWithLocked(infoAndPieces.info, downloadBytes, speed);
-        }
-    }
-
-    public void update(DownloadInfo info, boolean force)
-    {
-        if (info == null || !(force || checkUpdateTime(info)))
-            return;
-
-        synchronized (activeNotifs) {
-            updateWithLocked(info, 0, 0);
-        }
-    }
-
-    public void remove(UUID infoId)
-    {
-        synchronized (activeNotifs) {
-            clearNotifs(activeNotifs.get(infoId), null);
+            deleteNotifyGroups(ids);
         }
     }
 
@@ -163,15 +176,17 @@ public class DownloadNotifier {
         return timeDelta > MIN_PROGRESS_TIME;
     }
 
-    private void updateWithLocked(DownloadInfo info, long downloadBytes, long speed)
+    private void updateWithLocked(InfoAndPieces infoAndPieces)
     {
+        DownloadInfo info = infoAndPieces.info;
+
         NotificationGroup notifyGroup = activeNotifs.get(info.id);
         if (notifyGroup == null) {
             notifyGroup = new NotificationGroup(info.id, SystemClock.elapsedRealtime());
             activeNotifs.put(info.id, notifyGroup);
         }
         if (info.statusCode == StatusCode.STATUS_CANCELLED) {
-            clearNotifs(notifyGroup, null);
+            deleteNotifs(notifyGroup, null);
             return;
         }
 
@@ -280,6 +295,20 @@ public class DownloadNotifier {
         }
 
         /* Calculate and show progress */
+
+        int size = infoAndPieces.pieces.size();
+        long downloadBytes = 0;
+        long speed = 0;
+
+        if (size > 0) {
+            for (DownloadPiece piece : infoAndPieces.pieces) {
+                downloadBytes += piece.curBytes - info.pieceStartPos(piece);
+                speed += piece.speed;
+            }
+            /* Average speed */
+            speed /= size;
+        }
+
         int progress = 0;
         long ETA = Utils.calcETA(info.totalBytes, downloadBytes, speed);
         if (type == TYPE_ACTIVE) {
@@ -363,20 +392,35 @@ public class DownloadNotifier {
 
         notifyManager.notify(tag, 0, builder.build());
 
-        clearNotifs(notifyGroup, tag);
+        deleteNotifs(notifyGroup, tag);
+        if (type == TYPE_COMPLETE && info.visibility != VISIBILITY_HIDDEN)
+            markAsHidden(info);
+    }
+
+    /*
+     * Disable notifications for download
+     */
+
+    private void markAsHidden(DownloadInfo info)
+    {
+        info.visibility = VISIBILITY_HIDDEN;
+
+        disposables.add(Completable.fromAction(() -> repo.updateInfo(context, info, false, false))
+                .subscribeOn(Schedulers.io())
+                .subscribe());
     }
 
     /*
      * Remove stale tags that weren't renewed
      */
 
-    private void clearNotifs(NotificationGroup notifyGroup, String renewedTag)
+    private void deleteNotifs(NotificationGroup notifyGroup, String excludedTag)
     {
         if (notifyGroup == null)
             return;
         ArrayMap<String, Long> notifs = notifyGroup.notifs;
         for (int j = 0; j < notifs.size(); j++) {
-            if (renewedTag == null || !renewedTag.equals(notifs.keyAt(j))) {
+            if (excludedTag == null || !excludedTag.equals(notifs.keyAt(j))) {
                 notifyManager.cancel(notifs.keyAt(j), 0);
                 notifs.removeAt(j);
             }
@@ -385,16 +429,23 @@ public class DownloadNotifier {
             activeNotifs.remove(notifyGroup.downloadId);
     }
 
+    private void deleteNotifyGroups(@NonNull Set<UUID> excludedIds)
+    {
+        for (int i = 0; i < activeNotifs.size(); i++) {
+            UUID id = activeNotifs.keyAt(i);
+            if (excludedIds.contains(id))
+                continue;
+            deleteNotifs(activeNotifs.get(id), null);
+        }
+    }
+
     private static String makeNotificationTag(DownloadInfo info)
     {
-        if (info.statusCode == StatusCode.STATUS_RUNNING ||
-            info.statusCode == StatusCode.STATUS_PAUSED)
+        if (isActiveAndVisible(info.statusCode, info.visibility))
             return TYPE_ACTIVE + ":" + info.id;
-        else if (info.statusCode == StatusCode.STATUS_PENDING ||
-                info.statusCode == StatusCode.STATUS_WAITING_FOR_NETWORK ||
-                info.statusCode == StatusCode.STATUS_WAITING_TO_RETRY)
+        else if (isPendingAndVisible(info.statusCode, info.visibility))
             return TYPE_PENDING + ":" + info.id;
-        else if (StatusCode.isStatusCompleted(info.statusCode))
+        else if (isCompleteAndVisible(info.statusCode, info.visibility))
             return TYPE_COMPLETE + ":" + info.id;
         else
             return null;
@@ -403,5 +454,29 @@ public class DownloadNotifier {
     private static int getNotificationTagType(String tag)
     {
         return (tag == null ? -1 : Integer.parseInt(tag.substring(0, tag.indexOf(':'))));
+    }
+
+    private static boolean isPendingAndVisible(int statusCode, int visibility)
+    {
+        return (statusCode == StatusCode.STATUS_PENDING ||
+                statusCode == StatusCode.STATUS_WAITING_FOR_NETWORK ||
+                statusCode == StatusCode.STATUS_WAITING_TO_RETRY) &&
+                (visibility == VISIBILITY_VISIBLE ||
+                 visibility == VISIBILITY_VISIBLE_NOTIFY_COMPLETED);
+    }
+
+    private static boolean isActiveAndVisible(int statusCode, int visibility)
+    {
+        return (statusCode == StatusCode.STATUS_RUNNING ||
+                statusCode == StatusCode.STATUS_PAUSED) &&
+                (visibility == VISIBILITY_VISIBLE ||
+                 visibility == VISIBILITY_VISIBLE_NOTIFY_COMPLETED);
+    }
+
+    private static boolean isCompleteAndVisible(int statusCode, int visibility)
+    {
+        return StatusCode.isStatusCompleted(statusCode) &&
+                (visibility == VISIBILITY_VISIBLE_NOTIFY_COMPLETED
+                        || visibility == VISIBILITY_VISIBLE_NOTIFY_ONLY_COMPLETION);
     }
 }

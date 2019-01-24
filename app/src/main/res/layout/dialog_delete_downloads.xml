@@ -10,5 +10,6 @@
         android:layout_height="wrap_content"
         android:layout_margin="@dimen/dialog_padding"
         android:textColor="?android:attr/textColorPrimary"
+        android:checked="true"
         android:text="@string/delete_with_downloaded_file" />
 </LinearLayout>

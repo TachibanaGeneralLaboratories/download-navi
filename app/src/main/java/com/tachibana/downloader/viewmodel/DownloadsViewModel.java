@@ -47,7 +47,7 @@ public class DownloadsViewModel extends AndroidViewModel
 
     public Flowable<List<InfoAndPieces>> observerAllInfoAndPieces()
     {
-        return repo.observerAllInfoAndPieces();
+        return repo.observeAllInfoAndPieces();
     }
 
     public Completable deleteDownload(DownloadInfo info, boolean withFile)
