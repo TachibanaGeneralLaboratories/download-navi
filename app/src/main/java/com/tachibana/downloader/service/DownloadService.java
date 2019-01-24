@@ -297,17 +297,18 @@ public class DownloadService extends LifecycleService
         disposables.add(repo.getInfoByIdSingle(id)
                 .subscribeOn(Schedulers.io())
                 .filter((info) -> info != null)
-                .subscribe((info) -> repo.deleteInfo(getApplicationContext(), info, true),
+                .subscribe((info) -> {
+                            repo.deleteInfo(getApplicationContext(), info, true);
+                            DownloadThread task = tasks.get(id);
+                            if (task != null)
+                                task.requestCancel();
+                        },
                         (Throwable t) -> {
                             Log.e(TAG, "Getting info " + id + " error: " +
                                     Log.getStackTraceString(t));
                         }
                 )
         );
-
-        DownloadThread task = tasks.get(id);
-        if (task != null)
-            task.requestCancel();
     }
 
     private synchronized void pauseAllDownloads()
