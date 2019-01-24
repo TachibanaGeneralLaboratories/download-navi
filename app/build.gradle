@@ -49,7 +49,7 @@ dependencies {
     implementation 'io.reactivex.rxjava2:rxjava:2.1.9'
     implementation 'io.reactivex.rxjava2:rxandroid:2.0.2'
 
-    implementation 'android.arch.work:work-runtime:1.0.0-beta01'
+    implementation 'android.arch.work:work-runtime:1.0.0-beta02'
     implementation 'com.github.aakira:expandable-layout:1.6.0@aar'
     implementation 'com.android.support.constraint:constraint-layout:1.1.3'
 }

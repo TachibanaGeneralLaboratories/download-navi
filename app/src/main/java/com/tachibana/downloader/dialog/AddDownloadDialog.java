@@ -232,12 +232,13 @@ public class AddDownloadDialog extends DialogFragment
                     .subscribeOn(Schedulers.io())
                     .subscribe());
         });
-        String systemUserAgent = new WebView(activity).getSettings().getUserAgentString();
         /* Get other user agents */
         viewModel.observerUserAgents().observe(this, (userAgentList) -> {
             userAgentAdapter.clear();
             /* System user agent is always first */
-            userAgentAdapter.add(new UserAgent(systemUserAgent));
+            UserAgent systemUserAgent = new UserAgent(Utils.getSystemUserAgent(activity));
+            systemUserAgent.readOnly = true;
+            userAgentAdapter.add(systemUserAgent);
             userAgentAdapter.addAll(userAgentList);
             if (userAgentSpinnerPos > 0)
                 binding.userAgent.setSelection(userAgentSpinnerPos);

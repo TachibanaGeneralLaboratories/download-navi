@@ -58,9 +58,9 @@ public class UserAgentAdapter extends ArrayAdapter<UserAgent>
             textView.setText(userAgent.userAgent);
         }
 
-        /* Ignore manually added user agents (e.g system user agent) and null */
+        /* Ignore read only system agents (e.g system user agent) and null */
         ImageView deleteButton = view.findViewById(R.id.delete);
-        if (userAgent != null && userAgent.id > 0)
+        if (userAgent != null && !userAgent.readOnly)
             deleteButton.setOnClickListener((View v) -> {
                 if (deleteListener != null)
                     deleteListener.onDelete(userAgent);

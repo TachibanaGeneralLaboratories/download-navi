@@ -29,6 +29,8 @@ public class UserAgent
     @PrimaryKey(autoGenerate = true)
     public long id;
     public String userAgent;
+    /* Makes it impossible to delete or change user agent */
+    public boolean readOnly = false;
 
     public UserAgent(String userAgent)
     {

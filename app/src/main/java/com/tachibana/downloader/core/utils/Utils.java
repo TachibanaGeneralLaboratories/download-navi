@@ -37,6 +37,7 @@ import android.os.Build;
 import android.text.TextUtils;
 import android.util.TypedValue;
 import android.view.View;
+import android.webkit.WebView;
 import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 
@@ -63,6 +64,7 @@ import javax.net.ssl.TrustManagerFactory;
 import javax.net.ssl.X509TrustManager;
 
 import androidx.annotation.Nullable;
+import androidx.annotation.UiThread;
 import androidx.core.content.ContextCompat;
 
 import static com.tachibana.downloader.core.utils.MimeTypeUtils.DEFAULT_MIME_TYPE;
@@ -493,5 +495,16 @@ public class Utils
         i.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
 
         return i;
+    }
+
+    /*
+     * Get system user agent (from WebView).
+     * Requires UI thread for WebView
+     */
+
+    @UiThread
+    public static String getSystemUserAgent(Context context)
+    {
+        return new WebView(context).getSettings().getUserAgentString();
     }
 }
