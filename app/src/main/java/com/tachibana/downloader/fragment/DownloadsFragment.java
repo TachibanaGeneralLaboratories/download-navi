@@ -364,8 +364,8 @@ public abstract class DownloadsFragment extends Fragment
     {
         int n = adapter.getItemCount();
         if (n > 0) {
-//            selectionTracker.startRange(0);
-//            selectionTracker.extendRange(adapter.getItemCount() - 1);
+            selectionTracker.startRange(0);
+            selectionTracker.extendRange(adapter.getItemCount() - 1);
         }
     }
 }
