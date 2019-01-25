@@ -46,6 +46,8 @@ public class DownloadInfo implements Parcelable, Comparable<DownloadInfo>
 {
     /* Piece number can't be less or equal zero */
     public static final int MIN_PIECES = 1;
+    /* Recommended max number of pieces */
+    public static final int MAX_PIECES = 16;
     /*
      * This download is visible but only shows in the notifications
      * while it's in progress
@@ -56,13 +58,9 @@ public class DownloadInfo implements Parcelable, Comparable<DownloadInfo>
      * in progress and after completion
      */
     public static final int VISIBILITY_VISIBLE_NOTIFY_COMPLETED = 1;
-    /*
-     * This download doesn't show in the notifications
-     */
+    /* This download doesn't show in the notifications */
     public static final int VISIBILITY_HIDDEN = 2;
-    /*
-     * This download shows in the notifications after completion ONLY
-     */
+    /* This download shows in the notifications after completion ONLY */
     public static final int VISIBILITY_VISIBLE_NOTIFY_ONLY_COMPLETION = 3;
 
     @PrimaryKey
@@ -163,6 +161,9 @@ public class DownloadInfo implements Parcelable, Comparable<DownloadInfo>
 
         if (!partialSupport && numPieces > 1)
             throw new IllegalStateException("The download doesn't support partial download");
+
+        if (totalBytes < numPieces && totalBytes != -1)
+            throw new IllegalStateException("The number of pieces can't be more than the number of total bytes");
 
         this.numPieces = numPieces;
     }

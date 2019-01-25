@@ -53,6 +53,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import androidx.annotation.NonNull;
+import androidx.databinding.ObservableInt;
 import androidx.documentfile.provider.DocumentFile;
 import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LiveData;
@@ -68,6 +69,7 @@ public class AddDownloadViewModel extends AndroidViewModel
     private DataRepository repo;
     public AddDownloadParams params = new AddDownloadParams();
     public MutableLiveData<State> fetchState = new MutableLiveData<>();
+    public ObservableInt maxNumPieces = new ObservableInt(DownloadInfo.MAX_PIECES);
 
     public enum Status
     {
@@ -252,6 +254,11 @@ public class AddDownloadViewModel extends AndroidViewModel
             params.setTotalBytes(-1);
         }
         params.setPartialSupport("bytes".equalsIgnoreCase(conn.getHeaderField("Accept-Ranges")));
+
+        /* The number of pieces can't be more than the number of bytes */
+        long total = params.getTotalBytes();
+        if (total > 0)
+            maxNumPieces.set(total < maxNumPieces.get() ? (int)total : maxNumPieces.get());
     }
 
     public void addDownload(Uri filePath)

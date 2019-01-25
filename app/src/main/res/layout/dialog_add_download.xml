@@ -194,7 +194,7 @@
                             android:layout_height="wrap_content"
                             android:layout_marginBottom="16dp"
                             android:progress="0"
-                            android:max="15"
+                            android:max="@{model.maxNumPieces - 1}"
                             style="@style/Widget.AppCompat.SeekBar.Discrete" />
 
                         <TextView
