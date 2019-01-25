@@ -21,8 +21,6 @@
 package com.tachibana.downloader.core.storage;
 
 import android.content.Context;
-import android.content.Intent;
-import android.provider.DocumentsContract;
 import android.util.Log;
 
 import com.tachibana.downloader.core.entity.DownloadInfo;
@@ -30,6 +28,7 @@ import com.tachibana.downloader.core.entity.DownloadPiece;
 import com.tachibana.downloader.core.entity.Header;
 import com.tachibana.downloader.core.entity.InfoAndPieces;
 import com.tachibana.downloader.core.entity.UserAgent;
+import com.tachibana.downloader.core.utils.FileUtils;
 
 import java.io.FileNotFoundException;
 import java.util.List;
@@ -76,7 +75,8 @@ public class DataRepository
     {
         if (context == null)
             return;
-        takeUriPermission(context, info);
+
+        FileUtils.takeUriPermission(context, info.filePath);
         db.downloadDao().addInfo(info, headers);
     }
 
@@ -90,8 +90,9 @@ public class DataRepository
             DownloadInfo oldInfo = db.downloadDao().getInfoById(info.id);
             if (oldInfo == null)
                 return;
-            releaseUriPermission(context, oldInfo);
-            takeUriPermission(context, info);
+
+            FileUtils.releaseUriPermission(context, oldInfo.filePath);
+            FileUtils.takeUriPermission(context, info.filePath);
         }
         if (numPiecesChanged)
             db.downloadDao().updateInfoWithPieces(info);
@@ -105,7 +106,7 @@ public class DataRepository
 
         if (withFile) {
             try {
-                DocumentsContract.deleteDocument(context.getContentResolver(), info.filePath);
+                FileUtils.deleteFile(context, info.filePath);
 
             } catch (FileNotFoundException | SecurityException e) {
                 Log.w(TAG, Log.getStackTraceString(e));
@@ -113,7 +114,7 @@ public class DataRepository
 
         } else {
             try {
-                releaseUriPermission(context, info);
+                FileUtils.releaseUriPermission(context, info.filePath);
 
             } catch (SecurityException e) {
                 /* Ignore */
@@ -128,7 +129,7 @@ public class DataRepository
         for (DownloadInfo info : infoList) {
             if (withFile) {
                 try {
-                    DocumentsContract.deleteDocument(context.getContentResolver(), info.filePath);
+                    FileUtils.deleteFile(context, info.filePath);
 
                 } catch (FileNotFoundException | SecurityException | IllegalStateException e) {
                     Log.w(TAG, Log.getStackTraceString(e));
@@ -136,7 +137,7 @@ public class DataRepository
 
             } else {
                 try {
-                    releaseUriPermission(context, info);
+                    FileUtils.releaseUriPermission(context, info.filePath);
 
                 } catch (SecurityException e) {
                     /* Ignore */
@@ -203,17 +204,5 @@ public class DataRepository
     public LiveData<List<UserAgent>> observeUserAgents()
     {
         return db.userAgentDao().observeAll();
-    }
-
-    private void releaseUriPermission(Context context, DownloadInfo info)
-    {
-        int takeFlags = Intent.FLAG_GRANT_READ_URI_PERMISSION | Intent.FLAG_GRANT_WRITE_URI_PERMISSION;
-        context.getContentResolver().releasePersistableUriPermission(info.filePath, takeFlags);
-    }
-
-    private void takeUriPermission(Context context, DownloadInfo info)
-    {
-        int takeFlags = Intent.FLAG_GRANT_READ_URI_PERMISSION | Intent.FLAG_GRANT_WRITE_URI_PERMISSION;
-        context.getContentResolver().takePersistableUriPermission(info.filePath, takeFlags);
     }
 }

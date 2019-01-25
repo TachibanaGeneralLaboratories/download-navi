@@ -309,7 +309,7 @@ public class AddDownloadViewModel extends AndroidViewModel
                 availBytes = FileUtils.getAvailableBytes(pfd.getFileDescriptor());
 
             } catch (Exception e) {
-                /* Ignore */
+                Log.e(TAG, Log.getStackTraceString(e));
             }
 
             if (availBytes < params.getTotalBytes()) {

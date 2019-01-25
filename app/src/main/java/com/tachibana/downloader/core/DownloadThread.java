@@ -21,6 +21,7 @@
 package com.tachibana.downloader.core;
 
 import android.content.Context;
+import android.os.Build;
 import android.os.ParcelFileDescriptor;
 import android.util.Log;
 
@@ -119,6 +120,7 @@ public class DownloadThread implements Callable<DownloadResult>
             if ((ret = execDownload()) != null) {
                 info.statusCode = ret.getFinalStatus();
                 info.statusMsg = ret.getMessage();
+                Log.i(TAG, "id=" + id + ", " + info.statusMsg);
             } else {
                 info.statusCode = STATUS_SUCCESS;
             }
@@ -269,7 +271,8 @@ public class DownloadThread implements Callable<DownloadResult>
             } catch (InterruptedIOException e) {
                 requestCancel();
             } catch (IOException e) {
-                return new StopRequest(STATUS_INSUFFICIENT_SPACE_ERROR, e);
+                Log.e(TAG, Log.getStackTraceString(e));
+                return null;
             }
 
         } finally {

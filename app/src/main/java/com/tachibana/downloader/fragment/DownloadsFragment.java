@@ -333,7 +333,8 @@ public abstract class DownloadsFragment extends Fragment
                     R.layout.dialog_delete_downloads,
                     getString(R.string.ok),
                     getString(R.string.cancel),
-                    null);
+                    null,
+                    false);
 
             deleteDownloadsDialog.show(fm, TAG_DELETE_DOWNLOADS_DIALOG);
         }

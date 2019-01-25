@@ -49,6 +49,7 @@ public class BaseAlertDialog extends DialogFragment
     protected static final String TAG_NEG_TEXT = "negative_text";
     protected static final String TAG_NEUTRAL_BUTTON = "neutral_button";
     protected static final String TAG_RES_ID_VIEW = "res_id_view";
+    protected static final String TAG_AUTO_DISMISS = "auto_dismiss";
     protected SharedViewModel viewModel;
 
     public static class SharedViewModel extends androidx.lifecycle.ViewModel
@@ -78,7 +79,7 @@ public class BaseAlertDialog extends DialogFragment
 
     public static BaseAlertDialog newInstance(String title, String message, int resIdView,
                                               String positiveText, String negativeText,
-                                              String neutralText)
+                                              String neutralText, boolean autoDismiss)
     {
         BaseAlertDialog frag = new BaseAlertDialog();
 
@@ -89,6 +90,7 @@ public class BaseAlertDialog extends DialogFragment
         args.putString(TAG_NEG_TEXT, negativeText);
         args.putString(TAG_NEUTRAL_BUTTON, neutralText);
         args.putInt(TAG_RES_ID_VIEW, resIdView);
+        args.putBoolean(TAG_AUTO_DISMISS, autoDismiss);
 
         frag.setArguments(args);
 
@@ -108,6 +110,7 @@ public class BaseAlertDialog extends DialogFragment
         String negativeText = args.getString(TAG_NEG_TEXT);
         String neutralText = args.getString(TAG_NEUTRAL_BUTTON);
         int resIdView = args.getInt(TAG_RES_ID_VIEW);
+        boolean autoDismiss = args.getBoolean(TAG_AUTO_DISMISS);
 
         LayoutInflater i = LayoutInflater.from(getActivity());
         View v = null;
@@ -123,16 +126,25 @@ public class BaseAlertDialog extends DialogFragment
             Button negativeButton = alert.getButton(AlertDialog.BUTTON_NEGATIVE);
             Button neutralButton = alert.getButton(AlertDialog.BUTTON_NEUTRAL);
             if (positiveButton != null) {
-                positiveButton.setOnClickListener((view) ->
-                        viewModel.sendEvent(Event.POSITIVE_BUTTON_CLICKED));
+                positiveButton.setOnClickListener((view) -> {
+                    viewModel.sendEvent(Event.POSITIVE_BUTTON_CLICKED);
+                    if (autoDismiss)
+                        dismiss();
+                });
             }
             if (negativeButton != null) {
-                negativeButton.setOnClickListener((view) ->
-                        viewModel.sendEvent(Event.NEGATIVE_BUTTON_CLICKED));
+                negativeButton.setOnClickListener((view) -> {
+                    viewModel.sendEvent(Event.NEGATIVE_BUTTON_CLICKED);
+                    if (autoDismiss)
+                        dismiss();
+                });
             }
             if (neutralButton != null) {
-                neutralButton.setOnClickListener((view) ->
-                        viewModel.sendEvent(Event.NEUTRAL_BUTTON_CLICKED));
+                neutralButton.setOnClickListener((view) -> {
+                    viewModel.sendEvent(Event.NEUTRAL_BUTTON_CLICKED);
+                    if (autoDismiss)
+                        dismiss();
+                });
             }
 
             viewModel.sendEvent(Event.DIALOG_SHOWN);

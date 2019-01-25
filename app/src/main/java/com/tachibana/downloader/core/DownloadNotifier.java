@@ -286,7 +286,7 @@ public class DownloadNotifier
                         PendingIntent.getActivity(
                                 context,
                                 0,
-                                Intent.createChooser(Utils.createOpenFileIntent(info),
+                                Intent.createChooser(Utils.createOpenFileIntent(context, info),
                                         context.getString(R.string.open_using)),
                                 PendingIntent.FLAG_UPDATE_CURRENT);
 

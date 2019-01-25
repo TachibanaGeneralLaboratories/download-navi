@@ -1,6 +1,6 @@
 /*
- * Copyright (C) 2018 Tachibana General Laboratories, LLC
- * Copyright (C) 2018 Yaroslav Pronin <proninyaroslav@mail.ru>
+ * Copyright (C) 2018, 2019 Tachibana General Laboratories, LLC
+ * Copyright (C) 2018, 2019 Yaroslav Pronin <proninyaroslav@mail.ru>
  *
  * This file is part of Download Navi.
  *
@@ -25,6 +25,7 @@ import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
 
 import com.tachibana.downloader.R;
+import com.tachibana.downloader.core.utils.FileUtils;
 
 public class SettingsManager
 {
@@ -35,6 +36,8 @@ public class SettingsManager
         /* Network settings */
         public static final boolean wifiOnly = false;
         public static final boolean enableRoaming = true;
+        /* Filemanager settings */
+        public static final String fileManagerLastDir = FileUtils.getDefaultDownloadPath();
     }
 
     public static SharedPreferences getPreferences(Context context)

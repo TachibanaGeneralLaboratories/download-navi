@@ -28,4 +28,5 @@
     <dimen name="min_width_dialog">300dp</dimen>
     <dimen name="dialog_padding">24dp</dimen>
     <dimen name="toolbar_elevation">4dp</dimen>
+    <dimen name="list_item_size">56dp</dimen>
 </resources>

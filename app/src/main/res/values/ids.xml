@@ -2,4 +2,5 @@
 <resources>
     <item name="statusBarKitKat" type="id" />
     <item name="toolbar" type="id" />
+    <item name="title_cur_folder_path" type="id" />
 </resources>

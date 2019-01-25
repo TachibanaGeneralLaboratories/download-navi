@@ -23,15 +23,19 @@ package com.tachibana.downloader.dialog;
 import android.animation.ObjectAnimator;
 import android.app.Activity;
 import android.app.Dialog;
+import android.content.ActivityNotFoundException;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
+import android.os.Environment;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.webkit.WebView;
+import android.webkit.MimeTypeMap;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.SeekBar;
@@ -42,19 +46,24 @@ import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
 import com.tachibana.downloader.FragmentCallback;
 import com.tachibana.downloader.R;
+import com.tachibana.downloader.RequestPermissions;
 import com.tachibana.downloader.adapter.UserAgentAdapter;
 import com.tachibana.downloader.core.entity.UserAgent;
 import com.tachibana.downloader.core.exception.HttpException;
 import com.tachibana.downloader.core.utils.FileUtils;
 import com.tachibana.downloader.core.utils.Utils;
 import com.tachibana.downloader.databinding.DialogAddDownloadBinding;
+import com.tachibana.downloader.dialog.filemanager.FileManagerConfig;
+import com.tachibana.downloader.dialog.filemanager.FileManagerDialog;
 import com.tachibana.downloader.viewmodel.AddDownloadViewModel;
 
+import java.io.File;
 import java.io.IOException;
 import java.net.ConnectException;
 import java.net.MalformedURLException;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.databinding.DataBindingUtil;
@@ -72,9 +81,11 @@ public class AddDownloadDialog extends DialogFragment
 
     private static final String TAG_ADD_USER_AGENT_DIALOG = "add_user_agent_dialog";
     private static final int CREATE_FILE_REQUEST_CODE = 1;
+    private static final int CHOOSE_PATH_TO_SAVE_REQUEST_CODE = 2;
     private static final String TAG_USER_AGENT_SPINNER_POS = "user_agent_spinner_pos";
     private static final String TAG_URL = "url";
     private static final String TAG_CONN_IMMEDIATELY = "conn_immediately";
+    private static final String TAG_PERM_DIALOG_IS_SHOW = "perm_dialog_is_show";
 
     /* In the absence of any parameter need set 0 or null */
 
@@ -88,6 +99,7 @@ public class AddDownloadDialog extends DialogFragment
     private int userAgentSpinnerPos = 0;
     private boolean connImmediately = false;
     private CompositeDisposable disposable = new CompositeDisposable();
+    private boolean permDialogIsShow = false;
 
     public static AddDownloadDialog newInstance(String url)
     {
@@ -135,6 +147,20 @@ public class AddDownloadDialog extends DialogFragment
         super.onStop();
 
         disposable.clear();
+    }
+
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState)
+    {
+        super.onCreate(savedInstanceState);
+
+        if (savedInstanceState != null)
+            permDialogIsShow = savedInstanceState.getBoolean(TAG_PERM_DIALOG_IS_SHOW);
+
+        if (!Utils.checkStoragePermission(activity.getApplicationContext()) && !permDialogIsShow) {
+            permDialogIsShow = true;
+            startActivity(new Intent(activity, RequestPermissions.class));
+        }
     }
 
     @NonNull
@@ -378,6 +404,7 @@ public class AddDownloadDialog extends DialogFragment
     {
         outState.putInt(TAG_USER_AGENT_SPINNER_POS, userAgentSpinnerPos);
         outState.putBoolean(TAG_CONN_IMMEDIATELY, connImmediately);
+        outState.putBoolean(TAG_PERM_DIALOG_IS_SHOW, permDialogIsShow);
 
         super.onSaveInstanceState(outState);
     }
@@ -392,7 +419,8 @@ public class AddDownloadDialog extends DialogFragment
                     R.layout.dialog_text_input,
                     getString(R.string.ok),
                     getString(R.string.cancel),
-                    null);
+                    null,
+                    false);
 
             addLinkDialog.show(fm, TAG_ADD_USER_AGENT_DIALOG);
         }
@@ -536,23 +564,71 @@ public class AddDownloadDialog extends DialogFragment
                 Intent.FLAG_GRANT_WRITE_URI_PERMISSION |
                 Intent.FLAG_GRANT_PERSISTABLE_URI_PERMISSION);
 
-        startActivityForResult(intent, CREATE_FILE_REQUEST_CODE);
+        try {
+            startActivityForResult(intent, CREATE_FILE_REQUEST_CODE);
+
+        } catch (ActivityNotFoundException e) {
+            /* Device doesn't support SAF, (e.g. Android TV) */
+            createCustomFileDialog();
+        }
+    }
+
+    private void createCustomFileDialog()
+    {
+        Intent i = new Intent(activity, FileManagerDialog.class);
+
+        String fileName = viewModel.params.getFileName();
+        String extension = null;
+        if (TextUtils.isEmpty(FileUtils.getExtension(fileName)))
+            extension = MimeTypeMap.getSingleton().getExtensionFromMimeType(
+                    viewModel.params.getMimeType());
+
+        FileManagerConfig config = new FileManagerConfig(
+                FileUtils.getUserDirPath(),
+                getString(R.string.select_folder_to_save),
+                null,
+                FileManagerConfig.SAVE_FILE_MODE)
+                .setFileName((extension == null) ?
+                        fileName :
+                        fileName + FileUtils.EXTENSION_SEPARATOR + extension);
+        i.putExtra(FileManagerDialog.TAG_CONFIG, config);
+        startActivityForResult(i, CHOOSE_PATH_TO_SAVE_REQUEST_CODE);
     }
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data)
     {
-        if (requestCode != CREATE_FILE_REQUEST_CODE || resultCode != Activity.RESULT_OK)
+        if (resultCode != Activity.RESULT_OK)
             return;
 
         if (data == null) {
-            Toast.makeText(activity.getApplicationContext(),
-                    getString(R.string.add_download_error_unable_to_create_file),
-                    Toast.LENGTH_SHORT)
-                    .show();
+            createFileErrorToast();
             return;
         }
-        viewModel.addDownload(data.getData());
+        switch (requestCode) {
+            case CREATE_FILE_REQUEST_CODE:
+                viewModel.addDownload(data.getData());
+                break;
+            case CHOOSE_PATH_TO_SAVE_REQUEST_CODE:
+                if (!data.hasExtra(FileManagerDialog.TAG_RETURNED_PATH)) {
+                    createFileErrorToast();
+                    return;
+                }
+                try {
+                    File f = new File(data.getStringExtra(FileManagerDialog.TAG_RETURNED_PATH));
+                    boolean success = f.createNewFile();
+                    if (!success) {
+                        createFileErrorToast();
+                        return;
+                    }
+                    viewModel.addDownload(Uri.fromFile(f));
+                } catch (IOException e) {
+                    Log.e(TAG, Log.getStackTraceString(e));
+                    createFileErrorToast();
+                    return;
+                }
+                break;
+        }
 
         Toast.makeText(activity.getApplicationContext(),
                 String.format(getString(R.string.download_ticker_notify),
@@ -561,6 +637,14 @@ public class AddDownloadDialog extends DialogFragment
                 .show();
 
         finish(new Intent(), FragmentCallback.ResultCode.OK);
+    }
+
+    private void createFileErrorToast()
+    {
+        Toast.makeText(activity.getApplicationContext(),
+                getString(R.string.add_download_error_unable_to_create_file),
+                Toast.LENGTH_SHORT)
+                .show();
     }
 
     public void onBackPressed()

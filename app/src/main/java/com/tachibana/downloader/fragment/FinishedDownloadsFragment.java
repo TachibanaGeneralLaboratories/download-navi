@@ -122,7 +122,7 @@ public class FinishedDownloadsFragment extends DownloadsFragment
     public void onItemClicked(@NonNull DownloadItem item)
     {
         startActivity(Intent.createChooser(
-                Utils.createOpenFileIntent(item.info),
+                Utils.createOpenFileIntent(activity.getApplicationContext(), item.info),
                 getString(R.string.open_using)));
     }
 
@@ -153,7 +153,8 @@ public class FinishedDownloadsFragment extends DownloadsFragment
                     R.layout.dialog_delete_downloads,
                     getString(R.string.ok),
                     getString(R.string.cancel),
-                    null);
+                    null,
+                    false);
 
             deleteDownloadDialog.show(fm, TAG_DELETE_DOWNLOAD_DIALOG);
         }

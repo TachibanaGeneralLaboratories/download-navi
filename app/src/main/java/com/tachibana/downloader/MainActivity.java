@@ -41,6 +41,8 @@ import com.tachibana.downloader.receiver.NotificationReceiver;
 
 public class MainActivity extends AppCompatActivity
 {
+    private static final String TAG_PERM_DIALOG_IS_SHOW = "perm_dialog_is_show";
+
     /* Android data binding doesn't work with layout aliases */
     private CoordinatorLayout coordinatorLayout;
     private Toolbar toolbar;
@@ -51,6 +53,7 @@ public class MainActivity extends AppCompatActivity
     private ViewPager viewPager;
     private DownloadListPagerAdapter adapter;
     private FloatingActionButton fab;
+    private boolean permDialogIsShow = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -62,6 +65,14 @@ public class MainActivity extends AppCompatActivity
             getIntent().getAction().equals(NotificationReceiver.NOTIFY_ACTION_SHUTDOWN_APP)) {
             finish();
             return;
+        }
+
+        if (savedInstanceState != null)
+            permDialogIsShow = savedInstanceState.getBoolean(TAG_PERM_DIALOG_IS_SHOW);
+
+        if (!Utils.checkStoragePermission(getApplicationContext()) && !permDialogIsShow) {
+            permDialogIsShow = true;
+            startActivity(new Intent(this, RequestPermissions.class));
         }
 
         setContentView(R.layout.activity_main);
@@ -101,6 +112,14 @@ public class MainActivity extends AppCompatActivity
         tabLayout.setupWithViewPager(viewPager);
 
         fab.setOnClickListener((View v) -> startActivity(new Intent(this, AddDownloadActivity.class)));
+    }
+
+    @Override
+    public void onSaveInstanceState(Bundle outState)
+    {
+        super.onSaveInstanceState(outState);
+
+        outState.putBoolean(TAG_PERM_DIALOG_IS_SHOW, permDialogIsShow);
     }
 
     @Override

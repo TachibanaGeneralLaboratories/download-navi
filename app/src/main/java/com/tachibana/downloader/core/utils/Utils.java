@@ -20,6 +20,7 @@
 
 package com.tachibana.downloader.core.utils;
 
+import android.Manifest;
 import android.annotation.TargetApi;
 import android.app.Activity;
 import android.content.ClipData;
@@ -27,6 +28,7 @@ import android.content.ClipboardManager;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.pm.PackageManager;
 import android.content.res.Resources;
 import android.net.ConnectivityManager;
 import android.net.Network;
@@ -46,6 +48,7 @@ import com.tachibana.downloader.adapter.DownloadItem;
 import com.tachibana.downloader.core.entity.DownloadInfo;
 import com.tachibana.downloader.settings.SettingsManager;
 
+import java.io.File;
 import java.net.IDN;
 import java.net.MalformedURLException;
 import java.net.URL;
@@ -66,6 +69,7 @@ import javax.net.ssl.X509TrustManager;
 import androidx.annotation.Nullable;
 import androidx.annotation.UiThread;
 import androidx.core.content.ContextCompat;
+import androidx.core.content.FileProvider;
 
 import static com.tachibana.downloader.core.utils.MimeTypeUtils.DEFAULT_MIME_TYPE;
 import static com.tachibana.downloader.core.utils.MimeTypeUtils.MIME_TYPE_DELIMITER;
@@ -487,12 +491,19 @@ public class Utils
         return i;
     }
 
-    public static Intent createOpenFileIntent(DownloadInfo info)
+    public static Intent createOpenFileIntent(Context context, DownloadInfo info)
     {
         Intent i = new Intent();
         i.setAction(Intent.ACTION_VIEW);
-        i.setDataAndType(info.filePath, info.mimeType);
         i.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
+
+        if (FileUtils.isFileSystemPath(info.filePath))
+            i.setDataAndType(FileProvider.getUriForFile(context,
+                    context.getPackageName() + ".provider",
+                    new File(info.filePath.getPath())),
+                    info.mimeType);
+        else
+            i.setDataAndType(info.filePath, info.mimeType);
 
         return i;
     }
@@ -506,5 +517,11 @@ public class Utils
     public static String getSystemUserAgent(Context context)
     {
         return new WebView(context).getSettings().getUserAgentString();
+    }
+
+    public static boolean checkStoragePermission(Context context)
+    {
+        return ContextCompat.checkSelfPermission(context,
+                Manifest.permission.WRITE_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED;
     }
 }
