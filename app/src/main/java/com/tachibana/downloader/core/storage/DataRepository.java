@@ -21,6 +21,7 @@
 package com.tachibana.downloader.core.storage;
 
 import android.content.Context;
+import android.net.Uri;
 import android.util.Log;
 
 import com.tachibana.downloader.core.entity.DownloadInfo;
@@ -76,12 +77,11 @@ public class DataRepository
         if (context == null)
             return;
 
-        FileUtils.takeUriPermission(context, info.filePath);
         db.downloadDao().addInfo(info, headers);
     }
 
     public void updateInfo(Context context, DownloadInfo info,
-                           boolean filePathChanged, boolean numPiecesChanged)
+                           boolean filePathChanged, boolean rebuildPieces)
     {
         if (context == null)
             return;
@@ -90,11 +90,8 @@ public class DataRepository
             DownloadInfo oldInfo = db.downloadDao().getInfoById(info.id);
             if (oldInfo == null)
                 return;
-
-            FileUtils.releaseUriPermission(context, oldInfo.filePath);
-            FileUtils.takeUriPermission(context, info.filePath);
         }
-        if (numPiecesChanged)
+        if (rebuildPieces)
             db.downloadDao().updateInfoWithPieces(info);
         else
             db.downloadDao().updateInfo(info);
@@ -106,18 +103,13 @@ public class DataRepository
 
         if (withFile) {
             try {
-                FileUtils.deleteFile(context, info.filePath);
+                Uri filePath = FileUtils.getFileUri(context, info.dirPath, info.fileName);
+                if (filePath == null)
+                    return;
+                FileUtils.deleteFile(context, filePath);
 
             } catch (FileNotFoundException | SecurityException e) {
                 Log.w(TAG, Log.getStackTraceString(e));
-            }
-
-        } else {
-            try {
-                FileUtils.releaseUriPermission(context, info.filePath);
-
-            } catch (SecurityException e) {
-                /* Ignore */
             }
         }
     }
@@ -129,19 +121,15 @@ public class DataRepository
         for (DownloadInfo info : infoList) {
             if (withFile) {
                 try {
-                    FileUtils.deleteFile(context, info.filePath);
+                    Uri filePath = FileUtils.getFileUri(context, info.dirPath, info.fileName);
+                    if (filePath == null)
+                        return;
+                    FileUtils.deleteFile(context, filePath);
 
                 } catch (FileNotFoundException | SecurityException | IllegalStateException e) {
                     Log.w(TAG, Log.getStackTraceString(e));
                 }
 
-            } else {
-                try {
-                    FileUtils.releaseUriPermission(context, info.filePath);
-
-                } catch (SecurityException e) {
-                    /* Ignore */
-                }
             }
         }
     }
@@ -154,11 +142,6 @@ public class DataRepository
     public Single<List<DownloadInfo>> getAllInfoSingle()
     {
         return db.downloadDao().getAllInfoSingle();
-    }
-
-    public Flowable<InfoAndPieces> observeInfoAndPiecesById(UUID id)
-    {
-        return db.downloadDao().observeInfoAndPiecesById(id);
     }
 
     public DownloadInfo getInfoById(UUID id)
@@ -189,6 +172,11 @@ public class DataRepository
     public List<Header> getHeadersById(UUID infoId)
     {
         return db.downloadDao().getHeadersById(infoId);
+    }
+
+    public void addHeader(Header header)
+    {
+        db.downloadDao().addHeader(header);
     }
 
     public void addUserAgent(UserAgent agent)

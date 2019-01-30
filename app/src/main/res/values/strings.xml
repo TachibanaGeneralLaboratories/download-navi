@@ -36,6 +36,7 @@
     <string name="error">Error</string>
     <string name="file">File</string>
     <string name="folder">Folder</string>
+    <string name="fetching_metadata">Fetching metadata</string>
 
     <!-- Permission dialog -->
     <string name="perm_denied_title">Permission denied</string>
@@ -81,11 +82,14 @@
     <string name="fetch_error_network_disconnected">network is disconnected</string>
     <string name="fetch_error_http_response" formatted="false">Error: server returned HTTP %1$d code</string>
     <string name="fetch_error_io" formatted="false">IO error: %1$s</string>
-    <string name="add_download_error_unable_to_create_file">Unable to create file</string>
+    <string name="unable_to_open_folder">Unable to open selected folder. Please try to select another folder</string>
+    <string name="unable_to_create_file">Unable to create file. Please try to select another folder</string>
     <string name="partial_download_not_supported">This download doesn\'t support pause and downloading by pieces</string>
     <string name="download_pieces_number_title" formatted="false">Number of pieces: %1$d</string>
     <string name="download_description">Description</string>
     <string name="select_folder_to_save">Select the folder to save</string>
+    <string name="path">Path</string>
+    <string name="storage_free_space" formatted="false">Free space: %1$s</string>
 
     <!-- Add user agent dialog -->
     <string name="dialog_add_user_agent_title">Add user agent</string>
@@ -114,7 +118,6 @@
     <string name="file_chooser_title">File selection</string>
     <string name="dialog_new_folder_title">New folder</string>
     <string name="error_dialog_new_folder">Unable to create a new folder</string>
-    <string name="error_perm_write_in_folder">Unable to use selected folder to download. Please select another folder</string>
     <string name="error_open_dir">Unable to open the folder</string>
     <string name="home_directory">Home</string>
     <!-- name (size) -->
@@ -124,6 +127,10 @@
     <string name="permission_denied">Permission denied</string>
     <string name="save_file">Save file</string>
     <string name="file_name">File name</string>
-    <string name="error_file_exists">File already exists</string>
+    <string name="error_file_exists">File already exists. Replace it?</string>
     <string name="file_name_is_empty">File name cannot be empty</string>
+    <string name="system_manager">System manager</string>
+    <string name="device_does_not_support_this_feauter">Your device doesn\'t support this feature</string>
+    <string name="system_file_manager_not_found">System file manager not found</string>
+    <string name="replace_file">Replace file</string>
 </resources>

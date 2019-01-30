@@ -38,6 +38,8 @@ public class SettingsManager
         public static final boolean enableRoaming = true;
         /* Filemanager settings */
         public static final String fileManagerLastDir = FileUtils.getDefaultDownloadPath();
+        /* Storage settings */
+        public static final String lastDownloadDirUri = "file://" + FileUtils.getDefaultDownloadPath();
     }
 
     public static SharedPreferences getPreferences(Context context)

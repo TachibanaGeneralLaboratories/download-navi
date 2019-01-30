@@ -37,6 +37,11 @@ public class StatusCode
     public static final int STATUS_PENDING = 190;
     /* This download has started */
     public static final int STATUS_RUNNING = 192;
+    /*
+     * Download was added, but missing some metadata
+     * (e.g. MIME-type, size, headers, etc)
+     */
+    public static final int STATUS_FETCH_METADATA = 193;
     /* This download encountered some network error and is waiting before retrying the request */
     public static final int STATUS_WAITING_TO_RETRY = 194;
     /* This download is waiting for network connectivity to proceed */

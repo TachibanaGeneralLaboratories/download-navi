@@ -39,14 +39,16 @@ public class FileManagerConfig implements Parcelable
     public String title;
     /* File extension, e.g 'torrent' */
     public List<String> highlightFileTypes;
+    /* For save dialog */
     public String fileName;
     public int showMode;
+    public boolean canReplace;
+    public String mimeType;
 
-    public FileManagerConfig(String path, String title, List<String> highlightFileType, int mode)
+    public FileManagerConfig(String path, String title, int mode)
     {
         this.path = path;
         this.title = title;
-        this.highlightFileTypes = highlightFileType;
         showMode = mode;
     }
 
@@ -58,6 +60,8 @@ public class FileManagerConfig implements Parcelable
         source.readStringList(highlightFileTypes);
         showMode = source.readInt();
         fileName = source.readString();
+        canReplace = source.readByte() != 0;
+        mimeType = source.readString();
     }
 
     public FileManagerConfig setFileName(String name)
@@ -81,6 +85,8 @@ public class FileManagerConfig implements Parcelable
         dest.writeStringList(highlightFileTypes);
         dest.writeInt(showMode);
         dest.writeString(fileName);
+        dest.writeByte((byte)(canReplace ? 1 : 0));
+        dest.writeString(mimeType);
     }
 
     public static final Creator<FileManagerConfig> CREATOR =

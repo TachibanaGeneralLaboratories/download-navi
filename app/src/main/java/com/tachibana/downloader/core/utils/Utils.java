@@ -66,6 +66,7 @@ import javax.net.ssl.TrustManager;
 import javax.net.ssl.TrustManagerFactory;
 import javax.net.ssl.X509TrustManager;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.annotation.UiThread;
 import androidx.core.content.ContextCompat;
@@ -417,7 +418,7 @@ public class Utils
         return color;
     }
 
-    public static Intent makeFileShareIntent(List<DownloadItem> items)
+    public static Intent makeFileShareIntent(@NonNull Context context, List<DownloadItem> items)
     {
         Intent i = new Intent();
         String intentAction;
@@ -429,7 +430,16 @@ public class Utils
             if (item == null)
                 continue;
 
-            itemsUri.add(item.info.filePath);
+            DownloadInfo info = item.info;
+            Uri filePath = FileUtils.getFileUri(context, info.dirPath, info.fileName);
+            if (filePath != null) {
+                if (FileUtils.isFileSystemPath(filePath))
+                    filePath = FileProvider.getUriForFile(context,
+                            context.getPackageName() + ".provider",
+                            new File(filePath.getPath()));
+
+                itemsUri.add(filePath);
+            };
 
             String mimeType = item.info.mimeType;
             if (TextUtils.isEmpty(mimeType)) {
@@ -497,13 +507,17 @@ public class Utils
         i.setAction(Intent.ACTION_VIEW);
         i.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
 
-        if (FileUtils.isFileSystemPath(info.filePath))
+        Uri filePath = FileUtils.getFileUri(context, info.dirPath, info.fileName);
+        if (filePath == null)
+            return i;
+
+        if (FileUtils.isFileSystemPath(filePath))
             i.setDataAndType(FileProvider.getUriForFile(context,
                     context.getPackageName() + ".provider",
-                    new File(info.filePath.getPath())),
+                    new File(filePath.getPath())),
                     info.mimeType);
         else
-            i.setDataAndType(info.filePath, info.mimeType);
+            i.setDataAndType(filePath, info.mimeType);
 
         return i;
     }
@@ -523,5 +537,26 @@ public class Utils
     {
         return ContextCompat.checkSelfPermission(context,
                 Manifest.permission.WRITE_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED;
+    }
+
+    /*
+     * Retain download dir path and its permissions (if SAF path).
+     */
+
+    public static void retainDownloadDir(@NonNull Context context, @NonNull Uri dirPath)
+    {
+        SharedPreferences pref = SettingsManager.getPreferences(context);
+        String key = context.getString(R.string.pref_key_last_download_dir_uri);
+
+        try {
+            FileUtils.takeUriPermission(context, dirPath);
+
+        } catch (SecurityException e) {
+            /* Save default value */
+            pref.edit().putString(key, SettingsManager.Default.lastDownloadDirUri).apply();
+            return;
+        }
+
+        pref.edit().putString(key, dirPath.toString()).apply();
     }
 }

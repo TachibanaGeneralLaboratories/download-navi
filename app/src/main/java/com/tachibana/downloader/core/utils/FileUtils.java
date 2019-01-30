@@ -26,6 +26,8 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Environment;
+import android.os.ParcelFileDescriptor;
+import android.os.StatFs;
 import android.os.storage.StorageManager;
 import android.provider.DocumentsContract;
 import android.system.Os;
@@ -33,6 +35,7 @@ import android.system.OsConstants;
 import android.system.StructStatVfs;
 import android.text.TextUtils;
 import android.util.Log;
+import android.util.Pair;
 
 import java.io.Closeable;
 import java.io.File;
@@ -41,9 +44,9 @@ import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
-import java.util.ArrayList;
 
 import androidx.annotation.NonNull;
+import androidx.documentfile.provider.DocumentFile;
 
 public class FileUtils
 {
@@ -93,6 +96,149 @@ public class FileUtils
     }
 
     /*
+     * Returns a file (if exists) Uri by name from the pointed directory
+     */
+
+    public static Uri getFileUri(@NonNull Context context,
+                                 @NonNull Uri dir,
+                                 @NonNull String fileName)
+    {
+        if (isFileSystemPath(dir)) {
+            File f = new File(dir.getPath(), fileName);
+
+            return (f.exists() ? Uri.fromFile(f) : null);
+
+        } else {
+            DocumentFile tree = DocumentFile.fromTreeUri(context, dir);
+            DocumentFile f;
+            try {
+                f = tree.findFile(fileName);
+
+            } catch (UnsupportedOperationException e) {
+                return null;
+            }
+
+            return (f != null ? f.getUri() : null);
+        }
+    }
+
+    /*
+     * Returns Uri and name of created file.
+     * Note: if replace == false, doesn't replace file if it exists and returns its Uri.
+     *       Storage Access Framework can change the name after creating the file
+     *       (e.g. extension), please check it after returning.
+     */
+
+    public static Pair<Uri, String> createFile(@NonNull Context context,
+                                               @NonNull Uri dir,
+                                               @NonNull String desiredFileName,
+                                               @NonNull String mimeType,
+                                               boolean replace) throws IOException
+    {
+        if (isFileSystemPath(dir)) {
+            File f = new File(dir.getPath(), desiredFileName);
+            try {
+                if (f.exists()) {
+                    if (!replace)
+                        return Pair.create(Uri.fromFile(f), desiredFileName);
+                    else if (!f.delete())
+                        return null;
+                }
+                if (!f.createNewFile())
+                    return null;
+
+            } catch (IOException | SecurityException e) {
+                throw new IOException(e);
+            }
+
+            return Pair.create(Uri.fromFile(f), desiredFileName);
+
+        } else {
+            DocumentFile tree = DocumentFile.fromTreeUri(context, dir);
+            DocumentFile f;
+            try {
+                f = tree.findFile(desiredFileName);
+                if (f != null) {
+                    if (!replace)
+                        return Pair.create(f.getUri(), desiredFileName);
+                    else if (!DocumentsContract.deleteDocument(context.getContentResolver(), f.getUri()))
+                        return null;
+                }
+                f = tree.createFile(mimeType, desiredFileName);
+
+            } catch (UnsupportedOperationException e) {
+                throw new IOException(e);
+            }
+            if (f == null)
+                throw new IOException("Unable to create file {name=" + desiredFileName + ", dir=" + dir + "}");
+
+            /* Maybe an extension was added to the file name */
+            String newName = f.getName();
+
+            return Pair.create(f.getUri(), (newName == null ? desiredFileName : newName));
+        }
+    }
+
+    /*
+     * If file with required name exists returns new filename in the following format:
+     *
+     *     base_name (count_number).extension
+     *
+     * otherwise returns original filename
+     */
+
+    public static String makeFilename(@NonNull Context context,
+                                      @NonNull Uri dir,
+                                      @NonNull String desiredFileName)
+    {
+        while (true) {
+            /* File doesn't exists, return */
+            Uri filePath = getFileUri(context, dir, desiredFileName);
+            if (filePath == null)
+                return desiredFileName;
+
+            String fileName;
+            if (isFileSystemPath(filePath)) {
+                fileName = new File(filePath.getPath()).getName();
+            } else {
+                DocumentFile f = DocumentFile.fromSingleUri(context, filePath);
+                String name = f.getName();
+                fileName = (name == null ? desiredFileName : name);
+            }
+
+            int openBracketPos = fileName.lastIndexOf("(");
+            int closeBracketPos = fileName.lastIndexOf(")");
+
+            /* Try to parse the counter number and increment it for a new filename */
+            int countNumber;
+            if (openBracketPos > 0 && closeBracketPos > 0) {
+                try {
+                    countNumber = Integer.parseInt(fileName.substring(openBracketPos + 1, closeBracketPos));
+
+                    desiredFileName = fileName.substring(0, openBracketPos + 1) +
+                            ++countNumber + fileName.substring(closeBracketPos);
+                    continue;
+
+                } catch (NumberFormatException e) {
+                    /* Ignore */
+                }
+            }
+
+            /* Otherwise create a name with the initial value of the counter */
+            countNumber = 1;
+            int extensionPos = fileName.lastIndexOf(EXTENSION_SEPARATOR);
+            String baseName = (extensionPos < 0 ? fileName : fileName.substring(0, extensionPos));
+
+            StringBuilder sb = new StringBuilder(baseName + " (" + countNumber + ")");
+            if (extensionPos > 0)
+                sb.append(EXTENSION_SEPARATOR)
+                  .append(FileUtils.getExtension(fileName));
+
+            desiredFileName = sb.toString();
+        }
+    }
+
+    /*
      * Return true if the uri is a simple filesystem path
      */
 
@@ -113,7 +259,7 @@ public class FileUtils
     {
         String scheme = uri.getScheme();
         if (scheme == null)
-            throw new IllegalArgumentException("Scheme of " + uri.getPath() + " is null");
+            throw new IllegalArgumentException("Scheme of " + uri + " is null");
 
         return scheme.equals("content");
     }
@@ -148,57 +294,6 @@ public class FileUtils
             return path;
         else
             return dir.mkdirs() ? path : "";
-    }
-
-    /*
-     * Returns all shared/external storage devices where the application can place files it owns.
-     * For Android below 4.4 returns only primary storage (standard download path).
-     */
-
-    public static ArrayList<String> getStorageList(Context context)
-    {
-        ArrayList<String> storages = new ArrayList<>();
-        storages.add(Environment.getExternalStorageDirectory().getAbsolutePath());
-
-        String altPath = altExtStoragePath();
-        if (!TextUtils.isEmpty(altPath))
-            storages.add(altPath);
-
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
-            /*
-             * First volume returned by getExternalFilesDirs is always primary storage,
-             * or emulated. Further entries, if they exist, will be secondary or external SD,
-             * see http://www.doubleencore.com/2014/03/android-external-storage/
-             */
-            File[] filesDirs = context.getExternalFilesDirs(null);
-
-            if (filesDirs != null) {
-                /* Skip primary storage */
-                for (int i = 1; i < filesDirs.length; i++) {
-                    if (filesDirs[i] != null) {
-                        if (filesDirs[i].exists())
-                            storages.add(filesDirs[i].getAbsolutePath());
-                        else
-                            Log.w(TAG, "Unexpected external storage: " + filesDirs[i].getAbsolutePath());
-                    }
-                }
-            }
-        }
-
-        return storages;
-    }
-
-    private  static String altExtStoragePath()
-    {
-        File extdir = new File("/storage/sdcard1");
-        String path = "";
-        if (extdir.exists() && extdir.isDirectory()) {
-            File[] contents = extdir.listFiles();
-            if (contents != null && contents.length > 0)
-                path = extdir.toString();
-        }
-
-        return path;
     }
 
     /*
@@ -314,6 +409,45 @@ public class FileUtils
         } catch (Exception e) {
             throw new IOException(e);
         }
+    }
+
+    public static long getDirAvailableBytes(@NonNull Context context,
+                                            @NonNull Uri dir)
+    {
+        long availableBytes = -1;
+
+        if (isFileSystemPath(dir)) {
+            try {
+                File file = new File(dir.getPath());
+                availableBytes = file.getUsableSpace();
+
+            } catch (Exception e) {
+                /* This provides invalid space on some devices */
+                try {
+                    StatFs stat = new StatFs(dir.getPath());
+
+                    availableBytes = stat.getAvailableBytes();
+                } catch (Exception ee) {
+                    Log.e(TAG, Log.getStackTraceString(e));
+                    return availableBytes;
+                }
+            }
+
+        } else if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            Uri pseudoDirPath = DocumentsContract.buildDocumentUriUsingTree(dir,
+                    DocumentsContract.getTreeDocumentId(dir));
+            try {
+                ParcelFileDescriptor pfd = context.getContentResolver()
+                        .openFileDescriptor(pseudoDirPath, "r");
+                availableBytes = getAvailableBytes(pfd.getFileDescriptor());
+
+            } catch (IllegalArgumentException | IOException e) {
+                Log.e(TAG, Log.getStackTraceString(e));
+                return availableBytes;
+            }
+        }
+
+        return availableBytes;
     }
 
     /*

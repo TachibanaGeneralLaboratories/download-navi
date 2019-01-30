@@ -92,9 +92,9 @@ public class RequestPermissions extends AppCompatActivity
     {
         Disposable d = dialogViewModel.observeEvents()
                 .subscribe((event) -> {
-                    if (permDialog == null)
+                    if (!event.dialogTag.equals(TAG_PERM_DIALOG) || permDialog == null)
                         return;
-                    switch (event) {
+                    switch (event.type) {
                         case POSITIVE_BUTTON_CLICKED:
                             permDialog.dismiss();
                             setResult(RESULT_OK);

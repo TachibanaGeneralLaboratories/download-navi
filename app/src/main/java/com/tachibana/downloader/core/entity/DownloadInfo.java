@@ -66,13 +66,19 @@ public class DownloadInfo implements Parcelable, Comparable<DownloadInfo>
     @PrimaryKey
     @NonNull
     public UUID id;
-    /* SAF storage */
+    /*
+     * SAF or filesystem storage
+     * (with content:// or file:// scheme respectively)
+     */
     @TypeConverters({UriConverter.class})
-    public Uri filePath;
+    @NonNull
+    public Uri dirPath;
+    @NonNull
     public String url;
+    @NonNull
     public String fileName;
     public String description;
-    public String mimeType;
+    public String mimeType = "application/octet-stream";
     public long totalBytes = -1;
     private int numPieces = MIN_PIECES;
     public int statusCode = StatusCode.STATUS_PENDING;
@@ -83,22 +89,24 @@ public class DownloadInfo implements Parcelable, Comparable<DownloadInfo>
     public String statusMsg;
     public long dateAdded;
     public int visibility = VISIBILITY_VISIBLE_NOTIFY_COMPLETED;
+    /* E.g. MIME-type, size, headers, etc */
+    public boolean hasMetadata = true;
 
-    public DownloadInfo(Uri filePath, String url,
-                        String fileName, String mimeType)
+    public DownloadInfo(@NonNull Uri dirPath,
+                        @NonNull String url,
+                        @NonNull String fileName)
     {
         this.id = UUID.randomUUID();
-        this.filePath = filePath;
+        this.dirPath = dirPath;
         this.url = url;
         this.fileName = fileName;
-        this.mimeType = mimeType;
     }
 
     @Ignore
     public DownloadInfo(@NonNull Parcel source)
     {
         id = (UUID)source.readSerializable();
-        filePath = source.readParcelable(Uri.class.getClassLoader());
+        dirPath = source.readParcelable(Uri.class.getClassLoader());
         url = source.readString();
         fileName = source.readString();
         description = source.readString();
@@ -111,6 +119,7 @@ public class DownloadInfo implements Parcelable, Comparable<DownloadInfo>
         statusMsg = source.readString();
         dateAdded = source.readLong();
         visibility = source.readInt();
+        hasMetadata = source.readByte() > 0;
     }
 
     @Override
@@ -123,7 +132,7 @@ public class DownloadInfo implements Parcelable, Comparable<DownloadInfo>
     public void writeToParcel(Parcel dest, int flags)
     {
         dest.writeSerializable(id);
-        dest.writeParcelable(filePath, flags);
+        dest.writeParcelable(dirPath, flags);
         dest.writeString(url);
         dest.writeString(fileName);
         dest.writeString(description);
@@ -136,6 +145,7 @@ public class DownloadInfo implements Parcelable, Comparable<DownloadInfo>
         dest.writeString(statusMsg);
         dest.writeLong(dateAdded);
         dest.writeInt(visibility);
+        dest.writeByte((byte)(hasMetadata ? 1 : 0));
     }
 
     public static final Parcelable.Creator<DownloadInfo> CREATOR =
@@ -162,7 +172,7 @@ public class DownloadInfo implements Parcelable, Comparable<DownloadInfo>
         if (!partialSupport && numPieces > 1)
             throw new IllegalStateException("The download doesn't support partial download");
 
-        if (totalBytes < numPieces && totalBytes != -1)
+        if (totalBytes > 0 && totalBytes < numPieces)
             throw new IllegalStateException("The number of pieces can't be more than the number of total bytes");
 
         this.numPieces = numPieces;
@@ -237,9 +247,9 @@ public class DownloadInfo implements Parcelable, Comparable<DownloadInfo>
         DownloadInfo info = (DownloadInfo)o;
 
         return id.equals(info.id) &&
-                (filePath == null || filePath.equals(info.filePath)) &&
-                (url == null || url.equals(info.url)) &&
-                (fileName == null || fileName.equals(info.fileName)) &&
+                dirPath.equals(info.dirPath) &&
+                url.equals(info.url) &&
+                fileName.equals(info.fileName) &&
                 (description == null || description.equals(info.description)) &&
                 (mimeType == null || mimeType.equals(info.mimeType)) &&
                 totalBytes == info.totalBytes &&
@@ -258,7 +268,7 @@ public class DownloadInfo implements Parcelable, Comparable<DownloadInfo>
     {
         return "DownloadInfo{" +
                 "id=" + id +
-                ", filePath=" + filePath +
+                ", dirPath=" + dirPath +
                 ", url='" + url + '\'' +
                 ", fileName='" + fileName + '\'' +
                 ", description='" + description + '\'' +
@@ -272,6 +282,7 @@ public class DownloadInfo implements Parcelable, Comparable<DownloadInfo>
                 ", statusMsg='" + statusMsg + '\'' +
                 ", dateAdded=" + dateAdded +
                 ", visibility=" + visibility +
+                ", hasMetadata=" + hasMetadata +
                 '}';
     }
 }

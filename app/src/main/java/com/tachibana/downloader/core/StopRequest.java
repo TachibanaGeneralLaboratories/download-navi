@@ -1,6 +1,6 @@
 /*
- * Copyright (C) 2018 Tachibana General Laboratories, LLC
- * Copyright (C) 2018 Yaroslav Pronin <proninyaroslav@mail.ru>
+ * Copyright (C) 2018, 2019 Tachibana General Laboratories, LLC
+ * Copyright (C) 2018, 2019 Yaroslav Pronin <proninyaroslav@mail.ru>
  *
  * This file is part of Download Navi.
  *
@@ -23,6 +23,9 @@ package com.tachibana.downloader.core;
 /*
  * The class that represents the reason for completing the download.
  */
+
+import static com.tachibana.downloader.core.StatusCode.STATUS_UNHANDLED_HTTP_CODE;
+import static com.tachibana.downloader.core.StatusCode.STATUS_UNHANDLED_REDIRECT;
 
 public class StopRequest
 {
@@ -66,6 +69,17 @@ public class StopRequest
     public Throwable getException()
     {
         return t;
+    }
+
+    public static StopRequest getUnhandledHttpError(int code, String message)
+    {
+        final String error = "Unhandled HTTP response: " + code + " " + message;
+        if (code >= 400 && code < 600)
+            return new StopRequest(code, error);
+        else if (code >= 300 && code < 400)
+            return new StopRequest(STATUS_UNHANDLED_REDIRECT, error);
+        else
+            return new StopRequest(STATUS_UNHANDLED_HTTP_CODE, error);
     }
 
     @Override

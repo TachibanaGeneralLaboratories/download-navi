@@ -78,9 +78,9 @@ public class FinishedDownloadsFragment extends DownloadsFragment
     {
         Disposable d = dialogViewModel.observeEvents()
                 .subscribe((event) -> {
-                    if (deleteDownloadDialog == null)
+                    if (!event.dialogTag.equals(TAG_DELETE_DOWNLOAD_DIALOG) || deleteDownloadDialog == null)
                         return;
-                    switch (event) {
+                    switch (event.type) {
                         case POSITIVE_BUTTON_CLICKED:
                             Dialog dialog = deleteDownloadDialog.getDialog();
                             if (dialog != null && downloadForDeletion != null) {
@@ -170,7 +170,7 @@ public class FinishedDownloadsFragment extends DownloadsFragment
     private void shareDownload(DownloadItem item)
     {
         startActivity(Intent.createChooser(
-                Utils.makeFileShareIntent(Collections.singletonList(item)),
+                Utils.makeFileShareIntent(activity.getApplicationContext(), Collections.singletonList(item)),
                 getString(R.string.share_via)));
     }
 }

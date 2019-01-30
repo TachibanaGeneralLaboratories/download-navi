@@ -22,14 +22,12 @@ package com.tachibana.downloader.viewmodel;
 
 import android.app.Application;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.net.NetworkInfo;
 import android.net.Uri;
 import android.os.AsyncTask;
-import android.os.Build;
-import android.os.ParcelFileDescriptor;
-import android.text.format.Formatter;
+import android.text.TextUtils;
 import android.util.Log;
-import android.widget.Toast;
 
 import com.tachibana.downloader.MainApplication;
 import com.tachibana.downloader.R;
@@ -38,13 +36,17 @@ import com.tachibana.downloader.core.HttpConnection;
 import com.tachibana.downloader.core.entity.DownloadInfo;
 import com.tachibana.downloader.core.entity.Header;
 import com.tachibana.downloader.core.entity.UserAgent;
+import com.tachibana.downloader.core.exception.FreeSpaceException;
 import com.tachibana.downloader.core.exception.HttpException;
 import com.tachibana.downloader.core.storage.DataRepository;
 import com.tachibana.downloader.core.utils.FileUtils;
 import com.tachibana.downloader.core.utils.Utils;
 import com.tachibana.downloader.dialog.AddDownloadDialog;
+import com.tachibana.downloader.settings.SettingsManager;
 import com.tachibana.downloader.worker.DownloadScheduler;
 
+import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.lang.ref.WeakReference;
 import java.net.ConnectException;
@@ -67,8 +69,9 @@ public class AddDownloadViewModel extends AndroidViewModel
 
     private FetchLinkTask fetchTask;
     private DataRepository repo;
+    private SharedPreferences pref;
     public AddDownloadParams params = new AddDownloadParams();
-    public MutableLiveData<State> fetchState = new MutableLiveData<>();
+    public MutableLiveData<FetchState> fetchState = new MutableLiveData<>();
     public ObservableInt maxNumPieces = new ObservableInt(DownloadInfo.MAX_PIECES);
 
     public enum Status
@@ -79,17 +82,17 @@ public class AddDownloadViewModel extends AndroidViewModel
         ERROR
     }
 
-    public static class State
+    public static class FetchState
     {
         public Status status;
         public Throwable error;
 
-        public State(Status status, Throwable error)
+        public FetchState(Status status, Throwable error)
         {
             this.status = status;
             this.error = error;
         }
-        public State(Status status)
+        public FetchState(Status status)
         {
             this(status, null);
         }
@@ -100,7 +103,13 @@ public class AddDownloadViewModel extends AndroidViewModel
         super(application);
 
         repo = ((MainApplication)getApplication()).getRepository();
-        fetchState.setValue(new State(Status.UNKNOWN));
+        pref = SettingsManager.getPreferences(application);
+        fetchState.setValue(new FetchState(Status.UNKNOWN));
+
+        /* Init download dir */
+        String path = pref.getString(application.getString(R.string.pref_key_last_download_dir_uri),
+                SettingsManager.Default.lastDownloadDirUri);
+        updateDirPath(Uri.parse(path));
     }
 
     public LiveData<List<UserAgent>> observerUserAgents()
@@ -143,7 +152,7 @@ public class AddDownloadViewModel extends AndroidViewModel
         protected void onPreExecute()
         {
             if (viewModel.get() != null)
-                viewModel.get().fetchState.setValue(new State(AddDownloadViewModel.Status.FETCHING));
+                viewModel.get().fetchState.setValue(new FetchState(AddDownloadViewModel.Status.FETCHING));
         }
 
         @Override
@@ -225,9 +234,9 @@ public class AddDownloadViewModel extends AndroidViewModel
 
             if (e != null) {
                 Log.e(TAG, Log.getStackTraceString(e));
-                viewModel.get().fetchState.setValue(new State(AddDownloadViewModel.Status.ERROR, e));
+                viewModel.get().fetchState.setValue(new FetchState(AddDownloadViewModel.Status.ERROR, e));
             } else {
-                viewModel.get().fetchState.setValue(new State(AddDownloadViewModel.Status.FETCHED));
+                viewModel.get().fetchState.setValue(new FetchState(AddDownloadViewModel.Status.FETCHED));
             }
         }
     }
@@ -237,7 +246,8 @@ public class AddDownloadViewModel extends AndroidViewModel
         String contentDisposition = conn.getHeaderField("Content-Disposition");
         String contentLocation = conn.getHeaderField("Content-Location");
 
-        params.setFileName(Utils.getHttpFileName(params.getUrl(), contentDisposition, contentLocation));
+        if (TextUtils.isEmpty(params.getFileName()))
+            params.setFileName(Utils.getHttpFileName(params.getUrl(), contentDisposition, contentLocation));
         params.setMimeType(Intent.normalizeMimeType(conn.getContentType()));
         if (params.getMimeType() == null)
             params.setMimeType("application/octet-stream");
@@ -261,30 +271,33 @@ public class AddDownloadViewModel extends AndroidViewModel
             maxNumPieces.set(total < maxNumPieces.get() ? (int)total : maxNumPieces.get());
     }
 
-    public void addDownload(Uri filePath)
+    /*
+     * Throws FileNotFoundException if the stub file doesn't created or doesn't exists
+     */
+
+    public void addDownload() throws IOException, FreeSpaceException
     {
-        if (params == null || filePath == null)
+        if (params == null)
             return;
 
-        if (!checkFreeSpace(filePath))
-            return;
+        Uri dirPath = params.getDirPath();
+        if (dirPath == null)
+            throw new FileNotFoundException();
 
-        params.setFilePath(filePath);
-        /*
-         * File name could have changed in the file creation dialog or
-         * an extension was added to it
-         */
-        DocumentFile file = DocumentFile.fromSingleUri(getApplication(), params.getFilePath());
-        String fileName = file.getName();
-        if (fileName != null)
-            params.setFileName(fileName);
+        if (!checkFreeSpace())
+            throw new FreeSpaceException();
 
-        DownloadInfo info = params.toDownloadInfo();
-        info.dateAdded = System.currentTimeMillis();
+        DownloadInfo info = makeDownloadInfo(dirPath);
+
+        FetchState state = fetchState.getValue();
+        if (state != null)
+            info.hasMetadata = state.status == Status.FETCHED;
 
         ArrayList<Header> headers = new ArrayList<>();
         headers.add(new Header(info.id, "User-Agent", params.getUserAgent()));
         headers.add(new Header(info.id, "ETag", params.getEtag()));
+
+        Utils.retainDownloadDir(getApplication(), dirPath);
 
         /* TODO: rewrite to WorkManager */
         /* Sync wait inserting */
@@ -300,35 +313,52 @@ public class AddDownloadViewModel extends AndroidViewModel
         DownloadScheduler.runDownload(getApplication(), info);
     }
 
-    private boolean checkFreeSpace(Uri filePath)
+    private DownloadInfo makeDownloadInfo(Uri dirPath)
     {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-            long availBytes = -1L;
-            try {
-                ParcelFileDescriptor pfd = getApplication().getContentResolver().openFileDescriptor(filePath, "r");
-                availBytes = FileUtils.getAvailableBytes(pfd.getFileDescriptor());
+        String url = Utils.normalizeURL(params.getUrl());
+        String fileName = (params.isReplaceFile() ?
+                           params.getFileName() :
+                           FileUtils.makeFilename(getApplication(),
+                                   params.getDirPath(), params.getFileName()));
 
-            } catch (Exception e) {
-                Log.e(TAG, Log.getStackTraceString(e));
-            }
+        DownloadInfo info = new DownloadInfo(dirPath, url, fileName);
+        info.mimeType = params.getMimeType();
+        info.totalBytes = params.getTotalBytes();
+        info.description = params.getDescription();
+        info.wifiOnly = params.isWifiOnly();
+        info.partialSupport = params.isPartialSupport();
+        info.setNumPieces((params.isPartialSupport() && params.getTotalBytes() > 0 ?
+                params.getNumPieces() :
+                DownloadInfo.MIN_PIECES));
+        info.retry = params.isRetry();
+        info.dateAdded = System.currentTimeMillis();
 
-            if (availBytes < params.getTotalBytes()) {
-                String totalSizeStr = Formatter.formatFileSize(getApplication(), params.getTotalBytes());
-                String availSizeStr = Formatter.formatFileSize(getApplication(), availBytes);
-                String format = getApplication().getString(R.string.download_error_no_enough_free_space);
+        return info;
+    }
 
-                Toast.makeText(getApplication(),
-                        String.format(format, availSizeStr, totalSizeStr),
-                        Toast.LENGTH_LONG)
-                        .show();
+    private boolean checkFreeSpace()
+    {
+        long storageFreeSpace = params.getStorageFreeSpace();
 
-                return false;
-            }
+        return storageFreeSpace == -1 || storageFreeSpace >= params.getTotalBytes();
+    }
 
-            return true;
-        }
+    public void updateDirPath(Uri dirPath)
+    {
+        params.setDirPath(dirPath);
+        params.setStorageFreeSpace(FileUtils.getDirAvailableBytes(getApplication(), dirPath));
+        params.setDirName(getDirName(dirPath));
+    }
 
-        return true;
+    private String getDirName(Uri dirPath)
+    {
+        if (FileUtils.isFileSystemPath(dirPath))
+            return dirPath.getPath();
+
+        DocumentFile dir = DocumentFile.fromTreeUri(getApplication(), dirPath);
+        String name = dir.getName();
+
+        return (name == null ? dirPath.getPath() : name);
     }
 
     public void finish()

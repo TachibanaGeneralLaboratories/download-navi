@@ -72,7 +72,6 @@ public class DownloadService extends LifecycleService
 
     private boolean isAlreadyRunning;
     private NotificationManager notifyManager;
-    private DownloadNotifier downloadNotifier;
     private NotificationCompat.Builder foregroundNotify;
     private AtomicBoolean isPauseButton = new AtomicBoolean(true);
     private DataRepository repo;
@@ -99,7 +98,6 @@ public class DownloadService extends LifecycleService
         pref.unregisterOnSharedPreferenceChangeListener(this);
         isAlreadyRunning = false;
         pref = null;
-        downloadNotifier = null;
         requestShutdown = false;
 
         stopForeground(true);
@@ -188,6 +186,8 @@ public class DownloadService extends LifecycleService
                         (Throwable t) -> {
                             Log.e(TAG, "Getting info " + id + " error: " +
                                     Log.getStackTraceString(t));
+                            if (checkShutdownService())
+                                stopService();
                         })
         );
     }
@@ -232,13 +232,17 @@ public class DownloadService extends LifecycleService
         if (task != null && task.isRunning())
             return;
 
-        task = new DownloadThread(id, getApplicationContext(), repo);
+        task = new DownloadThread(getApplicationContext(), repo, id);
         tasks.put(id, task);
         disposables.add(Observable.fromCallable(task)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(this::observeDownloadResult,
-                        (Throwable t) -> Log.e(TAG, Log.getStackTraceString(t))
+                        (Throwable t) -> {
+                            Log.e(TAG, Log.getStackTraceString(t));
+                            if (checkShutdownService())
+                                stopService();
+                        }
                 )
         );
     }
@@ -285,6 +289,8 @@ public class DownloadService extends LifecycleService
                         (Throwable t) -> {
                             Log.e(TAG, "Getting info " + id + " error: " +
                                     Log.getStackTraceString(t));
+                            if (checkShutdownService())
+                                stopService();
                         })
         );
     }
@@ -306,6 +312,8 @@ public class DownloadService extends LifecycleService
                         (Throwable t) -> {
                             Log.e(TAG, "Getting info " + id + " error: " +
                                     Log.getStackTraceString(t));
+                            if (checkShutdownService())
+                                stopService();
                         }
                 )
         );
@@ -341,6 +349,8 @@ public class DownloadService extends LifecycleService
                         },
                         (Throwable t) -> {
                             Log.e(TAG, "Getting info list error: " + Log.getStackTraceString(t));
+                            if (checkShutdownService())
+                                stopService();
                         })
         );
     }

@@ -67,12 +67,24 @@ public class BaseAlertDialog extends DialogFragment
         }
     }
 
-    public enum Event
+    public enum EventType
     {
         POSITIVE_BUTTON_CLICKED,
         NEGATIVE_BUTTON_CLICKED,
         NEUTRAL_BUTTON_CLICKED,
         DIALOG_SHOWN
+    }
+
+    public static class Event
+    {
+        public String dialogTag;
+        public EventType type;
+
+        public Event(String dialogTag, EventType type)
+        {
+            this.dialogTag = dialogTag;
+            this.type = type;
+        }
     }
 
     /* In the absence of any parameter need set 0 or null */
@@ -127,30 +139,35 @@ public class BaseAlertDialog extends DialogFragment
             Button neutralButton = alert.getButton(AlertDialog.BUTTON_NEUTRAL);
             if (positiveButton != null) {
                 positiveButton.setOnClickListener((view) -> {
-                    viewModel.sendEvent(Event.POSITIVE_BUTTON_CLICKED);
+                    viewModel.sendEvent(makeEvent(EventType.POSITIVE_BUTTON_CLICKED));
                     if (autoDismiss)
                         dismiss();
                 });
             }
             if (negativeButton != null) {
                 negativeButton.setOnClickListener((view) -> {
-                    viewModel.sendEvent(Event.NEGATIVE_BUTTON_CLICKED);
+                    viewModel.sendEvent(makeEvent(EventType.NEGATIVE_BUTTON_CLICKED));
                     if (autoDismiss)
                         dismiss();
                 });
             }
             if (neutralButton != null) {
                 neutralButton.setOnClickListener((view) -> {
-                    viewModel.sendEvent(Event.NEUTRAL_BUTTON_CLICKED);
+                    viewModel.sendEvent(makeEvent(EventType.NEUTRAL_BUTTON_CLICKED));
                     if (autoDismiss)
                         dismiss();
                 });
             }
 
-            viewModel.sendEvent(Event.DIALOG_SHOWN);
+            viewModel.sendEvent(makeEvent(EventType.DIALOG_SHOWN));
         });
 
         return alert;
+    }
+
+    private Event makeEvent(EventType type)
+    {
+        return new Event(getTag(), type);
     }
 
     protected AlertDialog.Builder buildDialog(final String title, final String message,

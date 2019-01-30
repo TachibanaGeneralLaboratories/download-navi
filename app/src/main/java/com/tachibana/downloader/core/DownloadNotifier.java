@@ -26,7 +26,6 @@ import static android.app.DownloadManager.Request.VISIBILITY_VISIBLE_NOTIFY_COMP
 import static android.app.DownloadManager.Request.VISIBILITY_VISIBLE_NOTIFY_ONLY_COMPLETION;
 import static android.content.Context.NOTIFICATION_SERVICE;
 
-import android.app.Notification;
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
@@ -86,18 +85,18 @@ public class DownloadNotifier
      * Currently active notifications, mapped from clustering tag to timestamp
      * when first shown
      */
-    private final ArrayMap<UUID, NotificationGroup> activeNotifs = new ArrayMap<>();
+    private final ArrayMap<UUID, Notification> activeNotifs = new ArrayMap<>();
     private DataRepository repo;
     private CompositeDisposable disposables = new CompositeDisposable();
 
-    private class NotificationGroup
+    private class Notification
     {
         public UUID downloadId;
-        /* Tag + timestamp */
-        public ArrayMap<String, Long> notifs = new ArrayMap<>();
+        public String tag;
+        public long timestamp;
         public long lastUpdateTime;
 
-        public NotificationGroup(UUID downloadId, long lastUpdateTime)
+        public Notification(UUID downloadId, long lastUpdateTime)
         {
             this.downloadId = downloadId;
             this.lastUpdateTime = lastUpdateTime;
@@ -151,59 +150,70 @@ public class DownloadNotifier
             HashSet<UUID> ids = new HashSet<>();
             for (InfoAndPieces infoAndPieces : infoAndPiecesList) {
                 ids.add(infoAndPieces.info.id);
-                boolean force = StatusCode.isStatusCompleted(infoAndPieces.info.statusCode) ||
-                        infoAndPieces.info.statusCode == StatusCode.STATUS_PAUSED;
 
+                String tag = makeNotificationTag(infoAndPieces.info);
+                if (tag == null)
+                    return;
+                int type = getNotificationTagType(tag);
+                Notification notify = activeNotifs.get(infoAndPieces.info.id);
+
+                boolean force;
+                if (notify == null)
+                    force = true;
+                else {
+                    int prevType = getNotificationTagType(notify.tag);
+                    force = type != prevType;
+                }
                 if (!(force || checkUpdateTime(infoAndPieces.info)))
                     continue;
 
-                updateWithLocked(infoAndPieces);
+                updateWithLocked(infoAndPieces, notify, tag, type);
             }
-            deleteNotifyGroups(ids);
+            cleanNotifs(ids);
         }
     }
 
     private boolean checkUpdateTime(DownloadInfo info)
     {
-        NotificationGroup notifyGroup = activeNotifs.get(info.id);
+        Notification notify = activeNotifs.get(info.id);
         /* Force first notification */
-        if (notifyGroup == null)
+        if (notify == null)
             return true;
 
         long now = SystemClock.elapsedRealtime();
-        long timeDelta = now - notifyGroup.lastUpdateTime;
+        long timeDelta = now - notify.lastUpdateTime;
 
         return timeDelta > MIN_PROGRESS_TIME;
     }
 
-    private void updateWithLocked(InfoAndPieces infoAndPieces)
+    private void updateWithLocked(InfoAndPieces infoAndPieces, Notification notify, String tag, int type)
     {
         DownloadInfo info = infoAndPieces.info;
-
-        NotificationGroup notifyGroup = activeNotifs.get(info.id);
-        if (notifyGroup == null) {
-            notifyGroup = new NotificationGroup(info.id, SystemClock.elapsedRealtime());
-            activeNotifs.put(info.id, notifyGroup);
-        }
         if (info.statusCode == StatusCode.STATUS_CANCELLED) {
-            deleteNotifs(notifyGroup, null);
+            notifyManager.cancel(tag, 0);
             return;
         }
 
-        String tag = makeNotificationTag(info);
-        if (tag == null)
-            return;
-        int type = getNotificationTagType(tag);
+        String prevTag = null;
+        if (notify == null) {
+            notify = new Notification(info.id, SystemClock.elapsedRealtime());
+            activeNotifs.put(info.id, notify);
+
+        } else {
+            /* Save previous tag for deleting */
+            prevTag = notify.tag;
+        }
         boolean isError = StatusCode.isStatusError(info.statusCode);
 
         /* Use time when notification was first shown to avoid shuffling */
         long firstShown;
-        Long timestamp = notifyGroup.notifs.get(tag);
-        if (timestamp == null) {
+        if (notify.timestamp == 0) {
             firstShown = System.currentTimeMillis();
-            notifyGroup.notifs.put(tag, firstShown);
+            notify.tag = tag;
+            notify.timestamp = firstShown;
+            activeNotifs.put(info.id, notify);
         } else {
-            firstShown = timestamp;
+            firstShown = notify.timestamp;
         }
 
         NotificationCompat.Builder builder;
@@ -312,14 +322,18 @@ public class DownloadNotifier
         int progress = 0;
         long ETA = Utils.calcETA(info.totalBytes, downloadBytes, speed);
         if (type == TYPE_ACTIVE) {
-            if (info.totalBytes > 0) {
-                progress = (int)((downloadBytes * 100) / info.totalBytes);
-                if (info.statusCode == StatusCode.STATUS_PAUSED)
-                    builder.setProgress(0, 0, false);
-                else
-                    builder.setProgress(100, progress, false);
-            } else {
+            if (info.statusCode == StatusCode.STATUS_FETCH_METADATA) {
                 builder.setProgress(100, 0, true);
+            } else {
+                if (info.totalBytes > 0) {
+                    progress = (int)((downloadBytes * 100) / info.totalBytes);
+                    if (info.statusCode == StatusCode.STATUS_PAUSED)
+                        builder.setProgress(0, 0, false);
+                    else
+                        builder.setProgress(100, progress, false);
+                } else {
+                    builder.setProgress(100, 0, true);
+                }
             }
         }
 
@@ -332,18 +346,29 @@ public class DownloadNotifier
                         info.fileName));
 
                 NotificationCompat.BigTextStyle progressBigText = new NotificationCompat.BigTextStyle();
-                if (info.statusCode == StatusCode.STATUS_PAUSED) {
-                    progressBigText.bigText(String.format(context.getString(R.string.download_queued_template),
-                            Formatter.formatFileSize(context, downloadBytes),
-                            Formatter.formatFileSize(context, info.totalBytes),
-                            context.getString(R.string.pause)));
-                } else {
+                if (info.statusCode == StatusCode.STATUS_RUNNING) {
                     progressBigText.bigText(String.format(context.getString(R.string.download_queued_progress_template),
                             Formatter.formatFileSize(context, downloadBytes),
-                            Formatter.formatFileSize(context, info.totalBytes),
+                            (info.totalBytes == -1 ? context.getString(R.string.not_available) :
+                                    Formatter.formatFileSize(context, info.totalBytes)),
                             (ETA == -1 ? Utils.INFINITY_SYMBOL :
                                     DateFormatUtils.formatElapsedTime(context, ETA)),
                             Formatter.formatFileSize(context, speed)));
+                } else {
+                    String statusStr = "";
+                    switch (info.statusCode) {
+                        case StatusCode.STATUS_PAUSED:
+                            statusStr = context.getString(R.string.pause);
+                            break;
+                        case StatusCode.STATUS_FETCH_METADATA:
+                            statusStr = context.getString(R.string.fetching_metadata);
+                            break;
+                    }
+                    progressBigText.bigText(String.format(context.getString(R.string.download_queued_template),
+                            Formatter.formatFileSize(context, downloadBytes),
+                            (info.totalBytes == -1 ? context.getString(R.string.not_available) :
+                                    Formatter.formatFileSize(context, info.totalBytes)),
+                            statusStr));
                 }
                 builder.setStyle(progressBigText);
                 break;
@@ -355,7 +380,8 @@ public class DownloadNotifier
                 NotificationCompat.BigTextStyle pendingBigText = new NotificationCompat.BigTextStyle();
                 pendingBigText.bigText(String.format(context.getString(R.string.download_queued_template),
                         Formatter.formatFileSize(context, downloadBytes),
-                        Formatter.formatFileSize(context, info.totalBytes),
+                        (info.totalBytes == -1 ? context.getString(R.string.not_available) :
+                                Formatter.formatFileSize(context, info.totalBytes)),
                         context.getString(R.string.pending)));
                 builder.setStyle(pendingBigText);
                 break;
@@ -376,23 +402,24 @@ public class DownloadNotifier
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             switch (type) {
                 case TYPE_ACTIVE:
-                    builder.setCategory(Notification.CATEGORY_PROGRESS);
+                    builder.setCategory(android.app.Notification.CATEGORY_PROGRESS);
                     break;
                 case TYPE_PENDING:
-                    builder.setCategory(Notification.CATEGORY_STATUS);
+                    builder.setCategory(android.app.Notification.CATEGORY_STATUS);
                     break;
                 case TYPE_COMPLETE:
                     if (isError)
-                        builder.setCategory(Notification.CATEGORY_ERROR);
+                        builder.setCategory(android.app.Notification.CATEGORY_ERROR);
                     else
-                        builder.setCategory(Notification.CATEGORY_STATUS);
+                        builder.setCategory(android.app.Notification.CATEGORY_STATUS);
                     break;
             }
         }
 
-        notifyManager.notify(tag, 0, builder.build());
+        if (prevTag != null && !prevTag.equals(notify.tag))
+            notifyManager.cancel(prevTag, 0);
+        notifyManager.notify(notify.tag, 0, builder.build());
 
-        deleteNotifs(notifyGroup, tag);
         if (type == TYPE_COMPLETE && info.visibility != VISIBILITY_HIDDEN)
             markAsHidden(info);
     }
@@ -410,32 +437,16 @@ public class DownloadNotifier
                 .subscribe());
     }
 
-    /*
-     * Remove stale tags that weren't renewed
-     */
-
-    private void deleteNotifs(NotificationGroup notifyGroup, String excludedTag)
-    {
-        if (notifyGroup == null)
-            return;
-        ArrayMap<String, Long> notifs = notifyGroup.notifs;
-        for (int j = 0; j < notifs.size(); j++) {
-            if (excludedTag == null || !excludedTag.equals(notifs.keyAt(j))) {
-                notifyManager.cancel(notifs.keyAt(j), 0);
-                notifs.removeAt(j);
-            }
-        }
-        if (notifs.isEmpty())
-            activeNotifs.remove(notifyGroup.downloadId);
-    }
-
-    private void deleteNotifyGroups(@NonNull Set<UUID> excludedIds)
+    private void cleanNotifs(@NonNull Set<UUID> excludedIds)
     {
         for (int i = 0; i < activeNotifs.size(); i++) {
             UUID id = activeNotifs.keyAt(i);
             if (excludedIds.contains(id))
                 continue;
-            deleteNotifs(activeNotifs.get(id), null);
+            Notification notify = activeNotifs.remove(id);
+            if (notify == null)
+                continue;
+            notifyManager.cancel(notify.tag, 0);
         }
     }
 
@@ -468,7 +479,8 @@ public class DownloadNotifier
     private static boolean isActiveAndVisible(int statusCode, int visibility)
     {
         return (statusCode == StatusCode.STATUS_RUNNING ||
-                statusCode == StatusCode.STATUS_PAUSED) &&
+                statusCode == StatusCode.STATUS_PAUSED ||
+                statusCode == StatusCode.STATUS_FETCH_METADATA) &&
                 (visibility == VISIBILITY_VISIBLE ||
                  visibility == VISIBILITY_VISIBLE_NOTIFY_COMPLETED);
     }

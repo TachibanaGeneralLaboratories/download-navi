@@ -236,6 +236,7 @@ public class DownloadListAdapter extends ListAdapter<DownloadItem, DownloadListA
             long ETA = Utils.calcETA(item.info.totalBytes, downloadBytes, speed);
 
             if (item.info.statusCode == StatusCode.STATUS_RUNNING) {
+                progressBar.setVisibility(View.VISIBLE);
                 if (item.info.totalBytes > 0) {
                     int progress = (int)((downloadBytes * 100) / item.info.totalBytes);
                     progressBar.setIndeterminate(false);
@@ -261,10 +262,21 @@ public class DownloadListAdapter extends ListAdapter<DownloadItem, DownloadListA
                     case StatusCode.STATUS_WAITING_TO_RETRY:
                         statusStr = context.getString(R.string.pending);
                         break;
+                    case StatusCode.STATUS_FETCH_METADATA:
+                        statusStr = context.getString(R.string.fetching_metadata);
+                        break;
                 }
+                if (item.info.statusCode == StatusCode.STATUS_FETCH_METADATA) {
+                    progressBar.setVisibility(View.VISIBLE);
+                    progressBar.setIndeterminate(true);
+                } else {
+                    progressBar.setVisibility(View.GONE);
+                }
+
                 status.setText(String.format(context.getString(R.string.download_queued_template),
                         Formatter.formatFileSize(context, downloadBytes),
-                        Formatter.formatFileSize(context, item.info.totalBytes),
+                        (item.info.totalBytes == -1 ? context.getString(R.string.not_available) :
+                                Formatter.formatFileSize(context, item.info.totalBytes)),
                         statusStr));
             }
         }

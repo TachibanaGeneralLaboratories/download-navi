@@ -7,4 +7,6 @@
     <string name="pref_key_enable_roaming" translatable="false">pref_key_enable_roaming</string>
     <!-- Filemanager settings -->
     <string name="pref_key_filemanager_last_dir" translatable="false">pref_key_filemanager_last_dir</string>
+    <!-- Storage settings -->
+    <string name="pref_key_last_download_dir_uri" translatable="false">pref_key_last_download_dir_uri</string>
 </resources>

@@ -49,6 +49,7 @@ import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.lifecycle.ViewModelProviders;
+import androidx.recyclerview.selection.MutableSelection;
 import androidx.recyclerview.selection.SelectionPredicates;
 import androidx.recyclerview.selection.SelectionTracker;
 import androidx.recyclerview.selection.StorageStrategy;
@@ -190,9 +191,9 @@ public abstract class DownloadsFragment extends Fragment
     {
         Disposable d = dialogViewModel.observeEvents()
                 .subscribe((event) -> {
-                    if (deleteDownloadsDialog == null)
+                    if (!event.dialogTag.equals(TAG_DELETE_DOWNLOADS_DIALOG) || deleteDownloadsDialog == null)
                         return;
-                    switch (event) {
+                    switch (event.type) {
                         case POSITIVE_BUTTON_CLICKED:
                             Dialog dialog = deleteDownloadsDialog.getDialog();
                             if (dialog != null) {
@@ -342,7 +343,10 @@ public abstract class DownloadsFragment extends Fragment
 
     private void deleteDownloads(boolean withFile)
     {
-        disposable.add(Observable.fromIterable(selectionTracker.getSelection())
+        MutableSelection<DownloadItem> selections = new MutableSelection<>();
+        selectionTracker.copySelection(selections);
+
+        disposable.add(Observable.fromIterable(selections)
                 .map((selection -> selection.info))
                 .toList()
                 .observeOn(Schedulers.io())
@@ -352,11 +356,14 @@ public abstract class DownloadsFragment extends Fragment
 
     private void shareDownloads()
     {
-        disposable.add(Observable.fromIterable(selectionTracker.getSelection())
+        MutableSelection<DownloadItem> selections = new MutableSelection<>();
+        selectionTracker.copySelection(selections);
+
+        disposable.add(Observable.fromIterable(selections)
                 .toList()
                 .subscribe((items) -> {
                     startActivity(Intent.createChooser(
-                            Utils.makeFileShareIntent(items),
+                            Utils.makeFileShareIntent(activity.getApplicationContext(), items),
                             getString(R.string.share_via)));
                 }));
     }

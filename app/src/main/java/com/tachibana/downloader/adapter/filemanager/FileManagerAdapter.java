@@ -21,7 +21,6 @@ package com.tachibana.downloader.adapter.filemanager;
 
 import android.content.Context;
 import android.content.res.TypedArray;
-import android.util.Log;
 import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -124,7 +123,7 @@ public class FileManagerAdapter extends ListAdapter<FileManagerNode, FileManager
 
             itemView.setOnClickListener((v) -> {
                 if (listener != null)
-                    listener.onItemClicked(item.getName(), item.getType());
+                    listener.onItemClicked(item);
             });
 
             itemView.setEnabled(item.isEnabled());
@@ -159,7 +158,7 @@ public class FileManagerAdapter extends ListAdapter<FileManagerNode, FileManager
 
         public interface ClickListener
         {
-            void onItemClicked(String objectName, int objectType);
+            void onItemClicked(FileManagerNode item);
         }
     }
 }

@@ -90,10 +90,6 @@ public abstract class DownloadDao
     @Query(QUERY_GET_INFO_BY_ID)
     public abstract DownloadInfo getInfoById(UUID id);
 
-    @Transaction
-    @Query(QUERY_GET_INFO_BY_ID)
-    public abstract Flowable<InfoAndPieces> observeInfoAndPiecesById(UUID id);
-
     @Query(QUERY_GET_INFO_BY_ID)
     public abstract Single<DownloadInfo> getInfoByIdSingle(UUID id);
 
@@ -117,6 +113,9 @@ public abstract class DownloadDao
 
     @Query(QUERY_GET_HEADERS)
     public abstract List<Header> getHeadersById(UUID infoId);
+
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    public abstract void addHeader(Header header);
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     public abstract void add_info(DownloadInfo info);

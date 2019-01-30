@@ -22,6 +22,7 @@ package com.tachibana.downloader.core;
 
 import android.content.Context;
 import android.net.NetworkInfo;
+import android.net.Uri;
 import android.os.ParcelFileDescriptor;
 import android.os.SystemClock;
 import android.util.Log;
@@ -261,7 +262,7 @@ public class PieceThread extends Thread
                         ret[0] = new StopRequest(HTTP_INTERNAL_ERROR, message);
                         break;
                     default:
-                        ret[0] = getUnhandledHttpError(code, message);
+                        ret[0] = StopRequest.getUnhandledHttpError(code, message);
                         break;
                 }
             }
@@ -369,7 +370,10 @@ public class PieceThread extends Thread
             }
 
             try {
-                outPfd = context.getContentResolver().openFileDescriptor(info.filePath, "rw");
+                Uri filePath = FileUtils.getFileUri(context, info.dirPath, info.fileName);
+                if (filePath == null)
+                    throw new IOException("Write error: file not found");
+                outPfd = context.getContentResolver().openFileDescriptor(filePath, "rw");
                 outFd = outPfd.getFileDescriptor();
                 fout = new FileOutputStream(outFd);
 
@@ -528,17 +532,6 @@ public class PieceThread extends Thread
             default:
                 return false;
         }
-    }
-
-    private StopRequest getUnhandledHttpError(int code, String message)
-    {
-        final String error = "Unhandled HTTP response: " + code + " " + message;
-        if (code >= 400 && code < 600)
-            return new StopRequest(code, error);
-        else if (code >= 300 && code < 400)
-            return new StopRequest(STATUS_UNHANDLED_REDIRECT, error);
-        else
-            return new StopRequest(STATUS_UNHANDLED_HTTP_CODE, error);
     }
 
     private StopRequest checkCancel()

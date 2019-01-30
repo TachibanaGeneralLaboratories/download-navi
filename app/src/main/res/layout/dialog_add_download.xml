@@ -11,10 +11,12 @@
     <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:padding="@dimen/dialog_padding"
+        android:paddingTop="@dimen/dialog_padding"
+        android:paddingBottom="8dp"
+        android:paddingEnd="@dimen/dialog_padding"
+        android:paddingStart="@dimen/dialog_padding"
         android:fadeScrollbars="false"
-        android:scrollbars="vertical"
-        app:layout_behavior="@string/appbar_scrolling_view_behavior">
+        android:scrollbars="vertical">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -22,27 +24,125 @@
             android:minWidth="@dimen/min_width_dialog"
             android:orientation="vertical">
 
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="16dp">
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/layout_link"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toStartOf="@id/fetch_progress"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/link"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:inputType="text|textNoSuggestions"
+                        android:hint="@string/download_link"
+                        android:text="@={model.params.url}" />
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <androidx.core.widget.ContentLoadingProgressBar
+                    android:id="@+id/fetch_progress"
+                    style="@style/Widget.AppCompat.ProgressBar"
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginEnd="8dp"
+                    android:visibility="gone"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toEndOf="@+id/layout_link"
+                    app:layout_constraintTop_toTopOf="parent" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
             <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/layout_link"
+                android:id="@+id/layout_name"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="16dp">
 
                 <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/link"
+                    android:id="@+id/name"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:inputType="text|textNoSuggestions"
-                    android:hint="@string/download_link"
-                    android:text="@={model.params.url}" />
+                    android:hint="@string/download_name"
+                    android:text="@={model.params.fileName}"/>
             </com.google.android.material.textfield.TextInputLayout>
 
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="16dp">
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/layout_save_path"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toStartOf="@id/folder_chooser_button"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/save_path"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:focusable="false"
+                        android:singleLine="true"
+                        android:scrollHorizontally="true"
+                        android:scrollbars="horizontal"
+                        android:hint="@string/path"
+                        android:inputType="none"
+                        android:text="@{model.params.dirName}" />
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <ImageButton
+                    android:id="@+id/folder_chooser_button"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:background="?attr/defaultRoundRipple"
+                    android:contentDescription="@string/dir_chooser_title"
+                    android:padding="8dp"
+                    android:src="@drawable/ic_folder_grey600_24dp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <TextView
+                android:id="@+id/free_space"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="16dp"
+                android:textAppearance="@style/TextAppearance.AppCompat.Subhead"
+                android:textColor="?android:attr/textColorPrimary"
+                app:fileSize="@{model.params.storageFreeSpace}"
+                app:formatFileSize="@{@string/storage_free_space}" />
+
             <LinearLayout
-                android:id="@+id/params_layout"
+                android:id="@+id/after_fetch_layout"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:orientation="vertical"
                 android:visibility="gone">
+
+                <TextView
+                    android:id="@+id/size"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="16dp"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Subhead"
+                    android:textColor="?android:attr/textColorPrimary"
+                    app:fileSize="@{model.params.totalBytes}"
+                    app:formatFileSize="@{@string/download_size}"/>
 
                 <RelativeLayout
                     android:id="@+id/partial_support_warning"
@@ -70,174 +170,148 @@
                         android:textColor="@color/warning"
                         android:text="@string/partial_download_not_supported" />
                 </RelativeLayout>
-
-                <com.google.android.material.textfield.TextInputLayout
-                    android:id="@+id/layout_name"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginBottom="16dp">
-
-                    <com.google.android.material.textfield.TextInputEditText
-                        android:id="@+id/name"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:inputType="text|textNoSuggestions"
-                        android:hint="@string/download_name"
-                        android:text="@={model.params.fileName}"/>
-                </com.google.android.material.textfield.TextInputLayout>
-
-                <TextView
-                    android:id="@+id/size"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginBottom="16dp"
-                    android:textAppearance="@style/TextAppearance.AppCompat.Subhead"
-                    android:textColor="?android:attr/textColorPrimary"
-                    app:fileSize="@{model.params.totalBytes}"
-                    app:formatFileSize="@{@string/download_size}"/>
-
-                <com.google.android.material.internal.FlowLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginBottom="16dp">
-
-                    <CheckBox
-                        android:id="@+id/wifi_only"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:textColor="?android:attr/textColorPrimary"
-                        android:text="@string/wifi_only"
-                        android:checked="@={model.params.wifiOnly}" />
-
-                    <CheckBox
-                        android:id="@+id/retry"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:textColor="?android:attr/textColorPrimary"
-                        android:checked="@={model.params.retry}"
-                        android:text="@string/download_retry" />
-                </com.google.android.material.internal.FlowLayout>
-
-                <RelativeLayout
-                    android:id="@+id/expandable_spinner"
-                    android:layout_width="wrap_content"
-                    android:layout_height="48dp"
-                    android:background="?attr/dialogRectRipple"
-                    android:layout_marginBottom="8dp">
-
-                    <RelativeLayout
-                        android:id="@+id/expand_button"
-                        android:layout_width="48dp"
-                        android:layout_height="match_parent"
-                        android:padding="16dp"
-                        android:layout_alignParentEnd="true"
-                        android:gravity="center">
-
-                        <View
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:background="@drawable/ic_arrow_down_gray_24dp" />
-                    </RelativeLayout>
-
-                    <TextView
-                        android:id="@+id/advanced"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:gravity="center_vertical"
-                        android:layout_toStartOf="@id/expand_button"
-                        android:text="@string/download_advanced"
-                        android:textAppearance="?attr/smallText" />
-                </RelativeLayout>
-
-                <com.github.aakira.expandablelayout.ExpandableLinearLayout
-                    android:id="@+id/advanced_layout"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_below="@id/expandable_spinner"
-                    android:orientation="vertical"
-                    app:ael_duration="5"
-                    app:ael_expanded="false">
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:minWidth="@dimen/min_width_dialog"
-                        android:orientation="vertical">
-
-                        <com.google.android.material.textfield.TextInputLayout
-                            android:id="@+id/layout_description"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_marginBottom="16dp">
-
-                            <com.google.android.material.textfield.TextInputEditText
-                                android:id="@+id/description"
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:inputType="text|textNoSuggestions"
-                                android:hint="@string/download_description"
-                                android:text="@={model.params.description}"/>
-                        </com.google.android.material.textfield.TextInputLayout>
-
-                        <TextView
-                            android:id="@+id/pieces_number"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_marginBottom="16dp"
-                            android:textAppearance="@style/TextAppearance.AppCompat.Subhead"
-                            android:textColor="?android:attr/textColorPrimary"
-                            android:text="@{@string/download_pieces_number_title(model.params.numPieces)}" />
-
-                        <androidx.appcompat.widget.AppCompatSeekBar
-                            android:id="@+id/pieces_number_select"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_marginBottom="16dp"
-                            android:progress="0"
-                            android:max="@{model.maxNumPieces - 1}"
-                            style="@style/Widget.AppCompat.SeekBar.Discrete" />
-
-                        <TextView
-                            android:id="@+id/user_agent_title"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:textAppearance="@style/TextAppearance.AppCompat.Subhead"
-                            android:textColor="?android:attr/textColorPrimary"
-                            android:text="@string/download_user_agent" />
-
-                        <RelativeLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content">
-
-                            <Spinner
-                                android:id="@+id/user_agent"
-                                android:layout_width="match_parent"
-                                android:layout_height="match_parent"
-                                android:layout_centerInParent="true"
-                                android:layout_toStartOf="@id/add_user_agent" />
-
-                            <ImageButton
-                                android:id="@+id/add_user_agent"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:padding="16dp"
-                                android:layout_alignParentEnd="true"
-                                android:layout_centerInParent="true"
-                                android:contentDescription="@null"
-                                android:background="?attr/transparentRoundRipple"
-                                android:src="@drawable/ic_add_grey600_24px" />
-                        </RelativeLayout>
-                    </LinearLayout>
-                </com.github.aakira.expandablelayout.ExpandableLinearLayout>
             </LinearLayout>
 
-            <androidx.core.widget.ContentLoadingProgressBar
-                android:id="@+id/fetch_progress"
-                android:layout_width="wrap_content"
+            <com.google.android.material.internal.FlowLayout
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center_horizontal"
-                style="@style/Widget.AppCompat.ProgressBar"
-                android:visibility="gone" />
+                android:layout_marginBottom="16dp">
+
+                <CheckBox
+                    android:id="@+id/wifi_only"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="?android:attr/textColorPrimary"
+                    android:text="@string/wifi_only"
+                    android:checked="@={model.params.wifiOnly}" />
+
+                <CheckBox
+                    android:id="@+id/retry"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="?android:attr/textColorPrimary"
+                    android:checked="@={model.params.retry}"
+                    android:text="@string/download_retry" />
+
+                <CheckBox
+                    android:id="@+id/replace_file"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="?android:attr/textColorPrimary"
+                    android:text="@string/replace_file"
+                    android:checked="@={model.params.replaceFile}" />
+            </com.google.android.material.internal.FlowLayout>
+
+            <RelativeLayout
+                android:id="@+id/expandable_spinner"
+                android:layout_width="wrap_content"
+                android:layout_height="48dp"
+                android:background="?attr/dialogRectRipple">
+
+                <RelativeLayout
+                    android:id="@+id/expand_button"
+                    android:layout_width="48dp"
+                    android:layout_height="match_parent"
+                    android:padding="16dp"
+                    android:layout_alignParentEnd="true"
+                    android:gravity="center">
+
+                    <View
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/ic_arrow_down_gray_24dp" />
+                </RelativeLayout>
+
+                <TextView
+                    android:id="@+id/advanced"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:gravity="center_vertical"
+                    android:layout_toStartOf="@id/expand_button"
+                    android:text="@string/download_advanced"
+                    android:textAppearance="?attr/smallText" />
+            </RelativeLayout>
+
+            <com.github.aakira.expandablelayout.ExpandableLinearLayout
+                android:id="@+id/advanced_layout"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_below="@id/expandable_spinner"
+                android:orientation="vertical"
+                app:ael_duration="5"
+                app:ael_expanded="false">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:minWidth="@dimen/min_width_dialog"
+                    android:orientation="vertical">
+
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:id="@+id/layout_description"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="16dp">
+
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/description"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:inputType="text|textNoSuggestions"
+                            android:hint="@string/download_description"
+                            android:text="@={model.params.description}"/>
+                    </com.google.android.material.textfield.TextInputLayout>
+
+                    <TextView
+                        android:id="@+id/pieces_number"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="16dp"
+                        android:textAppearance="@style/TextAppearance.AppCompat.Subhead"
+                        android:textColor="?android:attr/textColorPrimary"
+                        android:text="@{@string/download_pieces_number_title(model.params.numPieces)}" />
+
+                    <androidx.appcompat.widget.AppCompatSeekBar
+                        android:id="@+id/pieces_number_select"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="16dp"
+                        android:progress="0"
+                        android:max="@{model.maxNumPieces - 1}"
+                        style="@style/Widget.AppCompat.SeekBar.Discrete" />
+
+                    <TextView
+                        android:id="@+id/user_agent_title"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:textAppearance="@style/TextAppearance.AppCompat.Subhead"
+                        android:textColor="?android:attr/textColorPrimary"
+                        android:text="@string/download_user_agent" />
+
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+
+                        <Spinner
+                            android:id="@+id/user_agent"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:layout_centerInParent="true"
+                            android:layout_toStartOf="@id/add_user_agent" />
+
+                        <ImageButton
+                            android:id="@+id/add_user_agent"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:padding="16dp"
+                            android:layout_alignParentEnd="true"
+                            android:layout_centerInParent="true"
+                            android:contentDescription="@null"
+                            android:background="?attr/transparentRoundRipple"
+                            android:src="@drawable/ic_add_grey600_24px" />
+                    </RelativeLayout>
+                </LinearLayout>
+            </com.github.aakira.expandablelayout.ExpandableLinearLayout>
         </LinearLayout>
     </androidx.core.widget.NestedScrollView>
 </layout>

@@ -33,11 +33,14 @@ import androidx.databinding.library.baseAdapters.BR;
 public class AddDownloadParams extends BaseObservable implements Parcelable
 {
     private String url;
-    /* SAF storage */
-    private Uri filePath;
+    /* SAF or filesystem storage */
+    private Uri dirPath;
+    /* Equal with dirPath is case if the path is non-SAF path */
+    private String dirName;
+    private long storageFreeSpace = -1;
     private String fileName;
     private String description;
-    private String mimeType;
+    private String mimeType = "application/octet-stream";
     private String etag;
     private String userAgent;
     private int numPieces = DownloadInfo.MIN_PIECES;
@@ -45,12 +48,14 @@ public class AddDownloadParams extends BaseObservable implements Parcelable
     private boolean wifiOnly = false;
     private boolean partialSupport = true;
     private boolean retry = true;
+    private boolean replaceFile = false;
 
     public AddDownloadParams() {}
 
     public AddDownloadParams(Parcel source)
     {
-        filePath = source.readParcelable(Uri.class.getClassLoader());
+        dirPath = source.readParcelable(Uri.class.getClassLoader());
+        dirName = source.readString();
         url = source.readString();
         fileName = source.readString();
         description = source.readString();
@@ -62,19 +67,7 @@ public class AddDownloadParams extends BaseObservable implements Parcelable
         wifiOnly = source.readByte() != 0;
         numPieces = source.readInt();
         retry = source.readByte() != 0;
-    }
-
-    public DownloadInfo toDownloadInfo()
-    {
-        DownloadInfo info = new DownloadInfo(filePath, url, fileName, mimeType);
-        info.totalBytes = totalBytes;
-        info.description = description;
-        info.wifiOnly = wifiOnly;
-        info.partialSupport = partialSupport;
-        info.setNumPieces((partialSupport && totalBytes > 0 ? numPieces : DownloadInfo.MIN_PIECES));
-        info.retry = retry;
-
-        return info;
+        replaceFile = source.readByte() != 0;
     }
 
     @Bindable
@@ -89,14 +82,38 @@ public class AddDownloadParams extends BaseObservable implements Parcelable
         notifyPropertyChanged(BR.url);
     }
 
-    public Uri getFilePath()
+    public Uri getDirPath()
     {
-        return filePath;
+        return dirPath;
     }
 
-    public void setFilePath(Uri filePath)
+    public void setDirPath(Uri dirPath)
     {
-        this.filePath = filePath;
+        this.dirPath = dirPath;
+    }
+
+    @Bindable
+    public String getDirName()
+    {
+        return dirName;
+    }
+
+    public void setDirName(String dirName)
+    {
+        this.dirName = dirName;
+        notifyPropertyChanged(BR.dirName);
+    }
+
+    @Bindable
+    public long getStorageFreeSpace()
+    {
+        return storageFreeSpace;
+    }
+
+    public void setStorageFreeSpace(long storageFreeSpace)
+    {
+        this.storageFreeSpace = storageFreeSpace;
+        notifyPropertyChanged(BR.storageFreeSpace);
     }
 
     @Bindable
@@ -211,6 +228,18 @@ public class AddDownloadParams extends BaseObservable implements Parcelable
         notifyPropertyChanged(BR.retry);
     }
 
+    @Bindable
+    public boolean isReplaceFile()
+    {
+        return replaceFile;
+    }
+
+    public void setReplaceFile(boolean replaceFile)
+    {
+        this.replaceFile = replaceFile;
+        notifyPropertyChanged(BR.replaceFile);
+    }
+
     @Override
     public int describeContents()
     {
@@ -220,7 +249,7 @@ public class AddDownloadParams extends BaseObservable implements Parcelable
     @Override
     public void writeToParcel(Parcel dest, int flags)
     {
-        dest.writeParcelable(filePath, flags);
+        dest.writeParcelable(dirPath, flags);
         dest.writeString(url);
         dest.writeString(fileName);
         dest.writeString(description);
@@ -232,6 +261,7 @@ public class AddDownloadParams extends BaseObservable implements Parcelable
         dest.writeByte((byte)(wifiOnly ? 1 : 0));
         dest.writeInt(numPieces);
         dest.writeByte((byte)(retry ? 1 : 0));
+        dest.writeByte((byte)(replaceFile ? 1 : 0));
     }
 
     public static final Creator<AddDownloadParams> CREATOR =
@@ -255,7 +285,9 @@ public class AddDownloadParams extends BaseObservable implements Parcelable
     {
         return "AddDownloadParams{" +
                 "url='" + url + '\'' +
-                ", filePath=" + filePath +
+                ", dirPath=" + dirPath +
+                ", dirName='" + dirName + '\'' +
+                ", storageFreeSpace=" + storageFreeSpace +
                 ", fileName='" + fileName + '\'' +
                 ", description='" + description + '\'' +
                 ", mimeType='" + mimeType + '\'' +
@@ -266,6 +298,7 @@ public class AddDownloadParams extends BaseObservable implements Parcelable
                 ", wifiOnly=" + wifiOnly +
                 ", partialSupport=" + partialSupport +
                 ", retry=" + retry +
+                ", replaceFile=" + replaceFile +
                 '}';
     }
 }
