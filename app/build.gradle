@@ -7,7 +7,7 @@ android {
         minSdkVersion 19
         targetSdkVersion 28
         versionCode 1
-        versionName "1.0-alpha3"
+        versionName "1.0-alpha4"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         vectorDrawables.useSupportLibrary = true
     }
@@ -33,7 +33,7 @@ dependencies {
     androidTestImplementation 'androidx.test.ext:junit:1.1.0'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.1.1'
 
-    /* Android support library */
+    /* AndroidX libraries */
     implementation 'androidx.appcompat:appcompat:1.0.2'
     implementation 'androidx.constraintlayout:constraintlayout:2.0.0-alpha3'
     implementation 'com.google.android.material:material:1.1.0-alpha02'
@@ -44,12 +44,11 @@ dependencies {
     implementation 'android.arch.persistence.room:runtime:1.1.1'
     implementation 'android.arch.persistence.room:rxjava2:1.1.1'
     annotationProcessor 'android.arch.persistence.room:compiler:1.1.1'
+    implementation 'android.arch.work:work-runtime:1.0.0-beta03'
 
     /* ReactiveX */
     implementation 'io.reactivex.rxjava2:rxjava:2.1.9'
     implementation 'io.reactivex.rxjava2:rxandroid:2.0.2'
 
-    implementation 'android.arch.work:work-runtime:1.0.0-beta02'
     implementation 'com.github.aakira:expandable-layout:1.6.0@aar'
-    implementation 'com.android.support.constraint:constraint-layout:1.1.3'
 }

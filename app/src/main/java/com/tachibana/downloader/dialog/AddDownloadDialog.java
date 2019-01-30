@@ -558,7 +558,7 @@ public class AddDownloadDialog extends DialogFragment
     {
         Intent i = new Intent(activity, FileManagerDialog.class);
 
-        FileManagerConfig config = new FileManagerConfig(FileUtils.getUserDirPath(),
+        FileManagerConfig config = new FileManagerConfig(null,
                 getString(R.string.select_folder_to_save),
                 FileManagerConfig.DIR_CHOOSER_MODE);
 

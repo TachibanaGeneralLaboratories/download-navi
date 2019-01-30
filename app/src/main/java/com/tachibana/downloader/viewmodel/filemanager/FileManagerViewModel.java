@@ -1,3 +1,22 @@
+/*
+ * Copyright (C) 2019 Yaroslav Pronin <proninyaroslav@mail.ru>
+ *
+ * This file is part of LibreTorrent.
+ *
+ * LibreTorrent is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * LibreTorrent is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with LibreTorrent.  If not, see <http://www.gnu.org/licenses/>.
+ */
+
 package com.tachibana.downloader.viewmodel.filemanager;
 
 import android.content.Context;
@@ -31,6 +50,7 @@ public class FileManagerViewModel extends ViewModel
     private static final String TAG = FileManagerViewModel.class.getSimpleName();
 
     private Context appContext;
+    SharedPreferences pref;
     public String startDir;
     /* Current directory */
     public ObservableField<String> curDir = new ObservableField<>();
@@ -41,6 +61,7 @@ public class FileManagerViewModel extends ViewModel
     {
         this.appContext = appContext;
         this.config = config;
+        pref = SettingsManager.getPreferences(appContext);
 
         String path = config.path;
         if (TextUtils.isEmpty(path)) {
@@ -182,13 +203,9 @@ public class FileManagerViewModel extends ViewModel
         if (path == null)
             return;
 
-        SharedPreferences pref = SettingsManager.getPreferences(appContext);
         String keyFileManagerLastDir = appContext.getString(R.string.pref_key_filemanager_last_dir);
-
-        if (pref.getString(keyFileManagerLastDir, "").equals(path))
-            return;
-
-        pref.edit().putString(keyFileManagerLastDir, path).apply();
+        if (!pref.getString(keyFileManagerLastDir, "").equals(path))
+            pref.edit().putString(keyFileManagerLastDir, path).apply();
     }
 
     public boolean fileExists(String fileName)

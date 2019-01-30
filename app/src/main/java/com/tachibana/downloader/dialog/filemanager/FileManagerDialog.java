@@ -400,7 +400,6 @@ public class FileManagerDialog extends AppCompatActivity
         } else if (item.getType() == FileManagerNode.Type.FILE &&
                    viewModel.config.showMode == FileManagerConfig.FILE_CHOOSER_MODE) {
             viewModel.saveCurDirectoryPath();
-
             returnFileUri(item.getName());
         }
     }
@@ -449,6 +448,7 @@ public class FileManagerDialog extends AppCompatActivity
                 openHomeDirectory();
                 break;
             case R.id.filemanager_ok_menu:
+                viewModel.saveCurDirectoryPath();
                 if (viewModel.config.showMode == FileManagerConfig.SAVE_FILE_MODE)
                     createFile(false);
                 else
