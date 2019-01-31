@@ -40,11 +40,10 @@ dependencies {
     implementation 'androidx.recyclerview:recyclerview:1.1.0-alpha01'
     implementation 'androidx.recyclerview:recyclerview-selection:1.1.0-alpha01'
 
-    /* Android Architecture Components */
-    implementation 'android.arch.persistence.room:runtime:1.1.1'
-    implementation 'android.arch.persistence.room:rxjava2:1.1.1'
-    annotationProcessor 'android.arch.persistence.room:compiler:1.1.1'
-    implementation 'android.arch.work:work-runtime:1.0.0-beta03'
+    implementation "androidx.room:room-runtime:2.1.0-alpha04"
+    annotationProcessor "androidx.room:room-compiler:2.1.0-alpha04"
+    implementation "androidx.room:room-rxjava2:2.1.0-alpha04"
+    implementation "android.arch.work:work-runtime:1.0.0-beta03"
 
     /* ReactiveX */
     implementation 'io.reactivex.rxjava2:rxjava:2.1.9'
