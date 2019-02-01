@@ -1,16 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <declare-styleable name="dynamic_style_attrs">
-        <attr name="smallText" format="reference" />
         <attr name="background" format="reference" />
         <attr name="foreground" format="reference" />
         <attr name="popupTheme" format="reference" />
+        <attr name="divider" format="reference" />
         <attr name="defaultRectRipple" format="reference" />
         <attr name="defaultRoundRipple" format="reference" />
         <attr name="transparentRoundRipple" format="reference" />
         <attr name="transparentRectRipple" format="reference" />
-        <attr name="divider" format="reference" />
         <attr name="dialogRectRipple" format="reference" />
+        <attr name="dialogRoundRipple" format="reference" />
         <attr name="selectableColor" format="reference" />
         <attr name="menuIconTint" format="reference" />
     </declare-styleable>

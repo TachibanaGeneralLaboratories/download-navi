@@ -7,10 +7,15 @@
         <variable
             name="viewModel"
             type="com.tachibana.downloader.viewmodel.filemanager.FileManagerViewModel" />
+        <variable
+            name="enableSystemManagerButton"
+            type="java.lang.Boolean" />
         <import
             type="com.tachibana.downloader.dialog.filemanager.FileManagerConfig" />
         <import
             type="android.view.View" />
+        <import
+            type="android.os.Build" />
     </data>
 
     <androidx.coordinatorlayout.widget.CoordinatorLayout
@@ -18,6 +23,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:focusableInTouchMode="true"
+        android:fitsSystemWindows="true"
         tools:context=".dialog.filemanager.FileManagerDialog">
 
         <com.google.android.material.appbar.AppBarLayout
@@ -29,18 +35,18 @@
                 android:id="@+id/toolbar"
                 android:layout_width="match_parent"
                 android:layout_height="?attr/actionBarSize"
-                android:background="?attr/colorPrimary"
+                android:background="?attr/foreground"
                 android:focusable="true"
                 android:minHeight="?attr/actionBarSize"
-                android:theme="@style/ThemeOverlay.AppCompat.ActionBar"
                 android:transitionName="actionBar"
                 app:layout_scrollFlags="enterAlways"
+                android:theme="@style/ThemeOverlay.MaterialComponents.ActionBar"
                 app:popupTheme="?attr/popupTheme" />
 
             <HorizontalScrollView
                 android:layout_width="match_parent"
                 android:layout_height="?attr/actionBarSize"
-                android:background="?attr/colorPrimary"
+                android:background="?attr/foreground"
                 android:paddingLeft="16dp"
                 android:paddingRight="16dp">
 
@@ -54,7 +60,7 @@
                     android:paddingLeft="16dp"
                     android:paddingRight="16dp"
                     android:text="@{viewModel.curDir}"
-                    android:textAppearance="@style/TextAppearance.Widget.AppCompat.Toolbar.Subtitle"
+                    android:textAppearance="@style/TextAppearance.MaterialComponents.Subtitle1"
                     android:textColor="?android:attr/textColorPrimary" />
             </HorizontalScrollView>
         </com.google.android.material.appbar.AppBarLayout>
@@ -64,32 +70,19 @@
             android:layout_height="match_parent"
             app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
-            <Button
-                android:id="@+id/open_system_filemanager_fab"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="8dp"
-                android:layout_marginTop="8dp"
-                android:text="@string/system_manager"
-                android:visibility="gone"
-                app:backgroundTint="@color/accent"
-                app:cornerRadius="16dp"
-                app:icon="@drawable/ic_folder_grey600_24dp"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
-
             <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
                 android:id="@+id/swipe_container"
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
-                android:layout_marginTop="16dp"
                 app:layout_constraintBottom_toTopOf="@+id/bottom_bar"
-                app:layout_constraintTop_toBottomOf="@+id/open_system_filemanager_fab">
+                app:layout_constraintTop_toTopOf="parent">
 
                 <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/file_list"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:paddingTop="@{enableSystemManagerButton ? @dimen/fab_size + @dimen/fab_margin : @dimen/padding_zero}"
+                    android:clipToPadding="false"
                     android:background="?attr/background"
                     android:scrollbars="vertical" />
             </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
@@ -98,7 +91,7 @@
                 android:id="@+id/bottom_bar"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="?attr/colorPrimary"
+                android:background="?attr/foreground"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent">
@@ -115,7 +108,7 @@
 
                     <com.google.android.material.textfield.TextInputEditText
                         android:id="@+id/file_name"
-                        style="@style/TextAppearance.Widget.AppCompat.Toolbar.Subtitle"
+                        style="@style/TextAppearance.MaterialComponents.Subtitle1"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:hint="@string/file_name"
@@ -128,12 +121,23 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_margin="@dimen/fab_margin"
-                android:layout_marginEnd="8dp"
-                android:layout_marginBottom="8dp"
                 android:visibility="@{viewModel.config.showMode == FileManagerConfig.DIR_CHOOSER_MODE || viewModel.config.showMode == FileManagerConfig.SAVE_FILE_MODE ? View.VISIBLE : View.GONE}"
                 app:layout_constraintBottom_toTopOf="@+id/bottom_bar"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:srcCompat="@drawable/ic_add_black_24dp" />
         </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/open_system_filemanager_fab"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:text="@string/system_manager"
+            android:layout_marginTop="120dp"
+            android:layout_gravity="top|start"
+            android:visibility="@{enableSystemManagerButton ? View.VISIBLE : View.GONE}"
+            app:backgroundTint="@color/accent"
+            app:cornerRadius="16dp"
+            app:icon="@drawable/ic_folder_grey600_24dp" />
     </androidx.coordinatorlayout.widget.CoordinatorLayout>
 </layout>

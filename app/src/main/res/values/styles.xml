@@ -1,39 +1,52 @@
 <resources>
-    <style name="AppTheme" parent="BaseTheme">
-    </style>
+    <style name="AppTheme" parent="BaseTheme" />
+    <style name="AppTheme.Dark" parent="BaseTheme.Dark" />
+    <style name="AppTheme.Black" parent="BaseTheme.Black" />
+    <style name="AppTheme.Dialog" parent="BaseTheme.Dialog" />
+    <style name="AppTheme.Dialog.Dark" parent="BaseTheme.Dialog.Dark" />
+    <style name="AppTheme.Translucent" parent="BaseTheme.Translucent" />
+    <style name="AppTheme.Translucent.Dark" parent="BaseTheme.Translucent.Dark" />
+    <style name="AppTheme.Translucent.Black" parent="BaseTheme.Translucent.Black" />
 
-    <style name="AppTheme.Dark" parent="BaseTheme.Dark">
-    </style>
-
-    <style name="AppTheme.Black" parent="BaseTheme.Black">
-    </style>
-
-    <style name="BaseTheme" parent="Theme.AppCompat.Light.NoActionBar">
+    <style name="BaseTheme" parent="Theme.MaterialComponents.Light">
         <item name="colorPrimary">@color/primary</item>
-        <item name="colorPrimaryDark">@color/primary_dark</item>
-        <item name="colorAccent">@color/accent</item>
+        <item name="colorPrimaryVariant">@color/primary_dark</item>
+        <item name="colorOnPrimary">@color/text_primary</item>
+        <item name="colorSecondary">@color/accent</item>
+        <item name="colorSecondaryVariant">@color/accent_dark</item>
+        <item name="colorOnSecondary">@color/text_primary</item>
+        <item name="colorError">@color/error</item>
+        <item name="colorOnError">@android:color/white</item>
+        <item name="colorSurface">@color/foreground</item>
+        <item name="colorOnSurface">@color/text_primary</item>
+        <item name="android:colorBackground">@color/background</item>
+        <item name="colorOnBackground">@color/text_primary</item>
+        <item name="textInputStyle">@style/AppTextField</item>
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
+
         <item name="android:textColorPrimary">@color/text_primary</item>
         <item name="android:textColorSecondary">@color/text_secondary</item>
         <item name="android:textColorPrimaryInverse">@color/text_primary_inverse</item>
         <item name="android:textColorSecondaryInverse">@color/text_secondary_inverse</item>
         <item name="android:textColorHint">@color/text_secondary</item>
-        <item name="smallText">@style/TextAppearance.AppCompat.Small</item>
+
         <item name="background">@color/background</item>
         <item name="foreground">@color/foreground</item>
         <item name="windowActionModeOverlay">true</item>
         <item name="android:actionModeBackground">@color/foreground</item>
         <item name="actionModeBackground">@color/foreground</item> <!-- For pre-Lollipop -->
-        <item name="android:windowBackground">@color/background</item>
         <item name="actionBarPopupTheme">@style/ThemeOverlay.AppCompat.Light</item>
         <item name="popupTheme">@style/ThemeOverlay.AppCompat.Light</item>
-        <item name="android:alertDialogTheme">@style/BaseTheme.Dialog</item>
-        <item name="alertDialogTheme">@style/BaseTheme.Dialog</item> <!-- For pre-Lollipop -->
+        <item name="android:alertDialogTheme">@style/AppTheme.Dialog</item>
+        <item name="alertDialogTheme">@style/AppTheme.Dialog</item> <!-- For pre-Lollipop -->
         <item name="defaultRectRipple">@drawable/default_rect_ripple</item>
         <item name="defaultRoundRipple">@drawable/default_round_ripple</item>
         <item name="transparentRoundRipple">@drawable/transparent_round_ripple</item>
         <item name="transparentRectRipple">@drawable/transparent_rect_ripple</item>
         <item name="divider">@drawable/divider</item>
         <item name="dialogRectRipple">@drawable/default_rect_ripple</item>
+        <item name="dialogRoundRipple">@drawable/default_round_ripple</item>
         <item name="android:popupMenuStyle">@style/PopupMenu</item>
         <item name="popupMenuStyle">@style/PopupMenu</item>
         <item name="selectableColor">@color/selectable</item>
@@ -41,27 +54,30 @@
     </style>
 
     <style name="BaseTheme.Dark" parent="BaseTheme">
-        <item name="colorPrimary">@color/dark_theme_primary</item>
-        <item name="colorPrimaryDark">@color/dark_theme_primary_dark</item>
+        <item name="colorSurface">@color/foreground_dark</item>
+        <item name="colorOnSurface">@color/text_primary_inverse</item>
+        <item name="android:colorBackground">@color/background_dark</item>
+        <item name="colorOnBackground">@color/text_primary_inverse</item>
+
         <item name="android:textColorPrimary">@color/text_primary_inverse</item>
         <item name="android:textColorSecondary">@color/text_secondary_inverse</item>
         <item name="android:textColorPrimaryInverse">@color/text_primary</item>
         <item name="android:textColorSecondaryInverse">@color/text_secondary</item>
         <item name="android:textColorHint">@color/text_secondary_inverse</item>
-        <item name="smallText">@style/TextAppearance.AppCompat.Small.Inverse</item>
+
         <item name="background">@color/background_dark</item>
         <item name="foreground">@color/foreground_dark</item>
-        <item name="android:windowBackground">@color/background_dark</item>
         <item name="actionBarPopupTheme">@style/ThemeOverlay.AppCompat.Dark</item>
         <item name="popupTheme">@style/ThemeOverlay.AppCompat.Dark</item>
-        <item name="android:alertDialogTheme">@style/BaseTheme.Dialog.Dark</item>
-        <item name="alertDialogTheme">@style/BaseTheme.Dialog.Dark</item>
+        <item name="android:alertDialogTheme">@style/AppTheme.Dialog.Dark</item>
+        <item name="alertDialogTheme">@style/AppTheme.Dialog.Dark</item>
         <item name="defaultRectRipple">@drawable/default_rect_ripple_dark</item>
         <item name="defaultRoundRipple">@drawable/default_round_ripple_dark</item>
         <item name="transparentRoundRipple">@drawable/transparent_round_ripple_dark</item>
         <item name="transparentRectRipple">@drawable/transparent_rect_ripple_dark</item>
         <item name="divider">@drawable/divider_dark</item>
         <item name="dialogRectRipple">@drawable/dialog_rect_ripple_dark</item>
+        <item name="dialogRoundRipple">@drawable/dialog_round_ripple_dark</item>
         <item name="android:popupMenuStyle">@style/PopupMenu_Dark</item>
         <item name="popupMenuStyle">@style/PopupMenu_Dark</item>
         <item name="android:actionModeBackground">@color/foreground_dark</item>
@@ -71,21 +87,29 @@
     </style>
 
     <style name="BaseTheme.Black" parent="BaseTheme.Dark">
-        <item name="colorPrimary">@color/black_theme_primary</item>
-        <item name="colorPrimaryDark">@color/black_theme_primary_dark</item>
-        <item name="background">@color/black</item>
+        <item name="colorSurface">@color/foreground_black</item>
+        <item name="android:colorBackground">@android:color/black</item>
+
+        <item name="background">@android:color/black</item>
         <item name="foreground">@color/foreground_black</item>
-        <item name="android:windowBackground">@color/black</item>
+        <item name="android:windowBackground">@android:color/black</item>
         <item name="defaultRectRipple">@drawable/default_rect_ripple_black</item>
         <item name="defaultRoundRipple">@drawable/default_round_ripple_black</item>
         <item name="android:actionModeBackground">@color/foreground_black</item>
         <item name="actionModeBackground">@color/foreground_black</item> <!-- For pre-Lollipop -->
     </style>
 
-    <style name="BaseTheme.Dialog" parent="Theme.AppCompat.Light.Dialog">
+    <style name="BaseTheme.Dialog" parent="Theme.MaterialComponents.Light.Dialog">
         <item name="colorPrimary">@color/primary</item>
-        <item name="colorPrimaryDark">@color/primary_dark</item>
-        <item name="colorAccent">@color/accent</item>
+        <item name="colorPrimaryVariant">@color/primary_dark</item>
+        <item name="colorOnPrimary">@color/text_primary</item>
+        <item name="colorSecondary">@color/accent</item>
+        <item name="colorSecondaryVariant">@color/accent_dark</item>
+        <item name="colorOnSecondary">@color/text_primary</item>
+        <item name="android:background">@color/background_dialog</item>
+        <item name="background">@color/background</item>
+        <item name="dialogCornerRadius">4dp</item>
+
         <item name="android:bottomBright">@color/background_dialog</item>
         <item name="android:bottomDark">@color/background_dialog</item>
         <item name="android:bottomMedium">@color/background_dialog</item>
@@ -98,10 +122,17 @@
         <item name="android:topDark">@color/background_dialog</item>
     </style>
 
-    <style name="BaseTheme.Dialog.Dark" parent="Theme.AppCompat.Dialog">
-        <item name="colorPrimary">@color/dark_theme_primary</item>
-        <item name="colorPrimaryDark">@color/dark_theme_primary_dark</item>
-        <item name="colorAccent">@color/accent</item>
+    <style name="BaseTheme.Dialog.Dark" parent="Theme.MaterialComponents.Dialog">
+        <item name="colorPrimary">@color/primary</item>
+        <item name="colorPrimaryVariant">@color/primary_dark</item>
+        <item name="colorOnPrimary">@color/text_primary</item>
+        <item name="colorSecondary">@color/accent</item>
+        <item name="colorSecondaryVariant">@color/accent_dark</item>
+        <item name="colorOnSecondary">@color/text_primary</item>
+        <item name="android:background">@color/background_dialog_dark</item>
+        <item name="background">@color/background_dark</item>
+        <item name="dialogCornerRadius">4dp</item>
+
         <item name="android:bottomBright">@color/background_dialog_dark</item>
         <item name="android:bottomDark">@color/background_dialog_dark</item>
         <item name="android:bottomMedium">@color/background_dialog_dark</item>
@@ -119,45 +150,12 @@
         <item name="android:divider">@null</item>
     </style>
 
-    <style name="BaseTheme.EmptyView" parent="@style/TextAppearance.AppCompat.Display1">
+    <style name="BaseTheme.EmptyView" parent="@style/TextAppearance.MaterialComponents.Headline4">
         <item name="android:gravity">center</item>
         <item name="android:visibility">gone</item>
     </style>
 
-    <!--<style name="BaseTheme.BaseThemeSettings" parent="@style/PreferenceFixTheme.Light.NoActionBar">-->
-        <!--<item name="colorAccent">@color/accent</item>-->
-        <!--<item name="colorPrimary">@color/primary</item>-->
-        <!--<item name="colorPrimaryDark">@color/primary_dark</item>-->
-        <!--<item name="android:windowBackground">@color/background</item>-->
-        <!--<item name="preferenceCategory_marginBottom">0dp</item>-->
-        <!--<item name="android:layout">@layout/fragment_custom_preference</item>-->
-        <!--<item name="divider">@drawable/table_mode_divider</item>-->
-    <!--</style>-->
-
-    <!--<style name="BaseTheme.BaseThemeSettings.Dark" parent="@style/PreferenceFixTheme.NoActionBar">-->
-        <!--<item name="colorAccent">@color/accent</item>-->
-        <!--<item name="colorPrimary">@color/primary</item>-->
-        <!--<item name="colorPrimaryDark">@color/primary_dark</item>-->
-        <!--<item name="android:windowBackground">@color/background_dark</item>-->
-        <!--<item name="preferenceCategory_marginBottom">0dp</item>-->
-        <!--<item name="android:layout">@layout/fragment_custom_preference</item>-->
-        <!--<item name="divider">@drawable/table_mode_divider_dark</item>-->
-    <!--</style>-->
-
-    <!--<style name="BaseTheme.BaseThemeSettings.Black" parent="BaseTheme.BaseThemeSettings.Dark">-->
-        <!--<item name="android:windowBackground">@color/black</item>-->
-    <!--</style>-->
-
-    <!--<style name="BaseTheme.Settings" parent="BaseTheme.BaseThemeSettings">-->
-    <!--</style>-->
-
-    <!--<style name="BaseTheme.Settings.Dark" parent="BaseTheme.BaseThemeSettings.Dark">-->
-    <!--</style>-->
-
-    <!--<style name="BaseTheme.Settings.Black" parent="BaseTheme.BaseThemeSettings.Black">-->
-    <!--</style>-->
-
-    <style name="Theme.AppCompat.Translucent" parent="BaseTheme">
+    <style name="BaseTheme.Translucent" parent="BaseTheme">
         <item name="android:windowNoTitle">true</item>
         <item name="android:windowBackground">@android:color/transparent</item>
         <item name="android:colorBackgroundCacheHint">@null</item>
@@ -165,7 +163,7 @@
         <item name="android:windowAnimationStyle">@null</item>
     </style>
 
-    <style name="Theme.AppCompat.Translucent.Dark" parent="BaseTheme.Dark">
+    <style name="BaseTheme.Translucent.Dark" parent="BaseTheme.Dark">
         <item name="android:windowNoTitle">true</item>
         <item name="android:windowBackground">@android:color/transparent</item>
         <item name="android:colorBackgroundCacheHint">@null</item>
@@ -173,14 +171,21 @@
         <item name="android:windowAnimationStyle">@null</item>
     </style>
 
-    <style name="Theme.AppCompat.Translucent.Black" parent="Theme.AppCompat.Translucent.Dark">
-    </style>
+    <style name="BaseTheme.Translucent.Black" parent="BaseTheme.Translucent.Dark" />
 
-    <style name="PopupMenu" parent="ThemeOverlay.AppCompat.Light">
+    <style name="PopupMenu" parent="ThemeOverlay.MaterialComponents.Light">
         <item name="android:popupBackground">@drawable/popup_menu_light</item>
     </style>
 
-    <style name="PopupMenu_Dark" parent="ThemeOverlay.AppCompat.Dark">
+    <style name="PopupMenu_Dark" parent="ThemeOverlay.MaterialComponents.Dark">
         <item name="android:popupBackground">@drawable/popup_menu_dark</item>
+    </style>
+
+    <style name="AppTextField" parent="Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+        <item name="boxBackgroundMode">outline</item>
+    </style>
+
+    <style name="TextCaption" parent="@style/TextAppearance.MaterialComponents.Caption">
+        <item name="android:textSize">14sp</item>
     </style>
 </resources>

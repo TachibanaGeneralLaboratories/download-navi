@@ -9,7 +9,6 @@
     android:clickable="true"
     android:focusable="true"
     android:foreground="?attr/transparentRectRipple"
-    card_view:cardCornerRadius="4dp"
     card_view:cardBackgroundColor="?attr/foreground">
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -49,7 +48,7 @@
                 android:layout_height="wrap_content"
                 android:ellipsize="middle"
                 android:singleLine="true"
-                android:textAppearance="@style/TextAppearance.AppCompat.Subhead" />
+                android:textAppearance="@style/TextAppearance.MaterialComponents.Body1" />
 
             <TextView
                 android:id="@+id/status"
@@ -59,7 +58,7 @@
                 android:ellipsize="middle"
                 android:gravity="center_vertical"
                 android:maxLines="2"
-                android:textAppearance="?attr/smallText" />
+                android:textAppearance="@style/TextCaption" />
 
             <TextView
                 android:id="@+id/error"
@@ -69,7 +68,7 @@
                 android:ellipsize="end"
                 android:gravity="center_vertical"
                 android:maxLines="3"
-                android:textAppearance="@style/TextAppearance.AppCompat.Small"
+                android:textAppearance="@style/TextAppearance.MaterialComponents.Body2"
                 android:textColor="@color/error" />
         </LinearLayout>
 

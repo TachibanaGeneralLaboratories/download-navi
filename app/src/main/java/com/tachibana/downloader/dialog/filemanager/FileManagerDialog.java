@@ -114,6 +114,7 @@ public class FileManagerDialog extends AppCompatActivity
         viewModel = ViewModelProviders.of(this, factory).get(FileManagerViewModel.class);
 
         binding = DataBindingUtil.setContentView(this, R.layout.activity_filemanager_dialog);
+        binding.setEnableSystemManagerButton(Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT);
         binding.setViewModel(viewModel);
 
         dialogViewModel = ViewModelProviders.of(this).get(BaseAlertDialog.SharedViewModel.class);
@@ -142,12 +143,7 @@ public class FileManagerDialog extends AppCompatActivity
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         binding.addFab.setOnClickListener((v) -> showInputNameDialog());
-        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.KITKAT) {
-            binding.openSystemFilemanagerFab.setVisibility(View.GONE);
-        } else {
-            binding.openSystemFilemanagerFab.setVisibility(View.VISIBLE);
-            binding.openSystemFilemanagerFab.setOnClickListener((v) -> showSAFDialog());
-        }
+        binding.openSystemFilemanagerFab.setOnClickListener((v) -> showSAFDialog());
 
         if (savedInstanceState == null)
             binding.fileName.setText(viewModel.config.fileName);

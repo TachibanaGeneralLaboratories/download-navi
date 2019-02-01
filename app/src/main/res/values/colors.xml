@@ -1,19 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="primary">#FFFFFF</color>
-    <color name="primary_dark">#E0E0E0</color>
-    <color name="dark_theme_primary">#303030</color>
-    <color name="dark_theme_primary_dark">#212121</color>
-    <color name="black_theme_primary">#000000</color>
-    <color name="black_theme_primary_dark">#000000</color>
+    <color name="primary">#00BCD4</color>
+    <color name="primary_dark">#008394</color>
+    <color name="primary_light">#33C9DC</color>
+    <color name="accent">#00B0FF</color>
+    <color name="accent_dark">#007BB2</color>
+    <color name="accent_light">#33BFFF</color>
+    <color name="status_bar">#E0E0E0</color>
+    <color name="dark_theme_status_bar">#212121</color>
+    <color name="black_theme_status_bar">#000000</color>
     <color name="gray_dark">#727272</color>
     <color name="gray">#E0E0E0</color>
     <color name="gray_light">#EEEEEE</color>
     <color name="divider">#E0E0E0</color>
     <color name="divider_dark">#424242</color>
-    <color name="accent">#00B0FF</color>
-    <color name="accent_dark">#007BB2</color>
-    <color name="accent_light">#33BFFF</color>
     <color name="background">#FFFFFF</color>
     <color name="background_dark">#212121</color>
     <color name="foreground">#FFFFFF</color>
@@ -30,5 +30,4 @@
     <color name="error">#D50000</color>
     <color name="warning">#FFD600</color>
     <color name="ok">#00C853</color>
-    <color name="black">#000000</color>
 </resources>

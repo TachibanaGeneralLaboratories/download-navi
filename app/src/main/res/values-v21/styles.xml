@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <style name="AppTheme" parent="BaseTheme">
+        <item name="android:statusBarColor">@color/status_bar</item>
+    </style>
+
+    <style name="AppTheme.Dark" parent="BaseTheme.Dark">
+        <item name="android:statusBarColor">@color/dark_theme_status_bar</item>
+    </style>
+
+    <style name="AppTheme.Black" parent="BaseTheme.Black">
+        <item name="android:statusBarColor">@color/black_theme_status_bar</item>
+    </style>
+
+    <style name="AppTheme.Translucent" parent="BaseTheme.Translucent">
+        <item name="android:statusBarColor">@color/status_bar</item>
+    </style>
+
+    <style name="AppTheme.Translucent.Dark" parent="BaseTheme.Translucent.Dark">
+        <item name="android:statusBarColor">@color/dark_theme_status_bar</item>
+    </style>
+
+    <style name="AppTheme.Translucent.Black" parent="BaseTheme.Translucent.Black">
+        <item name="android:statusBarColor">@color/black_theme_status_bar</item>
+    </style>
+</resources>

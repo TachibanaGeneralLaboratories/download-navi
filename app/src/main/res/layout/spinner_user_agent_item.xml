@@ -18,7 +18,7 @@
         android:ellipsize="none"
         android:gravity="center_vertical|start"
         android:minHeight="48dp"
-        android:textAppearance="@style/TextAppearance.AppCompat.Menu"
+        android:textAppearance="@style/TextAppearance.MaterialComponents.Body1"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/delete"
         app:layout_constraintStart_toStartOf="parent"

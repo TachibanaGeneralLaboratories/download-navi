@@ -16,7 +16,8 @@
         android:paddingEnd="@dimen/dialog_padding"
         android:paddingStart="@dimen/dialog_padding"
         android:fadeScrollbars="false"
-        android:scrollbars="vertical">
+        android:scrollbars="vertical"
+        android:scrollbarStyle="outsideOverlay"> <!-- Need for padding -->
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -24,19 +25,16 @@
             android:minWidth="@dimen/min_width_dialog"
             android:orientation="vertical">
 
-            <androidx.constraintlayout.widget.ConstraintLayout
+            <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="16dp">
 
                 <com.google.android.material.textfield.TextInputLayout
                     android:id="@+id/layout_link"
-                    android:layout_width="0dp"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toStartOf="@id/fetch_progress"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent">
+                    android:layout_toStartOf="@id/fetch_progress">
 
                     <com.google.android.material.textfield.TextInputEditText
                         android:id="@+id/link"
@@ -54,12 +52,10 @@
                     android:layout_height="24dp"
                     android:layout_marginStart="16dp"
                     android:layout_marginEnd="8dp"
-                    android:visibility="gone"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toEndOf="@+id/layout_link"
-                    app:layout_constraintTop_toTopOf="parent" />
-            </androidx.constraintlayout.widget.ConstraintLayout>
+                    android:layout_alignParentEnd="true"
+                    android:layout_centerInParent="true"
+                    android:visibility="gone" />
+            </RelativeLayout>
 
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/layout_name"
@@ -76,30 +72,24 @@
                     android:text="@={model.params.fileName}"/>
             </com.google.android.material.textfield.TextInputLayout>
 
-            <androidx.constraintlayout.widget.ConstraintLayout
+            <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="16dp">
 
                 <com.google.android.material.textfield.TextInputLayout
                     android:id="@+id/layout_save_path"
-                    android:layout_width="0dp"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toStartOf="@id/folder_chooser_button"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent">
+                    android:layout_toStartOf="@id/folder_chooser_button">
 
                     <com.google.android.material.textfield.TextInputEditText
                         android:id="@+id/save_path"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:focusable="false"
-                        android:singleLine="true"
-                        android:scrollHorizontally="true"
-                        android:scrollbars="horizontal"
                         android:hint="@string/path"
-                        android:inputType="none"
+                        android:inputType="textMultiLine"
                         android:text="@{model.params.dirName}" />
                 </com.google.android.material.textfield.TextInputLayout>
 
@@ -108,21 +98,20 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
-                    android:background="?attr/defaultRoundRipple"
-                    android:contentDescription="@string/dir_chooser_title"
+                    android:layout_marginStart="8dp"
+                    android:layout_alignParentEnd="true"
                     android:padding="8dp"
-                    android:src="@drawable/ic_folder_grey600_24dp"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
-            </androidx.constraintlayout.widget.ConstraintLayout>
+                    android:background="?attr/dialogRoundRipple"
+                    android:contentDescription="@string/dir_chooser_title"
+                    android:src="@drawable/ic_folder_grey600_24dp" />
+            </RelativeLayout>
 
             <TextView
                 android:id="@+id/free_space"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="16dp"
-                android:textAppearance="@style/TextAppearance.AppCompat.Subhead"
+                android:textAppearance="@style/TextAppearance.MaterialComponents.Body1"
                 android:textColor="?android:attr/textColorPrimary"
                 app:fileSize="@{model.params.storageFreeSpace}"
                 app:formatFileSize="@{@string/storage_free_space}" />
@@ -139,7 +128,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="16dp"
-                    android:textAppearance="@style/TextAppearance.AppCompat.Subhead"
+                    android:textAppearance="@style/TextAppearance.MaterialComponents.Body1"
                     android:textColor="?android:attr/textColorPrimary"
                     app:fileSize="@{model.params.totalBytes}"
                     app:formatFileSize="@{@string/download_size}"/>
@@ -208,6 +197,16 @@
                 android:layout_height="48dp"
                 android:background="?attr/dialogRectRipple">
 
+                <TextView
+                    android:id="@+id/advanced"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:gravity="center_vertical"
+                    android:layout_margin="8dp"
+                    android:layout_toStartOf="@id/expand_button"
+                    android:text="@string/download_advanced"
+                    android:textAppearance="@style/TextCaption" />
+
                 <RelativeLayout
                     android:id="@+id/expand_button"
                     android:layout_width="48dp"
@@ -221,15 +220,6 @@
                         android:layout_height="wrap_content"
                         android:background="@drawable/ic_arrow_down_gray_24dp" />
                 </RelativeLayout>
-
-                <TextView
-                    android:id="@+id/advanced"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:gravity="center_vertical"
-                    android:layout_toStartOf="@id/expand_button"
-                    android:text="@string/download_advanced"
-                    android:textAppearance="?attr/smallText" />
             </RelativeLayout>
 
             <com.github.aakira.expandablelayout.ExpandableLinearLayout
@@ -267,7 +257,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginBottom="16dp"
-                        android:textAppearance="@style/TextAppearance.AppCompat.Subhead"
+                        android:textAppearance="@style/TextAppearance.MaterialComponents.Body1"
                         android:textColor="?android:attr/textColorPrimary"
                         android:text="@{@string/download_pieces_number_title(model.params.numPieces)}" />
 
@@ -284,7 +274,7 @@
                         android:id="@+id/user_agent_title"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:textAppearance="@style/TextAppearance.AppCompat.Subhead"
+                        android:textAppearance="@style/TextAppearance.MaterialComponents.Body1"
                         android:textColor="?android:attr/textColorPrimary"
                         android:text="@string/download_user_agent" />
 
@@ -297,6 +287,7 @@
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
                             android:layout_centerInParent="true"
+                            android:layout_marginEnd="8dp"
                             android:layout_toStartOf="@id/add_user_agent" />
 
                         <ImageButton
@@ -307,7 +298,7 @@
                             android:layout_alignParentEnd="true"
                             android:layout_centerInParent="true"
                             android:contentDescription="@null"
-                            android:background="?attr/transparentRoundRipple"
+                            android:background="?attr/dialogRoundRipple"
                             android:src="@drawable/ic_add_grey600_24px" />
                     </RelativeLayout>
                 </LinearLayout>

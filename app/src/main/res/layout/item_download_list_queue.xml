@@ -9,7 +9,6 @@
     android:clickable="true"
     android:focusable="true"
     android:foreground="?attr/transparentRectRipple"
-    card_view:cardCornerRadius="4dp"
     card_view:cardBackgroundColor="?attr/foreground">
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -51,7 +50,7 @@
                 android:layout_height="wrap_content"
                 android:ellipsize="middle"
                 android:singleLine="true"
-                android:textAppearance="@style/TextAppearance.AppCompat.Subhead" />
+                android:textAppearance="@style/TextAppearance.MaterialComponents.Body1" />
 
             <ProgressBar
                 android:id="@+id/progress"
@@ -69,7 +68,7 @@
                 android:ellipsize="end"
                 android:gravity="center_vertical"
                 android:maxLines="2"
-                android:textAppearance="?attr/smallText" />
+                android:textAppearance="@style/TextCaption" />
         </LinearLayout>
 
         <ImageButton

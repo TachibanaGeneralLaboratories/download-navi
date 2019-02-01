@@ -19,9 +19,7 @@
             app:tabMode="fixed"
             app:tabMaxWidth="0dp"
             app:tabGravity="fill"
-            android:background="?attr/colorPrimary"
-            android:elevation="@dimen/toolbar_elevation"
-            android:theme="@style/ThemeOverlay.AppCompat.ActionBar" />
+            android:elevation="@dimen/toolbar_elevation" />
 
         <androidx.viewpager.widget.ViewPager
             android:id="@+id/download_list_viewpager"

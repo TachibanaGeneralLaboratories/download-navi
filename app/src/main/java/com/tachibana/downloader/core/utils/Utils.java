@@ -182,13 +182,13 @@ public class Utils
         int theme = getThemePreference(context);
 
         if (theme == Integer.parseInt(context.getString(R.string.pref_theme_light_value)))
-            return R.style.Theme_AppCompat_Translucent;
+            return R.style.AppTheme_Translucent;
         else if (theme == Integer.parseInt(context.getString(R.string.pref_theme_dark_value)))
-            return R.style.Theme_AppCompat_Translucent_Dark;
+            return R.style.AppTheme_Translucent_Dark;
         else if (theme == Integer.parseInt(context.getString(R.string.pref_theme_black_value)))
-            return R.style.Theme_AppCompat_Translucent_Black;
+            return R.style.AppTheme_Translucent_Black;
 
-        return R.style.Theme_AppCompat_Translucent;
+        return R.style.AppTheme_Translucent;
     }
 
     /*
