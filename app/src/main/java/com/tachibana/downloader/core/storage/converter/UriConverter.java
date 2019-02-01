@@ -22,19 +22,20 @@ package com.tachibana.downloader.core.storage.converter;
 
 import android.net.Uri;
 
+import androidx.annotation.NonNull;
 import androidx.room.TypeConverter;
 
 public class UriConverter
 {
     @TypeConverter
-    public static Uri toUri(String uriStr)
+    public static Uri toUri(@NonNull String uriStr)
     {
-        return uriStr == null ? null : Uri.parse(uriStr);
+        return Uri.parse(uriStr);
     }
 
     @TypeConverter
-    public static String fromUri(Uri uri)
+    public static String fromUri(@NonNull Uri uri)
     {
-        return uri == null ? null : uri.toString();
+        return uri.toString();
     }
 }

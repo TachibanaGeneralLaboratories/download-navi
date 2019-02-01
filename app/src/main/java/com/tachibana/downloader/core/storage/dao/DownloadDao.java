@@ -117,6 +117,5 @@ public abstract class DownloadDao
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     public abstract void addHeader(Header header);
 
-    @Insert(onConflict = OnConflictStrategy.REPLACE)
     public abstract void add_info(DownloadInfo info);
 }
