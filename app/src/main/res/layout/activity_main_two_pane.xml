@@ -1,57 +1,49 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="horizontal"
+    android:fitsSystemWindows="true"
+    android:gravity="center"
     tools:context=".MainActivity">
 
-    <include
-        layout="@layout/statusbar_kitkat" />
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="horizontal"
-        android:fitsSystemWindows="true"
-        android:gravity="center">
-
-        <RelativeLayout
-            android:layout_width="@dimen/navigation_drawer_width"
-            android:layout_height="match_parent">
-
-            <include
-                layout="@layout/toolbar"/>
-
-            <com.google.android.material.navigation.NavigationView
-                android:id="@+id/navigation_view"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_below="@id/toolbar"
-                app:elevation="0dp"
-                android:background="?attr/background" />
-        </RelativeLayout>
-
-        <RelativeLayout
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent">
-
-            <!-- Fake divider -->
-            <View
-                android:id="@+id/toolbar_divider"
-                android:layout_width="1dp"
-                android:layout_height="?attr/actionBarSize"
-                android:background="?attr/colorPrimary" />
-
-            <View
-                android:id="@+id/content_divider"
-                android:layout_width="1dp"
-                android:layout_height="match_parent"
-                android:layout_below="@id/toolbar_divider"
-                android:background="?attr/divider" />
-        </RelativeLayout>
+    <RelativeLayout
+        android:layout_width="@dimen/navigation_drawer_width"
+        android:layout_height="match_parent">
 
         <include
-            layout="@layout/content_main" />
-    </LinearLayout>
-</FrameLayout>
+            layout="@layout/toolbar"/>
+
+        <com.google.android.material.navigation.NavigationView
+            android:id="@+id/navigation_view"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_below="@id/toolbar"
+            app:elevation="0dp"
+            android:background="?attr/background" />
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent">
+
+        <!-- Fake divider -->
+        <View
+            android:id="@+id/toolbar_divider"
+            android:layout_width="1dp"
+            android:layout_height="?attr/actionBarSize"
+            android:background="?attr/colorPrimary" />
+
+        <View
+            android:id="@+id/content_divider"
+            android:layout_width="1dp"
+            android:layout_height="match_parent"
+            android:layout_below="@id/toolbar_divider"
+            android:background="?attr/divider" />
+    </RelativeLayout>
+
+    <include
+        layout="@layout/content_main" />
+</LinearLayout>

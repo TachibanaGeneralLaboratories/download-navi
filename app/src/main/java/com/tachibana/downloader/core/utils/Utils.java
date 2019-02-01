@@ -349,18 +349,6 @@ public class Utils
     }
 
     /*
-     * Colored status bar in KitKat.
-     */
-
-    public static void showColoredStatusBar_KitKat(Activity activity)
-    {
-        RelativeLayout statusBar = activity.findViewById(R.id.statusBarKitKat);
-
-        if (Build.VERSION.SDK_INT == Build.VERSION_CODES.KITKAT)
-            statusBar.setVisibility(View.VISIBLE);
-    }
-
-    /*
      * Don't use app context (its doesn't reload after configuration changes)
      */
 

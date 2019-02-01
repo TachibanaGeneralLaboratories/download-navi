@@ -20,13 +20,10 @@
         android:focusableInTouchMode="true"
         tools:context=".dialog.filemanager.FileManagerDialog">
 
-        <include layout="@layout/statusbar_kitkat" />
-
         <com.google.android.material.appbar.AppBarLayout
             android:id="@+id/app_bar"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/statusBarKitKat">
+            android:layout_height="wrap_content">
 
             <androidx.appcompat.widget.Toolbar
                 android:id="@+id/toolbar"

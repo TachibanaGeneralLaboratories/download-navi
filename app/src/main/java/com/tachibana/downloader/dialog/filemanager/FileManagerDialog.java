@@ -115,7 +115,6 @@ public class FileManagerDialog extends AppCompatActivity
 
         binding = DataBindingUtil.setContentView(this, R.layout.activity_filemanager_dialog);
         binding.setViewModel(viewModel);
-        Utils.showColoredStatusBar_KitKat(this);
 
         dialogViewModel = ViewModelProviders.of(this).get(BaseAlertDialog.SharedViewModel.class);
         inputNameDialog = (BaseAlertDialog)getSupportFragmentManager().findFragmentByTag(TAG_INPUT_NAME_DIALOG);

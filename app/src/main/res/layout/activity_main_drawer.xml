@@ -3,39 +3,30 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:fitsSystemWindows="true"
     tools:context=".MainActivity">
 
-    <include
-        layout="@layout/statusbar_kitkat" />
-
-    <!-- Needs for fitsSystemWindows for DrawerList on KitKat-->
-    <FrameLayout
+    <androidx.drawerlayout.widget.DrawerLayout
+        android:id="@+id/drawer_layout"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:fitsSystemWindows="true">
+        android:layout_height="match_parent">
 
-        <androidx.drawerlayout.widget.DrawerLayout
-            android:id="@+id/drawer_layout"
+        <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="match_parent"
+            android:gravity="center">
 
-            <RelativeLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:gravity="center">
+            <include
+                layout="@layout/toolbar" />
+            <include
+                layout="@layout/content_main" />
+        </RelativeLayout>
 
-                <include
-                    layout="@layout/toolbar" />
-                <include
-                    layout="@layout/content_main" />
-            </RelativeLayout>
-
-            <com.google.android.material.navigation.NavigationView
-                android:id="@+id/navigation_view"
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:layout_gravity="start"
-                android:background="?attr/background" />
-        </androidx.drawerlayout.widget.DrawerLayout>
-    </FrameLayout>
+        <com.google.android.material.navigation.NavigationView
+            android:id="@+id/navigation_view"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_gravity="start"
+            android:background="?attr/background" />
+    </androidx.drawerlayout.widget.DrawerLayout>
 </FrameLayout>
