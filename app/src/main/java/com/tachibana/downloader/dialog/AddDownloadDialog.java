@@ -27,6 +27,7 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.Editable;
 import android.text.TextUtils;
 import android.text.format.Formatter;
 import android.view.KeyEvent;
@@ -178,7 +179,8 @@ public class AddDownloadDialog extends DialogFragment
                             Dialog dialog = addUserAgentDialog.getDialog();
                             if (dialog != null) {
                                 TextInputEditText editText = dialog.findViewById(R.id.text_input_dialog);
-                                String userAgent = editText.getText().toString();
+                                Editable e = editText.getText();
+                                String userAgent = (e == null ? null : e.toString());
                                 if (!TextUtils.isEmpty(userAgent))
                                     disposable.add(viewModel.addUserAgent(new UserAgent(userAgent))
                                             .subscribeOn(Schedulers.io())
@@ -386,7 +388,7 @@ public class AddDownloadDialog extends DialogFragment
     }
 
     @Override
-    public void onSaveInstanceState(Bundle outState)
+    public void onSaveInstanceState(@NonNull Bundle outState)
     {
         outState.putInt(TAG_USER_AGENT_SPINNER_POS, userAgentSpinnerPos);
         outState.putBoolean(TAG_PERM_DIALOG_IS_SHOW, permDialogIsShow);
@@ -523,7 +525,8 @@ public class AddDownloadDialog extends DialogFragment
 
     private void fetchLink()
     {
-        if (!checkUrlField(binding.link.getText().toString(), binding.layoutLink))
+        Editable link = binding.link.getText();
+        if (!checkUrlField((link == null ? null : link.toString()), binding.layoutLink))
             return;
 
         viewModel.startFetchTask();
@@ -531,7 +534,8 @@ public class AddDownloadDialog extends DialogFragment
 
     private void addDownload()
     {
-        if (!checkNameField(binding.name.getText().toString(), binding.layoutName))
+        Editable name = binding.name.getText();
+        if (!checkNameField((name == null ? null : name.toString()), binding.layoutName))
             return;
 
         try {

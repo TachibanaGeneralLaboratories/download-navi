@@ -100,6 +100,8 @@ public class FileManagerViewModel extends ViewModel
 
     private void updateCurDir(String newPath)
     {
+        if (newPath == null)
+            return;
         curDir.set(newPath);
         childNodes.onNext(getChildItems());
     }
@@ -210,7 +212,7 @@ public class FileManagerViewModel extends ViewModel
 
     public boolean fileExists(String fileName)
     {
-        return new File(curDir.get(), fileName).exists();
+        return fileName != null && new File(curDir.get(), fileName).exists();
     }
 
     public Uri createFile(String fileName) throws SecurityException

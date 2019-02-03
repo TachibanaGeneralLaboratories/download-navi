@@ -499,7 +499,8 @@ public class FileManagerDialog extends AppCompatActivity
         if (!checkFileNameField())
             return;
 
-        String fileName = binding.fileName.getText().toString();
+        Editable editable = binding.fileName.getText();
+        String fileName = (editable == null ? null : editable.toString());
         if (!replace && viewModel.fileExists(fileName)) {
             showReplaceFileDialog();
             return;

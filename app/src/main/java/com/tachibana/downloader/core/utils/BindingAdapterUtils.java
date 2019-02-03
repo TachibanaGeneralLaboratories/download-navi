@@ -28,13 +28,15 @@ import android.widget.TextView;
 
 import com.tachibana.downloader.R;
 
-import androidx.core.content.ContextCompat;
+import androidx.annotation.NonNull;
 import androidx.databinding.BindingAdapter;
 
 public class BindingAdapterUtils
 {
     @BindingAdapter({"fileSize", "formatFileSize"})
-    public static void formatFileSize(TextView view, long fileSize, String formatFileSize)
+    public static void formatFileSize(@NonNull TextView view,
+                                      long fileSize,
+                                      @NonNull String formatFileSize)
     {
         Context context = view.getContext();
         String sizeStr = (fileSize >= 0 ?
@@ -44,7 +46,7 @@ public class BindingAdapterUtils
     }
 
     @BindingAdapter("colorFilter")
-    public static void setColorFilter(ImageView view, int colorFilter)
+    public static void setColorFilter(@NonNull ImageView view, int colorFilter)
     {
         view.getDrawable().setColorFilter(colorFilter, PorterDuff.Mode.SRC_IN);
     }

@@ -28,6 +28,8 @@ import java.util.Formatter;
 import java.util.Locale;
 import java.util.concurrent.locks.ReentrantLock;
 
+import androidx.annotation.NonNull;
+
 public class DateFormatUtils
 {
     private static final int secondsInDay = 86400;
@@ -45,7 +47,9 @@ public class DateFormatUtils
         return formatElapsedTime(context, null, elapsedSeconds);
     }
 
-    public static String formatElapsedTime(Context context, StringBuilder recycle, long elapsedSeconds)
+    public static String formatElapsedTime(@NonNull Context context,
+                                           StringBuilder recycle,
+                                           long elapsedSeconds)
     {
         long days = 0;
         long hours = 0;
@@ -89,7 +93,7 @@ public class DateFormatUtils
             return f.format(elapsedFormatSS, seconds).toString();
     }
 
-    private static void initFormatStrings(Context context)
+    private static void initFormatStrings(@NonNull Context context)
     {
         lock.lock();
 

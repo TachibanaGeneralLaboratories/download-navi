@@ -293,7 +293,7 @@ public class FileUtils
         if (dir.exists() && dir.isDirectory())
             return path;
         else
-            return dir.mkdirs() ? path : "";
+            return dir.mkdirs() ? path : null;
     }
 
     /*
@@ -308,7 +308,7 @@ public class FileUtils
         if (dir.exists() && dir.isDirectory())
             return path;
         else
-            return dir.mkdirs() ? path : "";
+            return dir.mkdirs() ? path : null;
     }
 
     /*

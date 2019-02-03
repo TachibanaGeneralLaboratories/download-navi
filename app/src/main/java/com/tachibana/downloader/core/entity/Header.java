@@ -46,7 +46,7 @@ public class Header
     public String name;
     public String value;
 
-    public Header(UUID infoId, String name, String value)
+    public Header(@NonNull UUID infoId, String name, String value)
     {
         this.infoId = infoId;
         this.name = name;

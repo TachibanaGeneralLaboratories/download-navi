@@ -90,7 +90,7 @@ public class Utils
      * if work is longer than a millisecond but less than a few seconds.
      */
 
-    public static void startServiceBackground(Context context, Intent i)
+    public static void startServiceBackground(@NonNull Context context, @NonNull Intent i)
     {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O)
             context.startForegroundService(i);
@@ -98,7 +98,7 @@ public class Utils
             context.startService(i);
     }
 
-    public static boolean checkNetworkConnection(Context context)
+    public static boolean checkNetworkConnection(@NonNull Context context)
     {
         ConnectivityManager cm = (ConnectivityManager)context.getSystemService(Context.CONNECTIVITY_SERVICE);
 
@@ -107,7 +107,7 @@ public class Utils
         return activeNetwork.isConnectedOrConnecting();
     }
 
-    public static NetworkInfo getActiveNetworkInfo(Context context)
+    public static NetworkInfo getActiveNetworkInfo(@NonNull Context context)
     {
         ConnectivityManager cm = (ConnectivityManager)context.getSystemService(Context.CONNECTIVITY_SERVICE);
 
@@ -115,7 +115,7 @@ public class Utils
     }
 
     @TargetApi(23)
-    public static NetworkCapabilities getNetworkCapabilities(Context context)
+    public static NetworkCapabilities getNetworkCapabilities(@NonNull Context context)
     {
         ConnectivityManager cm = (ConnectivityManager)context.getSystemService(Context.CONNECTIVITY_SERVICE);
         Network network = cm.getActiveNetwork();
@@ -157,13 +157,13 @@ public class Utils
         return sslContext;
     }
 
-    public static int getThemePreference(Context context)
+    public static int getThemePreference(@NonNull Context context)
     {
         return SettingsManager.getPreferences(context).getInt(context.getString(R.string.pref_key_theme),
                 SettingsManager.Default.theme(context));
     }
 
-    public static int getAppTheme(Context context)
+    public static int getAppTheme(@NonNull Context context)
     {
         int theme = getThemePreference(context);
 
@@ -177,7 +177,7 @@ public class Utils
         return R.style.AppTheme;
     }
 
-    public static int getTranslucentAppTheme(Context context)
+    public static int getTranslucentAppTheme(@NonNull Context context)
     {
         int theme = getThemePreference(context);
 
@@ -195,7 +195,8 @@ public class Utils
      * Colorize the progress bar in the accent color (for pre-Lollipop).
      */
 
-    public static void colorizeProgressBar(Context context, ProgressBar progress)
+    public static void colorizeProgressBar(@NonNull Context context,
+                                           @NonNull ProgressBar progress)
     {
         if (Build.VERSION.SDK_INT < Build.VERSION_CODES.LOLLIPOP)
             progress.getProgressDrawable().setColorFilter(ContextCompat.getColor(context, R.color.accent),
@@ -207,7 +208,7 @@ public class Utils
      */
 
     @Nullable
-    public static String getClipboard(Context context)
+    public static String getClipboard(@NonNull Context context)
     {
         ClipboardManager clipboard = (ClipboardManager)context.getSystemService(Activity.CLIPBOARD_SERVICE);
         if (clipboard == null)
@@ -227,7 +228,7 @@ public class Utils
         return text.toString();
     }
 
-    public static String getHttpFileName(String url, String contentDisposition, String contentLocation)
+    public static String getHttpFileName(@NonNull String url, String contentDisposition, String contentLocation)
     {
         String filename = null;
 
@@ -286,7 +287,7 @@ public class Utils
      * downloaded to the file system. We only support the attachment type
      */
 
-    private static String parseContentDisposition(String contentDisposition)
+    private static String parseContentDisposition(@NonNull String contentDisposition)
     {
         try {
             Matcher m = Pattern.compile(CONTENT_DISPOSITION_PATTERN).matcher(contentDisposition);
@@ -303,7 +304,7 @@ public class Utils
      * Returns the link as "(http[s]|ftp)://[www.]name.domain/...".
      */
 
-    public static String normalizeURL(String url)
+    public static String normalizeURL(@NonNull String url)
     {
         url = IDN.toUnicode(url);
 
@@ -313,14 +314,14 @@ public class Utils
             return url;
     }
 
-    public static boolean checkConnectivity(Context context)
+    public static boolean checkConnectivity(@NonNull Context context)
     {
         NetworkInfo netInfo = Utils.getActiveNetworkInfo(context);
 
         return netInfo != null && netInfo.isConnected() && isNetworkTypeAllowed(context);
     }
 
-    public static boolean isNetworkTypeAllowed(Context context)
+    public static boolean isNetworkTypeAllowed(@NonNull Context context)
     {
         SharedPreferences pref = SettingsManager.getPreferences(context);
         boolean enableRoaming = pref.getBoolean(context.getString(R.string.pref_key_wifi_only),
@@ -328,31 +329,42 @@ public class Utils
         boolean wifiOnly = pref.getBoolean(context.getString(R.string.pref_key_wifi_only),
                 SettingsManager.Default.wifiOnly);
 
+        boolean noWifiOnly;
+        boolean noRoaming;
+
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
             NetworkCapabilities caps = Utils.getNetworkCapabilities(context);
             if (caps == null)
                 return true;
-            if (wifiOnly && !caps.hasCapability(NetworkCapabilities.NET_CAPABILITY_NOT_METERED) ||
-                enableRoaming && !caps.hasCapability(NetworkCapabilities.NET_CAPABILITY_NOT_ROAMING))
-                return false;
+
+            noWifiOnly = !wifiOnly || caps.hasCapability(NetworkCapabilities.NET_CAPABILITY_NOT_METERED);
+
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P) {
+                noRoaming = !enableRoaming || caps.hasCapability(NetworkCapabilities.NET_CAPABILITY_NOT_ROAMING);
+            } else {
+                NetworkInfo netInfo = Utils.getActiveNetworkInfo(context);
+                noRoaming = netInfo != null && (!enableRoaming || !netInfo.isRoaming());
+            }
 
         } else {
             NetworkInfo netInfo = Utils.getActiveNetworkInfo(context);
-            if (netInfo == null)
-                return false;
-            if (wifiOnly && netInfo.getType() != ConnectivityManager.TYPE_WIFI ||
-                enableRoaming && netInfo.isRoaming())
-            return false;
+            if (netInfo == null) {
+                noWifiOnly = false;
+                noRoaming = false;
+            } else {
+                noWifiOnly = !wifiOnly || netInfo.getType() == ConnectivityManager.TYPE_WIFI;
+                noRoaming = !enableRoaming || !netInfo.isRoaming();
+            }
         }
 
-        return true;
+        return noWifiOnly && noRoaming;
     }
 
     /*
      * Don't use app context (its doesn't reload after configuration changes)
      */
 
-    public static boolean isTwoPane(Context context)
+    public static boolean isTwoPane(@NonNull Context context)
     {
         return context.getResources().getBoolean(R.bool.isTwoPane);
     }
@@ -373,7 +385,7 @@ public class Utils
      * returns docs.oracle.com
      */
 
-    static public String getHostFromUrl(String url)
+    static public String getHostFromUrl(@NonNull String url)
     {
         URL uri;
         try {
@@ -390,7 +402,7 @@ public class Utils
         return host.replaceAll("^www\\.", "");
     }
 
-    public static int getAttributeColor(Context context, int attributeId)
+    public static int getAttributeColor(@NonNull Context context, int attributeId)
     {
         TypedValue typedValue = new TypedValue();
         context.getTheme().resolveAttribute(attributeId, typedValue, true);
@@ -406,7 +418,8 @@ public class Utils
         return color;
     }
 
-    public static Intent makeFileShareIntent(@NonNull Context context, List<DownloadItem> items)
+    public static Intent makeFileShareIntent(@NonNull Context context,
+                                             @NonNull List<DownloadItem> items)
     {
         Intent i = new Intent();
         String intentAction;
@@ -489,7 +502,7 @@ public class Utils
         return i;
     }
 
-    public static Intent createOpenFileIntent(Context context, DownloadInfo info)
+    public static Intent createOpenFileIntent(@NonNull Context context, @NonNull DownloadInfo info)
     {
         Intent i = new Intent();
         i.setAction(Intent.ACTION_VIEW);
@@ -516,12 +529,12 @@ public class Utils
      */
 
     @UiThread
-    public static String getSystemUserAgent(Context context)
+    public static String getSystemUserAgent(@NonNull Context context)
     {
         return new WebView(context).getSettings().getUserAgentString();
     }
 
-    public static boolean checkStoragePermission(Context context)
+    public static boolean checkStoragePermission(@NonNull Context context)
     {
         return ContextCompat.checkSelfPermission(context,
                 Manifest.permission.WRITE_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED;
