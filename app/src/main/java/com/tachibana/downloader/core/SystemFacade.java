@@ -1,6 +1,6 @@
 /*
- * Copyright (C) 2018 Tachibana General Laboratories, LLC
- * Copyright (C) 2018 Yaroslav Pronin <proninyaroslav@mail.ru>
+ * Copyright (C) 2019 Tachibana General Laboratories, LLC
+ * Copyright (C) 2019 Yaroslav Pronin <proninyaroslav@mail.ru>
  *
  * This file is part of Download Navi.
  *
@@ -18,20 +18,14 @@
  * along with Download Navi.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package com.tachibana.downloader;
+package com.tachibana.downloader.core;
 
-import org.junit.Test;
+import android.net.NetworkCapabilities;
+import android.net.NetworkInfo;
 
-import static org.junit.Assert.*;
+public interface SystemFacade
+{
+    NetworkInfo getActiveNetworkInfo();
 
-/**
- * Example local unit test, which will execute on the development machine (host).
- *
- * @see <a href="http://d.android.com/tools/testing">Testing documentation</a>
- */
-public class ExampleUnitTest {
-    @Test
-    public void addition_isCorrect() {
-        assertEquals(4, 2 + 2);
-    }
+    NetworkCapabilities getNetworkCapabilities();
 }

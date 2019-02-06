@@ -21,7 +21,6 @@
 package com.tachibana.downloader.core.utils;
 
 import android.Manifest;
-import android.annotation.TargetApi;
 import android.app.Activity;
 import android.content.ClipData;
 import android.content.ClipboardManager;
@@ -31,20 +30,19 @@ import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.content.res.Resources;
 import android.net.ConnectivityManager;
-import android.net.Network;
 import android.net.NetworkCapabilities;
 import android.net.NetworkInfo;
 import android.net.Uri;
 import android.os.Build;
 import android.text.TextUtils;
 import android.util.TypedValue;
-import android.view.View;
 import android.webkit.WebView;
 import android.widget.ProgressBar;
-import android.widget.RelativeLayout;
 
 import com.tachibana.downloader.R;
 import com.tachibana.downloader.adapter.DownloadItem;
+import com.tachibana.downloader.core.RealSystemFacade;
+import com.tachibana.downloader.core.SystemFacade;
 import com.tachibana.downloader.core.entity.DownloadInfo;
 import com.tachibana.downloader.settings.SettingsManager;
 
@@ -69,6 +67,7 @@ import javax.net.ssl.X509TrustManager;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.annotation.UiThread;
+import androidx.annotation.VisibleForTesting;
 import androidx.core.content.ContextCompat;
 import androidx.core.content.FileProvider;
 
@@ -84,6 +83,22 @@ public class Utils
     public static final String DEFAULT_DOWNLOAD_FILENAME = "downloadfile";
     private static final String CONTENT_DISPOSITION_PATTERN = "attachment;\\s*filename\\s*=\\s*\"([^\"]*)\"";
 
+    private static SystemFacade systemFacade;
+
+    public synchronized static SystemFacade getSystemFacade(@NonNull Context context)
+    {
+        if (systemFacade == null)
+            systemFacade = new RealSystemFacade(context);
+
+        return systemFacade;
+    }
+
+    @VisibleForTesting
+    public synchronized static void setSystemFacade(@NonNull SystemFacade systemFacade)
+    {
+        Utils.systemFacade = systemFacade;
+    }
+
     /*
      * Workaround for start service in Android 8+ if app no started.
      * We have a window of time to get around to calling startForeground() before we get ANR,
@@ -96,33 +111,6 @@ public class Utils
             context.startForegroundService(i);
         else
             context.startService(i);
-    }
-
-    public static boolean checkNetworkConnection(@NonNull Context context)
-    {
-        ConnectivityManager cm = (ConnectivityManager)context.getSystemService(Context.CONNECTIVITY_SERVICE);
-
-        NetworkInfo activeNetwork = cm.getActiveNetworkInfo();
-
-        return activeNetwork.isConnectedOrConnecting();
-    }
-
-    public static NetworkInfo getActiveNetworkInfo(@NonNull Context context)
-    {
-        ConnectivityManager cm = (ConnectivityManager)context.getSystemService(Context.CONNECTIVITY_SERVICE);
-
-        return cm.getActiveNetworkInfo();
-    }
-
-    @TargetApi(23)
-    public static NetworkCapabilities getNetworkCapabilities(@NonNull Context context)
-    {
-        ConnectivityManager cm = (ConnectivityManager)context.getSystemService(Context.CONNECTIVITY_SERVICE);
-        Network network = cm.getActiveNetwork();
-        if (network == null)
-            return null;
-
-        return cm.getNetworkCapabilities(network);
     }
 
     public static SSLContext getSSLContext() throws GeneralSecurityException
@@ -159,8 +147,9 @@ public class Utils
 
     public static int getThemePreference(@NonNull Context context)
     {
-        return SettingsManager.getPreferences(context).getInt(context.getString(R.string.pref_key_theme),
-                SettingsManager.Default.theme(context));
+        return SettingsManager.getInstance(context)
+                .getPreferences().getInt(context.getString(R.string.pref_key_theme),
+                                         SettingsManager.Default.theme(context));
     }
 
     public static int getAppTheme(@NonNull Context context)
@@ -316,44 +305,47 @@ public class Utils
 
     public static boolean checkConnectivity(@NonNull Context context)
     {
-        NetworkInfo netInfo = Utils.getActiveNetworkInfo(context);
+        SystemFacade systemFacade = getSystemFacade(context);
+        NetworkInfo netInfo = systemFacade.getActiveNetworkInfo();
 
         return netInfo != null && netInfo.isConnected() && isNetworkTypeAllowed(context);
     }
 
     public static boolean isNetworkTypeAllowed(@NonNull Context context)
     {
-        SharedPreferences pref = SettingsManager.getPreferences(context);
-        boolean enableRoaming = pref.getBoolean(context.getString(R.string.pref_key_wifi_only),
-                SettingsManager.Default.enableRoaming);
+        SystemFacade systemFacade = getSystemFacade(context);
+
+        SharedPreferences pref = SettingsManager.getInstance(context).getPreferences();
+        boolean enableRoaming = pref.getBoolean(context.getString(R.string.pref_key_enable_roaming),
+                                                SettingsManager.Default.enableRoaming);
         boolean wifiOnly = pref.getBoolean(context.getString(R.string.pref_key_wifi_only),
-                SettingsManager.Default.wifiOnly);
+                                           SettingsManager.Default.wifiOnly);
 
         boolean noWifiOnly;
         boolean noRoaming;
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-            NetworkCapabilities caps = Utils.getNetworkCapabilities(context);
+            NetworkCapabilities caps = systemFacade.getNetworkCapabilities();
             if (caps == null)
-                return true;
+                return false;
 
             noWifiOnly = !wifiOnly || caps.hasCapability(NetworkCapabilities.NET_CAPABILITY_NOT_METERED);
 
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P) {
                 noRoaming = !enableRoaming || caps.hasCapability(NetworkCapabilities.NET_CAPABILITY_NOT_ROAMING);
             } else {
-                NetworkInfo netInfo = Utils.getActiveNetworkInfo(context);
-                noRoaming = netInfo != null && (!enableRoaming || !netInfo.isRoaming());
+                NetworkInfo netInfo = systemFacade.getActiveNetworkInfo();
+                noRoaming = netInfo != null && !(enableRoaming && netInfo.isRoaming());
             }
 
         } else {
-            NetworkInfo netInfo = Utils.getActiveNetworkInfo(context);
+            NetworkInfo netInfo = systemFacade.getActiveNetworkInfo();
             if (netInfo == null) {
                 noWifiOnly = false;
                 noRoaming = false;
             } else {
                 noWifiOnly = !wifiOnly || netInfo.getType() == ConnectivityManager.TYPE_WIFI;
-                noRoaming = !enableRoaming || !netInfo.isRoaming();
+                noRoaming = !(enableRoaming && netInfo.isRoaming());
             }
         }
 
@@ -546,7 +538,7 @@ public class Utils
 
     public static void retainDownloadDir(@NonNull Context context, @NonNull Uri dirPath)
     {
-        SharedPreferences pref = SettingsManager.getPreferences(context);
+        SharedPreferences pref = SettingsManager.getInstance(context).getPreferences();
         String key = context.getString(R.string.pref_key_last_download_dir_uri);
 
         try {

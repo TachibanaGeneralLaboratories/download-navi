@@ -42,9 +42,9 @@ public class FileManagerViewModelFactory extends ViewModelProvider.NewInstanceFa
     @Override
     public <T extends ViewModel> T create(@NonNull Class<T> modelClass)
     {
-        if (modelClass == FileManagerViewModel.class)
+        if (modelClass.isAssignableFrom(FileManagerViewModel.class))
             return (T)new FileManagerViewModel(context, config);
 
-        return null;
+        throw new IllegalArgumentException("Unknown ViewModel class");
     }
 }

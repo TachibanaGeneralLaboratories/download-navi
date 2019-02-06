@@ -41,7 +41,6 @@ import com.tachibana.downloader.MainActivity;
 import com.tachibana.downloader.MainApplication;
 import com.tachibana.downloader.R;
 import com.tachibana.downloader.worker.DownloadScheduler;
-import com.tachibana.downloader.core.DownloadNotifier;
 import com.tachibana.downloader.core.entity.DownloadInfo;
 import com.tachibana.downloader.core.DownloadResult;
 import com.tachibana.downloader.core.DownloadThread;
@@ -83,7 +82,7 @@ public class DownloadService extends LifecycleService
     private void init()
     {
         Log.i(TAG, "Start " + TAG);
-        pref = SettingsManager.getPreferences(getApplicationContext());
+        pref = SettingsManager.getInstance(getApplicationContext()).getPreferences();
         pref.registerOnSharedPreferenceChangeListener(this);
         notifyManager = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
         repo = ((MainApplication)getApplication()).getRepository();

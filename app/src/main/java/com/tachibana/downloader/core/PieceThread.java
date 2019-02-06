@@ -132,7 +132,8 @@ public class PieceThread extends Thread
                  * Remember which network this download started on;
                  * used to determine if errors were due to network changes
                  */
-                NetworkInfo netInfo = Utils.getActiveNetworkInfo(context);
+                SystemFacade systemFacade = Utils.getSystemFacade(context);
+                NetworkInfo netInfo = systemFacade.getActiveNetworkInfo();
                 if (netInfo != null)
                     networkType = netInfo.getType();
 
@@ -175,7 +176,8 @@ public class PieceThread extends Thread
             ++piece.numFailed;
 
             if (piece.numFailed < DownloadPiece.MAX_RETRIES) {
-                NetworkInfo netInfo = Utils.getActiveNetworkInfo(context);
+                SystemFacade systemFacade = Utils.getSystemFacade(context);
+                NetworkInfo netInfo = systemFacade.getActiveNetworkInfo();
                 if (netInfo != null && netInfo.getType() == networkType && netInfo.isConnected())
                     /* Underlying network is still intact, use normal backoff */
                     piece.statusCode = STATUS_WAITING_TO_RETRY;
@@ -202,6 +204,9 @@ public class PieceThread extends Thread
 
     private StopRequest execDownload()
     {
+        if (piece.size == 0)
+            return new StopRequest(STATUS_SUCCESS, "Length is zero; skipping");
+
         DownloadInfo info = repo.getInfoById(infoId);
         if (info == null)
             return new StopRequest(STATUS_CANCELLED, "Download deleted or missing");
@@ -325,7 +330,7 @@ public class PieceThread extends Thread
         if (resuming && etag != null)
             conn.addRequestProperty("If-Match", etag);
         String rangeRequest = "bytes=" + piece.curBytes + "-";
-        if (piece.size > 0)
+        if (endPos >= 0)
             rangeRequest += endPos;
         conn.addRequestProperty("Range", rangeRequest);
     }
@@ -456,7 +461,7 @@ public class PieceThread extends Thread
         if (piece.size != -1 && piece.curBytes != endPos + 1) {
             return new StopRequest(STATUS_HTTP_DATA_ERROR,
                     "Piece length mismatch; found "
-                    + piece.curBytes + " instead of " + endPos + 1);
+                    + piece.curBytes + " instead of " + (endPos + 1));
         }
 
         return null;

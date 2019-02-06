@@ -93,9 +93,9 @@ public class DownloadScheduler extends Worker
     private static Constraints getConstraints(Context context, DownloadInfo info)
     {
         NetworkType netType = NetworkType.CONNECTED;
-        SharedPreferences pref = SettingsManager.getPreferences(context);
+        SharedPreferences pref = SettingsManager.getInstance(context).getPreferences();
 
-        if (pref.getBoolean(context.getString(R.string.pref_key_wifi_only),
+        if (pref.getBoolean(context.getString(R.string.pref_key_enable_roaming),
                             SettingsManager.Default.enableRoaming))
             netType = NetworkType.NOT_ROAMING;
         if (info != null && info.wifiOnly || pref.getBoolean(context.getString(R.string.pref_key_wifi_only),

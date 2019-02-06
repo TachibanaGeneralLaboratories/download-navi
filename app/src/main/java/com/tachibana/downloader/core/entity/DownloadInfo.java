@@ -172,7 +172,7 @@ public class DownloadInfo implements Parcelable, Comparable<DownloadInfo>
         if (!partialSupport && numPieces > 1)
             throw new IllegalStateException("The download doesn't support partial download");
 
-        if (totalBytes > 0 && totalBytes < numPieces)
+        if ((totalBytes <= 0 && numPieces != 1) || (totalBytes > 0 && totalBytes < numPieces))
             throw new IllegalStateException("The number of pieces can't be more than the number of total bytes");
 
         this.numPieces = numPieces;
@@ -203,24 +203,27 @@ public class DownloadInfo implements Parcelable, Comparable<DownloadInfo>
         return pieces;
     }
 
-    public long pieceStartPos(DownloadPiece piece)
+    public long pieceStartPos(@NonNull DownloadPiece piece)
     {
-        if (piece == null || totalBytes == -1)
+        if (totalBytes <= 0)
             return 0;
 
-        long pieceSize = (int)(totalBytes / numPieces);
+        long pieceSize = totalBytes / numPieces;
 
         return piece.index * pieceSize;
     }
 
-    public long pieceEndPos(DownloadPiece piece)
+    public long pieceEndPos(@NonNull DownloadPiece piece)
     {
-        if (piece == null)
-            return 0;
+        if (piece.size <= 0)
+            return -1;
 
-        return (piece.index < 0 ?
-                -1 :
-                pieceStartPos(piece) + piece.size - 1);
+        return pieceStartPos(piece) + piece.size - 1;
+    }
+
+    public long getDownloadedBytes(@NonNull DownloadPiece piece)
+    {
+        return piece.curBytes - pieceStartPos(piece);
     }
 
     @Override

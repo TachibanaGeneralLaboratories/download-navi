@@ -223,29 +223,29 @@ public class DownloadListAdapter extends ListAdapter<DownloadItem, DownloadListA
 
             Context context = itemView.getContext();
             int size = item.pieces.size();
-            long downloadBytes = 0;
+            long downloadedBytes = 0;
             long speed = 0;
             if (size > 0) {
                 for (DownloadPiece piece : item.pieces) {
-                    downloadBytes += piece.curBytes - item.info.pieceStartPos(piece);
+                    downloadedBytes += item.info.getDownloadedBytes(piece);
                     speed += piece.speed;
                 }
                 /* Average speed */
                 speed /= size;
             }
-            long ETA = Utils.calcETA(item.info.totalBytes, downloadBytes, speed);
+            long ETA = Utils.calcETA(item.info.totalBytes, downloadedBytes, speed);
 
             if (item.info.statusCode == StatusCode.STATUS_RUNNING) {
                 progressBar.setVisibility(View.VISIBLE);
                 if (item.info.totalBytes > 0) {
-                    int progress = (int)((downloadBytes * 100) / item.info.totalBytes);
+                    int progress = (int)((downloadedBytes * 100) / item.info.totalBytes);
                     progressBar.setIndeterminate(false);
                     progressBar.setProgress(progress);
                 } else {
                     progressBar.setIndeterminate(true);
                 }
                 status.setText(String.format(context.getString(R.string.download_queued_progress_template),
-                        Formatter.formatFileSize(context, downloadBytes),
+                        Formatter.formatFileSize(context, downloadedBytes),
                         (item.info.totalBytes == -1 ? context.getString(R.string.not_available) :
                                 Formatter.formatFileSize(context, item.info.totalBytes)),
                         (ETA == -1 ? Utils.INFINITY_SYMBOL :
@@ -274,7 +274,7 @@ public class DownloadListAdapter extends ListAdapter<DownloadItem, DownloadListA
                 }
 
                 status.setText(String.format(context.getString(R.string.download_queued_template),
-                        Formatter.formatFileSize(context, downloadBytes),
+                        Formatter.formatFileSize(context, downloadedBytes),
                         (item.info.totalBytes == -1 ? context.getString(R.string.not_available) :
                                 Formatter.formatFileSize(context, item.info.totalBytes)),
                         statusStr));

@@ -27,6 +27,9 @@ import android.preference.PreferenceManager;
 import com.tachibana.downloader.R;
 import com.tachibana.downloader.core.utils.FileUtils;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.VisibleForTesting;
+
 public class SettingsManager
 {
     public static class Default
@@ -42,8 +45,27 @@ public class SettingsManager
         public static final String lastDownloadDirUri = "file://" + FileUtils.getDefaultDownloadPath();
     }
 
-    public static SharedPreferences getPreferences(Context context)
+    private static SettingsManager INSTANCE;
+    private SharedPreferences pref;
+
+    public static SettingsManager getInstance(@NonNull Context appContext)
     {
-        return PreferenceManager.getDefaultSharedPreferences(context);
+        if (INSTANCE == null) {
+            synchronized (SettingsManager.class) {
+                if (INSTANCE == null)
+                    INSTANCE = new SettingsManager(appContext);
+            }
+        }
+        return INSTANCE;
+    }
+
+    private SettingsManager(@NonNull Context appContext)
+    {
+        pref = PreferenceManager.getDefaultSharedPreferences(appContext);
+    }
+
+    public SharedPreferences getPreferences()
+    {
+        return pref;
     }
 }

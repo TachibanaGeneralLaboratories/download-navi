@@ -18,7 +18,7 @@
  * along with Download Navi.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package com.tachibana.downloader.core;
+package com.tachibana.downloader;
 
 import static android.app.DownloadManager.Request.VISIBILITY_HIDDEN;
 import static android.app.DownloadManager.Request.VISIBILITY_VISIBLE;
@@ -37,7 +37,7 @@ import android.text.format.Formatter;
 import android.util.ArrayMap;
 import android.util.Log;
 
-import com.tachibana.downloader.R;
+import com.tachibana.downloader.core.StatusCode;
 import com.tachibana.downloader.core.entity.DownloadInfo;
 import com.tachibana.downloader.core.entity.DownloadPiece;
 import com.tachibana.downloader.core.entity.InfoAndPieces;
@@ -312,7 +312,7 @@ public class DownloadNotifier
 
         if (size > 0) {
             for (DownloadPiece piece : infoAndPieces.pieces) {
-                downloadBytes += piece.curBytes - info.pieceStartPos(piece);
+                downloadBytes += info.getDownloadedBytes(piece);
                 speed += piece.speed;
             }
             /* Average speed */

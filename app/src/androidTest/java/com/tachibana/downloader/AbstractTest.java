@@ -20,31 +20,45 @@
 
 package com.tachibana.downloader;
 
-import android.app.Application;
+import android.Manifest;
+import android.content.Context;
 
 import com.tachibana.downloader.core.storage.AppDatabase;
 import com.tachibana.downloader.core.storage.DataRepository;
 
-public class MainApplication extends Application
+import org.junit.After;
+import org.junit.Before;
+import org.junit.Rule;
+
+import androidx.room.Room;
+import androidx.test.core.app.ApplicationProvider;
+import androidx.test.rule.GrantPermissionRule;
+
+public class AbstractTest
 {
-    private DownloadNotifier downloadNotifier;
+    @Rule
+    public GrantPermissionRule runtimePermissionRule = GrantPermissionRule.grant(
+            Manifest.permission.WRITE_EXTERNAL_STORAGE,
+            Manifest.permission.READ_EXTERNAL_STORAGE);
 
-    @Override
-    public void onCreate()
+    protected Context context;
+    protected AppDatabase db;
+    protected DataRepository repo;
+
+    @Before
+    public void init()
     {
-        super.onCreate();
-
-        downloadNotifier = new DownloadNotifier(this, getRepository());
-        downloadNotifier.startUpdate();
+        context = ApplicationProvider.getApplicationContext();
+        db = Room.inMemoryDatabaseBuilder(context,
+                AppDatabase.class)
+                .allowMainThreadQueries()
+                .build();
+        repo = DataRepository.getInstance(db);
     }
 
-    public AppDatabase getDatabase()
+    @After
+    public void finish()
     {
-        return AppDatabase.getInstance(this);
-    }
-
-    public DataRepository getRepository()
-    {
-        return DataRepository.getInstance(getDatabase());
+        db.close();
     }
 }

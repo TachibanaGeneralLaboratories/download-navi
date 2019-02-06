@@ -61,11 +61,10 @@ public class FileManagerViewModel extends ViewModel
     {
         this.appContext = appContext;
         this.config = config;
-        pref = SettingsManager.getPreferences(appContext);
+        pref = SettingsManager.getInstance(appContext).getPreferences();
 
         String path = config.path;
         if (TextUtils.isEmpty(path)) {
-            SharedPreferences pref = SettingsManager.getPreferences(appContext);
             startDir = pref.getString(appContext.getString(R.string.pref_key_filemanager_last_dir),
                                       SettingsManager.Default.fileManagerLastDir);
 
@@ -183,7 +182,7 @@ public class FileManagerViewModel extends ViewModel
      * Navigate back to an upper directory.
      */
 
-    public void upToParentDirectory()
+    public void upToParentDirectory() throws SecurityException
     {
         String path = curDir.get();
         if (path == null)

@@ -33,6 +33,7 @@ import com.tachibana.downloader.MainApplication;
 import com.tachibana.downloader.R;
 import com.tachibana.downloader.core.AddDownloadParams;
 import com.tachibana.downloader.core.HttpConnection;
+import com.tachibana.downloader.core.SystemFacade;
 import com.tachibana.downloader.core.entity.DownloadInfo;
 import com.tachibana.downloader.core.entity.Header;
 import com.tachibana.downloader.core.entity.UserAgent;
@@ -103,7 +104,7 @@ public class AddDownloadViewModel extends AndroidViewModel
         super(application);
 
         repo = ((MainApplication)getApplication()).getRepository();
-        pref = SettingsManager.getPreferences(application);
+        pref = SettingsManager.getInstance(application).getPreferences();
         fetchState.setValue(new FetchState(Status.UNKNOWN));
 
         /* Init download dir */
@@ -172,7 +173,8 @@ public class AddDownloadViewModel extends AndroidViewModel
                 return e;
             }
 
-            NetworkInfo netInfo = Utils.getActiveNetworkInfo(viewModel.get().getApplication().getApplicationContext());
+            SystemFacade systemFacade = Utils.getSystemFacade(viewModel.get().getApplication().getApplicationContext());
+            NetworkInfo netInfo = systemFacade.getActiveNetworkInfo();
             if (netInfo == null || !netInfo.isConnected())
                 return new ConnectException("Network is disconnected");
 

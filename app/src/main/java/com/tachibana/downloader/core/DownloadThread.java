@@ -56,7 +56,6 @@ import static com.tachibana.downloader.core.StatusCode.STATUS_FILE_ERROR;
 import static com.tachibana.downloader.core.StatusCode.STATUS_HTTP_DATA_ERROR;
 import static com.tachibana.downloader.core.StatusCode.STATUS_FETCH_METADATA;
 import static com.tachibana.downloader.core.StatusCode.STATUS_PAUSED;
-import static com.tachibana.downloader.core.StatusCode.STATUS_PENDING;
 import static com.tachibana.downloader.core.StatusCode.STATUS_RUNNING;
 import static com.tachibana.downloader.core.StatusCode.STATUS_SUCCESS;
 import static com.tachibana.downloader.core.StatusCode.STATUS_TOO_MANY_REDIRECTS;
@@ -248,8 +247,6 @@ public class DownloadThread implements Callable<DownloadResult>
             StopRequest ret;
             if ((ret = checkPauseStop()) != null)
                 return ret;
-            if (!Utils.checkConnectivity(context))
-                return new StopRequest(STATUS_WAITING_FOR_NETWORK);
 
             if (!info.hasMetadata) {
                 if ((ret = fetchMetadata()) != null)
@@ -276,6 +273,12 @@ public class DownloadThread implements Callable<DownloadResult>
                 info.fileName = res.second;
                 writeToDatabase();
             }
+
+            if (info.totalBytes == 0)
+                return new StopRequest(STATUS_SUCCESS, "Length is zero; skipping");
+
+            if (!Utils.checkConnectivity(context))
+                return new StopRequest(STATUS_WAITING_FOR_NETWORK);
 
             /* Check free space */
             long availBytes = FileUtils.getDirAvailableBytes(context, info.dirPath);
