@@ -534,7 +534,10 @@ public class AddDownloadDialog extends DialogFragment
 
     private void addDownload()
     {
+        Editable link = binding.link.getText();
         Editable name = binding.name.getText();
+        if (!checkUrlField((link == null ? null : link.toString()), binding.layoutLink))
+            return;
         if (!checkNameField((name == null ? null : name.toString()), binding.layoutName))
             return;
 
