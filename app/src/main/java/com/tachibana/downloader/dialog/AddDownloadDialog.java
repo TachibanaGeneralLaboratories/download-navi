@@ -144,9 +144,48 @@ public class AddDownloadDialog extends DialogFragment
     }
 
     @Override
+    public void onStart()
+    {
+        super.onStart();
+
+        subscribeAlertDialog();
+    }
+
+    private void subscribeAlertDialog()
+    {
+        Disposable d = dialogViewModel.observeEvents().subscribe(this::handleAlertDialogEvent);
+        disposable.add(d);
+    }
+
+    private void handleAlertDialogEvent(BaseAlertDialog.Event event)
+    {
+        if (!event.dialogTag.equals(TAG_ADD_USER_AGENT_DIALOG) || addUserAgentDialog == null)
+            return;
+        switch (event.type) {
+            case POSITIVE_BUTTON_CLICKED:
+                Dialog dialog = addUserAgentDialog.getDialog();
+                if (dialog != null) {
+                    TextInputEditText editText = dialog.findViewById(R.id.text_input_dialog);
+                    Editable e = editText.getText();
+                    String userAgent = (e == null ? null : e.toString());
+                    if (!TextUtils.isEmpty(userAgent))
+                        disposable.add(viewModel.addUserAgent(new UserAgent(userAgent))
+                                .subscribeOn(Schedulers.io())
+                                .subscribe());
+                }
+            case NEGATIVE_BUTTON_CLICKED:
+                addUserAgentDialog.dismiss();
+                break;
+        }
+    }
+
+    @Override
     public void onCreate(@Nullable Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
+
+        viewModel = ViewModelProviders.of(activity).get(AddDownloadViewModel.class);
+        dialogViewModel = ViewModelProviders.of(activity).get(BaseAlertDialog.SharedViewModel.class);
 
         if (savedInstanceState != null)
             permDialogIsShow = savedInstanceState.getBoolean(TAG_PERM_DIALOG_IS_SHOW);
@@ -164,34 +203,9 @@ public class AddDownloadDialog extends DialogFragment
         if (activity == null)
             activity = (AppCompatActivity)getActivity();
 
-        viewModel = ViewModelProviders.of(activity).get(AddDownloadViewModel.class);
-
         FragmentManager fm = getFragmentManager();
         if (fm != null)
             addUserAgentDialog = (BaseAlertDialog)fm.findFragmentByTag(TAG_ADD_USER_AGENT_DIALOG);
-        dialogViewModel = ViewModelProviders.of(activity).get(BaseAlertDialog.SharedViewModel.class);
-        Disposable d = dialogViewModel.observeEvents()
-                .subscribe((event) -> {
-                    if (!event.dialogTag.equals(TAG_ADD_USER_AGENT_DIALOG) || addUserAgentDialog == null)
-                        return;
-                    switch (event.type) {
-                        case POSITIVE_BUTTON_CLICKED:
-                            Dialog dialog = addUserAgentDialog.getDialog();
-                            if (dialog != null) {
-                                TextInputEditText editText = dialog.findViewById(R.id.text_input_dialog);
-                                Editable e = editText.getText();
-                                String userAgent = (e == null ? null : e.toString());
-                                if (!TextUtils.isEmpty(userAgent))
-                                    disposable.add(viewModel.addUserAgent(new UserAgent(userAgent))
-                                            .subscribeOn(Schedulers.io())
-                                            .subscribe());
-                            }
-                        case NEGATIVE_BUTTON_CLICKED:
-                            addUserAgentDialog.dismiss();
-                            break;
-                    }
-                });
-        disposable.add(d);
 
         LayoutInflater i = LayoutInflater.from(activity);
         binding = DataBindingUtil.inflate(i, R.layout.dialog_add_download, null, false);
