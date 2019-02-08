@@ -11,7 +11,7 @@
     android:foreground="?attr/transparentRectRipple"
     card_view:cardBackgroundColor="?attr/foreground">
 
-    <androidx.constraintlayout.widget.ConstraintLayout
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
@@ -24,23 +24,18 @@
             android:layout_marginBottom="8dp"
             android:contentDescription="@null"
             android:padding="8dp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            android:layout_centerInParent="true"
+            android:layout_alignParentStart="true" />
 
         <LinearLayout
             android:id="@+id/info"
-            android:layout_width="0dp"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
-            android:layout_marginTop="16dp"
-            android:layout_marginEnd="16dp"
-            android:layout_marginBottom="16dp"
+            android:layout_margin="16dp"
             android:orientation="vertical"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toStartOf="@+id/menu"
-            app:layout_constraintStart_toEndOf="@+id/icon"
-            app:layout_constraintTop_toTopOf="parent">
+            android:layout_centerInParent="true"
+            android:layout_toEndOf="@id/icon"
+            android:layout_toStartOf="@id/menu">
 
             <TextView
                 android:id="@+id/filename"
@@ -82,9 +77,8 @@
             android:background="?attr/transparentRoundRipple"
             android:contentDescription="@string/menu"
             android:padding="8dp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
+            android:layout_alignParentEnd="true"
+            android:layout_centerInParent="true"
             app:srcCompat="@drawable/ic_more_vert_grey600_24dp" />
-    </androidx.constraintlayout.widget.ConstraintLayout>
+    </RelativeLayout>
 </androidx.cardview.widget.CardView>

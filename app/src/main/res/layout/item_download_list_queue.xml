@@ -11,7 +11,7 @@
     android:foreground="?attr/transparentRectRipple"
     card_view:cardBackgroundColor="?attr/foreground">
 
-    <androidx.constraintlayout.widget.ConstraintLayout
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
@@ -26,23 +26,18 @@
             android:contentDescription="@string/pause"
             android:padding="3dp"
             android:scaleType="fitXY"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            android:layout_centerInParent="true"
+            android:layout_alignParentStart="true" />
 
         <LinearLayout
             android:id="@+id/info"
-            android:layout_width="0dp"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
-            android:layout_marginTop="16dp"
-            android:layout_marginEnd="16dp"
-            android:layout_marginBottom="16dp"
+            android:layout_margin="16dp"
             android:orientation="vertical"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toStartOf="@+id/cancel"
-            app:layout_constraintStart_toEndOf="@+id/pause"
-            app:layout_constraintTop_toTopOf="parent">
+            android:layout_centerInParent="true"
+            android:layout_toEndOf="@id/pause"
+            android:layout_toStartOf="@id/cancel">
 
             <TextView
                 android:id="@+id/filename"
@@ -75,15 +70,13 @@
             android:id="@+id/cancel"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
             android:layout_marginEnd="8dp"
             android:layout_marginBottom="8dp"
             android:background="?attr/transparentRoundRipple"
             android:contentDescription="@string/cancel"
             android:padding="8dp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
+            android:layout_alignParentEnd="true"
+            android:layout_centerInParent="true"
             app:srcCompat="@drawable/ic_clear_grey600_24dp" />
-    </androidx.constraintlayout.widget.ConstraintLayout>
+    </RelativeLayout>
 </androidx.cardview.widget.CardView>
