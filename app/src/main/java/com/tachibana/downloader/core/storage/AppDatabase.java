@@ -29,6 +29,7 @@ import com.tachibana.downloader.core.entity.UserAgent;
 import com.tachibana.downloader.core.storage.converter.UUIDConverter;
 import com.tachibana.downloader.core.storage.dao.DownloadDao;
 import com.tachibana.downloader.core.storage.dao.UserAgentDao;
+import com.tachibana.downloader.core.utils.Utils;
 
 import androidx.annotation.NonNull;
 import androidx.lifecycle.LiveData;
@@ -92,7 +93,12 @@ public abstract class AppDatabase extends RoomDatabase
                         super.onCreate(db);
                        Completable.fromAction(() -> {
                             AppDatabase database = AppDatabase.getInstance(appContext);
-                            database.runInTransaction(() -> database.userAgentDao().add(defaultUserAgents));
+                            database.runInTransaction(() -> {
+                                UserAgent systemUserAgent = new UserAgent(Utils.getSystemUserAgent(appContext));
+                                systemUserAgent.readOnly = true;
+                                database.userAgentDao().add(systemUserAgent);
+                                database.userAgentDao().add(defaultUserAgents);
+                            });
                             database.setDatabaseCreated();
                         })
                        .subscribeOn(Schedulers.io())

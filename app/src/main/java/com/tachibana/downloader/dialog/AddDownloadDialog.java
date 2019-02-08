@@ -265,13 +265,8 @@ public class AddDownloadDialog extends DialogFragment
                     .subscribeOn(Schedulers.io())
                     .subscribe());
         });
-        /* Get other user agents */
         viewModel.observerUserAgents().observe(this, (userAgentList) -> {
             userAgentAdapter.clear();
-            /* System user agent is always first */
-            UserAgent systemUserAgent = new UserAgent(Utils.getSystemUserAgent(activity));
-            systemUserAgent.readOnly = true;
-            userAgentAdapter.add(systemUserAgent);
             userAgentAdapter.addAll(userAgentList);
             if (userAgentSpinnerPos > 0)
                 binding.userAgent.setSelection(userAgentSpinnerPos);

@@ -36,6 +36,7 @@ import android.net.Uri;
 import android.os.Build;
 import android.text.TextUtils;
 import android.util.TypedValue;
+import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.widget.ProgressBar;
 
@@ -517,13 +518,11 @@ public class Utils
 
     /*
      * Get system user agent (from WebView).
-     * Requires UI thread for WebView
      */
 
-    @UiThread
     public static String getSystemUserAgent(@NonNull Context context)
     {
-        return new WebView(context).getSettings().getUserAgentString();
+        return WebSettings.getDefaultUserAgent(context);
     }
 
     public static boolean checkStoragePermission(@NonNull Context context)
