@@ -191,49 +191,29 @@
                     android:checked="@={model.params.replaceFile}" />
             </com.google.android.material.internal.FlowLayout>
 
-            <RelativeLayout
-                android:id="@+id/expandable_spinner"
+            <com.tachibana.downloader.customview.ExpansionHeader
+                android:id="@+id/expansion_header"
                 android:layout_width="wrap_content"
                 android:layout_height="48dp"
-                android:background="?attr/dialogRectRipple">
+                app:expansion_text="@string/download_advanced"
+                app:expansion_expanded="false"
+                app:expansion_textAppearance="@style/TextCaption"
+                app:expansion_background="?attr/dialogRectRipple" />
 
-                <TextView
-                    android:id="@+id/advanced"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:gravity="center_vertical"
-                    android:layout_margin="8dp"
-                    android:layout_toStartOf="@id/expand_button"
-                    android:text="@string/download_advanced"
-                    android:textAppearance="@style/TextCaption" />
-
-                <RelativeLayout
-                    android:id="@+id/expand_button"
-                    android:layout_width="48dp"
-                    android:layout_height="match_parent"
-                    android:padding="16dp"
-                    android:layout_alignParentEnd="true"
-                    android:gravity="center">
-
-                    <View
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:background="@drawable/ic_arrow_down_gray_24dp" />
-                </RelativeLayout>
-            </RelativeLayout>
-
-            <com.github.aakira.expandablelayout.ExpandableLinearLayout
+            <net.cachapa.expandablelayout.ExpandableLayout
                 android:id="@+id/advanced_layout"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_below="@id/expandable_spinner"
+                android:layout_below="@id/expansion_header"
                 android:orientation="vertical"
-                app:ael_duration="5"
-                app:ael_expanded="false">
+                app:el_duration="5"
+                app:el_parallax="0"
+                app:el_expanded="false">
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
+                    android:layout_marginTop="16dp"
                     android:minWidth="@dimen/min_width_dialog"
                     android:orientation="vertical">
 
@@ -302,7 +282,7 @@
                             android:src="@drawable/ic_add_grey600_24px" />
                     </RelativeLayout>
                 </LinearLayout>
-            </com.github.aakira.expandablelayout.ExpandableLinearLayout>
+            </net.cachapa.expandablelayout.ExpandableLayout>
         </LinearLayout>
     </androidx.core.widget.NestedScrollView>
 </layout>

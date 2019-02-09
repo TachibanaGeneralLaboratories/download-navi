@@ -20,7 +20,6 @@
 
 package com.tachibana.downloader.dialog;
 
-import android.animation.ObjectAnimator;
 import android.app.Activity;
 import android.app.Dialog;
 import android.content.Context;
@@ -38,7 +37,6 @@ import android.widget.Button;
 import android.widget.SeekBar;
 import android.widget.Toast;
 
-import com.github.aakira.expandablelayout.ExpandableLayoutListener;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
 import com.tachibana.downloader.FragmentCallback;
@@ -221,7 +219,10 @@ public class AddDownloadDialog extends DialogFragment
 
     private void initLayoutView()
     {
-        initAdvancedLayout();
+        binding.expansionHeader.setOnClickListener((View view) -> {
+            binding.advancedLayout.toggle();
+            binding.expansionHeader.toggleExpand();
+        });
 
         binding.piecesNumberSelect.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener()
         {
@@ -342,58 +343,6 @@ public class AddDownloadDialog extends DialogFragment
             cancelButton.setOnClickListener((v) ->
                     finish(new Intent(), FragmentCallback.ResultCode.CANCEL));
         });
-    }
-
-    private void initAdvancedLayout()
-    {
-        binding.advancedLayout.setListener(new ExpandableLayoutListener() {
-            @Override
-            public void onAnimationStart()
-            {
-                /* Nothing */
-            }
-
-            @Override
-            public void onAnimationEnd()
-            {
-                /* Nothing */
-            }
-
-            @Override
-            public void onPreOpen()
-            {
-                createRotateAnimator(binding.expandButton, 0f, 180f).start();
-            }
-
-            @Override
-            public void onPreClose()
-            {
-                createRotateAnimator(binding.expandButton, 180f, 0f).start();
-            }
-
-            @Override
-            public void onOpened()
-            {
-                /* Nothing */
-            }
-
-            @Override
-            public void onClosed()
-            {
-                /* Nothing */
-            }
-        });
-        binding.expandableSpinner.setOnClickListener((View view) -> binding.advancedLayout.toggle());
-    }
-
-    private ObjectAnimator createRotateAnimator(final View target, final float from, final float to)
-    {
-        ObjectAnimator animator = ObjectAnimator.ofFloat(target, "rotation", from, to);
-        animator.setDuration(300);
-        animator.setInterpolator(com.github.aakira.expandablelayout.Utils.createInterpolator(
-                com.github.aakira.expandablelayout.Utils.LINEAR_INTERPOLATOR));
-
-        return animator;
     }
 
     @Override

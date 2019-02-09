@@ -15,6 +15,13 @@
         <attr name="menuIconTint" format="reference" />
     </declare-styleable>
 
+    <declare-styleable name="ExpansionHeader">
+        <attr name="expansion_background" format="reference" />
+        <attr name="expansion_text" format="string" />
+        <attr name="expansion_expanded" format="boolean"/>
+        <attr name="expansion_textAppearance" format="reference" />
+    </declare-styleable>
+
     <attr name="vc_tintMode" format="enum">
         <!-- The tint is drawn on top of the drawable.
              [Sa + (1 - Sa)*Da, Rc = Sc + (1 - Sa)*Dc] -->
