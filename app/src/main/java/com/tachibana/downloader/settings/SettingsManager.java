@@ -28,7 +28,10 @@ import com.tachibana.downloader.R;
 import com.tachibana.downloader.core.utils.FileUtils;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.VisibleForTesting;
+
+/*
+ * Global settings.
+ */
 
 public class SettingsManager
 {

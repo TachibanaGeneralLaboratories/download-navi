@@ -53,7 +53,6 @@ public class ExpansionHeader extends FrameLayout
     private static final int animationDuration = 300; /* ms */
 
     private boolean expanded = false;
-    private RelativeLayout expansionHeader;
     private ImageView arrow;
     private TextView textView;
 
@@ -88,7 +87,17 @@ public class ExpansionHeader extends FrameLayout
         setExpanded(expanded, true);
     }
 
-    private void setExpanded(boolean expanded, boolean animation)
+    public void setText(CharSequence charSequence)
+    {
+        textView.setText(charSequence);
+    }
+
+    public void setText(int resId)
+    {
+        textView.setText(resId);
+    }
+
+    public void setExpanded(boolean expanded, boolean animation)
     {
         this.expanded = expanded;
         if (arrow == null)
@@ -121,7 +130,6 @@ public class ExpansionHeader extends FrameLayout
     {
         TypedArray a = null;
         String text = null;
-        Drawable background = null;
         boolean expanded = false;
         int textAppearanceId = -1;
 
@@ -130,31 +138,20 @@ public class ExpansionHeader extends FrameLayout
             if (a != null) {
                 expanded = a.getBoolean(R.styleable.ExpansionHeader_expansion_expanded, false);
                 text = a.getString(R.styleable.ExpansionHeader_expansion_text);
-                background = a.getDrawable(R.styleable.ExpansionHeader_expansion_background);
                 textAppearanceId = a.getResourceId(R.styleable.ExpansionHeader_expansion_textAppearance, -1);
             }
         }
 
         inflate(context, R.layout.expansion_header, this);
         textView = findViewById(R.id._expansion_header_text);
-        expansionHeader = findViewById(R.id._expansion_header_header);
         arrow = findViewById(R.id._expansion_header_arrow);
 
-        setHeaderBackground(background);
         textView.setText(text);
         setTextAppearance(context, textAppearanceId);
         setExpanded(expanded, false);
 
         if (a != null)
             a.recycle();
-    }
-
-    private void setHeaderBackground(Drawable background)
-    {
-        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.JELLY_BEAN)
-            expansionHeader.setBackgroundDrawable(background);
-        else
-            expansionHeader.setBackground(background);
     }
 
     private void setTextAppearance(Context context, int resId)

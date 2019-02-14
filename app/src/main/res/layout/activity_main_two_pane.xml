@@ -22,7 +22,11 @@
             android:layout_height="match_parent"
             android:layout_below="@id/toolbar"
             app:elevation="0dp"
-            android:background="?attr/background" />
+            android:background="?attr/background">
+
+            <include
+                layout="@layout/main_drawer_content" />
+        </com.google.android.material.navigation.NavigationView>
     </RelativeLayout>
 
     <RelativeLayout

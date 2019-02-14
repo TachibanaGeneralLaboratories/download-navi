@@ -7,7 +7,7 @@ android {
         minSdkVersion 19
         targetSdkVersion 28
         versionCode 1
-        versionName "1.0-alpha4"
+        versionName "1.0-alpha5"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         vectorDrawables.useSupportLibrary = true
     }
@@ -47,11 +47,12 @@ dependencies {
     implementation "androidx.room:room-runtime:2.1.0-alpha04"
     annotationProcessor "androidx.room:room-compiler:2.1.0-alpha04"
     implementation "androidx.room:room-rxjava2:2.1.0-alpha04"
-    implementation "android.arch.work:work-runtime:1.0.0-beta04"
+    implementation "android.arch.work:work-runtime:1.0.0-rc01"
 
     /* ReactiveX */
     implementation 'io.reactivex.rxjava2:rxjava:2.1.9'
     implementation 'io.reactivex.rxjava2:rxandroid:2.0.2'
 
     implementation 'net.cachapa.expandablelayout:expandablelayout:2.9.2'
+    implementation 'com.h6ah4i.android.widget.advrecyclerview:advrecyclerview:1.0.0'
 }

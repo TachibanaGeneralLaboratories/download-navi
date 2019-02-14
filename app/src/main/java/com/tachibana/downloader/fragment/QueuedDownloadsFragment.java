@@ -45,13 +45,17 @@ public class QueuedDownloadsFragment extends DownloadsFragment
         return fragment;
     }
 
+    public QueuedDownloadsFragment()
+    {
+        super((item) -> !StatusCode.isStatusCompleted(item.info.statusCode));
+    }
+
     @Override
     public void onStart()
     {
         super.onStart();
 
-        subscribeAdapter((item) ->
-                !StatusCode.isStatusCompleted(item.info.statusCode));
+        subscribeAdapter();
     }
 
     @Override

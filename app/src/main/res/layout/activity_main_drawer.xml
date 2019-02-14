@@ -27,6 +27,10 @@
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:layout_gravity="start"
-            android:background="?attr/background" />
+            android:background="?attr/background">
+
+            <include
+                layout="@layout/main_drawer_content" />
+        </com.google.android.material.navigation.NavigationView>
     </androidx.drawerlayout.widget.DrawerLayout>
 </FrameLayout>

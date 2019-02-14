@@ -33,7 +33,9 @@ import androidx.room.Ignore;
 import androidx.room.PrimaryKey;
 import androidx.room.TypeConverters;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.UUID;
 
@@ -283,7 +285,7 @@ public class DownloadInfo implements Parcelable, Comparable<DownloadInfo>
                 ", retry=" + retry +
                 ", partialSupport=" + partialSupport +
                 ", statusMsg='" + statusMsg + '\'' +
-                ", dateAdded=" + dateAdded +
+                ", dateAdded=" + SimpleDateFormat.getDateTimeInstance().format(new Date(dateAdded)) +
                 ", visibility=" + visibility +
                 ", hasMetadata=" + hasMetadata +
                 '}';

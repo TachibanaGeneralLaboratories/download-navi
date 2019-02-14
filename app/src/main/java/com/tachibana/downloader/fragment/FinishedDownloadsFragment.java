@@ -64,13 +64,17 @@ public class FinishedDownloadsFragment extends DownloadsFragment
         return fragment;
     }
 
+    public FinishedDownloadsFragment()
+    {
+        super((item) -> StatusCode.isStatusCompleted(item.info.statusCode));
+    }
+
     @Override
     public void onStart()
     {
         super.onStart();
 
-        subscribeAdapter((item) ->
-                StatusCode.isStatusCompleted(item.info.statusCode));
+        subscribeAdapter();
         subscribeAlertDialog();
     }
 

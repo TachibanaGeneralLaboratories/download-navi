@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <!-- Settings -->
     <!-- Appearance settings -->
     <string name="pref_theme_light_value" translatable="false">0</string>
     <string name="pref_theme_dark_value" translatable="false">1</string>

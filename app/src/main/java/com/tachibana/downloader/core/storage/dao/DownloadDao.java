@@ -87,6 +87,10 @@ public abstract class DownloadDao
     @Query(QUERY_GET_ALL_INFO)
     public abstract Flowable<List<InfoAndPieces>> observeAllInfoAndPieces();
 
+    @Transaction
+    @Query(QUERY_GET_ALL_INFO)
+    public abstract Single<List<InfoAndPieces>> getAllInfoAndPiecesSingle();
+
     @Query(QUERY_GET_INFO_BY_ID)
     public abstract DownloadInfo getInfoById(UUID id);
 

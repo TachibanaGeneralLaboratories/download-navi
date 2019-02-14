@@ -129,7 +129,6 @@ public class DataRepository
                 } catch (FileNotFoundException | SecurityException | IllegalStateException e) {
                     Log.w(TAG, Log.getStackTraceString(e));
                 }
-
             }
         }
     }
@@ -137,6 +136,11 @@ public class DataRepository
     public Flowable<List<InfoAndPieces>> observeAllInfoAndPieces()
     {
         return db.downloadDao().observeAllInfoAndPieces();
+    }
+
+    public Single<List<InfoAndPieces>> getAllInfoAndPiecesSingle()
+    {
+        return db.downloadDao().getAllInfoAndPiecesSingle();
     }
 
     public Single<List<DownloadInfo>> getAllInfoSingle()

@@ -37,14 +37,19 @@ import android.os.Build;
 import android.text.TextUtils;
 import android.util.TypedValue;
 import android.webkit.WebSettings;
-import android.webkit.WebView;
 import android.widget.ProgressBar;
 
 import com.tachibana.downloader.R;
 import com.tachibana.downloader.adapter.DownloadItem;
+import com.tachibana.downloader.adapter.drawer.DrawerGroup;
+import com.tachibana.downloader.adapter.drawer.DrawerGroupItem;
 import com.tachibana.downloader.core.RealSystemFacade;
 import com.tachibana.downloader.core.SystemFacade;
 import com.tachibana.downloader.core.entity.DownloadInfo;
+import com.tachibana.downloader.core.filter.DownloadFilter;
+import com.tachibana.downloader.core.filter.DownloadFilterCollection;
+import com.tachibana.downloader.core.sorting.DownloadSorting;
+import com.tachibana.downloader.core.sorting.DownloadSortingComparator;
 import com.tachibana.downloader.settings.SettingsManager;
 
 import java.io.File;
@@ -67,7 +72,6 @@ import javax.net.ssl.X509TrustManager;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.annotation.UiThread;
 import androidx.annotation.VisibleForTesting;
 import androidx.core.content.ContextCompat;
 import androidx.core.content.FileProvider;
@@ -550,5 +554,184 @@ public class Utils
         }
 
         pref.edit().putString(key, dirPath.toString()).apply();
+    }
+
+    public static List<DrawerGroup> getNavigationDrawerItems(@NonNull Context context,
+                                                             @NonNull SharedPreferences localPref)
+    {
+        Resources res = context.getResources();
+
+        ArrayList<DrawerGroup> groups = new ArrayList<>();
+
+        DrawerGroup category = new DrawerGroup(res.getInteger(R.integer.drawer_category_id),
+                res.getString(R.string.drawer_category),
+                localPref.getBoolean(res.getString(R.string.drawer_category_is_expanded), true));
+        category.selectItem(localPref.getLong(res.getString(R.string.drawer_category_selected_item),
+                                              DrawerGroup.DEFAULT_SELECTED_ID));
+
+        DrawerGroup status = new DrawerGroup(res.getInteger(R.integer.drawer_status_id),
+                res.getString(R.string.drawer_status),
+                localPref.getBoolean(res.getString(R.string.drawer_status_is_expanded), false));
+        status.selectItem(localPref.getLong(res.getString(R.string.drawer_status_selected_item),
+                                            DrawerGroup.DEFAULT_SELECTED_ID));
+
+        DrawerGroup dateAdded = new DrawerGroup(res.getInteger(R.integer.drawer_date_added_id),
+                res.getString(R.string.drawer_date_added),
+                localPref.getBoolean(res.getString(R.string.drawer_time_is_expanded), false));
+        dateAdded.selectItem(localPref.getLong(res.getString(R.string.drawer_time_selected_item),
+                                               DrawerGroup.DEFAULT_SELECTED_ID));
+
+        DrawerGroup sorting = new DrawerGroup(res.getInteger(R.integer.drawer_sorting_id),
+                res.getString(R.string.drawer_sorting),
+                localPref.getBoolean(res.getString(R.string.drawer_sorting_is_expanded), false));
+        sorting.selectItem(localPref.getLong(res.getString(R.string.drawer_sorting_selected_item),
+                                             DrawerGroup.DEFAULT_SELECTED_ID));
+
+        category.items.add(new DrawerGroupItem(res.getInteger(R.integer.drawer_category_all_id),
+                R.drawable.ic_all_inclusive_grey600_24dp, res.getString(R.string.all)));
+        category.items.add(new DrawerGroupItem(res.getInteger(R.integer.drawer_category_others_id),
+                R.drawable.ic_file_grey600_24dp, res.getString(R.string.drawer_category_others)));
+        category.items.add(new DrawerGroupItem(res.getInteger(R.integer.drawer_category_documents_id),
+                R.drawable.ic_file_document_grey600_24dp, res.getString(R.string.drawer_category_documents)));
+        category.items.add(new DrawerGroupItem(res.getInteger(R.integer.drawer_category_images_id),
+                R.drawable.ic_image_grey600_24dp, res.getString(R.string.drawer_category_images)));
+        category.items.add(new DrawerGroupItem(res.getInteger(R.integer.drawer_category_video_id),
+                R.drawable.ic_video_grey600_24dp, res.getString(R.string.drawer_category_video)));
+        category.items.add(new DrawerGroupItem(res.getInteger(R.integer.drawer_category_apk_id),
+                R.drawable.ic_android_grey600_24dp, res.getString(R.string.drawer_category_apk)));
+        category.items.add(new DrawerGroupItem(res.getInteger(R.integer.drawer_category_audio_id),
+                R.drawable.ic_music_note_grey600_24dp, res.getString(R.string.drawer_category_audio)));
+        category.items.add(new DrawerGroupItem(res.getInteger(R.integer.drawer_category_archives_id),
+                R.drawable.ic_zip_box_grey600_24dp, res.getString(R.string.drawer_category_archives)));
+
+        status.items.add(new DrawerGroupItem(res.getInteger(R.integer.drawer_status_all_id),
+                R.drawable.ic_all_inclusive_grey600_24dp, res.getString(R.string.all)));
+        status.items.add(new DrawerGroupItem(res.getInteger(R.integer.drawer_status_running_id),
+                R.drawable.ic_play_circle_outline_grey600_24dp, res.getString(R.string.drawer_status_running)));
+        status.items.add(new DrawerGroupItem(res.getInteger(R.integer.drawer_status_stopped_id),
+                R.drawable.ic_stop_circle_outline_grey600_24dp, res.getString(R.string.drawer_status_stopped)));
+
+        dateAdded.items.add(new DrawerGroupItem(res.getInteger(R.integer.drawer_date_added_all_id),
+                R.drawable.ic_all_inclusive_grey600_24dp, res.getString(R.string.all)));
+        dateAdded.items.add(new DrawerGroupItem(res.getInteger(R.integer.drawer_date_added_today_id),
+                R.drawable.ic_calendar_today_grey600_24dp, res.getString(R.string.drawer_date_added_today)));
+        dateAdded.items.add(new DrawerGroupItem(res.getInteger(R.integer.drawer_date_added_yesterday_id),
+                R.drawable.ic_calendar_yesterday_grey600_24dp, res.getString(R.string.drawer_date_added_yesterday)));
+        dateAdded.items.add(new DrawerGroupItem(res.getInteger(R.integer.drawer_date_added_week_id),
+                R.drawable.ic_calendar_week_grey600_24dp, res.getString(R.string.drawer_date_added_week)));
+        dateAdded.items.add(new DrawerGroupItem(res.getInteger(R.integer.drawer_date_added_month_id),
+                R.drawable.ic_calendar_month_grey600_24dp, res.getString(R.string.drawer_date_added_month)));
+        dateAdded.items.add(new DrawerGroupItem(res.getInteger(R.integer.drawer_date_added_year_id),
+                R.drawable.ic_calendar_year_grey600_24dp, res.getString(R.string.drawer_date_added_year)));
+
+        sorting.items.add(new DrawerGroupItem(res.getInteger(R.integer.drawer_sorting_date_added_asc_id),
+                R.drawable.ic_sort_ascending_grey600_24dp, res.getString(R.string.drawer_sorting_date_added)));
+        sorting.items.add(new DrawerGroupItem(res.getInteger(R.integer.drawer_sorting_date_added_desc_id),
+                R.drawable.ic_sort_descending_grey600_24dp, res.getString(R.string.drawer_sorting_date_added)));
+        sorting.items.add(new DrawerGroupItem(res.getInteger(R.integer.drawer_sorting_name_asc_id),
+                R.drawable.ic_sort_ascending_grey600_24dp, res.getString(R.string.drawer_sorting_name)));
+        sorting.items.add(new DrawerGroupItem(res.getInteger(R.integer.drawer_sorting_name_desc_id),
+                R.drawable.ic_sort_descending_grey600_24dp, res.getString(R.string.drawer_sorting_name)));
+        sorting.items.add(new DrawerGroupItem(res.getInteger(R.integer.drawer_sorting_size_asc_id),
+                R.drawable.ic_sort_ascending_grey600_24dp, res.getString(R.string.drawer_sorting_size)));
+        sorting.items.add(new DrawerGroupItem(res.getInteger(R.integer.drawer_sorting_size_desc_id),
+                R.drawable.ic_sort_descending_grey600_24dp, res.getString(R.string.drawer_sorting_size)));
+        sorting.items.add(new DrawerGroupItem(res.getInteger(R.integer.drawer_sorting_category_asc_id),
+                R.drawable.ic_sort_ascending_grey600_24dp, res.getString(R.string.drawer_sorting_category)));
+        sorting.items.add(new DrawerGroupItem(res.getInteger(R.integer.drawer_sorting_category_desc_id),
+                R.drawable.ic_sort_descending_grey600_24dp, res.getString(R.string.drawer_sorting_category)));
+        sorting.items.add(new DrawerGroupItem(res.getInteger(R.integer.drawer_sorting_no_sorting_id),
+                R.drawable.ic_sort_off_grey600_24dp, res.getString(R.string.drawer_sorting_no_sorting)));
+
+        groups.add(category);
+        groups.add(status);
+        groups.add(dateAdded);
+        groups.add(sorting);
+
+        return groups;
+    }
+
+    public static DownloadSortingComparator getDrawerGroupItemSorting(@NonNull Context context,
+                                                                      long itemId)
+    {
+        Resources res = context.getResources();
+        if (itemId == res.getInteger(R.integer.drawer_sorting_no_sorting_id))
+            return new DownloadSortingComparator(new DownloadSorting(DownloadSorting.SortingColumns.none, DownloadSorting.Direction.ASC));
+        else if (itemId == res.getInteger(R.integer.drawer_sorting_name_asc_id))
+            return new DownloadSortingComparator(new DownloadSorting(DownloadSorting.SortingColumns.name, DownloadSorting.Direction.ASC));
+        else if (itemId == res.getInteger(R.integer.drawer_sorting_name_desc_id))
+            return new DownloadSortingComparator(new DownloadSorting(DownloadSorting.SortingColumns.name, DownloadSorting.Direction.DESC));
+        else if (itemId == res.getInteger(R.integer.drawer_sorting_size_asc_id))
+            return new DownloadSortingComparator(new DownloadSorting(DownloadSorting.SortingColumns.size, DownloadSorting.Direction.ASC));
+        else if (itemId == res.getInteger(R.integer.drawer_sorting_size_desc_id))
+            return new DownloadSortingComparator(new DownloadSorting(DownloadSorting.SortingColumns.size, DownloadSorting.Direction.DESC));
+        else if (itemId == res.getInteger(R.integer.drawer_sorting_date_added_asc_id))
+            return new DownloadSortingComparator(new DownloadSorting(DownloadSorting.SortingColumns.dateAdded, DownloadSorting.Direction.ASC));
+        else if (itemId == res.getInteger(R.integer.drawer_sorting_date_added_desc_id))
+            return new DownloadSortingComparator(new DownloadSorting(DownloadSorting.SortingColumns.dateAdded, DownloadSorting.Direction.DESC));
+        else if (itemId == res.getInteger(R.integer.drawer_sorting_category_asc_id))
+            return new DownloadSortingComparator(new DownloadSorting(DownloadSorting.SortingColumns.category, DownloadSorting.Direction.ASC));
+        else if (itemId == res.getInteger(R.integer.drawer_sorting_category_desc_id))
+            return new DownloadSortingComparator(new DownloadSorting(DownloadSorting.SortingColumns.category, DownloadSorting.Direction.DESC));
+        else
+            return new DownloadSortingComparator(new DownloadSorting(DownloadSorting.SortingColumns.none, DownloadSorting.Direction.ASC));
+    }
+
+    public static DownloadFilter getDrawerGroupCategoryFilter(@NonNull Context context,
+                                                              long itemId)
+    {
+        Resources res = context.getResources();
+        if (itemId == res.getInteger(R.integer.drawer_category_all_id))
+            return DownloadFilterCollection.all();
+        else if (itemId == res.getInteger(R.integer.drawer_category_others_id))
+            return DownloadFilterCollection.category(MimeTypeUtils.Category.OTHER);
+        else if (itemId == res.getInteger(R.integer.drawer_category_documents_id))
+            return DownloadFilterCollection.category(MimeTypeUtils.Category.DOCUMENT);
+        else if (itemId == res.getInteger(R.integer.drawer_category_images_id))
+            return DownloadFilterCollection.category(MimeTypeUtils.Category.IMAGE);
+        else if (itemId == res.getInteger(R.integer.drawer_category_video_id))
+            return DownloadFilterCollection.category(MimeTypeUtils.Category.VIDEO);
+        else if (itemId == res.getInteger(R.integer.drawer_category_apk_id))
+            return DownloadFilterCollection.category(MimeTypeUtils.Category.APK);
+        else if (itemId == res.getInteger(R.integer.drawer_category_audio_id))
+            return DownloadFilterCollection.category(MimeTypeUtils.Category.AUDIO);
+        else if (itemId == res.getInteger(R.integer.drawer_category_archives_id))
+            return DownloadFilterCollection.category(MimeTypeUtils.Category.ARCHIVE);
+        else
+            return DownloadFilterCollection.all();
+    }
+
+    public static DownloadFilter getDrawerGroupStatusFilter(@NonNull Context context,
+                                                            long itemId)
+    {
+        Resources res = context.getResources();
+        if (itemId == res.getInteger(R.integer.drawer_status_all_id))
+            return DownloadFilterCollection.all();
+        else if (itemId == res.getInteger(R.integer.drawer_status_running_id))
+            return DownloadFilterCollection.statusRunning();
+        else if (itemId == res.getInteger(R.integer.drawer_status_stopped_id))
+            return DownloadFilterCollection.statusStopped();
+        else
+            return DownloadFilterCollection.all();
+    }
+
+    public static DownloadFilter getDrawerGroupDateAddedFilter(@NonNull Context context,
+                                                               long itemId)
+    {
+        Resources res = context.getResources();
+        if (itemId == res.getInteger(R.integer.drawer_date_added_all_id))
+            return DownloadFilterCollection.all();
+        else if (itemId == res.getInteger(R.integer.drawer_date_added_today_id))
+            return DownloadFilterCollection.dateAddedToday();
+        else if (itemId == res.getInteger(R.integer.drawer_date_added_yesterday_id))
+            return DownloadFilterCollection.dateAddedYesterday();
+        else if (itemId == res.getInteger(R.integer.drawer_date_added_week_id))
+            return DownloadFilterCollection.dateAddedWeek();
+        else if (itemId == res.getInteger(R.integer.drawer_date_added_month_id))
+            return DownloadFilterCollection.dateAddedMonth();
+        else if (itemId == res.getInteger(R.integer.drawer_date_added_year_id))
+            return DownloadFilterCollection.dateAddedYear();
+        else
+            return DownloadFilterCollection.all();
     }
 }

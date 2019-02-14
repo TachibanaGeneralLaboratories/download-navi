@@ -195,10 +195,14 @@
                 android:id="@+id/expansion_header"
                 android:layout_width="wrap_content"
                 android:layout_height="48dp"
+                android:paddingEnd="16dp"
+                android:paddingStart="16dp"
+                android:paddingBottom="8dp"
+                android:paddingTop="8dp"
                 app:expansion_text="@string/download_advanced"
                 app:expansion_expanded="false"
                 app:expansion_textAppearance="@style/TextCaption"
-                app:expansion_background="?attr/dialogRectRipple" />
+                android:background="?attr/dialogRectRipple" />
 
             <net.cachapa.expandablelayout.ExpandableLayout
                 android:id="@+id/advanced_layout"

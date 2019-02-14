@@ -36,6 +36,7 @@ import android.widget.CheckBox;
 import com.tachibana.downloader.R;
 import com.tachibana.downloader.adapter.DownloadItem;
 import com.tachibana.downloader.adapter.DownloadListAdapter;
+import com.tachibana.downloader.core.filter.DownloadFilter;
 import com.tachibana.downloader.core.utils.Utils;
 import com.tachibana.downloader.databinding.FragmentDownloadListBinding;
 import com.tachibana.downloader.dialog.BaseAlertDialog;
@@ -61,7 +62,6 @@ import io.reactivex.Observable;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.disposables.Disposable;
-import io.reactivex.functions.Predicate;
 import io.reactivex.schedulers.Schedulers;
 
 /*
@@ -90,6 +90,12 @@ public abstract class DownloadsFragment extends Fragment
     protected CompositeDisposable disposable = new CompositeDisposable();
     private BaseAlertDialog deleteDownloadsDialog;
     private BaseAlertDialog.SharedViewModel dialogViewModel;
+    private DownloadFilter fragmentDownloadsFilter;
+
+    public DownloadsFragment(DownloadFilter fragmentDownloadsFilter)
+    {
+        this.fragmentDownloadsFilter = fragmentDownloadsFilter;
+    }
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
@@ -163,7 +169,7 @@ public abstract class DownloadsFragment extends Fragment
     }
 
     @Override
-    public void onAttach(Context context)
+    public void onAttach(@NonNull Context context)
     {
         super.onAttach(context);
 
@@ -185,6 +191,7 @@ public abstract class DownloadsFragment extends Fragment
         super.onStart();
 
         subscribeAlertDialog();
+        subscribeForceSortAndFilter();
     }
 
     private void subscribeAlertDialog()
@@ -210,6 +217,14 @@ public abstract class DownloadsFragment extends Fragment
         disposable.add(d);
     }
 
+    private void subscribeForceSortAndFilter()
+    {
+        disposable.add(viewModel.onForceSortAndFilter()
+                .filter((force) -> force)
+                .observeOn(Schedulers.io())
+                .subscribe((force) -> disposable.add(getDownloadSingle())));
+    }
+
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState)
     {
@@ -218,7 +233,7 @@ public abstract class DownloadsFragment extends Fragment
         if (activity == null)
             activity = (AppCompatActivity)getActivity();
 
-        viewModel = ViewModelProviders.of(this).get(DownloadsViewModel.class);
+        viewModel = ViewModelProviders.of(activity).get(DownloadsViewModel.class);
 
         FragmentManager fm = getFragmentManager();
         if (fm != null)
@@ -254,14 +269,21 @@ public abstract class DownloadsFragment extends Fragment
         super.onSaveInstanceState(outState);
     }
 
-    protected void subscribeAdapter(Predicate<DownloadItem> filter)
+    protected void subscribeAdapter()
     {
-        disposable.add(viewModel.observerAllInfoAndPieces()
+        disposable.add(observeDownloads());
+    }
+
+    public Disposable observeDownloads()
+    {
+        return viewModel.observerAllInfoAndPieces()
                 .subscribeOn(Schedulers.io())
                 .flatMapSingle((infoAndPiecesList) ->
                         Flowable.fromIterable(infoAndPiecesList)
+                                .filter(fragmentDownloadsFilter)
+                                .filter(viewModel.getDownloadFilter())
                                 .map(DownloadItem::new)
-                                .filter(filter)
+                                .sorted(viewModel.getSorting())
                                 .toList()
                 )
                 .observeOn(AndroidSchedulers.mainThread())
@@ -269,7 +291,27 @@ public abstract class DownloadsFragment extends Fragment
                         (Throwable t) -> {
                             Log.e(TAG, "Getting info and pieces error: " +
                                     Log.getStackTraceString(t));
-                        }));
+                        });
+    }
+
+    public Disposable getDownloadSingle()
+    {
+        return viewModel.getAllInfoAndPiecesSingle()
+                .subscribeOn(Schedulers.io())
+                .flatMap((infoAndPiecesList) ->
+                        Observable.fromIterable(infoAndPiecesList)
+                                .filter(fragmentDownloadsFilter)
+                                .filter(viewModel.getDownloadFilter())
+                                .map(DownloadItem::new)
+                                .sorted(viewModel.getSorting())
+                                .toList()
+                )
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(adapter::submitList,
+                        (Throwable t) -> {
+                            Log.e(TAG, "Getting info and pieces error: " +
+                                    Log.getStackTraceString(t));
+                        });
     }
 
     @Override

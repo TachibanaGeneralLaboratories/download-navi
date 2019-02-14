@@ -16,7 +16,6 @@
     </declare-styleable>
 
     <declare-styleable name="ExpansionHeader">
-        <attr name="expansion_background" format="reference" />
         <attr name="expansion_text" format="string" />
         <attr name="expansion_expanded" format="boolean"/>
         <attr name="expansion_textAppearance" format="reference" />

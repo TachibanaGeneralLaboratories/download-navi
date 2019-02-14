@@ -35,7 +35,7 @@ import android.widget.TextView;
 import com.tachibana.downloader.R;
 import com.tachibana.downloader.core.StatusCode;
 import com.tachibana.downloader.core.entity.DownloadPiece;
-import com.tachibana.downloader.core.utils.DateFormatUtils;
+import com.tachibana.downloader.core.utils.DateUtils;
 import com.tachibana.downloader.core.utils.MimeTypeUtils;
 import com.tachibana.downloader.core.utils.Utils;
 
@@ -249,7 +249,7 @@ public class DownloadListAdapter extends ListAdapter<DownloadItem, DownloadListA
                         (item.info.totalBytes == -1 ? context.getString(R.string.not_available) :
                                 Formatter.formatFileSize(context, item.info.totalBytes)),
                         (ETA == -1 ? Utils.INFINITY_SYMBOL :
-                                DateFormatUtils.formatElapsedTime(context, ETA)),
+                                DateUtils.formatElapsedTime(context, ETA)),
                         Formatter.formatFileSize(context, speed)));
             } else {
                 String statusStr = "";

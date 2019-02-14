@@ -20,38 +20,65 @@
 
 package com.tachibana.downloader;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.coordinatorlayout.widget.CoordinatorLayout;
 import androidx.drawerlayout.widget.DrawerLayout;
+import androidx.lifecycle.ViewModelProviders;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 import androidx.viewpager.widget.ViewPager;
 
 import android.content.Intent;
+import android.content.res.Resources;
 import android.os.Build;
 import android.os.Bundle;
-import android.view.View;
+import android.preference.PreferenceManager;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.navigation.NavigationView;
 import com.google.android.material.tabs.TabLayout;
+import com.h6ah4i.android.widget.advrecyclerview.animator.GeneralItemAnimator;
+import com.h6ah4i.android.widget.advrecyclerview.animator.RefactoredDefaultItemAnimator;
+import com.h6ah4i.android.widget.advrecyclerview.expandable.RecyclerViewExpandableItemManager;
 import com.tachibana.downloader.adapter.DownloadListPagerAdapter;
+import com.tachibana.downloader.adapter.drawer.DrawerExpandableAdapter;
+import com.tachibana.downloader.adapter.drawer.DrawerGroup;
+import com.tachibana.downloader.adapter.drawer.DrawerGroupItem;
+import com.tachibana.downloader.core.filter.DownloadFilter;
+import com.tachibana.downloader.core.sorting.DownloadSortingComparator;
 import com.tachibana.downloader.core.utils.Utils;
 import com.tachibana.downloader.receiver.NotificationReceiver;
+import com.tachibana.downloader.viewmodel.DownloadsViewModel;
+
+import java.util.List;
 
 public class MainActivity extends AppCompatActivity
 {
+    @SuppressWarnings("unused")
+    private static final String TAG = MainActivity.class.getSimpleName();
+
     private static final String TAG_PERM_DIALOG_IS_SHOW = "perm_dialog_is_show";
 
     /* Android data binding doesn't work with layout aliases */
     private CoordinatorLayout coordinatorLayout;
     private Toolbar toolbar;
+
     private DrawerLayout drawerLayout;
     private NavigationView navigationView;
     private ActionBarDrawerToggle toggle;
+    private RecyclerView drawerItemsList;
+    private LinearLayoutManager layoutManager;
+    private DrawerExpandableAdapter drawerAdapter;
+    private RecyclerView.Adapter wrappedDrawerAdapter;
+    private RecyclerViewExpandableItemManager drawerItemManager;
+
     private TabLayout tabLayout;
     private ViewPager viewPager;
-    private DownloadListPagerAdapter adapter;
+    private DownloadListPagerAdapter pagerAdapter;
+    private DownloadsViewModel fragmentViewModel;
     private FloatingActionButton fab;
     private boolean permDialogIsShow = false;
 
@@ -89,6 +116,10 @@ public class MainActivity extends AppCompatActivity
         tabLayout = findViewById(R.id.download_list_tabs);
         viewPager = findViewById(R.id.download_list_viewpager);
         fab = findViewById(R.id.add_fab);
+        drawerItemsList = findViewById(R.id.drawer_items_list);
+        layoutManager = new LinearLayoutManager(this);
+
+        fragmentViewModel = ViewModelProviders.of(this).get(DownloadsViewModel.class);
 
         toolbar.setTitle(R.string.app_name);
         /* Disable elevation for portrait mode */
@@ -104,21 +135,55 @@ public class MainActivity extends AppCompatActivity
                     R.string.close_navigation_drawer);
             drawerLayout.addDrawerListener(toggle);
         }
+        initDrawer();
 
-        adapter = new DownloadListPagerAdapter(getApplicationContext(), getSupportFragmentManager());
-        viewPager.setAdapter(adapter);
+        pagerAdapter = new DownloadListPagerAdapter(getApplicationContext(), getSupportFragmentManager());
+        viewPager.setAdapter(pagerAdapter);
         viewPager.setOffscreenPageLimit(DownloadListPagerAdapter.NUM_FRAGMENTS);
         tabLayout.setupWithViewPager(viewPager);
 
-        fab.setOnClickListener((View v) -> startActivity(new Intent(this, AddDownloadActivity.class)));
+        fab.setOnClickListener((v) -> startActivity(new Intent(this, AddDownloadActivity.class)));
+    }
+
+    private void initDrawer()
+    {
+        drawerItemManager = new RecyclerViewExpandableItemManager(null);
+        drawerItemManager.setDefaultGroupsExpandedState(false);
+        drawerItemManager.setOnGroupCollapseListener((groupPosition, fromUser, payload) -> {
+            if (fromUser)
+                saveGroupExpandState(groupPosition, false);
+        });
+        drawerItemManager.setOnGroupExpandListener((groupPosition, fromUser, payload) -> {
+            if (fromUser)
+                saveGroupExpandState(groupPosition, true);
+        });
+        GeneralItemAnimator animator = new RefactoredDefaultItemAnimator();
+        /*
+         * Change animations are enabled by default since support-v7-recyclerview v22.
+         * Need to disable them when using animation indicator.
+         */
+        animator.setSupportsChangeAnimations(false);
+
+        List<DrawerGroup> groups = Utils.getNavigationDrawerItems(this,
+                PreferenceManager.getDefaultSharedPreferences(this));
+        drawerAdapter = new DrawerExpandableAdapter(groups, drawerItemManager, this::onDrawerItemSelected);
+        wrappedDrawerAdapter = drawerItemManager.createWrappedAdapter(drawerAdapter);
+        onDrawerGroupsCreated();
+
+        drawerItemsList.setLayoutManager(layoutManager);
+        drawerItemsList.setAdapter(wrappedDrawerAdapter);
+        drawerItemsList.setItemAnimator(animator);
+        drawerItemsList.setHasFixedSize(false);
+
+        drawerItemManager.attachRecyclerView(drawerItemsList);
     }
 
     @Override
-    public void onSaveInstanceState(Bundle outState)
+    public void onSaveInstanceState(@NonNull Bundle outState)
     {
-        super.onSaveInstanceState(outState);
-
         outState.putBoolean(TAG_PERM_DIALOG_IS_SHOW, permDialogIsShow);
+
+        super.onSaveInstanceState(outState);
     }
 
     @Override
@@ -129,4 +194,103 @@ public class MainActivity extends AppCompatActivity
         if (toggle != null)
             toggle.syncState();
     }
+
+    private void onDrawerGroupsCreated()
+    {
+        for (int pos = 0; pos < drawerAdapter.getGroupCount(); pos++) {
+            DrawerGroup group = drawerAdapter.getGroup(pos);
+            if (group == null)
+                return;
+
+            Resources res = getResources();
+            if (group.id == res.getInteger(R.integer.drawer_category_id)) {
+                fragmentViewModel.setCategoryFilter(
+                        Utils.getDrawerGroupCategoryFilter(this, group.getSelectedItemId()), false);
+
+            } else if (group.id == res.getInteger(R.integer.drawer_status_id)) {
+                fragmentViewModel.setStatusFilter(
+                        Utils.getDrawerGroupStatusFilter(this, group.getSelectedItemId()), false);
+
+            } else if (group.id == res.getInteger(R.integer.drawer_date_added_id)) {
+                fragmentViewModel.setDateAddedFilter(
+                        Utils.getDrawerGroupDateAddedFilter(this, group.getSelectedItemId()), false);
+
+            } else if (group.id == res.getInteger(R.integer.drawer_sorting_id)) {
+                fragmentViewModel.setSort(Utils.getDrawerGroupItemSorting(this, group.getSelectedItemId()), false);
+            }
+
+            applyExpandState(group, pos);
+        }
+    }
+
+    private void applyExpandState(DrawerGroup group, int pos)
+    {
+        if (group.getDefaultExpandState())
+            drawerItemManager.expandGroup(pos);
+        else
+            drawerItemManager.collapseGroup(pos);
+    }
+
+    private void saveGroupExpandState(int groupPosition, boolean expanded)
+    {
+        DrawerGroup group = drawerAdapter.getGroup(groupPosition);
+        if (group == null)
+            return;
+
+        Resources res = getResources();
+        String prefKey = null;
+        if (group.id == res.getInteger(R.integer.drawer_category_id))
+            prefKey = getString(R.string.drawer_category_is_expanded);
+
+        else if (group.id == res.getInteger(R.integer.drawer_status_id))
+            prefKey = getString(R.string.drawer_status_is_expanded);
+
+        else if (group.id == res.getInteger(R.integer.drawer_date_added_id))
+            prefKey = getString(R.string.drawer_time_is_expanded);
+
+        else if (group.id == res.getInteger(R.integer.drawer_sorting_id))
+            prefKey = getString(R.string.drawer_sorting_is_expanded);
+
+        if (prefKey != null)
+            PreferenceManager.getDefaultSharedPreferences(this)
+                    .edit()
+                    .putBoolean(prefKey, expanded)
+                    .apply();
+    }
+
+    private void onDrawerItemSelected(DrawerGroup group, DrawerGroupItem item)
+    {
+        Resources res = getResources();
+        String prefKey = null;
+        if (group.id == res.getInteger(R.integer.drawer_category_id)) {
+            prefKey = getString(R.string.drawer_category_selected_item);
+            fragmentViewModel.setCategoryFilter(
+                    Utils.getDrawerGroupCategoryFilter(this, item.id), true);
+
+        } else if (group.id == res.getInteger(R.integer.drawer_status_id)) {
+            prefKey = getString(R.string.drawer_status_selected_item);
+            fragmentViewModel.setStatusFilter(
+                    Utils.getDrawerGroupStatusFilter(this, item.id), true);
+
+        } else if (group.id == res.getInteger(R.integer.drawer_date_added_id)) {
+            prefKey = getString(R.string.drawer_time_selected_item);
+            fragmentViewModel.setDateAddedFilter(
+                    Utils.getDrawerGroupDateAddedFilter(this, item.id), true);
+
+        } else if (group.id == res.getInteger(R.integer.drawer_sorting_id)) {
+            prefKey = getString(R.string.drawer_sorting_selected_item);
+            fragmentViewModel.setSort(Utils.getDrawerGroupItemSorting(this, item.id), true);
+        }
+
+        if (prefKey != null)
+            saveSelectionState(prefKey, item);
+    }
+
+    private void saveSelectionState(String prefKey, DrawerGroupItem item)
+    {
+        PreferenceManager.getDefaultSharedPreferences(this)
+                .edit()
+                .putLong(prefKey, item.id)
+                .apply();
+    };
 }

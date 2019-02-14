@@ -23,8 +23,12 @@ package com.tachibana.downloader.viewmodel;
 import android.app.Application;
 
 import com.tachibana.downloader.MainApplication;
+import com.tachibana.downloader.core.filter.DownloadFilter;
 import com.tachibana.downloader.core.entity.DownloadInfo;
 import com.tachibana.downloader.core.entity.InfoAndPieces;
+import com.tachibana.downloader.core.filter.DownloadFilterCollection;
+import com.tachibana.downloader.core.sorting.DownloadSorting;
+import com.tachibana.downloader.core.sorting.DownloadSortingComparator;
 import com.tachibana.downloader.core.storage.DataRepository;
 
 import java.util.List;
@@ -33,10 +37,19 @@ import androidx.annotation.NonNull;
 import androidx.lifecycle.AndroidViewModel;
 import io.reactivex.Completable;
 import io.reactivex.Flowable;
+import io.reactivex.Observable;
+import io.reactivex.Single;
+import io.reactivex.subjects.PublishSubject;
 
 public class DownloadsViewModel extends AndroidViewModel
 {
     private DataRepository repo;
+    private DownloadSortingComparator sorting = new DownloadSortingComparator(
+            new DownloadSorting(DownloadSorting.SortingColumns.none, DownloadSorting.Direction.ASC));
+    private DownloadFilter categoryFilter = DownloadFilterCollection.all();
+    private DownloadFilter statusFilter = DownloadFilterCollection.all();
+    private DownloadFilter dateAddedFilter = DownloadFilterCollection.all();
+    private PublishSubject<Boolean> forceSortAndFilter = PublishSubject.create();
 
     public DownloadsViewModel(@NonNull Application application)
     {
@@ -50,6 +63,11 @@ public class DownloadsViewModel extends AndroidViewModel
         return repo.observeAllInfoAndPieces();
     }
 
+    public Single<List<InfoAndPieces>> getAllInfoAndPiecesSingle()
+    {
+        return repo.getAllInfoAndPiecesSingle();
+    }
+
     public Completable deleteDownload(DownloadInfo info, boolean withFile)
     {
         return Completable.fromAction(() -> repo.deleteInfo(getApplication(), info, withFile));
@@ -58,5 +76,52 @@ public class DownloadsViewModel extends AndroidViewModel
     public Completable deleteDownloads(List<DownloadInfo> infoList, boolean withFile)
     {
         return Completable.fromAction(() -> repo.deleteInfoList(getApplication(), infoList, withFile));
+    }
+
+    public void setSort(@NonNull DownloadSortingComparator sorting, boolean force)
+    {
+        this.sorting = sorting;
+        if (force && !sorting.getSorting().getColumnName().equals(DownloadSorting.SortingColumns.none.name()))
+            forceSortAndFilter.onNext(true);
+    }
+
+    public void setCategoryFilter(@NonNull DownloadFilter categoryFilter, boolean force)
+    {
+        this.categoryFilter = categoryFilter;
+        if (force)
+            forceSortAndFilter.onNext(true);
+    }
+
+    public void setStatusFilter(@NonNull DownloadFilter statusFilter, boolean force)
+    {
+        this.statusFilter = statusFilter;
+        if (force)
+            forceSortAndFilter.onNext(true);
+    }
+
+    public void setDateAddedFilter(@NonNull DownloadFilter dateAddedFilter, boolean force)
+    {
+        this.dateAddedFilter = dateAddedFilter;
+        if (force)
+            forceSortAndFilter.onNext(true);
+    }
+
+    @NonNull
+    public DownloadSortingComparator getSorting()
+    {
+        return sorting;
+    }
+
+    @NonNull
+    public DownloadFilter getDownloadFilter()
+    {
+        return (infoAndPieces) -> categoryFilter.test(infoAndPieces) &&
+                statusFilter.test(infoAndPieces) &&
+                dateAddedFilter.test(infoAndPieces);
+    }
+
+    public Observable<Boolean> onForceSortAndFilter()
+    {
+        return forceSortAndFilter;
     }
 }

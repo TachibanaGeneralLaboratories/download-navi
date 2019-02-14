@@ -37,6 +37,7 @@
     <string name="file">File</string>
     <string name="folder">Folder</string>
     <string name="fetching_metadata">Fetching metadata</string>
+    <string name="all">All</string>
 
     <!-- Permission dialog -->
     <string name="perm_denied_title">Permission denied</string>
@@ -98,6 +99,34 @@
     <string name="fragment_title_queued">Queued</string>
     <string name="fragment_title_completed">Completed</string>
     <string name="download_list_empty">No downloads</string>
+    <!-- Navigation drawer -->
+    <!-- Category -->
+    <string name="drawer_category">Category</string>
+    <string name="drawer_category_others">Others</string>
+    <string name="drawer_category_documents">Documents</string>
+    <string name="drawer_category_images">Images</string>
+    <string name="drawer_category_video">Video</string>
+    <string name="drawer_category_apk">APK</string>
+    <string name="drawer_category_audio">Audio</string>
+    <string name="drawer_category_archives">Archives</string>
+    <!-- Status -->
+    <string name="drawer_status">Status</string>
+    <string name="drawer_status_running">Running</string>
+    <string name="drawer_status_stopped">Stopped</string>
+    <!-- Date added -->
+    <string name="drawer_date_added">Date added</string>
+    <string name="drawer_date_added_today">Today</string>
+    <string name="drawer_date_added_yesterday">Yesterday</string>
+    <string name="drawer_date_added_week">Week</string>
+    <string name="drawer_date_added_month">Month</string>
+    <string name="drawer_date_added_year">Year</string>
+    <!-- Sorting -->
+    <string name="drawer_sorting">Sorting</string>
+    <string name="drawer_sorting_date_added">Date added</string>
+    <string name="drawer_sorting_name">Name</string>
+    <string name="drawer_sorting_size">Size</string>
+    <string name="drawer_sorting_category">Category</string>
+    <string name="drawer_sorting_no_sorting">No sorting</string>
 
     <!-- Download list item -->
 

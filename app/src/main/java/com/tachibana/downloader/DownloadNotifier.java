@@ -42,7 +42,7 @@ import com.tachibana.downloader.core.entity.DownloadInfo;
 import com.tachibana.downloader.core.entity.DownloadPiece;
 import com.tachibana.downloader.core.entity.InfoAndPieces;
 import com.tachibana.downloader.core.storage.DataRepository;
-import com.tachibana.downloader.core.utils.DateFormatUtils;
+import com.tachibana.downloader.core.utils.DateUtils;
 import com.tachibana.downloader.core.utils.Utils;
 import com.tachibana.downloader.receiver.NotificationReceiver;
 
@@ -352,7 +352,7 @@ public class DownloadNotifier
                             (info.totalBytes == -1 ? context.getString(R.string.not_available) :
                                     Formatter.formatFileSize(context, info.totalBytes)),
                             (ETA == -1 ? Utils.INFINITY_SYMBOL :
-                                    DateFormatUtils.formatElapsedTime(context, ETA)),
+                                    DateUtils.formatElapsedTime(context, ETA)),
                             Formatter.formatFileSize(context, speed)));
                 } else {
                     String statusStr = "";
