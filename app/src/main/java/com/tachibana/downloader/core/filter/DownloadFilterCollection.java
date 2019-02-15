@@ -56,8 +56,10 @@ public class DownloadFilterCollection
     {
         return (infoAndPieces) -> {
             long dateAdded = infoAndPieces.info.dateAdded;
+            long timeMillis = System.currentTimeMillis();
 
-            return dateAdded >= DateUtils.startOfToday() && dateAdded <= DateUtils.endOfToday();
+            return dateAdded >= DateUtils.startOfToday(timeMillis) &&
+                    dateAdded <= DateUtils.endOfToday(timeMillis);
         };
     }
 
@@ -65,8 +67,10 @@ public class DownloadFilterCollection
     {
         return (infoAndPieces) -> {
             long dateAdded = infoAndPieces.info.dateAdded;
+            long timeMillis = System.currentTimeMillis();
 
-            return dateAdded >= DateUtils.startOfYesterday() && dateAdded <= DateUtils.endOfYesterday();
+            return dateAdded >= DateUtils.startOfYesterday(timeMillis) &&
+                    dateAdded <= DateUtils.endOfYesterday(timeMillis);
         };
     }
 
@@ -74,8 +78,10 @@ public class DownloadFilterCollection
     {
         return (infoAndPieces) -> {
             long dateAdded = infoAndPieces.info.dateAdded;
+            long timeMillis = System.currentTimeMillis();
 
-            return dateAdded >= DateUtils.startOfWeek() && dateAdded <= DateUtils.endOfWeek();
+            return dateAdded >= DateUtils.startOfWeek(timeMillis) &&
+                    dateAdded <= DateUtils.endOfWeek(timeMillis);
         };
     }
 
@@ -83,8 +89,10 @@ public class DownloadFilterCollection
     {
         return (infoAndPieces) -> {
             long dateAdded = infoAndPieces.info.dateAdded;
+            long timeMillis = System.currentTimeMillis();
 
-            return dateAdded >= DateUtils.startOfMonth() && dateAdded <= DateUtils.endOfMonth();
+            return dateAdded >= DateUtils.startOfMonth(timeMillis) &&
+                    dateAdded <= DateUtils.endOfMonth(timeMillis);
         };
     }
 
@@ -92,8 +100,10 @@ public class DownloadFilterCollection
     {
         return (infoAndPieces) -> {
             long dateAdded = infoAndPieces.info.dateAdded;
+            long timeMillis = System.currentTimeMillis();
 
-            return dateAdded >= DateUtils.startOfYear() && dateAdded <= DateUtils.endOfYear();
+            return dateAdded >= DateUtils.startOfYear(timeMillis) &&
+                    dateAdded <= DateUtils.endOfYear(timeMillis);
         };
     }
 }

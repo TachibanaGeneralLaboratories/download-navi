@@ -108,10 +108,10 @@ public class DateUtils
         }
     }
 
-    public static long endOfToday()
+    public static long endOfToday(long timeMillis)
     {
         Calendar calendar = Calendar.getInstance();
-        calendar.setTimeInMillis(System.currentTimeMillis());
+        calendar.setTimeInMillis(timeMillis);
         calendar.set(Calendar.HOUR_OF_DAY, 23);
         calendar.set(Calendar.MINUTE, 59);
         calendar.set(Calendar.SECOND, 59);
@@ -120,10 +120,10 @@ public class DateUtils
         return calendar.getTimeInMillis();
     }
 
-    public static long startOfToday()
+    public static long startOfToday(long timeMillis)
     {
         Calendar calendar = Calendar.getInstance();
-        calendar.setTimeInMillis(System.currentTimeMillis());
+        calendar.setTimeInMillis(timeMillis);
         calendar.set(Calendar.HOUR_OF_DAY, 0);
         calendar.set(Calendar.MINUTE, 0);
         calendar.set(Calendar.SECOND, 0);
@@ -132,20 +132,20 @@ public class DateUtils
         return calendar.getTimeInMillis();
     }
 
-    public static long endOfYesterday()
+    public static long endOfYesterday(long timeMillis)
     {
-        return endOfToday() - secondsInDay * 1000;
+        return endOfToday(timeMillis) - secondsInDay * 1000;
     }
 
-    public static long startOfYesterday()
+    public static long startOfYesterday(long timeMillis)
     {
-        return startOfToday() - secondsInDay * 1000;
+        return startOfToday(timeMillis) - secondsInDay * 1000;
     }
 
-    public static long endOfWeek()
+    public static long endOfWeek(long timeMillis)
     {
         Calendar calendar = Calendar.getInstance();
-        calendar.setTimeInMillis(System.currentTimeMillis());
+        calendar.setTimeInMillis(timeMillis);
         calendar.set(Calendar.HOUR_OF_DAY, 23);
         calendar.set(Calendar.MINUTE, 59);
         calendar.set(Calendar.SECOND, 59);
@@ -156,10 +156,10 @@ public class DateUtils
         return calendar.getTimeInMillis();
     }
 
-    public static long startOfWeek()
+    public static long startOfWeek(long timeMillis)
     {
         Calendar calendar = Calendar.getInstance();
-        calendar.setTimeInMillis(System.currentTimeMillis());
+        calendar.setTimeInMillis(timeMillis);
         calendar.set(Calendar.HOUR_OF_DAY, 24);
         calendar.set(Calendar.MINUTE, 0);
         calendar.set(Calendar.SECOND, 0);
@@ -169,10 +169,10 @@ public class DateUtils
         return calendar.getTimeInMillis();
     }
 
-    public static long endOfMonth()
+    public static long endOfMonth(long timeMillis)
     {
         Calendar calendar = Calendar.getInstance();
-        calendar.setTimeInMillis(System.currentTimeMillis());
+        calendar.setTimeInMillis(timeMillis);
         calendar.set(Calendar.HOUR_OF_DAY, 23);
         calendar.set(Calendar.MINUTE, 59);
         calendar.set(Calendar.SECOND, 59);
@@ -182,10 +182,10 @@ public class DateUtils
         return calendar.getTimeInMillis();
     }
 
-    public static long startOfMonth()
+    public static long startOfMonth(long timeMillis)
     {
         Calendar calendar = Calendar.getInstance();
-        calendar.setTimeInMillis(System.currentTimeMillis());
+        calendar.setTimeInMillis(timeMillis);
         calendar.set(Calendar.HOUR_OF_DAY, 0);
         calendar.set(Calendar.MINUTE, 0);
         calendar.set(Calendar.SECOND, 0);
@@ -195,10 +195,10 @@ public class DateUtils
         return calendar.getTimeInMillis();
     }
 
-    public static long endOfYear()
+    public static long endOfYear(long timeMillis)
     {
         Calendar calendar = Calendar.getInstance();
-        calendar.setTimeInMillis(System.currentTimeMillis());
+        calendar.setTimeInMillis(timeMillis);
         calendar.set(Calendar.HOUR_OF_DAY, 23);
         calendar.set(Calendar.MINUTE, 59);
         calendar.set(Calendar.SECOND, 59);
@@ -208,10 +208,10 @@ public class DateUtils
         return calendar.getTimeInMillis();
     }
 
-    public static long startOfYear()
+    public static long startOfYear(long timeMillis)
     {
         Calendar calendar = Calendar.getInstance();
-        calendar.setTimeInMillis(System.currentTimeMillis());
+        calendar.setTimeInMillis(timeMillis);
         calendar.set(Calendar.HOUR_OF_DAY, 0);
         calendar.set(Calendar.MINUTE, 0);
         calendar.set(Calendar.SECOND, 0);
