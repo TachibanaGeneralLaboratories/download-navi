@@ -350,7 +350,8 @@ public class DownloadListAdapter extends ListAdapter<DownloadItem, DownloadListA
             String hostname = Utils.getHostFromUrl(item.info.url);
             status.setText(String.format(context.getString(R.string.download_finished_template),
                     (hostname == null ? "" : hostname),
-                    Formatter.formatFileSize(context, item.info.totalBytes)));
+                    (item.info.totalBytes == -1 ? context.getString(R.string.not_available) :
+                            Formatter.formatFileSize(context, item.info.totalBytes))));
 
             if (StatusCode.isStatusError(item.info.statusCode) && item.info.statusMsg != null) {
                 error.setVisibility(View.VISIBLE);
