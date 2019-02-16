@@ -38,6 +38,9 @@
     <string name="folder">Folder</string>
     <string name="fetching_metadata">Fetching metadata</string>
     <string name="all">All</string>
+    <string name="search">Search</string>
+    <string name="settings">Settings</string>
+    <string name="about">About</string>
 
     <!-- Permission dialog -->
     <string name="perm_denied_title">Permission denied</string>

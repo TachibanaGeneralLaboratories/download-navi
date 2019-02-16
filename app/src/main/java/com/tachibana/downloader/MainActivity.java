@@ -23,6 +23,7 @@ package com.tachibana.downloader;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.SearchView;
 import androidx.appcompat.widget.Toolbar;
 import androidx.coordinatorlayout.widget.CoordinatorLayout;
 import androidx.drawerlayout.widget.DrawerLayout;
@@ -36,6 +37,8 @@ import android.content.res.Resources;
 import android.os.Build;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
+import android.view.Menu;
+import android.view.MenuItem;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.navigation.NavigationView;
@@ -47,10 +50,9 @@ import com.tachibana.downloader.adapter.DownloadListPagerAdapter;
 import com.tachibana.downloader.adapter.drawer.DrawerExpandableAdapter;
 import com.tachibana.downloader.adapter.drawer.DrawerGroup;
 import com.tachibana.downloader.adapter.drawer.DrawerGroupItem;
-import com.tachibana.downloader.core.filter.DownloadFilter;
-import com.tachibana.downloader.core.sorting.DownloadSortingComparator;
 import com.tachibana.downloader.core.utils.Utils;
 import com.tachibana.downloader.receiver.NotificationReceiver;
+import com.tachibana.downloader.service.DownloadService;
 import com.tachibana.downloader.viewmodel.DownloadsViewModel;
 
 import java.util.List;
@@ -80,6 +82,7 @@ public class MainActivity extends AppCompatActivity
     private DownloadListPagerAdapter pagerAdapter;
     private DownloadsViewModel fragmentViewModel;
     private FloatingActionButton fab;
+    private SearchView searchView;
     private boolean permDialogIsShow = false;
 
     @Override
@@ -136,6 +139,7 @@ public class MainActivity extends AppCompatActivity
             drawerLayout.addDrawerListener(toggle);
         }
         initDrawer();
+        fragmentViewModel.resetSearch();
 
         pagerAdapter = new DownloadListPagerAdapter(getApplicationContext(), getSupportFragmentManager());
         viewPager.setAdapter(pagerAdapter);
@@ -293,4 +297,73 @@ public class MainActivity extends AppCompatActivity
                 .putLong(prefKey, item.id)
                 .apply();
     };
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu)
+    {
+        getMenuInflater().inflate(R.menu.main, menu);
+
+        searchView = (SearchView)menu.findItem(R.id.search).getActionView();
+        initSearch();
+
+        return true;
+    }
+
+    private void initSearch()
+    {
+        searchView.setMaxWidth(Integer.MAX_VALUE);
+        searchView.setOnCloseListener(() -> {
+            fragmentViewModel.resetSearch();
+
+            return false;
+        });
+        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener()
+        {
+            @Override
+            public boolean onQueryTextSubmit(String query)
+            {
+                fragmentViewModel.setSearchQuery(query);
+                /* Submit the search will hide the keyboard */
+                searchView.clearFocus();
+
+                return true;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String newText)
+            {
+                fragmentViewModel.setSearchQuery(newText);
+
+                return true;
+            }
+        });
+        searchView.setQueryHint(getString(R.string.search));
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item)
+    {
+        switch (item.getItemId()) {
+            case R.id.settings_menu:
+                /* TODO: settings */
+                break;
+            case R.id.about_menu:
+                /* TODO: about dialog */
+                break;
+            case R.id.shutdown_app_menu:
+                closeOptionsMenu();
+                shutdown();
+                break;
+        }
+
+        return true;
+    }
+
+    public void shutdown()
+    {
+        Intent i = new Intent(getApplicationContext(), DownloadService.class);
+        i.setAction(DownloadService.ACTION_SHUTDOWN);
+        startService(i);
+        finish();
+    }
 }

@@ -21,6 +21,7 @@
 package com.tachibana.downloader.viewmodel;
 
 import android.app.Application;
+import android.text.TextUtils;
 
 import com.tachibana.downloader.MainApplication;
 import com.tachibana.downloader.core.filter.DownloadFilter;
@@ -34,6 +35,7 @@ import com.tachibana.downloader.core.storage.DataRepository;
 import java.util.List;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.lifecycle.AndroidViewModel;
 import io.reactivex.Completable;
 import io.reactivex.Flowable;
@@ -50,6 +52,16 @@ public class DownloadsViewModel extends AndroidViewModel
     private DownloadFilter statusFilter = DownloadFilterCollection.all();
     private DownloadFilter dateAddedFilter = DownloadFilterCollection.all();
     private PublishSubject<Boolean> forceSortAndFilter = PublishSubject.create();
+
+    private String searchQuery;
+    private DownloadFilter searchFilter = (infoAndPieces) -> {
+      if (TextUtils.isEmpty(searchQuery))
+          return true;
+
+        String filterPattern = searchQuery.toLowerCase().trim();
+
+        return infoAndPieces.info.fileName.toLowerCase().contains(filterPattern);
+    };
 
     public DownloadsViewModel(@NonNull Application application)
     {
@@ -112,12 +124,24 @@ public class DownloadsViewModel extends AndroidViewModel
         return sorting;
     }
 
+    public void setSearchQuery(@Nullable String searchQuery)
+    {
+        this.searchQuery = searchQuery;
+        forceSortAndFilter.onNext(true);
+    }
+
+    public void resetSearch()
+    {
+        setSearchQuery(null);
+    }
+
     @NonNull
     public DownloadFilter getDownloadFilter()
     {
         return (infoAndPieces) -> categoryFilter.test(infoAndPieces) &&
                 statusFilter.test(infoAndPieces) &&
-                dateAddedFilter.test(infoAndPieces);
+                dateAddedFilter.test(infoAndPieces) &&
+                searchFilter.test(infoAndPieces);
     }
 
     public Observable<Boolean> onForceSortAndFilter()
