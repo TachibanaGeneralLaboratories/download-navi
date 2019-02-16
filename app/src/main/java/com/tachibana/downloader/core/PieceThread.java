@@ -42,6 +42,7 @@ import java.io.InterruptedIOException;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.ProtocolException;
+import java.net.SocketTimeoutException;
 import java.security.GeneralSecurityException;
 import java.util.List;
 import java.util.UUID;
@@ -58,6 +59,7 @@ import static com.tachibana.downloader.core.StatusCode.STATUS_UNHANDLED_HTTP_COD
 import static com.tachibana.downloader.core.StatusCode.STATUS_UNKNOWN_ERROR;
 import static com.tachibana.downloader.core.StatusCode.STATUS_WAITING_FOR_NETWORK;
 import static com.tachibana.downloader.core.StatusCode.STATUS_WAITING_TO_RETRY;
+import static java.net.HttpURLConnection.HTTP_GATEWAY_TIMEOUT;
 import static java.net.HttpURLConnection.HTTP_INTERNAL_ERROR;
 import static java.net.HttpURLConnection.HTTP_OK;
 import static java.net.HttpURLConnection.HTTP_PARTIAL;
@@ -288,6 +290,8 @@ public class PieceThread extends Thread
             {
                 if (e instanceof ProtocolException && e.getMessage().startsWith("Unexpected status line"))
                     ret[0] = new StopRequest(STATUS_UNHANDLED_HTTP_CODE, e);
+                else if (e instanceof SocketTimeoutException)
+                    ret[0] = new StopRequest(HTTP_GATEWAY_TIMEOUT, "Download timeout");
                 else if (e instanceof InterruptedIOException)
                     ret[0] = new StopRequest(STATUS_STOPPED, "Download cancelled");
                 else
@@ -373,7 +377,9 @@ public class PieceThread extends Thread
             try {
                 in = conn.getInputStream();
 
-            } catch (InterruptedIOException e) {
+            } catch (SocketTimeoutException e) {
+                return new StopRequest(HTTP_GATEWAY_TIMEOUT, "Download timeout");
+            } catch(InterruptedIOException e) {
                 return new StopRequest(STATUS_STOPPED, "Download cancelled");
             } catch (IOException e) {
                 return new StopRequest(STATUS_HTTP_DATA_ERROR, e);

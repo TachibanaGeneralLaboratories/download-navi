@@ -221,8 +221,11 @@ public class DownloadThread implements Callable<DownloadResult>
 
         } else {
             /* If we just finished a chunked file, record total size */
-            if (info.totalBytes == -1 && pieces.size() == 1)
-                info.totalBytes = pieces.get(0).curBytes;
+            if (pieces.size() == 1) {
+                DownloadPiece piece = pieces.get(0);
+                if (info.totalBytes == -1 && StatusCode.isStatusSuccess(piece.statusCode))
+                    info.totalBytes = piece.curBytes;
+            }
 
             /* Check pieces status if we are not cancelled or paused */
             StopRequest ret;
