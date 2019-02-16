@@ -8,15 +8,18 @@
         android:title="@string/search"
         app:actionViewClass="androidx.appcompat.widget.SearchView"/>
 
+    <item android:id="@+id/pause_all_menu"
+        android:title="@string/pause_all" />
+
+    <item android:id="@+id/resume_all_menu"
+        android:title="@string/resume_all" />
+
     <item android:id="@+id/settings_menu"
-        android:icon="@drawable/ic_settings_menu_24dp"
         android:title="@string/settings" />
 
     <item android:id="@+id/about_menu"
-        android:icon="@drawable/ic_info_menu_24dp"
         android:title="@string/about" />
 
     <item android:id="@+id/shutdown_app_menu"
-        android:icon="@drawable/ic_power_settings_new_menu_24dp"
         android:title="@string/shutdown" />
 </menu>

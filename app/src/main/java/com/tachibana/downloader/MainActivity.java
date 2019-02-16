@@ -344,6 +344,12 @@ public class MainActivity extends AppCompatActivity
     public boolean onOptionsItemSelected(MenuItem item)
     {
         switch (item.getItemId()) {
+            case R.id.pause_all_menu:
+                pauseAll();
+                break;
+            case R.id.resume_all_menu:
+                resumeAll();
+                break;
             case R.id.settings_menu:
                 /* TODO: settings */
                 break;
@@ -357,6 +363,20 @@ public class MainActivity extends AppCompatActivity
         }
 
         return true;
+    }
+
+    private void pauseAll()
+    {
+        Intent i = new Intent(getApplicationContext(), DownloadService.class);
+        i.setAction(DownloadService.ACTION_PAUSE_ALL);
+        startService(i);
+    }
+
+    private void resumeAll()
+    {
+        Intent i = new Intent(getApplicationContext(), DownloadService.class);
+        i.setAction(DownloadService.ACTION_RESUME_ALL);
+        startService(i);
     }
 
     public void shutdown()

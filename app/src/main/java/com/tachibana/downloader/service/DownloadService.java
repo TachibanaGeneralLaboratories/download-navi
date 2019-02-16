@@ -67,12 +67,13 @@ public class DownloadService extends LifecycleService
     public static final String ACTION_SHUTDOWN = "com.tachibana.downloader.service.DownloadService.ACTION_SHUTDOWN";
     public static final String ACTION_RUN_DOWNLOAD = "com.tachibana.downloader.service.ACTION_RUN_DOWNLOAD";
     public static final String ACTION_PAUSE_RESUME_DOWNLOAD = "com.tachibana.downloader.service.ACTION_PAUSE_RESUME_DOWNLOAD";
+    public static final String ACTION_PAUSE_ALL = "com.tachibana.downloader.service.ACTION_PAUSE_ALL";
+    public static final String ACTION_RESUME_ALL = "com.tachibana.downloader.service.ACTION_RESUME_ALL";
     public static final String TAG_DOWNLOAD_ID = "download_id";
 
     private boolean isAlreadyRunning;
     private NotificationManager notifyManager;
     private NotificationCompat.Builder foregroundNotify;
-    private AtomicBoolean isPauseButton = new AtomicBoolean(true);
     private DataRepository repo;
     private SharedPreferences pref;
     private CompositeDisposable disposables = new CompositeDisposable();
@@ -142,16 +143,13 @@ public class DownloadService extends LifecycleService
                     if (id != null)
                         runDownload(id);
                     break;
-                case NotificationReceiver.NOTIFY_ACTION_PAUSE_RESUME_ALL:
-                    boolean pause = isPauseButton.getAndSet(!isPauseButton.get());
-                    updateForegroundNotifyActions();
-                    if (pause)
-                        pauseAllDownloads();
-                    else
-                        resumeAllDownloads();
+                case NotificationReceiver.NOTIFY_ACTION_PAUSE_ALL:
+                case ACTION_PAUSE_ALL:
+                    pauseAllDownloads();
                     break;
-                case NotificationReceiver.NOTIFY_ACTION_CANCEL_ALL:
-                    cancelAllDownloads();
+                case NotificationReceiver.NOTIFY_ACTION_RESUME_ALL:
+                case ACTION_RESUME_ALL:
+                    resumeAllDownloads();
                     break;
                 case NotificationReceiver.NOTIFY_ACTION_CANCEL:
                     cancelDownload((UUID)intent.getSerializableExtra(NotificationReceiver.TAG_ID));
@@ -352,27 +350,6 @@ public class DownloadService extends LifecycleService
         );
     }
 
-    private synchronized void cancelAllDownloads()
-    {
-        disposables.add(Observable.fromIterable(tasks.entrySet())
-                .subscribeOn(AndroidSchedulers.mainThread())
-                .observeOn(Schedulers.io())
-                .filter((entry) -> entry.getValue() != null)
-                .subscribe((entry) -> {
-                    DownloadThread task = entry.getValue();
-                    UUID id = entry.getKey();
-                    if (task == null)
-                        return;
-
-                    DownloadInfo info = repo.getInfoById(id);
-                    if (info != null)
-                        repo.deleteInfo(getApplicationContext(), info, true);
-
-                    task.requestCancel();
-                })
-        );
-    }
-
     private void stopAllDownloads()
     {
         for (DownloadThread task : tasks.values()) {
@@ -414,7 +391,7 @@ public class DownloadService extends LifecycleService
                 .setWhen(System.currentTimeMillis());
 
         foregroundNotify.addAction(makePauseAllAction());
-        foregroundNotify.addAction(makeStopAllAction());
+        foregroundNotify.addAction(makeResumeAllAction());
         foregroundNotify.addAction(makeShutdownAction());
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP)
@@ -426,36 +403,35 @@ public class DownloadService extends LifecycleService
 
     private NotificationCompat.Action makePauseAllAction()
     {
-        Intent funcButtonIntent = new Intent(getApplicationContext(), NotificationReceiver.class);
-        funcButtonIntent.setAction(NotificationReceiver.NOTIFY_ACTION_PAUSE_RESUME_ALL);
-        boolean isPause = isPauseButton.get();
-        int icon = (isPause ? R.drawable.ic_pause_white_24dp : R.drawable.ic_play_arrow_white_24dp);
-        String text = (isPause ? getString(R.string.pause_all) : getString(R.string.resume_all));
-        PendingIntent funcButtonPendingIntent =
+        Intent pauseButtonIntent = new Intent(getApplicationContext(), NotificationReceiver.class);
+        pauseButtonIntent.setAction(NotificationReceiver.NOTIFY_ACTION_PAUSE_ALL);
+        PendingIntent pauseButtonPendingIntent =
                 PendingIntent.getBroadcast(
                         getApplicationContext(),
                         0,
-                        funcButtonIntent,
+                        pauseButtonIntent,
                         PendingIntent.FLAG_UPDATE_CURRENT);
 
-        return new NotificationCompat.Action.Builder(icon, text, funcButtonPendingIntent).build();
+        return new NotificationCompat.Action.Builder(R.drawable.ic_pause_white_24dp,
+                getString(R.string.pause_all),
+                pauseButtonPendingIntent)
+                .build();
     }
 
-    private NotificationCompat.Action makeStopAllAction()
+    private NotificationCompat.Action makeResumeAllAction()
     {
-        Intent funcButtonIntent = new Intent(getApplicationContext(), NotificationReceiver.class);
-        funcButtonIntent.setAction(NotificationReceiver.NOTIFY_ACTION_CANCEL_ALL);
-        PendingIntent funcButtonPendingIntent =
+        Intent resumeButtonIntent = new Intent(getApplicationContext(), NotificationReceiver.class);
+        resumeButtonIntent.setAction(NotificationReceiver.NOTIFY_ACTION_RESUME_ALL);
+        PendingIntent resumeButtonPendingIntent =
                 PendingIntent.getBroadcast(
                         getApplicationContext(),
                         0,
-                        funcButtonIntent,
+                        resumeButtonIntent,
                         PendingIntent.FLAG_UPDATE_CURRENT);
 
-        return new NotificationCompat.Action.Builder(
-                R.drawable.ic_stop_white_24dp,
-                getString(R.string.stop_all),
-                funcButtonPendingIntent)
+        return new NotificationCompat.Action.Builder(R.drawable.ic_play_arrow_white_24dp,
+                getString(R.string.resume_all),
+                resumeButtonPendingIntent)
                 .build();
     }
 
@@ -475,18 +451,6 @@ public class DownloadService extends LifecycleService
                 getString(R.string.shutdown),
                 shutdownPendingIntent)
                 .build();
-    }
-
-    private void updateForegroundNotifyActions()
-    {
-        if (foregroundNotify == null)
-            return;
-
-        foregroundNotify.mActions.clear();
-        foregroundNotify.addAction(makePauseAllAction());
-        foregroundNotify.addAction(makeStopAllAction());
-        foregroundNotify.addAction(makeShutdownAction());
-        startForeground(FOREGROUND_NOTIFICATION_ID, foregroundNotify.build());
     }
 
     @Override

@@ -55,7 +55,6 @@
     <string name="app_running_in_the_background">Download Navi running in the background</string>
     <string name="pause_all">Pause all</string>
     <string name="resume_all">Resume all</string>
-    <string name="stop_all">Stop all</string>
 
     <!-- Finish notification -->
     <string name="download_finished_notify">Download finished</string>
