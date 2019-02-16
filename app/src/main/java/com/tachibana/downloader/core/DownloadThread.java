@@ -260,7 +260,7 @@ public class DownloadThread implements Callable<DownloadResult>
             Pair<Uri, String> res;
             try {
                 res = FileUtils.createFile(context, info.dirPath,
-                        info.fileName, info.mimeType, true);
+                        info.fileName, info.mimeType, false);
 
             } catch (IOException e) {
                 return new StopRequest(STATUS_FILE_ERROR, e);

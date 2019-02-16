@@ -318,10 +318,23 @@ public class AddDownloadViewModel extends AndroidViewModel
     private DownloadInfo makeDownloadInfo(Uri dirPath)
     {
         String url = Utils.normalizeURL(params.getUrl());
-        String fileName = (params.isReplaceFile() ?
-                           params.getFileName() :
-                           FileUtils.makeFilename(getApplication(),
-                                   params.getDirPath(), params.getFileName()));
+
+        Uri filePath = FileUtils.getFileUri(getApplication(),
+                params.getDirPath(), params.getFileName());
+        String fileName;
+        if (params.isReplaceFile()) {
+            fileName = params.getFileName();
+            try {
+                if (filePath != null)
+                    FileUtils.deleteFile(getApplication(), filePath);
+
+            } catch (FileNotFoundException e) {
+                /* Ignore */
+            }
+        } else {
+            fileName = FileUtils.makeFilename(getApplication(),
+                    params.getDirPath(), params.getFileName());
+        }
 
         DownloadInfo info = new DownloadInfo(dirPath, url, fileName);
         info.mimeType = params.getMimeType();
