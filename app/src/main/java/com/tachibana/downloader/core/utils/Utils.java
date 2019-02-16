@@ -577,10 +577,7 @@ public class Utils
 
     public static String getLineSeparator()
     {
-        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.KITKAT)
-            return System.lineSeparator();
-        else
-            return System.getProperty("line.separator");
+        return System.getProperty("line.separator");
     }
 
     public static List<DrawerGroup> getNavigationDrawerItems(@NonNull Context context,
