@@ -556,6 +556,33 @@ public class Utils
         pref.edit().putString(key, dirPath.toString()).apply();
     }
 
+    public static Intent makeShareUrlIntent(@NonNull List<String> urlList)
+    {
+        Intent sharingIntent = new Intent(android.content.Intent.ACTION_SEND);
+        sharingIntent.setType("text/plain");
+        sharingIntent.putExtra(android.content.Intent.EXTRA_SUBJECT, "url");
+
+        if (urlList.size() == 1)
+            sharingIntent.putExtra(android.content.Intent.EXTRA_TEXT, urlList.get(0));
+        else
+            sharingIntent.putExtra(android.content.Intent.EXTRA_TEXT,
+                    TextUtils.join(Utils.getLineSeparator(), urlList));
+
+        return sharingIntent;
+    }
+
+    /*
+     * Return system text line separator (in android it '\n').
+     */
+
+    public static String getLineSeparator()
+    {
+        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.KITKAT)
+            return System.lineSeparator();
+        else
+            return System.getProperty("line.separator");
+    }
+
     public static List<DrawerGroup> getNavigationDrawerItems(@NonNull Context context,
                                                              @NonNull SharedPreferences localPref)
     {

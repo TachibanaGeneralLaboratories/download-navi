@@ -12,6 +12,10 @@
         app:showAsAction="ifRoom|withText"
         android:title="@string/share" />
 
+    <item android:id="@+id/share_url_menu"
+        app:showAsAction="ifRoom|withText"
+        android:title="@string/share_url" />
+
     <item android:id="@+id/select_all_menu"
         android:icon="@drawable/ic_select_all_menu_24dp"
         app:showAsAction="ifRoom|withText"

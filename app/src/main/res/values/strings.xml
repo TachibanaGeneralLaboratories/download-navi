@@ -102,6 +102,7 @@
     <string name="fragment_title_queued">Queued</string>
     <string name="fragment_title_completed">Completed</string>
     <string name="download_list_empty">No downloads</string>
+    <string name="share_url">Share URL</string>
     <!-- Navigation drawer -->
     <!-- Category -->
     <string name="drawer_category">Category</string>

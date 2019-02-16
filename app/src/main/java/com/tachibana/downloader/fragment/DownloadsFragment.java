@@ -25,6 +25,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Parcelable;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -352,6 +353,10 @@ public abstract class DownloadsFragment extends Fragment
                 case R.id.select_all_menu:
                     selectAllDownloads();
                     break;
+                case R.id.share_url_menu:
+                    shareUrl();
+                    mode.finish();
+                    break;
             }
 
             return true;
@@ -417,5 +422,20 @@ public abstract class DownloadsFragment extends Fragment
             selectionTracker.startRange(0);
             selectionTracker.extendRange(adapter.getItemCount() - 1);
         }
+    }
+
+    private void shareUrl()
+    {
+        MutableSelection<DownloadItem> selections = new MutableSelection<>();
+        selectionTracker.copySelection(selections);
+
+        disposable.add(Observable.fromIterable(selections)
+                .map((item) -> item.info.url)
+                .toList()
+                .subscribe((urlList) -> {
+                    startActivity(Intent.createChooser(
+                            Utils.makeShareUrlIntent(urlList),
+                            getString(R.string.share_via)));
+                }));
     }
 }
