@@ -213,8 +213,11 @@ public class PieceThread extends Thread
         startPos = info.pieceStartPos(piece);
         endPos = info.pieceEndPos(piece);
 
-        boolean resuming = piece.curBytes != startPos;
-        final StopRequest[] ret = new StopRequest[1];
+        /* Reset and download from the beginning */
+        if (!info.partialSupport) {
+            piece.curBytes = startPos;
+            writeToDatabase();
+        }
 
         HttpConnection connection;
         try {
@@ -228,6 +231,9 @@ public class PieceThread extends Thread
 
         if (!Utils.checkConnectivity(context))
             return new StopRequest(STATUS_WAITING_FOR_NETWORK);
+
+        final StopRequest[] ret = new StopRequest[1];
+        boolean resuming = piece.curBytes != startPos;
 
         connection.setListener(new HttpConnection.Listener() {
             @Override
