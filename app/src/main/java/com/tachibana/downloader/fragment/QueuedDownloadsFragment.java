@@ -67,7 +67,7 @@ public class QueuedDownloadsFragment extends DownloadsFragment
     @Override
     public void onItemPauseClicked(@NonNull DownloadItem item)
     {
-        if (item.info.statusCode == StatusCode.STATUS_PAUSED)
+        if (StatusCode.isStatusStoppedOrPaused(item.info.statusCode))
             DownloadScheduler.runDownload(activity.getApplicationContext(), item.info);
         else
             DownloadScheduler.pauseDownload(activity.getApplicationContext(), item.info);

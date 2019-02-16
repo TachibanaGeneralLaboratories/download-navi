@@ -50,7 +50,7 @@ import java.util.concurrent.Executors;
 import java.util.concurrent.TimeUnit;
 
 import static com.tachibana.downloader.core.StatusCode.STATUS_BAD_REQUEST;
-import static com.tachibana.downloader.core.StatusCode.STATUS_CANCELLED;
+import static com.tachibana.downloader.core.StatusCode.STATUS_STOPPED;
 import static com.tachibana.downloader.core.StatusCode.STATUS_CANNOT_RESUME;
 import static com.tachibana.downloader.core.StatusCode.STATUS_FILE_ERROR;
 import static com.tachibana.downloader.core.StatusCode.STATUS_HTTP_DATA_ERROR;
@@ -163,7 +163,7 @@ public class DownloadThread implements Callable<DownloadResult>
                 case STATUS_PAUSED:
                     status = DownloadResult.Status.PAUSED;
                     break;
-                case STATUS_CANCELLED:
+                case STATUS_STOPPED:
                     status = DownloadResult.Status.CANCELLED;
                     break;
             }
@@ -209,7 +209,7 @@ public class DownloadThread implements Callable<DownloadResult>
         List<DownloadPiece> pieces = repo.getPiecesById(id);
         if (pieces == null || pieces.isEmpty()) {
             String errMsg = "Download deleted or missing";
-            info.statusCode = STATUS_CANCELLED;
+            info.statusCode = STATUS_STOPPED;
             info.statusMsg = errMsg;
             Log.i(TAG, "id=" + id + ", " + errMsg);
 
@@ -366,7 +366,7 @@ public class DownloadThread implements Callable<DownloadResult>
                 if (e instanceof ProtocolException && e.getMessage().startsWith("Unexpected status line"))
                     ret[0] = new StopRequest(STATUS_UNHANDLED_HTTP_CODE, e);
                 else if (e instanceof InterruptedIOException)
-                    ret[0] = new StopRequest(STATUS_CANCELLED, "Download cancelled");
+                    ret[0] = new StopRequest(STATUS_STOPPED, "Download cancelled");
                 else
                     /* Trouble with low-level sockets */
                     ret[0] = new StopRequest(STATUS_HTTP_DATA_ERROR, e);
@@ -481,7 +481,7 @@ public class DownloadThread implements Callable<DownloadResult>
         if (pause)
             return new StopRequest(STATUS_PAUSED, "Download paused");
         else if (cancel || Thread.currentThread().isInterrupted())
-            return new StopRequest(STATUS_CANCELLED, "Download cancelled");
+            return new StopRequest(STATUS_STOPPED, "Download cancelled");
 
         return null;
     }

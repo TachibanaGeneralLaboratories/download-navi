@@ -40,9 +40,7 @@ public class DownloadFilterCollection
 
     public static DownloadFilter statusStopped()
     {
-        return (infoAndPieces) ->
-                infoAndPieces.info.statusCode == StatusCode.STATUS_PAUSED ||
-                        infoAndPieces.info.statusCode == StatusCode.STATUS_CANCELLED;
+        return (infoAndPieces) -> StatusCode.isStatusStoppedOrPaused(infoAndPieces.info.statusCode);
     }
 
     public static DownloadFilter statusRunning()

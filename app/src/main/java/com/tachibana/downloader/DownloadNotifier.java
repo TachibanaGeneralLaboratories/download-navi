@@ -189,7 +189,7 @@ public class DownloadNotifier
     private void updateWithLocked(InfoAndPieces infoAndPieces, Notification notify, String tag, int type)
     {
         DownloadInfo info = infoAndPieces.info;
-        if (info.statusCode == StatusCode.STATUS_CANCELLED) {
+        if (info.statusCode == StatusCode.STATUS_STOPPED) {
             notifyManager.cancel(tag, 0);
             return;
         }
@@ -236,7 +236,7 @@ public class DownloadNotifier
 
         switch (type) {
             case TYPE_ACTIVE:
-                if (info.statusCode == StatusCode.STATUS_PAUSED)
+                if (StatusCode.isStatusStoppedOrPaused(info.statusCode))
                     builder.setSmallIcon(R.drawable.ic_pause_white_24dp);
                 else
                     builder.setSmallIcon(android.R.drawable.stat_sys_download);
@@ -260,9 +260,9 @@ public class DownloadNotifier
             Intent pauseResumeButtonIntent = new Intent(context, NotificationReceiver.class);
             pauseResumeButtonIntent.setAction(NotificationReceiver.NOTIFY_ACTION_PAUSE_RESUME);
             pauseResumeButtonIntent.putExtra(NotificationReceiver.TAG_ID, info.id);
-            boolean isPause = info.statusCode == StatusCode.STATUS_PAUSED;
-            int icon = (isPause ? R.drawable.ic_play_arrow_white_24dp : R.drawable.ic_pause_white_24dp);
-            String text = (isPause ? context.getString(R.string.resume) : context.getString(R.string.pause));
+            boolean isStopped = StatusCode.isStatusStoppedOrPaused(info.statusCode);
+            int icon = (isStopped ? R.drawable.ic_play_arrow_white_24dp : R.drawable.ic_pause_white_24dp);
+            String text = (isStopped ? context.getString(R.string.resume) : context.getString(R.string.pause));
             PendingIntent pauseResumeButtonPendingIntent =
                     PendingIntent.getBroadcast(
                             context,
@@ -327,7 +327,7 @@ public class DownloadNotifier
             } else {
                 if (info.totalBytes > 0) {
                     progress = (int)((downloadBytes * 100) / info.totalBytes);
-                    if (info.statusCode == StatusCode.STATUS_PAUSED)
+                    if (StatusCode.isStatusStoppedOrPaused(info.statusCode))
                         builder.setProgress(0, 0, false);
                     else
                         builder.setProgress(100, progress, false);
@@ -359,6 +359,9 @@ public class DownloadNotifier
                     switch (info.statusCode) {
                         case StatusCode.STATUS_PAUSED:
                             statusStr = context.getString(R.string.pause);
+                            break;
+                        case StatusCode.STATUS_STOPPED:
+                            statusStr = context.getString(R.string.stopped);
                             break;
                         case StatusCode.STATUS_FETCH_METADATA:
                             statusStr = context.getString(R.string.fetching_metadata);
@@ -480,6 +483,7 @@ public class DownloadNotifier
     {
         return (statusCode == StatusCode.STATUS_RUNNING ||
                 statusCode == StatusCode.STATUS_PAUSED ||
+                statusCode == StatusCode.STATUS_STOPPED ||
                 statusCode == StatusCode.STATUS_FETCH_METADATA) &&
                 (visibility == VISIBILITY_VISIBLE ||
                  visibility == VISIBILITY_VISIBLE_NOTIFY_COMPLETED);

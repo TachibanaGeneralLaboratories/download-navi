@@ -275,9 +275,9 @@ public class DownloadService extends LifecycleService
         disposables.add(repo.getInfoByIdSingle(id)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .filter((info) -> info != null && info.partialSupport)
+                .filter((info) -> info != null)
                 .subscribe((info) -> {
-                            if (info.statusCode == StatusCode.STATUS_PAUSED) {
+                            if (StatusCode.isStatusStoppedOrPaused(info.statusCode)) {
                                 DownloadScheduler.runDownload(getApplicationContext(), info);
                             } else {
                                 DownloadThread task = tasks.get(id);
@@ -336,9 +336,7 @@ public class DownloadService extends LifecycleService
                 .filter((list) -> !list.isEmpty())
                 .flattenAsObservable((it) -> it)
                 .filter((info) -> {
-                    return info != null &&
-                            info.partialSupport &&
-                            info.statusCode == StatusCode.STATUS_PAUSED;
+                    return info != null && StatusCode.isStatusStoppedOrPaused(info.statusCode);
                 })
                 .subscribe((info) -> {
                             DownloadThread task = tasks.get(info.id);

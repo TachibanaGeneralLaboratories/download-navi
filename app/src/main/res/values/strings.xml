@@ -25,6 +25,7 @@
     <string name="pause">Pause</string>
     <string name="resume">Resume</string>
     <string name="stop">Stop</string>
+    <string name="stopped">Stopped</string>
     <string name="pending">Pending</string>
     <string name="delete">Delete</string>
     <string name="share">Share</string>

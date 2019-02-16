@@ -47,7 +47,7 @@ import java.util.List;
 import java.util.UUID;
 
 import static com.tachibana.downloader.core.StatusCode.STATUS_BAD_REQUEST;
-import static com.tachibana.downloader.core.StatusCode.STATUS_CANCELLED;
+import static com.tachibana.downloader.core.StatusCode.STATUS_STOPPED;
 import static com.tachibana.downloader.core.StatusCode.STATUS_CANNOT_RESUME;
 import static com.tachibana.downloader.core.StatusCode.STATUS_FILE_ERROR;
 import static com.tachibana.downloader.core.StatusCode.STATUS_HTTP_DATA_ERROR;
@@ -55,7 +55,6 @@ import static com.tachibana.downloader.core.StatusCode.STATUS_RUNNING;
 import static com.tachibana.downloader.core.StatusCode.STATUS_SUCCESS;
 import static com.tachibana.downloader.core.StatusCode.STATUS_TOO_MANY_REDIRECTS;
 import static com.tachibana.downloader.core.StatusCode.STATUS_UNHANDLED_HTTP_CODE;
-import static com.tachibana.downloader.core.StatusCode.STATUS_UNHANDLED_REDIRECT;
 import static com.tachibana.downloader.core.StatusCode.STATUS_UNKNOWN_ERROR;
 import static com.tachibana.downloader.core.StatusCode.STATUS_WAITING_FOR_NETWORK;
 import static com.tachibana.downloader.core.StatusCode.STATUS_WAITING_TO_RETRY;
@@ -209,7 +208,7 @@ public class PieceThread extends Thread
 
         DownloadInfo info = repo.getInfoById(infoId);
         if (info == null)
-            return new StopRequest(STATUS_CANCELLED, "Download deleted or missing");
+            return new StopRequest(STATUS_STOPPED, "Download deleted or missing");
 
         startPos = info.pieceStartPos(piece);
         endPos = info.pieceEndPos(piece);
@@ -284,7 +283,7 @@ public class PieceThread extends Thread
                 if (e instanceof ProtocolException && e.getMessage().startsWith("Unexpected status line"))
                     ret[0] = new StopRequest(STATUS_UNHANDLED_HTTP_CODE, e);
                 else if (e instanceof InterruptedIOException)
-                    ret[0] = new StopRequest(STATUS_CANCELLED, "Download cancelled");
+                    ret[0] = new StopRequest(STATUS_STOPPED, "Download cancelled");
                 else
                     /* Trouble with low-level sockets */
                     ret[0] = new StopRequest(STATUS_HTTP_DATA_ERROR, e);
@@ -343,7 +342,7 @@ public class PieceThread extends Thread
     {
         DownloadInfo info = repo.getInfoById(infoId);
         if (info == null)
-            return new StopRequest(STATUS_CANCELLED, "Download deleted or missing");
+            return new StopRequest(STATUS_STOPPED, "Download deleted or missing");
         StopRequest ret;
         if ((ret = checkCancel()) != null)
             return ret;
@@ -369,7 +368,7 @@ public class PieceThread extends Thread
                 in = conn.getInputStream();
 
             } catch (InterruptedIOException e) {
-                return new StopRequest(STATUS_CANCELLED, "Download cancelled");
+                return new StopRequest(STATUS_STOPPED, "Download cancelled");
             } catch (IOException e) {
                 return new StopRequest(STATUS_HTTP_DATA_ERROR, e);
             }
@@ -386,7 +385,7 @@ public class PieceThread extends Thread
                 FileUtils.lseek(fout, piece.curBytes);
 
             } catch (InterruptedIOException e) {
-                return new StopRequest(STATUS_CANCELLED, "Download cancelled");
+                return new StopRequest(STATUS_STOPPED, "Download cancelled");
             } catch (IOException e) {
                 return new StopRequest(STATUS_FILE_ERROR, e);
             }
@@ -431,7 +430,7 @@ public class PieceThread extends Thread
                 len = in.read(buffer);
 
             } catch (InterruptedIOException e) {
-                return new StopRequest(STATUS_CANCELLED, "Download cancelled");
+                return new StopRequest(STATUS_STOPPED, "Download cancelled");
             } catch (IOException e) {
                 return new StopRequest(STATUS_HTTP_DATA_ERROR,
                         "Failed reading response: " + e, e);
@@ -448,7 +447,7 @@ public class PieceThread extends Thread
                     return ret;
 
             } catch (InterruptedIOException e) {
-                return new StopRequest(STATUS_CANCELLED, "Download cancelled");
+                return new StopRequest(STATUS_STOPPED, "Download cancelled");
             } catch (IOException e) {
                 return new StopRequest(STATUS_FILE_ERROR, e);
             }
@@ -508,7 +507,7 @@ public class PieceThread extends Thread
     {
         return repo.updatePiece(piece) > 0 ?
                 null :
-                new StopRequest(STATUS_CANCELLED, "Download deleted or missing");
+                new StopRequest(STATUS_STOPPED, "Download deleted or missing");
     }
 
     private void writeToDatabase()
@@ -542,7 +541,7 @@ public class PieceThread extends Thread
     private StopRequest checkCancel()
     {
         return (Thread.currentThread().isInterrupted() ?
-                new StopRequest(STATUS_CANCELLED, "Download cancelled") :
+                new StopRequest(STATUS_STOPPED, "Download cancelled") :
                 null);
     }
 }

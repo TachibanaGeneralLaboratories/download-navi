@@ -48,7 +48,7 @@ public class StatusCode
     public static final int STATUS_WAITING_FOR_NETWORK = 195;
     public static final int STATUS_PAUSED = 197;
     /* This download was cancelled */
-    public static final int STATUS_CANCELLED = 198;
+    public static final int STATUS_STOPPED = 198;
     /*
      * This download has successfully completed.
      * Warning: there might be other status values that indicate success
@@ -154,5 +154,10 @@ public class StatusCode
     public static boolean isStatusCompleted(int statusCode)
     {
         return statusCode >= 200 && statusCode < 300 || statusCode >= 400 && statusCode < 600;
+    }
+
+    public static boolean isStatusStoppedOrPaused(int statusCode)
+    {
+        return statusCode == STATUS_PAUSED || statusCode == STATUS_STOPPED;
     }
 }

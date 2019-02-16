@@ -206,16 +206,11 @@ public class DownloadListAdapter extends ListAdapter<DownloadItem, DownloadListA
         {
             super.bind(item, listener);
 
-            if (item.info.partialSupport) {
-                pauseButton.setVisibility(View.VISIBLE);
-                setPauseButtonState(item.info.statusCode == StatusCode.STATUS_PAUSED);
-                pauseButton.setOnClickListener((v) -> {
-                    if (listener != null)
-                        listener.onItemPauseClicked(item);
-                });
-            } else {
-                pauseButton.setVisibility(View.GONE);
-            }
+            setPauseButtonState(StatusCode.isStatusStoppedOrPaused(item.info.statusCode));
+            pauseButton.setOnClickListener((v) -> {
+                if (listener != null)
+                    listener.onItemPauseClicked(item);
+            });
             cancelButton.setOnClickListener((v) -> {
                 if (listener != null)
                     listener.onItemCancelClicked(item);
@@ -256,6 +251,9 @@ public class DownloadListAdapter extends ListAdapter<DownloadItem, DownloadListA
                 switch (item.info.statusCode) {
                     case StatusCode.STATUS_PAUSED:
                         statusStr = context.getString(R.string.pause);
+                        break;
+                    case StatusCode.STATUS_STOPPED:
+                        statusStr = context.getString(R.string.stopped);
                         break;
                     case StatusCode.STATUS_PENDING:
                     case StatusCode.STATUS_WAITING_FOR_NETWORK:
