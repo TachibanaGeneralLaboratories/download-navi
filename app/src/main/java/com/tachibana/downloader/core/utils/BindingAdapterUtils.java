@@ -28,26 +28,37 @@ import android.widget.TextView;
 
 import com.tachibana.downloader.R;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.databinding.BindingAdapter;
 
 public class BindingAdapterUtils
 {
-    @BindingAdapter({"fileSize", "formatFileSize"})
+    @BindingAdapter(value = {"fileSize", "formatFileSize"}, requireAll = false)
     public static void formatFileSize(@NonNull TextView view,
                                       long fileSize,
-                                      @NonNull String formatFileSize)
+                                      @Nullable String formatFileSize)
     {
         Context context = view.getContext();
         String sizeStr = (fileSize >= 0 ?
                 Formatter.formatFileSize(context, fileSize) :
                 context.getString(R.string.not_available));
-        view.setText(String.format(formatFileSize, sizeStr));
+        view.setText((formatFileSize == null ? sizeStr : String.format(formatFileSize, sizeStr)));
     }
 
     @BindingAdapter("colorFilter")
     public static void setColorFilter(@NonNull ImageView view, int colorFilter)
     {
         view.getDrawable().setColorFilter(colorFilter, PorterDuff.Mode.SRC_IN);
+    }
+
+    @BindingAdapter({"formatDate"})
+    public static void formatDate(@NonNull TextView view, long date)
+    {
+        view.setText(SimpleDateFormat.getDateTimeInstance()
+                .format(new Date(date)));
     }
 }

@@ -130,9 +130,8 @@ public class AddDownloadViewModel extends AndroidViewModel
 
     public void startFetchTask()
     {
-        if (params.getUrl() == null || fetchTask != null && fetchTask.getStatus() != FetchLinkTask.Status.FINISHED)
+        if (TextUtils.isEmpty(params.getUrl()) || fetchTask != null && fetchTask.getStatus() != FetchLinkTask.Status.FINISHED)
             return;
-
 
         params.setUrl(Utils.normalizeURL(params.getUrl()));
 
@@ -279,7 +278,7 @@ public class AddDownloadViewModel extends AndroidViewModel
 
     public void addDownload() throws IOException, FreeSpaceException
     {
-        if (params == null)
+        if (TextUtils.isEmpty(params.getUrl()) || TextUtils.isEmpty(params.getFileName()))
             return;
 
         Uri dirPath = params.getDirPath();

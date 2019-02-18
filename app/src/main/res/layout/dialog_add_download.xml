@@ -4,7 +4,7 @@
 
     <data>
         <variable
-            name="model"
+            name="viewModel"
             type="com.tachibana.downloader.viewmodel.AddDownloadViewModel" />
     </data>
 
@@ -42,7 +42,7 @@
                         android:layout_height="wrap_content"
                         android:inputType="text|textNoSuggestions"
                         android:hint="@string/download_link"
-                        android:text="@={model.params.url}" />
+                        android:text="@={viewModel.params.url}" />
                 </com.google.android.material.textfield.TextInputLayout>
 
                 <androidx.core.widget.ContentLoadingProgressBar
@@ -69,7 +69,7 @@
                     android:layout_height="wrap_content"
                     android:inputType="text|textNoSuggestions"
                     android:hint="@string/download_name"
-                    android:text="@={model.params.fileName}"/>
+                    android:text="@={viewModel.params.fileName}"/>
             </com.google.android.material.textfield.TextInputLayout>
 
             <RelativeLayout
@@ -90,7 +90,7 @@
                         android:focusable="false"
                         android:hint="@string/path"
                         android:inputType="textMultiLine"
-                        android:text="@{model.params.dirName}" />
+                        android:text="@{viewModel.params.dirName}" />
                 </com.google.android.material.textfield.TextInputLayout>
 
                 <ImageButton
@@ -113,7 +113,7 @@
                 android:layout_marginBottom="16dp"
                 android:textAppearance="@style/TextAppearance.MaterialComponents.Body1"
                 android:textColor="?android:attr/textColorPrimary"
-                app:fileSize="@{model.params.storageFreeSpace}"
+                app:fileSize="@{viewModel.params.storageFreeSpace}"
                 app:formatFileSize="@{@string/storage_free_space}" />
 
             <LinearLayout
@@ -130,7 +130,7 @@
                     android:layout_marginBottom="16dp"
                     android:textAppearance="@style/TextAppearance.MaterialComponents.Body1"
                     android:textColor="?android:attr/textColorPrimary"
-                    app:fileSize="@{model.params.totalBytes}"
+                    app:fileSize="@{viewModel.params.totalBytes}"
                     app:formatFileSize="@{@string/download_size}"/>
 
                 <RelativeLayout
@@ -172,14 +172,14 @@
                     android:layout_height="wrap_content"
                     android:textColor="?android:attr/textColorPrimary"
                     android:text="@string/wifi_only"
-                    android:checked="@={model.params.wifiOnly}" />
+                    android:checked="@={viewModel.params.wifiOnly}" />
 
                 <CheckBox
                     android:id="@+id/retry"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textColor="?android:attr/textColorPrimary"
-                    android:checked="@={model.params.retry}"
+                    android:checked="@={viewModel.params.retry}"
                     android:text="@string/download_retry" />
 
                 <CheckBox
@@ -188,7 +188,7 @@
                     android:layout_height="wrap_content"
                     android:textColor="?android:attr/textColorPrimary"
                     android:text="@string/replace_file"
-                    android:checked="@={model.params.replaceFile}" />
+                    android:checked="@={viewModel.params.replaceFile}" />
             </com.google.android.material.internal.FlowLayout>
 
             <com.tachibana.downloader.customview.ExpansionHeader
@@ -233,7 +233,7 @@
                             android:layout_height="wrap_content"
                             android:inputType="text|textNoSuggestions"
                             android:hint="@string/download_description"
-                            android:text="@={model.params.description}"/>
+                            android:text="@={viewModel.params.description}"/>
                     </com.google.android.material.textfield.TextInputLayout>
 
                     <TextView
@@ -243,7 +243,7 @@
                         android:layout_marginBottom="16dp"
                         android:textAppearance="@style/TextAppearance.MaterialComponents.Body1"
                         android:textColor="?android:attr/textColorPrimary"
-                        android:text="@{@string/download_pieces_number_title(model.params.numPieces)}" />
+                        android:text="@{@string/download_pieces_number_title(viewModel.params.numPieces)}" />
 
                     <androidx.appcompat.widget.AppCompatSeekBar
                         android:id="@+id/pieces_number_select"
@@ -251,7 +251,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginBottom="16dp"
                         android:progress="0"
-                        android:max="@{model.maxNumPieces - 1}"
+                        android:max="@{viewModel.maxNumPieces - 1}"
                         style="@style/Widget.AppCompat.SeekBar.Discrete" />
 
                     <TextView

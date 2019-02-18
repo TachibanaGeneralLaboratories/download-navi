@@ -28,6 +28,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextUtils;
+import android.text.TextWatcher;
 import android.text.format.Formatter;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
@@ -239,6 +240,34 @@ public class AddDownloadDialog extends DialogFragment
             @Override
             public void onStopTrackingTouch(SeekBar seekBar) { /* Nothing */}
         });
+        binding.link.addTextChangedListener(new TextWatcher()
+        {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {}
+
+            @Override
+            public void afterTextChanged(Editable s)
+            {
+                checkUrlField(s);
+            }
+        });
+        binding.name.addTextChangedListener(new TextWatcher()
+        {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {}
+
+            @Override
+            public void afterTextChanged(Editable s)
+            {
+                checkNameField(s);
+            }
+        });
 
         /* Init link field */
         if (TextUtils.isEmpty(viewModel.params.getUrl())) {
@@ -397,48 +426,49 @@ public class AddDownloadDialog extends DialogFragment
         binding.layoutLink.setError(null);
     }
 
-    private boolean checkUrlField(String s, TextInputLayout layout)
+    private boolean checkUrlField(Editable s)
     {
-        if (s == null || layout == null)
+        if (s == null)
             return false;
 
         if (TextUtils.isEmpty(s)) {
-            layout.setErrorEnabled(true);
-            layout.setError(getString(R.string.download_error_empty_link));
-            layout.requestFocus();
+            binding.layoutLink.setErrorEnabled(true);
+            binding.layoutLink.setError(getString(R.string.download_error_empty_link));
+            binding.layoutLink.requestFocus();
 
             return false;
         }
 
-        layout.setErrorEnabled(false);
-        layout.setError(null);
+        binding.layoutLink.setErrorEnabled(false);
+        binding.layoutLink.setError(null);
 
         return true;
     }
 
-    private boolean checkNameField(String s, TextInputLayout layout)
+    private boolean checkNameField(Editable s)
     {
-        if (s == null || layout == null)
+        if (s == null)
             return false;
 
         if (TextUtils.isEmpty(s)) {
-            layout.setErrorEnabled(true);
-            layout.setError(getString(R.string.download_error_empty_name));
-            layout.requestFocus();
+            binding.layoutName.setErrorEnabled(true);
+            binding.layoutName.setError(getString(R.string.download_error_empty_name));
+            binding.layoutName.requestFocus();
 
             return false;
         }
-        if (!FileUtils.isValidFatFilename(s)) {
+        if (!FileUtils.isValidFatFilename(s.toString())) {
             String format = getString(R.string.download_error_name_is_not_correct);
-            layout.setErrorEnabled(true);
-            layout.setError(String.format(format, FileUtils.buildValidFatFilename(s)));
-            layout.requestFocus();
+            binding.layoutName.setErrorEnabled(true);
+            binding.layoutName.setError(String.format(format,
+                    FileUtils.buildValidFatFilename(s.toString())));
+            binding.layoutName.requestFocus();
 
             return false;
         }
 
-        layout.setErrorEnabled(false);
-        layout.setError(null);
+        binding.layoutName.setErrorEnabled(false);
+        binding.layoutName.setError(null);
 
         return true;
     }
@@ -483,20 +513,14 @@ public class AddDownloadDialog extends DialogFragment
 
     private void fetchLink()
     {
-        Editable link = binding.link.getText();
-        if (!checkUrlField((link == null ? null : link.toString()), binding.layoutLink))
-            return;
-
         viewModel.startFetchTask();
     }
 
     private void addDownload()
     {
-        Editable link = binding.link.getText();
-        Editable name = binding.name.getText();
-        if (!checkUrlField((link == null ? null : link.toString()), binding.layoutLink))
+        if (!checkUrlField(binding.link.getText()))
             return;
-        if (!checkNameField((name == null ? null : name.toString()), binding.layoutName))
+        if (!checkNameField(binding.name.getText()))
             return;
 
         try {
