@@ -169,12 +169,6 @@ public class FileManagerDialog extends AppCompatActivity
 
         adapter = new FileManagerAdapter(viewModel.config.highlightFileTypes, this);
         binding.fileList.setAdapter(adapter);
-        disposable.add(viewModel.childNodes
-                .doOnNext((childList) -> {
-                    if (binding.swipeContainer.isRefreshing())
-                        binding.swipeContainer.setRefreshing(false);
-                })
-                .subscribe(adapter::submitList));
 
         binding.swipeContainer.setColorSchemeColors(getResources().getColor(R.color.accent));
         binding.swipeContainer.setOnRefreshListener(this::refreshDir);
@@ -266,12 +260,23 @@ public class FileManagerDialog extends AppCompatActivity
         super.onStart();
 
         subscribeAlertDialog();
+        subscribeAdapter();
     }
 
     private void subscribeAlertDialog()
     {
         Disposable d = dialogViewModel.observeEvents().subscribe(this::handleAlertDialogEvent);
         disposable.add(d);
+    }
+
+    private void subscribeAdapter()
+    {
+        disposable.add(viewModel.childNodes
+                .doOnNext((childList) -> {
+                    if (binding.swipeContainer.isRefreshing())
+                        binding.swipeContainer.setRefreshing(false);
+                })
+                .subscribe(adapter::submitList));
     }
 
     private void handleAlertDialogEvent(BaseAlertDialog.Event event)

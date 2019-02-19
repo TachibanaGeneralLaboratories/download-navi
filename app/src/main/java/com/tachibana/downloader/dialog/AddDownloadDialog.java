@@ -208,7 +208,7 @@ public class AddDownloadDialog extends DialogFragment
 
         LayoutInflater i = LayoutInflater.from(activity);
         binding = DataBindingUtil.inflate(i, R.layout.dialog_add_download, null, false);
-        binding.setModel(viewModel);
+        binding.setViewModel(viewModel);
 
         if (savedInstanceState != null)
             userAgentSpinnerPos = savedInstanceState.getInt(TAG_USER_AGENT_SPINNER_POS);
