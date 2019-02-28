@@ -153,7 +153,7 @@ public class DownloadNotifier
 
                 String tag = makeNotificationTag(infoAndPieces.info);
                 if (tag == null)
-                    return;
+                    continue;
                 int type = getNotificationTagType(tag);
                 Notification notify = activeNotifs.get(infoAndPieces.info.id);
 
