@@ -46,6 +46,7 @@ import com.tachibana.downloader.core.utils.DateUtils;
 import com.tachibana.downloader.core.utils.Utils;
 import com.tachibana.downloader.receiver.NotificationReceiver;
 
+import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -75,9 +76,7 @@ public class DownloadNotifier
     /* The minimum amount of time that has to elapse before the progress bar gets updated, ms */
     private static final long MIN_PROGRESS_TIME = 2000;
 
-    private static final String CHANNEL_ACTIVE = "active";
-    private static final String CHANNEL_PENDING = "pending";
-    private static final String CHANNEL_COMPLETE = "complete";
+
 
     private Context context;
     private NotificationManager notifyManager;
@@ -108,8 +107,6 @@ public class DownloadNotifier
         this.context = context;
         notifyManager = (NotificationManager)context.getSystemService(NOTIFICATION_SERVICE);
         this.repo = repo;
-
-        makeNotifyChans();
     }
 
     public void startUpdate()
@@ -126,22 +123,6 @@ public class DownloadNotifier
     public void stopUpdate()
     {
         disposables.clear();
-    }
-
-    private void makeNotifyChans()
-    {
-        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.O)
-            return;
-
-        notifyManager.createNotificationChannel(new NotificationChannel(CHANNEL_ACTIVE,
-                context.getText(R.string.download_running),
-                NotificationManager.IMPORTANCE_MIN));
-        notifyManager.createNotificationChannel(new NotificationChannel(CHANNEL_PENDING,
-                context.getText(R.string.pending),
-                NotificationManager.IMPORTANCE_DEFAULT));
-        notifyManager.createNotificationChannel(new NotificationChannel(CHANNEL_COMPLETE,
-                context.getText(R.string.done_label),
-                NotificationManager.IMPORTANCE_DEFAULT));
     }
 
     private void update(@NonNull List<InfoAndPieces> infoAndPiecesList)
@@ -219,13 +200,13 @@ public class DownloadNotifier
         NotificationCompat.Builder builder;
         switch (type) {
             case TYPE_ACTIVE:
-                builder = new NotificationCompat.Builder(context, CHANNEL_ACTIVE);
+                builder = new NotificationCompat.Builder(context, Utils.ACTIVE_DOWNLOADS_NOTIFY_CHAN_ID);
                 break;
             case TYPE_PENDING:
-                builder = new NotificationCompat.Builder(context, CHANNEL_PENDING);
+                builder = new NotificationCompat.Builder(context, Utils.PENDING_DOWNLOADS_NOTIFY_CHAN_ID);
                 break;
             case TYPE_COMPLETE:
-                builder = new NotificationCompat.Builder(context, CHANNEL_COMPLETE);
+                builder = new NotificationCompat.Builder(context, Utils.COMPLETED_DOWNLOADS_NOTIFY_CHAN_ID);
                 break;
             default:
                 return;
@@ -242,7 +223,7 @@ public class DownloadNotifier
                     builder.setSmallIcon(android.R.drawable.stat_sys_download);
                 break;
             case TYPE_PENDING:
-                builder.setSmallIcon(android.R.drawable.stat_sys_warning);
+                builder.setSmallIcon(R.drawable.ic_warning_white_24dp);
                 break;
             case TYPE_COMPLETE:
                 if (isError)
@@ -492,7 +473,7 @@ public class DownloadNotifier
     private static boolean isCompleteAndVisible(int statusCode, int visibility)
     {
         return StatusCode.isStatusCompleted(statusCode) &&
-                (visibility == VISIBILITY_VISIBLE_NOTIFY_COMPLETED
-                        || visibility == VISIBILITY_VISIBLE_NOTIFY_ONLY_COMPLETION);
+                (visibility == VISIBILITY_VISIBLE_NOTIFY_COMPLETED ||
+                 visibility == VISIBILITY_VISIBLE_NOTIFY_ONLY_COMPLETION);
     }
 }

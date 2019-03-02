@@ -55,4 +55,7 @@ dependencies {
 
     implementation 'net.cachapa.expandablelayout:expandablelayout:2.9.2'
     implementation 'com.h6ah4i.android.widget.advrecyclerview:advrecyclerview:1.0.0'
+
+    /* Don't use Commons IO >= 2.6, because they uses Java NIO, supported only from API 26 */
+    implementation 'commons-io:commons-io:2.5'
 }

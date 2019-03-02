@@ -1,0 +1,314 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <data>
+        <import type="android.view.View"/>
+        <import type="com.tachibana.downloader.core.utils.BindingAdapterUtils" />
+        <import type="com.tachibana.downloader.viewmodel.DownloadDetailsInfo.HashSumState" />
+        <import type="com.tachibana.downloader.core.StatusCode" />
+
+        <variable
+            name="viewModel"
+            type="com.tachibana.downloader.viewmodel.DownloadDetailsViewModel" />
+    </data>
+
+    <androidx.core.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:paddingTop="@dimen/dialog_padding"
+        android:paddingBottom="8dp"
+        android:paddingEnd="@dimen/dialog_padding"
+        android:paddingStart="@dimen/dialog_padding"
+        android:fadeScrollbars="false"
+        android:scrollbars="vertical"
+        android:scrollbarStyle="outsideOverlay"> <!-- Need for padding -->
+
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:minWidth="@dimen/min_width_dialog">
+
+            <androidx.core.widget.ContentLoadingProgressBar
+                android:id="@+id/init_progress"
+                style="@style/Widget.AppCompat.ProgressBar"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:visibility="@{viewModel.info.downloadInfo == null ? View.VISIBLE : View.GONE}" />
+
+            <LinearLayout
+                android:id="@+id/content"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                android:visibility="@{viewModel.info.downloadInfo == null ? View.GONE : View.VISIBLE}">
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/layout_link"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="16dp">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/link"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:inputType="text|textNoSuggestions"
+                        android:text="@={viewModel.mutableParams.url}"
+                        android:hint="@string/download_link" />
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/layout_name"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="16dp">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/name"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:inputType="text|textNoSuggestions"
+                        android:text="@={viewModel.mutableParams.fileName}"
+                        android:hint="@string/download_name" />
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/layout_description"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="16dp">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/description"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:inputType="text|textNoSuggestions"
+                        android:text="@={viewModel.mutableParams.description}"
+                        android:hint="@string/download_description" />
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="16dp">
+
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:id="@+id/layout_save_path"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_toStartOf="@id/folder_chooser_button">
+
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/save_path"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:focusable="false"
+                            android:text="@{viewModel.info.dirName}"
+                            android:hint="@string/path"
+                            android:inputType="textMultiLine" />
+                    </com.google.android.material.textfield.TextInputLayout>
+
+                    <ImageButton
+                        android:id="@+id/folder_chooser_button"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:layout_marginStart="8dp"
+                        android:layout_alignParentEnd="true"
+                        android:padding="8dp"
+                        android:background="?attr/dialogRoundRipple"
+                        android:contentDescription="@string/dir_chooser_title"
+                        android:src="@drawable/ic_folder_grey600_24dp" />
+                </RelativeLayout>
+
+                <com.google.android.material.internal.FlowLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="16dp">
+
+                    <CheckBox
+                        android:id="@+id/wifi_only"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textColor="?android:attr/textColorPrimary"
+                        android:checked="@={viewModel.mutableParams.wifiOnly}"
+                        android:text="@string/wifi_only" />
+
+                    <CheckBox
+                        android:id="@+id/retry"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textColor="?android:attr/textColorPrimary"
+                        android:checked="@={viewModel.mutableParams.retry}"
+                        android:text="@string/download_retry" />
+                </com.google.android.material.internal.FlowLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="16dp"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="8dp"
+                        android:text="@string/detail_downloaded"
+                        style="@style/TitleText" />
+
+                    <TextView
+                        android:id="@+id/downloaded"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="@{BindingAdapterUtils.formatProgress(context, viewModel.info.downloadedBytes, viewModel.info.downloadInfo.totalBytes, @string/detail_downloaded_format)}"
+                        style="@style/TextAppearance.MaterialComponents.Body1" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="16dp"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="8dp"
+                        android:text="@string/detail_pieces"
+                        style="@style/TitleText" />
+
+                    <TextView
+                        android:id="@+id/num_pieces"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="@{String.valueOf(viewModel.info.downloadInfo.numPieces)}"
+                        style="@style/TextAppearance.MaterialComponents.Body1" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="16dp"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="8dp"
+                        android:text="@string/detail_date_added"
+                        style="@style/TitleText" />
+
+                    <TextView
+                        android:id="@+id/date_added"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        app:formatDate="@{viewModel.info.downloadInfo.dateAdded}"
+                        style="@style/TextAppearance.MaterialComponents.Body1" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="16dp"
+                    android:orientation="vertical"
+                    android:visibility="@{viewModel.info.downloadInfo != null &amp;&amp; StatusCode.isStatusSuccess(viewModel.info.downloadInfo.statusCode) ? View.VISIBLE : View.GONE}">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="8dp"
+                        android:text="@string/detail_md5_hash_sum"
+                        style="@style/TitleText" />
+
+                    <com.google.android.material.button.MaterialButton
+                        android:id="@+id/calculate_md5_hash"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        app:backgroundTint="?attr/colorPrimary"
+                        android:text="@string/calculate"
+                        android:onClick="@{() -> viewModel.calcMd5Hash()}"
+                        android:visibility="@{viewModel.info.md5State == HashSumState.UNKNOWN ? View.VISIBLE : View.GONE}" />
+
+                    <androidx.core.widget.ContentLoadingProgressBar
+                        android:id="@+id/md5_hash_progress"
+                        style="@style/Widget.AppCompat.ProgressBar"
+                        android:layout_width="24dp"
+                        android:layout_height="24dp"
+                        android:visibility="@{viewModel.info.md5State == HashSumState.CALCULATION ? View.VISIBLE : View.GONE}" />
+
+                    <TextView
+                        android:id="@+id/md5_hash"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:textIsSelectable="true"
+                        android:text="@{viewModel.info.md5Hash ?? @string/not_available}"
+                        android:visibility="@{viewModel.info.md5State == HashSumState.CALCULATED ? View.VISIBLE : View.GONE}"
+                        style="@style/TextAppearance.MaterialComponents.Body1" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="16dp"
+                    android:orientation="vertical"
+                    android:visibility="@{viewModel.info.downloadInfo != null &amp;&amp; StatusCode.isStatusSuccess(viewModel.info.downloadInfo.statusCode) ? View.VISIBLE : View.GONE}">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="8dp"
+                        android:text="@string/detail_sha256_hash_sum"
+                        style="@style/TitleText" />
+
+                    <com.google.android.material.button.MaterialButton
+                        android:id="@+id/calculate_sha256_hash"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        app:backgroundTint="?attr/colorPrimary"
+                        android:text="@string/calculate"
+                        android:onClick="@{() -> viewModel.calcSha256Hash()}"
+                        android:visibility="@{viewModel.info.sha256State == HashSumState.UNKNOWN ? View.VISIBLE : View.GONE}" />
+
+                    <androidx.core.widget.ContentLoadingProgressBar
+                        android:id="@+id/sha256_hash_progress"
+                        style="@style/Widget.AppCompat.ProgressBar"
+                        android:layout_width="24dp"
+                        android:layout_height="24dp"
+                        android:visibility="@{viewModel.info.sha256State == HashSumState.CALCULATION ? View.VISIBLE : View.GONE}" />
+
+                    <TextView
+                        android:id="@+id/sha256_hash"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:textIsSelectable="true"
+                        android:text="@{viewModel.info.sha256Hash ?? @string/not_available}"
+                        android:visibility="@{viewModel.info.sha256State == HashSumState.CALCULATED ? View.VISIBLE : View.GONE}"
+                        style="@style/TextAppearance.MaterialComponents.Body1" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="8dp"
+                        android:text="@string/detail_user_agent"
+                        style="@style/TitleText" />
+
+                    <TextView
+                        android:id="@+id/user_agent"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:textIsSelectable="true"
+                        android:text="@{viewModel.info.downloadInfo.userAgent}"
+                        style="@style/TextAppearance.MaterialComponents.Body1" />
+                </LinearLayout>
+            </LinearLayout>
+        </FrameLayout>
+    </androidx.core.widget.NestedScrollView>
+</layout>

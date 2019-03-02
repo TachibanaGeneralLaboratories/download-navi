@@ -22,7 +22,6 @@ package com.tachibana.downloader.viewmodel;
 
 import android.app.Application;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.net.NetworkInfo;
 import android.net.Uri;
 import android.os.AsyncTask;
@@ -30,8 +29,7 @@ import android.text.TextUtils;
 import android.util.Log;
 
 import com.tachibana.downloader.MainApplication;
-import com.tachibana.downloader.R;
-import com.tachibana.downloader.core.AddDownloadParams;
+import com.tachibana.downloader.core.DownloadHelper;
 import com.tachibana.downloader.core.HttpConnection;
 import com.tachibana.downloader.core.SystemFacade;
 import com.tachibana.downloader.core.entity.DownloadInfo;
@@ -43,10 +41,7 @@ import com.tachibana.downloader.core.storage.DataRepository;
 import com.tachibana.downloader.core.utils.FileUtils;
 import com.tachibana.downloader.core.utils.Utils;
 import com.tachibana.downloader.dialog.AddDownloadDialog;
-import com.tachibana.downloader.settings.SettingsManager;
-import com.tachibana.downloader.worker.DownloadScheduler;
 
-import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.lang.ref.WeakReference;
@@ -57,7 +52,6 @@ import java.util.List;
 
 import androidx.annotation.NonNull;
 import androidx.databinding.ObservableInt;
-import androidx.documentfile.provider.DocumentFile;
 import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
@@ -70,7 +64,6 @@ public class AddDownloadViewModel extends AndroidViewModel
 
     private FetchLinkTask fetchTask;
     private DataRepository repo;
-    private SharedPreferences pref;
     public AddDownloadParams params = new AddDownloadParams();
     public MutableLiveData<FetchState> fetchState = new MutableLiveData<>();
     public ObservableInt maxNumPieces = new ObservableInt(DownloadInfo.MAX_PIECES);
@@ -104,13 +97,7 @@ public class AddDownloadViewModel extends AndroidViewModel
         super(application);
 
         repo = ((MainApplication)getApplication()).getRepository();
-        pref = SettingsManager.getInstance(application).getPreferences();
         fetchState.setValue(new FetchState(Status.UNKNOWN));
-
-        /* Init download dir */
-        String path = pref.getString(application.getString(R.string.pref_key_last_download_dir_uri),
-                SettingsManager.Default.lastDownloadDirUri);
-        updateDirPath(Uri.parse(path));
     }
 
     public LiveData<List<UserAgent>> observerUserAgents()
@@ -120,6 +107,9 @@ public class AddDownloadViewModel extends AndroidViewModel
 
     public Completable deleteUserAgent(UserAgent userAgent)
     {
+        if (userAgent.userAgent.equals(params.getUserAgent()))
+            params.setUserAgent(Utils.getSystemUserAgent(getApplication()));
+
         return Completable.fromAction(() -> repo.deleteUserAgent(userAgent));
     }
 
@@ -249,9 +239,9 @@ public class AddDownloadViewModel extends AndroidViewModel
 
         if (TextUtils.isEmpty(params.getFileName()))
             params.setFileName(Utils.getHttpFileName(params.getUrl(), contentDisposition, contentLocation));
-        params.setMimeType(Intent.normalizeMimeType(conn.getContentType()));
-        if (params.getMimeType() == null)
-            params.setMimeType("application/octet-stream");
+        String mimeType = Intent.normalizeMimeType(conn.getContentType());
+        if (mimeType != null)
+            params.setMimeType(mimeType);
         params.setEtag(conn.getHeaderField("ETag"));
         final String transferEncoding = conn.getHeaderField("Transfer-Encoding");
         if (transferEncoding == null) {
@@ -295,7 +285,6 @@ public class AddDownloadViewModel extends AndroidViewModel
             info.hasMetadata = state.status == Status.FETCHED;
 
         ArrayList<Header> headers = new ArrayList<>();
-        headers.add(new Header(info.id, "User-Agent", params.getUserAgent()));
         headers.add(new Header(info.id, "ETag", params.getEtag()));
 
         Utils.retainDownloadDir(getApplication(), dirPath);
@@ -311,7 +300,7 @@ public class AddDownloadViewModel extends AndroidViewModel
             return;
         }
 
-        DownloadScheduler.runDownload(getApplication(), info);
+        DownloadHelper.scheduleDownloading(getApplication(), info);
     }
 
     private DownloadInfo makeDownloadInfo(Uri dirPath)
@@ -345,6 +334,7 @@ public class AddDownloadViewModel extends AndroidViewModel
                 params.getNumPieces() :
                 DownloadInfo.MIN_PIECES));
         info.retry = params.isRetry();
+        info.userAgent = params.getUserAgent();
         info.dateAdded = System.currentTimeMillis();
 
         return info;
@@ -361,18 +351,7 @@ public class AddDownloadViewModel extends AndroidViewModel
     {
         params.setDirPath(dirPath);
         params.setStorageFreeSpace(FileUtils.getDirAvailableBytes(getApplication(), dirPath));
-        params.setDirName(getDirName(dirPath));
-    }
-
-    private String getDirName(Uri dirPath)
-    {
-        if (FileUtils.isFileSystemPath(dirPath))
-            return dirPath.getPath();
-
-        DocumentFile dir = DocumentFile.fromTreeUri(getApplication(), dirPath);
-        String name = dir.getName();
-
-        return (name == null ? dirPath.getPath() : name);
+        params.setDirName(FileUtils.getDirName(getApplication(), dirPath));
     }
 
     public void finish()

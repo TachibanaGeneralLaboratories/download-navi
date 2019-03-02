@@ -79,7 +79,7 @@ public class DownloadThread implements Callable<DownloadResult>
     private DownloadInfo info;
     private UUID id;
     /* Stop and delete */
-    private boolean cancel;
+    private boolean stop;
     private boolean pause;
     private boolean running;
     private ExecutorService exec;
@@ -93,9 +93,9 @@ public class DownloadThread implements Callable<DownloadResult>
         this.context = context;
     }
 
-    public void requestCancel()
+    public void requestStop()
     {
-        cancel = true;
+        stop = true;
         if (exec != null)
             exec.shutdownNow();
     }
@@ -121,7 +121,7 @@ public class DownloadThread implements Callable<DownloadResult>
             info = repo.getInfoById(id);
             if (info == null) {
                 Log.w(TAG, "Info " + id + " is null, skipping");
-                return new DownloadResult(id, DownloadResult.Status.CANCELLED);
+                return new DownloadResult(id, DownloadResult.Status.STOPPED);
             }
 
             if (info.statusCode == STATUS_SUCCESS) {
@@ -164,7 +164,7 @@ public class DownloadThread implements Callable<DownloadResult>
                     status = DownloadResult.Status.PAUSED;
                     break;
                 case STATUS_STOPPED:
-                    status = DownloadResult.Status.CANCELLED;
+                    status = DownloadResult.Status.STOPPED;
                     break;
             }
         }
@@ -200,7 +200,7 @@ public class DownloadThread implements Callable<DownloadResult>
         }
 
         running = false;
-        cancel = false;
+        stop = false;
         pause = false;
     }
 
@@ -304,10 +304,10 @@ public class DownloadThread implements Callable<DownloadResult>
             exec.shutdown();
             /* Wait "forever" */
             if (!exec.awaitTermination(Long.MAX_VALUE, TimeUnit.NANOSECONDS))
-                requestCancel();
+                requestStop();
 
         } catch (InterruptedException e) {
-            requestCancel();
+            requestStop();
         }
 
         return null;
@@ -448,7 +448,7 @@ public class DownloadThread implements Callable<DownloadResult>
                 FileUtils.fallocate(context, outFd, info.totalBytes);
 
             } catch (InterruptedIOException e) {
-                requestCancel();
+                requestStop();
             } catch (IOException e) {
                 Log.e(TAG, Log.getStackTraceString(e));
                 return null;
@@ -483,7 +483,7 @@ public class DownloadThread implements Callable<DownloadResult>
     {
         if (pause)
             return new StopRequest(STATUS_PAUSED, "Download paused");
-        else if (cancel || Thread.currentThread().isInterrupted())
+        else if (stop || Thread.currentThread().isInterrupted())
             return new StopRequest(STATUS_STOPPED, "Download cancelled");
 
         return null;

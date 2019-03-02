@@ -25,6 +25,7 @@ import android.net.NetworkInfo;
 import android.net.Uri;
 import android.os.ParcelFileDescriptor;
 import android.os.SystemClock;
+import android.text.TextUtils;
 import android.util.Log;
 
 import com.tachibana.downloader.core.entity.DownloadInfo;
@@ -241,7 +242,7 @@ public class PieceThread extends Thread
             @Override
             public void onConnectionCreated(HttpURLConnection conn)
             {
-                addRequestHeaders(conn, resuming);
+                ret[0] = addRequestHeaders(conn, resuming);
             }
 
             @Override
@@ -314,8 +315,12 @@ public class PieceThread extends Thread
      * Add custom headers for this download to the HTTP request.
      */
 
-    private void addRequestHeaders(HttpURLConnection conn, boolean resuming)
+    private StopRequest addRequestHeaders(HttpURLConnection conn, boolean resuming)
     {
+        DownloadInfo info = repo.getInfoById(infoId);
+        if (info == null)
+            return new StopRequest(STATUS_STOPPED, "Download deleted or missing");
+
         String etag = null;
         for (Header header : repo.getHeadersById(infoId)) {
             if ("ETag".equals(header.name)) {
@@ -323,9 +328,9 @@ public class PieceThread extends Thread
                 continue;
             }
             conn.addRequestProperty(header.name, header.value);
-            if ("User-Agent".equals(header.name) && conn.getRequestProperty("User-Agent") == null)
-                conn.addRequestProperty("User-Agent", header.value);
         }
+        if (conn.getRequestProperty("User-Agent") == null && !TextUtils.isEmpty(info.userAgent))
+            conn.addRequestProperty("User-Agent", info.userAgent);
         /*
          * Defeat transparent gzip compression, since it doesn't allow us to
          * easily resume partial downloads.
@@ -342,6 +347,8 @@ public class PieceThread extends Thread
         if (endPos >= 0)
             rangeRequest += endPos;
         conn.addRequestProperty("Range", rangeRequest);
+
+        return null;
     }
 
     /*

@@ -21,10 +21,14 @@
 package com.tachibana.downloader;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
+import android.net.Uri;
 import android.os.Bundle;
 
 import com.tachibana.downloader.core.utils.Utils;
 import com.tachibana.downloader.dialog.AddDownloadDialog;
+import com.tachibana.downloader.settings.SettingsManager;
+import com.tachibana.downloader.viewmodel.AddInitParams;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
@@ -33,6 +37,8 @@ import androidx.fragment.app.FragmentManager;
 public class AddDownloadActivity extends AppCompatActivity
     implements FragmentCallback
 {
+    public static final String TAG_INIT_PARAMS = "init_params";
+
     private static final String TAG_DOWNLOAD_DIALOG = "add_download_dialog";
 
     AddDownloadDialog addDownloadDialog;
@@ -46,17 +52,42 @@ public class AddDownloadActivity extends AppCompatActivity
         FragmentManager fm = getSupportFragmentManager();
         addDownloadDialog = (AddDownloadDialog)fm.findFragmentByTag(TAG_DOWNLOAD_DIALOG);
         if (addDownloadDialog == null) {
-            String url = null;
+            AddInitParams initParams = null;
             Intent i = getIntent();
-            if (i != null) {
-                if (i.getData() != null)
-                    url = i.getData().toString();
-                else
-                    url = i.getStringExtra(Intent.EXTRA_TEXT);
-            }
-            addDownloadDialog = AddDownloadDialog.newInstance(url);
+            if (i != null)
+                initParams = i.getParcelableExtra(TAG_INIT_PARAMS);
+            if (initParams == null)
+                initParams = makeInitParams();
+
+            addDownloadDialog = AddDownloadDialog.newInstance(initParams);
             addDownloadDialog.show(fm, TAG_DOWNLOAD_DIALOG);
         }
+    }
+
+    private AddInitParams makeInitParams()
+    {
+        SharedPreferences pref = SettingsManager.getInstance(getApplicationContext()).getPreferences();
+
+        AddInitParams initParams = new AddInitParams();
+        initParams.url = getUrlFromIntent();
+        String path = pref.getString(getString(R.string.pref_key_last_download_dir_uri),
+                SettingsManager.Default.lastDownloadDirUri);
+        initParams.dirPath = Uri.parse(path);
+
+        return initParams;
+    }
+
+    private String getUrlFromIntent()
+    {
+        Intent i = getIntent();
+        if (i != null) {
+            if (i.getData() != null)
+                return i.getData().toString();
+            else
+                return i.getStringExtra(Intent.EXTRA_TEXT);
+        }
+
+        return null;
     }
 
     @Override

@@ -21,84 +21,93 @@
 package com.tachibana.downloader.service;
 
 import android.app.Notification;
-import android.app.NotificationChannel;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Build;
 
+import androidx.annotation.NonNull;
 import androidx.core.app.NotificationCompat;
 import androidx.lifecycle.LifecycleService;
-import io.reactivex.Observable;
-import io.reactivex.android.schedulers.AndroidSchedulers;
-import io.reactivex.disposables.CompositeDisposable;
-import io.reactivex.schedulers.Schedulers;
 
 import android.util.Log;
 
 import com.tachibana.downloader.MainActivity;
 import com.tachibana.downloader.MainApplication;
 import com.tachibana.downloader.R;
-import com.tachibana.downloader.worker.DownloadScheduler;
-import com.tachibana.downloader.core.entity.DownloadInfo;
-import com.tachibana.downloader.core.DownloadResult;
-import com.tachibana.downloader.core.DownloadThread;
-import com.tachibana.downloader.core.StatusCode;
-import com.tachibana.downloader.core.storage.DataRepository;
+import com.tachibana.downloader.core.ChangeableParams;
+import com.tachibana.downloader.core.DownloadEngine;
+import com.tachibana.downloader.core.DownloadEngineListener;
 import com.tachibana.downloader.core.utils.Utils;
 import com.tachibana.downloader.receiver.NotificationReceiver;
 import com.tachibana.downloader.settings.SettingsManager;
 
-import java.net.HttpURLConnection;
-import java.util.HashMap;
-import java.util.Map;
 import java.util.UUID;
-import java.util.concurrent.atomic.AtomicBoolean;
 
 public class DownloadService extends LifecycleService
-        implements SharedPreferences.OnSharedPreferenceChangeListener
+        //implements SharedPreferences.OnSharedPreferenceChangeListener
 {
     @SuppressWarnings("unused")
     private static final String TAG = DownloadService.class.getSimpleName();
 
     private static final int FOREGROUND_NOTIFICATION_ID = 1;
-    public static final String FOREGROUND_NOTIFY_CHAN_ID = "com.tachibana.downloader.FOREGROUND_NOTIFY_CHAN";
+    private static final int APPLYING_PARAMS_NOTIFICATION_ID = 2;
     public static final String ACTION_SHUTDOWN = "com.tachibana.downloader.service.DownloadService.ACTION_SHUTDOWN";
     public static final String ACTION_RUN_DOWNLOAD = "com.tachibana.downloader.service.ACTION_RUN_DOWNLOAD";
-    public static final String ACTION_PAUSE_RESUME_DOWNLOAD = "com.tachibana.downloader.service.ACTION_PAUSE_RESUME_DOWNLOAD";
-    public static final String ACTION_PAUSE_ALL = "com.tachibana.downloader.service.ACTION_PAUSE_ALL";
-    public static final String ACTION_RESUME_ALL = "com.tachibana.downloader.service.ACTION_RESUME_ALL";
+    public static final String ACTION_CHANGE_PARAMS = "com.tachibana.downloader.service.ACTION_CHANGE_PARAMS";
+//    public static final String ACTION_PAUSE_RESUME_DOWNLOAD = "com.tachibana.downloader.service.ACTION_PAUSE_RESUME_DOWNLOAD";
+//    public static final String ACTION_PAUSE_ALL = "com.tachibana.downloader.service.ACTION_PAUSE_ALL";
+//    public static final String ACTION_RESUME_ALL = "com.tachibana.downloader.service.ACTION_RESUME_ALL";
     public static final String TAG_DOWNLOAD_ID = "download_id";
+    public static final String TAG_PARAMS = "params";
 
     private boolean isAlreadyRunning;
     private NotificationManager notifyManager;
     private NotificationCompat.Builder foregroundNotify;
-    private DataRepository repo;
     private SharedPreferences pref;
-    private CompositeDisposable disposables = new CompositeDisposable();
-    private HashMap<UUID, DownloadThread> tasks =  new HashMap<>();
-    private boolean requestShutdown;
+    private DownloadEngine engine;
+    private boolean downloadsApplyingParams;
 
     private void init()
     {
         Log.i(TAG, "Start " + TAG);
         pref = SettingsManager.getInstance(getApplicationContext()).getPreferences();
-        pref.registerOnSharedPreferenceChangeListener(this);
-        notifyManager = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
-        repo = ((MainApplication)getApplication()).getRepository();
+//        pref.registerOnSharedPreferenceChangeListener(this);
+        notifyManager = (NotificationManager)getSystemService(NOTIFICATION_SERVICE);
 
-        makeNotifyChans(notifyManager);
+        if (engine == null)
+            engine = ((MainApplication)getApplication()).getDownloadEngine();
+        engine.addListener(listener);
+
         makeForegroundNotify();
     }
 
+    private DownloadEngineListener listener = new DownloadEngineListener()
+    {
+        @Override
+        public void onDownloadsCompleted()
+        {
+            stopService();
+        }
+
+        @Override
+        public void onParamsApplied(@NonNull UUID id, Throwable e)
+        {
+            downloadsApplyingParams = false;
+            makeApplyingParamsNotify();
+            if (!engine.hasDownloads())
+                stopService();
+        }
+    };
+
     private void stopService()
     {
-        disposables.clear();
-        pref.unregisterOnSharedPreferenceChangeListener(this);
+//        pref.unregisterOnSharedPreferenceChangeListener(this);
+        engine.removeListener(listener);
+        engine = null;
         isAlreadyRunning = false;
         pref = null;
-        requestShutdown = false;
 
         stopForeground(true);
         stopSelf();
@@ -112,13 +121,11 @@ public class DownloadService extends LifecycleService
         Log.i(TAG, "Stop " + TAG);
     }
 
-    private void requestShutdown()
+    @Override
+    public void onTaskRemoved(Intent rootIntent)
     {
-        requestShutdown = true;
-        if (checkShutdownService())
-            stopService();
-        else
-            stopAllDownloads();
+        engine.stopAllDownloads();
+        stopService();
     }
 
     @Override
@@ -133,240 +140,50 @@ public class DownloadService extends LifecycleService
         }
 
         if (intent != null && intent.getAction() != null) {
+            UUID id;
+
             switch (intent.getAction()) {
                 case NotificationReceiver.NOTIFY_ACTION_SHUTDOWN_APP:
                 case ACTION_SHUTDOWN:
-                    requestShutdown();
-                    return START_NOT_STICKY;
+                    if (engine != null)
+                        engine.stopAllDownloads();
+                    break;
                 case ACTION_RUN_DOWNLOAD:
-                    UUID id = (UUID)intent.getSerializableExtra(TAG_DOWNLOAD_ID);
-                    if (id != null)
-                        runDownload(id);
+                    id = (UUID)intent.getSerializableExtra(TAG_DOWNLOAD_ID);
+                    if (id != null && engine != null)
+                        engine.runDownload(id);
                     break;
                 case NotificationReceiver.NOTIFY_ACTION_PAUSE_ALL:
-                case ACTION_PAUSE_ALL:
-                    pauseAllDownloads();
+                    if (engine != null)
+                        engine.pauseAllDownloads();
                     break;
                 case NotificationReceiver.NOTIFY_ACTION_RESUME_ALL:
-                case ACTION_RESUME_ALL:
-                    resumeAllDownloads();
+                    if (engine != null)
+                        engine.resumeAllDownloads();
                     break;
                 case NotificationReceiver.NOTIFY_ACTION_CANCEL:
-                    cancelDownload((UUID)intent.getSerializableExtra(NotificationReceiver.TAG_ID));
-                    break;
-                case ACTION_PAUSE_RESUME_DOWNLOAD:
-                    pauseResumeDownload((UUID)intent.getSerializableExtra(TAG_DOWNLOAD_ID));
+                    id = (UUID)intent.getSerializableExtra(NotificationReceiver.TAG_ID);
+                    if (id != null && engine != null)
+                        engine.cancelDownload(id);
                     break;
                 case NotificationReceiver.NOTIFY_ACTION_PAUSE_RESUME:
-                    pauseResumeDownload((UUID)intent.getSerializableExtra(NotificationReceiver.TAG_ID));
+                    id = (UUID)intent.getSerializableExtra(NotificationReceiver.TAG_ID);
+                    if (id != null && engine != null)
+                        engine.pauseResumeDownload(id);
+                    break;
+                case ACTION_CHANGE_PARAMS:
+                    id = (UUID)intent.getSerializableExtra(TAG_DOWNLOAD_ID);
+                    ChangeableParams params = intent.getParcelableExtra(TAG_PARAMS);
+                    if (id != null && params != null) {
+                        downloadsApplyingParams = true;
+                        makeApplyingParamsNotify();
+                        engine.changeParams(id, params);
+                    }
                     break;
             }
         }
-        /* TODO: autoloading of stopped downloads */
 
         return START_STICKY;
-    }
-
-    private void onFinished(UUID id)
-    {
-        deleteDownloadTask(id);
-
-        disposables.add(repo.getInfoByIdSingle(id)
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .filter((info) -> info != null)
-                .subscribe((info) -> {
-                            handleInfoStatus(info);
-                            if (checkShutdownService())
-                                stopService();
-                        },
-                        (Throwable t) -> {
-                            Log.e(TAG, "Getting info " + id + " error: " +
-                                    Log.getStackTraceString(t));
-                            if (checkShutdownService())
-                                stopService();
-                        })
-        );
-    }
-
-    private void handleInfoStatus(DownloadInfo info)
-    {
-        if (info == null)
-            return;
-
-        switch (info.statusCode) {
-            case StatusCode.STATUS_WAITING_TO_RETRY:
-            case StatusCode.STATUS_WAITING_FOR_NETWORK:
-                DownloadScheduler.runDownload(getApplicationContext(), info);
-                break;
-            case HttpURLConnection.HTTP_UNAUTHORIZED:
-                /* TODO: request authorization from user */
-                break;
-            case HttpURLConnection.HTTP_PROXY_AUTH:
-                /* TODO: proxy support */
-                break;
-        }
-    }
-
-    private void onCancelled(UUID id)
-    {
-        deleteDownloadTask(id);
-        if (checkShutdownService())
-            stopService();
-    }
-
-    private boolean checkShutdownService()
-    {
-        return tasks.isEmpty() || requestShutdown;
-    }
-
-    private synchronized void runDownload(UUID id)
-    {
-        if (id == null)
-            return;
-
-        DownloadThread task = tasks.get(id);
-        if (task != null && task.isRunning())
-            return;
-
-        task = new DownloadThread(getApplicationContext(), repo, id);
-        tasks.put(id, task);
-        disposables.add(Observable.fromCallable(task)
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(this::observeDownloadResult,
-                        (Throwable t) -> {
-                            Log.e(TAG, Log.getStackTraceString(t));
-                            if (checkShutdownService())
-                                stopService();
-                        }
-                )
-        );
-    }
-
-    private void observeDownloadResult(DownloadResult result)
-    {
-        if (result == null)
-            return;
-
-        switch (result.status) {
-            case FINISHED:
-                onFinished(result.infoId);
-                break;
-            case PAUSED:
-            case CANCELLED:
-                onCancelled(result.infoId);
-                break;
-        }
-    }
-
-    private void deleteDownloadTask(UUID id)
-    {
-        tasks.remove(id);
-    }
-
-    private synchronized void pauseResumeDownload(UUID id)
-    {
-        if (id == null)
-            return;
-
-        disposables.add(repo.getInfoByIdSingle(id)
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .filter((info) -> info != null)
-                .subscribe((info) -> {
-                            if (StatusCode.isStatusStoppedOrPaused(info.statusCode)) {
-                                DownloadScheduler.runDownload(getApplicationContext(), info);
-                            } else {
-                                DownloadThread task = tasks.get(id);
-                                if (task != null)
-                                    task.requestPause();
-                            }
-                        },
-                        (Throwable t) -> {
-                            Log.e(TAG, "Getting info " + id + " error: " +
-                                    Log.getStackTraceString(t));
-                            if (checkShutdownService())
-                                stopService();
-                        })
-        );
-    }
-
-    private synchronized void cancelDownload(UUID id)
-    {
-        if (id == null)
-            return;
-
-        disposables.add(repo.getInfoByIdSingle(id)
-                .subscribeOn(Schedulers.io())
-                .filter((info) -> info != null)
-                .subscribe((info) -> {
-                            repo.deleteInfo(getApplicationContext(), info, true);
-                            DownloadThread task = tasks.get(id);
-                            if (task != null)
-                                task.requestCancel();
-                        },
-                        (Throwable t) -> {
-                            Log.e(TAG, "Getting info " + id + " error: " +
-                                    Log.getStackTraceString(t));
-                            if (checkShutdownService())
-                                stopService();
-                        }
-                )
-        );
-    }
-
-    private synchronized void pauseAllDownloads()
-    {
-        for (Map.Entry<UUID, DownloadThread> entry : tasks.entrySet()) {
-            DownloadThread task = entry.getValue();
-            if (task == null)
-                continue;
-            task.requestPause();
-        }
-    }
-
-    private synchronized void resumeAllDownloads()
-    {
-        disposables.add(repo.getAllInfoSingle()
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .filter((list) -> !list.isEmpty())
-                .flattenAsObservable((it) -> it)
-                .filter((info) -> {
-                    return info != null && StatusCode.isStatusStoppedOrPaused(info.statusCode);
-                })
-                .subscribe((info) -> {
-                            DownloadThread task = tasks.get(info.id);
-                            if (task != null && task.isRunning())
-                                return;
-                            DownloadScheduler.runDownload(getApplicationContext(), info);
-                        },
-                        (Throwable t) -> {
-                            Log.e(TAG, "Getting info list error: " + Log.getStackTraceString(t));
-                            if (checkShutdownService())
-                                stopService();
-                        })
-        );
-    }
-
-    private void stopAllDownloads()
-    {
-        for (DownloadThread task : tasks.values()) {
-            if (task != null)
-                task.requestCancel();
-        }
-    }
-
-    private void makeNotifyChans(NotificationManager notifyManager)
-    {
-        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.O)
-            return;
-
-        notifyManager.createNotificationChannel(
-                new NotificationChannel(FOREGROUND_NOTIFY_CHAN_ID,
-                        getString(R.string.foreground_notification),
-                        NotificationManager.IMPORTANCE_LOW));
     }
 
     private void makeForegroundNotify()
@@ -384,7 +201,7 @@ public class DownloadService extends LifecycleService
                         PendingIntent.FLAG_UPDATE_CURRENT);
 
         foregroundNotify = new NotificationCompat.Builder(getApplicationContext(),
-                FOREGROUND_NOTIFY_CHAN_ID)
+                Utils.FOREGROUND_NOTIFY_CHAN_ID)
                 .setSmallIcon(R.mipmap.ic_launcher)
                 .setContentIntent(startupPendingIntent)
                 .setContentTitle(getString(R.string.app_running_in_the_background))
@@ -453,18 +270,45 @@ public class DownloadService extends LifecycleService
                 .build();
     }
 
-    @Override
-    public void onSharedPreferenceChanged(SharedPreferences sharedPreferences, String key)
+    private void makeApplyingParamsNotify()
     {
-        if (pref == null)
-            pref = sharedPreferences;
-
-        if (key.equals(getString(R.string.pref_key_wifi_only)) ||
-            key.equals(getString(R.string.pref_key_enable_roaming))) {
-            if (Utils.isNetworkTypeAllowed(getApplicationContext()))
-                resumeAllDownloads();
-            else
-                pauseAllDownloads();
+        if (!downloadsApplyingParams) {
+            notifyManager.cancel(APPLYING_PARAMS_NOTIFICATION_ID);
+            return;
         }
+
+        NotificationCompat.Builder builder = new NotificationCompat.Builder(getApplicationContext(),
+                Utils.DEFAULT_NOTIFY_CHAN_ID)
+                .setContentTitle(getString(R.string.applying_params_title))
+                .setTicker(getString(R.string.applying_params_title))
+                .setContentText(getString(R.string.applying_params_for_downloads))
+                .setSmallIcon(R.drawable.ic_warning_white_24dp)
+                .setAutoCancel(false)
+                .setOnlyAlertOnce(true)
+                .setOngoing(true)
+                .setWhen(System.currentTimeMillis());
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP)
+            builder.setCategory(Notification.CATEGORY_STATUS);
+
+        notifyManager.notify(APPLYING_PARAMS_NOTIFICATION_ID, builder.build());
     }
+
+//    @Override
+//    public void onSharedPreferenceChanged(SharedPreferences sharedPreferences, String key)
+//    {
+//        if (pref == null)
+//            pref = sharedPreferences;
+//
+//        if (!DownloadEngine.getInstance().isRunning())
+//            return;
+//
+//        if (key.equals(getString(R.string.pref_key_wifi_only)) ||
+//            key.equals(getString(R.string.pref_key_enable_roaming))) {
+//            if (Utils.isNetworkTypeAllowed(getApplicationContext()))
+//                DownloadEngine.getInstance().resumeAllDownloads();
+//            else
+//                DownloadEngine.getInstance().pauseAllDownloads();
+//        }
+//    }
 }

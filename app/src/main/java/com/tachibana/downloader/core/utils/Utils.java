@@ -22,6 +22,8 @@ package com.tachibana.downloader.core.utils;
 
 import android.Manifest;
 import android.app.Activity;
+import android.app.NotificationChannel;
+import android.app.NotificationManager;
 import android.content.ClipData;
 import android.content.ClipboardManager;
 import android.content.Context;
@@ -88,6 +90,12 @@ public class Utils
     public static final String DEFAULT_DOWNLOAD_FILENAME = "downloadfile";
     private static final String CONTENT_DISPOSITION_PATTERN = "attachment;\\s*filename\\s*=\\s*\"([^\"]*)\"";
 
+    public static final String DEFAULT_NOTIFY_CHAN_ID = "com.tachibana.downloader.DEFAULT_NOTIFY_CHAN";
+    public static final String FOREGROUND_NOTIFY_CHAN_ID = "com.tachibana.downloader.FOREGROUND_NOTIFY_CHAN";
+    public static final String ACTIVE_DOWNLOADS_NOTIFY_CHAN_ID = "com.tachibana.downloader.CTIVE_DOWNLOADS_NOTIFY_CHAN";
+    public static final String PENDING_DOWNLOADS_NOTIFY_CHAN_ID = "com.tachibana.downloader.PENDING_DOWNLOADS_NOTIFY_CHAN";
+    public static final String COMPLETED_DOWNLOADS_NOTIFY_CHAN_ID = "com.tachibana.downloader.COMPLETED_DOWNLOADS_NOTIFY_CHAN";
+
     private static SystemFacade systemFacade;
 
     public synchronized static SystemFacade getSystemFacade(@NonNull Context context)
@@ -102,6 +110,33 @@ public class Utils
     public synchronized static void setSystemFacade(@NonNull SystemFacade systemFacade)
     {
         Utils.systemFacade = systemFacade;
+    }
+
+    public static void makeNotifyChans(@NonNull Context context,
+                                       @NonNull NotificationManager notifyManager)
+    {
+        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.O)
+            return;
+
+        ArrayList<NotificationChannel> channels = new ArrayList<>();
+
+        channels.add(new NotificationChannel(DEFAULT_NOTIFY_CHAN_ID,
+                context.getText(R.string.Default),
+                NotificationManager.IMPORTANCE_DEFAULT));
+        channels.add(new NotificationChannel(FOREGROUND_NOTIFY_CHAN_ID,
+                context.getString(R.string.foreground_notification),
+                NotificationManager.IMPORTANCE_LOW));
+        channels.add(new NotificationChannel(ACTIVE_DOWNLOADS_NOTIFY_CHAN_ID,
+                context.getText(R.string.download_running),
+                NotificationManager.IMPORTANCE_MIN));
+        channels.add(new NotificationChannel(PENDING_DOWNLOADS_NOTIFY_CHAN_ID,
+                context.getText(R.string.pending),
+                NotificationManager.IMPORTANCE_DEFAULT));
+        channels.add(new NotificationChannel(COMPLETED_DOWNLOADS_NOTIFY_CHAN_ID,
+                context.getText(R.string.done_label),
+                NotificationManager.IMPORTANCE_DEFAULT));
+
+        notifyManager.createNotificationChannels(channels);
     }
 
     /*
@@ -567,6 +602,16 @@ public class Utils
         else
             sharingIntent.putExtra(android.content.Intent.EXTRA_TEXT,
                     TextUtils.join(Utils.getLineSeparator(), urlList));
+
+        return sharingIntent;
+    }
+
+    public static Intent makeShareUrlIntent(@NonNull String url)
+    {
+        Intent sharingIntent = new Intent(android.content.Intent.ACTION_SEND);
+        sharingIntent.setType("text/plain");
+        sharingIntent.putExtra(android.content.Intent.EXTRA_SUBJECT, "url");
+        sharingIntent.putExtra(android.content.Intent.EXTRA_TEXT, url);
 
         return sharingIntent;
     }

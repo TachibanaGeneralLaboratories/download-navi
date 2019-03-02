@@ -18,11 +18,9 @@
  * along with Download Navi.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package com.tachibana.downloader.core;
+package com.tachibana.downloader.viewmodel;
 
 import android.net.Uri;
-import android.os.Parcel;
-import android.os.Parcelable;
 
 import com.tachibana.downloader.core.entity.DownloadInfo;
 
@@ -30,7 +28,7 @@ import androidx.databinding.BaseObservable;
 import androidx.databinding.Bindable;
 import androidx.databinding.library.baseAdapters.BR;
 
-public class AddDownloadParams extends BaseObservable implements Parcelable
+public class AddDownloadParams extends BaseObservable
 {
     private String url;
     /* SAF or filesystem storage */
@@ -45,30 +43,10 @@ public class AddDownloadParams extends BaseObservable implements Parcelable
     private String userAgent;
     private int numPieces = DownloadInfo.MIN_PIECES;
     private long totalBytes = -1;
-    private boolean wifiOnly = false;
+    private boolean wifiOnly;
     private boolean partialSupport = true;
-    private boolean retry = true;
-    private boolean replaceFile = false;
-
-    public AddDownloadParams() {}
-
-    public AddDownloadParams(Parcel source)
-    {
-        dirPath = source.readParcelable(Uri.class.getClassLoader());
-        dirName = source.readString();
-        url = source.readString();
-        fileName = source.readString();
-        description = source.readString();
-        mimeType = source.readString();
-        etag = source.readString();
-        userAgent = source.readString();
-        totalBytes = source.readLong();
-        partialSupport = source.readByte() != 0;
-        wifiOnly = source.readByte() != 0;
-        numPieces = source.readInt();
-        retry = source.readByte() != 0;
-        replaceFile = source.readByte() != 0;
-    }
+    private boolean retry;
+    private boolean replaceFile;
 
     @Bindable
     public String getUrl()
@@ -239,46 +217,6 @@ public class AddDownloadParams extends BaseObservable implements Parcelable
         this.replaceFile = replaceFile;
         notifyPropertyChanged(BR.replaceFile);
     }
-
-    @Override
-    public int describeContents()
-    {
-        return 0;
-    }
-
-    @Override
-    public void writeToParcel(Parcel dest, int flags)
-    {
-        dest.writeParcelable(dirPath, flags);
-        dest.writeString(url);
-        dest.writeString(fileName);
-        dest.writeString(description);
-        dest.writeString(mimeType);
-        dest.writeString(etag);
-        dest.writeString(userAgent);
-        dest.writeLong(totalBytes);
-        dest.writeByte((byte)(partialSupport ? 1 : 0));
-        dest.writeByte((byte)(wifiOnly ? 1 : 0));
-        dest.writeInt(numPieces);
-        dest.writeByte((byte)(retry ? 1 : 0));
-        dest.writeByte((byte)(replaceFile ? 1 : 0));
-    }
-
-    public static final Creator<AddDownloadParams> CREATOR =
-            new Creator<AddDownloadParams>()
-            {
-                @Override
-                public AddDownloadParams createFromParcel(Parcel source)
-                {
-                    return new AddDownloadParams(source);
-                }
-
-                @Override
-                public AddDownloadParams[] newArray(int size)
-                {
-                    return new AddDownloadParams[size];
-                }
-            };
 
     @Override
     public String toString()

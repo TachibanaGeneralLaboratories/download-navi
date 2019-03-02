@@ -138,6 +138,11 @@ public class DataRepository
         return db.downloadDao().observeAllInfoAndPieces();
     }
 
+    public Flowable<InfoAndPieces> observeInfoAndPiecesById(UUID id)
+    {
+        return db.downloadDao().observeInfoAndPiecesById(id);
+    }
+
     public Single<List<InfoAndPieces>> getAllInfoAndPiecesSingle()
     {
         return db.downloadDao().getAllInfoAndPiecesSingle();

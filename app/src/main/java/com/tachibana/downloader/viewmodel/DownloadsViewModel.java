@@ -24,6 +24,7 @@ import android.app.Application;
 import android.text.TextUtils;
 
 import com.tachibana.downloader.MainApplication;
+import com.tachibana.downloader.core.DownloadEngine;
 import com.tachibana.downloader.core.filter.DownloadFilter;
 import com.tachibana.downloader.core.entity.DownloadInfo;
 import com.tachibana.downloader.core.entity.InfoAndPieces;
@@ -46,6 +47,7 @@ import io.reactivex.subjects.PublishSubject;
 public class DownloadsViewModel extends AndroidViewModel
 {
     private DataRepository repo;
+    private DownloadEngine engine;
     private DownloadSortingComparator sorting = new DownloadSortingComparator(
             new DownloadSorting(DownloadSorting.SortingColumns.none, DownloadSorting.Direction.ASC));
     private DownloadFilter categoryFilter = DownloadFilterCollection.all();
@@ -68,6 +70,7 @@ public class DownloadsViewModel extends AndroidViewModel
         super(application);
 
         repo = ((MainApplication)getApplication()).getRepository();
+        engine = ((MainApplication)getApplication()).getDownloadEngine();
     }
 
     public Flowable<List<InfoAndPieces>> observerAllInfoAndPieces()
@@ -147,5 +150,10 @@ public class DownloadsViewModel extends AndroidViewModel
     public Observable<Boolean> onForceSortAndFilter()
     {
         return forceSortAndFilter;
+    }
+
+    public void pauseResumeDownload(@NonNull DownloadInfo info)
+    {
+        engine.pauseResumeDownload(info.id);
     }
 }

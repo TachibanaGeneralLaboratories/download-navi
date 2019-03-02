@@ -25,6 +25,7 @@ import android.app.Dialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextUtils;
@@ -39,7 +40,6 @@ import android.widget.SeekBar;
 import android.widget.Toast;
 
 import com.google.android.material.textfield.TextInputEditText;
-import com.google.android.material.textfield.TextInputLayout;
 import com.tachibana.downloader.FragmentCallback;
 import com.tachibana.downloader.R;
 import com.tachibana.downloader.RequestPermissions;
@@ -53,6 +53,7 @@ import com.tachibana.downloader.databinding.DialogAddDownloadBinding;
 import com.tachibana.downloader.dialog.filemanager.FileManagerConfig;
 import com.tachibana.downloader.dialog.filemanager.FileManagerDialog;
 import com.tachibana.downloader.viewmodel.AddDownloadViewModel;
+import com.tachibana.downloader.viewmodel.AddInitParams;
 
 import java.io.IOException;
 import java.net.ConnectException;
@@ -77,8 +78,7 @@ public class AddDownloadDialog extends DialogFragment
 
     private static final String TAG_ADD_USER_AGENT_DIALOG = "add_user_agent_dialog";
     private static final int CHOOSE_PATH_TO_SAVE_REQUEST_CODE = 1;
-    private static final String TAG_USER_AGENT_SPINNER_POS = "user_agent_spinner_pos";
-    private static final String TAG_URL = "url";
+    private static final String TAG_INIT_PARAMS = "init_params";
     private static final String TAG_PERM_DIALOG_IS_SHOW = "perm_dialog_is_show";
     private static final String TAG_CREATE_FILE_ERROR_DIALOG = "create_file_error_dialog";
     private static final String TAG_OPEN_DIR_ERROR_DIALOG = "open_dir_error_dialog";
@@ -90,23 +90,22 @@ public class AddDownloadDialog extends DialogFragment
     private BaseAlertDialog addUserAgentDialog;
     private BaseAlertDialog.SharedViewModel dialogViewModel;
     private DialogAddDownloadBinding binding;
-    private int userAgentSpinnerPos = 0;
-    private CompositeDisposable disposable = new CompositeDisposable();
+    private CompositeDisposable disposables = new CompositeDisposable();
     private boolean permDialogIsShow = false;
 
-    public static AddDownloadDialog newInstance(String url)
+    public static AddDownloadDialog newInstance(@NonNull AddInitParams initParams)
     {
         AddDownloadDialog frag = new AddDownloadDialog();
 
         Bundle args = new Bundle();
-        args.putString(TAG_URL, url);
+        args.putParcelable(TAG_INIT_PARAMS, initParams);
         frag.setArguments(args);
 
         return frag;
     }
 
     @Override
-    public void onAttach(Context context)
+    public void onAttach(@NonNull Context context)
     {
         super.onAttach(context);
 
@@ -139,7 +138,7 @@ public class AddDownloadDialog extends DialogFragment
     {
         super.onStop();
 
-        disposable.clear();
+        disposables.clear();
     }
 
     @Override
@@ -153,7 +152,7 @@ public class AddDownloadDialog extends DialogFragment
     private void subscribeAlertDialog()
     {
         Disposable d = dialogViewModel.observeEvents().subscribe(this::handleAlertDialogEvent);
-        disposable.add(d);
+        disposables.add(d);
     }
 
     private void handleAlertDialogEvent(BaseAlertDialog.Event event)
@@ -168,7 +167,7 @@ public class AddDownloadDialog extends DialogFragment
                     Editable e = editText.getText();
                     String userAgent = (e == null ? null : e.toString());
                     if (!TextUtils.isEmpty(userAgent))
-                        disposable.add(viewModel.addUserAgent(new UserAgent(userAgent))
+                        disposables.add(viewModel.addUserAgent(new UserAgent(userAgent))
                                 .subscribeOn(Schedulers.io())
                                 .subscribe());
                 }
@@ -186,6 +185,12 @@ public class AddDownloadDialog extends DialogFragment
         viewModel = ViewModelProviders.of(activity).get(AddDownloadViewModel.class);
         dialogViewModel = ViewModelProviders.of(activity).get(BaseAlertDialog.SharedViewModel.class);
 
+        AddInitParams initParams = getArguments().getParcelable(TAG_INIT_PARAMS);
+        /* Clear init params */
+        getArguments().putParcelable(TAG_INIT_PARAMS, null);
+        if (initParams != null)
+            initParams(initParams);
+
         if (savedInstanceState != null)
             permDialogIsShow = savedInstanceState.getBoolean(TAG_PERM_DIALOG_IS_SHOW);
 
@@ -193,6 +198,34 @@ public class AddDownloadDialog extends DialogFragment
             permDialogIsShow = true;
             startActivity(new Intent(activity, RequestPermissions.class));
         }
+    }
+
+    private void initParams(AddInitParams initParams)
+    {
+        if (TextUtils.isEmpty(initParams.url)) {
+            /* Inserting a link from the clipboard */
+            String clipboard = Utils.getClipboard(activity.getApplicationContext());
+            if (clipboard != null) {
+                String c = clipboard.toLowerCase();
+                if (c.startsWith(Utils.HTTP_PREFIX) ||
+                        c.startsWith(Utils.HTTPS_PREFIX) ||
+                        c.startsWith(Utils.FTP_PREFIX)) {
+                    initParams.url = clipboard;
+                }
+            }
+        }
+        viewModel.params.setUrl(initParams.url);
+        viewModel.params.setFileName(initParams.fileName);
+        viewModel.params.setDescription(initParams.description);
+        viewModel.params.setUserAgent(initParams.userAgent == null ?
+                Utils.getSystemUserAgent(activity.getApplicationContext()) :
+                initParams.userAgent);
+        viewModel.updateDirPath(initParams.dirPath == null ?
+                Uri.parse(FileUtils.getDefaultDownloadPath()) :
+                initParams.dirPath);
+        viewModel.params.setWifiOnly(initParams.wifiOnly);
+        viewModel.params.setRetry(initParams.retry);
+        viewModel.params.setReplaceFile(initParams.replaceFile);
     }
 
     @NonNull
@@ -209,9 +242,6 @@ public class AddDownloadDialog extends DialogFragment
         LayoutInflater i = LayoutInflater.from(activity);
         binding = DataBindingUtil.inflate(i, R.layout.dialog_add_download, null, false);
         binding.setViewModel(viewModel);
-
-        if (savedInstanceState != null)
-            userAgentSpinnerPos = savedInstanceState.getInt(TAG_USER_AGENT_SPINNER_POS);
 
         initLayoutView();
 
@@ -251,7 +281,8 @@ public class AddDownloadDialog extends DialogFragment
             @Override
             public void afterTextChanged(Editable s)
             {
-                checkUrlField(s);
+                binding.layoutLink.setErrorEnabled(false);
+                binding.layoutLink.setError(null);
             }
         });
         binding.name.addTextChangedListener(new TextWatcher()
@@ -265,41 +296,41 @@ public class AddDownloadDialog extends DialogFragment
             @Override
             public void afterTextChanged(Editable s)
             {
-                checkNameField(s);
+                binding.layoutName.setErrorEnabled(false);
+                binding.layoutName.setError(null);
             }
         });
-
-        /* Init link field */
-        if (TextUtils.isEmpty(viewModel.params.getUrl())) {
-            String url = getArguments().getString(TAG_URL);
-            if (TextUtils.isEmpty(url)) {
-                /* Inserting a link from the clipboard */
-                String clipboard = Utils.getClipboard(activity.getApplicationContext());
-                if (clipboard != null) {
-                    String c = clipboard.toLowerCase();
-                    if (c.startsWith(Utils.HTTP_PREFIX) ||
-                        c.startsWith(Utils.HTTPS_PREFIX) ||
-                        c.startsWith(Utils.FTP_PREFIX)) {
-                        url = clipboard;
-                    }
-                }
-            }
-            if (url != null)
-                viewModel.params.setUrl(url);
-        }
 
         binding.folderChooserButton.setOnClickListener((v) -> showChooseDirDialog());
 
         userAgentAdapter = new UserAgentAdapter(activity, (userAgent) -> {
-            disposable.add(viewModel.deleteUserAgent(userAgent)
+            disposables.add(viewModel.deleteUserAgent(userAgent)
                     .subscribeOn(Schedulers.io())
                     .subscribe());
         });
         viewModel.observerUserAgents().observe(this, (userAgentList) -> {
+            int curUserAgentPos = -1;
+            String curUserAgent = viewModel.params.getUserAgent();
+            /* Select current user agent */
+            if (curUserAgent != null) {
+                for (int i = 0; i < userAgentList.size(); i++) {
+                    if (curUserAgent.equals(userAgentList.get(i).userAgent)) {
+                        curUserAgentPos = i;
+                        break;
+                    }
+                }
+            }
+            /* Add non-existent agent and make it read only */
+            if (curUserAgentPos < 0 && curUserAgent != null) {
+                UserAgent userAgent = new UserAgent(curUserAgent);
+                userAgent.readOnly = true;
+                userAgentList.add(userAgent);
+                curUserAgentPos = userAgentList.size() - 1;
+            }
+
             userAgentAdapter.clear();
             userAgentAdapter.addAll(userAgentList);
-            if (userAgentSpinnerPos > 0)
-                binding.userAgent.setSelection(userAgentSpinnerPos);
+            binding.userAgent.setSelection(curUserAgentPos);
         });
 
         binding.userAgent.setAdapter(userAgentAdapter);
@@ -308,7 +339,6 @@ public class AddDownloadDialog extends DialogFragment
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l)
             {
-                userAgentSpinnerPos = i;
                 Object item = binding.userAgent.getItemAtPosition(i);
                 if (item != null)
                     viewModel.params.setUserAgent(((UserAgent)item).userAgent);
@@ -377,7 +407,6 @@ public class AddDownloadDialog extends DialogFragment
     @Override
     public void onSaveInstanceState(@NonNull Bundle outState)
     {
-        outState.putInt(TAG_USER_AGENT_SPINNER_POS, userAgentSpinnerPos);
         outState.putBoolean(TAG_PERM_DIALOG_IS_SHOW, permDialogIsShow);
 
         super.onSaveInstanceState(outState);

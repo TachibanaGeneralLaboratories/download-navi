@@ -41,7 +41,10 @@ import com.tachibana.downloader.core.filter.DownloadFilter;
 import com.tachibana.downloader.core.utils.Utils;
 import com.tachibana.downloader.databinding.FragmentDownloadListBinding;
 import com.tachibana.downloader.dialog.BaseAlertDialog;
+import com.tachibana.downloader.dialog.DownloadDetailsDialog;
 import com.tachibana.downloader.viewmodel.DownloadsViewModel;
+
+import java.util.UUID;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -78,6 +81,7 @@ public abstract class DownloadsFragment extends Fragment
     private static final String TAG_DOWNLOAD_LIST_STATE = "download_list_state";
     private static final String SELECTION_TRACKER_ID = "selection_tracker_0";
     private static final String TAG_DELETE_DOWNLOADS_DIALOG = "delete_downloads_dialog";
+    private static final String TAG_DOWNLOAD_DETAILS = "download_details";
 
     protected AppCompatActivity activity;
     protected DownloadListAdapter adapter;
@@ -437,5 +441,14 @@ public abstract class DownloadsFragment extends Fragment
                             Utils.makeShareUrlIntent(urlList),
                             getString(R.string.share_via)));
                 }));
+    }
+
+    protected void showDetailsDialog(UUID id)
+    {
+        FragmentManager fm = getFragmentManager();
+        if (fm != null && fm.findFragmentByTag(TAG_DOWNLOAD_DETAILS) == null) {
+            DownloadDetailsDialog details = DownloadDetailsDialog.newInstance(id);
+            details.show(fm, TAG_DOWNLOAD_DETAILS);
+        }
     }
 }

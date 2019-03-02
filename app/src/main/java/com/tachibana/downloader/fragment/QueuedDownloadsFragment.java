@@ -25,9 +25,12 @@ import android.os.Bundle;
 import com.tachibana.downloader.adapter.DownloadItem;
 import com.tachibana.downloader.adapter.DownloadListAdapter;
 import com.tachibana.downloader.core.StatusCode;
-import com.tachibana.downloader.worker.DownloadScheduler;
+import com.tachibana.downloader.dialog.DownloadDetailsDialog;
+
+import java.util.UUID;
 
 import androidx.annotation.NonNull;
+import androidx.fragment.app.FragmentManager;
 import io.reactivex.schedulers.Schedulers;
 
 public class QueuedDownloadsFragment extends DownloadsFragment
@@ -61,16 +64,13 @@ public class QueuedDownloadsFragment extends DownloadsFragment
     @Override
     public void onItemClicked(@NonNull DownloadItem item)
     {
-        /* TODO: implement details dialog */
+        showDetailsDialog(item.info.id);
     }
 
     @Override
     public void onItemPauseClicked(@NonNull DownloadItem item)
     {
-        if (StatusCode.isStatusStoppedOrPaused(item.info.statusCode))
-            DownloadScheduler.runDownload(activity.getApplicationContext(), item.info);
-        else
-            DownloadScheduler.pauseDownload(activity.getApplicationContext(), item.info);
+        viewModel.pauseResumeDownload(item.info);
     }
 
     @Override

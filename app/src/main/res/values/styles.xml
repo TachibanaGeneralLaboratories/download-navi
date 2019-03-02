@@ -188,4 +188,8 @@
     <style name="TextCaption" parent="@style/TextAppearance.MaterialComponents.Caption">
         <item name="android:textSize">14sp</item>
     </style>
+
+    <style name="TitleText" parent="@style/TextAppearance.MaterialComponents.Button">
+        <item name="android:textColor">?attr/colorSecondary</item>
+    </style>
 </resources>

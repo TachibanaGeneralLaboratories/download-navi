@@ -1,6 +1,6 @@
 /*
- * Copyright (C) 2018, 2019 Tachibana General Laboratories, LLC
- * Copyright (C) 2018, 2019 Yaroslav Pronin <proninyaroslav@mail.ru>
+ * Copyright (C) 2019 Tachibana General Laboratories, LLC
+ * Copyright (C) 2019 Yaroslav Pronin <proninyaroslav@mail.ru>
  *
  * This file is part of Download Navi.
  *
@@ -22,25 +22,11 @@ package com.tachibana.downloader.core;
 
 import java.util.UUID;
 
-/*
- * Provides information about the download thread status after stopping.
- */
+import androidx.annotation.NonNull;
 
-public class DownloadResult
+public abstract class DownloadEngineListener
 {
-    public enum Status
-    {
-        FINISHED,
-        PAUSED,
-        STOPPED
-    }
+    public void onDownloadsCompleted() {}
 
-    public UUID infoId;
-    public Status status;
-
-    public DownloadResult(UUID infoId, Status status)
-    {
-        this.infoId = infoId;
-        this.status = status;
-    }
+    public void onParamsApplied(@NonNull UUID id, Throwable e) {}
 }

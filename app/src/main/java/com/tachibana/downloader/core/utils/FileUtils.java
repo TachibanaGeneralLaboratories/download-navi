@@ -21,6 +21,7 @@
 package com.tachibana.downloader.core.utils;
 
 import android.annotation.TargetApi;
+import android.content.ContentResolver;
 import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
@@ -36,14 +37,20 @@ import android.system.StructStatVfs;
 import android.text.TextUtils;
 import android.util.Log;
 import android.util.Pair;
+import android.webkit.MimeTypeMap;
+
+import com.tachibana.downloader.core.exception.FileAlreadyExistsException;
 
 import java.io.Closeable;
 import java.io.File;
 import java.io.FileDescriptor;
+import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.nio.channels.FileChannel;
 import java.nio.charset.StandardCharsets;
+import java.nio.file.Files;
 
 import androidx.annotation.NonNull;
 import androidx.documentfile.provider.DocumentFile;
@@ -54,6 +61,9 @@ public class FileUtils
     private static final String TAG = FileUtils.class.getSimpleName();
 
     public static final char EXTENSION_SEPARATOR = '.';
+
+    /* The file copy buffer size (30 MB) */
+    private static final long FILE_COPY_BUFFER_SIZE = 1024 * 1024 * 30;
 
     /*
      * Release read and write permissions for SAF files
@@ -392,6 +402,15 @@ public class FileUtils
         }
     }
 
+    public static void closeQuietly(Closeable... closeables)
+    {
+        if (closeables == null)
+            return;
+
+        for (final Closeable closeable : closeables)
+            closeQuietly(closeable);
+    }
+
     /*
      * Return the number of bytes that are free on the file system
      * backing the given FileDescriptor
@@ -448,6 +467,133 @@ public class FileUtils
         }
 
         return availableBytes;
+    }
+
+    /*
+     * Returns path if the directory belongs to the filesystem,
+     * otherwise returns SAF name
+     */
+
+    public static String getDirName(@NonNull Context context,
+                                    @NonNull Uri dirPath)
+    {
+        if (FileUtils.isFileSystemPath(dirPath))
+            return dirPath.getPath();
+
+        DocumentFile dir = DocumentFile.fromTreeUri(context, dirPath);
+        if (dir == null)
+            return dirPath.getPath();
+
+        String name = dir.getName();
+
+        return (name == null ? dirPath.getPath() : name);
+    }
+
+    /*
+     * Returns Uri and name of moved file.
+     */
+
+    public static void moveFile(@NonNull Context context,
+                                @NonNull Uri srcDir,
+                                @NonNull String srcFileName,
+                                @NonNull Uri destDir,
+                                @NonNull String destFileName,
+                                String mimeType,
+                                boolean replace) throws IOException, FileAlreadyExistsException
+    {
+        Uri srcFileUri = null;
+        Uri destFileUri = null;
+
+        if (isFileSystemPath(srcDir)) {
+            File srcFile = new File(srcDir.getPath(), srcFileName);
+            if (!srcFile.exists())
+                throw new FileNotFoundException(srcFile.getAbsolutePath());
+
+            srcFileUri = Uri.fromFile(srcFile);
+            if (mimeType == null) {
+                String extension = getExtension(srcFileName);
+                if (!TextUtils.isEmpty(extension))
+                    mimeType = MimeTypeMap.getSingleton().getMimeTypeFromExtension(extension);
+            }
+
+        } else {
+            DocumentFile srcDirFile = DocumentFile.fromTreeUri(context, srcDir);
+            DocumentFile srcFile = srcDirFile.findFile(srcFileName);
+            if (srcFile == null)
+                throw new FileNotFoundException("Source '" + srcFileName + "' from " + srcDir + " does not exists");
+
+            srcFileUri = srcFile.getUri();
+            mimeType = srcFile.getType();
+        }
+
+        if (isFileSystemPath(destDir)) {
+            File destFile = new File(destDir.getPath(), destFileName);
+            if (destFile.exists() && !replace)
+                throw new FileAlreadyExistsException("Destination '" + destFile + "' already exists");
+
+        } else {
+            DocumentFile destDirFile = DocumentFile.fromTreeUri(context, destDir);
+            DocumentFile destFile = destDirFile.findFile(destFileName);
+            if (destFile != null && !replace)
+                throw new FileAlreadyExistsException("Destination '" + destFile.getUri() + "' already exists");
+        }
+
+        if (mimeType == null)
+            mimeType = "application/octet-stream";
+
+        Pair<Uri, String> res = createFile(context, destDir, destFileName, mimeType, false);
+        if (res == null || res.first == null)
+            throw new IOException("Cannot create destination file '" + destFileName + "'");
+        destFileUri = res.first;
+
+        copyFile(context, srcFileUri, destFileUri, replace);
+        deleteFile(context, srcFileUri);
+    }
+
+    /*
+     * This caches the original file length, and throws an IOException
+     * if the output file length is different from the current input file length.
+     * So it may fail if the file changes size.
+     * It may also fail with "IllegalArgumentException: Negative size" if the input file is truncated part way
+     * through copying the data and the new file size is less than the current position.
+     */
+
+    public static void copyFile(@NonNull Context context,
+                                @NonNull Uri srcFile,
+                                @NonNull Uri destFile,
+                                boolean truncateDestFile) throws IOException
+    {
+
+        if (srcFile.equals(destFile))
+            throw new IllegalArgumentException("Uri points to the same file");
+
+        ContentResolver resolver = context.getContentResolver();
+
+        try (ParcelFileDescriptor inPfd = resolver.openFileDescriptor(srcFile, "r");
+             ParcelFileDescriptor outPfd = resolver.openFileDescriptor(destFile, (truncateDestFile ? "rwt" : "rw"));
+             FileInputStream fis = new FileInputStream(inPfd.getFileDescriptor());
+             FileOutputStream fos = new FileOutputStream(outPfd.getFileDescriptor());
+             FileChannel input = fis.getChannel();
+             FileChannel output = fos.getChannel())
+        {
+            long size = input.size();
+            long pos = 0;
+            long count;
+            while (pos < size) {
+                long remain = size - pos;
+                count = (remain > FILE_COPY_BUFFER_SIZE ? FILE_COPY_BUFFER_SIZE : remain);
+                long bytesCopied = output.transferFrom(input, pos, count);
+                if (bytesCopied == 0)
+                    break;
+                pos += bytesCopied;
+            }
+
+            long srcLen = input.size();
+            long dstLen = output.size();
+            if (srcLen != dstLen)
+                throw new IOException("Failed to copy full contents from '" +
+                        srcFile + "' to '" + destFile + "' Expected length: " + srcLen + " Actual: " + dstLen);
+        }
     }
 
     /*

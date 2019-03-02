@@ -93,6 +93,7 @@ public class DownloadInfo implements Parcelable, Comparable<DownloadInfo>
     public int visibility = VISIBILITY_VISIBLE_NOTIFY_COMPLETED;
     /* E.g. MIME-type, size, headers, etc */
     public boolean hasMetadata = true;
+    public String userAgent;
 
     public DownloadInfo(@NonNull Uri dirPath,
                         @NonNull String url,
@@ -122,6 +123,7 @@ public class DownloadInfo implements Parcelable, Comparable<DownloadInfo>
         dateAdded = source.readLong();
         visibility = source.readInt();
         hasMetadata = source.readByte() > 0;
+        userAgent = source.readString();
     }
 
     @Override
@@ -148,6 +150,7 @@ public class DownloadInfo implements Parcelable, Comparable<DownloadInfo>
         dest.writeLong(dateAdded);
         dest.writeInt(visibility);
         dest.writeByte((byte)(hasMetadata ? 1 : 0));
+        dest.writeString(userAgent);
     }
 
     public static final Parcelable.Creator<DownloadInfo> CREATOR =
@@ -265,7 +268,8 @@ public class DownloadInfo implements Parcelable, Comparable<DownloadInfo>
                 partialSupport == info.partialSupport &&
                 (statusMsg == null || statusMsg.equals(info.statusMsg)) &&
                 dateAdded == info.dateAdded &&
-                visibility == info.visibility;
+                visibility == info.visibility &&
+                (userAgent == null || userAgent.equals(info.userAgent));
     }
 
     @Override
@@ -288,6 +292,7 @@ public class DownloadInfo implements Parcelable, Comparable<DownloadInfo>
                 ", dateAdded=" + SimpleDateFormat.getDateTimeInstance().format(new Date(dateAdded)) +
                 ", visibility=" + visibility +
                 ", hasMetadata=" + hasMetadata +
+                ", userAgent=" + userAgent +
                 '}';
     }
 }

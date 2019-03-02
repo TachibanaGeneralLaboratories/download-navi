@@ -32,8 +32,10 @@ import com.tachibana.downloader.core.StatusCode;
 import com.tachibana.downloader.core.entity.DownloadInfo;
 import com.tachibana.downloader.core.utils.Utils;
 import com.tachibana.downloader.dialog.BaseAlertDialog;
+import com.tachibana.downloader.dialog.DownloadDetailsDialog;
 
 import java.util.Collections;
+import java.util.UUID;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -136,18 +138,21 @@ public class FinishedDownloadsFragment extends DownloadsFragment
         switch (menuId) {
             case R.id.delete_menu:
                 downloadForDeletion = item.info;
-                deleteDownloadDialog();
+                showDeleteDownloadDialog();
                 break;
             case R.id.open_details_menu:
-                /* TODO: implement details dialog */
+                showDetailsDialog(item.info.id);
                 break;
             case R.id.share_menu:
                 shareDownload(item);
                 break;
+            case R.id.share_url_menu:
+                shareUrl(item);
+                break;
         }
     }
 
-    private void deleteDownloadDialog()
+    private void showDeleteDownloadDialog()
     {
         FragmentManager fm = getFragmentManager();
         if (fm != null && fm.findFragmentByTag(TAG_DELETE_DOWNLOAD_DIALOG) == null) {
@@ -175,6 +180,13 @@ public class FinishedDownloadsFragment extends DownloadsFragment
     {
         startActivity(Intent.createChooser(
                 Utils.makeFileShareIntent(activity.getApplicationContext(), Collections.singletonList(item)),
+                getString(R.string.share_via)));
+    }
+
+    private void shareUrl(DownloadItem item)
+    {
+        startActivity(Intent.createChooser(
+                Utils.makeShareUrlIntent(item.info.url),
                 getString(R.string.share_via)));
     }
 }

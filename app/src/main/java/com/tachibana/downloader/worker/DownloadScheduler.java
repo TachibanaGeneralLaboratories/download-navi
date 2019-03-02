@@ -42,10 +42,6 @@ import androidx.work.WorkManager;
 import androidx.work.Worker;
 import androidx.work.WorkerParameters;
 
-/*
- * TODO: undone work; handle work status (e.g for retry)
- */
-
 public class DownloadScheduler extends Worker
 {
     @SuppressWarnings("unused")
@@ -59,11 +55,8 @@ public class DownloadScheduler extends Worker
         super(context, params);
     }
 
-    public static void runDownload(Context context, DownloadInfo info)
+    public static void run(@NonNull Context context, @NonNull DownloadInfo info)
     {
-        if (info == null || context == null)
-            return;
-
         Data data = new Data.Builder()
                 .putString(TAG_ACTION, DownloadService.ACTION_RUN_DOWNLOAD)
                 .putString(TAG_ID, info.id.toString())
@@ -71,21 +64,6 @@ public class DownloadScheduler extends Worker
         OneTimeWorkRequest work = new OneTimeWorkRequest.Builder(DownloadScheduler.class)
                 .setInputData(data)
                 .setConstraints(getConstraints(context, info))
-                .build();
-        WorkManager.getInstance().enqueue(work);
-    }
-
-    public static void pauseDownload(Context context, DownloadInfo info)
-    {
-        if (info == null || context == null)
-            return;
-
-        Data data = new Data.Builder()
-                .putString(TAG_ACTION, DownloadService.ACTION_PAUSE_RESUME_DOWNLOAD)
-                .putString(TAG_ID, info.id.toString())
-                .build();
-        OneTimeWorkRequest work = new OneTimeWorkRequest.Builder(DownloadScheduler.class)
-                .setInputData(data)
                 .build();
         WorkManager.getInstance().enqueue(work);
     }
@@ -128,12 +106,8 @@ public class DownloadScheduler extends Worker
             return Result.failure();
         }
 
-        switch (action) {
-            case DownloadService.ACTION_RUN_DOWNLOAD:
-                return runDownloadAction(id);
-            case DownloadService.ACTION_PAUSE_RESUME_DOWNLOAD:
-                return runPauseAction(id);
-        }
+        if (action.equals(DownloadService.ACTION_RUN_DOWNLOAD))
+            return runDownloadAction(id);
 
         return Result.failure();
     }
@@ -142,16 +116,6 @@ public class DownloadScheduler extends Worker
     {
         Intent i = new Intent(getApplicationContext(), DownloadService.class);
         i.setAction(DownloadService.ACTION_RUN_DOWNLOAD);
-        i.putExtra(DownloadService.TAG_DOWNLOAD_ID, id);
-        Utils.startServiceBackground(getApplicationContext(), i);
-
-        return Result.success();
-    }
-
-    private Result runPauseAction(UUID id)
-    {
-        Intent i = new Intent(getApplicationContext(), DownloadService.class);
-        i.setAction(DownloadService.ACTION_PAUSE_RESUME_DOWNLOAD);
         i.putExtra(DownloadService.TAG_DOWNLOAD_ID, id);
         Utils.startServiceBackground(getApplicationContext(), i);
 

@@ -21,9 +21,14 @@
 package com.tachibana.downloader;
 
 import android.app.Application;
+import android.app.NotificationChannel;
+import android.app.NotificationManager;
+import android.os.Build;
 
+import com.tachibana.downloader.core.DownloadEngine;
 import com.tachibana.downloader.core.storage.AppDatabase;
 import com.tachibana.downloader.core.storage.DataRepository;
+import com.tachibana.downloader.core.utils.Utils;
 
 public class MainApplication extends Application
 {
@@ -33,6 +38,8 @@ public class MainApplication extends Application
     public void onCreate()
     {
         super.onCreate();
+
+        Utils.makeNotifyChans(this, (NotificationManager)getSystemService(NOTIFICATION_SERVICE));
 
         downloadNotifier = new DownloadNotifier(this, getRepository());
         downloadNotifier.startUpdate();
@@ -46,5 +53,10 @@ public class MainApplication extends Application
     public DataRepository getRepository()
     {
         return DataRepository.getInstance(getDatabase());
+    }
+
+    public DownloadEngine getDownloadEngine()
+    {
+        return DownloadEngine.getInstance(this);
     }
 }

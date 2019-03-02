@@ -42,6 +42,10 @@
     <string name="search">Search</string>
     <string name="settings">Settings</string>
     <string name="about">About</string>
+    <string name="close">Close</string>
+    <string name="redownload">Redownload</string>
+    <string name="Default">Default</string>
+    <string name="apply">Apply</string>
 
     <!-- Permission dialog -->
     <string name="perm_denied_title">Permission denied</string>
@@ -66,6 +70,10 @@
     <!-- Error notification -->
     <string name="download_error_notify_title">Download error</string>
     <string name="download_error_cannot_add">Cannot add download</string>
+
+    <!-- Applying params notification -->
+    <string name="applying_params_title">Applying params</string>
+    <string name="applying_params_for_downloads">Applying params for downloads</string>
 
     <!-- Add download dialog -->
     <string name="add_download">Add download</string>
@@ -166,4 +174,15 @@
     <string name="device_does_not_support_this_feauter">Your device doesn\'t support this feature</string>
     <string name="system_file_manager_not_found">System file manager not found</string>
     <string name="replace_file">Replace file</string>
+
+    <!-- Details download dialog -->
+    <string name="detail_downloaded">Downloaded</string>
+    <!-- downloaded/total (percent) -->
+    <string name="detail_downloaded_format" formatted="false">%1$s/%2$s (%3$d%%)</string>
+    <string name="detail_pieces">Pieces</string>
+    <string name="detail_date_added">Date added</string>
+    <string name="detail_user_agent">User agent</string>
+    <string name="detail_md5_hash_sum">MD5</string>
+    <string name="detail_sha256_hash_sum">SHA-256</string>
+    <string name="calculate">Calculate</string>
 </resources>

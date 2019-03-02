@@ -1,6 +1,6 @@
 /*
- * Copyright (C) 2018, 2019 Tachibana General Laboratories, LLC
- * Copyright (C) 2018, 2019 Yaroslav Pronin <proninyaroslav@mail.ru>
+ * Copyright (C) 2019 Tachibana General Laboratories, LLC
+ * Copyright (C) 2019 Yaroslav Pronin <proninyaroslav@mail.ru>
  *
  * This file is part of Download Navi.
  *
@@ -18,29 +18,20 @@
  * along with Download Navi.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package com.tachibana.downloader.core;
+package com.tachibana.downloader.core.exception;
 
-import java.util.UUID;
-
-/*
- * Provides information about the download thread status after stopping.
- */
-
-public class DownloadResult
+public class FileAlreadyExistsException extends Exception
 {
-    public enum Status
+    public FileAlreadyExistsException() { }
+
+    public FileAlreadyExistsException(String message)
     {
-        FINISHED,
-        PAUSED,
-        STOPPED
+        super(message);
     }
 
-    public UUID infoId;
-    public Status status;
-
-    public DownloadResult(UUID infoId, Status status)
+    public FileAlreadyExistsException(Exception e)
     {
-        this.infoId = infoId;
-        this.status = status;
+        super(e.getMessage());
+        super.setStackTrace(e.getStackTrace());
     }
 }

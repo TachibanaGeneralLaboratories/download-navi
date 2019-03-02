@@ -50,6 +50,7 @@ import com.tachibana.downloader.adapter.DownloadListPagerAdapter;
 import com.tachibana.downloader.adapter.drawer.DrawerExpandableAdapter;
 import com.tachibana.downloader.adapter.drawer.DrawerGroup;
 import com.tachibana.downloader.adapter.drawer.DrawerGroupItem;
+import com.tachibana.downloader.core.DownloadEngine;
 import com.tachibana.downloader.core.utils.Utils;
 import com.tachibana.downloader.receiver.NotificationReceiver;
 import com.tachibana.downloader.service.DownloadService;
@@ -84,6 +85,7 @@ public class MainActivity extends AppCompatActivity
     private FloatingActionButton fab;
     private SearchView searchView;
     private boolean permDialogIsShow = false;
+    private DownloadEngine engine;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -106,6 +108,8 @@ public class MainActivity extends AppCompatActivity
         }
 
         setContentView(R.layout.activity_main);
+
+        engine = ((MainApplication)getApplication()).getDownloadEngine();
 
         initLayout();
     }
@@ -367,16 +371,12 @@ public class MainActivity extends AppCompatActivity
 
     private void pauseAll()
     {
-        Intent i = new Intent(getApplicationContext(), DownloadService.class);
-        i.setAction(DownloadService.ACTION_PAUSE_ALL);
-        startService(i);
+        engine.pauseAllDownloads();
     }
 
     private void resumeAll()
     {
-        Intent i = new Intent(getApplicationContext(), DownloadService.class);
-        i.setAction(DownloadService.ACTION_RESUME_ALL);
-        startService(i);
+        engine.resumeAllDownloads();
     }
 
     public void shutdown()
