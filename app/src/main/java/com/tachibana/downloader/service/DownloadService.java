@@ -56,9 +56,6 @@ public class DownloadService extends LifecycleService
     public static final String ACTION_SHUTDOWN = "com.tachibana.downloader.service.DownloadService.ACTION_SHUTDOWN";
     public static final String ACTION_RUN_DOWNLOAD = "com.tachibana.downloader.service.ACTION_RUN_DOWNLOAD";
     public static final String ACTION_CHANGE_PARAMS = "com.tachibana.downloader.service.ACTION_CHANGE_PARAMS";
-//    public static final String ACTION_PAUSE_RESUME_DOWNLOAD = "com.tachibana.downloader.service.ACTION_PAUSE_RESUME_DOWNLOAD";
-//    public static final String ACTION_PAUSE_ALL = "com.tachibana.downloader.service.ACTION_PAUSE_ALL";
-//    public static final String ACTION_RESUME_ALL = "com.tachibana.downloader.service.ACTION_RESUME_ALL";
     public static final String TAG_DOWNLOAD_ID = "download_id";
     public static final String TAG_PARAMS = "params";
 

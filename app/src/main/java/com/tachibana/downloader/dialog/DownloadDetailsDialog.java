@@ -396,7 +396,12 @@ public class DownloadDetailsDialog extends DialogFragment
     {
         Intent i = new Intent(activity, FileManagerDialog.class);
 
-        FileManagerConfig config = new FileManagerConfig(null,
+        String dirPath = null;
+        Uri dirUri = viewModel.mutableParams.getDirPath().get();
+        if (dirUri != null && FileUtils.isFileSystemPath(dirUri))
+            dirPath = dirUri.getPath();
+
+        FileManagerConfig config = new FileManagerConfig(dirPath,
                 getString(R.string.select_folder_to_save),
                 FileManagerConfig.DIR_CHOOSER_MODE);
 
