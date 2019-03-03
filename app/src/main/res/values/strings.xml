@@ -97,7 +97,7 @@
     <string name="unable_to_open_folder">Unable to open selected folder. Please try to select another folder</string>
     <string name="unable_to_create_file">Unable to create file. Please try to select another folder</string>
     <string name="partial_download_not_supported">This download doesn\'t support pause and downloading by pieces</string>
-    <string name="download_pieces_number_title" formatted="false">Number of pieces: %1$d</string>
+    <string name="download_pieces_number_title">Number of pieces</string>
     <string name="download_description">Description</string>
     <string name="select_folder_to_save">Select the folder to save</string>
     <string name="path">Path</string>

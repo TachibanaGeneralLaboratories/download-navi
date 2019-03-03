@@ -111,7 +111,7 @@ public class AddDownloadViewModel extends AndroidViewModel
         params.removeOnPropertyChangedCallback(paramsCallback);
     }
 
-    public LiveData<List<UserAgent>> observerUserAgents()
+    public LiveData<List<UserAgent>> observeUserAgents()
     {
         return repo.observeUserAgents();
     }

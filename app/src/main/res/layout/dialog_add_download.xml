@@ -195,13 +195,10 @@
                 android:id="@+id/expansion_header"
                 android:layout_width="wrap_content"
                 android:layout_height="48dp"
-                android:paddingEnd="16dp"
-                android:paddingStart="16dp"
-                android:paddingBottom="8dp"
-                android:paddingTop="8dp"
+                android:padding="8dp"
                 app:expansion_text="@string/download_advanced"
                 app:expansion_expanded="false"
-                app:expansion_textAppearance="@style/TextCaption"
+                app:expansion_textAppearance="@style/TextAppearance.MaterialComponents.Body1"
                 android:background="?attr/dialogRectRipple" />
 
             <net.cachapa.expandablelayout.ExpandableLayout
@@ -217,7 +214,7 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:layout_marginTop="16dp"
+                    android:layout_marginTop="8dp"
                     android:minWidth="@dimen/min_width_dialog"
                     android:orientation="vertical">
 
@@ -240,27 +237,43 @@
                         android:id="@+id/pieces_number"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginBottom="16dp"
-                        android:textAppearance="@style/TextAppearance.MaterialComponents.Body1"
-                        android:textColor="?android:attr/textColorPrimary"
-                        android:text="@{@string/download_pieces_number_title(viewModel.params.numPieces)}" />
+                        android:layout_marginBottom="8dp"
+                        android:text="@string/download_pieces_number_title"
+                        style="@style/TitleText"/>
 
-                    <androidx.appcompat.widget.AppCompatSeekBar
-                        android:id="@+id/pieces_number_select"
+                    <RelativeLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginBottom="16dp"
-                        android:progress="0"
-                        android:max="@{viewModel.maxNumPieces - 1}"
-                        style="@style/Widget.AppCompat.SeekBar.Discrete" />
+                        android:layout_marginBottom="16dp">
+
+                        <androidx.appcompat.widget.AppCompatSeekBar
+                            android:id="@+id/pieces_number_select"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_toStartOf="@id/pieces_number_value"
+                            android:layout_centerVertical="true"
+                            android:progress="@{viewModel.params.numPieces - 1}"
+                            android:max="@{viewModel.maxNumPieces - 1}"
+                            style="@style/Widget.AppCompat.SeekBar.Discrete" />
+
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/pieces_number_value"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_centerVertical="true"
+                            android:layout_marginStart="8dp"
+                            android:layout_marginEnd="16dp"
+                            android:layout_alignParentEnd="true"
+                            android:inputType="numberDecimal"
+                            android:text="@{String.valueOf(viewModel.params.numPieces)}"/>
+                    </RelativeLayout>
 
                     <TextView
                         android:id="@+id/user_agent_title"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:textAppearance="@style/TextAppearance.MaterialComponents.Body1"
-                        android:textColor="?android:attr/textColorPrimary"
-                        android:text="@string/download_user_agent" />
+                        android:text="@string/download_user_agent"
+                        style="@style/TitleText" />
 
                     <RelativeLayout
                         android:layout_width="match_parent"

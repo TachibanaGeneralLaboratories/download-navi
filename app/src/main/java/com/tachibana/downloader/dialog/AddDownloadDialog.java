@@ -270,6 +270,36 @@ public class AddDownloadDialog extends DialogFragment
             @Override
             public void onStopTrackingTouch(SeekBar seekBar) { /* Nothing */}
         });
+        binding.piecesNumberValue.addTextChangedListener(new TextWatcher()
+        {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {}
+
+            @Override
+            public void afterTextChanged(Editable s)
+            {
+                if (TextUtils.isEmpty(s))
+                    return;
+
+                int numPieces;
+                try {
+                    numPieces = Integer.parseInt(s.toString());
+
+                } catch (NumberFormatException e) {
+                    binding.piecesNumberValue.setText(String.valueOf(viewModel.maxNumPieces));
+                    return;
+                }
+
+                viewModel.params.setNumPieces(numPieces);
+            }
+        });
+        binding.piecesNumberValue.setOnFocusChangeListener((v, hasFocus) -> {
+            if (!hasFocus && TextUtils.isEmpty(binding.piecesNumberValue.getText()))
+                binding.piecesNumberValue.setText(String.valueOf(viewModel.params.getNumPieces()));
+        });
         binding.link.addTextChangedListener(new TextWatcher()
         {
             @Override
@@ -308,7 +338,7 @@ public class AddDownloadDialog extends DialogFragment
                     .subscribeOn(Schedulers.io())
                     .subscribe());
         });
-        viewModel.observerUserAgents().observe(this, (userAgentList) -> {
+        viewModel.observeUserAgents().observe(this, (userAgentList) -> {
             int curUserAgentPos = -1;
             String curUserAgent = viewModel.params.getUserAgent();
             /* Select current user agent */
