@@ -123,6 +123,16 @@
                         android:src="@drawable/ic_folder_grey600_24dp" />
                 </RelativeLayout>
 
+                <TextView
+                    android:id="@+id/free_space"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="16dp"
+                    android:textAppearance="@style/TextAppearance.MaterialComponents.Body1"
+                    android:textColor="?android:attr/textColorPrimary"
+                    app:fileSize="@{viewModel.info.storageFreeSpace}"
+                    app:formatFileSize="@{@string/storage_free_space}" />
+
                 <com.google.android.material.internal.FlowLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
