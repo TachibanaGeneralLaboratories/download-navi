@@ -51,7 +51,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 import androidx.annotation.NonNull;
+import androidx.databinding.Observable;
 import androidx.databinding.ObservableInt;
+import androidx.databinding.library.baseAdapters.BR;
 import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
@@ -98,6 +100,15 @@ public class AddDownloadViewModel extends AndroidViewModel
 
         repo = ((MainApplication)getApplication()).getRepository();
         fetchState.setValue(new FetchState(Status.UNKNOWN));
+        params.addOnPropertyChangedCallback(paramsCallback);
+    }
+
+    @Override
+    protected void onCleared()
+    {
+        super.onCleared();
+
+        params.removeOnPropertyChangedCallback(paramsCallback);
     }
 
     public LiveData<List<UserAgent>> observerUserAgents()
@@ -347,12 +358,20 @@ public class AddDownloadViewModel extends AndroidViewModel
         return storageFreeSpace == -1 || storageFreeSpace >= params.getTotalBytes();
     }
 
-    public void updateDirPath(Uri dirPath)
+    private final Observable.OnPropertyChangedCallback paramsCallback = new Observable.OnPropertyChangedCallback()
     {
-        params.setDirPath(dirPath);
-        params.setStorageFreeSpace(FileUtils.getDirAvailableBytes(getApplication(), dirPath));
-        params.setDirName(FileUtils.getDirName(getApplication(), dirPath));
-    }
+        @Override
+        public void onPropertyChanged(Observable sender, int propertyId)
+        {
+            if (propertyId == BR.dirPath) {
+                Uri dirPath = params.getDirPath();
+                if (dirPath != null) {
+                    params.setStorageFreeSpace(FileUtils.getDirAvailableBytes(getApplication(), dirPath));
+                    params.setDirName(FileUtils.getDirName(getApplication(), dirPath));
+                }
+            }
+        }
+    };
 
     public void finish()
     {

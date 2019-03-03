@@ -60,6 +60,7 @@ public class AddDownloadParams extends BaseObservable
         notifyPropertyChanged(BR.url);
     }
 
+    @Bindable
     public Uri getDirPath()
     {
         return dirPath;
@@ -68,6 +69,7 @@ public class AddDownloadParams extends BaseObservable
     public void setDirPath(Uri dirPath)
     {
         this.dirPath = dirPath;
+        notifyPropertyChanged(BR.dirPath);
     }
 
     @Bindable

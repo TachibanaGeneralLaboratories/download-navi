@@ -397,7 +397,7 @@ public class DownloadDetailsDialog extends DialogFragment
         Intent i = new Intent(activity, FileManagerDialog.class);
 
         String dirPath = null;
-        Uri dirUri = viewModel.mutableParams.getDirPath().get();
+        Uri dirUri = viewModel.mutableParams.getDirPath();
         if (dirUri != null && FileUtils.isFileSystemPath(dirUri))
             dirPath = dirUri.getPath();
 
@@ -420,7 +420,7 @@ public class DownloadDetailsDialog extends DialogFragment
             return;
         }
 
-        viewModel.mutableParams.getDirPath().set(data.getData());
+        viewModel.mutableParams.setDirPath(data.getData());
     }
 
     private void showOpenDirErrorDialog()

@@ -220,7 +220,7 @@ public class AddDownloadDialog extends DialogFragment
         viewModel.params.setUserAgent(initParams.userAgent == null ?
                 Utils.getSystemUserAgent(activity.getApplicationContext()) :
                 initParams.userAgent);
-        viewModel.updateDirPath(initParams.dirPath == null ?
+        viewModel.params.setDirPath(initParams.dirPath == null ?
                 Uri.parse(FileUtils.getDefaultDownloadPath()) :
                 initParams.dirPath);
         viewModel.params.setWifiOnly(initParams.wifiOnly);
@@ -600,7 +600,7 @@ public class AddDownloadDialog extends DialogFragment
             return;
         }
 
-        viewModel.updateDirPath(data.getData());
+        viewModel.params.setDirPath(data.getData());
     }
 
     private void showCreateFileErrorDialog()

@@ -32,7 +32,7 @@ public class DownloadDetailsMutableParams extends BaseObservable
     private String url;
     private String fileName;
     private String description;
-    private ObservableField<Uri> dirPath = new ObservableField<>();
+    private Uri dirPath;
     private boolean wifiOnly = false;
     private boolean retry = false;
 
@@ -72,9 +72,16 @@ public class DownloadDetailsMutableParams extends BaseObservable
         notifyPropertyChanged(BR.description);
     }
 
-    public ObservableField<Uri> getDirPath()
+    @Bindable
+    public Uri getDirPath()
     {
         return dirPath;
+    }
+
+    public void setDirPath(Uri dirPath)
+    {
+        this.dirPath = dirPath;
+        notifyPropertyChanged(BR.dirPath);
     }
 
     @Bindable

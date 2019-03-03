@@ -47,6 +47,7 @@ import java.util.UUID;
 
 import androidx.annotation.NonNull;
 import androidx.databinding.Observable;
+import androidx.databinding.library.baseAdapters.BR;
 import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.MutableLiveData;
 import io.reactivex.Flowable;
@@ -71,8 +72,7 @@ public class DownloadDetailsViewModel extends AndroidViewModel
         super.onCleared();
 
         disposables.clear();
-        mutableParams.removeOnPropertyChangedCallback(globalCallback);
-        mutableParams.getDirPath().removeOnPropertyChangedCallback(dirPathCallback);
+        mutableParams.removeOnPropertyChangedCallback(mutableParamsCallback);
     }
 
     public DownloadDetailsViewModel(@NonNull Application application)
@@ -81,7 +81,7 @@ public class DownloadDetailsViewModel extends AndroidViewModel
 
         repo = ((MainApplication)getApplication()).getRepository();
         paramsChanged.setValue(false);
-        mutableParams.getDirPath().addOnPropertyChangedCallback(dirPathCallback);
+        mutableParams.addOnPropertyChangedCallback(mutableParamsCallback);
     }
 
     public Flowable<InfoAndPieces> observeInfoAndPieces(UUID id)
@@ -112,33 +112,23 @@ public class DownloadDetailsViewModel extends AndroidViewModel
         mutableParams.setUrl(downloadInfo.url);
         mutableParams.setFileName(downloadInfo.fileName);
         mutableParams.setDescription(downloadInfo.description);
-        mutableParams.getDirPath().set(downloadInfo.dirPath);
+        mutableParams.setDirPath(downloadInfo.dirPath);
         mutableParams.setWifiOnly(downloadInfo.wifiOnly);
         mutableParams.setRetry(downloadInfo.retry);
-
-        mutableParams.addOnPropertyChangedCallback(globalCallback);
     }
 
-    private final Observable.OnPropertyChangedCallback globalCallback = new Observable.OnPropertyChangedCallback()
+    private final Observable.OnPropertyChangedCallback mutableParamsCallback = new Observable.OnPropertyChangedCallback()
     {
         @Override
         public void onPropertyChanged(Observable sender, int propertyId)
         {
-            checkParamsChanged();
-        }
-    };
-
-    private final Observable.OnPropertyChangedCallback dirPathCallback = new Observable.OnPropertyChangedCallback()
-    {
-        @Override
-        public void onPropertyChanged(Observable sender, int propertyId)
-        {
-            Uri dirPath = mutableParams.getDirPath().get();
-            if (dirPath == null)
-                return;
-
-            info.setStorageFreeSpace(FileUtils.getDirAvailableBytes(getApplication(), dirPath));
-            info.setDirName(FileUtils.getDirName(getApplication(), dirPath));
+            if (propertyId == BR.dirPath) {
+                Uri dirPath = mutableParams.getDirPath();
+                if (dirPath != null) {
+                    info.setStorageFreeSpace(FileUtils.getDirAvailableBytes(getApplication(), dirPath));
+                    info.setDirName(FileUtils.getDirName(getApplication(), dirPath));
+                }
+            }
 
             checkParamsChanged();
         }
@@ -152,7 +142,7 @@ public class DownloadDetailsViewModel extends AndroidViewModel
 
         boolean changed = !downloadInfo.url.equals(mutableParams.getUrl()) ||
                 !downloadInfo.fileName.equals(mutableParams.getFileName()) ||
-                !downloadInfo.dirPath.equals(mutableParams.getDirPath().get()) ||
+                !downloadInfo.dirPath.equals(mutableParams.getDirPath()) ||
                 !(TextUtils.isEmpty(mutableParams.getDescription()) || mutableParams.getDescription().equals(downloadInfo.description)) ||
                 downloadInfo.wifiOnly != mutableParams.isWifiOnly() ||
                 downloadInfo.retry != mutableParams.isRetry();
@@ -241,7 +231,7 @@ public class DownloadDetailsViewModel extends AndroidViewModel
 
         String url = mutableParams.getUrl();
         String fileName = mutableParams.getFileName();
-        Uri dirPath = mutableParams.getDirPath().get();
+        Uri dirPath = mutableParams.getDirPath();
         String description = mutableParams.getDescription();
         boolean wifiOnly = mutableParams.isWifiOnly();
         boolean retry = mutableParams.isRetry();
