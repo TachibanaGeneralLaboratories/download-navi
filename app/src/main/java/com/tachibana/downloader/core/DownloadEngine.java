@@ -29,6 +29,7 @@ import com.tachibana.downloader.core.entity.DownloadInfo;
 import com.tachibana.downloader.core.exception.FileAlreadyExistsException;
 import com.tachibana.downloader.core.storage.DataRepository;
 import com.tachibana.downloader.core.utils.FileUtils;
+import com.tachibana.downloader.worker.DownloadScheduler;
 
 import java.io.IOException;
 import java.net.HttpURLConnection;
@@ -86,6 +87,14 @@ public class DownloadEngine
         listeners.remove(listener);
     }
 
+    public synchronized void scheduleDownload(@NonNull DownloadInfo info)
+    {
+        if (duringChange.containsKey(info.id))
+            return;
+
+        DownloadScheduler.run(appContext, info);
+    }
+
     public synchronized void runDownload(@NonNull UUID id)
     {
         if (duringChange.containsKey(id))
@@ -112,19 +121,16 @@ public class DownloadEngine
 
     public synchronized void pauseResumeDownload(@NonNull UUID id)
     {
-        if (duringChange.containsKey(id))
-            return;
-
         disposables.add(repo.getInfoByIdSingle(id)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .filter((info) -> info != null)
                 .subscribe((info) -> {
                             if (StatusCode.isStatusStoppedOrPaused(info.statusCode)) {
-                                DownloadHelper.scheduleDownloading(appContext, info);
+                                scheduleDownload(info);
                             } else {
                                 DownloadThread task = tasks.get(id);
-                                if (task != null)
+                                if (task != null && !duringChange.containsKey(id))
                                     task.requestPause();
                             }
                         },
@@ -184,12 +190,10 @@ public class DownloadEngine
                     return info != null && StatusCode.isStatusStoppedOrPaused(info.statusCode);
                 })
                 .subscribe((info) -> {
-                            if (duringChange.containsKey(info.id))
-                                return;
                             DownloadThread task = tasks.get(info.id);
                             if (task != null && task.isRunning())
                                 return;
-                            DownloadHelper.scheduleDownloading(appContext, info);
+                            scheduleDownload(info);
                         },
                         (Throwable t) -> {
                             Log.e(TAG, "Getting info list error: " + Log.getStackTraceString(t));
@@ -249,7 +253,7 @@ public class DownloadEngine
                                 if (runAfter) {
                                     info = repo.getInfoById(id);
                                     if (info != null)
-                                        DownloadHelper.scheduleDownloading(appContext, info);
+                                        scheduleDownload(info);
                                 }
                             }
                         },
@@ -376,7 +380,7 @@ public class DownloadEngine
         switch (info.statusCode) {
             case StatusCode.STATUS_WAITING_TO_RETRY:
             case StatusCode.STATUS_WAITING_FOR_NETWORK:
-                DownloadHelper.scheduleDownloading(appContext, info);
+                scheduleDownload(info);
                 break;
             case HttpURLConnection.HTTP_UNAUTHORIZED:
                 /* TODO: request authorization from user */

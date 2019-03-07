@@ -29,7 +29,7 @@ import android.text.TextUtils;
 import android.util.Log;
 
 import com.tachibana.downloader.MainApplication;
-import com.tachibana.downloader.core.DownloadHelper;
+import com.tachibana.downloader.core.DownloadEngine;
 import com.tachibana.downloader.core.HttpConnection;
 import com.tachibana.downloader.core.SystemFacade;
 import com.tachibana.downloader.core.entity.DownloadInfo;
@@ -66,6 +66,7 @@ public class AddDownloadViewModel extends AndroidViewModel
 
     private FetchLinkTask fetchTask;
     private DataRepository repo;
+    private DownloadEngine engine;
     public AddDownloadParams params = new AddDownloadParams();
     public MutableLiveData<FetchState> fetchState = new MutableLiveData<>();
     public ObservableInt maxNumPieces = new ObservableInt(DownloadInfo.MAX_PIECES);
@@ -99,6 +100,7 @@ public class AddDownloadViewModel extends AndroidViewModel
         super(application);
 
         repo = ((MainApplication)getApplication()).getRepository();
+        engine = ((MainApplication)getApplication()).getDownloadEngine();
         fetchState.setValue(new FetchState(Status.UNKNOWN));
         params.addOnPropertyChangedCallback(paramsCallback);
     }
@@ -311,7 +313,7 @@ public class AddDownloadViewModel extends AndroidViewModel
             return;
         }
 
-        DownloadHelper.scheduleDownloading(getApplication(), info);
+        engine.scheduleDownload(info);
     }
 
     private DownloadInfo makeDownloadInfo(Uri dirPath)

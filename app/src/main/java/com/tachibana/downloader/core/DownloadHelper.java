@@ -23,28 +23,16 @@ package com.tachibana.downloader.core;
 import android.content.Context;
 import android.content.Intent;
 
-import com.tachibana.downloader.core.entity.DownloadInfo;
 import com.tachibana.downloader.service.DownloadService;
-import com.tachibana.downloader.worker.DownloadScheduler;
 
 import java.util.UUID;
 
 import androidx.annotation.NonNull;
 
-/*
- * Usually for operations on downloads that require a background service
- * (starting the download, changing parameters).
- */
-
 public class DownloadHelper
 {
     @SuppressWarnings("unused")
     private static final String TAG = DownloadHelper.class.getSimpleName();
-
-    public static void scheduleDownloading(@NonNull Context context, @NonNull DownloadInfo info)
-    {
-        DownloadScheduler.run(context, info);
-    }
 
     public static void changeParams(@NonNull Context context,
                                     @NonNull UUID id,
