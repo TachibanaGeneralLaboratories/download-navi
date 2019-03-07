@@ -7,6 +7,9 @@
     <style name="AppTheme.Translucent" parent="BaseTheme.Translucent" />
     <style name="AppTheme.Translucent.Dark" parent="BaseTheme.Translucent.Dark" />
     <style name="AppTheme.Translucent.Black" parent="BaseTheme.Translucent.Black" />
+    <style name="AppTheme.Settings" parent="BaseTheme.Settings" />
+    <style name="AppTheme.Settings.Dark" parent="BaseTheme.Settings.Dark" />
+    <style name="AppTheme.Settings.Black" parent="BaseTheme.Settings.Black" />
 
     <style name="BaseTheme" parent="Theme.MaterialComponents.Light">
         <item name="colorPrimary">@color/primary</item>
@@ -193,9 +196,9 @@
         <item name="android:textColor">?attr/colorSecondary</item>
     </style>
 
-    <style name="AppTheme.Settings" parent="BaseTheme" />
+    <style name="BaseTheme.Settings" parent="BaseTheme" />
 
-    <style name="AppTheme.Settings.Dark" parent="BaseTheme.Dark" />
+    <style name="BaseTheme.Settings.Dark" parent="BaseTheme.Dark" />
 
-    <style name="AppTheme.Settings.Black" parent="BaseTheme.Black" />
+    <style name="BaseTheme.Settings.Black" parent="BaseTheme.Black" />
 </resources>

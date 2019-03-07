@@ -75,6 +75,7 @@ import javax.net.ssl.X509TrustManager;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.annotation.VisibleForTesting;
+import androidx.core.app.NotificationCompat;
 import androidx.core.content.ContextCompat;
 import androidx.core.content.FileProvider;
 
@@ -131,9 +132,9 @@ public class Utils
                 NotificationManager.IMPORTANCE_MIN));
         channels.add(new NotificationChannel(PENDING_DOWNLOADS_NOTIFY_CHAN_ID,
                 context.getText(R.string.pending),
-                NotificationManager.IMPORTANCE_DEFAULT));
+                NotificationManager.IMPORTANCE_LOW));
         channels.add(new NotificationChannel(COMPLETED_DOWNLOADS_NOTIFY_CHAN_ID,
-                context.getText(R.string.done_label),
+                context.getText(R.string.finish),
                 NotificationManager.IMPORTANCE_DEFAULT));
 
         notifyManager.createNotificationChannels(channels);
@@ -185,50 +186,50 @@ public class Utils
         return sslContext;
     }
 
-    public static int getThemePreference(@NonNull Context context)
+    public static int getThemePreference(@NonNull Context appContext)
     {
-        return SettingsManager.getInstance(context)
-                .getPreferences().getInt(context.getString(R.string.pref_key_theme),
-                                         SettingsManager.Default.theme(context));
+        return SettingsManager.getInstance(appContext)
+                .getPreferences().getInt(appContext.getString(R.string.pref_key_theme),
+                                         SettingsManager.Default.theme(appContext));
     }
 
-    public static int getAppTheme(@NonNull Context context)
+    public static int getAppTheme(@NonNull Context appContext)
     {
-        int theme = getThemePreference(context);
+        int theme = getThemePreference(appContext);
 
-        if (theme == Integer.parseInt(context.getString(R.string.pref_theme_light_value)))
+        if (theme == Integer.parseInt(appContext.getString(R.string.pref_theme_light_value)))
             return R.style.AppTheme;
-        else if (theme == Integer.parseInt(context.getString(R.string.pref_theme_dark_value)))
+        else if (theme == Integer.parseInt(appContext.getString(R.string.pref_theme_dark_value)))
             return R.style.AppTheme_Dark;
-        else if (theme == Integer.parseInt(context.getString(R.string.pref_theme_black_value)))
+        else if (theme == Integer.parseInt(appContext.getString(R.string.pref_theme_black_value)))
             return R.style.AppTheme_Black;
 
         return R.style.AppTheme;
     }
 
-    public static int getTranslucentAppTheme(@NonNull Context context)
+    public static int getTranslucentAppTheme(@NonNull Context appContext)
     {
-        int theme = getThemePreference(context);
+        int theme = getThemePreference(appContext);
 
-        if (theme == Integer.parseInt(context.getString(R.string.pref_theme_light_value)))
+        if (theme == Integer.parseInt(appContext.getString(R.string.pref_theme_light_value)))
             return R.style.AppTheme_Translucent;
-        else if (theme == Integer.parseInt(context.getString(R.string.pref_theme_dark_value)))
+        else if (theme == Integer.parseInt(appContext.getString(R.string.pref_theme_dark_value)))
             return R.style.AppTheme_Translucent_Dark;
-        else if (theme == Integer.parseInt(context.getString(R.string.pref_theme_black_value)))
+        else if (theme == Integer.parseInt(appContext.getString(R.string.pref_theme_black_value)))
             return R.style.AppTheme_Translucent_Black;
 
         return R.style.AppTheme_Translucent;
     }
 
-    public static int getSettingsTheme(@NonNull Context context)
+    public static int getSettingsTheme(@NonNull Context appContext)
     {
-        int theme = getThemePreference(context);
+        int theme = getThemePreference(appContext);
 
-        if (theme == Integer.parseInt(context.getString(R.string.pref_theme_light_value)))
+        if (theme == Integer.parseInt(appContext.getString(R.string.pref_theme_light_value)))
             return R.style.AppTheme_Settings;
-        else if (theme == Integer.parseInt(context.getString(R.string.pref_theme_dark_value)))
+        else if (theme == Integer.parseInt(appContext.getString(R.string.pref_theme_dark_value)))
             return R.style.AppTheme_Settings_Dark;
-        else if (theme == Integer.parseInt(context.getString(R.string.pref_theme_black_value)))
+        else if (theme == Integer.parseInt(appContext.getString(R.string.pref_theme_black_value)))
             return R.style.AppTheme_Settings_Black;
 
         return R.style.AppTheme_Settings;
@@ -648,6 +649,39 @@ public class Utils
     public static String getLineSeparator()
     {
         return System.getProperty("line.separator");
+    }
+
+    /*
+     * Starting with the version of Android 8.0,
+     * setting notifications from the app preferences isn't working,
+     * you can change them only in the settings of Android 8.0
+     */
+
+    public static void applyLegacyNotifySettings(@NonNull Context appContext,
+                                                 @NonNull NotificationCompat.Builder builder)
+    {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O)
+            return;
+
+        SharedPreferences pref = SettingsManager.getInstance(appContext).getPreferences();
+        
+        if (pref.getBoolean(appContext.getString(R.string.pref_key_play_sound_notify),
+                SettingsManager.Default.playSoundNotify)) {
+            Uri sound = Uri.parse(pref.getString(appContext.getString(R.string.pref_key_notify_sound),
+                    SettingsManager.Default.notifySound));
+            builder.setSound(sound);
+        }
+
+        if (pref.getBoolean(appContext.getString(R.string.pref_key_vibration_notify),
+                SettingsManager.Default.vibrationNotify))
+            builder.setVibrate(new long[] {1000}); /* ms */
+
+        if (pref.getBoolean(appContext.getString(R.string.pref_key_led_indicator_notify),
+                SettingsManager.Default.ledIndicatorNotify)) {
+            int color = pref.getInt(appContext.getString(R.string.pref_key_led_indicator_color_notify),
+                    SettingsManager.Default.ledIndicatorColorNotify(appContext));
+            builder.setLights(color, 1000, 1000); /* ms */
+        }
     }
 
     public static List<DrawerGroup> getNavigationDrawerItems(@NonNull Context context,

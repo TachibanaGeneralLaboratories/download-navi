@@ -23,4 +23,16 @@
     <style name="AppTheme.Translucent.Black" parent="BaseTheme.Translucent.Black">
         <item name="android:statusBarColor">@color/black_theme_status_bar</item>
     </style>
+
+    <style name="AppTheme.Settings" parent="BaseTheme.Settings">
+        <item name="android:statusBarColor">@color/status_bar</item>
+    </style>
+
+    <style name="AppTheme.Settings.Dark" parent="BaseTheme.Settings.Dark">
+        <item name="android:statusBarColor">@color/dark_theme_status_bar</item>
+    </style>
+
+    <style name="AppTheme.Settings.Black" parent="BaseTheme.Settings.Black">
+        <item name="android:statusBarColor">@color/black_theme_status_bar</item>
+    </style>
 </resources>

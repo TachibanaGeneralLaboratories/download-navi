@@ -3,7 +3,7 @@
     <string name="app_name">Download Navi</string>
     <string name="foreground_notification">Foreground notification</string>
     <string name="download_running">In progress</string>
-    <string name="done_label">Done</string>
+    <string name="finish">Finish</string>
     <string name="shutdown">Shutdown</string>
     <!-- 1 d. 1 h. 1 m -->
     <string name="elapsed_time_format_d_h_mm">%1$d d. %2$d h. %3$d m</string>
@@ -185,4 +185,26 @@
     <string name="detail_md5_hash_sum">MD5</string>
     <string name="detail_sha256_hash_sum">SHA-256</string>
     <string name="calculate">Calculate</string>
+
+    <!-- Settings -->
+    <!-- Headers -->
+    <string name="pref_header_appearance">Appearance</string>
+    <!-- Appearance settings -->
+    <string name="pref_theme_category">Theme settings</string>
+    <string name="pref_theme_title">Theme</string>
+    <string-array name="pref_theme_entries">
+        <item>Light</item>
+        <item>Dark</item>
+        <item>Black</item>
+    </string-array>
+    <string name="pref_notification_category">Notification settings</string>
+    <string name="pref_progress_notify_title">Progress notification</string>
+    <string name="pref_finish_notify_title">Finish notification</string>
+    <string name="pref_pending_notify_title">Pending notification</string>
+    <string name="pref_play_sound_notify_title">Play sound</string>
+    <string name="pref_notify_sound_title">Notification sound</string>
+    <string name="pref_led_indicator_notify_title">LED indicator</string>
+    <string name="pref_led_indicator_color_notify_title">LED indicator color</string>
+    <string name="pref_vibration_notify_title">Vibration</string>
+    <string name="theme_settings_apply_after_reboot">Theme settings will be applied after restarting the app</string>
 </resources>

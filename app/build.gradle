@@ -47,7 +47,7 @@ dependencies {
     implementation "androidx.room:room-runtime:2.1.0-alpha04"
     annotationProcessor "androidx.room:room-compiler:2.1.0-alpha04"
     implementation "androidx.room:room-rxjava2:2.1.0-alpha04"
-    implementation "android.arch.work:work-runtime:1.0.0-rc02"
+    implementation "android.arch.work:work-runtime:1.0.0"
 
     /* ReactiveX */
     implementation 'io.reactivex.rxjava2:rxjava:2.1.9'
@@ -56,4 +56,5 @@ dependencies {
     implementation 'net.cachapa.expandablelayout:expandablelayout:2.9.2'
     implementation 'com.h6ah4i.android.widget.advrecyclerview:advrecyclerview:1.0.0'
     implementation 'com.takisoft.preferencex:preferencex:1.0.0'
+    implementation 'com.jaredrummler:colorpicker:1.1.0'
 }

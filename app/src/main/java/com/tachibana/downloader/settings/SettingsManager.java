@@ -22,12 +22,14 @@ package com.tachibana.downloader.settings;
 
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.media.RingtoneManager;
 import android.preference.PreferenceManager;
 
 import com.tachibana.downloader.R;
 import com.tachibana.downloader.core.utils.FileUtils;
 
 import androidx.annotation.NonNull;
+import androidx.core.content.ContextCompat;
 
 /*
  * Global settings.
@@ -39,6 +41,14 @@ public class SettingsManager
     {
         /* Appearance settings */
         public static int theme(Context context) { return Integer.parseInt(context.getString(R.string.pref_theme_light_value)); }
+        public static final boolean progressNotify = true;
+        public static final boolean finishNotify = true;
+        public static final boolean pendingNotify = true;
+        public static final String notifySound = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION).toString();
+        public static final boolean playSoundNotify = true;
+        public static final boolean ledIndicatorNotify = true;
+        public static final boolean vibrationNotify = true;
+        public static int ledIndicatorColorNotify(Context context) { return ContextCompat.getColor(context, R.color.primary); }
         /* Network settings */
         public static final boolean wifiOnly = false;
         public static final boolean enableRoaming = true;

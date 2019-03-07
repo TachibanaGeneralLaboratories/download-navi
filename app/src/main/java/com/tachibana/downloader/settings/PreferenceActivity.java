@@ -85,12 +85,12 @@ public class PreferenceActivity extends AppCompatActivity
 
     private <F extends PreferenceFragmentCompat> F getFragment(String fragment)
     {
-//        if (fragment != null) {
-//            if (fragment.equals(Foo.class.getSimpleName()))
-//                return (F)Foo.newInstance();
-//            else
-//                return null;
-//        }
+        if (fragment != null) {
+            if (fragment.equals(AppearanceSettingsFragment.class.getSimpleName()))
+                return (F)AppearanceSettingsFragment.newInstance();
+            else
+                return null;
+        }
 
         return null;
     }

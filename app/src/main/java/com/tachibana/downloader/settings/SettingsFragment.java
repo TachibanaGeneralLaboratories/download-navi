@@ -41,7 +41,7 @@ public class SettingsFragment extends PreferenceFragmentCompat
     @SuppressWarnings("unused")
     private static final String TAG = SettingsFragment.class.getSimpleName();
 
-    private static final String FooSettings = "FooFragment";
+    private static final String AppearanceSettings = "AppearanceSettingsFragment";
 
     private AppCompatActivity activity;
     private SettingsViewModel viewModel;
@@ -77,13 +77,13 @@ public class SettingsFragment extends PreferenceFragmentCompat
         if (Utils.isTwoPane(activity)) {
             Fragment f = activity.getSupportFragmentManager()
                     .findFragmentById(R.id.detail_fragment_container);
-//            if (f == null)
-//                setFragment(FooFragment.newInstance(),
-//                        getString(R.string.pref_header_foo));
+            if (f == null)
+                setFragment(AppearanceSettingsFragment.newInstance(),
+                        getString(R.string.pref_header_appearance));
         }
 
-//        Preference foo = findPreference(FooFragment.class.getSimpleName());
-//        foo.setOnPreferenceClickListener(prefClickListener);
+        Preference appearance = findPreference(AppearanceSettingsFragment.class.getSimpleName());
+        appearance.setOnPreferenceClickListener(prefClickListener);
     }
 
     private Preference.OnPreferenceClickListener prefClickListener = (preference) -> {
@@ -94,14 +94,14 @@ public class SettingsFragment extends PreferenceFragmentCompat
     private void openPreference(String prefName)
     {
         switch (prefName) {
-            case FooSettings:
-//                if (Utils.isLargeScreenDevice(getActivity())) {
-//                    setFragment(FooSettingsFragment.newInstance(),
-//                            getString(R.string.pref_header_foo));
-//                } else {
-//                    startActivity(FooSettingsFragment.class,
-//                            getString(R.string.pref_header_foo));
-//                }
+            case AppearanceSettings:
+                if (Utils.isLargeScreenDevice(getActivity())) {
+                    setFragment(AppearanceSettingsFragment.newInstance(),
+                            getString(R.string.pref_header_appearance));
+                } else {
+                    startActivity(AppearanceSettingsFragment.class,
+                            getString(R.string.pref_header_appearance));
+                }
                 break;
         }
     }

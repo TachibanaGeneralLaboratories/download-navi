@@ -59,7 +59,7 @@ public class SettingsActivity extends AppCompatActivity
 
         detailTitle = findViewById(R.id.detail_title);
         viewModel.detailTitleChanged.observe(this, title -> {
-            if (title != null)
+            if (title != null && detailTitle != null)
                 detailTitle.setText(title);
         });
     }

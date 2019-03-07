@@ -31,6 +31,7 @@ import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Build;
 import android.os.SystemClock;
 import android.text.format.Formatter;
@@ -45,6 +46,7 @@ import com.tachibana.downloader.core.storage.DataRepository;
 import com.tachibana.downloader.core.utils.DateUtils;
 import com.tachibana.downloader.core.utils.Utils;
 import com.tachibana.downloader.receiver.NotificationReceiver;
+import com.tachibana.downloader.settings.SettingsManager;
 
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -76,8 +78,6 @@ public class DownloadNotifier
     /* The minimum amount of time that has to elapse before the progress bar gets updated, ms */
     private static final long MIN_PROGRESS_TIME = 2000;
 
-
-
     private Context context;
     private NotificationManager notifyManager;
     /*
@@ -86,6 +86,7 @@ public class DownloadNotifier
      */
     private final ArrayMap<UUID, Notification> activeNotifs = new ArrayMap<>();
     private DataRepository repo;
+    private SharedPreferences pref;
     private CompositeDisposable disposables = new CompositeDisposable();
 
     private class Notification
@@ -107,6 +108,7 @@ public class DownloadNotifier
         this.context = context;
         notifyManager = (NotificationManager)context.getSystemService(NOTIFICATION_SERVICE);
         this.repo = repo;
+        pref = SettingsManager.getInstance(context).getPreferences();
     }
 
     public void startUpdate()
@@ -130,28 +132,49 @@ public class DownloadNotifier
         synchronized (activeNotifs) {
             HashSet<UUID> ids = new HashSet<>();
             for (InfoAndPieces infoAndPieces : infoAndPiecesList) {
-                ids.add(infoAndPieces.info.id);
-
                 String tag = makeNotificationTag(infoAndPieces.info);
                 if (tag == null)
                     continue;
                 int type = getNotificationTagType(tag);
-                Notification notify = activeNotifs.get(infoAndPieces.info.id);
 
-                boolean force;
-                if (notify == null)
-                    force = true;
-                else {
-                    int prevType = getNotificationTagType(notify.tag);
-                    force = type != prevType;
+                if (checkShowNotification(type)) {
+                    ids.add(infoAndPieces.info.id);
+                    Notification notify = activeNotifs.get(infoAndPieces.info.id);
+
+                    boolean force;
+                    if (notify == null)
+                        force = true;
+                    else {
+                        int prevType = getNotificationTagType(notify.tag);
+                        force = type != prevType;
+                    }
+                    if (!(force || checkUpdateTime(infoAndPieces.info)))
+                        continue;
+
+                    updateWithLocked(infoAndPieces, notify, tag, type);
                 }
-                if (!(force || checkUpdateTime(infoAndPieces.info)))
-                    continue;
-
-                updateWithLocked(infoAndPieces, notify, tag, type);
+                if (type == TYPE_COMPLETE && infoAndPieces.info.visibility != VISIBILITY_HIDDEN)
+                    markAsHidden(infoAndPieces.info);
             }
             cleanNotifs(ids);
         }
+    }
+
+    private boolean checkShowNotification(int type)
+    {
+        switch (type) {
+            case TYPE_ACTIVE:
+                return pref.getBoolean(context.getString(R.string.pref_key_progress_notify),
+                                       SettingsManager.Default.progressNotify);
+            case TYPE_PENDING:
+                return pref.getBoolean(context.getString(R.string.pref_key_pending_notify),
+                                       SettingsManager.Default.pendingNotify);
+            case TYPE_COMPLETE:
+                return pref.getBoolean(context.getString(R.string.pref_key_finish_notify),
+                                       SettingsManager.Default.finishNotify);
+        }
+
+        return false;
     }
 
     private boolean checkUpdateTime(DownloadInfo info)
@@ -213,7 +236,6 @@ public class DownloadNotifier
         }
         builder.setColor(ContextCompat.getColor(context, R.color.primary));
         builder.setWhen(firstShown);
-        builder.setOnlyAlertOnce(true);
 
         switch (type) {
             case TYPE_ACTIVE:
@@ -226,6 +248,7 @@ public class DownloadNotifier
                 builder.setSmallIcon(R.drawable.ic_warning_white_24dp);
                 break;
             case TYPE_COMPLETE:
+                Utils.applyLegacyNotifySettings(context, builder);
                 if (isError)
                     builder.setSmallIcon(R.drawable.ic_error_white_24dp);
                 else
@@ -403,9 +426,6 @@ public class DownloadNotifier
         if (prevTag != null && !prevTag.equals(notify.tag))
             notifyManager.cancel(prevTag, 0);
         notifyManager.notify(notify.tag, 0, builder.build());
-
-        if (type == TYPE_COMPLETE && info.visibility != VISIBILITY_HIDDEN)
-            markAsHidden(info);
     }
 
     /*
