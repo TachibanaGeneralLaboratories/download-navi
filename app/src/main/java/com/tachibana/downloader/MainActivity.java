@@ -54,6 +54,7 @@ import com.tachibana.downloader.core.DownloadEngine;
 import com.tachibana.downloader.core.utils.Utils;
 import com.tachibana.downloader.receiver.NotificationReceiver;
 import com.tachibana.downloader.service.DownloadService;
+import com.tachibana.downloader.settings.SettingsActivity;
 import com.tachibana.downloader.viewmodel.DownloadsViewModel;
 
 import java.util.List;
@@ -355,7 +356,7 @@ public class MainActivity extends AppCompatActivity
                 resumeAll();
                 break;
             case R.id.settings_menu:
-                /* TODO: settings */
+                startActivity(new Intent(this, SettingsActivity.class));
                 break;
             case R.id.about_menu:
                 /* TODO: about dialog */

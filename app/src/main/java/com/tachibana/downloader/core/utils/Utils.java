@@ -220,6 +220,20 @@ public class Utils
         return R.style.AppTheme_Translucent;
     }
 
+    public static int getSettingsTheme(@NonNull Context context)
+    {
+        int theme = getThemePreference(context);
+
+        if (theme == Integer.parseInt(context.getString(R.string.pref_theme_light_value)))
+            return R.style.AppTheme_Settings;
+        else if (theme == Integer.parseInt(context.getString(R.string.pref_theme_dark_value)))
+            return R.style.AppTheme_Settings_Dark;
+        else if (theme == Integer.parseInt(context.getString(R.string.pref_theme_black_value)))
+            return R.style.AppTheme_Settings_Black;
+
+        return R.style.AppTheme_Settings;
+    }
+
     /*
      * Colorize the progress bar in the accent color (for pre-Lollipop).
      */
@@ -399,6 +413,17 @@ public class Utils
     public static boolean isTwoPane(@NonNull Context context)
     {
         return context.getResources().getBoolean(R.bool.isTwoPane);
+    }
+
+    /*
+     * Tablets (from 7"), notebooks, TVs
+     *
+     * Don't use app context (its doesn't reload after configuration changes)
+     */
+
+    public static boolean isLargeScreenDevice(Context context)
+    {
+        return context.getResources().getBoolean(R.bool.isLargeScreenDevice);
     }
 
     public static long calcETA(long totalBytes, long curBytes, long speed)

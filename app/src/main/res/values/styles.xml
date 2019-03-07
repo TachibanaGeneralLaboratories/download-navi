@@ -192,4 +192,10 @@
     <style name="TitleText" parent="@style/TextAppearance.MaterialComponents.Button">
         <item name="android:textColor">?attr/colorSecondary</item>
     </style>
+
+    <style name="AppTheme.Settings" parent="BaseTheme" />
+
+    <style name="AppTheme.Settings.Dark" parent="BaseTheme.Dark" />
+
+    <style name="AppTheme.Settings.Black" parent="BaseTheme.Black" />
 </resources>

@@ -1085,6 +1085,17 @@
 
         <activity android:name=".dialog.filemanager.FileManagerDialog" />
 
+        <activity
+            android:name=".settings.PreferenceActivity" />
+
+        <activity android:name=".settings.SettingsActivity"
+            android:label="@string/settings">
+            <intent-filter>
+                <action android:name="android.intent.action.APPLICATION_PREFERENCES" />
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
+
         <service
             android:name=".service.DownloadService" />
 
