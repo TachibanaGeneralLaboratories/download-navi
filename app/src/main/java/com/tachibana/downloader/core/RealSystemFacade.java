@@ -26,6 +26,7 @@ import android.net.ConnectivityManager;
 import android.net.Network;
 import android.net.NetworkCapabilities;
 import android.net.NetworkInfo;
+import android.net.wifi.WifiManager;
 
 import androidx.annotation.NonNull;
 
@@ -56,5 +57,13 @@ public class RealSystemFacade implements SystemFacade
             return null;
 
         return cm.getNetworkCapabilities(network);
+    }
+
+    @Override
+    public boolean isWifiEnabled()
+    {
+        WifiManager wifiManager = (WifiManager)context.getApplicationContext().getSystemService(Context.WIFI_SERVICE);
+
+        return wifiManager.isWifiEnabled();
     }
 }

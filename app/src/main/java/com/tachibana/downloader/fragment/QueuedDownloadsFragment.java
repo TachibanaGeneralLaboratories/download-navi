@@ -76,8 +76,6 @@ public class QueuedDownloadsFragment extends DownloadsFragment
     @Override
     public void onItemCancelClicked(@NonNull DownloadItem item)
     {
-        disposable.add(viewModel.deleteDownload(item.info, true)
-                .subscribeOn(Schedulers.io())
-                .subscribe());
+        viewModel.deleteDownload(item.info, true);
     }
 }

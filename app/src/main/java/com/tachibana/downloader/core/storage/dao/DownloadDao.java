@@ -83,6 +83,9 @@ public abstract class DownloadDao
     @Query(QUERY_GET_ALL_INFO)
     public abstract Single<List<DownloadInfo>> getAllInfoSingle();
 
+    @Query(QUERY_GET_ALL_INFO)
+    public abstract List<DownloadInfo> getAllInfo();
+
     @Transaction
     @Query(QUERY_GET_ALL_INFO)
     public abstract Flowable<List<InfoAndPieces>> observeAllInfoAndPieces();

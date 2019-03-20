@@ -400,9 +400,7 @@ public abstract class DownloadsFragment extends Fragment
         disposable.add(Observable.fromIterable(selections)
                 .map((selection -> selection.info))
                 .toList()
-                .observeOn(Schedulers.io())
-                .flatMapCompletable((infoList) -> viewModel.deleteDownloads(infoList, withFile))
-                .subscribe());
+                .subscribe((infoList) -> viewModel.deleteDownloads(infoList, withFile)));
     }
 
     private void shareDownloads()

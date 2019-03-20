@@ -83,14 +83,14 @@ public class DownloadsViewModel extends AndroidViewModel
         return repo.getAllInfoAndPiecesSingle();
     }
 
-    public Completable deleteDownload(DownloadInfo info, boolean withFile)
+    public void deleteDownload(DownloadInfo info, boolean withFile)
     {
-        return Completable.fromAction(() -> repo.deleteInfo(getApplication(), info, withFile));
+        engine.deleteDownloads(withFile, info);
     }
 
-    public Completable deleteDownloads(List<DownloadInfo> infoList, boolean withFile)
+    public void deleteDownloads(List<DownloadInfo> infoList, boolean withFile)
     {
-        return Completable.fromAction(() -> repo.deleteInfoList(getApplication(), infoList, withFile));
+        engine.deleteDownloads(withFile, infoList.toArray(new DownloadInfo[0]));
     }
 
     public void setSort(@NonNull DownloadSortingComparator sorting, boolean force)

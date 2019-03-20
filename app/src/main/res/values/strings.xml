@@ -45,6 +45,7 @@
     <string name="close">Close</string>
     <string name="redownload">Redownload</string>
     <string name="Default">Default</string>
+    <string name="warning">Warning</string>
     <string name="apply">Apply</string>
 
     <!-- Permission dialog -->
@@ -189,6 +190,7 @@
     <!-- Settings -->
     <!-- Headers -->
     <string name="pref_header_appearance">Appearance</string>
+    <string name="pref_header_behavior">Behavior</string>
     <!-- Appearance settings -->
     <string name="pref_theme_category">Theme settings</string>
     <string name="pref_theme_title">Theme</string>
@@ -207,4 +209,24 @@
     <string name="pref_led_indicator_color_notify_title">LED indicator color</string>
     <string name="pref_vibration_notify_title">Vibration</string>
     <string name="theme_settings_apply_after_reboot">Theme settings will be applied after restarting the app</string>
+    <!-- Behavior settings -->
+    <string name="pref_autostart_title">Autostart</string>
+    <string name="pref_autostart_summary">Run the app after start device and start downloads, if they weren\'t manually paused</string>
+    <string name="pref_wifi_only_title">Wi-Fi only</string>
+    <string name="pref_wifi_only_summary">Download only if Wi-Fi is connected</string>
+    <string name="pref_power_management_category">Power management</string>
+    <string name="pref_cpu_do_not_sleep_title">Keep CPU awake</string>
+    <string name="pref_cpu_do_not_sleep_summary">Enabling this will increase the battery usage. Use this option if the download speed reduces when screen turns off</string>
+    <string name="pref_download_only_when_charging_title">Download only when charging</string>
+    <string name="pref_download_only_when_charging_summary">If enabled, downloading will occur only during charging. All downloads will pause when not connected to charger</string>
+    <string name="pref_battery_control_title">Battery control</string>
+    <string name="pref_custom_battery_control_title">Custom battery percentage</string>
+    <string name="pref_custom_battery_control_value_title">Battery control percentage</string>
+    <string name="pref_battery_control_summary" formatted="false">All downloads will be paused if the battery level goes below %1$d%%. Limit doesn\'t apply at the time of charging</string>
+    <string name="pref_custom_battery_control_summary" formatted="false">Set a custom percentage to pause downloads at if the battery drops below the given threshold. Enabling this will ignore the default %1$d%% threshold</string>
+    <string name="pref_custom_battery_control_dialog_summary" formatted="false">Setting a custom battery percentage for the application to watch for will have a negative impact on battery life while downloads are occurring. Are you sure you want to enable this?</string>
+    <string name="pref_autostart_stopped_downloads_title">Autostart of stopped downloads</string>
+    <string name="pref_autostart_stopped_downloads_summary">Start downloads after running the app, if they weren\'t manually paused</string>
+    <string name="pref_enable_roaming_title">Enable roaming</string>
+    <string name="pref_enable_roaming_summary">Download only if the device isn\'t roaming</string>
 </resources>

@@ -49,9 +49,15 @@ public class SettingsManager
         public static final boolean ledIndicatorNotify = true;
         public static final boolean vibrationNotify = true;
         public static int ledIndicatorColorNotify(Context context) { return ContextCompat.getColor(context, R.color.primary); }
-        /* Network settings */
+        /* Behavior settings */
         public static final boolean wifiOnly = false;
         public static final boolean enableRoaming = true;
+        public static final boolean autostart = false;
+        public static final boolean autostartStoppedDownloads = true;
+        public static final boolean cpuDoNotSleep = false;
+        public static final boolean onlyCharging = false;
+        public static final boolean batteryControl = false;
+        public static final boolean customBatteryControl = false;
         /* Filemanager settings */
         public static final String fileManagerLastDir = FileUtils.getDefaultDownloadPath();
         /* Storage settings */

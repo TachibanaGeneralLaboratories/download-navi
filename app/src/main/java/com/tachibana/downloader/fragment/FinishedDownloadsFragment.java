@@ -171,9 +171,7 @@ public class FinishedDownloadsFragment extends DownloadsFragment
 
     private void deleteDownload(DownloadInfo info, boolean withFile)
     {
-        disposable.add(viewModel.deleteDownload(info, withFile)
-                .subscribeOn(Schedulers.io())
-                .subscribe());
+        viewModel.deleteDownload(info, withFile);
     }
 
     private void shareDownload(DownloadItem item)

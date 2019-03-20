@@ -29,7 +29,7 @@ import android.util.Log;
 
 import com.tachibana.downloader.MainApplication;
 import com.tachibana.downloader.core.ChangeableParams;
-import com.tachibana.downloader.core.DownloadHelper;
+import com.tachibana.downloader.core.DownloadEngine;
 import com.tachibana.downloader.core.entity.DownloadInfo;
 import com.tachibana.downloader.core.entity.DownloadPiece;
 import com.tachibana.downloader.core.entity.InfoAndPieces;
@@ -61,6 +61,7 @@ public class DownloadDetailsViewModel extends AndroidViewModel
     private static final String TAG = AddDownloadDialog.class.getSimpleName();
 
     private DataRepository repo;
+    private DownloadEngine engine;
     private CompositeDisposable disposables = new CompositeDisposable();
     public DownloadDetailsInfo info = new DownloadDetailsInfo();
     public DownloadDetailsMutableParams mutableParams = new DownloadDetailsMutableParams();
@@ -80,6 +81,7 @@ public class DownloadDetailsViewModel extends AndroidViewModel
         super(application);
 
         repo = ((MainApplication)getApplication()).getRepository();
+        engine = ((MainApplication)getApplication()).getDownloadEngine();
         paramsChanged.setValue(false);
         mutableParams.addOnPropertyChangedCallback(mutableParamsCallback);
     }
@@ -220,7 +222,7 @@ public class DownloadDetailsViewModel extends AndroidViewModel
             if (checkFileExists(params, downloadInfo))
                 throw new FileAlreadyExistsException();
 
-        DownloadHelper.changeParams(getApplication(), downloadInfo.id, params);
+        engine.changeParams(downloadInfo.id, params);
 
         return true;
     }

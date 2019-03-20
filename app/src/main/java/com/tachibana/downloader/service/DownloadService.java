@@ -23,6 +23,7 @@ package com.tachibana.downloader.service;
 import android.app.Notification;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Build;
@@ -31,6 +32,7 @@ import androidx.annotation.NonNull;
 import androidx.core.app.NotificationCompat;
 import androidx.lifecycle.LifecycleService;
 
+import android.os.PowerManager;
 import android.util.Log;
 
 import com.tachibana.downloader.MainActivity;
@@ -45,8 +47,11 @@ import com.tachibana.downloader.settings.SettingsManager;
 
 import java.util.UUID;
 
+/*
+ * Only for work that exceeds 10 minutes and and it's impossible to use WorkManager.
+ */
+
 public class DownloadService extends LifecycleService
-        //implements SharedPreferences.OnSharedPreferenceChangeListener
 {
     @SuppressWarnings("unused")
     private static final String TAG = DownloadService.class.getSimpleName();
@@ -62,19 +67,23 @@ public class DownloadService extends LifecycleService
     private boolean isAlreadyRunning;
     private NotificationManager notifyManager;
     private NotificationCompat.Builder foregroundNotify;
-    private SharedPreferences pref;
     private DownloadEngine engine;
+    private SharedPreferences pref;
+    private PowerManager.WakeLock wakeLock;
     private boolean downloadsApplyingParams;
+    private boolean rescheduleDownloads;
 
     private void init()
     {
         Log.i(TAG, "Start " + TAG);
-        pref = SettingsManager.getInstance(getApplicationContext()).getPreferences();
-//        pref.registerOnSharedPreferenceChangeListener(this);
         notifyManager = (NotificationManager)getSystemService(NOTIFICATION_SERVICE);
 
-        if (engine == null)
-            engine = ((MainApplication)getApplication()).getDownloadEngine();
+        pref = SettingsManager.getInstance(getApplicationContext()).getPreferences();
+        pref.registerOnSharedPreferenceChangeListener(sharedPreferenceListener);
+
+        setKeepCpuAwake(pref.getBoolean(getString(R.string.pref_key_cpu_do_not_sleep),
+                                        SettingsManager.Default.cpuDoNotSleep));
+        engine = ((MainApplication)getApplication()).getDownloadEngine();
         engine.addListener(listener);
 
         makeForegroundNotify();
@@ -85,7 +94,15 @@ public class DownloadService extends LifecycleService
         @Override
         public void onDownloadsCompleted()
         {
-            stopService();
+            if (checkStopService())
+                stopService();
+        }
+
+        @Override
+        public void onApplyingParams(@NonNull UUID id)
+        {
+            downloadsApplyingParams = true;
+            makeApplyingParamsNotify();
         }
 
         @Override
@@ -93,17 +110,39 @@ public class DownloadService extends LifecycleService
         {
             downloadsApplyingParams = false;
             makeApplyingParamsNotify();
-            if (!engine.hasDownloads())
+            if (checkStopService())
+                stopService();
+        }
+
+        @Override
+        public void onStartRescheduling()
+        {
+            rescheduleDownloads = true;
+        }
+
+        @Override
+        public void onDownloadsRescheduled()
+        {
+            rescheduleDownloads = false;
+            if (checkStopService())
                 stopService();
         }
     };
 
+    private boolean checkStopService()
+    {
+        if (downloadsApplyingParams || rescheduleDownloads)
+            return false;
+
+        return !engine.hasDownloads();
+    }
+
     private void stopService()
     {
-//        pref.unregisterOnSharedPreferenceChangeListener(this);
+        pref.unregisterOnSharedPreferenceChangeListener(sharedPreferenceListener);
         engine.removeListener(listener);
-        engine = null;
         isAlreadyRunning = false;
+        engine = null;
         pref = null;
 
         stopForeground(true);
@@ -116,13 +155,6 @@ public class DownloadService extends LifecycleService
         super.onDestroy();
 
         Log.i(TAG, "Stop " + TAG);
-    }
-
-    @Override
-    public void onTaskRemoved(Intent rootIntent)
-    {
-        engine.stopAllDownloads();
-        stopService();
     }
 
     @Override
@@ -143,30 +175,15 @@ public class DownloadService extends LifecycleService
                 case NotificationReceiver.NOTIFY_ACTION_SHUTDOWN_APP:
                 case ACTION_SHUTDOWN:
                     if (engine != null)
-                        engine.stopAllDownloads();
+                        engine.stopDownloads();
+                    if (!downloadsApplyingParams && !rescheduleDownloads &&
+                        (engine == null || !engine.hasDownloads()))
+                        stopService();
                     break;
                 case ACTION_RUN_DOWNLOAD:
                     id = (UUID)intent.getSerializableExtra(TAG_DOWNLOAD_ID);
                     if (id != null && engine != null)
-                        engine.runDownload(id);
-                    break;
-                case NotificationReceiver.NOTIFY_ACTION_PAUSE_ALL:
-                    if (engine != null)
-                        engine.pauseAllDownloads();
-                    break;
-                case NotificationReceiver.NOTIFY_ACTION_RESUME_ALL:
-                    if (engine != null)
-                        engine.resumeAllDownloads();
-                    break;
-                case NotificationReceiver.NOTIFY_ACTION_CANCEL:
-                    id = (UUID)intent.getSerializableExtra(NotificationReceiver.TAG_ID);
-                    if (id != null && engine != null)
-                        engine.cancelDownload(id);
-                    break;
-                case NotificationReceiver.NOTIFY_ACTION_PAUSE_RESUME:
-                    id = (UUID)intent.getSerializableExtra(NotificationReceiver.TAG_ID);
-                    if (id != null && engine != null)
-                        engine.pauseResumeDownload(id);
+                        engine.doRunDownload(id);
                     break;
                 case ACTION_CHANGE_PARAMS:
                     id = (UUID)intent.getSerializableExtra(TAG_DOWNLOAD_ID);
@@ -174,13 +191,51 @@ public class DownloadService extends LifecycleService
                     if (id != null && params != null) {
                         downloadsApplyingParams = true;
                         makeApplyingParamsNotify();
-                        engine.changeParams(id, params);
+                        engine.doChangeParams(id, params);
                     }
+                    break;
+                case NotificationReceiver.NOTIFY_ACTION_PAUSE_ALL:
+                    if (engine != null)
+                        engine.pauseAllDownloads();
+                    break;
+                case NotificationReceiver.NOTIFY_ACTION_RESUME_ALL:
+                    if (engine != null)
+                        engine.resumeDownloads();
+                    break;
+                case NotificationReceiver.NOTIFY_ACTION_CANCEL:
+                    id = (UUID)intent.getSerializableExtra(NotificationReceiver.TAG_ID);
+                    if (id != null && engine != null)
+                        engine.deleteDownloads(true, id);
+                    break;
+                case NotificationReceiver.NOTIFY_ACTION_PAUSE_RESUME:
+                    id = (UUID)intent.getSerializableExtra(NotificationReceiver.TAG_ID);
+                    if (id != null && engine != null)
+                        engine.pauseResumeDownload(id);
                     break;
             }
         }
 
         return START_STICKY;
+    }
+
+    private void setKeepCpuAwake(boolean enable)
+    {
+        if (enable) {
+            if (wakeLock == null) {
+                PowerManager pm = (PowerManager)getSystemService(Context.POWER_SERVICE);
+                wakeLock = pm.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, TAG);
+            }
+
+            if (!wakeLock.isHeld())
+                wakeLock.acquire();
+
+        } else {
+            if (wakeLock == null)
+                return;
+
+            if (wakeLock.isHeld())
+                wakeLock.release();
+        }
     }
 
     private void makeForegroundNotify()
@@ -291,21 +346,8 @@ public class DownloadService extends LifecycleService
         notifyManager.notify(APPLYING_PARAMS_NOTIFICATION_ID, builder.build());
     }
 
-//    @Override
-//    public void onSharedPreferenceChanged(SharedPreferences sharedPreferences, String key)
-//    {
-//        if (pref == null)
-//            pref = sharedPreferences;
-//
-//        if (!DownloadEngine.getInstance().isRunning())
-//            return;
-//
-//        if (key.equals(getString(R.string.pref_key_wifi_only)) ||
-//            key.equals(getString(R.string.pref_key_enable_roaming))) {
-//            if (Utils.isNetworkTypeAllowed(getApplicationContext()))
-//                DownloadEngine.getInstance().resumeAllDownloads();
-//            else
-//                DownloadEngine.getInstance().pauseAllDownloads();
-//        }
-//    }
+    SharedPreferences.OnSharedPreferenceChangeListener sharedPreferenceListener = (sharedPreferences, key) -> {
+        if (key.equals(getString(R.string.pref_key_cpu_do_not_sleep)))
+            setKeepCpuAwake(sharedPreferences.getBoolean(key, SettingsManager.Default.cpuDoNotSleep));
+    };
 }

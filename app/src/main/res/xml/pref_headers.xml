@@ -5,4 +5,9 @@
         android:key="AppearanceSettingsFragment"
         android:title="@string/pref_header_appearance"
         android:persistent="false" />
+
+    <Preference
+        android:key="BehaviorSettingsFragment"
+        android:title="@string/pref_header_behavior"
+        android:persistent="false" />
 </PreferenceScreen>

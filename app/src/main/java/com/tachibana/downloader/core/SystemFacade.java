@@ -28,4 +28,6 @@ public interface SystemFacade
     NetworkInfo getActiveNetworkInfo();
 
     NetworkCapabilities getNetworkCapabilities();
+
+    boolean isWifiEnabled();
 }

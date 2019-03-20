@@ -25,9 +25,17 @@
     <string name="pref_key_led_indicator_color_notify" translatable="false">pref_key_led_indicator_color_notify</string>
     <string name="pref_key_vibration_notify" translatable="false">pref_key_vibration_notify</string>
 
-    <!-- Network settings -->
+    <!-- Behavior settings -->
+    <string name="pref_key_autostart" translatable="false">pref_key_autostart</string>
+    <string name="pref_key_cpu_do_not_sleep" translatable="false">pref_key_cpu_do_not_sleep</string>
+    <string name="pref_key_download_only_when_charging" translatable="false">pref_key_download_only_when_charging</string>
+    <string name="pref_key_battery_control" translatable="false">pref_key_battery_control</string>
+    <string name="pref_key_custom_battery_control" translatable="false">pref_key_custom_battery_control</string>
+    <string name="pref_key_custom_battery_control_value" translatable="false">pref_key_custom_battery_control_value</string>
     <string name="pref_key_wifi_only" translatable="false">pref_key_wifi_only</string>
     <string name="pref_key_enable_roaming" translatable="false">pref_key_enable_roaming</string>
+    <string name="pref_key_autostart_stopped_downloads" translatable="false">pref_key_autostart_stopped_downloads</string>
+
     <!-- Filemanager settings -->
     <string name="pref_key_filemanager_last_dir" translatable="false">pref_key_filemanager_last_dir</string>
     <!-- Storage settings -->

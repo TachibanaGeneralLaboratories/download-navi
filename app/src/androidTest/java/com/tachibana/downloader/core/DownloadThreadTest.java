@@ -74,13 +74,6 @@ public class DownloadThreadTest extends AbstractTest
     }
 
     @Test
-    public void test()
-    {
-        FakeSystemFacade facade = new FakeSystemFacade();
-        Log.e("TEST", "get info=" + facade.getActiveNetworkInfo());
-    }
-
-    @Test
     public void testDownload()
     {
         /* Write download info */
@@ -254,7 +247,7 @@ public class DownloadThreadTest extends AbstractTest
     @Test
     public void testDownload_networkConnection()
     {
-        FakeSystemFacade systemFacade = new FakeSystemFacade();
+        FakeSystemFacade systemFacade = new FakeSystemFacade(context);
         SystemFacade realSystemFacade = Utils.getSystemFacade(context);
         Utils.setSystemFacade(systemFacade);
         SharedPreferences pref = PreferenceManager.getDefaultSharedPreferences(context);

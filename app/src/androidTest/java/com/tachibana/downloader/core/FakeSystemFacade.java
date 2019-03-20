@@ -21,6 +21,7 @@
 package com.tachibana.downloader.core;
 
 import android.annotation.TargetApi;
+import android.content.Context;
 import android.net.ConnectivityManager;
 import android.net.NetworkCapabilities;
 import android.net.NetworkInfo;
@@ -28,15 +29,23 @@ import android.net.NetworkInfo;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.Method;
 
+import androidx.annotation.NonNull;
+
 import static android.net.NetworkCapabilities.NET_CAPABILITY_NOT_METERED;
 import static android.net.NetworkCapabilities.NET_CAPABILITY_NOT_ROAMING;
 
 public class FakeSystemFacade implements SystemFacade
 {
+    public Context context;
     public boolean isRoaming;
     public boolean isMetered;
     public int activeNetworkType = ConnectivityManager.TYPE_MOBILE;
     public NetworkInfo.DetailedState connectionState = NetworkInfo.DetailedState.CONNECTED;
+
+    public FakeSystemFacade(@NonNull Context context)
+    {
+        this.context = context;
+    }
 
     @Override
     public NetworkInfo getActiveNetworkInfo()
@@ -90,5 +99,11 @@ public class FakeSystemFacade implements SystemFacade
         }
 
         return caps;
+    }
+
+    @Override
+    public boolean isWifiEnabled()
+    {
+        return !isMetered;
     }
 }

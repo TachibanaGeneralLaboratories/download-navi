@@ -18,31 +18,35 @@
  * along with Download Navi.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package com.tachibana.downloader.core;
+package com.tachibana.downloader.receiver;
 
+import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
+import android.net.ConnectivityManager;
 
-import com.tachibana.downloader.service.DownloadService;
+import com.tachibana.downloader.MainApplication;
+import com.tachibana.downloader.core.DownloadEngine;
 
-import java.util.UUID;
+/*
+ * The receiver for Wi-Fi connection state changes and roaming state.
+ */
 
-import androidx.annotation.NonNull;
-
-public class DownloadHelper
+public class ConnectionReceiver extends BroadcastReceiver
 {
-    @SuppressWarnings("unused")
-    private static final String TAG = DownloadHelper.class.getSimpleName();
-
-    public static void changeParams(@NonNull Context context,
-                                    @NonNull UUID id,
-                                    @NonNull ChangeableParams params)
+    @Override
+    public void onReceive(Context context, Intent intent)
     {
-        Intent i = new Intent(context, DownloadService.class);
-        i.setAction(DownloadService.ACTION_CHANGE_PARAMS);
-        i.putExtra(DownloadService.TAG_DOWNLOAD_ID, id);
-        i.putExtra(DownloadService.TAG_PARAMS, params);
+        String action = intent.getAction();
+        if (action != null && action.equals(ConnectivityManager.CONNECTIVITY_ACTION)) {
+            DownloadEngine engine = ((MainApplication) context).getDownloadEngine();
+            engine.rescheduleDownloads();
+        }
+    }
 
-        context.startService(i);
+    public static IntentFilter getFilter()
+    {
+        return new IntentFilter(ConnectivityManager.CONNECTIVITY_ACTION);
     }
 }

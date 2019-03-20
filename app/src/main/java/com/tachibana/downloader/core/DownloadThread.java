@@ -139,7 +139,7 @@ public class DownloadThread implements Callable<DownloadResult>
             if ((ret = execDownload()) != null) {
                 info.statusCode = ret.getFinalStatus();
                 info.statusMsg = ret.getMessage();
-                Log.i(TAG, "id=" + id + ", " + info.statusMsg);
+                Log.i(TAG, "id=" + id + ", code=" + info.statusCode + ", msg=" + info.statusMsg);
             } else {
                 info.statusCode = STATUS_SUCCESS;
             }

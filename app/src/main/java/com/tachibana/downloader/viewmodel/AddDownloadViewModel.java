@@ -313,7 +313,7 @@ public class AddDownloadViewModel extends AndroidViewModel
             return;
         }
 
-        engine.scheduleDownload(info);
+        engine.runDownload(info);
     }
 
     private DownloadInfo makeDownloadInfo(Uri dirPath)

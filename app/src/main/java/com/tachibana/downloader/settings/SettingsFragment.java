@@ -42,6 +42,7 @@ public class SettingsFragment extends PreferenceFragmentCompat
     private static final String TAG = SettingsFragment.class.getSimpleName();
 
     private static final String AppearanceSettings = "AppearanceSettingsFragment";
+    private static final String BehaviorSettings = "BehaviorSettingsFragment";
 
     private AppCompatActivity activity;
     private SettingsViewModel viewModel;
@@ -84,6 +85,9 @@ public class SettingsFragment extends PreferenceFragmentCompat
 
         Preference appearance = findPreference(AppearanceSettingsFragment.class.getSimpleName());
         appearance.setOnPreferenceClickListener(prefClickListener);
+
+        Preference behavior = findPreference(BehaviorSettingsFragment.class.getSimpleName());
+        behavior.setOnPreferenceClickListener(prefClickListener);
     }
 
     private Preference.OnPreferenceClickListener prefClickListener = (preference) -> {
@@ -101,6 +105,15 @@ public class SettingsFragment extends PreferenceFragmentCompat
                 } else {
                     startActivity(AppearanceSettingsFragment.class,
                             getString(R.string.pref_header_appearance));
+                }
+                break;
+            case BehaviorSettings:
+                if (Utils.isLargeScreenDevice(getActivity())) {
+                    setFragment(BehaviorSettingsFragment.newInstance(),
+                            getString(R.string.pref_header_behavior));
+                } else {
+                    startActivity(BehaviorSettingsFragment.class,
+                            getString(R.string.pref_header_behavior));
                 }
                 break;
         }

@@ -33,6 +33,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import androidx.viewpager.widget.ViewPager;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.res.Resources;
 import android.os.Build;
 import android.os.Bundle;
@@ -55,6 +56,7 @@ import com.tachibana.downloader.core.utils.Utils;
 import com.tachibana.downloader.receiver.NotificationReceiver;
 import com.tachibana.downloader.service.DownloadService;
 import com.tachibana.downloader.settings.SettingsActivity;
+import com.tachibana.downloader.settings.SettingsManager;
 import com.tachibana.downloader.viewmodel.DownloadsViewModel;
 
 import java.util.List;
@@ -87,6 +89,7 @@ public class MainActivity extends AppCompatActivity
     private SearchView searchView;
     private boolean permDialogIsShow = false;
     private DownloadEngine engine;
+    private SharedPreferences pref;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -111,8 +114,13 @@ public class MainActivity extends AppCompatActivity
         setContentView(R.layout.activity_main);
 
         engine = ((MainApplication)getApplication()).getDownloadEngine();
+        pref = SettingsManager.getInstance(getApplicationContext()).getPreferences();
 
         initLayout();
+
+        if (pref.getBoolean(getString(R.string.pref_key_autostart_stopped_downloads),
+                            SettingsManager.Default.autostartStoppedDownloads))
+            engine.resumeStoppedDownloads();
     }
 
     private void initLayout()
@@ -377,7 +385,7 @@ public class MainActivity extends AppCompatActivity
 
     private void resumeAll()
     {
-        engine.resumeAllDownloads();
+        engine.resumeDownloads();
     }
 
     public void shutdown()

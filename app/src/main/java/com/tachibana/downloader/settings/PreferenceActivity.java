@@ -88,6 +88,8 @@ public class PreferenceActivity extends AppCompatActivity
         if (fragment != null) {
             if (fragment.equals(AppearanceSettingsFragment.class.getSimpleName()))
                 return (F)AppearanceSettingsFragment.newInstance();
+            else if (fragment.equals(BehaviorSettingsFragment.class.getSimpleName()))
+                return (F)BehaviorSettingsFragment.newInstance();
             else
                 return null;
         }

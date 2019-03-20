@@ -132,19 +132,24 @@ public class DownloadNotifier
         synchronized (activeNotifs) {
             HashSet<UUID> ids = new HashSet<>();
             for (InfoAndPieces infoAndPieces : infoAndPiecesList) {
+                if (infoAndPieces.info.statusCode == StatusCode.STATUS_STOPPED)
+                    continue;
+
+                /* Do not remove current notification */
+                ids.add(infoAndPieces.info.id);
+
                 String tag = makeNotificationTag(infoAndPieces.info);
                 if (tag == null)
                     continue;
-                int type = getNotificationTagType(tag);
 
+                int type = getNotificationTagType(tag);
                 if (checkShowNotification(type)) {
-                    ids.add(infoAndPieces.info.id);
                     Notification notify = activeNotifs.get(infoAndPieces.info.id);
 
                     boolean force;
-                    if (notify == null)
+                    if (notify == null) {
                         force = true;
-                    else {
+                    } else {
                         int prevType = getNotificationTagType(notify.tag);
                         force = type != prevType;
                     }
@@ -152,6 +157,9 @@ public class DownloadNotifier
                         continue;
 
                     updateWithLocked(infoAndPieces, notify, tag, type);
+                } else {
+                    /* For clearing previous notification */
+                    ids.remove(infoAndPieces.info.id);
                 }
                 if (type == TYPE_COMPLETE && infoAndPieces.info.visibility != VISIBILITY_HIDDEN)
                     markAsHidden(infoAndPieces.info);
@@ -484,7 +492,6 @@ public class DownloadNotifier
     {
         return (statusCode == StatusCode.STATUS_RUNNING ||
                 statusCode == StatusCode.STATUS_PAUSED ||
-                statusCode == StatusCode.STATUS_STOPPED ||
                 statusCode == StatusCode.STATUS_FETCH_METADATA) &&
                 (visibility == VISIBILITY_VISIBLE ||
                  visibility == VISIBILITY_VISIBLE_NOTIFY_COMPLETED);

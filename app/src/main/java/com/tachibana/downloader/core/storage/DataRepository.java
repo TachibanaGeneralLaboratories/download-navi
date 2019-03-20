@@ -153,6 +153,11 @@ public class DataRepository
         return db.downloadDao().getAllInfoSingle();
     }
 
+    public List<DownloadInfo> getAllInfo()
+    {
+        return db.downloadDao().getAllInfo();
+    }
+
     public DownloadInfo getInfoById(UUID id)
     {
         return db.downloadDao().getInfoById(id);

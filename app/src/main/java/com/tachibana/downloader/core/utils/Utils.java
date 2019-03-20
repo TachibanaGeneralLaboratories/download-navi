@@ -26,8 +26,10 @@ import android.app.NotificationChannel;
 import android.app.NotificationManager;
 import android.content.ClipData;
 import android.content.ClipboardManager;
+import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.content.res.Resources;
@@ -35,6 +37,8 @@ import android.net.ConnectivityManager;
 import android.net.NetworkCapabilities;
 import android.net.NetworkInfo;
 import android.net.Uri;
+import android.net.wifi.WifiManager;
+import android.os.BatteryManager;
 import android.os.Build;
 import android.text.TextUtils;
 import android.util.TypedValue;
@@ -52,6 +56,7 @@ import com.tachibana.downloader.core.filter.DownloadFilter;
 import com.tachibana.downloader.core.filter.DownloadFilterCollection;
 import com.tachibana.downloader.core.sorting.DownloadSorting;
 import com.tachibana.downloader.core.sorting.DownloadSortingComparator;
+import com.tachibana.downloader.receiver.BootReceiver;
 import com.tachibana.downloader.settings.SettingsManager;
 
 import java.io.File;
@@ -407,6 +412,19 @@ public class Utils
         return noWifiOnly && noRoaming;
     }
 
+    public static boolean isRoaming(@NonNull Context context)
+    {
+        SystemFacade systemFacade = getSystemFacade(context);
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P) {
+            NetworkCapabilities caps = systemFacade.getNetworkCapabilities();
+            return caps != null && !caps.hasCapability(NetworkCapabilities.NET_CAPABILITY_NOT_ROAMING);
+        } else {
+            NetworkInfo netInfo = systemFacade.getActiveNetworkInfo();
+            return netInfo != null && netInfo.isRoaming();
+        }
+    }
+
     /*
      * Don't use app context (its doesn't reload after configuration changes)
      */
@@ -682,6 +700,57 @@ public class Utils
                     SettingsManager.Default.ledIndicatorColorNotify(appContext));
             builder.setLights(color, 1000, 1000); /* ms */
         }
+    }
+
+    public static int getDefaultBatteryLowLevel()
+    {
+        return Resources.getSystem().getInteger(
+                Resources.getSystem().getIdentifier("config_lowBatteryWarningLevel", "integer", "android"));
+    }
+
+    public static float getBatteryLevel(@NonNull Context context)
+    {
+        Intent batteryIntent = context.registerReceiver(null, new IntentFilter(Intent.ACTION_BATTERY_CHANGED));
+        int level = batteryIntent.getIntExtra(BatteryManager.EXTRA_LEVEL, -1);
+        int scale = batteryIntent.getIntExtra(BatteryManager.EXTRA_SCALE, -1);
+
+        /* Error checking that probably isn't needed but I added just in case */
+        if (level == -1 || scale == -1)
+            return 50.0f;
+
+        return ((float) level / (float) scale) * 100.0f;
+    }
+
+    public static boolean isBatteryCharging(@NonNull Context context)
+    {
+        Intent batteryIntent = context.registerReceiver(null, new IntentFilter(Intent.ACTION_BATTERY_CHANGED));
+        int status = batteryIntent.getIntExtra(BatteryManager.EXTRA_STATUS, -1);
+
+        return status == BatteryManager.BATTERY_STATUS_CHARGING ||
+                status == BatteryManager.BATTERY_STATUS_FULL;
+    }
+
+    public static boolean isBatteryLow(@NonNull Context context)
+    {
+        return Utils.getBatteryLevel(context) <= Utils.getDefaultBatteryLowLevel();
+    }
+
+    public static boolean isBatteryBelowThreshold(@NonNull Context context, int threshold)
+    {
+        return Utils.getBatteryLevel(context) <= threshold;
+    }
+
+    public static void enableBootReceiver(@NonNull Context appContext, boolean enable)
+    {
+        int flag = (enable ? PackageManager.COMPONENT_ENABLED_STATE_ENABLED : PackageManager.COMPONENT_ENABLED_STATE_DISABLED);
+        ComponentName bootReceiver = new ComponentName(appContext, BootReceiver.class);
+        appContext.getPackageManager()
+                .setComponentEnabledSetting(bootReceiver, flag, PackageManager.DONT_KILL_APP);
+    }
+
+    public static boolean isWifiEnabled(@NonNull Context context)
+    {
+        return getSystemFacade(context).isWifiEnabled();
     }
 
     public static List<DrawerGroup> getNavigationDrawerItems(@NonNull Context context,

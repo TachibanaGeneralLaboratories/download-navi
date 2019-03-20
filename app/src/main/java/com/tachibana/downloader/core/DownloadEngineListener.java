@@ -28,5 +28,11 @@ public abstract class DownloadEngineListener
 {
     public void onDownloadsCompleted() {}
 
+    public void onApplyingParams(@NonNull UUID id) {}
+
     public void onParamsApplied(@NonNull UUID id, Throwable e) {}
+
+    public void onStartRescheduling() {}
+
+    public void onDownloadsRescheduled() {}
 }
