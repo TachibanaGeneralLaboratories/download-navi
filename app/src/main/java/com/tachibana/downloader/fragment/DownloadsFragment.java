@@ -25,7 +25,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Parcelable;
-import android.text.TextUtils;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -92,7 +91,7 @@ public abstract class DownloadsFragment extends Fragment
     private ActionMode actionMode;
     protected FragmentDownloadListBinding binding;
     protected DownloadsViewModel viewModel;
-    protected CompositeDisposable disposable = new CompositeDisposable();
+    protected CompositeDisposable disposables = new CompositeDisposable();
     private BaseAlertDialog deleteDownloadsDialog;
     private BaseAlertDialog.SharedViewModel dialogViewModel;
     private DownloadFilter fragmentDownloadsFilter;
@@ -187,7 +186,7 @@ public abstract class DownloadsFragment extends Fragment
     {
         super.onStop();
 
-        disposable.clear();
+        disposables.clear();
     }
 
     @Override
@@ -219,15 +218,15 @@ public abstract class DownloadsFragment extends Fragment
                             break;
                     }
                 });
-        disposable.add(d);
+        disposables.add(d);
     }
 
     private void subscribeForceSortAndFilter()
     {
-        disposable.add(viewModel.onForceSortAndFilter()
+        disposables.add(viewModel.onForceSortAndFilter()
                 .filter((force) -> force)
                 .observeOn(Schedulers.io())
-                .subscribe((force) -> disposable.add(getDownloadSingle())));
+                .subscribe((force) -> disposables.add(getDownloadSingle())));
     }
 
     @Override
@@ -276,7 +275,7 @@ public abstract class DownloadsFragment extends Fragment
 
     protected void subscribeAdapter()
     {
-        disposable.add(observeDownloads());
+        disposables.add(observeDownloads());
     }
 
     public Disposable observeDownloads()
@@ -397,7 +396,7 @@ public abstract class DownloadsFragment extends Fragment
         MutableSelection<DownloadItem> selections = new MutableSelection<>();
         selectionTracker.copySelection(selections);
 
-        disposable.add(Observable.fromIterable(selections)
+        disposables.add(Observable.fromIterable(selections)
                 .map((selection -> selection.info))
                 .toList()
                 .subscribe((infoList) -> viewModel.deleteDownloads(infoList, withFile)));
@@ -408,7 +407,7 @@ public abstract class DownloadsFragment extends Fragment
         MutableSelection<DownloadItem> selections = new MutableSelection<>();
         selectionTracker.copySelection(selections);
 
-        disposable.add(Observable.fromIterable(selections)
+        disposables.add(Observable.fromIterable(selections)
                 .toList()
                 .subscribe((items) -> {
                     startActivity(Intent.createChooser(
@@ -431,7 +430,7 @@ public abstract class DownloadsFragment extends Fragment
         MutableSelection<DownloadItem> selections = new MutableSelection<>();
         selectionTracker.copySelection(selections);
 
-        disposable.add(Observable.fromIterable(selections)
+        disposables.add(Observable.fromIterable(selections)
                 .map((item) -> item.info.url)
                 .toList()
                 .subscribe((urlList) -> {

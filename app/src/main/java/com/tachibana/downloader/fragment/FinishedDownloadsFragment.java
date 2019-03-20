@@ -32,17 +32,14 @@ import com.tachibana.downloader.core.StatusCode;
 import com.tachibana.downloader.core.entity.DownloadInfo;
 import com.tachibana.downloader.core.utils.Utils;
 import com.tachibana.downloader.dialog.BaseAlertDialog;
-import com.tachibana.downloader.dialog.DownloadDetailsDialog;
 
 import java.util.Collections;
-import java.util.UUID;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.FragmentManager;
 import androidx.lifecycle.ViewModelProviders;
 import io.reactivex.disposables.Disposable;
-import io.reactivex.schedulers.Schedulers;
 
 public class FinishedDownloadsFragment extends DownloadsFragment
     implements DownloadListAdapter.FinishClickListener
@@ -99,7 +96,7 @@ public class FinishedDownloadsFragment extends DownloadsFragment
                             break;
                     }
                 });
-        disposable.add(d);
+        disposables.add(d);
     }
 
     @Override
