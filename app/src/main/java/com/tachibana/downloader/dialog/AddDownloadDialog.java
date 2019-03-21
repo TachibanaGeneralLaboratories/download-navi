@@ -572,6 +572,9 @@ public class AddDownloadDialog extends DialogFragment
 
     private void fetchLink()
     {
+        if (!checkUrlField(binding.link.getText()))
+            return;
+
         viewModel.startFetchTask();
     }
 
