@@ -28,6 +28,7 @@ import android.os.ParcelFileDescriptor;
 import android.util.Log;
 import android.util.Pair;
 
+import com.tachibana.downloader.MainApplication;
 import com.tachibana.downloader.R;
 import com.tachibana.downloader.core.entity.DownloadInfo;
 import com.tachibana.downloader.core.entity.DownloadPiece;
@@ -38,7 +39,7 @@ import com.tachibana.downloader.core.utils.Utils;
 import com.tachibana.downloader.settings.SettingsManager;
 
 import java.io.FileDescriptor;
-import java.io.FileOutputStream;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InterruptedIOException;
 import java.net.HttpURLConnection;
@@ -87,13 +88,15 @@ public class DownloadThread implements Callable<DownloadResult>
     private boolean running;
     private ExecutorService exec;
     private DataRepository repo;
-    private Context context;
+    private SharedPreferences pref;
+    private Context appContext;
 
-    public DownloadThread(Context context, DataRepository repo, UUID id)
+    public DownloadThread(Context appContext, UUID id)
     {
         this.id = id;
-        this.repo = repo;
-        this.context = context;
+        this.appContext = appContext;
+        repo = ((MainApplication)appContext).getRepository();
+        pref = SettingsManager.getInstance(appContext).getPreferences();
     }
 
     public void requestStop()
@@ -180,24 +183,18 @@ public class DownloadThread implements Callable<DownloadResult>
         if (info != null) {
             writeToDatabase();
 
-            if (StatusCode.isStatusError(info.statusCode)) {
+            boolean deletePref = pref.getBoolean(appContext.getString(R.string.pref_key_delete_file_if_error),
+                                                 SettingsManager.Default.deleteFileIfError);
+            if (StatusCode.isStatusError(info.statusCode) && deletePref) {
                 /* When error, free up any disk space */
-                ParcelFileDescriptor pfd = null;
-                FileOutputStream fout = null;
-                try {
-                    Uri filePath = FileUtils.getFileUri(context, info.dirPath, info.fileName);
-                    if (filePath == null)
-                        return;
-                    pfd = context.getContentResolver()
-                            .openFileDescriptor(filePath, "rw");
-                    fout = new FileOutputStream(pfd.getFileDescriptor());
+                Uri filePath = FileUtils.getFileUri(appContext, info.dirPath, info.fileName);
+                if (filePath != null) {
+                    try {
+                        FileUtils.deleteFile(appContext, filePath);
 
-                    FileUtils.ftruncate(fout, 0);
-
-                } catch (Exception e) {
-                    /* Ignore */
-                } finally {
-                    FileUtils.closeQuietly(fout);
+                    } catch (Exception e) {
+                        /* Ignore */
+                    }
                 }
             }
         }
@@ -262,7 +259,7 @@ public class DownloadThread implements Callable<DownloadResult>
             /* Create file if doesn't exists or replace it */
             Pair<Uri, String> res;
             try {
-                res = FileUtils.createFile(context, info.dirPath,
+                res = FileUtils.createFile(appContext, info.dirPath,
                         info.fileName, info.mimeType, false);
 
             } catch (IOException e) {
@@ -283,18 +280,17 @@ public class DownloadThread implements Callable<DownloadResult>
             if (info.totalBytes == 0)
                 return new StopRequest(STATUS_SUCCESS, "Length is zero; skipping");
 
-            if (!Utils.checkConnectivity(context))
+            if (!Utils.checkConnectivity(appContext))
                 return new StopRequest(STATUS_WAITING_FOR_NETWORK);
 
             /* Check free space */
-            long availBytes = FileUtils.getDirAvailableBytes(context, info.dirPath);
+            long availBytes = FileUtils.getDirAvailableBytes(appContext, info.dirPath);
             if (availBytes != -1 && availBytes < info.totalBytes)
                 return new StopRequest(StatusCode.STATUS_INSUFFICIENT_SPACE_ERROR,
                         "No space left on device");
 
             /* Pre-flight disk space requirements, when known */
-            SharedPreferences pref = SettingsManager.getInstance(context).getPreferences();
-            if (info.totalBytes > 0 && pref.getBoolean(context.getString(R.string.pref_key_preallocate_disk_space),
+            if (info.totalBytes > 0 && pref.getBoolean(appContext.getString(R.string.pref_key_preallocate_disk_space),
                                                        SettingsManager.Default.preallocateDiskSpace)) {
                 if ((ret = allocFileSpace(filePath)) != null)
                     return ret;
@@ -305,7 +301,7 @@ public class DownloadThread implements Callable<DownloadResult>
                     Executors.newFixedThreadPool(info.getNumPieces()));
 
             for (int i = 0; i < info.getNumPieces(); i++)
-                exec.submit(new PieceThread(id, i, context, repo));
+                exec.submit(new PieceThread(id, i, appContext, repo));
             exec.shutdown();
             /* Wait "forever" */
             if (!exec.awaitTermination(Long.MAX_VALUE, TimeUnit.NANOSECONDS))
@@ -442,7 +438,7 @@ public class DownloadThread implements Callable<DownloadResult>
         FileDescriptor outFd = null;
         try {
             try {
-                outPfd = context.getContentResolver().openFileDescriptor(filePath, "rw");
+                outPfd = appContext.getContentResolver().openFileDescriptor(filePath, "rw");
                 outFd = outPfd.getFileDescriptor();
 
             } catch (IOException e) {
@@ -450,7 +446,7 @@ public class DownloadThread implements Callable<DownloadResult>
             }
 
             try {
-                FileUtils.fallocate(context, outFd, info.totalBytes);
+                FileUtils.fallocate(appContext, outFd, info.totalBytes);
 
             } catch (InterruptedIOException e) {
                 requestStop();
@@ -476,12 +472,12 @@ public class DownloadThread implements Callable<DownloadResult>
 
     private void writeToDatabase()
     {
-        repo.updateInfo(context, info, false, false);
+        repo.updateInfo(appContext, info, false, false);
     }
 
     private void writeToDatabaseWithPieces()
     {
-        repo.updateInfo(context, info, false, true);
+        repo.updateInfo(appContext, info, false, true);
     }
 
     public StopRequest checkPauseStop()

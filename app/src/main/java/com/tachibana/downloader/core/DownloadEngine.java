@@ -238,7 +238,7 @@ public class DownloadEngine
         if (task != null && task.isRunning())
             return;
 
-        task = new DownloadThread(appContext, repo, id);
+        task = new DownloadThread(appContext, id);
         tasks.put(id, task);
         disposables.add(Observable.fromCallable(task)
                 .subscribeOn(Schedulers.io())
@@ -447,9 +447,6 @@ public class DownloadEngine
         if (info == null)
             return;
 
-        if (StatusCode.isStatusError(info.statusCode))
-            deleteFile(info);
-
         switch (info.statusCode) {
             case StatusCode.STATUS_SUCCESS:
                 checkMoveAfterDownload(info);
@@ -464,19 +461,6 @@ public class DownloadEngine
             case HttpURLConnection.HTTP_PROXY_AUTH:
                 /* TODO: proxy support */
                 break;
-        }
-    }
-
-    private void deleteFile(DownloadInfo info)
-    {
-        Uri filePath = FileUtils.getFileUri(appContext, info.dirPath, info.fileName);
-        if (filePath != null) {
-            try {
-                FileUtils.deleteFile(appContext, filePath);
-
-            }  catch (FileNotFoundException | SecurityException e) {
-                Log.w(TAG, Log.getStackTraceString(e));
-            }
         }
     }
 

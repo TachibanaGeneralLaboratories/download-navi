@@ -64,7 +64,7 @@ public class SettingsManager
         public static final String saveDownloadsIn = "file://" + FileUtils.getDefaultDownloadPath();
         public static final boolean moveAfterDownload = false;
         public static final String moveAfterDownloadIn = "file://" + FileUtils.getDefaultDownloadPath();
-        public static final boolean deleteFileIfError = false;
+        public static final boolean deleteFileIfError = true;
         public static final boolean preallocateDiskSpace = true;
     }
 
