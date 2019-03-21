@@ -23,6 +23,7 @@ package com.tachibana.downloader.core;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.net.Uri;
 import android.text.TextUtils;
 import android.util.Log;
 
@@ -446,6 +447,9 @@ public class DownloadEngine
             return;
 
         switch (info.statusCode) {
+            case StatusCode.STATUS_SUCCESS:
+                checkMoveAfterDownload(info);
+                break;
             case StatusCode.STATUS_WAITING_TO_RETRY:
             case StatusCode.STATUS_WAITING_FOR_NETWORK:
                 runDownload(info);
@@ -457,6 +461,22 @@ public class DownloadEngine
                 /* TODO: proxy support */
                 break;
         }
+    }
+
+    private void checkMoveAfterDownload(DownloadInfo info)
+    {
+        if (!pref.getBoolean(appContext.getString(R.string.pref_key_move_after_download),
+                             SettingsManager.Default.moveAfterDownload))
+            return;
+
+        Uri movePath = Uri.parse(pref.getString(appContext.getString(R.string.pref_key_move_after_download_in),
+                                                SettingsManager.Default.moveAfterDownloadIn));
+        if (movePath == null)
+            return;
+
+        ChangeableParams params = new ChangeableParams();
+        params.dirPath = movePath;
+        changeParams(info.id, params);
     }
 
     private void onCancelled(UUID id)

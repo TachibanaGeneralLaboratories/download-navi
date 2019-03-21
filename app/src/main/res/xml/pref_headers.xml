@@ -10,4 +10,9 @@
         android:key="BehaviorSettingsFragment"
         android:title="@string/pref_header_behavior"
         android:persistent="false" />
+
+    <Preference
+        android:key="StorageSettingsFragment"
+        android:title="@string/pref_header_storage"
+        android:persistent="false" />
 </PreferenceScreen>

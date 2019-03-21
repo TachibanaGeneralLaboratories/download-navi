@@ -43,6 +43,7 @@ public class SettingsFragment extends PreferenceFragmentCompat
 
     private static final String AppearanceSettings = "AppearanceSettingsFragment";
     private static final String BehaviorSettings = "BehaviorSettingsFragment";
+    private static final String StorageSettings = "StorageSettingsFragment";
 
     private AppCompatActivity activity;
     private SettingsViewModel viewModel;
@@ -88,6 +89,9 @@ public class SettingsFragment extends PreferenceFragmentCompat
 
         Preference behavior = findPreference(BehaviorSettingsFragment.class.getSimpleName());
         behavior.setOnPreferenceClickListener(prefClickListener);
+
+        Preference storage = findPreference(StorageSettingsFragment.class.getSimpleName());
+        storage.setOnPreferenceClickListener(prefClickListener);
     }
 
     private Preference.OnPreferenceClickListener prefClickListener = (preference) -> {
@@ -114,6 +118,15 @@ public class SettingsFragment extends PreferenceFragmentCompat
                 } else {
                     startActivity(BehaviorSettingsFragment.class,
                             getString(R.string.pref_header_behavior));
+                }
+                break;
+            case StorageSettings:
+                if (Utils.isLargeScreenDevice(getActivity())) {
+                    setFragment(StorageSettingsFragment.newInstance(),
+                            getString(R.string.pref_header_storage));
+                } else {
+                    startActivity(StorageSettingsFragment.class,
+                            getString(R.string.pref_header_storage));
                 }
                 break;
         }

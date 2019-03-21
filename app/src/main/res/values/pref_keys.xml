@@ -24,7 +24,6 @@
     <string name="pref_key_led_indicator_notify" translatable="false">pref_key_led_indicator_notify</string>
     <string name="pref_key_led_indicator_color_notify" translatable="false">pref_key_led_indicator_color_notify</string>
     <string name="pref_key_vibration_notify" translatable="false">pref_key_vibration_notify</string>
-
     <!-- Behavior settings -->
     <string name="pref_key_autostart" translatable="false">pref_key_autostart</string>
     <string name="pref_key_cpu_do_not_sleep" translatable="false">pref_key_cpu_do_not_sleep</string>
@@ -35,9 +34,12 @@
     <string name="pref_key_wifi_only" translatable="false">pref_key_wifi_only</string>
     <string name="pref_key_enable_roaming" translatable="false">pref_key_enable_roaming</string>
     <string name="pref_key_autostart_stopped_downloads" translatable="false">pref_key_autostart_stopped_downloads</string>
+    <!-- Storage settings -->
+    <string name="pref_key_last_download_dir_uri" translatable="false">pref_key_last_download_dir_uri</string>
+    <string name="pref_key_save_downloads_in" translatable="false">pref_key_save_downloads_in</string>
+    <string name="pref_key_move_after_download" translatable="false">pref_key_move_after_download</string>
+    <string name="pref_key_move_after_download_in" translatable="false">pref_key_move_after_download_in</string>
 
     <!-- Filemanager settings -->
     <string name="pref_key_filemanager_last_dir" translatable="false">pref_key_filemanager_last_dir</string>
-    <!-- Storage settings -->
-    <string name="pref_key_last_download_dir_uri" translatable="false">pref_key_last_download_dir_uri</string>
 </resources>

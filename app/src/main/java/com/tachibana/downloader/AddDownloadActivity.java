@@ -70,8 +70,8 @@ public class AddDownloadActivity extends AppCompatActivity
 
         AddInitParams initParams = new AddInitParams();
         initParams.url = getUrlFromIntent();
-        String path = pref.getString(getString(R.string.pref_key_last_download_dir_uri),
-                SettingsManager.Default.lastDownloadDirUri);
+        String path = pref.getString(getString(R.string.pref_key_save_downloads_in),
+                                     SettingsManager.Default.saveDownloadsIn);
         initParams.dirPath = Uri.parse(path);
 
         return initParams;

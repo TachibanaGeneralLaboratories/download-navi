@@ -614,27 +614,6 @@ public class Utils
                 Manifest.permission.WRITE_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED;
     }
 
-    /*
-     * Retain download dir path and its permissions (if SAF path).
-     */
-
-    public static void retainDownloadDir(@NonNull Context context, @NonNull Uri dirPath)
-    {
-        SharedPreferences pref = SettingsManager.getInstance(context).getPreferences();
-        String key = context.getString(R.string.pref_key_last_download_dir_uri);
-
-        try {
-            FileUtils.takeUriPermission(context, dirPath);
-
-        } catch (SecurityException e) {
-            /* Save default value */
-            pref.edit().putString(key, SettingsManager.Default.lastDownloadDirUri).apply();
-            return;
-        }
-
-        pref.edit().putString(key, dirPath.toString()).apply();
-    }
-
     public static Intent makeShareUrlIntent(@NonNull List<String> urlList)
     {
         Intent sharingIntent = new Intent(android.content.Intent.ACTION_SEND);

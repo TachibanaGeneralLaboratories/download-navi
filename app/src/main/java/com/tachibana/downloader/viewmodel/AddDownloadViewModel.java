@@ -300,8 +300,6 @@ public class AddDownloadViewModel extends AndroidViewModel
         ArrayList<Header> headers = new ArrayList<>();
         headers.add(new Header(info.id, "ETag", params.getEtag()));
 
-        Utils.retainDownloadDir(getApplication(), dirPath);
-
         /* TODO: rewrite to WorkManager */
         /* Sync wait inserting */
         try {

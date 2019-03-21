@@ -191,6 +191,7 @@
     <!-- Headers -->
     <string name="pref_header_appearance">Appearance</string>
     <string name="pref_header_behavior">Behavior</string>
+    <string name="pref_header_storage">Storage</string>
     <!-- Appearance settings -->
     <string name="pref_theme_category">Theme settings</string>
     <string name="pref_theme_title">Theme</string>
@@ -229,4 +230,8 @@
     <string name="pref_autostart_stopped_downloads_summary">Start downloads after running the app, if they weren\'t manually paused</string>
     <string name="pref_enable_roaming_title">Enable roaming</string>
     <string name="pref_enable_roaming_summary">Download only if the device isn\'t roaming</string>
+    <!-- Storage settings -->
+    <string name="pref_save_downloads_in_title">Save downloads in</string>
+    <string name="pref_move_after_download_title">Move after download</string>
+    <string name="pref_move_after_download_in_title">Move after download in</string>
 </resources>
