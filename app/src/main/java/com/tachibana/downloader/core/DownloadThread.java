@@ -22,17 +22,20 @@ package com.tachibana.downloader.core;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.ParcelFileDescriptor;
 import android.util.Log;
 import android.util.Pair;
 
+import com.tachibana.downloader.R;
 import com.tachibana.downloader.core.entity.DownloadInfo;
 import com.tachibana.downloader.core.entity.DownloadPiece;
 import com.tachibana.downloader.core.entity.Header;
 import com.tachibana.downloader.core.storage.DataRepository;
 import com.tachibana.downloader.core.utils.FileUtils;
 import com.tachibana.downloader.core.utils.Utils;
+import com.tachibana.downloader.settings.SettingsManager;
 
 import java.io.FileDescriptor;
 import java.io.FileOutputStream;
@@ -290,7 +293,9 @@ public class DownloadThread implements Callable<DownloadResult>
                         "No space left on device");
 
             /* Pre-flight disk space requirements, when known */
-            if (info.totalBytes > 0) {
+            SharedPreferences pref = SettingsManager.getInstance(context).getPreferences();
+            if (info.totalBytes > 0 && pref.getBoolean(context.getString(R.string.pref_key_preallocate_disk_space),
+                                                       SettingsManager.Default.preallocateDiskSpace)) {
                 if ((ret = allocFileSpace(filePath)) != null)
                     return ret;
             }

@@ -61,9 +61,11 @@ public class SettingsManager
         /* Filemanager settings */
         public static final String fileManagerLastDir = FileUtils.getDefaultDownloadPath();
         /* Storage settings */
-        public static final String saveDownloadsIn = "file://" + FileUtils.getDefaultDownloadPath();;
+        public static final String saveDownloadsIn = "file://" + FileUtils.getDefaultDownloadPath();
         public static final boolean moveAfterDownload = false;
-        public static final String moveAfterDownloadIn = "file://" + FileUtils.getDefaultDownloadPath();;
+        public static final String moveAfterDownloadIn = "file://" + FileUtils.getDefaultDownloadPath();
+        public static final boolean deleteFileIfError = false;
+        public static final boolean preallocateDiskSpace = true;
     }
 
     private static SettingsManager INSTANCE;

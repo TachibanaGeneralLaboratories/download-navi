@@ -25,6 +25,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 
 import com.tachibana.downloader.R;
@@ -98,6 +99,17 @@ public class StorageSettingsFragment extends PreferenceFragmentCompat
 
             return true;
         });
+
+        String keyDeleteFileIfError = getString(R.string.pref_key_delete_file_if_error);
+        SwitchPreferenceCompat deleteFileIfError = (SwitchPreferenceCompat)findPreference(keyDeleteFileIfError);
+        deleteFileIfError.setChecked(pref.getBoolean(keyDeleteFileIfError, SettingsManager.Default.deleteFileIfError));
+
+        String keyPreallocateDiskSpace = getString(R.string.pref_key_preallocate_disk_space);
+        SwitchPreferenceCompat preallocateDiskSpace =
+                (SwitchPreferenceCompat)findPreference(keyPreallocateDiskSpace);
+        preallocateDiskSpace.setChecked(pref.getBoolean(keyPreallocateDiskSpace,
+                                        SettingsManager.Default.preallocateDiskSpace));
+        preallocateDiskSpace.setEnabled(Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP);
     }
 
     @Override

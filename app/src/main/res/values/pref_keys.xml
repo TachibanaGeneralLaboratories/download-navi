@@ -39,6 +39,8 @@
     <string name="pref_key_save_downloads_in" translatable="false">pref_key_save_downloads_in</string>
     <string name="pref_key_move_after_download" translatable="false">pref_key_move_after_download</string>
     <string name="pref_key_move_after_download_in" translatable="false">pref_key_move_after_download_in</string>
+    <string name="pref_key_delete_file_if_error" translatable="false">pref_key_delete_file_if_error</string>
+    <string name="pref_key_preallocate_disk_space" translatable="false">pref_key_preallocate_disk_space</string>
 
     <!-- Filemanager settings -->
     <string name="pref_key_filemanager_last_dir" translatable="false">pref_key_filemanager_last_dir</string>

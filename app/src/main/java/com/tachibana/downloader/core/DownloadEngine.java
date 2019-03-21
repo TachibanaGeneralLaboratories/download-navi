@@ -40,6 +40,7 @@ import com.tachibana.downloader.service.DownloadService;
 import com.tachibana.downloader.settings.SettingsManager;
 import com.tachibana.downloader.worker.DeleteDownloadsWorker;
 
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.net.HttpURLConnection;
 import java.util.ArrayList;
@@ -446,6 +447,9 @@ public class DownloadEngine
         if (info == null)
             return;
 
+        if (StatusCode.isStatusError(info.statusCode))
+            deleteFile(info);
+
         switch (info.statusCode) {
             case StatusCode.STATUS_SUCCESS:
                 checkMoveAfterDownload(info);
@@ -460,6 +464,19 @@ public class DownloadEngine
             case HttpURLConnection.HTTP_PROXY_AUTH:
                 /* TODO: proxy support */
                 break;
+        }
+    }
+
+    private void deleteFile(DownloadInfo info)
+    {
+        Uri filePath = FileUtils.getFileUri(appContext, info.dirPath, info.fileName);
+        if (filePath != null) {
+            try {
+                FileUtils.deleteFile(appContext, filePath);
+
+            }  catch (FileNotFoundException | SecurityException e) {
+                Log.w(TAG, Log.getStackTraceString(e));
+            }
         }
     }
 
