@@ -22,6 +22,7 @@ package com.tachibana.downloader.viewmodel;
 
 import android.app.Application;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.net.NetworkInfo;
 import android.net.Uri;
 import android.os.AsyncTask;
@@ -29,6 +30,7 @@ import android.text.TextUtils;
 import android.util.Log;
 
 import com.tachibana.downloader.MainApplication;
+import com.tachibana.downloader.R;
 import com.tachibana.downloader.core.DownloadEngine;
 import com.tachibana.downloader.core.HttpConnection;
 import com.tachibana.downloader.core.SystemFacade;
@@ -41,6 +43,7 @@ import com.tachibana.downloader.core.storage.DataRepository;
 import com.tachibana.downloader.core.utils.FileUtils;
 import com.tachibana.downloader.core.utils.Utils;
 import com.tachibana.downloader.dialog.AddDownloadDialog;
+import com.tachibana.downloader.settings.SettingsManager;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -51,6 +54,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.databinding.Observable;
 import androidx.databinding.ObservableInt;
 import androidx.databinding.library.baseAdapters.BR;
@@ -66,6 +70,7 @@ public class AddDownloadViewModel extends AndroidViewModel
 
     private FetchLinkTask fetchTask;
     private DataRepository repo;
+    private SharedPreferences pref;
     private DownloadEngine engine;
     public AddDownloadParams params = new AddDownloadParams();
     public MutableLiveData<FetchState> fetchState = new MutableLiveData<>();
@@ -100,6 +105,7 @@ public class AddDownloadViewModel extends AndroidViewModel
         super(application);
 
         repo = ((MainApplication)getApplication()).getRepository();
+        pref = SettingsManager.getInstance(getApplication()).getPreferences();
         engine = ((MainApplication)getApplication()).getDownloadEngine();
         fetchState.setValue(new FetchState(Status.UNKNOWN));
         params.addOnPropertyChangedCallback(paramsCallback);
@@ -129,6 +135,23 @@ public class AddDownloadViewModel extends AndroidViewModel
     public Completable addUserAgent(UserAgent userAgent)
     {
         return Completable.fromAction(() -> repo.addUserAgent(userAgent));
+    }
+
+    public UserAgent getPrefUserAgent()
+    {
+        String userAgent = pref.getString(getApplication().getString(R.string.pref_key_user_agent), Utils.getSystemUserAgent(getApplication()));
+
+        return new UserAgent(userAgent);
+    }
+
+    public void savePrefUserAgent(UserAgent userAgent)
+    {
+        if (userAgent == null)
+            return;
+
+        pref.edit()
+                .putString(getApplication().getString(R.string.pref_key_user_agent), userAgent.userAgent)
+                .apply();
     }
 
     public void startFetchTask()

@@ -58,6 +58,7 @@ import com.tachibana.downloader.viewmodel.AddInitParams;
 import java.io.IOException;
 import java.net.ConnectException;
 import java.net.MalformedURLException;
+import java.util.List;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -218,7 +219,7 @@ public class AddDownloadDialog extends DialogFragment
         viewModel.params.setFileName(initParams.fileName);
         viewModel.params.setDescription(initParams.description);
         viewModel.params.setUserAgent(initParams.userAgent == null ?
-                Utils.getSystemUserAgent(activity.getApplicationContext()) :
+                viewModel.getPrefUserAgent().userAgent :
                 initParams.userAgent);
         viewModel.params.setDirPath(initParams.dirPath == null ?
                 Uri.parse(FileUtils.getDefaultDownloadPath()) :
@@ -341,7 +342,6 @@ public class AddDownloadDialog extends DialogFragment
         viewModel.observeUserAgents().observe(this, (userAgentList) -> {
             int curUserAgentPos = -1;
             String curUserAgent = viewModel.params.getUserAgent();
-            /* Select current user agent */
             if (curUserAgent != null) {
                 for (int i = 0; i < userAgentList.size(); i++) {
                     if (curUserAgent.equals(userAgentList.get(i).userAgent)) {
@@ -370,8 +370,10 @@ public class AddDownloadDialog extends DialogFragment
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l)
             {
                 Object item = binding.userAgent.getItemAtPosition(i);
-                if (item != null)
+                if (item != null) {
                     viewModel.params.setUserAgent(((UserAgent)item).userAgent);
+                    viewModel.savePrefUserAgent(((UserAgent)item));
+                }
             }
 
             @Override
