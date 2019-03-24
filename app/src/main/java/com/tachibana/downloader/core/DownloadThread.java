@@ -452,8 +452,7 @@ public class DownloadThread implements Callable<DownloadResult>
             } catch (InterruptedIOException e) {
                 requestStop();
             } catch (IOException e) {
-                Log.e(TAG, Log.getStackTraceString(e));
-                return null;
+                return new StopRequest(STATUS_INSUFFICIENT_SPACE_ERROR, e);
             }
 
         } finally {
