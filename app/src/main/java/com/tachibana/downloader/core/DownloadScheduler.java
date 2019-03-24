@@ -26,6 +26,7 @@ import android.content.SharedPreferences;
 import com.tachibana.downloader.R;
 import com.tachibana.downloader.core.entity.DownloadInfo;
 import com.tachibana.downloader.settings.SettingsManager;
+import com.tachibana.downloader.worker.DownloadQueueWorker;
 import com.tachibana.downloader.worker.RescheduleAllWorker;
 import com.tachibana.downloader.worker.RunAllWorker;
 import com.tachibana.downloader.worker.RunDownloadWorker;
@@ -46,9 +47,10 @@ public class DownloadScheduler
     @SuppressWarnings("unused")
     private static final String TAG = DownloadScheduler.class.getSimpleName();
 
-    public static final String TAG_WORKS_RUN_ALL_TYPE = "run_all";
-    public static final String TAG_WORKS_RUN_TYPE = "run";
-    public static final String TAG_WORKS_RESCHEDULE_TYPE = "reschedule";
+    public static final String TAG_WORK_RUN_ALL_TYPE = "run_all";
+    public static final String TAG_WORK_RUN_TYPE = "run";
+    public static final String TAG_WORK_RESCHEDULE_TYPE = "reschedule";
+    public static final String TAG_WORK_PUSH_INTO_QUEUE_TYPE = "push_into_queue";
 
     /*
      * Run unique work for starting download.
@@ -64,7 +66,7 @@ public class DownloadScheduler
         OneTimeWorkRequest work = new OneTimeWorkRequest.Builder(RunDownloadWorker.class)
                 .setInputData(data)
                 .setConstraints(getConstraints(context, info))
-                .addTag(TAG_WORKS_RUN_TYPE)
+                .addTag(TAG_WORK_RUN_TYPE)
                 .addTag(downloadTag)
                 .build();
         WorkManager.getInstance().enqueueUniqueWork(downloadTag,
@@ -79,7 +81,7 @@ public class DownloadScheduler
     public static void rescheduleAll()
     {
         OneTimeWorkRequest work = new OneTimeWorkRequest.Builder(RescheduleAllWorker.class)
-                .addTag(TAG_WORKS_RESCHEDULE_TYPE)
+                .addTag(TAG_WORK_RESCHEDULE_TYPE)
                 .build();
         WorkManager.getInstance().enqueue(work);
     }
@@ -91,14 +93,46 @@ public class DownloadScheduler
                 .build();
         OneTimeWorkRequest work = new OneTimeWorkRequest.Builder(RunAllWorker.class)
                 .setInputData(data)
-                .addTag(TAG_WORKS_RUN_ALL_TYPE)
+                .addTag(TAG_WORK_RUN_ALL_TYPE)
+                .build();
+        WorkManager.getInstance().enqueue(work);
+    }
+
+    /*
+     * Push the download into the queue if we want to defer it
+     * for an indefinite period of time, for example, simultaneous downloads
+     */
+
+    public static void pushIntoQueue(@NonNull UUID id)
+    {
+        Data data = new Data.Builder()
+                .putString(DownloadQueueWorker.TAG_ID, id.toString())
+                .putString(DownloadQueueWorker.TAG_ACTION, DownloadQueueWorker.ACTION_PUSH)
+                .build();
+        OneTimeWorkRequest work = new OneTimeWorkRequest.Builder(DownloadQueueWorker.class)
+                .setInputData(data)
+                .build();
+        WorkManager.getInstance().enqueue(work);
+    }
+
+    /*
+     * Pop the download from the queue and run it
+     */
+
+    public static void runFromQueue()
+    {
+        Data data = new Data.Builder()
+                .putString(DownloadQueueWorker.TAG_ACTION, DownloadQueueWorker.ACTION_POP_AND_RUN)
+                .build();
+        OneTimeWorkRequest work = new OneTimeWorkRequest.Builder(DownloadQueueWorker.class)
+                .setInputData(data)
                 .build();
         WorkManager.getInstance().enqueue(work);
     }
 
     public static String getDownloadTag(UUID downloadId)
     {
-        return TAG_WORKS_RUN_TYPE + ":" + downloadId;
+        return TAG_WORK_RUN_TYPE + ":" + downloadId;
     }
 
     public static String extractDownloadIdFromTag(String tag)

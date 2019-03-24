@@ -54,6 +54,7 @@ import java.util.concurrent.Executors;
 import java.util.concurrent.TimeUnit;
 
 import static com.tachibana.downloader.core.StatusCode.STATUS_BAD_REQUEST;
+import static com.tachibana.downloader.core.StatusCode.STATUS_INSUFFICIENT_SPACE_ERROR;
 import static com.tachibana.downloader.core.StatusCode.STATUS_STOPPED;
 import static com.tachibana.downloader.core.StatusCode.STATUS_CANNOT_RESUME;
 import static com.tachibana.downloader.core.StatusCode.STATUS_FILE_ERROR;

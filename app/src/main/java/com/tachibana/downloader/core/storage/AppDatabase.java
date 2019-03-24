@@ -25,9 +25,11 @@ import android.content.Context;
 import com.tachibana.downloader.core.entity.DownloadInfo;
 import com.tachibana.downloader.core.entity.DownloadPiece;
 import com.tachibana.downloader.core.entity.Header;
+import com.tachibana.downloader.core.entity.QueuedDownload;
 import com.tachibana.downloader.core.entity.UserAgent;
 import com.tachibana.downloader.core.storage.converter.UUIDConverter;
 import com.tachibana.downloader.core.storage.dao.DownloadDao;
+import com.tachibana.downloader.core.storage.dao.QueuedDownloadDao;
 import com.tachibana.downloader.core.storage.dao.UserAgentDao;
 import com.tachibana.downloader.core.utils.Utils;
 
@@ -45,7 +47,8 @@ import io.reactivex.schedulers.Schedulers;
 @Database(entities = {DownloadInfo.class,
         DownloadPiece.class,
         Header.class,
-        UserAgent.class},
+        UserAgent.class,
+        QueuedDownload.class},
         version = 1,
         exportSchema = false) /* TODO: export schema after first release */
 @TypeConverters({UUIDConverter.class})
@@ -58,6 +61,8 @@ public abstract class AppDatabase extends RoomDatabase
     public abstract DownloadDao downloadDao();
 
     public abstract UserAgentDao userAgentDao();
+
+    public abstract QueuedDownloadDao queuedDownloadDao();
 
     private static final UserAgent[] defaultUserAgents = new UserAgent[] {
             new UserAgent("Mozilla/5.0 (Linux; U; Android 4.1; en-us; DV Build/Donut)"),

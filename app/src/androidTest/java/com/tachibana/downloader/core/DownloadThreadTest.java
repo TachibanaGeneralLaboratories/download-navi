@@ -30,6 +30,7 @@ import com.tachibana.downloader.AbstractTest;
 import com.tachibana.downloader.R;
 import com.tachibana.downloader.core.entity.DownloadInfo;
 import com.tachibana.downloader.core.entity.DownloadPiece;
+import com.tachibana.downloader.core.entity.QueuedDownload;
 import com.tachibana.downloader.core.utils.DigestUtils;
 import com.tachibana.downloader.core.utils.FileUtils;
 import com.tachibana.downloader.core.utils.Utils;
@@ -83,7 +84,7 @@ public class DownloadThreadTest extends AbstractTest
         repo.addInfo(context, info, new ArrayList<>());
 
         /* Run download task and get result */
-        DownloadResult result = runTask(new DownloadThread(context, repo, id));
+        DownloadResult result = runTask(new DownloadThread(context, id));
         assertNotNull(result);
 
         /* Read download info */
@@ -131,7 +132,7 @@ public class DownloadThreadTest extends AbstractTest
         repo.addInfo(context, info, new ArrayList<>());
 
         /* Run download task and get result */
-        DownloadResult result = runTask(new DownloadThread(context, repo, id));
+        DownloadResult result = runTask(new DownloadThread(context, id));
         assertNotNull(result);
 
         /* Read download info */
@@ -167,7 +168,7 @@ public class DownloadThreadTest extends AbstractTest
         repo.addInfo(context, info, new ArrayList<>());
 
         /* Run download task and get result */
-        DownloadResult result = runTask(new DownloadThread(context, repo, id));
+        DownloadResult result = runTask(new DownloadThread(context, id));
         assertNotNull(result);
 
         /* Read download info */
@@ -218,7 +219,7 @@ public class DownloadThreadTest extends AbstractTest
         repo.addInfo(context, info, new ArrayList<>());
 
         /* Run download task and get result */
-        DownloadResult result = runTask(new DownloadThread(context, repo, id));
+        DownloadResult result = runTask(new DownloadThread(context, id));
         assertNotNull(result);
 
         /* Read download info */
@@ -302,7 +303,7 @@ public class DownloadThreadTest extends AbstractTest
 
     private void runTask_checkWaitingNetwork(String msg, UUID id)
     {
-        runTask(new DownloadThread(context, repo, id));
+        runTask(new DownloadThread(context, id));
         DownloadInfo info = repo.getInfoById(id);
         assertEquals(msg, StatusCode.STATUS_WAITING_FOR_NETWORK, info.statusCode);
     }

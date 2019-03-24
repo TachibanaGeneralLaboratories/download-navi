@@ -58,6 +58,7 @@ public class SettingsManager
         public static final boolean onlyCharging = false;
         public static final boolean batteryControl = false;
         public static final boolean customBatteryControl = false;
+        public static final int maxActiveDownloads = 3;
         /* Filemanager settings */
         public static final String fileManagerLastDir = FileUtils.getDefaultDownloadPath();
         /* Storage settings */

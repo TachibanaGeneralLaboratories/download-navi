@@ -34,6 +34,7 @@
     <string name="pref_key_wifi_only" translatable="false">pref_key_wifi_only</string>
     <string name="pref_key_enable_roaming" translatable="false">pref_key_enable_roaming</string>
     <string name="pref_key_autostart_stopped_downloads" translatable="false">pref_key_autostart_stopped_downloads</string>
+    <string name="pref_key_max_active_downloads" translatable="false">pref_key_max_active_downloads</string>
     <!-- Storage settings -->
     <string name="pref_key_last_download_dir_uri" translatable="false">pref_key_last_download_dir_uri</string>
     <string name="pref_key_save_downloads_in" translatable="false">pref_key_save_downloads_in</string>

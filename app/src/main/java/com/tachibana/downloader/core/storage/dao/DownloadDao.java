@@ -66,9 +66,6 @@ public abstract class DownloadDao
     @Delete
     public abstract void deleteInfo(DownloadInfo info);
 
-    @Delete
-    public abstract void deleteInfoList(List<DownloadInfo> infoList);
-
     @Update
     public abstract void updateInfo(DownloadInfo info);
 
@@ -79,9 +76,6 @@ public abstract class DownloadDao
         deletePieces(info.id);
         addPieces(info.makePieces());
     }
-
-    @Query(QUERY_GET_ALL_INFO)
-    public abstract Single<List<DownloadInfo>> getAllInfoSingle();
 
     @Query(QUERY_GET_ALL_INFO)
     public abstract List<DownloadInfo> getAllInfo();

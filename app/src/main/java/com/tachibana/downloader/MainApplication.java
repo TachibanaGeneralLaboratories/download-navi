@@ -28,17 +28,22 @@ import android.os.Build;
 import com.tachibana.downloader.core.DownloadEngine;
 import com.tachibana.downloader.core.storage.AppDatabase;
 import com.tachibana.downloader.core.storage.DataRepository;
+import com.tachibana.downloader.core.storage.DownloadQueue;
 import com.tachibana.downloader.core.utils.Utils;
+
+import androidx.annotation.VisibleForTesting;
 
 public class MainApplication extends Application
 {
     private DownloadNotifier downloadNotifier;
+    private AppDatabase db;
 
     @Override
     public void onCreate()
     {
         super.onCreate();
 
+        db = AppDatabase.getInstance(this);
         Utils.makeNotifyChans(this, (NotificationManager)getSystemService(NOTIFICATION_SERVICE));
 
         downloadNotifier = new DownloadNotifier(this, getRepository());
@@ -47,12 +52,23 @@ public class MainApplication extends Application
 
     public AppDatabase getDatabase()
     {
-        return AppDatabase.getInstance(this);
+        return db;
+    }
+
+    @VisibleForTesting
+    public void setDatabase(AppDatabase db)
+    {
+        this.db = db;
     }
 
     public DataRepository getRepository()
     {
         return DataRepository.getInstance(getDatabase());
+    }
+
+    public DownloadQueue getDownloadQueue()
+    {
+        return DownloadQueue.getInstance(getDatabase());
     }
 
     public DownloadEngine getDownloadEngine()

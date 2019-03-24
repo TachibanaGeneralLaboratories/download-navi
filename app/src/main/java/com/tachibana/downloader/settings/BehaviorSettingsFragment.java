@@ -22,10 +22,14 @@ package com.tachibana.downloader.settings;
 
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.text.InputFilter;
+import android.text.TextUtils;
 
+import com.tachibana.downloader.InputFilterMinMax;
 import com.tachibana.downloader.R;
 import com.tachibana.downloader.core.utils.Utils;
 import com.tachibana.downloader.dialog.BaseAlertDialog;
+import com.takisoft.preferencex.EditTextPreference;
 import com.takisoft.preferencex.PreferenceFragmentCompat;
 
 import androidx.fragment.app.FragmentManager;
@@ -111,6 +115,14 @@ public class BehaviorSettingsFragment extends PreferenceFragmentCompat
         String keyRoaming = getString(R.string.pref_key_enable_roaming);
         SwitchPreferenceCompat roaming = (SwitchPreferenceCompat)findPreference(keyRoaming);
         roaming.setChecked(pref.getBoolean(keyRoaming, SettingsManager.Default.enableRoaming));
+
+        String keyMaxActiveDownloads = getString(R.string.pref_key_max_active_downloads);
+        EditTextPreference maxActiveDownloads  = (EditTextPreference)findPreference(keyMaxActiveDownloads);
+        String value = Integer.toString(pref.getInt(keyMaxActiveDownloads, SettingsManager.Default.maxActiveDownloads));
+        maxActiveDownloads.getEditText().setFilters(new InputFilter[]{ new InputFilterMinMax(1, Integer.MAX_VALUE) });
+        maxActiveDownloads.setSummary(value);
+        maxActiveDownloads.setText(value);
+        bindOnPreferenceChangeListener(maxActiveDownloads);
     }
 
     @Override
@@ -158,6 +170,8 @@ public class BehaviorSettingsFragment extends PreferenceFragmentCompat
     @Override
     public boolean onPreferenceChange(final Preference preference, Object newValue)
     {
+        SharedPreferences pref = SettingsManager.getInstance(getActivity().getApplicationContext())
+                .getPreferences();
         if (preference instanceof SwitchPreferenceCompat) {
             if (preference.getKey().equals(getString(R.string.pref_key_autostart))) {
                 Utils.enableBootReceiver(getActivity(), (boolean)newValue);
@@ -173,7 +187,14 @@ public class BehaviorSettingsFragment extends PreferenceFragmentCompat
             } else if(preference.getKey().equals(getString(R.string.pref_key_custom_battery_control))) {
                 if (!((SwitchPreferenceCompat) preference).isChecked())
                     showCustomBatteryDialog();
+
             }
+        } else if (preference.getKey().equals(getString(R.string.pref_key_max_active_downloads))) {
+            int value = 1;
+            if (!TextUtils.isEmpty((String)newValue))
+                value = Integer.parseInt((String) newValue);
+            pref.edit().putInt(preference.getKey(), value).apply();
+            preference.setSummary(Integer.toString(value));
         }
 
         return true;

@@ -40,7 +40,6 @@ import com.tachibana.downloader.service.DownloadService;
 import com.tachibana.downloader.settings.SettingsManager;
 import com.tachibana.downloader.worker.DeleteDownloadsWorker;
 
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.net.HttpURLConnection;
 import java.util.ArrayList;
@@ -66,7 +65,7 @@ public class DownloadEngine
     private DataRepository repo;
     private SharedPreferences pref;
     private CompositeDisposable disposables = new CompositeDisposable();
-    private HashMap<UUID, DownloadThread> tasks = new HashMap<>();
+    private HashMap<UUID, DownloadThread> activeDownloads = new HashMap<>();
     private ArrayList<DownloadEngineListener> listeners = new ArrayList<>();
     private HashMap<UUID, ChangeableParams> duringChange = new HashMap<>();
 
@@ -140,7 +139,7 @@ public class DownloadEngine
                             if (StatusCode.isStatusStoppedOrPaused(info.statusCode)) {
                                 runDownload(info);
                             } else {
-                                DownloadThread task = tasks.get(id);
+                                DownloadThread task = activeDownloads.get(id);
                                 if (task != null && !duringChange.containsKey(id))
                                     task.requestPause();
                             }
@@ -156,7 +155,7 @@ public class DownloadEngine
 
     public synchronized void pauseAllDownloads()
     {
-        for (Map.Entry<UUID, DownloadThread> entry : tasks.entrySet()) {
+        for (Map.Entry<UUID, DownloadThread> entry : activeDownloads.entrySet()) {
             if (duringChange.containsKey(entry.getKey()))
                 continue;
             DownloadThread task = entry.getValue();
@@ -178,7 +177,7 @@ public class DownloadEngine
 
     public synchronized void stopDownloads()
     {
-        for (Map.Entry<UUID, DownloadThread> entry : tasks.entrySet()) {
+        for (Map.Entry<UUID, DownloadThread> entry : activeDownloads.entrySet()) {
             if (duringChange.containsKey(entry.getKey()))
                 continue;
             DownloadThread task = entry.getValue();
@@ -209,9 +208,9 @@ public class DownloadEngine
         runDeleteDownloadsWorker(strIdList, withFile);
     }
 
-    public boolean hasDownloads()
+    public boolean hasActiveDownloads()
     {
-        return !tasks.isEmpty();
+        return !activeDownloads.isEmpty();
     }
 
     public void changeParams(@NonNull UUID id,
@@ -234,12 +233,17 @@ public class DownloadEngine
         if (duringChange.containsKey(id))
             return;
 
-        DownloadThread task = tasks.get(id);
+        if (isMaxActiveDownloads()) {
+            DownloadScheduler.pushIntoQueue(id);
+            return;
+        }
+
+        DownloadThread task = activeDownloads.get(id);
         if (task != null && task.isRunning())
             return;
 
         task = new DownloadThread(appContext, id);
-        tasks.put(id, task);
+        activeDownloads.put(id, task);
         disposables.add(Observable.fromCallable(task)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
@@ -265,7 +269,7 @@ public class DownloadEngine
         DownloadScheduler.undone(info);
         repo.deleteInfo(appContext, info, withFile);
 
-        DownloadThread task = tasks.get(info.id);
+        DownloadThread task = activeDownloads.get(info.id);
         if (task != null)
             task.requestStop();
         else if (checkNoDownloads())
@@ -297,7 +301,7 @@ public class DownloadEngine
         duringChange.put(id, params);
         notifyListeners((listener) -> listener.onApplyingParams(id));
 
-        DownloadThread task = tasks.get(id);
+        DownloadThread task = activeDownloads.get(id);
         if (task != null && task.isRunning())
             task.requestStop();
         else
@@ -401,13 +405,16 @@ public class DownloadEngine
 
     private boolean checkNoDownloads()
     {
-        return tasks.isEmpty();
+        return activeDownloads.isEmpty();
     }
 
     private void observeDownloadResult(DownloadResult result)
     {
         if (result == null)
             return;
+
+        activeDownloads.remove(result.infoId);
+        scheduleWaitingDownload();
 
         switch (result.status) {
             case FINISHED:
@@ -422,8 +429,6 @@ public class DownloadEngine
 
     private void onFinished(UUID id)
     {
-        tasks.remove(id);
-
         disposables.add(repo.getInfoByIdSingle(id)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
@@ -482,7 +487,6 @@ public class DownloadEngine
 
     private void onCancelled(UUID id)
     {
-        tasks.remove(id);
         ChangeableParams params = duringChange.get(id);
         if (params == null) {
             if (checkNoDownloads())
@@ -490,6 +494,18 @@ public class DownloadEngine
         } else {
             applyParams(id, params, true);
         }
+    }
+
+    private boolean isMaxActiveDownloads()
+    {
+        return activeDownloads.size() == pref.getInt(appContext.getString(R.string.pref_key_max_active_downloads),
+                                                     SettingsManager.Default.maxActiveDownloads);
+    }
+
+    private void scheduleWaitingDownload()
+    {
+        if (!isMaxActiveDownloads())
+            DownloadScheduler.runFromQueue();
     }
 
     private final SharedPreferences.OnSharedPreferenceChangeListener sharedPrefListener = (sharedPreferences, key) -> {

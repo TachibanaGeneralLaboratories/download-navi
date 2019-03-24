@@ -114,25 +114,6 @@ public class DataRepository
         }
     }
 
-    public void deleteInfoList(Context context, List<DownloadInfo> infoList, boolean withFile)
-    {
-        db.downloadDao().deleteInfoList(infoList);
-
-        for (DownloadInfo info : infoList) {
-            if (withFile) {
-                try {
-                    Uri filePath = FileUtils.getFileUri(context, info.dirPath, info.fileName);
-                    if (filePath == null)
-                        return;
-                    FileUtils.deleteFile(context, filePath);
-
-                } catch (FileNotFoundException | SecurityException | IllegalStateException e) {
-                    Log.w(TAG, Log.getStackTraceString(e));
-                }
-            }
-        }
-    }
-
     public Flowable<List<InfoAndPieces>> observeAllInfoAndPieces()
     {
         return db.downloadDao().observeAllInfoAndPieces();
@@ -146,11 +127,6 @@ public class DataRepository
     public Single<List<InfoAndPieces>> getAllInfoAndPiecesSingle()
     {
         return db.downloadDao().getAllInfoAndPiecesSingle();
-    }
-
-    public Single<List<DownloadInfo>> getAllInfoSingle()
-    {
-        return db.downloadDao().getAllInfoSingle();
     }
 
     public List<DownloadInfo> getAllInfo()

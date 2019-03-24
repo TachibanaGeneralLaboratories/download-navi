@@ -134,7 +134,7 @@ public class DownloadService extends LifecycleService
         if (downloadsApplyingParams || rescheduleDownloads)
             return false;
 
-        return !engine.hasDownloads();
+        return !engine.hasActiveDownloads();
     }
 
     private void stopService()
@@ -177,7 +177,7 @@ public class DownloadService extends LifecycleService
                     if (engine != null)
                         engine.stopDownloads();
                     if (!downloadsApplyingParams && !rescheduleDownloads &&
-                        (engine == null || !engine.hasDownloads()))
+                        (engine == null || !engine.hasActiveDownloads()))
                         stopService();
                     break;
                 case ACTION_RUN_DOWNLOAD:

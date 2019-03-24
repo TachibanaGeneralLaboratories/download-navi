@@ -29,7 +29,6 @@ import com.tachibana.downloader.core.entity.DownloadInfo;
 import com.tachibana.downloader.core.storage.DataRepository;
 
 import java.util.List;
-import java.util.Set;
 import java.util.UUID;
 import java.util.concurrent.ExecutionException;
 
@@ -58,7 +57,7 @@ public class RescheduleAllWorker extends Worker
         DataRepository repo = ((MainApplication)context).getRepository();
 
         ListenableFuture<List<WorkInfo>> future = WorkManager.getInstance()
-                .getWorkInfosByTag(DownloadScheduler.TAG_WORKS_RUN_TYPE);
+                .getWorkInfosByTag(DownloadScheduler.TAG_WORK_RUN_TYPE);
         try {
             for (WorkInfo workInfo : future.get()) {
                 if (workInfo.getState().isFinished())
@@ -66,8 +65,8 @@ public class RescheduleAllWorker extends Worker
 
                 String runTag = null;
                 for (String tag : workInfo.getTags()) {
-                    if (!tag.equals(DownloadScheduler.TAG_WORKS_RUN_TYPE) &&
-                        tag.startsWith(DownloadScheduler.TAG_WORKS_RUN_TYPE)) {
+                    if (!tag.equals(DownloadScheduler.TAG_WORK_RUN_TYPE) &&
+                        tag.startsWith(DownloadScheduler.TAG_WORK_RUN_TYPE)) {
                         runTag = tag;
                         /* Get the first tag because it's unique */
                         break;

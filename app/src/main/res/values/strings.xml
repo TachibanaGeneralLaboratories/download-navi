@@ -230,6 +230,7 @@
     <string name="pref_autostart_stopped_downloads_summary">Start downloads after running the app, if they weren\'t manually paused</string>
     <string name="pref_enable_roaming_title">Enable roaming</string>
     <string name="pref_enable_roaming_summary">Download only if the device isn\'t roaming</string>
+    <string name="pref_max_active_downloads_title">Maximum active downloads</string>
     <!-- Storage settings -->
     <string name="pref_save_downloads_in_title">Save downloads in</string>
     <string name="pref_move_after_download_title">Move after download</string>

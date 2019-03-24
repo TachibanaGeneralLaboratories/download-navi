@@ -53,6 +53,7 @@ public class AbstractTest
                 AppDatabase.class)
                 .allowMainThreadQueries()
                 .build();
+        ((MainApplication)context).setDatabase(db);
         repo = DataRepository.getInstance(db);
     }
 

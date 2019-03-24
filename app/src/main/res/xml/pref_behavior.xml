@@ -22,6 +22,12 @@
         android:summary="@string/pref_autostart_summary"
         android:dependency="@string/pref_key_autostart_stopped_downloads"/>
 
+    <EditTextPreference
+        android:key="@string/pref_key_max_active_downloads"
+        android:title="@string/pref_max_active_downloads_title"
+        android:inputType="numberDecimal|numberSigned"
+        android:persistent="false" />
+
     <PreferenceCategory
         android:title="@string/pref_power_management_category">
 
