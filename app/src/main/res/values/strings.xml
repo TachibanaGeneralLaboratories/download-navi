@@ -172,7 +172,7 @@
     <string name="error_file_exists">File already exists. Replace it?</string>
     <string name="file_name_is_empty">File name cannot be empty</string>
     <string name="system_manager">System manager</string>
-    <string name="device_does_not_support_this_feauter">Your device doesn\'t support this feature</string>
+    <string name="device_does_not_support_this_feature">Your device doesn\'t support this feature</string>
     <string name="system_file_manager_not_found">System file manager not found</string>
     <string name="replace_file">Replace file</string>
 

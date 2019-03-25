@@ -31,7 +31,6 @@ import android.text.TextWatcher;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
 import android.widget.EditText;
 
 import com.google.android.material.snackbar.Snackbar;
@@ -213,7 +212,7 @@ public class FileManagerDialog extends AppCompatActivity
             case FileManagerConfig.DIR_CHOOSER_MODE:
                 if (Build.VERSION.SDK_INT < Build.VERSION_CODES.LOLLIPOP) {
                     Snackbar.make(binding.coordinatorLayout,
-                            R.string.device_does_not_support_this_feauter,
+                            R.string.device_does_not_support_this_feature,
                             Snackbar.LENGTH_SHORT)
                             .show();
                     return;
