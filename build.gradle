@@ -5,6 +5,10 @@ buildscript {
     repositories {
         google()
         jcenter()
+        /* TODO: needs for Room 2.1.0-alpha06, delete after some time */
+        maven {
+            url "https://kotlin.bintray.com/kotlinx/"
+        }
     }
     dependencies {
         classpath 'com.android.tools.build:gradle:3.3.2'
@@ -19,6 +23,10 @@ allprojects {
     repositories {
         google()
         jcenter()
+        /* TODO: needs for Room 2.1.0-alpha06, delete after some time */
+        maven {
+            url "https://kotlin.bintray.com/kotlinx/"
+        }
     }
 }
 

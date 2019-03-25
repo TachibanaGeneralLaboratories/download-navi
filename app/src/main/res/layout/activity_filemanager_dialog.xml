@@ -135,7 +135,7 @@
             android:text="@string/system_manager"
             android:layout_marginTop="120dp"
             android:layout_gravity="top|start"
-            android:visibility="@{enableSystemManagerButton ? View.VISIBLE : View.GONE}"
+            android:visibility="@{enableSystemManagerButton.booleanValue() ? View.VISIBLE : View.GONE}"
             app:backgroundTint="@color/accent"
             app:cornerRadius="16dp"
             app:icon="@drawable/ic_folder_grey600_24dp" />

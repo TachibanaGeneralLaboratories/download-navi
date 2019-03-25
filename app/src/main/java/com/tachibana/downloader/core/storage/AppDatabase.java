@@ -49,8 +49,7 @@ import io.reactivex.schedulers.Schedulers;
         Header.class,
         UserAgent.class,
         QueuedDownload.class},
-        version = 1,
-        exportSchema = false) /* TODO: export schema after first release */
+        version = 1)
 @TypeConverters({UUIDConverter.class})
 public abstract class AppDatabase extends RoomDatabase
 {
