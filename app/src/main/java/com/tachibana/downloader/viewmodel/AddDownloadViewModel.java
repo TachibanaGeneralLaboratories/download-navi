@@ -208,7 +208,7 @@ public class AddDownloadViewModel extends AndroidViewModel
                 @Override
                 public void onConnectionCreated(HttpURLConnection conn)
                 {
-                    /* TODO: user agent spoofing (from settings) */
+                    /* TODO: maybe user agent spoofing (from settings) */
                 }
 
                 @Override

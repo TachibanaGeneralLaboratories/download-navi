@@ -34,12 +34,14 @@ import android.view.MenuItem;
 import android.widget.EditText;
 
 import com.google.android.material.snackbar.Snackbar;
+import com.google.android.material.textfield.TextInputEditText;
 import com.tachibana.downloader.R;
 import com.tachibana.downloader.adapter.filemanager.FileManagerAdapter;
 import com.tachibana.downloader.core.utils.FileUtils;
 import com.tachibana.downloader.core.utils.Utils;
 import com.tachibana.downloader.databinding.ActivityFilemanagerDialogBinding;
 import com.tachibana.downloader.dialog.BaseAlertDialog;
+import com.tachibana.downloader.dialog.ErrorReportDialog;
 import com.tachibana.downloader.viewmodel.filemanager.FileManagerViewModel;
 import com.tachibana.downloader.viewmodel.filemanager.FileManagerViewModelFactory;
 
@@ -78,6 +80,7 @@ public class FileManagerDialog extends AppCompatActivity
     private static final String TAG_ERR_CREATE_DIR = "err_create_dir";
     private static final String TAG_ERROR_OPEN_DIR_DIALOG = "error_open_dir_dialog";
     private static final String TAG_REPLACE_FILE_DIALOG = "replace_file_dialog";
+    private static final String TAG_ERROR_REPORT_DIALOG = "error_report_dialog";
     private static final int SAF_CREATE_FILE_REQUEST_CODE = 1;
     private static final int SAF_OPEN_FILE_REQUEST_CODE = 2;
     private static final int SAF_OPEN_FILE_TREE_REQUEST_CODE = 3;
@@ -92,6 +95,7 @@ public class FileManagerDialog extends AppCompatActivity
 
     private FileManagerViewModel viewModel;
     private BaseAlertDialog inputNameDialog;
+    private ErrorReportDialog errorReportDialog;
     private BaseAlertDialog.SharedViewModel dialogViewModel;
     private CompositeDisposable disposable = new CompositeDisposable();
 
@@ -306,19 +310,38 @@ public class FileManagerDialog extends AppCompatActivity
 
                 } else if (event.dialogTag.equals(TAG_REPLACE_FILE_DIALOG)) {
                     createFile(true);
+                } else if (event.dialogTag.equals(TAG_ERROR_REPORT_DIALOG) && errorReportDialog != null) {
+                    Dialog dialog = errorReportDialog.getDialog();
+                    if (dialog != null) {
+                        TextInputEditText editText = dialog.findViewById(R.id.comment);
+                        Editable e = editText.getText();
+                        String comment = (e == null ? null : e.toString());
+
+                        Utils.reportError(viewModel.errorReport, comment);
+                        errorReportDialog.dismiss();
+                    }
                 }
                 break;
             case NEGATIVE_BUTTON_CLICKED:
                 if (event.dialogTag.equals(TAG_INPUT_NAME_DIALOG) && inputNameDialog != null)
                     inputNameDialog.dismiss();
+                else if (event.dialogTag.equals(TAG_ERROR_REPORT_DIALOG) && errorReportDialog != null)
+                    errorReportDialog.dismiss();
                 break;
         }
     }
 
-    /* TODO: add error report dialog */
     private void showSendErrorDialog(Exception e)
     {
+        viewModel.errorReport = e;
+        if (getSupportFragmentManager().findFragmentByTag(TAG_ERROR_REPORT_DIALOG) == null) {
+            errorReportDialog = ErrorReportDialog.newInstance(
+                    getString(R.string.error),
+                    getString(R.string.error_open_dir),
+                    Log.getStackTraceString(e));
 
+            errorReportDialog.show(getSupportFragmentManager(), TAG_ERROR_REPORT_DIALOG);
+        }
     }
 
     private void permissionDeniedToast()

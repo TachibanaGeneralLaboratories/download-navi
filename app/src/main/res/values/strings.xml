@@ -47,6 +47,8 @@
     <string name="Default">Default</string>
     <string name="warning">Warning</string>
     <string name="apply">Apply</string>
+    <string name="report">Report</string>
+    <string name="more_details">More details</string>
 
     <!-- Permission dialog -->
     <string name="perm_denied_title">Permission denied</string>
@@ -186,6 +188,10 @@
     <string name="detail_md5_hash_sum">MD5</string>
     <string name="detail_sha256_hash_sum">SHA-256</string>
     <string name="calculate">Calculate</string>
+
+    <!-- Error report -->
+    <string name="app_error_occurred">The app error occurred. You can send the report to developers</string>
+    <string name="error_comment_prompt">You can add extra information and comments here:</string>
 
     <!-- Settings -->
     <!-- Headers -->

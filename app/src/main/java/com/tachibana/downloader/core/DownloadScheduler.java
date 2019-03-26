@@ -51,6 +51,7 @@ public class DownloadScheduler
     public static final String TAG_WORK_RUN_TYPE = "run";
     public static final String TAG_WORK_RESCHEDULE_TYPE = "reschedule";
     public static final String TAG_WORK_PUSH_INTO_QUEUE_TYPE = "push_into_queue";
+    public static final String TAG_WORK_RUN_FROM_QUEUE_TYPE = "run_from_queue";
 
     /*
      * Run unique work for starting download.
@@ -111,6 +112,7 @@ public class DownloadScheduler
                 .build();
         OneTimeWorkRequest work = new OneTimeWorkRequest.Builder(DownloadQueueWorker.class)
                 .setInputData(data)
+                .addTag(TAG_WORK_PUSH_INTO_QUEUE_TYPE)
                 .build();
         WorkManager.getInstance().enqueue(work);
     }
@@ -126,6 +128,7 @@ public class DownloadScheduler
                 .build();
         OneTimeWorkRequest work = new OneTimeWorkRequest.Builder(DownloadQueueWorker.class)
                 .setInputData(data)
+                .addTag(TAG_WORK_RUN_FROM_QUEUE_TYPE)
                 .build();
         WorkManager.getInstance().enqueue(work);
     }

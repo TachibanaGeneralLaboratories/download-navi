@@ -56,6 +56,7 @@ public class FileManagerViewModel extends ViewModel
     public ObservableField<String> curDir = new ObservableField<>();
     public FileManagerConfig config;
     public BehaviorSubject<List<FileManagerNode>> childNodes = BehaviorSubject.create();
+    public Exception errorReport;
 
     public FileManagerViewModel(@NonNull Context appContext, FileManagerConfig config)
     {

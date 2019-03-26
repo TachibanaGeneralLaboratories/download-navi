@@ -59,6 +59,9 @@ import com.tachibana.downloader.core.sorting.DownloadSortingComparator;
 import com.tachibana.downloader.receiver.BootReceiver;
 import com.tachibana.downloader.settings.SettingsManager;
 
+import org.acra.ACRA;
+import org.acra.ReportField;
+
 import java.io.File;
 import java.net.IDN;
 import java.net.MalformedURLException;
@@ -730,6 +733,15 @@ public class Utils
     public static boolean isWifiEnabled(@NonNull Context context)
     {
         return getSystemFacade(context).isWifiEnabled();
+    }
+
+    public static void reportError(@NonNull Throwable error,
+                                   String comment)
+    {
+        if (comment != null)
+            ACRA.getErrorReporter().putCustomData(ReportField.USER_COMMENT.toString(), comment);
+
+        ACRA.getErrorReporter().handleSilentException(error);
     }
 
     public static List<DrawerGroup> getNavigationDrawerItems(@NonNull Context context,
