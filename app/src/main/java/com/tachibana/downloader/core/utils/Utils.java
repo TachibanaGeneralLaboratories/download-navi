@@ -399,7 +399,10 @@ public class Utils
              *
              * See for details: https://developer.android.com/about/versions/pie/android-9.0-changes-all#network-capabilities-vpn
              */
-            noWifiOnly = netInfo != null && !(wifiOnly && netInfo.getType() != ConnectivityManager.TYPE_WIFI);
+            boolean unmetered = caps.hasCapability(NetworkCapabilities.NET_CAPABILITY_NOT_METERED) ||
+                    netInfo.getType() == ConnectivityManager.TYPE_WIFI ||
+                    netInfo.getType() == ConnectivityManager.TYPE_ETHERNET;
+            noWifiOnly = netInfo != null && (!wifiOnly || unmetered);
 
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P) {
                 noRoaming = !enableRoaming || caps.hasCapability(NetworkCapabilities.NET_CAPABILITY_NOT_ROAMING);
