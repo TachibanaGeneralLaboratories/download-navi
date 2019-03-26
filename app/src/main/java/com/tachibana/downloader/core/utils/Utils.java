@@ -37,7 +37,6 @@ import android.net.ConnectivityManager;
 import android.net.NetworkCapabilities;
 import android.net.NetworkInfo;
 import android.net.Uri;
-import android.net.wifi.WifiManager;
 import android.os.BatteryManager;
 import android.os.Build;
 import android.text.TextUtils;
@@ -392,12 +391,19 @@ public class Utils
             if (caps == null)
                 return false;
 
-            noWifiOnly = !wifiOnly || caps.hasCapability(NetworkCapabilities.NET_CAPABILITY_NOT_METERED);
+            NetworkInfo netInfo = systemFacade.getActiveNetworkInfo();
+            /*
+             * Use getType() instead of NetworkCapabilities#NET_CAPABILITY_NOT_METERED,
+             * since Android detection VPN as metered, including on Android 9, oddly enough.
+             * I think this is due to what VPN services doesn't use setUnderlyingNetworks() method.
+             *
+             * See for details: https://developer.android.com/about/versions/pie/android-9.0-changes-all#network-capabilities-vpn
+             */
+            noWifiOnly = netInfo != null && !(wifiOnly && netInfo.getType() != ConnectivityManager.TYPE_WIFI);
 
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P) {
                 noRoaming = !enableRoaming || caps.hasCapability(NetworkCapabilities.NET_CAPABILITY_NOT_ROAMING);
             } else {
-                NetworkInfo netInfo = systemFacade.getActiveNetworkInfo();
                 noRoaming = netInfo != null && !(enableRoaming && netInfo.isRoaming());
             }
 
