@@ -58,7 +58,6 @@
     <string name="download_ticker_notify" formatted="false">Downloading %1$s</string>
 
     <!-- Foreground notification -->
-    <string name="download_count_notify_template" formatted="false">Downloading: %1$d Total: %2$d</string>
     <string name="app_running_in_the_background">Download Navi running in the background</string>
     <string name="pause_all">Pause all</string>
     <string name="resume_all">Resume all</string>
