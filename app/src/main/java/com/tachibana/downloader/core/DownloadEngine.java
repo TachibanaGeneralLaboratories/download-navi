@@ -588,7 +588,7 @@ public class DownloadEngine
         if (roaming)
             stop = Utils.isRoaming(appContext);
         if (wifiOnly)
-            stop = !Utils.isWifiEnabled(appContext);
+            stop = Utils.isMetered(appContext);
         if (onlyCharging)
             stop |= !Utils.isBatteryCharging(appContext);
         if (customBatteryControl)

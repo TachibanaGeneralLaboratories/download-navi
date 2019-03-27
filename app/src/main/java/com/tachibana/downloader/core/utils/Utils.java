@@ -33,7 +33,6 @@ import android.content.IntentFilter;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.content.res.Resources;
-import android.net.ConnectivityManager;
 import android.net.NetworkCapabilities;
 import android.net.NetworkInfo;
 import android.net.Uri;
@@ -388,22 +387,21 @@ public class Utils
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
             NetworkCapabilities caps = systemFacade.getNetworkCapabilities();
-            NetworkInfo netInfo = systemFacade.getActiveNetworkInfo();
             /*
-             * Use getType() instead of NetworkCapabilities#NET_CAPABILITY_NOT_METERED,
+             * Use ConnectivityManager#isActiveNetworkMetered() instead of NetworkCapabilities#NET_CAPABILITY_NOT_METERED,
              * since Android detection VPN as metered, including on Android 9, oddly enough.
              * I think this is due to what VPN services doesn't use setUnderlyingNetworks() method.
              *
              * See for details: https://developer.android.com/about/versions/pie/android-9.0-changes-all#network-capabilities-vpn
              */
             boolean unmetered = caps != null && caps.hasCapability(NetworkCapabilities.NET_CAPABILITY_NOT_METERED) ||
-                                netInfo != null && (netInfo.getType() == ConnectivityManager.TYPE_WIFI ||
-                                                    netInfo.getType() == ConnectivityManager.TYPE_ETHERNET);
+                    !systemFacade.isActiveNetworkMetered();
             noWifiOnly = !wifiOnly || unmetered;
 
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P) {
-                noRoaming = !enableRoaming || caps.hasCapability(NetworkCapabilities.NET_CAPABILITY_NOT_ROAMING);
+                noRoaming = !enableRoaming || caps != null && caps.hasCapability(NetworkCapabilities.NET_CAPABILITY_NOT_ROAMING);
             } else {
+                NetworkInfo netInfo = systemFacade.getActiveNetworkInfo();
                 noRoaming = netInfo != null && !(enableRoaming && netInfo.isRoaming());
             }
 
@@ -413,12 +411,25 @@ public class Utils
                 noWifiOnly = false;
                 noRoaming = false;
             } else {
-                noWifiOnly = !wifiOnly || netInfo.getType() == ConnectivityManager.TYPE_WIFI;
+                noWifiOnly = !wifiOnly || !systemFacade.isActiveNetworkMetered();
                 noRoaming = !(enableRoaming && netInfo.isRoaming());
             }
         }
 
         return noWifiOnly && noRoaming;
+    }
+
+    public static boolean isMetered(@NonNull Context context)
+    {
+        SystemFacade systemFacade = getSystemFacade(context);
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            NetworkCapabilities caps = systemFacade.getNetworkCapabilities();
+            return caps != null && !caps.hasCapability(NetworkCapabilities.NET_CAPABILITY_NOT_METERED) ||
+                    systemFacade.isActiveNetworkMetered();
+        } else {
+            return systemFacade.isActiveNetworkMetered();
+        }
     }
 
     public static boolean isRoaming(@NonNull Context context)
@@ -734,11 +745,6 @@ public class Utils
         ComponentName bootReceiver = new ComponentName(appContext, BootReceiver.class);
         appContext.getPackageManager()
                 .setComponentEnabledSetting(bootReceiver, flag, PackageManager.DONT_KILL_APP);
-    }
-
-    public static boolean isWifiEnabled(@NonNull Context context)
-    {
-        return getSystemFacade(context).isWifiEnabled();
     }
 
     public static void reportError(@NonNull Throwable error,

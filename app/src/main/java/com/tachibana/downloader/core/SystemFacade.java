@@ -29,5 +29,5 @@ public interface SystemFacade
 
     NetworkCapabilities getNetworkCapabilities();
 
-    boolean isWifiEnabled();
+    boolean isActiveNetworkMetered();
 }

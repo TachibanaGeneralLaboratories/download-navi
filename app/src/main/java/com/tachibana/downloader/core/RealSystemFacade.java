@@ -60,10 +60,10 @@ public class RealSystemFacade implements SystemFacade
     }
 
     @Override
-    public boolean isWifiEnabled()
+    public boolean isActiveNetworkMetered()
     {
-        WifiManager wifiManager = (WifiManager)context.getApplicationContext().getSystemService(Context.WIFI_SERVICE);
+        ConnectivityManager cm = (ConnectivityManager)context.getSystemService(Context.CONNECTIVITY_SERVICE);
 
-        return wifiManager.isWifiEnabled();
+        return cm.isActiveNetworkMetered();
     }
 }

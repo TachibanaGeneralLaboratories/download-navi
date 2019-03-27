@@ -102,8 +102,8 @@ public class FakeSystemFacade implements SystemFacade
     }
 
     @Override
-    public boolean isWifiEnabled()
+    public boolean isActiveNetworkMetered()
     {
-        return !isMetered;
+        return isMetered;
     }
 }
