@@ -69,6 +69,8 @@
 
     <!-- Pending notification -->
     <string name="download_in_queue_ticker_notify" formatted="false">%1$s in queue</string>
+    <string name="waiting_for_network">Waiting for network</string>
+    <string name="waiting_for_retry">Waiting for retry</string>
 
     <!-- Error notification -->
     <string name="download_error_notify_title">Download error</string>

@@ -388,9 +388,6 @@ public class Utils
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
             NetworkCapabilities caps = systemFacade.getNetworkCapabilities();
-            if (caps == null)
-                return false;
-
             NetworkInfo netInfo = systemFacade.getActiveNetworkInfo();
             /*
              * Use getType() instead of NetworkCapabilities#NET_CAPABILITY_NOT_METERED,
@@ -399,10 +396,10 @@ public class Utils
              *
              * See for details: https://developer.android.com/about/versions/pie/android-9.0-changes-all#network-capabilities-vpn
              */
-            boolean unmetered = caps.hasCapability(NetworkCapabilities.NET_CAPABILITY_NOT_METERED) ||
-                    netInfo.getType() == ConnectivityManager.TYPE_WIFI ||
-                    netInfo.getType() == ConnectivityManager.TYPE_ETHERNET;
-            noWifiOnly = netInfo != null && (!wifiOnly || unmetered);
+            boolean unmetered = caps != null && caps.hasCapability(NetworkCapabilities.NET_CAPABILITY_NOT_METERED) ||
+                                netInfo != null && (netInfo.getType() == ConnectivityManager.TYPE_WIFI ||
+                                                    netInfo.getType() == ConnectivityManager.TYPE_ETHERNET);
+            noWifiOnly = !wifiOnly || unmetered;
 
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P) {
                 noRoaming = !enableRoaming || caps.hasCapability(NetworkCapabilities.NET_CAPABILITY_NOT_ROAMING);

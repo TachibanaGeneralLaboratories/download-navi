@@ -392,12 +392,28 @@ public class DownloadNotifier
                 builder.setTicker(String.format(
                         context.getString(R.string.download_in_queue_ticker_notify),
                         info.fileName));
+
                 NotificationCompat.BigTextStyle pendingBigText = new NotificationCompat.BigTextStyle();
+                String downloadBytesStr = Formatter.formatFileSize(context, downloadBytes);
+                String totalBytesStr = (info.totalBytes == -1 ?
+                        context.getString(R.string.not_available) :
+                        Formatter.formatFileSize(context, info.totalBytes));
+                String statusStr;
+                switch (info.statusCode) {
+                    case StatusCode.STATUS_WAITING_FOR_NETWORK:
+                        statusStr = context.getString(R.string.waiting_for_network);
+                        break;
+                    case StatusCode.STATUS_WAITING_TO_RETRY:
+                        statusStr = context.getString(R.string.waiting_for_retry);
+                        break;
+                    default:
+                        statusStr = context.getString(R.string.pending);
+                        break;
+                }
                 pendingBigText.bigText(String.format(context.getString(R.string.download_queued_template),
-                        Formatter.formatFileSize(context, downloadBytes),
-                        (info.totalBytes == -1 ? context.getString(R.string.not_available) :
-                                Formatter.formatFileSize(context, info.totalBytes)),
-                        context.getString(R.string.pending)));
+                        downloadBytesStr,
+                        totalBytesStr,
+                        statusStr));
                 builder.setStyle(pendingBigText);
                 break;
             case TYPE_COMPLETE:

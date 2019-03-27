@@ -256,9 +256,13 @@ public class DownloadListAdapter extends ListAdapter<DownloadItem, DownloadListA
                         statusStr = context.getString(R.string.stopped);
                         break;
                     case StatusCode.STATUS_PENDING:
-                    case StatusCode.STATUS_WAITING_FOR_NETWORK:
-                    case StatusCode.STATUS_WAITING_TO_RETRY:
                         statusStr = context.getString(R.string.pending);
+                        break;
+                    case StatusCode.STATUS_WAITING_FOR_NETWORK:
+                        statusStr = context.getString(R.string.waiting_for_network);
+                        break;
+                    case StatusCode.STATUS_WAITING_TO_RETRY:
+                        statusStr = context.getString(R.string.waiting_for_retry);
                         break;
                     case StatusCode.STATUS_FETCH_METADATA:
                         statusStr = context.getString(R.string.fetching_metadata);
