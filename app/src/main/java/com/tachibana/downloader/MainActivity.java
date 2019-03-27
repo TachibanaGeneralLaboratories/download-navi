@@ -32,6 +32,8 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.viewpager.widget.ViewPager;
 
+import android.app.SearchManager;
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.res.Resources;
@@ -351,6 +353,9 @@ public class MainActivity extends AppCompatActivity
             }
         });
         searchView.setQueryHint(getString(R.string.search));
+        SearchManager searchManager = (SearchManager)getSystemService(Context.SEARCH_SERVICE);
+        /* Assumes current activity is the searchable activity */
+        searchView.setSearchableInfo(searchManager.getSearchableInfo(getComponentName()));
     }
 
     @Override
