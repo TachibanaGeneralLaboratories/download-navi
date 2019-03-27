@@ -74,7 +74,6 @@
 
     <!-- Error notification -->
     <string name="download_error_notify_title">Download error</string>
-    <string name="download_error_cannot_add">Cannot add download</string>
 
     <!-- Applying params notification -->
     <string name="applying_params_title">Applying params</string>
@@ -85,11 +84,9 @@
     <string name="download_link">Link</string>
     <string name="download_name">Name</string>
     <string name="download_size" formatted="false">Size: %1$s</string>
-    <string name="download_free_space" formatted="false">Storage: %1$s free</string>
     <string name="download_retry">Retry</string>
     <string name="download_advanced">Advanced</string>
     <string name="download_user_agent">User agent</string>
-    <string name="download_checksum">Checksum</string>
     <string name="download_error_empty_link">Please enter link</string>
     <string name="download_error_empty_name">Please enter name</string>
     <string name="download_error_no_enough_free_space" formatted="false">Not enough free space: %1$s free, but file size is %2$s</string>
@@ -167,9 +164,6 @@
     <string name="error_open_dir">Unable to open the folder</string>
     <string name="home_directory">Home</string>
     <!-- name (size) -->
-    <string name="storage_name_and_size" formatted="false">%1$s (%2$s)</string>
-    <string name="internal_storage_name">Internal storage</string>
-    <string name="external_storage_name" formatted="false">External storage %1$d</string>
     <string name="permission_denied">Permission denied</string>
     <string name="save_file">Save file</string>
     <string name="file_name">File name</string>
