@@ -452,7 +452,8 @@ public class DownloadThread implements Callable<DownloadResult>
             } catch (InterruptedIOException e) {
                 requestStop();
             } catch (IOException e) {
-                return new StopRequest(STATUS_INSUFFICIENT_SPACE_ERROR, e);
+                /* Ignore space allocating, because it may not be supported */
+                return null;
             }
 
         } finally {
