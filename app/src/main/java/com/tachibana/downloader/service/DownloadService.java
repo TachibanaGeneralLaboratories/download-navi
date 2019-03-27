@@ -254,7 +254,7 @@ public class DownloadService extends LifecycleService
 
         foregroundNotify = new NotificationCompat.Builder(getApplicationContext(),
                 Utils.FOREGROUND_NOTIFY_CHAN_ID)
-                .setSmallIcon(R.mipmap.ic_launcher)
+                .setSmallIcon(R.drawable.ic_app_notification)
                 .setContentIntent(startupPendingIntent)
                 .setContentTitle(getString(R.string.app_running_in_the_background))
                 .setWhen(System.currentTimeMillis());
