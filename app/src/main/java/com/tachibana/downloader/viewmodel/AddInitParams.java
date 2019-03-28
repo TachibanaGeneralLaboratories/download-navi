@@ -33,7 +33,7 @@ public class AddInitParams implements Parcelable
     public String description;
     public String userAgent;
     public Uri dirPath;
-    public boolean wifiOnly = false;
+    public boolean unmeteredConnectionsOnly = false;
     public boolean retry = true;
     public boolean replaceFile = false;
 
@@ -46,7 +46,7 @@ public class AddInitParams implements Parcelable
         fileName = source.readString();
         description = source.readString();
         userAgent = source.readString();
-        wifiOnly = source.readByte() > 0;
+        unmeteredConnectionsOnly = source.readByte() > 0;
         retry = source.readByte() > 0;
         replaceFile = source.readByte() > 0;
     }
@@ -65,7 +65,7 @@ public class AddInitParams implements Parcelable
         dest.writeString(fileName);
         dest.writeString(description);
         dest.writeString(userAgent);
-        dest.writeByte((byte)(wifiOnly ? 1 : 0));
+        dest.writeByte((byte)(unmeteredConnectionsOnly ? 1 : 0));
         dest.writeByte((byte)(retry ? 1 : 0));
         dest.writeByte((byte)(replaceFile ? 1 : 0));
     }
@@ -95,7 +95,7 @@ public class AddInitParams implements Parcelable
                 ", description='" + description + '\'' +
                 ", userAgent='" + userAgent + '\'' +
                 ", dirPath=" + dirPath +
-                ", wifiOnly=" + wifiOnly +
+                ", unmeteredConnectionsOnly=" + unmeteredConnectionsOnly +
                 ", retry=" + retry +
                 ", replaceFile=" + replaceFile +
                 '}';

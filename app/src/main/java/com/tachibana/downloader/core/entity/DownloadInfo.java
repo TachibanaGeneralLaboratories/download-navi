@@ -84,7 +84,7 @@ public class DownloadInfo implements Parcelable, Comparable<DownloadInfo>
     public long totalBytes = -1;
     private int numPieces = MIN_PIECES;
     public int statusCode = StatusCode.STATUS_PENDING;
-    public boolean wifiOnly = false;
+    public boolean unmeteredConnectionsOnly = false;
     public boolean retry = true;
     /* Indicates that server support partial download */
     public boolean partialSupport = true;
@@ -116,7 +116,7 @@ public class DownloadInfo implements Parcelable, Comparable<DownloadInfo>
         mimeType = source.readString();
         totalBytes = source.readLong();
         statusCode = source.readInt();
-        wifiOnly = source.readByte() > 0;
+        unmeteredConnectionsOnly = source.readByte() > 0;
         numPieces = source.readInt();
         retry = source.readByte() > 0;
         statusMsg = source.readString();
@@ -143,7 +143,7 @@ public class DownloadInfo implements Parcelable, Comparable<DownloadInfo>
         dest.writeString(mimeType);
         dest.writeLong(totalBytes);
         dest.writeInt(statusCode);
-        dest.writeByte((byte)(wifiOnly ? 1 : 0));
+        dest.writeByte((byte)(unmeteredConnectionsOnly ? 1 : 0));
         dest.writeInt(numPieces);
         dest.writeByte((byte)(retry ? 1 : 0));
         dest.writeString(statusMsg);
@@ -263,7 +263,7 @@ public class DownloadInfo implements Parcelable, Comparable<DownloadInfo>
                 totalBytes == info.totalBytes &&
                 numPieces == info.numPieces &&
                 statusCode == info.statusCode &&
-                wifiOnly == info.wifiOnly &&
+                unmeteredConnectionsOnly == info.unmeteredConnectionsOnly &&
                 retry == info.retry &&
                 partialSupport == info.partialSupport &&
                 (statusMsg == null || statusMsg.equals(info.statusMsg)) &&
@@ -285,7 +285,7 @@ public class DownloadInfo implements Parcelable, Comparable<DownloadInfo>
                 ", totalBytes=" + totalBytes +
                 ", numPieces=" + numPieces +
                 ", statusCode=" + statusCode +
-                ", wifiOnly=" + wifiOnly +
+                ", unmeteredConnectionsOnly=" + unmeteredConnectionsOnly +
                 ", retry=" + retry +
                 ", partialSupport=" + partialSupport +
                 ", statusMsg='" + statusMsg + '\'' +

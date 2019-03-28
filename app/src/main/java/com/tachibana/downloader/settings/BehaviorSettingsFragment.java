@@ -108,9 +108,9 @@ public class BehaviorSettingsFragment extends PreferenceFragmentCompat
         customBatteryControlValue.setMin(10);
         customBatteryControlValue.setMax(90);
 
-        String keyWifiOnly = getString(R.string.pref_key_wifi_only);
-        SwitchPreferenceCompat wifiOnly = (SwitchPreferenceCompat)findPreference(keyWifiOnly);
-        wifiOnly.setChecked(pref.getBoolean(keyWifiOnly, SettingsManager.Default.wifiOnly));
+        String keyUnmeteredOnly = getString(R.string.pref_key_umnetered_connections_only);
+        SwitchPreferenceCompat unmeteredOnly = (SwitchPreferenceCompat)findPreference(keyUnmeteredOnly);
+        unmeteredOnly.setChecked(pref.getBoolean(keyUnmeteredOnly, SettingsManager.Default.unmeteredConnectionsOnly));
 
         String keyRoaming = getString(R.string.pref_key_enable_roaming);
         SwitchPreferenceCompat roaming = (SwitchPreferenceCompat)findPreference(keyRoaming);

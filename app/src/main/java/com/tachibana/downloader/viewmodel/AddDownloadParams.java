@@ -43,7 +43,7 @@ public class AddDownloadParams extends BaseObservable
     private String userAgent;
     private int numPieces = DownloadInfo.MIN_PIECES;
     private long totalBytes = -1;
-    private boolean wifiOnly;
+    private boolean unmeteredConnectionsOnly;
     private boolean partialSupport = true;
     private boolean retry;
     private boolean replaceFile;
@@ -175,15 +175,15 @@ public class AddDownloadParams extends BaseObservable
     }
 
     @Bindable
-    public boolean isWifiOnly()
+    public boolean isUnmeteredConnectionsOnly()
     {
-        return wifiOnly;
+        return unmeteredConnectionsOnly;
     }
 
-    public void setWifiOnly(boolean wifiOnly)
+    public void setUnmeteredConnectionsOnly(boolean unmeteredConnectionsOnly)
     {
-        this.wifiOnly = wifiOnly;
-        notifyPropertyChanged(BR.wifiOnly);
+        this.unmeteredConnectionsOnly = unmeteredConnectionsOnly;
+        notifyPropertyChanged(BR.unmeteredConnectionsOnly);
     }
 
     public boolean isPartialSupport()
@@ -235,7 +235,7 @@ public class AddDownloadParams extends BaseObservable
                 ", userAgent='" + userAgent + '\'' +
                 ", numPieces=" + numPieces +
                 ", totalBytes=" + totalBytes +
-                ", wifiOnly=" + wifiOnly +
+                ", unmeteredConnectionsOnly=" + unmeteredConnectionsOnly +
                 ", partialSupport=" + partialSupport +
                 ", retry=" + retry +
                 ", replaceFile=" + replaceFile +

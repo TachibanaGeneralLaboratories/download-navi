@@ -24,7 +24,6 @@ import android.net.Uri;
 
 import androidx.databinding.BaseObservable;
 import androidx.databinding.Bindable;
-import androidx.databinding.ObservableField;
 import androidx.databinding.library.baseAdapters.BR;
 
 public class DownloadDetailsMutableParams extends BaseObservable
@@ -33,7 +32,7 @@ public class DownloadDetailsMutableParams extends BaseObservable
     private String fileName;
     private String description;
     private Uri dirPath;
-    private boolean wifiOnly = false;
+    private boolean unmeteredConnectionsOnly = false;
     private boolean retry = false;
 
     @Bindable
@@ -85,15 +84,15 @@ public class DownloadDetailsMutableParams extends BaseObservable
     }
 
     @Bindable
-    public boolean isWifiOnly()
+    public boolean isUnmeteredConnectionsOnly()
     {
-        return wifiOnly;
+        return unmeteredConnectionsOnly;
     }
 
-    public void setWifiOnly(boolean wifiOnly)
+    public void setUnmeteredConnectionsOnly(boolean unmeteredConnectionsOnly)
     {
-        this.wifiOnly = wifiOnly;
-        notifyPropertyChanged(BR.wifiOnly);
+        this.unmeteredConnectionsOnly = unmeteredConnectionsOnly;
+        notifyPropertyChanged(BR.unmeteredConnectionsOnly);
     }
 
     @Bindable
@@ -116,7 +115,7 @@ public class DownloadDetailsMutableParams extends BaseObservable
                 ", fileName='" + fileName + '\'' +
                 ", description='" + description + '\'' +
                 ", dirPath=" + dirPath +
-                ", wifiOnly=" + wifiOnly +
+                ", unmeteredConnectionsOnly=" + unmeteredConnectionsOnly +
                 ", retry=" + retry +
                 '}';
     }

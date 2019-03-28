@@ -30,11 +30,9 @@ import com.tachibana.downloader.AbstractTest;
 import com.tachibana.downloader.R;
 import com.tachibana.downloader.core.entity.DownloadInfo;
 import com.tachibana.downloader.core.entity.DownloadPiece;
-import com.tachibana.downloader.core.entity.QueuedDownload;
 import com.tachibana.downloader.core.utils.DigestUtils;
 import com.tachibana.downloader.core.utils.FileUtils;
 import com.tachibana.downloader.core.utils.Utils;
-import com.tachibana.downloader.settings.SettingsManager;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -260,42 +258,42 @@ public class DownloadThreadTest extends AbstractTest
         repo.addInfo(context, info, new ArrayList<>());
 
         /* Reset values */
-        turnWiFiOnlyPref(pref, false);
+        turnUnmeteredOnlyPref(pref, false);
         turnRoamingPref(pref, false);
 
         try {
-            /* Check wifi only */
-            turnWiFiOnlyPref(pref, true);
+            /* Check unmetered connections only */
+            turnUnmeteredOnlyPref(pref, true);
             turnRoamingPref(pref, false);
             enableMobile(systemFacade);
             turnRoaming(systemFacade, false);
-            runTask_checkWaitingNetwork("WiFi only test failed", id);
+            runTask_checkWaitingNetwork("Unmetered connections only test failed", id);
 
             /* Check roaming */
-            turnWiFiOnlyPref(pref, false);
+            turnUnmeteredOnlyPref(pref, false);
             turnRoamingPref(pref, true);
             enableMobile(systemFacade);
             turnRoaming(systemFacade, true);
             runTask_checkWaitingNetwork("Roaming test failed", id);
 
-            /* Check wifi only and roaming */
-            turnWiFiOnlyPref(pref, true);
+            /* Check unmetered connections only and roaming */
+            turnUnmeteredOnlyPref(pref, true);
             turnRoamingPref(pref, true);
             enableMobile(systemFacade);
             turnRoaming(systemFacade, true);
-            runTask_checkWaitingNetwork("WiFi only and roaming test failed", id);
+            runTask_checkWaitingNetwork("Unmetered connections only and roaming test failed", id);
 
-            /* Check wifi only and roaming (with enabled wifi) */
-            turnWiFiOnlyPref(pref, true);
+            /* Check unmetered connections only and roaming (with enabled wifi) */
+            turnUnmeteredOnlyPref(pref, true);
             turnRoamingPref(pref, true);
             enableWiFi(systemFacade);
-            runTask_checkWaitingNetwork("WiFi only and roaming (with enabled wifi) test failed", id);
+            runTask_checkWaitingNetwork("Unmetered connections only and roaming (with enabled wifi) test failed", id);
 
         } finally {
             new File(dir.getPath(), linuxName).delete();
 
             /* Restore state */
-            turnWiFiOnlyPref(pref, false);
+            turnUnmeteredOnlyPref(pref, false);
             turnRoamingPref(pref, false);
             Utils.setSystemFacade(realSystemFacade);
         }
@@ -308,9 +306,9 @@ public class DownloadThreadTest extends AbstractTest
         assertEquals(msg, StatusCode.STATUS_WAITING_FOR_NETWORK, info.statusCode);
     }
 
-    private void turnWiFiOnlyPref(SharedPreferences pref, boolean enable)
+    private void turnUnmeteredOnlyPref(SharedPreferences pref, boolean enable)
     {
-        pref.edit().putBoolean(context.getString(R.string.pref_key_wifi_only), enable).apply();
+        pref.edit().putBoolean(context.getString(R.string.pref_key_umnetered_connections_only), enable).apply();
     }
 
     private void turnRoamingPref(SharedPreferences pref, boolean enable)

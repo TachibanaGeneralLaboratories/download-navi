@@ -155,8 +155,8 @@ public class DownloadScheduler
         if (pref.getBoolean(context.getString(R.string.pref_key_enable_roaming),
                             SettingsManager.Default.enableRoaming))
             netType = NetworkType.NOT_ROAMING;
-        if (info != null && info.wifiOnly || pref.getBoolean(context.getString(R.string.pref_key_wifi_only),
-                                                             SettingsManager.Default.wifiOnly))
+        if (info != null && info.unmeteredConnectionsOnly || pref.getBoolean(context.getString(R.string.pref_key_umnetered_connections_only),
+                                                             SettingsManager.Default.unmeteredConnectionsOnly))
             netType = NetworkType.UNMETERED;
 
         return new Constraints.Builder()

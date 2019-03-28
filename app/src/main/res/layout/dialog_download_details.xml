@@ -139,12 +139,12 @@
                     android:layout_marginBottom="16dp">
 
                     <CheckBox
-                        android:id="@+id/wifi_only"
+                        android:id="@+id/unmetered_connections_only"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:textColor="?android:attr/textColorPrimary"
-                        android:checked="@={viewModel.mutableParams.wifiOnly}"
-                        android:text="@string/wifi_only" />
+                        android:checked="@={viewModel.mutableParams.unmeteredConnectionsOnly}"
+                        android:text="@string/unmetered_connections_only" />
 
                     <CheckBox
                         android:id="@+id/retry"

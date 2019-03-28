@@ -35,37 +35,21 @@ import android.util.Log;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.widget.AdapterView;
 import android.widget.Button;
-import android.widget.SeekBar;
 import android.widget.Toast;
 
-import com.google.android.material.textfield.TextInputEditText;
 import com.tachibana.downloader.AddDownloadActivity;
-import com.tachibana.downloader.FragmentCallback;
 import com.tachibana.downloader.R;
-import com.tachibana.downloader.RequestPermissions;
-import com.tachibana.downloader.adapter.UserAgentAdapter;
 import com.tachibana.downloader.core.entity.DownloadInfo;
-import com.tachibana.downloader.core.entity.DownloadPiece;
-import com.tachibana.downloader.core.entity.UserAgent;
 import com.tachibana.downloader.core.exception.FileAlreadyExistsException;
 import com.tachibana.downloader.core.exception.FreeSpaceException;
-import com.tachibana.downloader.core.exception.HttpException;
 import com.tachibana.downloader.core.utils.FileUtils;
-import com.tachibana.downloader.core.utils.Utils;
-import com.tachibana.downloader.databinding.DialogAddDownloadBinding;
 import com.tachibana.downloader.databinding.DialogDownloadDetailsBinding;
 import com.tachibana.downloader.dialog.filemanager.FileManagerConfig;
 import com.tachibana.downloader.dialog.filemanager.FileManagerDialog;
-import com.tachibana.downloader.settings.SettingsManager;
-import com.tachibana.downloader.viewmodel.AddDownloadViewModel;
 import com.tachibana.downloader.viewmodel.AddInitParams;
 import com.tachibana.downloader.viewmodel.DownloadDetailsViewModel;
 
-import java.io.IOException;
-import java.net.ConnectException;
-import java.net.MalformedURLException;
 import java.util.UUID;
 
 import androidx.annotation.NonNull;
@@ -76,7 +60,6 @@ import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.DialogFragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.lifecycle.ViewModelProviders;
-import io.reactivex.Observable;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.disposables.Disposable;
@@ -296,7 +279,7 @@ public class DownloadDetailsDialog extends DialogFragment
         initParams.fileName = downloadInfo.fileName;
         initParams.description = downloadInfo.description;
         initParams.userAgent = downloadInfo.userAgent;
-        initParams.wifiOnly = downloadInfo.wifiOnly;
+        initParams.unmeteredConnectionsOnly = downloadInfo.unmeteredConnectionsOnly;
         initParams.retry = downloadInfo.retry;
         initParams.replaceFile = true;
 

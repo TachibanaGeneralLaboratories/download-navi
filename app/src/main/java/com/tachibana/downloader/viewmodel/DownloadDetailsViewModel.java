@@ -115,7 +115,7 @@ public class DownloadDetailsViewModel extends AndroidViewModel
         mutableParams.setFileName(downloadInfo.fileName);
         mutableParams.setDescription(downloadInfo.description);
         mutableParams.setDirPath(downloadInfo.dirPath);
-        mutableParams.setWifiOnly(downloadInfo.wifiOnly);
+        mutableParams.setUnmeteredConnectionsOnly(downloadInfo.unmeteredConnectionsOnly);
         mutableParams.setRetry(downloadInfo.retry);
     }
 
@@ -146,7 +146,7 @@ public class DownloadDetailsViewModel extends AndroidViewModel
                 !downloadInfo.fileName.equals(mutableParams.getFileName()) ||
                 !downloadInfo.dirPath.equals(mutableParams.getDirPath()) ||
                 !(TextUtils.isEmpty(mutableParams.getDescription()) || mutableParams.getDescription().equals(downloadInfo.description)) ||
-                downloadInfo.wifiOnly != mutableParams.isWifiOnly() ||
+                downloadInfo.unmeteredConnectionsOnly != mutableParams.isUnmeteredConnectionsOnly() ||
                 downloadInfo.retry != mutableParams.isRetry();
 
         paramsChanged.setValue(changed);
@@ -235,7 +235,7 @@ public class DownloadDetailsViewModel extends AndroidViewModel
         String fileName = mutableParams.getFileName();
         Uri dirPath = mutableParams.getDirPath();
         String description = mutableParams.getDescription();
-        boolean wifiOnly = mutableParams.isWifiOnly();
+        boolean unmeteredConnectionsOnly = mutableParams.isUnmeteredConnectionsOnly();
         boolean retry = mutableParams.isRetry();
 
         if (!downloadInfo.url.equals(url))
@@ -246,8 +246,8 @@ public class DownloadDetailsViewModel extends AndroidViewModel
             params.dirPath = dirPath;
         if (!(TextUtils.isEmpty(description) || description.equals(downloadInfo.description)))
             params.description = description;
-        if (downloadInfo.wifiOnly != wifiOnly)
-            params.wifiOnly = wifiOnly;
+        if (downloadInfo.unmeteredConnectionsOnly != unmeteredConnectionsOnly)
+            params.unmeteredConnectionsOnly = unmeteredConnectionsOnly;
         if (downloadInfo.retry != retry)
             params.retry = retry;
 

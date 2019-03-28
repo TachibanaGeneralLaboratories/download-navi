@@ -167,14 +167,6 @@
                 android:layout_marginBottom="16dp">
 
                 <CheckBox
-                    android:id="@+id/wifi_only"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textColor="?android:attr/textColorPrimary"
-                    android:text="@string/wifi_only"
-                    android:checked="@={viewModel.params.wifiOnly}" />
-
-                <CheckBox
                     android:id="@+id/retry"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -189,6 +181,14 @@
                     android:textColor="?android:attr/textColorPrimary"
                     android:text="@string/replace_file"
                     android:checked="@={viewModel.params.replaceFile}" />
+
+                <CheckBox
+                    android:id="@+id/unmetered_connections_only"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="?android:attr/textColorPrimary"
+                    android:text="@string/unmetered_connections_only"
+                    android:checked="@={viewModel.params.unmeteredConnectionsOnly}" />
             </com.google.android.material.internal.FlowLayout>
 
             <com.tachibana.downloader.customview.ExpansionHeader

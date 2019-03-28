@@ -352,9 +352,9 @@ public class DownloadEngine
             changed = true;
             info.description = params.description;
         }
-        if (params.wifiOnly != null) {
+        if (params.unmeteredConnectionsOnly != null) {
             changed = true;
-            info.wifiOnly = params.wifiOnly;
+            info.unmeteredConnectionsOnly = params.unmeteredConnectionsOnly;
         }
         if (params.retry != null) {
             changed = true;
@@ -511,7 +511,7 @@ public class DownloadEngine
     private final SharedPreferences.OnSharedPreferenceChangeListener sharedPrefListener = (sharedPreferences, key) -> {
         boolean reschedule = false;
 
-        if (key.equals(appContext.getString(R.string.pref_key_wifi_only)) ||
+        if (key.equals(appContext.getString(R.string.pref_key_umnetered_connections_only)) ||
             key.equals(appContext.getString(R.string.pref_key_enable_roaming))) {
             reschedule = true;
             switchConnectionReceiver();
@@ -554,8 +554,8 @@ public class DownloadEngine
 
     private void switchConnectionReceiver()
     {
-        boolean wifiOnly = pref.getBoolean(appContext.getString(R.string.pref_key_wifi_only),
-                                           SettingsManager.Default.wifiOnly);
+        boolean unmeteredOnly = pref.getBoolean(appContext.getString(R.string.pref_key_umnetered_connections_only),
+                                                SettingsManager.Default.unmeteredConnectionsOnly);
         boolean roaming = pref.getBoolean(appContext.getString(R.string.pref_key_enable_roaming),
                                           SettingsManager.Default.enableRoaming);
 
@@ -565,7 +565,7 @@ public class DownloadEngine
         } catch (IllegalArgumentException e) {
             /* Ignore non-registered receiver */
         }
-        if (wifiOnly || roaming)
+        if (unmeteredOnly || roaming)
             appContext.registerReceiver(connectionReceiver, ConnectionReceiver.getFilter());
     }
 
@@ -579,15 +579,15 @@ public class DownloadEngine
                                                     Utils.getDefaultBatteryLowLevel());
         boolean onlyCharging = pref.getBoolean(appContext.getString(R.string.pref_key_download_only_when_charging),
                                                SettingsManager.Default.onlyCharging);
-        boolean wifiOnly = pref.getBoolean(appContext.getString(R.string.pref_key_wifi_only),
-                                           SettingsManager.Default.wifiOnly);
+        boolean unmeteredOnly = pref.getBoolean(appContext.getString(R.string.pref_key_umnetered_connections_only),
+                                                SettingsManager.Default.unmeteredConnectionsOnly);
         boolean roaming = pref.getBoolean(appContext.getString(R.string.pref_key_enable_roaming),
                                           SettingsManager.Default.enableRoaming);
 
         boolean stop = false;
         if (roaming)
             stop = Utils.isRoaming(appContext);
-        if (wifiOnly)
+        if (unmeteredOnly)
             stop = Utils.isMetered(appContext);
         if (onlyCharging)
             stop |= !Utils.isBatteryCharging(appContext);

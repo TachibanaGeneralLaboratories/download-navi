@@ -379,10 +379,10 @@ public class Utils
         SharedPreferences pref = SettingsManager.getInstance(context).getPreferences();
         boolean enableRoaming = pref.getBoolean(context.getString(R.string.pref_key_enable_roaming),
                                                 SettingsManager.Default.enableRoaming);
-        boolean wifiOnly = pref.getBoolean(context.getString(R.string.pref_key_wifi_only),
-                                           SettingsManager.Default.wifiOnly);
+        boolean unmeteredOnly = pref.getBoolean(context.getString(R.string.pref_key_umnetered_connections_only),
+                                                SettingsManager.Default.unmeteredConnectionsOnly);
 
-        boolean noWifiOnly;
+        boolean noUnmeteredOnly;
         boolean noRoaming;
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
@@ -396,7 +396,7 @@ public class Utils
              */
             boolean unmetered = caps != null && caps.hasCapability(NetworkCapabilities.NET_CAPABILITY_NOT_METERED) ||
                     !systemFacade.isActiveNetworkMetered();
-            noWifiOnly = !wifiOnly || unmetered;
+            noUnmeteredOnly = !unmeteredOnly || unmetered;
 
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P) {
                 noRoaming = !enableRoaming || caps != null && caps.hasCapability(NetworkCapabilities.NET_CAPABILITY_NOT_ROAMING);
@@ -408,15 +408,15 @@ public class Utils
         } else {
             NetworkInfo netInfo = systemFacade.getActiveNetworkInfo();
             if (netInfo == null) {
-                noWifiOnly = false;
+                noUnmeteredOnly = false;
                 noRoaming = false;
             } else {
-                noWifiOnly = !wifiOnly || !systemFacade.isActiveNetworkMetered();
+                noUnmeteredOnly = !unmeteredOnly || !systemFacade.isActiveNetworkMetered();
                 noRoaming = !(enableRoaming && netInfo.isRoaming());
             }
         }
 
-        return noWifiOnly && noRoaming;
+        return noUnmeteredOnly && noRoaming;
     }
 
     public static boolean isMetered(@NonNull Context context)

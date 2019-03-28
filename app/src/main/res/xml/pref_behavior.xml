@@ -2,9 +2,9 @@
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
 
     <SwitchPreferenceCompat
-        android:key="@string/pref_key_wifi_only"
-        android:title="@string/pref_wifi_only_title"
-        android:summary="@string/pref_wifi_only_summary" />
+        android:key="@string/pref_key_umnetered_connections_only"
+        android:title="@string/pref_umnetered_connections_only_title"
+        android:summary="@string/pref_umnetered_connections_only_summary" />
 
     <SwitchPreferenceCompat
         android:key="@string/pref_key_enable_roaming"

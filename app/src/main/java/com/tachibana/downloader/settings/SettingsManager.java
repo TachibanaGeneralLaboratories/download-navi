@@ -50,7 +50,7 @@ public class SettingsManager
         public static final boolean vibrationNotify = true;
         public static int ledIndicatorColorNotify(Context context) { return ContextCompat.getColor(context, R.color.primary); }
         /* Behavior settings */
-        public static final boolean wifiOnly = false;
+        public static final boolean unmeteredConnectionsOnly = false;
         public static final boolean enableRoaming = true;
         public static final boolean autostart = false;
         public static final boolean autostartStoppedDownloads = true;

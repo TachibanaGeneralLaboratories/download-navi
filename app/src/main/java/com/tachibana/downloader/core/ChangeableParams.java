@@ -17,7 +17,7 @@ public class ChangeableParams implements Parcelable
     public String fileName;
     public String description;
     public Uri dirPath;
-    public Boolean wifiOnly;
+    public Boolean unmeteredConnectionsOnly;
     public Boolean retry;
 
     public ChangeableParams() {}
@@ -28,9 +28,9 @@ public class ChangeableParams implements Parcelable
         fileName = source.readString();
         description = source.readString();
         dirPath = source.readParcelable(Uri.class.getClassLoader());
-        byte wifiOnlyVal = source.readByte();
-        if (wifiOnlyVal != -1)
-            wifiOnly = wifiOnlyVal > 0;
+        byte unmeteredOnlyVal = source.readByte();
+        if (unmeteredOnlyVal != -1)
+            unmeteredConnectionsOnly = unmeteredOnlyVal > 0;
         byte retryVal = source.readByte();
         if (retryVal != -1)
             retry = retryVal > 0;
@@ -49,10 +49,10 @@ public class ChangeableParams implements Parcelable
         dest.writeString(fileName);
         dest.writeString(description);
         dest.writeParcelable(dirPath, flags);
-        if (wifiOnly == null)
+        if (unmeteredConnectionsOnly == null)
             dest.writeByte((byte)-1);
         else
-            dest.writeByte((byte)(wifiOnly ? 1 : 0));
+            dest.writeByte((byte)(unmeteredConnectionsOnly ? 1 : 0));
         if (retry == null)
             dest.writeByte((byte)-1);
         else
@@ -83,7 +83,7 @@ public class ChangeableParams implements Parcelable
                 ", fileName='" + fileName + '\'' +
                 ", description='" + description + '\'' +
                 ", dirPath=" + dirPath +
-                ", wifiOnly=" + wifiOnly +
+                ", unmeteredConnectionsOnly=" + unmeteredConnectionsOnly +
                 ", retry=" + retry +
                 '}';
     }

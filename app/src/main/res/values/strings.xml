@@ -15,7 +15,8 @@
     <string name="elapsed_time_format_ss">%1$d s</string>
     <string name="ok">OK</string>
     <string name="cancel">Cancel</string>
-    <string name="wifi_only">Wi-Fi only</string>
+    <!-- A synonym for word "unmetered" - unlimited-->
+    <string name="unmetered_connections_only">Unmetered connections only</string>
     <string name="connect">Connect</string>
     <string name="add">Add</string>
     <string name="not_available">N/A</string>
@@ -214,8 +215,9 @@
     <!-- Behavior settings -->
     <string name="pref_autostart_title">Autostart</string>
     <string name="pref_autostart_summary">Run the app after start device and start downloads, if they weren\'t manually paused</string>
-    <string name="pref_wifi_only_title">Wi-Fi only</string>
-    <string name="pref_wifi_only_summary">Download only if Wi-Fi is connected</string>
+    <!-- A synonym for word "unmetered" - unlimited-->
+    <string name="pref_umnetered_connections_only_title">Unmetered connections only</string>
+    <string name="pref_umnetered_connections_only_summary">Download only over unmetered connections (for example, Wi-Fi or Ethernet)</string>
     <string name="pref_power_management_category">Power management</string>
     <string name="pref_cpu_do_not_sleep_title">Keep CPU awake</string>
     <string name="pref_cpu_do_not_sleep_summary">Enabling this will increase the battery usage. Use this option if the download speed reduces when screen turns off</string>

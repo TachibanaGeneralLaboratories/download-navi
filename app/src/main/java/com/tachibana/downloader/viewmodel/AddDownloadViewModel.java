@@ -54,7 +54,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.databinding.Observable;
 import androidx.databinding.ObservableInt;
 import androidx.databinding.library.baseAdapters.BR;
@@ -362,7 +361,7 @@ public class AddDownloadViewModel extends AndroidViewModel
         info.mimeType = params.getMimeType();
         info.totalBytes = params.getTotalBytes();
         info.description = params.getDescription();
-        info.wifiOnly = params.isWifiOnly();
+        info.unmeteredConnectionsOnly = params.isUnmeteredConnectionsOnly();
         info.partialSupport = params.isPartialSupport();
         info.setNumPieces((params.isPartialSupport() && params.getTotalBytes() > 0 ?
                 params.getNumPieces() :

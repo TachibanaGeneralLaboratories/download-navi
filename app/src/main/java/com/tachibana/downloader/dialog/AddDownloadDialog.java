@@ -58,7 +58,6 @@ import com.tachibana.downloader.viewmodel.AddInitParams;
 import java.io.IOException;
 import java.net.ConnectException;
 import java.net.MalformedURLException;
-import java.util.List;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -224,7 +223,7 @@ public class AddDownloadDialog extends DialogFragment
         viewModel.params.setDirPath(initParams.dirPath == null ?
                 Uri.parse(FileUtils.getDefaultDownloadPath()) :
                 initParams.dirPath);
-        viewModel.params.setWifiOnly(initParams.wifiOnly);
+        viewModel.params.setUnmeteredConnectionsOnly(initParams.unmeteredConnectionsOnly);
         viewModel.params.setRetry(initParams.retry);
         viewModel.params.setReplaceFile(initParams.replaceFile);
     }
