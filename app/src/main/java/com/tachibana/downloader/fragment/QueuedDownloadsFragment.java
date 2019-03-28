@@ -25,13 +25,8 @@ import android.os.Bundle;
 import com.tachibana.downloader.adapter.DownloadItem;
 import com.tachibana.downloader.adapter.DownloadListAdapter;
 import com.tachibana.downloader.core.StatusCode;
-import com.tachibana.downloader.dialog.DownloadDetailsDialog;
-
-import java.util.UUID;
 
 import androidx.annotation.NonNull;
-import androidx.fragment.app.FragmentManager;
-import io.reactivex.schedulers.Schedulers;
 
 public class QueuedDownloadsFragment extends DownloadsFragment
     implements DownloadListAdapter.QueueClickListener

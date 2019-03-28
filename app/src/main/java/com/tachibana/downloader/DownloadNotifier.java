@@ -20,13 +20,6 @@
 
 package com.tachibana.downloader;
 
-import static android.app.DownloadManager.Request.VISIBILITY_HIDDEN;
-import static android.app.DownloadManager.Request.VISIBILITY_VISIBLE;
-import static android.app.DownloadManager.Request.VISIBILITY_VISIBLE_NOTIFY_COMPLETED;
-import static android.app.DownloadManager.Request.VISIBILITY_VISIBLE_NOTIFY_ONLY_COMPLETION;
-import static android.content.Context.NOTIFICATION_SERVICE;
-
-import android.app.NotificationChannel;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.content.Context;
@@ -48,7 +41,6 @@ import com.tachibana.downloader.core.utils.Utils;
 import com.tachibana.downloader.receiver.NotificationReceiver;
 import com.tachibana.downloader.settings.SettingsManager;
 
-import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -61,6 +53,12 @@ import io.reactivex.Completable;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.schedulers.Schedulers;
+
+import static android.app.DownloadManager.Request.VISIBILITY_HIDDEN;
+import static android.app.DownloadManager.Request.VISIBILITY_VISIBLE;
+import static android.app.DownloadManager.Request.VISIBILITY_VISIBLE_NOTIFY_COMPLETED;
+import static android.app.DownloadManager.Request.VISIBILITY_VISIBLE_NOTIFY_ONLY_COMPLETION;
+import static android.content.Context.NOTIFICATION_SERVICE;
 
 /*
  * Update NotificationManager to reflect current download states.

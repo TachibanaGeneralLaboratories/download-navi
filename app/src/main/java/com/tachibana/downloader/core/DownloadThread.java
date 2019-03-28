@@ -39,7 +39,6 @@ import com.tachibana.downloader.core.utils.Utils;
 import com.tachibana.downloader.settings.SettingsManager;
 
 import java.io.FileDescriptor;
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InterruptedIOException;
 import java.net.HttpURLConnection;
@@ -54,14 +53,13 @@ import java.util.concurrent.Executors;
 import java.util.concurrent.TimeUnit;
 
 import static com.tachibana.downloader.core.StatusCode.STATUS_BAD_REQUEST;
-import static com.tachibana.downloader.core.StatusCode.STATUS_INSUFFICIENT_SPACE_ERROR;
-import static com.tachibana.downloader.core.StatusCode.STATUS_STOPPED;
 import static com.tachibana.downloader.core.StatusCode.STATUS_CANNOT_RESUME;
+import static com.tachibana.downloader.core.StatusCode.STATUS_FETCH_METADATA;
 import static com.tachibana.downloader.core.StatusCode.STATUS_FILE_ERROR;
 import static com.tachibana.downloader.core.StatusCode.STATUS_HTTP_DATA_ERROR;
-import static com.tachibana.downloader.core.StatusCode.STATUS_FETCH_METADATA;
 import static com.tachibana.downloader.core.StatusCode.STATUS_PAUSED;
 import static com.tachibana.downloader.core.StatusCode.STATUS_RUNNING;
+import static com.tachibana.downloader.core.StatusCode.STATUS_STOPPED;
 import static com.tachibana.downloader.core.StatusCode.STATUS_SUCCESS;
 import static com.tachibana.downloader.core.StatusCode.STATUS_TOO_MANY_REDIRECTS;
 import static com.tachibana.downloader.core.StatusCode.STATUS_UNHANDLED_HTTP_CODE;

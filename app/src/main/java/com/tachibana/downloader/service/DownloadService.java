@@ -27,11 +27,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Build;
-
-import androidx.annotation.NonNull;
-import androidx.core.app.NotificationCompat;
-import androidx.lifecycle.LifecycleService;
-
 import android.os.PowerManager;
 import android.util.Log;
 
@@ -46,6 +41,10 @@ import com.tachibana.downloader.receiver.NotificationReceiver;
 import com.tachibana.downloader.settings.SettingsManager;
 
 import java.util.UUID;
+
+import androidx.annotation.NonNull;
+import androidx.core.app.NotificationCompat;
+import androidx.lifecycle.LifecycleService;
 
 /*
  * Only for work that exceeds 10 minutes and and it's impossible to use WorkManager.

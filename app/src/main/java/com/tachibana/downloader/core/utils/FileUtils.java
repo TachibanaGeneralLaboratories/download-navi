@@ -50,7 +50,6 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.nio.channels.FileChannel;
 import java.nio.charset.StandardCharsets;
-import java.nio.file.Files;
 
 import androidx.annotation.NonNull;
 import androidx.documentfile.provider.DocumentFile;

@@ -49,11 +49,11 @@ import java.util.List;
 import java.util.UUID;
 
 import static com.tachibana.downloader.core.StatusCode.STATUS_BAD_REQUEST;
-import static com.tachibana.downloader.core.StatusCode.STATUS_STOPPED;
 import static com.tachibana.downloader.core.StatusCode.STATUS_CANNOT_RESUME;
 import static com.tachibana.downloader.core.StatusCode.STATUS_FILE_ERROR;
 import static com.tachibana.downloader.core.StatusCode.STATUS_HTTP_DATA_ERROR;
 import static com.tachibana.downloader.core.StatusCode.STATUS_RUNNING;
+import static com.tachibana.downloader.core.StatusCode.STATUS_STOPPED;
 import static com.tachibana.downloader.core.StatusCode.STATUS_SUCCESS;
 import static com.tachibana.downloader.core.StatusCode.STATUS_TOO_MANY_REDIRECTS;
 import static com.tachibana.downloader.core.StatusCode.STATUS_UNHANDLED_HTTP_CODE;

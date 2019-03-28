@@ -22,6 +22,7 @@
 package com.tachibana.downloader.core.filter;
 
 import com.tachibana.downloader.core.entity.InfoAndPieces;
+
 import io.reactivex.functions.Predicate;
 
 public interface DownloadFilter extends Predicate<InfoAndPieces> {}

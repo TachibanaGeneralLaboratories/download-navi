@@ -25,9 +25,9 @@ import android.text.TextUtils;
 
 import com.tachibana.downloader.MainApplication;
 import com.tachibana.downloader.core.DownloadEngine;
-import com.tachibana.downloader.core.filter.DownloadFilter;
 import com.tachibana.downloader.core.entity.DownloadInfo;
 import com.tachibana.downloader.core.entity.InfoAndPieces;
+import com.tachibana.downloader.core.filter.DownloadFilter;
 import com.tachibana.downloader.core.filter.DownloadFilterCollection;
 import com.tachibana.downloader.core.sorting.DownloadSorting;
 import com.tachibana.downloader.core.sorting.DownloadSortingComparator;
@@ -38,7 +38,6 @@ import java.util.List;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.lifecycle.AndroidViewModel;
-import io.reactivex.Completable;
 import io.reactivex.Flowable;
 import io.reactivex.Observable;
 import io.reactivex.Single;

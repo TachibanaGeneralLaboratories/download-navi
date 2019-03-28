@@ -23,7 +23,6 @@ package com.tachibana.downloader.core.storage.dao;
 import com.tachibana.downloader.core.entity.UserAgent;
 
 import java.util.List;
-import java.util.UUID;
 
 import androidx.lifecycle.LiveData;
 import androidx.room.Dao;

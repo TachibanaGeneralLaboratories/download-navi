@@ -17,9 +17,10 @@
 package com.tachibana.downloader.customview;
 
 import android.content.Context;
-import androidx.recyclerview.widget.RecyclerView;
 import android.util.AttributeSet;
 import android.view.View;
+
+import androidx.recyclerview.widget.RecyclerView;
 
 /*
  * A RecyclerView with empty view.

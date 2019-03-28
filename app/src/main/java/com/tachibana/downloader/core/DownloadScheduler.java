@@ -34,7 +34,6 @@ import com.tachibana.downloader.worker.RunDownloadWorker;
 import java.util.UUID;
 
 import androidx.annotation.NonNull;
-
 import androidx.work.Constraints;
 import androidx.work.Data;
 import androidx.work.ExistingWorkPolicy;
