@@ -265,7 +265,7 @@ public class DownloadListAdapter extends ListAdapter<DownloadItem, DownloadListA
                         statusStr = context.getString(R.string.waiting_for_retry);
                         break;
                     case StatusCode.STATUS_FETCH_METADATA:
-                        statusStr = context.getString(R.string.fetching_metadata);
+                        statusStr = context.getString(R.string.downloading_metadata);
                         break;
                 }
                 if (item.info.statusCode == StatusCode.STATUS_FETCH_METADATA) {

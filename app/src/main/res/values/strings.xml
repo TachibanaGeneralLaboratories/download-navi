@@ -3,7 +3,7 @@
     <string name="app_name">Download Navi</string>
     <string name="foreground_notification">Foreground notification</string>
     <string name="download_running">In progress</string>
-    <string name="finish">Finish</string>
+    <string name="finished">Finished</string>
     <string name="shutdown">Shutdown</string>
     <!-- 1 d. 1 h. 1 m -->
     <string name="elapsed_time_format_d_h_mm">%1$d d. %2$d h. %3$d m</string>
@@ -38,7 +38,7 @@
     <string name="error">Error</string>
     <string name="file">File</string>
     <string name="folder">Folder</string>
-    <string name="fetching_metadata">Fetching metadata</string>
+    <string name="downloading_metadata">Downloading metadata</string>
     <string name="all">All</string>
     <string name="search">Search</string>
     <string name="settings">Settings</string>

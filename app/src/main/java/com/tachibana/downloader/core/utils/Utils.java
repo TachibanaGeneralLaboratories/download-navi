@@ -140,7 +140,7 @@ public class Utils
                 context.getText(R.string.pending),
                 NotificationManager.IMPORTANCE_LOW));
         channels.add(new NotificationChannel(COMPLETED_DOWNLOADS_NOTIFY_CHAN_ID,
-                context.getText(R.string.finish),
+                context.getText(R.string.finished),
                 NotificationManager.IMPORTANCE_DEFAULT));
 
         notifyManager.createNotificationChannels(channels);

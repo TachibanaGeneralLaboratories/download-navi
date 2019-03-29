@@ -374,7 +374,7 @@ public class DownloadNotifier
                             statusStr = context.getString(R.string.stopped);
                             break;
                         case StatusCode.STATUS_FETCH_METADATA:
-                            statusStr = context.getString(R.string.fetching_metadata);
+                            statusStr = context.getString(R.string.downloading_metadata);
                             break;
                     }
                     progressBigText.bigText(String.format(context.getString(R.string.download_queued_template),
