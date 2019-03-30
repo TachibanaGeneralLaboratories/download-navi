@@ -323,7 +323,8 @@ public class DownloadEngine
                                 err[0] = e;
                             } finally {
                                 duringChange.remove(id);
-                                notifyListeners((listener) -> listener.onParamsApplied(id, err[0]));
+                                String name = (info == null ? null : info.fileName);
+                                notifyListeners((listener) -> listener.onParamsApplied(id, name, err[0]));
                                 if (runAfter) {
                                     info = repo.getInfoById(id);
                                     if (info != null)
@@ -335,7 +336,7 @@ public class DownloadEngine
                             Log.e(TAG, "Getting info " + id + " error: " +
                                     Log.getStackTraceString(t));
                             duringChange.remove(id);
-                            notifyListeners((listener) -> listener.onParamsApplied(id, t));
+                            notifyListeners((listener) -> listener.onParamsApplied(id, null, t));
                         }
                 )
         );

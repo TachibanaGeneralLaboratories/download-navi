@@ -43,6 +43,7 @@ import com.tachibana.downloader.settings.SettingsManager;
 import java.util.UUID;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.core.app.NotificationCompat;
 import androidx.lifecycle.LifecycleService;
 
@@ -70,7 +71,6 @@ public class DownloadService extends LifecycleService
     private SharedPreferences pref;
     private PowerManager.WakeLock wakeLock;
     private boolean downloadsApplyingParams;
-    private boolean rescheduleDownloads;
 
     private void init()
     {
@@ -105,24 +105,12 @@ public class DownloadService extends LifecycleService
         }
 
         @Override
-        public void onParamsApplied(@NonNull UUID id, Throwable e)
+        public void onParamsApplied(@NonNull UUID id, @Nullable String name, @Nullable Throwable e)
         {
             downloadsApplyingParams = false;
             makeApplyingParamsNotify();
-            if (checkStopService())
-                stopService();
-        }
-
-        @Override
-        public void onStartRescheduling()
-        {
-            rescheduleDownloads = true;
-        }
-
-        @Override
-        public void onDownloadsRescheduled()
-        {
-            rescheduleDownloads = false;
+            if (e != null && name != null)
+                makeApplyingParamsErrorNotify(id, name, e);
             if (checkStopService())
                 stopService();
         }
@@ -130,7 +118,7 @@ public class DownloadService extends LifecycleService
 
     private boolean checkStopService()
     {
-        if (downloadsApplyingParams || rescheduleDownloads)
+        if (downloadsApplyingParams)
             return false;
 
         return !engine.hasActiveDownloads();
@@ -175,8 +163,7 @@ public class DownloadService extends LifecycleService
                 case ACTION_SHUTDOWN:
                     if (engine != null)
                         engine.stopDownloads();
-                    if (!downloadsApplyingParams && !rescheduleDownloads &&
-                        (engine == null || !engine.hasActiveDownloads()))
+                    if (!downloadsApplyingParams && (engine == null || !engine.hasActiveDownloads()))
                         stopService();
                     break;
                 case ACTION_RUN_DOWNLOAD:
@@ -343,6 +330,46 @@ public class DownloadService extends LifecycleService
             builder.setCategory(Notification.CATEGORY_STATUS);
 
         notifyManager.notify(APPLYING_PARAMS_NOTIFICATION_ID, builder.build());
+    }
+
+    private void makeApplyingParamsErrorNotify(UUID id, String name, Throwable e)
+    {
+        String title = String.format(getString(R.string.applying_params_error_title), name);
+        NotificationCompat.Builder builder = new NotificationCompat.Builder(getApplicationContext(),
+                Utils.DEFAULT_NOTIFY_CHAN_ID)
+                .setContentTitle(title)
+                .setTicker(title)
+                .setContentText(e.toString())
+                .setSmallIcon(R.drawable.ic_error_white_24dp)
+                .setAutoCancel(true)
+                .setOngoing(false)
+                .setWhen(System.currentTimeMillis());
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP)
+            builder.setCategory(Notification.CATEGORY_ERROR);
+
+        builder.addAction(makeReportAction(e));
+
+        notifyManager.notify(id.hashCode(), builder.build());
+    }
+
+    private NotificationCompat.Action makeReportAction(Throwable e)
+    {
+        Intent reportIntent = new Intent(getApplicationContext(), NotificationReceiver.class);
+        reportIntent.setAction(NotificationReceiver.NOTIFY_ACTION_REPORT_APPLYING_PARAMS_ERROR);
+        reportIntent.putExtra(NotificationReceiver.TAG_ERR, e);
+        PendingIntent shutdownPendingIntent =
+                PendingIntent.getBroadcast(
+                        getApplicationContext(),
+                        0,
+                        reportIntent,
+                        PendingIntent.FLAG_UPDATE_CURRENT);
+
+        return new NotificationCompat.Action.Builder(
+                R.drawable.ic_send_white_24dp,
+                getString(R.string.report),
+                shutdownPendingIntent)
+                .build();
     }
 
     SharedPreferences.OnSharedPreferenceChangeListener sharedPreferenceListener = (sharedPreferences, key) -> {

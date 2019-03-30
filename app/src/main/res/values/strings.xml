@@ -78,6 +78,7 @@
     <!-- Applying params notification -->
     <string name="applying_params_title">Applying params</string>
     <string name="applying_params_for_downloads">Applying params for downloads</string>
+    <string name="applying_params_error_title" formatted="false">Applying params error for %1$s</string>
 
     <!-- Add download dialog -->
     <string name="add_download">Add download</string>

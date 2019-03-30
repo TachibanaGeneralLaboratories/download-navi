@@ -25,6 +25,7 @@ import android.content.Context;
 import android.content.Intent;
 
 import com.tachibana.downloader.MainActivity;
+import com.tachibana.downloader.core.utils.Utils;
 import com.tachibana.downloader.service.DownloadService;
 
 /*
@@ -38,7 +39,9 @@ public class NotificationReceiver extends BroadcastReceiver
     public static final String NOTIFY_ACTION_RESUME_ALL = "com.tachibana.downloader.receiver.NotificationReceiver.NOTIFY_ACTION_RESUME_ALL";
     public static final String NOTIFY_ACTION_PAUSE_RESUME = "com.tachibana.downloader.receiver.NotificationReceiver.NOTIFY_ACTION_PAUSE_RESUME";
     public static final String NOTIFY_ACTION_CANCEL = "com.tachibana.downloader.receiver.NotificationReceiver.NOTIFY_ACTION_CANCEL";
+    public static final String NOTIFY_ACTION_REPORT_APPLYING_PARAMS_ERROR = "com.tachibana.downloader.receiver.NotificationReceiver.NOTIFY_ACTION_REPORT_APPLYING_PARAMS_ERROR";
     public static final String TAG_ID = "id";
+    public static final String TAG_ERR = "err";
 
     @Override
     public void onReceive(Context context, Intent intent)
@@ -80,6 +83,11 @@ public class NotificationReceiver extends BroadcastReceiver
                 serviceIntent.setAction(NOTIFY_ACTION_CANCEL);
                 serviceIntent.putExtra(TAG_ID, intent.getSerializableExtra(TAG_ID));
                 context.startService(serviceIntent);
+                break;
+            case NOTIFY_ACTION_REPORT_APPLYING_PARAMS_ERROR:
+                Throwable e = (Throwable)intent.getSerializableExtra(TAG_ERR);
+                if (e != null)
+                    Utils.reportError(e, null);
                 break;
         }
     }

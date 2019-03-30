@@ -23,6 +23,7 @@ package com.tachibana.downloader.core;
 import java.util.UUID;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 
 public abstract class DownloadEngineListener
 {
@@ -30,9 +31,5 @@ public abstract class DownloadEngineListener
 
     public void onApplyingParams(@NonNull UUID id) {}
 
-    public void onParamsApplied(@NonNull UUID id, Throwable e) {}
-
-    public void onStartRescheduling() {}
-
-    public void onDownloadsRescheduled() {}
+    public void onParamsApplied(@NonNull UUID id, @Nullable String name, @Nullable Throwable e) {}
 }

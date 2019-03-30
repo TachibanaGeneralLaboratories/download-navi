@@ -78,6 +78,7 @@
     <!-- Applying params notification -->
     <string name="applying_params_title">Применение параметров</string>
     <string name="applying_params_for_downloads">Применение параметров для загрузок</string>
+    <string name="applying_params_error_title" formatted="false">Ошибка применения параметров для %1$s</string>
 
     <!-- Add download dialog -->
     <string name="add_download">Добавить загрузку</string>
