@@ -547,10 +547,13 @@ public class DownloadEngine
         } catch (IllegalArgumentException e) {
             /* Ignore non-registered receiver */
         }
-        if (customBatteryControl)
+        if (customBatteryControl) {
             appContext.registerReceiver(powerReceiver, PowerReceiver.getCustomFilter());
-        else if (batteryControl || onlyCharging)
+            /* Custom receiver doesn't send sticky intent, reschedule manually */
+            rescheduleDownloads();
+        } else if (batteryControl || onlyCharging) {
             appContext.registerReceiver(powerReceiver, PowerReceiver.getFilter());
+        }
     }
 
     private void switchConnectionReceiver()
