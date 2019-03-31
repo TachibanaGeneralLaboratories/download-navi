@@ -85,7 +85,7 @@ public class PieceThreadTest extends AbstractTest
             assertTrue(file.exists());
 
             /* Run piece task */
-            runTask(new PieceThread(id, 0, context, repo));
+            runTask(new PieceThread(context, id, 0));
 
             /* Read piece info */
             piece = repo.getPiece(0, id);
@@ -130,7 +130,7 @@ public class PieceThreadTest extends AbstractTest
             assertTrue(file.exists());
 
             /* Run piece task */
-            runTask(new PieceThread(id, 0, context, repo));
+            runTask(new PieceThread(context, id, 0));
 
             /* Read piece info */
             piece = repo.getPiece(0, id);

@@ -71,8 +71,6 @@ public class DownloadPiece implements Parcelable
     public String statusMsg;
     public long speed;
 
-    public static final int MAX_RETRIES = 5;
-
     public DownloadPiece(@NonNull UUID infoId, int index, long size, long curBytes)
     {
         this.infoId = infoId;

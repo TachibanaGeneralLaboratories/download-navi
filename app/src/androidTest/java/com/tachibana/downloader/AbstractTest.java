@@ -23,8 +23,10 @@ package com.tachibana.downloader;
 import android.Manifest;
 import android.content.Context;
 
+import com.tachibana.downloader.core.FakeSystemFacade;
 import com.tachibana.downloader.core.storage.AppDatabase;
 import com.tachibana.downloader.core.storage.DataRepository;
+import com.tachibana.downloader.core.utils.Utils;
 
 import org.junit.After;
 import org.junit.Before;
@@ -55,6 +57,8 @@ public class AbstractTest
                 .build();
         ((MainApplication)context).setDatabase(db);
         repo = DataRepository.getInstance(db);
+        FakeSystemFacade systemFacade = new FakeSystemFacade(context);
+        Utils.setSystemFacade(systemFacade);
     }
 
     @After

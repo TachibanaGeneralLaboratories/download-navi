@@ -235,6 +235,8 @@
     <string name="pref_enable_roaming_title">Включить роуминг</string>
     <string name="pref_enable_roaming_summary">Скачивать только если устройство не в роуминге</string>
     <string name="pref_max_active_downloads_title">Максимум активных загрузок</string>
+    <string name="pref_max_download_retries_title">Максимальное количество попыток загрузки</string>
+    <string name="pref_max_download_retries_dialog_msg">0 - без попыток</string>
     <!-- Storage settings -->
     <string name="pref_save_downloads_in_title">Сохранять загрузки в</string>
     <string name="pref_move_after_download_title">Перемещать после загрузки</string>

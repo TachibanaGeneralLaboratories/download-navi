@@ -21,6 +21,7 @@
 package com.tachibana.downloader.core;
 
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.net.NetworkInfo;
 import android.net.Uri;
 import android.os.ParcelFileDescriptor;
@@ -28,12 +29,15 @@ import android.os.SystemClock;
 import android.text.TextUtils;
 import android.util.Log;
 
+import com.tachibana.downloader.MainApplication;
+import com.tachibana.downloader.R;
 import com.tachibana.downloader.core.entity.DownloadInfo;
 import com.tachibana.downloader.core.entity.DownloadPiece;
 import com.tachibana.downloader.core.entity.Header;
 import com.tachibana.downloader.core.storage.DataRepository;
 import com.tachibana.downloader.core.utils.FileUtils;
 import com.tachibana.downloader.core.utils.Utils;
+import com.tachibana.downloader.settings.SettingsManager;
 
 import java.io.FileDescriptor;
 import java.io.FileOutputStream;
@@ -100,14 +104,16 @@ public class PieceThread extends Thread
     private boolean madeProgress = false;
     private int networkType;
     private DataRepository repo;
-    private Context context;
+    private SharedPreferences pref;
+    private Context appContext;
 
-    public PieceThread(UUID infoId, int pieceIndex, Context context, DataRepository repo)
+    public PieceThread(Context appContext, UUID infoId, int pieceIndex)
     {
         this.infoId = infoId;
         this.pieceIndex = pieceIndex;
-        this.repo = repo;
-        this.context = context;
+        this.appContext = appContext;
+        repo = ((MainApplication)appContext).getRepository();
+        pref = SettingsManager.getInstance(appContext).getPreferences();
     }
 
     @Override
@@ -134,7 +140,7 @@ public class PieceThread extends Thread
                  * Remember which network this download started on;
                  * used to determine if errors were due to network changes
                  */
-                SystemFacade systemFacade = Utils.getSystemFacade(context);
+                SystemFacade systemFacade = Utils.getSystemFacade(appContext);
                 NetworkInfo netInfo = systemFacade.getActiveNetworkInfo();
                 if (netInfo != null)
                     networkType = netInfo.getType();
@@ -177,8 +183,10 @@ public class PieceThread extends Thread
         if (isStatusRetryable(piece.statusCode)) {
             ++piece.numFailed;
 
-            if (piece.numFailed < DownloadPiece.MAX_RETRIES) {
-                SystemFacade systemFacade = Utils.getSystemFacade(context);
+            int maxRetries = pref.getInt(appContext.getString(R.string.pref_key_max_download_retries),
+                                         SettingsManager.Default.maxDownloadRetries);
+            if (piece.numFailed < maxRetries) {
+                SystemFacade systemFacade = Utils.getSystemFacade(appContext);
                 NetworkInfo netInfo = systemFacade.getActiveNetworkInfo();
                 if (netInfo != null && netInfo.getType() == networkType && netInfo.isConnected())
                     /* Underlying network is still intact, use normal backoff */
@@ -232,7 +240,7 @@ public class PieceThread extends Thread
             return new StopRequest(STATUS_UNKNOWN_ERROR, "Unable to create SSLContext");
         }
 
-        if (!Utils.checkConnectivity(context))
+        if (!Utils.checkConnectivity(appContext))
             return new StopRequest(STATUS_WAITING_FOR_NETWORK);
 
         final StopRequest[] ret = new StopRequest[1];
@@ -393,10 +401,10 @@ public class PieceThread extends Thread
             }
 
             try {
-                Uri filePath = FileUtils.getFileUri(context, info.dirPath, info.fileName);
+                Uri filePath = FileUtils.getFileUri(appContext, info.dirPath, info.fileName);
                 if (filePath == null)
                     throw new IOException("Write error: file not found");
-                outPfd = context.getContentResolver().openFileDescriptor(filePath, "rw");
+                outPfd = appContext.getContentResolver().openFileDescriptor(filePath, "rw");
                 outFd = outPfd.getFileDescriptor();
                 fout = new FileOutputStream(outFd);
 

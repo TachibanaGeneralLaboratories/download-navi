@@ -300,7 +300,7 @@ public class DownloadThread implements Callable<DownloadResult>
                     Executors.newFixedThreadPool(info.getNumPieces()));
 
             for (int i = 0; i < info.getNumPieces(); i++)
-                exec.submit(new PieceThread(id, i, appContext, repo));
+                exec.submit(new PieceThread(appContext, id, i));
             exec.shutdown();
             /* Wait "forever" */
             if (!exec.awaitTermination(Long.MAX_VALUE, TimeUnit.NANOSECONDS))

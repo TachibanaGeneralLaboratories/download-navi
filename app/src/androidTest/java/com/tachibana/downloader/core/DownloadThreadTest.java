@@ -246,9 +246,7 @@ public class DownloadThreadTest extends AbstractTest
     @Test
     public void testDownload_networkConnection()
     {
-        FakeSystemFacade systemFacade = new FakeSystemFacade(context);
-        SystemFacade realSystemFacade = Utils.getSystemFacade(context);
-        Utils.setSystemFacade(systemFacade);
+        FakeSystemFacade systemFacade = (FakeSystemFacade)Utils.getSystemFacade(context);
         SharedPreferences pref = PreferenceManager.getDefaultSharedPreferences(context);
 
         /* Write download info */
@@ -295,7 +293,6 @@ public class DownloadThreadTest extends AbstractTest
             /* Restore state */
             turnUnmeteredOnlyPref(pref, false);
             turnRoamingPref(pref, false);
-            Utils.setSystemFacade(realSystemFacade);
         }
     }
 

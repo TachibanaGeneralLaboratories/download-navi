@@ -123,6 +123,15 @@ public class BehaviorSettingsFragment extends PreferenceFragmentCompat
         maxActiveDownloads.setSummary(value);
         maxActiveDownloads.setText(value);
         bindOnPreferenceChangeListener(maxActiveDownloads);
+
+        String keyMaxDownloadRetries = getString(R.string.pref_key_max_download_retries);
+        EditTextPreference maxDownloadRetries  = (EditTextPreference)findPreference(keyMaxDownloadRetries);
+        value = Integer.toString(pref.getInt(keyMaxDownloadRetries, SettingsManager.Default.maxDownloadRetries));
+        maxDownloadRetries.getEditText().setFilters(new InputFilter[]{ new InputFilterMinMax(0, Integer.MAX_VALUE) });
+        maxDownloadRetries.setSummary(value);
+        maxDownloadRetries.setText(value);
+        maxDownloadRetries.setDialogMessage(R.string.pref_max_download_retries_dialog_msg);
+        bindOnPreferenceChangeListener(maxDownloadRetries);
     }
 
     @Override
@@ -189,10 +198,18 @@ public class BehaviorSettingsFragment extends PreferenceFragmentCompat
                     showCustomBatteryDialog();
 
             }
+
         } else if (preference.getKey().equals(getString(R.string.pref_key_max_active_downloads))) {
             int value = 1;
             if (!TextUtils.isEmpty((String)newValue))
-                value = Integer.parseInt((String) newValue);
+                value = Integer.parseInt((String)newValue);
+            pref.edit().putInt(preference.getKey(), value).apply();
+            preference.setSummary(Integer.toString(value));
+
+        } else if (preference.getKey().equals(getString(R.string.pref_key_max_download_retries))) {
+            int value = 0;
+            if (!TextUtils.isEmpty((String)newValue))
+                value = Integer.parseInt((String)newValue);
             pref.edit().putInt(preference.getKey(), value).apply();
             preference.setSummary(Integer.toString(value));
         }
