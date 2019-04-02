@@ -42,7 +42,8 @@ android {
 }
 
 def ACRA_VERSION = "5.1.3"
-def ROOM_VERSION = "2.1.0-alpha06"
+/* In 2.1.0-alpha06 dependencies are broken */
+def ROOM_VERSION = "2.1.0-alpha04"
 
 dependencies {
     implementation fileTree(dir: "libs", include: ["*.jar"])
