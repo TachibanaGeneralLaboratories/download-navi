@@ -24,11 +24,10 @@ import android.content.Context;
 
 import com.tachibana.downloader.MainApplication;
 import com.tachibana.downloader.core.DownloadScheduler;
-import com.tachibana.downloader.core.StatusCode;
 import com.tachibana.downloader.core.entity.DownloadInfo;
 import com.tachibana.downloader.core.storage.DataRepository;
 
-import java.util.List;
+import java.util.UUID;
 
 import androidx.annotation.NonNull;
 import androidx.work.Worker;
@@ -38,12 +37,11 @@ import androidx.work.WorkerParameters;
  * Used only by DownloadScheduler.
  */
 
-public class RestoreDownloadsWorker extends Worker
+public class GetAndRunDownloadWorker extends Worker
 {
-    @SuppressWarnings("unused")
-    private static final String TAG = RestoreDownloadsWorker.class.getSimpleName();
+    public static final String TAG_ID = "id";
 
-    public RestoreDownloadsWorker(@NonNull Context context, @NonNull WorkerParameters params)
+    public GetAndRunDownloadWorker(@NonNull Context context, @NonNull WorkerParameters params)
     {
         super(context, params);
     }
@@ -55,22 +53,23 @@ public class RestoreDownloadsWorker extends Worker
         Context context = getApplicationContext();
         DataRepository repo = ((MainApplication)context).getRepository();
 
-        List<DownloadInfo> infoList = repo.getAllInfo();
-        if (infoList.isEmpty())
-            return Result.success();
+        String uuid = getInputData().getString(TAG_ID);
+        if (uuid == null)
+            return Result.failure();
 
-        for (DownloadInfo info : infoList) {
-            if (info == null)
-                continue;
-            /*
-             * Also restore those downloads that are incorrectly completed and
-             * have the wrong status (for example, after crashing)
-             */
-            if (info.statusCode == StatusCode.STATUS_PENDING ||
-                info.statusCode == StatusCode.STATUS_RUNNING ||
-                info.statusCode == StatusCode.STATUS_FETCH_METADATA)
-                DownloadScheduler.run(context, info);
+        UUID id;
+        try {
+            id = UUID.fromString(uuid);
+
+        } catch (IllegalArgumentException e) {
+            return Result.failure();
         }
+
+        DownloadInfo info = repo.getInfoById(id);
+        if (info == null)
+            return Result.failure();
+
+        DownloadScheduler.run(context, info);
 
         return Result.success();
     }

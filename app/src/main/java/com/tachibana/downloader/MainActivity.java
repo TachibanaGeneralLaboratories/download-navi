@@ -91,7 +91,6 @@ public class MainActivity extends AppCompatActivity
     private SearchView searchView;
     private boolean permDialogIsShow = false;
     private DownloadEngine engine;
-    private SharedPreferences pref;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -116,13 +115,9 @@ public class MainActivity extends AppCompatActivity
         setContentView(R.layout.activity_main);
 
         engine = ((MainApplication)getApplication()).getDownloadEngine();
-        pref = SettingsManager.getInstance(getApplicationContext()).getPreferences();
 
         initLayout();
-
-        if (pref.getBoolean(getString(R.string.pref_key_autostart_stopped_downloads),
-                            SettingsManager.Default.autostartStoppedDownloads))
-            engine.restoreDownloads();
+        engine.restoreDownloads();
     }
 
     private void initLayout()

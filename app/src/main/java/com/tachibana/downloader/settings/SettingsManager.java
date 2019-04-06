@@ -53,7 +53,6 @@ public class SettingsManager
         public static final boolean unmeteredConnectionsOnly = false;
         public static final boolean enableRoaming = true;
         public static final boolean autostart = false;
-        public static final boolean autostartStoppedDownloads = true;
         public static final boolean cpuDoNotSleep = false;
         public static final boolean onlyCharging = false;
         public static final boolean batteryControl = false;

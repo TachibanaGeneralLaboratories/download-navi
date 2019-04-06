@@ -12,15 +12,9 @@
         android:summary="@string/pref_enable_roaming_summary" />
 
     <SwitchPreferenceCompat
-        android:key="@string/pref_key_autostart_stopped_downloads"
-        android:title="@string/pref_autostart_stopped_downloads_title"
-        android:summary="@string/pref_autostart_stopped_downloads_summary" />
-
-    <SwitchPreferenceCompat
         android:key="@string/pref_key_autostart"
         android:title="@string/pref_autostart_title"
-        android:summary="@string/pref_autostart_summary"
-        android:dependency="@string/pref_key_autostart_stopped_downloads"/>
+        android:summary="@string/pref_autostart_summary" />
 
     <EditTextPreference
         android:key="@string/pref_key_max_active_downloads"

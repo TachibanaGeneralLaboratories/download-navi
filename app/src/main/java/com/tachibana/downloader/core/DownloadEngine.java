@@ -68,6 +68,7 @@ public class DownloadEngine
     private HashMap<UUID, DownloadThread> activeDownloads = new HashMap<>();
     private ArrayList<DownloadEngineListener> listeners = new ArrayList<>();
     private HashMap<UUID, ChangeableParams> duringChange = new HashMap<>();
+    private DownloadQueue queue = new DownloadQueue();
 
     private PowerReceiver powerReceiver = new PowerReceiver();
     private ConnectionReceiver connectionReceiver = new ConnectionReceiver();
@@ -78,9 +79,8 @@ public class DownloadEngine
     {
         if (INSTANCE == null) {
             synchronized (DownloadEngine.class) {
-                if (INSTANCE == null) {
+                if (INSTANCE == null)
                     INSTANCE = new DownloadEngine(appContext);
-                }
             }
         }
 
@@ -110,6 +110,11 @@ public class DownloadEngine
     public void runDownload(@NonNull DownloadInfo info)
     {
         DownloadScheduler.run(appContext, info);
+    }
+
+    public void runDownload(@NonNull UUID id)
+    {
+        DownloadScheduler.run(id);
     }
 
     public void reschedulePendingDownloads()
@@ -234,7 +239,7 @@ public class DownloadEngine
             return;
 
         if (isMaxActiveDownloads()) {
-            DownloadScheduler.pushIntoQueue(id);
+            queue.push(id);
             return;
         }
 
@@ -325,11 +330,8 @@ public class DownloadEngine
                                 duringChange.remove(id);
                                 String name = (info == null ? null : info.fileName);
                                 notifyListeners((listener) -> listener.onParamsApplied(id, name, err[0]));
-                                if (runAfter) {
-                                    info = repo.getInfoById(id);
-                                    if (info != null)
-                                        runDownload(info);
-                                }
+                                if (runAfter)
+                                    runDownload(id);
                             }
                         },
                         (Throwable t) -> {
@@ -505,8 +507,14 @@ public class DownloadEngine
 
     private void scheduleWaitingDownload()
     {
-        if (!isMaxActiveDownloads())
-            DownloadScheduler.runFromQueue();
+        if (isMaxActiveDownloads())
+            return;
+
+        UUID id = queue.pop();
+        if (id == null)
+            return;
+
+        runDownload(id);
     }
 
     private final SharedPreferences.OnSharedPreferenceChangeListener sharedPrefListener = (sharedPreferences, key) -> {

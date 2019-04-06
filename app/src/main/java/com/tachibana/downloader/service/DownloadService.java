@@ -162,14 +162,13 @@ public class DownloadService extends LifecycleService
         if (!isAlreadyRunning) {
             isAlreadyRunning = true;
             init();
-            if (pref.getBoolean(getString(R.string.pref_key_autostart_stopped_downloads),
-                                SettingsManager.Default.autostartStoppedDownloads))
+            /* Run by system */
+            if (intent.getAction() == null)
                 engine.restoreDownloads();
         }
 
-        if (intent != null && intent.getAction() != null) {
+        if (intent.getAction() != null) {
             UUID id;
-
             switch (intent.getAction()) {
                 case NotificationReceiver.NOTIFY_ACTION_SHUTDOWN_APP:
                 case ACTION_SHUTDOWN:

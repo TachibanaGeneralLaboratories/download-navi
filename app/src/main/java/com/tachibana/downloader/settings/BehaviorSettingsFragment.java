@@ -74,10 +74,6 @@ public class BehaviorSettingsFragment extends PreferenceFragmentCompat
         autostart.setChecked(pref.getBoolean(keyAutostart, SettingsManager.Default.autostart));
         bindOnPreferenceChangeListener(autostart);
 
-        String keyAutostartStoppedDownloads = getString(R.string.pref_key_autostart_stopped_downloads);
-        SwitchPreferenceCompat autostartStoppedDownloads = (SwitchPreferenceCompat)findPreference(keyAutostartStoppedDownloads);
-        autostartStoppedDownloads.setChecked(pref.getBoolean(keyAutostartStoppedDownloads, SettingsManager.Default.autostartStoppedDownloads));
-
         String keyCpuSleep = getString(R.string.pref_key_cpu_do_not_sleep);
         SwitchPreferenceCompat cpuSleep = (SwitchPreferenceCompat)findPreference(keyCpuSleep);
         cpuSleep.setChecked(pref.getBoolean(keyCpuSleep, SettingsManager.Default.cpuDoNotSleep));

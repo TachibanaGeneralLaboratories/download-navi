@@ -26,7 +26,7 @@ import android.content.SharedPreferences;
 import com.tachibana.downloader.R;
 import com.tachibana.downloader.core.entity.DownloadInfo;
 import com.tachibana.downloader.settings.SettingsManager;
-import com.tachibana.downloader.worker.DownloadQueueWorker;
+import com.tachibana.downloader.worker.GetAndRunDownloadWorker;
 import com.tachibana.downloader.worker.RescheduleAllWorker;
 import com.tachibana.downloader.worker.RestoreDownloadsWorker;
 import com.tachibana.downloader.worker.RunAllWorker;
@@ -50,9 +50,8 @@ public class DownloadScheduler
     public static final String TAG_WORK_RUN_ALL_TYPE = "run_all";
     public static final String TAG_WORK_RESTORE_DOWNLOADS_TYPE = "restore_downloads";
     public static final String TAG_WORK_RUN_TYPE = "run";
+    public static final String TAG_WORK_GET_AND_RUN_TYPE = "get_and_run";
     public static final String TAG_WORK_RESCHEDULE_TYPE = "reschedule";
-    public static final String TAG_WORK_PUSH_INTO_QUEUE_TYPE = "push_into_queue";
-    public static final String TAG_WORK_RUN_FROM_QUEUE_TYPE = "run_from_queue";
 
     /*
      * Run unique work for starting download.
@@ -73,6 +72,18 @@ public class DownloadScheduler
                 .build();
         WorkManager.getInstance().enqueueUniqueWork(downloadTag,
                 ExistingWorkPolicy.REPLACE, work);
+    }
+
+    public static void run(@NonNull UUID id)
+    {
+        Data data = new Data.Builder()
+                .putString(GetAndRunDownloadWorker.TAG_ID, id.toString())
+                .build();
+        OneTimeWorkRequest work = new OneTimeWorkRequest.Builder(GetAndRunDownloadWorker.class)
+                .setInputData(data)
+                .addTag(TAG_WORK_GET_AND_RUN_TYPE)
+                .build();
+        WorkManager.getInstance().enqueue(work);
     }
 
     public static void undone(@NonNull DownloadInfo info)
@@ -100,44 +111,14 @@ public class DownloadScheduler
         WorkManager.getInstance().enqueue(work);
     }
 
+    /*
+     * Run stopped (and with running status) downloads after starting app
+     */
+
     public static void restoreDownloads()
     {
         OneTimeWorkRequest work = new OneTimeWorkRequest.Builder(RestoreDownloadsWorker.class)
                 .addTag(TAG_WORK_RESTORE_DOWNLOADS_TYPE)
-                .build();
-        WorkManager.getInstance().enqueue(work);
-    }
-
-    /*
-     * Push the download into the queue if we want to defer it
-     * for an indefinite period of time, for example, simultaneous downloads
-     */
-
-    public static void pushIntoQueue(@NonNull UUID id)
-    {
-        Data data = new Data.Builder()
-                .putString(DownloadQueueWorker.TAG_ID, id.toString())
-                .putString(DownloadQueueWorker.TAG_ACTION, DownloadQueueWorker.ACTION_PUSH)
-                .build();
-        OneTimeWorkRequest work = new OneTimeWorkRequest.Builder(DownloadQueueWorker.class)
-                .setInputData(data)
-                .addTag(TAG_WORK_PUSH_INTO_QUEUE_TYPE)
-                .build();
-        WorkManager.getInstance().enqueue(work);
-    }
-
-    /*
-     * Pop the download from the queue and run it
-     */
-
-    public static void runFromQueue()
-    {
-        Data data = new Data.Builder()
-                .putString(DownloadQueueWorker.TAG_ACTION, DownloadQueueWorker.ACTION_POP_AND_RUN)
-                .build();
-        OneTimeWorkRequest work = new OneTimeWorkRequest.Builder(DownloadQueueWorker.class)
-                .setInputData(data)
-                .addTag(TAG_WORK_RUN_FROM_QUEUE_TYPE)
                 .build();
         WorkManager.getInstance().enqueue(work);
     }

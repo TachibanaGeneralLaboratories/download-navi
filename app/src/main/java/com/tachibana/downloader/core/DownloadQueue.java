@@ -18,31 +18,46 @@
  * along with Download Navi.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package com.tachibana.downloader.core.entity;
+package com.tachibana.downloader.core;
 
+import java.util.ArrayDeque;
+import java.util.NoSuchElementException;
 import java.util.UUID;
 
 import androidx.annotation.NonNull;
-import androidx.room.Entity;
-import androidx.room.PrimaryKey;
 
 /*
- * The deferred download from the queue.
+ * The priority queue if we want to defer download for an indefinite period of time,
+ * for example, simultaneous downloads.
  */
 
-@Entity
-public class QueuedDownload
+public class DownloadQueue
 {
-    @PrimaryKey(autoGenerate = true)
-    public long id;
-    @NonNull
-    public UUID downloadId;
-    /* Typically current time in millis */
-    public long priority;
+    @SuppressWarnings("unused")
+    private static final String TAG = DownloadQueue.class.getSimpleName();
 
-    public QueuedDownload(@NonNull UUID downloadId, long priority)
+    private ArrayDeque<UUID> queue = new ArrayDeque<>();
+
+    public void push(@NonNull UUID downloadId)
     {
-        this.downloadId = downloadId;
-        this.priority = priority;
+        if (queue.contains(downloadId))
+            return;
+        queue.push(downloadId);
+    }
+
+    public UUID pop()
+    {
+        UUID downloadId = null;
+        while (downloadId == null) {
+            try {
+                downloadId = queue.pop();
+
+            } catch (NoSuchElementException e) {
+                /* Queue is empty, return */
+                return null;
+            }
+        }
+
+        return downloadId;
     }
 }

@@ -230,8 +230,6 @@
     <string name="pref_battery_control_summary" formatted="false">All downloads will be paused if the battery level goes below %1$d%%. Limit doesn\'t apply at the time of charging</string>
     <string name="pref_custom_battery_control_summary" formatted="false">Set a custom percentage to pause downloads at if the battery drops below the given threshold. Enabling this will ignore the default %1$d%% threshold</string>
     <string name="pref_custom_battery_control_dialog_summary" formatted="false">Setting a custom battery percentage for the application to watch for will have a negative impact on battery life while downloads are occurring. Are you sure you want to enable this?</string>
-    <string name="pref_autostart_stopped_downloads_title">Autostart of stopped downloads</string>
-    <string name="pref_autostart_stopped_downloads_summary">Start downloads after running the app, if they weren\'t manually paused</string>
     <string name="pref_enable_roaming_title">Enable roaming</string>
     <string name="pref_enable_roaming_summary">Download only if the device isn\'t roaming</string>
     <string name="pref_max_active_downloads_title">Maximum active downloads</string>

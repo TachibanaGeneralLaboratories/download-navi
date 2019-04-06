@@ -2,7 +2,7 @@
   "formatVersion": 1,
   "database": {
     "version": 1,
-    "identityHash": "07f24f43576b1dea6afda4c942917a31",
+    "identityHash": "995c55ad8fb88294c26bb72f053fd2da",
     "entities": [
       {
         "tableName": "DownloadInfo",
@@ -294,44 +294,12 @@
         },
         "indices": [],
         "foreignKeys": []
-      },
-      {
-        "tableName": "QueuedDownload",
-        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `downloadId` TEXT NOT NULL, `priority` INTEGER NOT NULL)",
-        "fields": [
-          {
-            "fieldPath": "id",
-            "columnName": "id",
-            "affinity": "INTEGER",
-            "notNull": true
-          },
-          {
-            "fieldPath": "downloadId",
-            "columnName": "downloadId",
-            "affinity": "TEXT",
-            "notNull": true
-          },
-          {
-            "fieldPath": "priority",
-            "columnName": "priority",
-            "affinity": "INTEGER",
-            "notNull": true
-          }
-        ],
-        "primaryKey": {
-          "columnNames": [
-            "id"
-          ],
-          "autoGenerate": true
-        },
-        "indices": [],
-        "foreignKeys": []
       }
     ],
     "views": [],
     "setupQueries": [
       "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
-      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, \"07f24f43576b1dea6afda4c942917a31\")"
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, \"995c55ad8fb88294c26bb72f053fd2da\")"
     ]
   }
 }
