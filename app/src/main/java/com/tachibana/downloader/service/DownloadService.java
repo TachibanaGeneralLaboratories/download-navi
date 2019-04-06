@@ -145,6 +145,15 @@ public class DownloadService extends LifecycleService
     }
 
     @Override
+    public void onLowMemory()
+    {
+        super.onLowMemory();
+
+        if (engine != null)
+            engine.stopDownloads();
+    }
+
+    @Override
     public int onStartCommand(Intent intent, int flags, int startId)
     {
         super.onStartCommand(intent, flags, startId);
@@ -153,6 +162,9 @@ public class DownloadService extends LifecycleService
         if (!isAlreadyRunning) {
             isAlreadyRunning = true;
             init();
+            if (pref.getBoolean(getString(R.string.pref_key_autostart_stopped_downloads),
+                                SettingsManager.Default.autostartStoppedDownloads))
+                engine.resumeStoppedDownloads();
         }
 
         if (intent != null && intent.getAction() != null) {
@@ -165,7 +177,7 @@ public class DownloadService extends LifecycleService
                         engine.stopDownloads();
                     if (!downloadsApplyingParams && (engine == null || !engine.hasActiveDownloads()))
                         stopService();
-                    break;
+                    return START_NOT_STICKY;
                 case ACTION_RUN_DOWNLOAD:
                     id = (UUID)intent.getSerializableExtra(TAG_DOWNLOAD_ID);
                     if (id != null && engine != null)
