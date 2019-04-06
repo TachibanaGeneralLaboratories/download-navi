@@ -28,6 +28,7 @@ import com.tachibana.downloader.core.entity.DownloadInfo;
 import com.tachibana.downloader.settings.SettingsManager;
 import com.tachibana.downloader.worker.DownloadQueueWorker;
 import com.tachibana.downloader.worker.RescheduleAllWorker;
+import com.tachibana.downloader.worker.RestoreDownloadsWorker;
 import com.tachibana.downloader.worker.RunAllWorker;
 import com.tachibana.downloader.worker.RunDownloadWorker;
 
@@ -47,6 +48,7 @@ public class DownloadScheduler
     private static final String TAG = DownloadScheduler.class.getSimpleName();
 
     public static final String TAG_WORK_RUN_ALL_TYPE = "run_all";
+    public static final String TAG_WORK_RESTORE_DOWNLOADS_TYPE = "restore_downloads";
     public static final String TAG_WORK_RUN_TYPE = "run";
     public static final String TAG_WORK_RESCHEDULE_TYPE = "reschedule";
     public static final String TAG_WORK_PUSH_INTO_QUEUE_TYPE = "push_into_queue";
@@ -94,6 +96,14 @@ public class DownloadScheduler
         OneTimeWorkRequest work = new OneTimeWorkRequest.Builder(RunAllWorker.class)
                 .setInputData(data)
                 .addTag(TAG_WORK_RUN_ALL_TYPE)
+                .build();
+        WorkManager.getInstance().enqueue(work);
+    }
+
+    public static void restoreDownloads()
+    {
+        OneTimeWorkRequest work = new OneTimeWorkRequest.Builder(RestoreDownloadsWorker.class)
+                .addTag(TAG_WORK_RESTORE_DOWNLOADS_TYPE)
                 .build();
         WorkManager.getInstance().enqueue(work);
     }

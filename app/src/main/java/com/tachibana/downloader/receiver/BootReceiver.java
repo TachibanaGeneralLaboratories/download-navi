@@ -46,7 +46,7 @@ public class BootReceiver extends BroadcastReceiver
             SharedPreferences pref = SettingsManager.getInstance(context.getApplicationContext()).getPreferences();
             if (pref.getBoolean(context.getString(R.string.pref_key_autostart), SettingsManager.Default.autostart)) {
                 DownloadEngine engine = ((MainApplication)context.getApplicationContext()).getDownloadEngine();
-                engine.resumeStoppedDownloads();
+                engine.restoreDownloads();
             }
         }
     }

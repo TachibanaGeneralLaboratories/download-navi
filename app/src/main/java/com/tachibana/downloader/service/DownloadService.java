@@ -164,7 +164,7 @@ public class DownloadService extends LifecycleService
             init();
             if (pref.getBoolean(getString(R.string.pref_key_autostart_stopped_downloads),
                                 SettingsManager.Default.autostartStoppedDownloads))
-                engine.resumeStoppedDownloads();
+                engine.restoreDownloads();
         }
 
         if (intent != null && intent.getAction() != null) {
@@ -198,7 +198,7 @@ public class DownloadService extends LifecycleService
                     break;
                 case NotificationReceiver.NOTIFY_ACTION_RESUME_ALL:
                     if (engine != null)
-                        engine.resumeDownloads();
+                        engine.resumeDownloads(false);
                     break;
                 case NotificationReceiver.NOTIFY_ACTION_CANCEL:
                     id = (UUID)intent.getSerializableExtra(NotificationReceiver.TAG_ID);

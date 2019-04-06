@@ -126,7 +126,7 @@ public class DownloadEngine
         if (checkStopDownloads())
             stopDownloads();
         else
-            resumeStoppedDownloads();
+            resumeDownloads(true);
     }
 
     public void pauseResumeDownload(@NonNull UUID id)
@@ -165,14 +165,14 @@ public class DownloadEngine
         }
     }
 
-    public void resumeDownloads()
+    public void resumeDownloads(boolean ignorePaused)
     {
-        DownloadScheduler.runAll(false);
+        DownloadScheduler.runAll(ignorePaused);
     }
 
-    public void resumeStoppedDownloads()
+    public void restoreDownloads()
     {
-        DownloadScheduler.runAll(true);
+        DownloadScheduler.restoreDownloads();
     }
 
     public synchronized void stopDownloads()

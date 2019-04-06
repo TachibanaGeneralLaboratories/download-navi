@@ -122,7 +122,7 @@ public class MainActivity extends AppCompatActivity
 
         if (pref.getBoolean(getString(R.string.pref_key_autostart_stopped_downloads),
                             SettingsManager.Default.autostartStoppedDownloads))
-            engine.resumeStoppedDownloads();
+            engine.restoreDownloads();
     }
 
     private void initLayout()
@@ -390,7 +390,7 @@ public class MainActivity extends AppCompatActivity
 
     private void resumeAll()
     {
-        engine.resumeDownloads();
+        engine.resumeDownloads(false);
     }
 
     public void shutdown()
