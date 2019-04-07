@@ -22,7 +22,7 @@ Features
  - User agent controls
  - Calculate hash value (MD5 & SHA-256)
  - Power Management and battery control
- - Various automatic actions after finishing
+ - Various automatic actions after finishing download
 
 Translations
 ---
