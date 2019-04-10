@@ -1,9 +1,34 @@
 Download Navi
 =====================
+[<img alt="Get it on Google Play" height="80" src="https://tachibanagenerallaboratories.github.io/images/badges/Google%20Play/google-play-badge.png">](#)
+[<img alt="Get it on F-Droid" height="80" src="https://tachibanagenerallaboratories.github.io/images/badges/F-Droid/get-it-on.png">](#)
+[<img alt="Get it on GitHub" height="80" src="https://tachibanagenerallaboratories.github.io/images/badges/GitHub/get-it-on-github.png">](https://github.com/TachibanaGeneralLaboratories/download-navi/releases)
 
-Free as in Freedom download manager for Android. 
+Download Navi is a free and open-source download manager.
 
-**On development stage.**
+Features
+---
+
+ - Free and open-source software (FOSS)
+ - Material Design
+ - Multiple themes (Light, Dark, Black)
+ - Android TV support
+ - Pause and resume downloads
+ - Simultaneous downloads (default 3)
+ - Multi part downloading (max 16)
+ - Download files in background
+ - Unmetered connections only support (ex. Wi-Fi)
+ - Roaming controls
+ - User agent controls
+ - Calculate hash value (MD5 & SHA-256)
+ - Power Management and battery control
+ - Various automatic actions after finishing download
+
+Translations
+---
+
+ - English
+ - Russian
 
 Contributors
 ---
@@ -13,8 +38,8 @@ See [CONTRIBUTING.md](CONTRIBUTING.md)
 License
 ---
 
-    Copyright (C) 2018 Tachibana General Laboratories, LLC
-    Copyright (C) 2018 Yaroslav Pronin <proninyaroslav@mail.ru>
+    Copyright (C) 2018, 2019 Tachibana General Laboratories, LLC
+    Copyright (C) 2018, 2019 Yaroslav Pronin <proninyaroslav@mail.ru>
     This file is part of Download Navi.
     Download Navi is free software: you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
