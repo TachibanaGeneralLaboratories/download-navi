@@ -1,7 +1,5 @@
-- Browser support
 - FTP support
 - Authentication support
-- User agent spoofing from settings
 - Auto-uncompress archives
 - Speed limit
 - Scheduler
