@@ -4,7 +4,7 @@ Download Navi
 [<img alt="Get it on F-Droid" height="80" src="https://tachibanagenerallaboratories.github.io/images/badges/F-Droid/get-it-on.png">](#)
 [<img alt="Get it on GitHub" height="80" src="https://tachibanagenerallaboratories.github.io/images/badges/GitHub/get-it-on-github.png">](https://github.com/TachibanaGeneralLaboratories/download-navi/releases)
 
-Download Navi is a free and open-source download manager.
+Download Navi is a free and open-source download manager for Android 4.4+.
 
 Features
 ---
