@@ -100,11 +100,7 @@ public class NormalizeUrlTest
                 null));
         tests.add(new TestNormalize("protocol in path",
                 "https://foo.com/https://bar.com",
-                "https://foo.com/https://bar.com",
-                null));
-        tests.add(new TestNormalize("duplicate slashes 1",
-                "https://foo.com/https://bar.com/foo//bar",
-                "https://foo.com/https://bar.com/foo/bar",
+                "https://foo.com/https:/bar.com",
                 null));
         tests.add(new TestNormalize("decode uri octets 1",
                 "http://example.org/%7Efoo/",
@@ -487,7 +483,7 @@ public class NormalizeUrlTest
                 assertEquals(test.name, test.output, output);
 
             } catch (Exception e) {
-                fail(String.format("%s: %s", test.name, e.getMessage()));
+                fail(String.format("%s: %s cause: %s", test.name, e.getMessage(), e.getCause()));
             }
         }
     }

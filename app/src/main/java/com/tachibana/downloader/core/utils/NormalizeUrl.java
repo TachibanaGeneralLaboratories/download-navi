@@ -16,26 +16,28 @@
 
 package com.tachibana.downloader.core.utils;
 
+import com.anthonynsimon.url.URL;
+import com.anthonynsimon.url.exceptions.InvalidURLReferenceException;
+import com.anthonynsimon.url.exceptions.MalformedURLException;
 import com.tachibana.downloader.core.exception.NormalizeUrlException;
 
-import java.io.UnsupportedEncodingException;
+import java.net.IDN;
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collection;
+import java.util.HashMap;
 import java.util.Iterator;
-import java.util.LinkedHashMap;
-import java.util.LinkedList;
-import java.util.List;
 import java.util.Map;
 import java.util.TreeMap;
 
-import io.mola.galimatias.GalimatiasParseException;
-import io.mola.galimatias.IPv6Address;
-import io.mola.galimatias.URL;
-import io.mola.galimatias.URLUtils;
-
 public class NormalizeUrl
 {
-    private static final String QP_SEP_A = "&";
-    private static final String NAME_VALUE_SEPARATOR = "=";
+    private static final HashMap<String, Integer> DEFAULT_PORT_LIST = new HashMap<>();
+    static {
+        DEFAULT_PORT_LIST.put("http", 80);
+        DEFAULT_PORT_LIST.put("https", 443);
+        DEFAULT_PORT_LIST.put("ftp", 21);
+    }
 
     public static class Options
     {
@@ -179,14 +181,15 @@ public class NormalizeUrl
         try {
             normalizedUrl = doNormalize(url, options);
 
-        } catch (GalimatiasParseException e) {
+        } catch (Exception e) {
             throw new NormalizeUrlException("Cannot normalize URL", e);
         }
 
         return normalizedUrl;
     }
 
-    private static String doNormalize(String url, Options options) throws GalimatiasParseException
+    private static String doNormalize(String url, Options options)
+            throws MalformedURLException, InvalidURLReferenceException
     {
         if (url == null || url.isEmpty())
             return url;
@@ -204,50 +207,33 @@ public class NormalizeUrl
             url = url.replaceFirst("^(?!(?:\\w+:)?//)|^//", options.defaultProtocol + "://");
 
         URL urlObj = URL.parse(url);
-        String protocol, protocolData, hash, userInfo, path, host, queryStr;
-        int port;
-        Map<String, List<String>> query;
+        String protocol, hash, user, password, path, queryStr, host;
+        Map<String, Collection<String>> query;
 
-        protocol = urlObj.scheme();
-        protocolData = urlObj.schemeData();
-        hash = urlObj.fragment();
-        userInfo = urlObj.userInfo();
-        path = urlObj.path();
-        queryStr = urlObj.query();
-        if (urlObj.host() != null) {
-            if (options.decode)
-                host = urlObj.host().toHumanString();
-            else
-                host = urlObj.host().toString();
-        } else {
-            host = null;
-        }
-        port = urlObj.port();
-        /* Ignore default ports */
-        if (port == urlObj.defaultPort())
-            port = -1;
-
+        protocol = urlObj.getScheme();
+        hash = urlObj.getFragment();
+        user = urlObj.getUsername();
+        password = urlObj.getPassword();
         if (options.decode) {
-            protocolData = percentDecode(protocolData);
-            hash = percentDecode(hash);
-            userInfo = percentDecode(userInfo);
-            path = percentDecode(path);
-            queryStr = percentDecode(queryStr);
+            queryStr = (urlObj.getQuery() == null ? null : PercentEncoder.decode(urlObj.getQuery()));
+            path = urlObj.getPath();
+            host = IDN.toUnicode(urlObj.getHost());
+        } else {
+            queryStr = urlObj.getQuery();
+            path = urlObj.getRawPath();
+            host = urlObj.getHost();
         }
-        try {
-            query = parseQuery(queryStr);
-
-        } catch (UnsupportedEncodingException e) {
-            throw new IllegalStateException("Cannot normalize URL", e);
-        }
+        query = parseQuery(queryStr);
 
         if (options.forceHttp && protocol.equals("https"))
             protocol = "http";
         if (options.forceHttps && protocol.equals("http"))
             protocol = "https";
 
-        if (options.removeAuthentication)
-            userInfo = null;
+        if (options.removeAuthentication) {
+            user = null;
+            password = null;
+        }
 
         if (options.removeHash)
             hash = null;
@@ -255,6 +241,10 @@ public class NormalizeUrl
         if (host != null) {
             /* Remove trailing dot */
             host = host.replaceFirst("\\.$", "");
+            /* Ignore default ports */
+            Integer port = DEFAULT_PORT_LIST.get(protocol);
+            if (port != null)
+                host = host.replaceFirst(":" + port, "");
 
             if (options.removeWWW && host.matches("www\\.([a-z\\-\\d]{2,63})\\.([a-z.]{2,5})$")) {
                 /*
@@ -267,6 +257,7 @@ public class NormalizeUrl
         }
 
         if (path != null) {
+            path = PathResolver.resolve(path, path);
             /* Remove duplicate slashes if not preceded by a protocol */
             path = path.replaceAll("(?<!:)/{2,}", "/");
 
@@ -297,10 +288,8 @@ public class NormalizeUrl
                 query = new TreeMap<>(query);
         }
 
-        url = urlToString(protocol, protocolData, userInfo,
-                host, port, path, mapToQuery(query),
-                hash, urlObj.isHierarchical(),
-                urlObj.host() instanceof IPv6Address);
+        url = urlToString(protocol, user, password, host,
+                path, mapToQuery(query), hash);
 
         /* Restore relative protocol, if applicable */
         if (hasRelativeProtocol && !options.normalizeProtocol)
@@ -326,7 +315,7 @@ public class NormalizeUrl
         return false;
     }
 
-    private static String join(CharSequence delimiter, Object[] tokens)
+    private static String join(CharSequence delimiter, String[] tokens)
     {
         int length = tokens.length;
         if (length == 0)
@@ -342,43 +331,44 @@ public class NormalizeUrl
         return sb.toString();
     }
 
-    private static Map<String, List<String>> parseQuery(String query) throws UnsupportedEncodingException
+    private static Map<String, Collection<String>> parseQuery(String query)
     {
-        Map<String, List<String>> queryPairs = new LinkedHashMap<>();
-        if (query == null)
+        HashMap<String, Collection<String>> queryPairs = new HashMap<>();
+
+        if (query == null || query.isEmpty() || query.equals("?"))
             return queryPairs;
 
-        String[] pairs = query.split(QP_SEP_A);
-
+        String[] pairs = query.split("&");
         for (String pair : pairs) {
-            int idx = pair.indexOf(NAME_VALUE_SEPARATOR);
-            String key = (idx > 0 ? pair.substring(0, idx) : pair);
-            if (!queryPairs.containsKey(key))
-                queryPairs.put(key, new LinkedList<>());
+            String[] parts = pair.split("=");
+            if (parts.length > 0 && !parts[0].isEmpty()) {
+                Collection<String> existing = queryPairs.get(parts[0]);
+                if (existing == null)
+                    existing = new ArrayList<>();
 
-            String value = (idx > 0 && pair.length() > idx + 1 ?
-                    pair.substring(idx + 1) :
-                    null);
-            queryPairs.get(key).add(value);
+                if (parts.length == 2)
+                    existing.add(parts[1]);
+                queryPairs.put(parts[0], existing);
+            }
         }
 
         return queryPairs;
     }
 
-    private static String mapToQuery(Map<String, List<String>> query)
+    private static String mapToQuery(Map<String, Collection<String>> query)
     {
         if (query.isEmpty())
             return null;
 
         StringBuilder sb = new StringBuilder();
         int i = 0;
-        for (Map.Entry<String, List<String>> parameter : query.entrySet()) {
+        for (Map.Entry<String, Collection<String>> parameter : query.entrySet()) {
             for (String value : parameter.getValue()) {
                 if (i > 0)
-                    sb.append(QP_SEP_A);
+                    sb.append("&");
                 sb.append(parameter.getKey());
                 if (value != null && !value.isEmpty()) {
-                    sb.append(NAME_VALUE_SEPARATOR);
+                    sb.append("=");
                     sb.append(value);
                 }
                 i++;
@@ -388,42 +378,25 @@ public class NormalizeUrl
         return sb.toString();
     }
 
-    private static String percentDecode(String s)
-    {
-        return (s == null ? null : URLUtils.percentDecode(s));
-    }
-
-    private static String urlToString(String protocol, String protocolData,
-                                      String userInfo, String host, int port, String path,
-                                      String query, String hash, boolean isHierarchical,
-                                      boolean isHostIPv6)
+    private static String urlToString(String protocol, String user, String password,
+                                      String host, String path,
+                                      String query, String hash)
     {
         StringBuilder output = new StringBuilder();
 
         output.append(protocol).append(':');
 
-        if (isHierarchical) {
-            output.append("//");
-            if (userInfo != null && !userInfo.isEmpty())
-                output.append(userInfo).append('@');
+        output.append("//");
+        if (user != null && !user.isEmpty())
+            output.append(makeUserInfo(user, password)).append('@');
 
-            if (host != null) {
-                if (isHostIPv6)
-                    output.append('[').append(host).append(']');
-                else
-                    output.append(host);
-            }
-            if (port != -1)
-                output.append(':').append(port);
-            if (path != null && !path.isEmpty())
-                output.append(path);
-            else if (query != null && !query.isEmpty() || hash != null && !hash.isEmpty())
-                /* Separate by slash if has query or hash and path is empty */
-                output.append("/");
-
-        } else {
-            output.append(protocolData);
-        }
+        if (host != null)
+            output.append(host);
+        if (path != null && !path.isEmpty())
+            output.append(path);
+        else if (query != null && !query.isEmpty() || hash != null && !hash.isEmpty())
+            /* Separate by slash if has query or hash and path is empty */
+            output.append("/");
 
         if (query != null && !query.isEmpty())
             output.append('?').append(query);
@@ -432,5 +405,13 @@ public class NormalizeUrl
             output.append('#').append(hash);
 
         return output.toString();
+    }
+
+    private static String makeUserInfo(String user, String password)
+    {
+        if (password == null)
+            return user;
+
+        return String.format("%s:%s", user, password);
     }
 }

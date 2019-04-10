@@ -79,7 +79,7 @@ public class DownloadThreadTest extends AbstractTest
         DownloadInfo info = new DownloadInfo(dir, linuxUrl, linuxName);
         UUID id = info.id;
         info.hasMetadata = false;
-        repo.addInfo(context, info, new ArrayList<>());
+        repo.addInfo(info, new ArrayList<>());
 
         /* Run download task and get result */
         DownloadResult result = runTask(new DownloadThread(context, id));
@@ -127,7 +127,7 @@ public class DownloadThreadTest extends AbstractTest
         UUID id = info.id;
         info.totalBytes = 0;
         info.hasMetadata = true;
-        repo.addInfo(context, info, new ArrayList<>());
+        repo.addInfo(info, new ArrayList<>());
 
         /* Run download task and get result */
         DownloadResult result = runTask(new DownloadThread(context, id));
@@ -163,7 +163,7 @@ public class DownloadThreadTest extends AbstractTest
         UUID id = info.id;
         info.totalBytes = linuxSize;
         info.setNumPieces(DownloadInfo.MAX_PIECES);
-        repo.addInfo(context, info, new ArrayList<>());
+        repo.addInfo(info, new ArrayList<>());
 
         /* Run download task and get result */
         DownloadResult result = runTask(new DownloadThread(context, id));
@@ -214,7 +214,7 @@ public class DownloadThreadTest extends AbstractTest
         DownloadInfo info = new DownloadInfo(dir, url, name);
         UUID id = info.id;
         info.hasMetadata = false;
-        repo.addInfo(context, info, new ArrayList<>());
+        repo.addInfo(info, new ArrayList<>());
 
         /* Run download task and get result */
         DownloadResult result = runTask(new DownloadThread(context, id));
@@ -253,7 +253,7 @@ public class DownloadThreadTest extends AbstractTest
         DownloadInfo info = new DownloadInfo(dir, linuxUrl, linuxName);
         UUID id = info.id;
         info.totalBytes = linuxSize;
-        repo.addInfo(context, info, new ArrayList<>());
+        repo.addInfo(info, new ArrayList<>());
 
         /* Reset values */
         turnUnmeteredOnlyPref(pref, false);

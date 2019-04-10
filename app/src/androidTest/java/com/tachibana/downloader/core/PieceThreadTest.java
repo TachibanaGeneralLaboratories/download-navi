@@ -72,7 +72,7 @@ public class PieceThreadTest extends AbstractTest
         /* Write download info */
         DownloadInfo info = new DownloadInfo(dir, linuxUrl, linuxName);
         UUID id = info.id;
-        repo.addInfo(context, info, new ArrayList<>());
+        repo.addInfo(info, new ArrayList<>());
         DownloadPiece piece = repo.getPiece(0, id);
         piece.size = size;
         repo.updatePiece(piece);
@@ -117,7 +117,7 @@ public class PieceThreadTest extends AbstractTest
         /* Write download info */
         DownloadInfo info = new DownloadInfo(dir, linuxUrl, linuxName);
         UUID id = info.id;
-        repo.addInfo(context, info, new ArrayList<>());
+        repo.addInfo(info, new ArrayList<>());
         DownloadPiece piece = repo.getPiece(0, id);
         piece.size = 0L;
         repo.updatePiece(piece);
