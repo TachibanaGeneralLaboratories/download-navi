@@ -43,6 +43,7 @@ public abstract class DownloadDao
 {
     private static final String QUERY_GET_ALL_INFO = "SELECT * FROM DownloadInfo";
     private static final String QUERY_GET_INFO_BY_ID = "SELECT * FROM DownloadInfo WHERE id = :id";
+    private static final String QUERY_DELETE_INFO_BY_URL = "DELETE FROM DownloadInfo WHERE url = :url";
     private static final String QUERY_DELETE_PIECES = "DELETE FROM DownloadPiece WHERE infoId = :infoId";
     private static final String QUERY_GET_PIECES_BY_ID = "SELECT * FROM DownloadPiece WHERE infoId = :infoId";
     private static final String QUERY_GET_PIECE = "SELECT * FROM DownloadPiece WHERE pieceIndex = :index AND infoId = :infoId";
@@ -63,8 +64,18 @@ public abstract class DownloadDao
             addHeaders(headers);
     }
 
+    @Transaction
+    public void replaceInfoByUrl(DownloadInfo info, List<Header> headers)
+    {
+        deleteInfoByUrl(info.url);
+        addInfo(info, headers);
+    }
+
     @Delete
     public abstract void deleteInfo(DownloadInfo info);
+
+    @Query(QUERY_DELETE_INFO_BY_URL)
+    public abstract void deleteInfoByUrl(String url);
 
     @Update
     public abstract void updateInfo(DownloadInfo info);

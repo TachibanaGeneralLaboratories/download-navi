@@ -39,8 +39,10 @@ import com.tachibana.downloader.core.entity.Header;
 import com.tachibana.downloader.core.entity.UserAgent;
 import com.tachibana.downloader.core.exception.FreeSpaceException;
 import com.tachibana.downloader.core.exception.HttpException;
+import com.tachibana.downloader.core.exception.NormalizeUrlException;
 import com.tachibana.downloader.core.storage.DataRepository;
 import com.tachibana.downloader.core.utils.FileUtils;
+import com.tachibana.downloader.core.utils.NormalizeUrl;
 import com.tachibana.downloader.core.utils.Utils;
 import com.tachibana.downloader.dialog.AddDownloadDialog;
 import com.tachibana.downloader.settings.SettingsManager;
@@ -50,6 +52,7 @@ import java.io.IOException;
 import java.lang.ref.WeakReference;
 import java.net.ConnectException;
 import java.net.HttpURLConnection;
+import java.net.MalformedURLException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -158,7 +161,13 @@ public class AddDownloadViewModel extends AndroidViewModel
         if (TextUtils.isEmpty(params.getUrl()) || fetchTask != null && fetchTask.getStatus() != FetchLinkTask.Status.FINISHED)
             return;
 
-        params.setUrl(Utils.normalizeURL(params.getUrl()));
+        try {
+            params.setUrl(NormalizeUrl.normalize(params.getUrl()));
+
+        } catch (NormalizeUrlException e) {
+            fetchState.setValue(new FetchState(Status.ERROR, e));
+            return;
+        }
 
         fetchTask = new FetchLinkTask(this);
         fetchTask.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, params.getUrl());
@@ -325,7 +334,13 @@ public class AddDownloadViewModel extends AndroidViewModel
         /* TODO: rewrite to WorkManager */
         /* Sync wait inserting */
         try {
-            Thread t = new Thread(() -> repo.addInfo(getApplication(), info, headers));
+            Thread t = new Thread(() -> {
+                if (pref.getBoolean(getApplication().getString(R.string.pref_key_replace_duplicate_downloads),
+                                    SettingsManager.Default.replaceDuplicateDownloads))
+                    repo.replaceInfoByUrl(info, headers);
+                else
+                    repo.addInfo(info, headers);
+            });
             t.start();
             t.join();
 
@@ -338,8 +353,7 @@ public class AddDownloadViewModel extends AndroidViewModel
 
     private DownloadInfo makeDownloadInfo(Uri dirPath)
     {
-        String url = Utils.normalizeURL(params.getUrl());
-
+        String url = params.getUrl();
         Uri filePath = FileUtils.getFileUri(getApplication(),
                 params.getDirPath(), params.getFileName());
         String fileName;
@@ -378,6 +392,11 @@ public class AddDownloadViewModel extends AndroidViewModel
         long storageFreeSpace = params.getStorageFreeSpace();
 
         return storageFreeSpace == -1 || storageFreeSpace >= params.getTotalBytes();
+    }
+
+    private void removeDuplicateDownload(String url)
+    {
+
     }
 
     private final Observable.OnPropertyChangedCallback paramsCallback = new Observable.OnPropertyChangedCallback()

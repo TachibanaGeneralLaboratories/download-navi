@@ -72,12 +72,14 @@ public class DataRepository
                 });
     }
 
-    public void addInfo(Context context, DownloadInfo info, List<Header> headers)
+    public void addInfo(DownloadInfo info, List<Header> headers)
     {
-        if (context == null)
-            return;
-
         db.downloadDao().addInfo(info, headers);
+    }
+
+    public void replaceInfoByUrl(DownloadInfo info, List<Header> headers)
+    {
+        db.downloadDao().replaceInfoByUrl(info, headers);
     }
 
     public void updateInfo(Context context, DownloadInfo info,

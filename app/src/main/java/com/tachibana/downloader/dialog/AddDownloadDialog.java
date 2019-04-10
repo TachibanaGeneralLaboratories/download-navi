@@ -47,6 +47,7 @@ import com.tachibana.downloader.adapter.UserAgentAdapter;
 import com.tachibana.downloader.core.entity.UserAgent;
 import com.tachibana.downloader.core.exception.FreeSpaceException;
 import com.tachibana.downloader.core.exception.HttpException;
+import com.tachibana.downloader.core.exception.NormalizeUrlException;
 import com.tachibana.downloader.core.utils.FileUtils;
 import com.tachibana.downloader.core.utils.Utils;
 import com.tachibana.downloader.databinding.DialogAddDownloadBinding;

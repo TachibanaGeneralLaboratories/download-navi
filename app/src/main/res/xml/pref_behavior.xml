@@ -28,6 +28,11 @@
         android:inputType="numberDecimal"
         android:persistent="false" />
 
+    <SwitchPreferenceCompat
+        android:key="@string/pref_key_replace_duplicate_downloads"
+        android:title="@string/pref_replace_duplicate_downloads_title"
+        android:summary="@string/pref_replace_duplicate_downloads_summary" />
+
     <PreferenceCategory
         android:title="@string/pref_power_management_category">
 

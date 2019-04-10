@@ -278,7 +278,7 @@ public class Utils
         return text.toString();
     }
 
-    public static String getHttpFileName(@NonNull String url, String contentDisposition, String contentLocation)
+    public static String getHttpFileName(@NonNull String decodedUrl, String contentDisposition, String contentLocation)
     {
         String filename = null;
 
@@ -309,8 +309,7 @@ public class Utils
 
         /* If all the other http-related approaches failed, use the plain uri */
         if (filename == null) {
-            String decodedUrl = Uri.decode(url);
-            if (decodedUrl != null && !decodedUrl.endsWith("/") && decodedUrl.indexOf('?') < 0) {
+            if (!decodedUrl.endsWith("/") && decodedUrl.indexOf('?') < 0) {
                 int index = decodedUrl.lastIndexOf('/') + 1;
                 if (index > 0)
                     filename = decodedUrl.substring(index);
@@ -348,20 +347,6 @@ public class Utils
             /* Ignore */
         }
         return null;
-    }
-
-    /*
-     * Returns the link as "(http[s]|ftp)://[www.]name.domain/...".
-     */
-
-    public static String normalizeURL(@NonNull String url)
-    {
-        url = IDN.toUnicode(url);
-
-        if (!url.startsWith(HTTP_PREFIX) && !url.startsWith(HTTPS_PREFIX) && !url.startsWith(FTP_PREFIX))
-            return HTTP_PREFIX + url;
-        else
-            return url;
     }
 
     public static boolean checkConnectivity(@NonNull Context context)

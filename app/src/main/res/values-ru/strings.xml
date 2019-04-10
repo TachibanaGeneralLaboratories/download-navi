@@ -235,6 +235,8 @@
     <string name="pref_max_active_downloads_title">Максимум активных загрузок</string>
     <string name="pref_max_download_retries_title">Максимальное количество попыток загрузки</string>
     <string name="pref_max_download_retries_dialog_msg">0 - без попыток</string>
+    <string name="pref_replace_duplicate_downloads_title">Заменит дубликаты загрузок</string>
+    <string name="pref_replace_duplicate_downloads_summary">Заменить дубликаты загрузок при добавлении (с тем же URL), которые уже есть в списке</string>
     <!-- Storage settings -->
     <string name="pref_save_downloads_in_title">Сохранять загрузки в</string>
     <string name="pref_move_after_download_title">Перемещать после загрузки</string>

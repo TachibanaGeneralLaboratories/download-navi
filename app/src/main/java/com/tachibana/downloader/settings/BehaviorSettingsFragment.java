@@ -77,7 +77,6 @@ public class BehaviorSettingsFragment extends PreferenceFragmentCompat
         String keyCpuSleep = getString(R.string.pref_key_cpu_do_not_sleep);
         SwitchPreferenceCompat cpuSleep = (SwitchPreferenceCompat)findPreference(keyCpuSleep);
         cpuSleep.setChecked(pref.getBoolean(keyCpuSleep, SettingsManager.Default.cpuDoNotSleep));
-        bindOnPreferenceChangeListener(cpuSleep);
 
         String keyOnlyCharging = getString(R.string.pref_key_download_only_when_charging);
         SwitchPreferenceCompat onlyCharging = (SwitchPreferenceCompat)findPreference(keyOnlyCharging);
@@ -128,6 +127,11 @@ public class BehaviorSettingsFragment extends PreferenceFragmentCompat
         maxDownloadRetries.setText(value);
         maxDownloadRetries.setDialogMessage(R.string.pref_max_download_retries_dialog_msg);
         bindOnPreferenceChangeListener(maxDownloadRetries);
+
+        String keyReplaceDuplicateDownloads = getString(R.string.pref_key_replace_duplicate_downloads);
+        SwitchPreferenceCompat replaceDuplicateDownloads = (SwitchPreferenceCompat)findPreference(keyReplaceDuplicateDownloads);
+        replaceDuplicateDownloads.setChecked(pref.getBoolean(keyReplaceDuplicateDownloads,
+                                                             SettingsManager.Default.replaceDuplicateDownloads));
     }
 
     @Override
