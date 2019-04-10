@@ -394,11 +394,6 @@ public class AddDownloadViewModel extends AndroidViewModel
         return storageFreeSpace == -1 || storageFreeSpace >= params.getTotalBytes();
     }
 
-    private void removeDuplicateDownload(String url)
-    {
-
-    }
-
     private final Observable.OnPropertyChangedCallback paramsCallback = new Observable.OnPropertyChangedCallback()
     {
         @Override
