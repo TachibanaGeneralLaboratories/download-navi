@@ -190,6 +190,10 @@
     <string name="app_error_occurred">The app error occurred. You can send the report to developers</string>
     <string name="error_comment_prompt">You can add extra information and comments here:</string>
 
+    <!-- Send text to clipboard -->
+    <string name="send_text_to_clipboard">Copy</string>
+    <string name="text_copied_to_clipboard">Text copied to clipboard</string>
+
     <!-- Settings -->
     <!-- Headers -->
     <string name="pref_header_appearance">Appearance</string>

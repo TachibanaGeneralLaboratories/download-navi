@@ -190,6 +190,10 @@
     <string name="app_error_occurred">В приложении произошла ошибка. Вы можете отправить отчёт разработчикам</string>
     <string name="error_comment_prompt">Вы можете добавить дополнительную информацию и комментарии:</string>
 
+    <!-- Send text to clipboard -->
+    <string name="send_text_to_clipboard">Копировать</string>
+    <string name="text_copied_to_clipboard">Текст скопирован в буфер обмена</string>
+
     <!-- Settings -->
     <!-- Headers -->
     <string name="pref_header_appearance">Внешний вид</string>

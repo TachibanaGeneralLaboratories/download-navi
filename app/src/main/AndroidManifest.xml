@@ -1109,6 +1109,19 @@
             android:finishOnTaskLaunch="true"
             android:launchMode="singleInstance" />
 
+        <activity android:name=".SendTextToClipboard"
+            android:label="@string/send_text_to_clipboard"
+            android:icon="@drawable/ic_content_copy_grey600_48dp"
+            android:theme="@android:style/Theme.NoDisplay">
+            <intent-filter>
+                <action android:name="android.intent.action.SEND" />
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.ALTERNATIVE" />
+                <data android:name="android.content.Intent.FLAG_ACTIVITY_NO_ANIMATION" />
+                <data android:mimeType="text/*" />
+            </intent-filter>
+        </activity>
+
         <service
             android:name=".service.DownloadService" />
 
