@@ -241,7 +241,12 @@ public class AddDownloadViewModel extends AndroidViewModel
                     if (viewModel.get() == null)
                         return;
 
-                    viewModel.get().params.setUrl(newUrl);
+                    try {
+                        viewModel.get().params.setUrl(NormalizeUrl.normalize(newUrl));
+
+                    } catch (NormalizeUrlException e) {
+                        err[0] = e;
+                    }
                 }
 
                 @Override
