@@ -240,7 +240,7 @@
     <string name="pref_max_download_retries_title">Maximum number of download retries</string>
     <string name="pref_max_download_retries_dialog_msg">0 - without retries</string>
     <string name="pref_replace_duplicate_downloads_title">Replace duplicate downloads</string>
-    <string name="pref_replace_duplicate_downloads_summary">Replace duplicate downloads when added (with the same URL) that are already in the list</string>
+    <string name="pref_replace_duplicate_downloads_summary">Replace duplicate downloads (with the same URL) when added that are already in the list</string>
     <!-- Storage settings -->
     <string name="pref_save_downloads_in_title">Save downloads in</string>
     <string name="pref_move_after_download_title">Move after download</string>
