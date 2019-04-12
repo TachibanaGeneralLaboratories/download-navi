@@ -105,6 +105,7 @@
     <string name="select_folder_to_save">Выберите папку для сохранения</string>
     <string name="path">Путь</string>
     <string name="storage_free_space" formatted="false">Свободно: %1$s</string>
+    <string name="add_download_error_invalid_url">Невозможно добавить загрузку: неверный URL</string>
 
     <!-- Add user agent dialog -->
     <string name="dialog_add_user_agent_title">Добавить user agent</string>

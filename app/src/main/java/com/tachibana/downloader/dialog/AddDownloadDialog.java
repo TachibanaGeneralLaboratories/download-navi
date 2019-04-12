@@ -82,6 +82,7 @@ public class AddDownloadDialog extends DialogFragment
     private static final String TAG_INIT_PARAMS = "init_params";
     private static final String TAG_PERM_DIALOG_IS_SHOW = "perm_dialog_is_show";
     private static final String TAG_CREATE_FILE_ERROR_DIALOG = "create_file_error_dialog";
+    private static final String TAG_INVALID_URL_DIALOG = "invalid_url_dialog";
     private static final String TAG_OPEN_DIR_ERROR_DIALOG = "open_dir_error_dialog";
 
     private AlertDialog alert;
@@ -596,6 +597,9 @@ public class AddDownloadDialog extends DialogFragment
         } catch (FreeSpaceException e) {
             showFreeSpaceErrorToast();
             return;
+        } catch (NormalizeUrlException e) {
+            showInvalidUrlDialog();
+            return;
         }
 
         Toast.makeText(activity.getApplicationContext(),
@@ -669,6 +673,23 @@ public class AddDownloadDialog extends DialogFragment
                     true);
 
             openDirErrorDialog.show(fm, TAG_OPEN_DIR_ERROR_DIALOG);
+        }
+    }
+
+    private void showInvalidUrlDialog()
+    {
+        FragmentManager fm = getFragmentManager();
+        if (fm != null && fm.findFragmentByTag(TAG_CREATE_FILE_ERROR_DIALOG) == null) {
+            BaseAlertDialog invalidUrlDialog = BaseAlertDialog.newInstance(
+                    getString(R.string.error),
+                    getString(R.string.add_download_error_invalid_url),
+                    0,
+                    getString(R.string.ok),
+                    null,
+                    null,
+                    true);
+
+            invalidUrlDialog.show(fm, TAG_CREATE_FILE_ERROR_DIALOG);
         }
     }
 

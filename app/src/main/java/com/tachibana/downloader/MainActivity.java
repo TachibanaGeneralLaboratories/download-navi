@@ -29,7 +29,6 @@ import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.TextView;
@@ -452,7 +451,6 @@ public class MainActivity extends AppCompatActivity
 
     private void initAboutDialog()
     {
-        Log.e(TAG, "init");
         if (aboutDialog == null)
             return;
 

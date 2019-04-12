@@ -315,7 +315,7 @@ public class AddDownloadViewModel extends AndroidViewModel
      * Throws FileNotFoundException if the stub file doesn't created or doesn't exists
      */
 
-    public void addDownload() throws IOException, FreeSpaceException
+    public void addDownload() throws IOException, FreeSpaceException, NormalizeUrlException
     {
         if (TextUtils.isEmpty(params.getUrl()) || TextUtils.isEmpty(params.getFileName()))
             return;
@@ -328,10 +328,6 @@ public class AddDownloadViewModel extends AndroidViewModel
             throw new FreeSpaceException();
 
         DownloadInfo info = makeDownloadInfo(dirPath);
-
-        FetchState state = fetchState.getValue();
-        if (state != null)
-            info.hasMetadata = state.status == Status.FETCHED;
 
         ArrayList<Header> headers = new ArrayList<>();
         headers.add(new Header(info.id, "ETag", params.getEtag()));
@@ -356,9 +352,14 @@ public class AddDownloadViewModel extends AndroidViewModel
         engine.runDownload(info);
     }
 
-    private DownloadInfo makeDownloadInfo(Uri dirPath)
+    private DownloadInfo makeDownloadInfo(Uri dirPath) throws NormalizeUrlException
     {
+        FetchState state = fetchState.getValue();
+
         String url = params.getUrl();
+        if (state != null && state.status != Status.FETCHED)
+            url = NormalizeUrl.normalize(url);
+
         Uri filePath = FileUtils.getFileUri(getApplication(),
                 params.getDirPath(), params.getFileName());
         String fileName;
@@ -388,6 +389,9 @@ public class AddDownloadViewModel extends AndroidViewModel
         info.retry = params.isRetry();
         info.userAgent = params.getUserAgent();
         info.dateAdded = System.currentTimeMillis();
+
+        if (state != null)
+            info.hasMetadata = state.status == Status.FETCHED;
 
         return info;
     }
