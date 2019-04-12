@@ -31,6 +31,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.SharedPreferences;
+import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.content.res.Resources;
 import android.net.NetworkCapabilities;
@@ -739,6 +740,19 @@ public class Utils
             ACRA.getErrorReporter().putCustomData(ReportField.USER_COMMENT.toString(), comment);
 
         ACRA.getErrorReporter().handleSilentException(error);
+    }
+
+    public static String getAppVersionName(@NonNull Context context)
+    {
+        try {
+            PackageInfo info = context.getPackageManager().getPackageInfo(context.getPackageName(), 0);
+
+            return info.versionName;
+        } catch (PackageManager.NameNotFoundException e) {
+            /* Ignore */
+        }
+
+        return null;
     }
 
     public static List<DrawerGroup> getNavigationDrawerItems(@NonNull Context context,

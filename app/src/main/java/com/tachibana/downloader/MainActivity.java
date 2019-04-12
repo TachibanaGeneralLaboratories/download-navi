@@ -20,6 +20,7 @@
 
 package com.tachibana.downloader;
 
+import android.app.Dialog;
 import android.app.SearchManager;
 import android.content.Context;
 import android.content.Intent;
@@ -28,8 +29,10 @@ import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.TextView;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.navigation.NavigationView;
@@ -97,6 +100,7 @@ public class MainActivity extends AppCompatActivity
     private DownloadEngine engine;
     protected CompositeDisposable disposables = new CompositeDisposable();
     private BaseAlertDialog.SharedViewModel dialogViewModel;
+    private BaseAlertDialog aboutDialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -112,6 +116,7 @@ public class MainActivity extends AppCompatActivity
 
         fragmentViewModel = ViewModelProviders.of(this).get(DownloadsViewModel.class);
         dialogViewModel = ViewModelProviders.of(this).get(BaseAlertDialog.SharedViewModel.class);
+        aboutDialog = (BaseAlertDialog)getSupportFragmentManager().findFragmentByTag(TAG_ABOUT_DIALOG);
 
         if (savedInstanceState != null)
             permDialogIsShow = savedInstanceState.getBoolean(TAG_PERM_DIALOG_IS_SHOW);
@@ -241,6 +246,9 @@ public class MainActivity extends AppCompatActivity
                     switch (event.type) {
                         case NEGATIVE_BUTTON_CLICKED:
                             openChangelogLink();
+                            break;
+                        case DIALOG_SHOWN:
+                            initAboutDialog();
                             break;
                     }
                 });
@@ -430,7 +438,7 @@ public class MainActivity extends AppCompatActivity
     {
         FragmentManager fm = getSupportFragmentManager();
         if (fm.findFragmentByTag(TAG_ABOUT_DIALOG) == null) {
-            BaseAlertDialog aboutDialog = BaseAlertDialog.newInstance(
+            aboutDialog = BaseAlertDialog.newInstance(
                     getString(R.string.about_title),
                     null,
                     R.layout.dialog_about,
@@ -439,6 +447,21 @@ public class MainActivity extends AppCompatActivity
                     null,
                     true);
             aboutDialog.show(fm, TAG_ABOUT_DIALOG);
+        }
+    }
+
+    private void initAboutDialog()
+    {
+        Log.e(TAG, "init");
+        if (aboutDialog == null)
+            return;
+
+        Dialog dialog = aboutDialog.getDialog();
+        if (dialog != null) {
+            TextView versionTextView = dialog.findViewById(R.id.about_version);
+            String versionName = Utils.getAppVersionName(this);
+            if (versionName != null)
+                versionTextView.setText(versionName);
         }
     }
 
