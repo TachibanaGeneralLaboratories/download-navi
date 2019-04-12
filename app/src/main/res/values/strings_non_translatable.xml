@@ -10,4 +10,7 @@
         <item>@string/pref_theme_dark_value</item>
         <item>@string/pref_theme_black_value</item>
     </string-array>
+
+    <!-- About dialog -->
+    <string name="about_changelog_link" translatable="false">https://github.com/TachibanaGeneralLaboratories/download-navi/blob/master/NEWS</string>
 </resources>

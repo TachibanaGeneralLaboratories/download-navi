@@ -248,4 +248,10 @@
     <string name="pref_delete_file_if_error_title">Delete file if an error occurs</string>
     <string name="pref_preallocate_disk_space_title">Pre-allocate disk space for the file</string>
     <string name="pref_preallocate_disk_space_summary">Available for Android 5.0 Lollipop and above</string>
+
+    <!-- About dialog -->
+    <string name="about_title">About Download Navi</string>
+    <string name="about_website">More information and also to help the project: https://github.com/TachibanaGeneralLaboratories/download-navi</string>
+    <string name="about_description">Download Navi is a free and open-source download manager for Android 4.4+.\n\nDownload Navi is free software, released under the terms of the GNU General Public License v3 (GPLv3)\nhttp://www.gnu.org/copyleft/gpl.html</string>
+    <string name="about_changelog">Changelog</string>
 </resources>
