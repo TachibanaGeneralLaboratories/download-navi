@@ -35,4 +35,8 @@
     <style name="AppTheme.Settings.Black" parent="BaseTheme.Settings.Black">
         <item name="android:statusBarColor">@color/black_theme_status_bar</item>
     </style>
+
+    <style name="AppTheme.Launcher" parent="BaseTheme.Launcher">
+        <item name="android:statusBarColor">@color/status_bar</item>
+    </style>
 </resources>

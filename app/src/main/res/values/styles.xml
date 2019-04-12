@@ -10,6 +10,7 @@
     <style name="AppTheme.Settings" parent="BaseTheme.Settings" />
     <style name="AppTheme.Settings.Dark" parent="BaseTheme.Settings.Dark" />
     <style name="AppTheme.Settings.Black" parent="BaseTheme.Settings.Black" />
+    <style name="AppTheme.Launcher" parent="BaseTheme.Launcher" />
 
     <style name="BaseTheme" parent="Theme.MaterialComponents.Light">
         <item name="colorSurface">@color/foreground</item>
@@ -198,4 +199,8 @@
     <style name="BaseTheme.Settings.Dark" parent="BaseTheme.Dark" />
 
     <style name="BaseTheme.Settings.Black" parent="BaseTheme.Black" />
+
+    <style name="BaseTheme.Launcher" parent="BaseTheme">
+        <item name="android:windowBackground">@drawable/splash_screen</item>
+    </style>
 </resources>
