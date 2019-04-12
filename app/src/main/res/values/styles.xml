@@ -16,8 +16,6 @@
         <item name="colorOnSurface">@color/text_primary</item>
         <item name="android:colorBackground">@color/background</item>
         <item name="colorOnBackground">@color/text_primary</item>
-        <item name="background">@color/background</item>
-        <item name="foreground">@color/foreground</item>
         <item name="android:actionModeBackground">@color/foreground</item>
         <item name="actionModeBackground">@color/foreground</item> <!-- For pre-Lollipop -->
         <item name="actionBarPopupTheme">@style/ThemeOverlay.AppCompat.Light</item>
@@ -27,6 +25,8 @@
         <item name="android:alertDialogTheme">@style/AppTheme.Dialog</item>
         <item name="alertDialogTheme">@style/AppTheme.Dialog</item> <!-- For pre-Lollipop -->
 
+        <item name="background">@color/background</item>
+        <item name="foreground">@color/foreground</item>
         <item name="defaultRectRipple">@drawable/default_rect_ripple</item>
         <item name="defaultRoundRipple">@drawable/default_round_ripple</item>
         <item name="transparentRoundRipple">@drawable/transparent_round_ripple</item>
@@ -57,8 +57,6 @@
         <item name="colorOnSurface">@color/text_primary_inverse</item>
         <item name="android:colorBackground">@color/background_dark</item>
         <item name="colorOnBackground">@color/text_primary_inverse</item>
-        <item name="background">@color/background_dark</item>
-        <item name="foreground">@color/foreground_dark</item>
         <item name="android:actionModeBackground">@color/foreground_dark</item>
         <item name="actionModeBackground">@color/foreground_dark</item> <!-- For pre-Lollipop -->
         <item name="actionBarPopupTheme">@style/ThemeOverlay.AppCompat.Dark</item>
@@ -68,6 +66,8 @@
         <item name="android:alertDialogTheme">@style/AppTheme.Dialog.Dark</item>
         <item name="alertDialogTheme">@style/AppTheme.Dialog.Dark</item> <!-- For pre-Lollipop -->
 
+        <item name="background">@color/background_dark</item>
+        <item name="foreground">@color/foreground_dark</item>
         <item name="defaultRectRipple">@drawable/default_rect_ripple_dark</item>
         <item name="defaultRoundRipple">@drawable/default_round_ripple_dark</item>
         <item name="transparentRoundRipple">@drawable/transparent_round_ripple_dark</item>
@@ -96,12 +96,12 @@
     <style name="BaseTheme.Black" parent="BaseTheme.Dark">
         <item name="colorSurface">@color/foreground_black</item>
         <item name="android:colorBackground">@android:color/black</item>
-        <item name="background">@android:color/black</item>
-        <item name="foreground">@color/foreground_black</item>
         <item name="android:windowBackground">@android:color/black</item>
         <item name="android:actionModeBackground">@color/foreground_black</item>
         <item name="actionModeBackground">@color/foreground_black</item> <!-- For pre-Lollipop -->
 
+        <item name="background">@android:color/black</item>
+        <item name="foreground">@color/foreground_black</item>
         <item name="defaultRectRipple">@drawable/default_rect_ripple_black</item>
         <item name="defaultRoundRipple">@drawable/default_round_ripple_black</item>
     </style>
@@ -113,8 +113,7 @@
         <item name="colorSecondary">@color/accent</item>
         <item name="colorSecondaryVariant">@color/accent_dark</item>
         <item name="colorOnSecondary">@color/text_primary</item>
-        <item name="android:background">@color/background_dialog</item>
-        <item name="background">@color/background</item>
+        <item name="android:windowBackground">@color/background_dialog</item>
         <item name="dialogCornerRadius">4dp</item>
 
         <item name="android:bottomBright">@color/background_dialog</item>
@@ -136,8 +135,7 @@
         <item name="colorSecondary">@color/accent</item>
         <item name="colorSecondaryVariant">@color/accent_dark</item>
         <item name="colorOnSecondary">@color/text_primary</item>
-        <item name="android:background">@color/background_dialog_dark</item>
-        <item name="background">@color/background_dark</item>
+        <item name="android:windowBackground">@color/background_dialog_dark</item>
         <item name="dialogCornerRadius">4dp</item>
 
         <item name="android:bottomBright">@color/background_dialog_dark</item>
