@@ -14,6 +14,7 @@ Features
  - Material Design
  - Multiple themes (Light, Dark, Black)
  - Android TV support
+ - Chrome OS support
  - Pause and resume downloads
  - Browsers support
  - Simultaneous downloads (default 3)
