@@ -3,17 +3,19 @@ Download Navi
 [<img alt="Get it on Google Play" height="80" src="https://tachibanagenerallaboratories.github.io/images/badges/Google%20Play/google-play-badge.png">](#)
 [<img alt="Get it on F-Droid" height="80" src="https://tachibanagenerallaboratories.github.io/images/badges/F-Droid/get-it-on.png">](#)
 [<img alt="Get it on GitHub" height="80" src="https://tachibanagenerallaboratories.github.io/images/badges/GitHub/get-it-on-github.png">](https://github.com/TachibanaGeneralLaboratories/download-navi/releases)
+[<img alt="Get it on AFH" height="80" width="207" src="https://www.androidfilehost.com/images/afh.png">](#)
 
-Download Navi is a free and open-source download manager for Android 4.4+.
+Download Navi is a free and Open Source download manager for Android 4.4+.
 
 Features
 ---
 
- - Free and open-source software (FOSS)
+ - Free and Open Source software (FOSS)
  - Material Design
  - Multiple themes (Light, Dark, Black)
  - Android TV support
  - Pause and resume downloads
+ - Browsers support
  - Simultaneous downloads (default 3)
  - Multi part downloading (max 16)
  - Download files in background
@@ -23,6 +25,16 @@ Features
  - Calculate hash value (MD5 & SHA-256)
  - Power Management and battery control
  - Various automatic actions after finishing download
+
+Donation
+---
+
+If you like Download Navi you can support developer with these methods. If you have problems with payment or you want to donate in another way, contact me: `proninyaroslav@mail.ru`. Thank you!
+
+ - **PayPal**: [![paypal](https://www.paypalobjects.com/en_US/i/btn/btn_donateCC_LG.gif)](https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=G62LXDZPCPFEU)
+ - **Yandex Money**: `410011738561939`
+ - **Amazon.com eGift Cards**: just choose your amount and type e-mail `proninyaroslav@mail.ru`
+in the gift card details https://smile.amazon.com/gp/product/B004LLIKVU/
 
 Translations
 ---
@@ -34,6 +46,11 @@ Contributors
 ---
 
 See [CONTRIBUTING.md](CONTRIBUTING.md)
+
+Screenshots
+---
+
+![phone](/art/screenshots/phone.png) ![phone dark](/art/screenshots/phone_dark.png) ![tablet](/art/screenshots/tablet.png)
 
 License
 ---

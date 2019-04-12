@@ -253,6 +253,6 @@
     <!-- About dialog -->
     <string name="about_title">About Download Navi</string>
     <string name="about_website">More information and also to help the project: https://github.com/TachibanaGeneralLaboratories/download-navi</string>
-    <string name="about_description">Download Navi is a free and open-source download manager for Android 4.4+.\n\nDownload Navi is free software, released under the terms of the GNU General Public License v3 (GPLv3)\nhttp://www.gnu.org/copyleft/gpl.html</string>
+    <string name="about_description">Download Navi is a free and Open Source download manager for Android 4.4+.\n\nDownload Navi is free software, released under the terms of the GNU General Public License v3 (GPLv3)\nhttp://www.gnu.org/copyleft/gpl.html</string>
     <string name="about_changelog">Changelog</string>
 </resources>
