@@ -51,7 +51,7 @@ See [CONTRIBUTING.md](CONTRIBUTING.md)
 Screenshots
 ---
 
-![phone](/art/screenshots/phone.png) ![phone dark](/art/screenshots/phone_dark.png) ![tablet](/art/screenshots/tablet.png) ![tv](/art/screenshots/tv.png)
+![phone](/art/screenshots/phone.png) ![phone dark](/art/screenshots/phone_dark.png) ![tablet](/art/screenshots/tablet.png)
 
 License
 ---
