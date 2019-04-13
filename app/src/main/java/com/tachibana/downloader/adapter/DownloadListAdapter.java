@@ -225,8 +225,6 @@ public class DownloadListAdapter extends ListAdapter<DownloadItem, DownloadListA
                     downloadedBytes += item.info.getDownloadedBytes(piece);
                     speed += piece.speed;
                 }
-                /* Average speed */
-                speed /= size;
             }
             long ETA = Utils.calcETA(item.info.totalBytes, downloadedBytes, speed);
 
