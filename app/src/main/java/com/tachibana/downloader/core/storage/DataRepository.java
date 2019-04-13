@@ -156,6 +156,16 @@ public class DataRepository
         return db.downloadDao().getPiecesById(infoId);
     }
 
+
+    /*
+     * Sorted by status code
+     */
+
+    public List<DownloadPiece> getPiecesByIdSorted(UUID infoId)
+    {
+        return db.downloadDao().getPiecesByIdSorted(infoId);
+    }
+
     public DownloadPiece getPiece(int index, UUID infoId)
     {
         return db.downloadDao().getPiece(index, infoId);

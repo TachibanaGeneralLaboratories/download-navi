@@ -46,6 +46,7 @@ public abstract class DownloadDao
     private static final String QUERY_DELETE_INFO_BY_URL = "DELETE FROM DownloadInfo WHERE url = :url";
     private static final String QUERY_DELETE_PIECES = "DELETE FROM DownloadPiece WHERE infoId = :infoId";
     private static final String QUERY_GET_PIECES_BY_ID = "SELECT * FROM DownloadPiece WHERE infoId = :infoId";
+    private static final String QUERY_GET_PIECES_BY_ID_SORTED = "SELECT * FROM DownloadPiece WHERE infoId = :infoId ORDER BY statusCode ASC";
     private static final String QUERY_GET_PIECE = "SELECT * FROM DownloadPiece WHERE pieceIndex = :index AND infoId = :infoId";
     private static final String QUERY_GET_HEADERS = "SELECT * FROM download_info_headers WHERE infoId = :infoId";
 
@@ -120,6 +121,9 @@ public abstract class DownloadDao
 
     @Query(QUERY_GET_PIECES_BY_ID)
     public abstract List<DownloadPiece> getPiecesById(UUID infoId);
+
+    @Query(QUERY_GET_PIECES_BY_ID_SORTED)
+    public abstract List<DownloadPiece> getPiecesByIdSorted(UUID infoId);
 
     @Query(QUERY_GET_PIECE)
     public abstract DownloadPiece getPiece(int index, UUID infoId);

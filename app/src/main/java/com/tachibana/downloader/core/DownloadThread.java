@@ -205,7 +205,7 @@ public class DownloadThread implements Callable<DownloadResult>
 
     private void checkPiecesStatus()
     {
-        List<DownloadPiece> pieces = repo.getPiecesById(id);
+        List<DownloadPiece> pieces = repo.getPiecesByIdSorted(id);
         if (pieces == null || pieces.isEmpty()) {
             String errMsg = "Download deleted or missing";
             info.statusCode = STATUS_STOPPED;
@@ -233,7 +233,12 @@ public class DownloadThread implements Callable<DownloadResult>
             } else {
                 for (DownloadPiece piece : pieces) {
                     /* TODO: maybe change handle status behaviour */
-                    if (piece.statusCode > info.statusCode) {
+                    boolean replaceStatus = StatusCode.isStatusError(piece.statusCode) &&
+                            piece.statusCode > info.statusCode ||
+                            piece.statusCode == StatusCode.STATUS_WAITING_FOR_NETWORK ||
+                            piece.statusCode == StatusCode.STATUS_WAITING_TO_RETRY;
+
+                    if (replaceStatus) {
                         info.statusCode = piece.statusCode;
                         info.statusMsg = piece.statusMsg;
                         break;
