@@ -25,7 +25,8 @@
             app:expansion_text="@string/more_details"
             app:expansion_expanded="false"
             app:expansion_textAppearance="@style/TextAppearance.MaterialComponents.Body2"
-            android:background="?attr/dialogRectRipple" />
+            android:background="?attr/dialogRectRipple"
+            android:focusable="true" />
 
         <net.cachapa.expandablelayout.ExpandableLayout
             android:id="@+id/expandable_layout"

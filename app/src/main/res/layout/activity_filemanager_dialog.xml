@@ -84,7 +84,8 @@
                     android:paddingTop="@{enableSystemManagerButton.booleanValue() ? @dimen/fab_size + @dimen/fab_margin : @dimen/padding_zero}"
                     android:clipToPadding="false"
                     android:background="?attr/background"
-                    android:scrollbars="vertical" />
+                    android:scrollbars="vertical"
+                    android:focusable="true" />
             </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
 
             <FrameLayout
@@ -124,7 +125,8 @@
                 android:visibility="@{viewModel.config.showMode == FileManagerConfig.DIR_CHOOSER_MODE || viewModel.config.showMode == FileManagerConfig.SAVE_FILE_MODE ? View.VISIBLE : View.GONE}"
                 app:layout_constraintBottom_toTopOf="@+id/bottom_bar"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:srcCompat="@drawable/ic_add_black_24dp" />
+                app:srcCompat="@drawable/ic_add_black_24dp"
+                android:focusable="true" />
         </androidx.constraintlayout.widget.ConstraintLayout>
 
         <com.google.android.material.button.MaterialButton
@@ -138,6 +140,7 @@
             android:visibility="@{enableSystemManagerButton.booleanValue() ? View.VISIBLE : View.GONE}"
             app:backgroundTint="@color/accent"
             app:cornerRadius="16dp"
-            app:icon="@drawable/ic_folder_grey600_24dp" />
+            app:icon="@drawable/ic_folder_grey600_24dp"
+            android:focusable="true" />
     </androidx.coordinatorlayout.widget.CoordinatorLayout>
 </layout>

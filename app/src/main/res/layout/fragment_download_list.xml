@@ -15,6 +15,7 @@
             android:paddingBottom="@{@dimen/fab_size + @dimen/fab_margin}"
             android:clipToPadding="false"
             android:scrollbars="vertical"
+            android:focusable="true"
             android:scrollbarStyle="outsideOverlay" /> <!-- Need for padding -->
 
         <TextView

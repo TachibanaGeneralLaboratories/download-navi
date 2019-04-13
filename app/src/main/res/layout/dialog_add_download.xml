@@ -199,7 +199,8 @@
                 app:expansion_text="@string/download_advanced"
                 app:expansion_expanded="false"
                 app:expansion_textAppearance="@style/TextAppearance.MaterialComponents.Body1"
-                android:background="?attr/dialogRectRipple" />
+                android:background="?attr/dialogRectRipple"
+                android:focusable="true" />
 
             <net.cachapa.expandablelayout.ExpandableLayout
                 android:id="@+id/advanced_layout"

@@ -19,7 +19,8 @@
             app:tabMode="fixed"
             app:tabMaxWidth="0dp"
             app:tabGravity="fill"
-            android:elevation="@dimen/toolbar_elevation" />
+            android:elevation="@dimen/toolbar_elevation"
+            android:focusable="true" />
 
         <androidx.viewpager.widget.ViewPager
             android:id="@+id/download_list_viewpager"
@@ -35,5 +36,6 @@
         android:layout_height="wrap_content"
         android:layout_gravity="bottom|end"
         android:layout_margin="@dimen/fab_margin"
-        app:srcCompat="@drawable/ic_add_black_24dp" />
+        app:srcCompat="@drawable/ic_add_black_24dp"
+        android:focusable="true" />
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

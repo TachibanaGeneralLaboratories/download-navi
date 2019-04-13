@@ -239,7 +239,8 @@
                         app:backgroundTint="?attr/colorPrimary"
                         android:text="@string/calculate"
                         android:onClick="@{() -> viewModel.calcMd5Hash()}"
-                        android:visibility="@{viewModel.info.md5State == HashSumState.UNKNOWN ? View.VISIBLE : View.GONE}" />
+                        android:visibility="@{viewModel.info.md5State == HashSumState.UNKNOWN ? View.VISIBLE : View.GONE}"
+                        android:focusable="true" />
 
                     <androidx.core.widget.ContentLoadingProgressBar
                         android:id="@+id/md5_hash_progress"
@@ -279,7 +280,8 @@
                         app:backgroundTint="?attr/colorPrimary"
                         android:text="@string/calculate"
                         android:onClick="@{() -> viewModel.calcSha256Hash()}"
-                        android:visibility="@{viewModel.info.sha256State == HashSumState.UNKNOWN ? View.VISIBLE : View.GONE}" />
+                        android:visibility="@{viewModel.info.sha256State == HashSumState.UNKNOWN ? View.VISIBLE : View.GONE}"
+                        android:focusable="true" />
 
                     <androidx.core.widget.ContentLoadingProgressBar
                         android:id="@+id/sha256_hash_progress"

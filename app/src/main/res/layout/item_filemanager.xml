@@ -4,7 +4,8 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:minHeight="@dimen/list_item_size"
-    android:background="?attr/defaultRectRipple">
+    android:background="?attr/defaultRectRipple"
+    android:focusable="true">
 
     <ImageView
         android:id="@+id/file_icon"
