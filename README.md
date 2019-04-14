@@ -42,6 +42,8 @@ in the gift card details https://smile.amazon.com/gp/product/B004LLIKVU/
 Translations
 ---
 
+You can help translate the app here: [https://crowdin.com/project/download-navi](https://crowdin.com/project/download-navi) 
+
  - English
  - Russian
 
