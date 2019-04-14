@@ -6,7 +6,7 @@ android {
         applicationId "com.tachibana.downloader"
         minSdkVersion 19
         targetSdkVersion 28
-        versionCode 1
+        versionCode 1 /* TODO: 3 for the next release */
         /*
          * Convection:
          *  major.minor.[revision][-some_info]
