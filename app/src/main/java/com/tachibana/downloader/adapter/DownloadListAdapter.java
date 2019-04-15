@@ -113,6 +113,9 @@ public class DownloadListAdapter extends ListAdapter<DownloadItem, DownloadListA
     @Override
     public DownloadItem getItemKey(int position)
     {
+        if (position < 0 || position >= getCurrentList().size())
+            return null;
+
         return getItem(position);
     }
 
