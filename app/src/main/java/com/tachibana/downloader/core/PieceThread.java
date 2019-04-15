@@ -269,6 +269,7 @@ public class PieceThread extends Thread
                         if (piece.size <= 0 || !resuming) {
                             ret[0] = new StopRequest(STATUS_CANNOT_RESUME,
                                     "Expected OK, but received partial");
+                            return;
                         }
                         ret[0] = transferData(conn);
                         break;
