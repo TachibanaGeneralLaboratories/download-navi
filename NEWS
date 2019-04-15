@@ -1,3 +1,11 @@
+Version 1.0.1 (2019-04-15)
+==========================
+
+ * Bugfixing:
+     - "Keep CPU awake" option
+     - Support of sites without partial download, but with the existing content length
+     - Small fixes
+
 Version 1.0 (2019-04-14)
 ========================
 

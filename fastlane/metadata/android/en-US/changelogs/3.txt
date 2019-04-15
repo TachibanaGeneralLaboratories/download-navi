@@ -1,0 +1,4 @@
+* Bugfixing:
+    - "Keep CPU awake" option
+    - Support of sites without partial download, but with the existing content length
+    - Small fixes
