@@ -131,6 +131,7 @@ public class DownloadService extends LifecycleService
         isAlreadyRunning = false;
         engine = null;
         pref = null;
+        setKeepCpuAwake(false);
 
         stopForeground(true);
         stopSelf();
