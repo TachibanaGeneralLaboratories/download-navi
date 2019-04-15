@@ -244,6 +244,45 @@ public class DownloadThreadTest extends AbstractTest
     }
 
     @Test
+    public void testDownload_withoutPartialSupport_withLength()
+    {
+        String url = "https://google.com";
+        String name = "google.html";
+
+        /* Write download info */
+        DownloadInfo info = new DownloadInfo(dir, url, name);
+        UUID id = info.id;
+        info.hasMetadata = false;
+        repo.addInfo(info, new ArrayList<>());
+
+        /* Run download task and get result */
+        DownloadResult result = runTask(new DownloadThread(context, id));
+        assertNotNull(result);
+
+        /* Read download info */
+        info = repo.getInfoById(id);
+        assertNotNull(info);
+        assertEquals(getStatus(info), DownloadResult.Status.FINISHED, result.status);
+
+        /* Read and check downloaded file */
+        File file = new File(dir.getPath(), name);
+        try {
+            assertTrue(file.exists());
+            assertNotEquals(0, file.length());
+
+        } finally {
+            file.delete();
+        }
+
+        /* Check metadata */
+        assertEquals(StatusCode.STATUS_SUCCESS, info.statusCode);
+        long downloadBytes = 0;
+        for (DownloadPiece piece : repo.getPiecesById(id))
+            downloadBytes += info.getDownloadedBytes(piece);
+        assertNotEquals(0, downloadBytes);
+    }
+
+    @Test
     public void testDownload_networkConnection()
     {
         FakeSystemFacade systemFacade = (FakeSystemFacade)Utils.getSystemFacade(context);

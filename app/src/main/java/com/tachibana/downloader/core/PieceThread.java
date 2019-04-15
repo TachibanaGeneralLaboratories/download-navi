@@ -258,7 +258,7 @@ public class PieceThread extends Thread
             {
                 switch (code) {
                     case HTTP_OK:
-                        if (piece.size > 0 || resuming) {
+                        if (resuming) {
                             ret[0] = new StopRequest(STATUS_CANNOT_RESUME,
                                     "Expected partial, but received OK");
                             return;
