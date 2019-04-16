@@ -258,7 +258,7 @@ public class PieceThread extends Thread
             {
                 switch (code) {
                     case HTTP_OK:
-                        if (resuming) {
+                        if (startPos != 0 || resuming) {
                             ret[0] = new StopRequest(STATUS_CANNOT_RESUME,
                                     "Expected partial, but received OK");
                             return;
@@ -266,11 +266,6 @@ public class PieceThread extends Thread
                         ret[0] = transferData(conn);
                         break;
                     case HTTP_PARTIAL:
-                        if (piece.size <= 0 || !resuming) {
-                            ret[0] = new StopRequest(STATUS_CANNOT_RESUME,
-                                    "Expected OK, but received partial");
-                            return;
-                        }
                         ret[0] = transferData(conn);
                         break;
                     case HTTP_PRECON_FAILED:
