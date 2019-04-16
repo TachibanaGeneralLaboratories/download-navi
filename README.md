@@ -45,8 +45,12 @@ Translations
 
 You can help translate the app here: [https://crowdin.com/project/download-navi](https://crowdin.com/project/download-navi) 
 
- - English
- - Russian
+ - **English**
+ - **Russian**
+ - **Spanish** *(thanks c-sanchez)*
+ - **Brazilian Portuguese** *(thanks lu.santi.oli)*
+ - **Czech** *(thanks novas78)*
+ - **Slovak** *(thanks kubalav)*
 
 Contributors
 ---
