@@ -626,11 +626,13 @@ public class Utils
         sharingIntent.setType("text/plain");
         sharingIntent.putExtra(android.content.Intent.EXTRA_SUBJECT, "url");
 
-        if (urlList.size() == 1)
-            sharingIntent.putExtra(android.content.Intent.EXTRA_TEXT, urlList.get(0));
-        else
-            sharingIntent.putExtra(android.content.Intent.EXTRA_TEXT,
-                    TextUtils.join(Utils.getLineSeparator(), urlList));
+        if (!urlList.isEmpty()) {
+            if (urlList.size() == 1)
+                sharingIntent.putExtra(android.content.Intent.EXTRA_TEXT, urlList.get(0));
+            else
+                sharingIntent.putExtra(android.content.Intent.EXTRA_TEXT,
+                        TextUtils.join(Utils.getLineSeparator(), urlList));
+        }
 
         return sharingIntent;
     }
