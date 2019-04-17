@@ -314,7 +314,7 @@ public class DownloadService extends LifecycleService
                         PendingIntent.FLAG_UPDATE_CURRENT);
 
         return new NotificationCompat.Action.Builder(
-                R.drawable.ic_power_settings_new_menu_24dp,
+                R.drawable.ic_power_white_24dp,
                 getString(R.string.shutdown),
                 shutdownPendingIntent)
                 .build();
