@@ -164,11 +164,11 @@ public class DownloadService extends LifecycleService
             isAlreadyRunning = true;
             init();
             /* Run by system */
-            if (intent.getAction() == null)
+            if (intent != null && intent.getAction() == null)
                 engine.restoreDownloads();
         }
 
-        if (intent.getAction() != null) {
+        if (intent != null && intent.getAction() != null) {
             UUID id;
             switch (intent.getAction()) {
                 case NotificationReceiver.NOTIFY_ACTION_SHUTDOWN_APP:
