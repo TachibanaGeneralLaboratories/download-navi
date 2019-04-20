@@ -1,4 +1,4 @@
-Download Navi - свободный и Open Source менеджер загрузок для Android 4.4+.
+Download Navi - свободный менеджер загрузок для Android 4.4+.
 
 # Особенности
 
