@@ -1,6 +1,8 @@
 Download Navi
 =====================
-![Download Navi](fastlane/metadata/android/en-US/images/tvBanner.png)
+
+![Download Navi](fastlane/metadata/android/en-US/images/featureGraphic.png)
+
 <img src="https://www.gnu.org/graphics/gplv3-with-text-136x68.png" alt=" [Large GPLv3 logo with “Free as in Freedom”] ">
 
 Downloads
