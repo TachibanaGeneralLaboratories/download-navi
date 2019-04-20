@@ -58,6 +58,7 @@ You can help translate the app here: [https://crowdin.com/project/download-navi]
  - **Brazilian Portuguese** *(thanks lu.santi.oli)*
  - **Czech** *(thanks novas78)*
  - **Slovak** *(thanks kubalav)*
+ - **German** *(thanks noc-jfcbs)*
 
 Contributors
 ---
