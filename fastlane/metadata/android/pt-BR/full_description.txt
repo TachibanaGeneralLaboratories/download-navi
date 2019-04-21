@@ -1,0 +1,20 @@
+Download Navi é um gerenciador de download gratuito e de Código Aberto para Android 4.4+.
+
+# Recursos
+
+* Software de Código Aberto e gratuito (FOSS)
+* Design Material
+* Vários temas (Claro, Escuro, Preto)
+* Suporte a TV Android
+* Suporte ao Chrome OS
+* Pausar e retomar downloads
+* Suporte a navegadores
+* Downloads simultâneos (padrão 3)
+* Download de várias partes (máx. 16)
+* Baixar arquivos em segundo plano
+* Suporte a conexões não limitadas (ex. Wi-Fi)
+* Controles de roaming
+* Controles do agente do usuário
+* Calcular o valor de hash (MD5 e SHA-256)
+Gerenciamento de energia e controle de bateria
+* Várias ações automáticas após concluir o download

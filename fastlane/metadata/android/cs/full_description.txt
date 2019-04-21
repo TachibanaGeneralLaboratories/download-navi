@@ -1,0 +1,20 @@
+Download Navi je svobodný správce stahování s otevřeným zdrojovým kódem pro Android 4.4+.
+
+# Funkce
+
+* Bezplatný software s otevřeným zdrojovým kódem (FOSS)
+* Material design
+* Více motivů (světlý, tmavý, černý)
+* Podpora Android TV
+* Podpora Chrome OS
+* Pozastavení a pokračování stahování
+* Podpora prohlížečů
+* Souběžná stahování (výchozí 3)
+* Stahování více částí (max. 16)
+* Stahování souborů na pozadí
+* Podpora pouze neměřených připojení (např. Wi-Fi)
+* Nastavení roamingu
+* Nastavení uživatelských agentů
+* Výpočet hodnoty hash (MD5 & SHA-256)
+* Správa napájení a kontrola stavu baterie
+* Různé automatické akce po dokončení stahování

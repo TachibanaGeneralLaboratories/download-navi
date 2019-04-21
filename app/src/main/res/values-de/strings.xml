@@ -229,7 +229,7 @@
     <!-- Storage settings -->
     <string name="pref_save_downloads_in_title">Downloads speichern unter</string>
     <string name="pref_move_after_download_title">Nach dem Download verschieben</string>
-    <string name="pref_move_after_download_in_title">Nach dem Download verschieben</string>
+    <string name="pref_move_after_download_in_title">Nach dem Download verschieben nach</string>
     <string name="pref_delete_file_if_error_title">Datei löschen, falls ein Fehler auftritt</string>
     <string name="pref_preallocate_disk_space_title">Speicherplatz für die Datei vorbelegen</string>
     <string name="pref_preallocate_disk_space_summary">Verfügbar für Android 5.0 Lollipop und höher</string>
