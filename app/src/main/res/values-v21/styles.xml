@@ -37,6 +37,6 @@
     </style>
 
     <style name="AppTheme.Launcher" parent="BaseTheme.Launcher">
-        <item name="android:statusBarColor">@color/status_bar</item>
+        <item name="android:statusBarColor">@color/primary_dark</item>
     </style>
 </resources>
