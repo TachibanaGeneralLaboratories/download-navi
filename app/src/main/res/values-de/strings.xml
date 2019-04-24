@@ -2,7 +2,7 @@
 <resources>
     <!-- Global string -->
     <string name="app_name">Download Navi</string>
-    <string name="foreground_notification">Vordergrundbenachrichtigung</string>
+    <string name="foreground_notification">Benachrichtigung im Vordergrund</string>
     <string name="download_running">In Arbeit</string>
     <string name="finished">Abgeschlossen</string>
     <string name="shutdown">Herunterfahren</string>
