@@ -131,9 +131,11 @@ public class Utils
         channels.add(new NotificationChannel(DEFAULT_NOTIFY_CHAN_ID,
                 context.getText(R.string.Default),
                 NotificationManager.IMPORTANCE_DEFAULT));
-        channels.add(new NotificationChannel(FOREGROUND_NOTIFY_CHAN_ID,
+        NotificationChannel foregroundChan = new NotificationChannel(FOREGROUND_NOTIFY_CHAN_ID,
                 context.getString(R.string.foreground_notification),
-                NotificationManager.IMPORTANCE_LOW));
+                NotificationManager.IMPORTANCE_LOW);
+        foregroundChan.setShowBadge(false);
+        channels.add(foregroundChan);
         channels.add(new NotificationChannel(ACTIVE_DOWNLOADS_NOTIFY_CHAN_ID,
                 context.getText(R.string.download_running),
                 NotificationManager.IMPORTANCE_MIN));
