@@ -199,6 +199,10 @@ public class AddDownloadViewModel extends AndroidViewModel
             if (url == null)
                 return null;
 
+            /* TODO: change after add FTP support */
+            if (!url.startsWith(Utils.HTTP_PREFIX))
+                return new MalformedURLException(Utils.getScheme(url));
+
             HttpConnection connection;
             try {
                 connection = new HttpConnection(url);

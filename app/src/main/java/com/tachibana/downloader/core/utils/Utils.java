@@ -759,6 +759,15 @@ public class Utils
         return null;
     }
 
+    public static String getScheme(@NonNull String url)
+    {
+        int indexColon = url.indexOf(':');
+        if (indexColon <= 0)
+            return null;
+
+        return url.substring(0, indexColon).toLowerCase();
+    }
+
     public static List<DrawerGroup> getNavigationDrawerItems(@NonNull Context context,
                                                              @NonNull SharedPreferences localPref)
     {

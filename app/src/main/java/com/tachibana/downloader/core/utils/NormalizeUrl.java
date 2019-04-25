@@ -188,8 +188,7 @@ public class NormalizeUrl
         return normalizedUrl;
     }
 
-    private static String doNormalize(String url, Options options)
-            throws MalformedURLException, InvalidURLReferenceException
+    private static String doNormalize(String url, Options options) throws MalformedURLException
     {
         if (url == null || url.isEmpty())
             return url;
