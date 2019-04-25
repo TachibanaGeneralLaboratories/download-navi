@@ -570,10 +570,10 @@ public class Utils
         else
             intentAction = Intent.ACTION_SEND_MULTIPLE;
 
-        if (itemsUri.size() > 1)
-            i.putParcelableArrayListExtra(Intent.EXTRA_STREAM, itemsUri);
-        else
+        if (itemsUri.size() == 1)
             i.putExtra(Intent.EXTRA_STREAM, itemsUri.get(0));
+        else if (itemsUri.size() > 1)
+            i.putParcelableArrayListExtra(Intent.EXTRA_STREAM, itemsUri);
 
         /* If there is exactly one item shared, set the mail title */
         if (items.size() == 1)
