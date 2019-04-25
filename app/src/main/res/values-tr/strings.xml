@@ -17,7 +17,7 @@
     <string name="ok">Tamam</string>
     <string name="cancel">İptal</string>
     <!-- A synonym for word "unmetered" - unlimited-->
-    <string name="unmetered_connections_only">Unmetered connections only</string>
+    <string name="unmetered_connections_only">Yalnızca belirli bağlantılar</string>
     <string name="connect">Bağlan</string>
     <string name="add">Ekle</string>
     <string name="not_available">N/A</string>
@@ -49,11 +49,11 @@
     <string name="Default">Varsayılan</string>
     <string name="warning">Uyarı</string>
     <string name="apply">Uygula</string>
-    <string name="report">Report</string>
-    <string name="more_details">More details</string>
+    <string name="report">Bildir</string>
+    <string name="more_details">Detaylar</string>
     <!-- Permission dialog -->
     <string name="perm_denied_title">İzin reddedildi</string>
-    <string name="perm_denied_warning">Without this permission app can\'t save files in memory on some devices and versions of Android. The app will not work properly. Are you sure you want to deny this permission?</string>
+    <string name="perm_denied_warning">Bu izin olmadan uygulama, bazı cihazlarda ve Android sürümlerinde dosyaları belleğe kaydedemez. Uygulama düzgün çalışmayacak. Bu izni reddetmek istediğinden emin misin?</string>
     <!-- Download progress notification -->
     <string name="download_ticker_notify" formatted="false">%1$s İndiriliyor</string>
     <!-- Foreground notification -->
@@ -62,47 +62,47 @@
     <string name="resume_all">Tümünü devam ettir</string>
     <!-- Finish notification -->
     <string name="download_finished_notify">İndirme tamamlandı</string>
-    <string name="open_using">Open using</string>
+    <string name="open_using">Kullanarak aç</string>
     <!-- Pending notification -->
-    <string name="download_in_queue_ticker_notify" formatted="false">%1$s in queue</string>
-    <string name="waiting_for_network">Waiting for network</string>
-    <string name="waiting_for_retry">Waiting for retry</string>
+    <string name="download_in_queue_ticker_notify" formatted="false">sıradaki %1$s</string>
+    <string name="waiting_for_network">Bağlantı bekleniyor</string>
+    <string name="waiting_for_retry">Yeniden deneme bekleniyor</string>
     <!-- Error notification -->
     <string name="download_error_notify_title">İndirme hatası</string>
     <!-- Applying params notification -->
-    <string name="applying_params_title">Applying params</string>
-    <string name="applying_params_for_downloads">Applying params for downloads</string>
-    <string name="applying_params_error_title" formatted="false">Applying params error for %1$s</string>
+    <string name="applying_params_title">Parametreler uygulanıyor</string>
+    <string name="applying_params_for_downloads">İndirmeler için uygulanan parametreler</string>
+    <string name="applying_params_error_title" formatted="false">%1$s için params hatası uygulama</string>
     <!-- Add download dialog -->
     <string name="add_download">İndirme ekle</string>
     <string name="download_link">Bağlantı</string>
     <string name="download_name">Adı</string>
     <string name="download_size" formatted="false">Boyut: %1$s</string>
-    <string name="download_retry">Retry</string>
+    <string name="download_retry">Yeniden Dene</string>
     <string name="download_advanced">Gelişmiş</string>
-    <string name="download_user_agent">User agent</string>
+    <string name="download_user_agent">Kullanıcı aracısı</string>
     <string name="download_error_empty_link">Lütfen bağlantı girin</string>
     <string name="download_error_empty_name">Lütfen adı girin</string>
-    <string name="download_error_no_enough_free_space" formatted="false">Not enough free space: %1$s free, but file size is %2$s</string>
-    <string name="download_error_name_is_not_correct" formatted="false">Correct name is \"%1$s\"</string>
+    <string name="download_error_no_enough_free_space" formatted="false">Yeterli boş alan yok: %1$s boş, ancak dosya boyutu %2$s</string>
+    <string name="download_error_name_is_not_correct" formatted="false">Doğru ad \"%1$s\" dır</string>
     <string name="fetch_error_default_fmt" formatted="false">Hata: %1$s</string>
     <string name="fetch_error_invalid_url" formatted="false">Geçersiz URL: %1$s</string>
     <string name="fetch_error_network_disconnected">ağ bağlantısı kesildi</string>
-    <string name="fetch_error_http_response" formatted="false">Error: server returned HTTP %1$d code</string>
+    <string name="fetch_error_http_response" formatted="false">Hata: sunucu HTTP %1$d kodu döndürdü</string>
     <string name="fetch_error_io" formatted="false">GÇ hatası: %1$s</string>
-    <string name="unable_to_open_folder">Unable to open selected folder. Please try to select another folder</string>
-    <string name="unable_to_create_file">Unable to create file. Please try to select another folder</string>
-    <string name="partial_download_not_supported">This download doesn\'t support pause and downloading by pieces</string>
+    <string name="unable_to_open_folder">Seçilen klasör açılamıyor. Lütfen başka bir klasör seçmeyi deneyin</string>
+    <string name="unable_to_create_file">Dosya oluşturulamıyor. Lütfen başka bir klasör seçmeyi deneyin</string>
+    <string name="partial_download_not_supported">Bu indirme işlemi duraklatma ve parça indirme işlemini desteklemiyor</string>
     <string name="download_pieces_number_title">Parça sayısı</string>
     <string name="download_description">Açıklama</string>
-    <string name="select_folder_to_save">Select the folder to save</string>
+    <string name="select_folder_to_save">Kaydedilecek klasörü seçin</string>
     <string name="path">Yol</string>
     <string name="storage_free_space" formatted="false">Boş alan: %1$s</string>
-    <string name="add_download_error_invalid_url">Unable to add download: invalid URL</string>
+    <string name="add_download_error_invalid_url">İndirme eklenemedi: geçersiz URL</string>
     <!-- Add user agent dialog -->
-    <string name="dialog_add_user_agent_title">Add user agent</string>
+    <string name="dialog_add_user_agent_title">Kullanıcı aracısı ekle</string>
     <!-- Main activity -->
-    <string name="fragment_title_queued">Queued</string>
+    <string name="fragment_title_queued">Sıraya alındı</string>
     <string name="fragment_title_completed">Tamamlandı</string>
     <string name="download_list_empty">İndirme yok</string>
     <string name="share_url">Adresi paylaş</string>
@@ -143,39 +143,39 @@
     <string name="download_finished_template" formatted="false">%1$s \u2022 %2$s</string>
     <string name="download_details">Ayrıntılar</string>
     <string name="deleting">Siliniyor</string>
-    <string name="delete_selected_download">Delete the selected download? This operation cannot be undone</string>
-    <string name="delete_selected_downloads">Delete the selected downloads? This operation cannot be undone</string>
-    <string name="delete_with_downloaded_file">Delete with downloaded file</string>
+    <string name="delete_selected_download">Seçili indirme silinsin mi? Bu işlem geri alınamaz</string>
+    <string name="delete_selected_downloads">Seçili indirmeler silinsin mi? Bu işlem geri alınamaz</string>
+    <string name="delete_with_downloaded_file">İndirilen dosyayı da sil</string>
     <!-- Filemanager dialog -->
-    <string name="dir_chooser_title">Folder selection</string>
-    <string name="file_chooser_title">File selection</string>
+    <string name="dir_chooser_title">Klasör seç</string>
+    <string name="file_chooser_title">Dosya seç</string>
     <string name="dialog_new_folder_title">Yeni klasör</string>
-    <string name="error_dialog_new_folder">Unable to create a new folder</string>
+    <string name="error_dialog_new_folder">Yeni klasör oluşturulamıyor</string>
     <string name="error_open_dir">Klasör açılamadı</string>
     <string name="home_directory">Ana sayfa</string>
     <!-- name (size) -->
     <string name="permission_denied">İzin reddedildi</string>
     <string name="save_file">Dosyayı kaydet</string>
     <string name="file_name">Dosya adı</string>
-    <string name="error_file_exists">File already exists. Replace it?</string>
-    <string name="file_name_is_empty">File name cannot be empty</string>
-    <string name="system_manager">System manager</string>
-    <string name="device_does_not_support_this_feature">Your device doesn\'t support this feature</string>
-    <string name="system_file_manager_not_found">System file manager not found</string>
-    <string name="replace_file">Replace file</string>
+    <string name="error_file_exists">Dosya zaten var. Değiştirilsin mi?</string>
+    <string name="file_name_is_empty">Dosya adı boş bırakılamaz</string>
+    <string name="system_manager">Sistem yöneticisi</string>
+    <string name="device_does_not_support_this_feature">Cihazınız bu özelliği desteklemiyor</string>
+    <string name="system_file_manager_not_found">Sistem dosya yöneticisi bulunamadı</string>
+    <string name="replace_file">Dosyayı değiştir</string>
     <!-- Details download dialog -->
     <string name="detail_downloaded">İndirildi</string>
     <!-- downloaded/total (percent) -->
     <string name="detail_downloaded_format" formatted="false">%1$s/%2$s (%%3$d%)</string>
-    <string name="detail_pieces">Pieces</string>
+    <string name="detail_pieces">Parçalar</string>
     <string name="detail_date_added">Eklenme tarihi</string>
-    <string name="detail_user_agent">User agent</string>
+    <string name="detail_user_agent">Kullanıcı aracısı</string>
     <string name="detail_md5_hash_sum">MD5</string>
     <string name="detail_sha256_hash_sum">SHA-256</string>
     <string name="calculate">Hesapla</string>
     <!-- Error report -->
-    <string name="app_error_occurred">The app error occurred. You can send the report to developers</string>
-    <string name="error_comment_prompt">You can add extra information and comments here:</string>
+    <string name="app_error_occurred">Uygulama hatası oluştu. Raporu geliştiricilere gönderebilirsiniz</string>
+    <string name="error_comment_prompt">Buraya ek bilgi ve yorumlar ekleyebilirsin:</string>
     <!-- Send text to clipboard -->
     <string name="send_text_to_clipboard">Kopyala</string>
     <string name="text_copied_to_clipboard">Metin panoya kopyalandı</string>
@@ -195,43 +195,43 @@
     <string name="pref_notification_category">Bildirim ayarları</string>
     <string name="pref_progress_notify_title">İlerleme bildirimi</string>
     <string name="pref_finish_notify_title">Tamamlandı bildirimi</string>
-    <string name="pref_pending_notify_title">Pending notification</string>
+    <string name="pref_pending_notify_title">Beklemede bildirimi</string>
     <string name="pref_play_sound_notify_title">Ses çal</string>
     <string name="pref_notify_sound_title">Bildirim sesi</string>
-    <string name="pref_led_indicator_notify_title">LED indicator</string>
-    <string name="pref_led_indicator_color_notify_title">LED indicator color</string>
+    <string name="pref_led_indicator_notify_title">LED göstergesi</string>
+    <string name="pref_led_indicator_color_notify_title">LED gösterge rengi</string>
     <string name="pref_vibration_notify_title">Titreşim</string>
-    <string name="theme_settings_apply_after_reboot">Theme settings will be applied after restarting the app</string>
+    <string name="theme_settings_apply_after_reboot">Tema ayarları, uygulama yeniden başlatıldıktan sonra uygulanacak</string>
     <!-- Behavior settings -->
-    <string name="pref_autostart_title">Autostart</string>
-    <string name="pref_autostart_summary">Run the app after start device and start downloads, if they weren\'t manually paused</string>
+    <string name="pref_autostart_title">Otomatik başlatma</string>
+    <string name="pref_autostart_summary">Cihaz açıldıktan sonra uygulamayı çalıştır ve duraklatılmadıysa indirmeye başla</string>
     <!-- A synonym for word "unmetered" - unlimited-->
-    <string name="pref_umnetered_connections_only_title">Unmetered connections only</string>
-    <string name="pref_umnetered_connections_only_summary">Download only over unmetered connections (for example, Wi-Fi or Ethernet)</string>
-    <string name="pref_power_management_category">Power management</string>
-    <string name="pref_cpu_do_not_sleep_title">Keep CPU awake</string>
-    <string name="pref_cpu_do_not_sleep_summary">Enabling this will increase the battery usage. Use this option if the download speed reduces when screen turns off</string>
+    <string name="pref_umnetered_connections_only_title">Yalnızca belirli bağlantılar</string>
+    <string name="pref_umnetered_connections_only_summary">Yalnızca belirli bağlantılarda indir (örneğin, WiFi veya Ethernet)</string>
+    <string name="pref_power_management_category">Güç yönetimi</string>
+    <string name="pref_cpu_do_not_sleep_title"> CPU\'yu uyanık tut</string>
+    <string name="pref_cpu_do_not_sleep_summary">Bunu etkinleştirmek pil kullanımını artıracaktır. Ekran kapandığında indirme hızı düşerse, bu seçeneği kullan</string>
     <string name="pref_download_only_when_charging_title">Sadece şarj olurken indir</string>
-    <string name="pref_download_only_when_charging_summary">If enabled, downloading will occur only during charging. All downloads will pause when not connected to charger</string>
+    <string name="pref_download_only_when_charging_summary">Etkinleştirilirse, indirme işlemi yalnızca şarj sırasında gerçekleşir. Şarj cihazına bağlı değilken tüm indirmeler duraklar</string>
     <string name="pref_battery_control_title">Pil kontrolü</string>
     <string name="pref_custom_battery_control_title">Özel pil yüzdesi</string>
-    <string name="pref_custom_battery_control_value_title">Battery control percentage</string>
-    <string name="pref_battery_control_summary" formatted="false">All downloads will be paused if the battery level goes below %1$d%%. Limit doesn\'t apply at the time of charging</string>
-    <string name="pref_custom_battery_control_summary" formatted="false">Set a custom percentage to pause downloads at if the battery drops below the given threshold. Enabling this will ignore the default %1$d%% threshold</string>
-    <string name="pref_custom_battery_control_dialog_summary" formatted="false">Setting a custom battery percentage for the application to watch for will have a negative impact on battery life while downloads are occurring. Are you sure you want to enable this?</string>
-    <string name="pref_enable_roaming_title">Enable roaming</string>
-    <string name="pref_enable_roaming_summary">Download only if the device isn\'t roaming</string>
-    <string name="pref_max_active_downloads_title">Maximum active downloads</string>
-    <string name="pref_max_download_retries_title">Maximum number of download retries</string>
-    <string name="pref_max_download_retries_dialog_msg">0 - without retries</string>
-    <string name="pref_replace_duplicate_downloads_title">Replace duplicate downloads</string>
-    <string name="pref_replace_duplicate_downloads_summary">Replace duplicate downloads (with the same URL) when added that are already in the list</string>
+    <string name="pref_custom_battery_control_value_title">Akü kontrol yüzdesi</string>
+    <string name="pref_battery_control_summary" formatted="false">Pil seviyesi %1$d% altına düşerse, tüm indirmeler duraklatılır. Limit, şarj sırasında geçerli değildir</string>
+    <string name="pref_custom_battery_control_summary" formatted="false">Pil seviyesi belirli bir eşiğin altındaysa, indirmeyi duraklatmak için özel bir yüzde belirleyin. Bu seçeneğin etkinleştirilmesi, varsayılan %1$d% eşiğini yok sayar</string>
+    <string name="pref_custom_battery_control_dialog_summary" formatted="false">İndirme işlemi sırasında uygulama için özel bir pil yüzdesi ayarlamak, pil ömrünü olumsuz yönde etkiler. Etkinleştirmek istediğinize emin misin?</string>
+    <string name="pref_enable_roaming_title">Dolaşımı etkinleştir</string>
+    <string name="pref_enable_roaming_summary">Yalnızca cihaz dolaşımda değilse indir</string>
+    <string name="pref_max_active_downloads_title">Maks. etkin indirme sayısı</string>
+    <string name="pref_max_download_retries_title">Maks. indirme deneme sayısı</string>
+    <string name="pref_max_download_retries_dialog_msg">0 - bir daha deneme</string>
+    <string name="pref_replace_duplicate_downloads_title">Yinelenen dosyalar yerine</string>
+    <string name="pref_replace_duplicate_downloads_summary">Yinelenen dosyalar (aynı URL ile) değiştirmek zaman zaten listede vardır ekledi</string>
     <!-- Storage settings -->
-    <string name="pref_save_downloads_in_title">Save downloads in</string>
-    <string name="pref_move_after_download_title">Move after download</string>
-    <string name="pref_move_after_download_in_title">Move after download in</string>
-    <string name="pref_delete_file_if_error_title">Delete file if an error occurs</string>
-    <string name="pref_preallocate_disk_space_title">Pre-allocate disk space for the file</string>
+    <string name="pref_save_downloads_in_title">İndirilenleri kaydet</string>
+    <string name="pref_move_after_download_title">İndirdikten sonra taşı</string>
+    <string name="pref_move_after_download_in_title">İndirme işleminden sonra taşı</string>
+    <string name="pref_delete_file_if_error_title">Bir hata oluşursa dosyayı sil</string>
+    <string name="pref_preallocate_disk_space_title">Dosya için önceden ayrılmış disk alanı</string>
     <string name="pref_preallocate_disk_space_summary">Android 5.0 Lollipop ve üzeri için kullanılabilir</string>
     <!-- About dialog -->
     <string name="about_title">Download Navi Hakkında</string>

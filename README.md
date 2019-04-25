@@ -60,7 +60,7 @@ You can help translate the app here: [https://crowdin.com/project/download-navi]
  - **Slovak** *(thanks kubalav)*
  - **German** *(thanks noc-jfcbs, soristre)*
  - **Japanese** *(thanks konnyaku2mc)*
- - **Turkish** *(thanks byzlo685)*
+ - **Turkish** *(thanks byzlo685, muhaaliss)*
  - **Arabic** *(thanks rex07)*
  - **Chinese Simplified** *(thanks OR120)*
 

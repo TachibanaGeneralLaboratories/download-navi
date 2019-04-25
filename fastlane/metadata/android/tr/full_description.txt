@@ -1,20 +1,20 @@
-Download Navi is a free and Open Source download manager for Android 4.4+.
+Download Navi, Android 4.4+ için özgür ve açık kaynak bir indirme yöneticisi.
 
-# Features
+# Özellikler
 
-* Free and Open Source software (FOSS)
-* Material Design
-* Multiple themes (Light, Dark, Black)
-* Android TV support
-* Chrome OS support
-* Pause and resume downloads
-* Browsers support
-* Simultaneous downloads (default 3)
-* Multi part downloading (max 16)
-* Download files in background
-* Unmetered connections only support (ex. Wi-Fi)
-* Roaming controls
-* User agent controls
-* Calculate hash value (MD5 & SHA-256)
-* Power Management and battery control
-* Various automatic actions after finishing download
+* Özgür ve Açık Kaynak (FOSS)
+* Metaryal tasarım
+* Çoklu tema (Açık, Koyu, Siyah)
+* Android TV desteği
+* Chrome OS desteği
+* İndirmeleri duraklatma ve devam ettirebilme
+* Tarayıcı desteği
+* Eş zamanlı indirme (varsayılan 3)
+* Parçalı indirme (en fazla 16)
+* Arka planda dosya indirebilme
+* Belirli bağlantılarda indirme desteği (örn. Wi-Fi)
+* Gezici denetimleri
+* Kullanıcı aracısı kontrolü
+* Veri bütünlüğü hesaplama (MD5 ve SHA-256)
+* Güç Yönetimi ve pil kontrolü
+* İndirdikten sonra çeşitli otomatik eylemler
