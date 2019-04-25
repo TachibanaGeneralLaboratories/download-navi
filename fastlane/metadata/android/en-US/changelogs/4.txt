@@ -1,6 +1,3 @@
-Version 1.0.2 (2019-04-25)
-==========================
-
  * Bugfixing:
      - Partial download
      - "EBADF (Bad file descriptor)" error
@@ -20,16 +17,3 @@ Version 1.0.2 (2019-04-25)
      - Turkish
      - Arabic
      - Chinese Simplified
-
-Version 1.0.1 (2019-04-15)
-==========================
-
- * Bugfixing:
-     - "Keep CPU awake" option
-     - Support of sites without partial download, but with the existing content length
-     - Small fixes
-
-Version 1.0 (2019-04-14)
-========================
-
-First release.
