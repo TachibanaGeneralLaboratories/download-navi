@@ -107,6 +107,11 @@ public class PieceThread extends Thread
     private SharedPreferences pref;
     private Context appContext;
 
+    private ParcelFileDescriptor outPfd;
+    private FileDescriptor outFd;
+    private FileOutputStream fout;
+    private InputStream in;
+
     public PieceThread(Context appContext, UUID infoId, int pieceIndex)
     {
         this.infoId = infoId;
@@ -380,10 +385,6 @@ public class PieceThread extends Thread
             return new StopRequest(STATUS_CANNOT_RESUME,
                     "Can't know size of download, giving up");
 
-        ParcelFileDescriptor outPfd = null;
-        FileDescriptor outFd = null;
-        FileOutputStream fout = null;
-        InputStream in = null;
         try {
             try {
                 in = conn.getInputStream();
@@ -431,6 +432,10 @@ public class PieceThread extends Thread
                 /* Ignore */
             } finally {
                 FileUtils.closeQuietly(fout);
+                fout = null;
+                outFd = null;
+                outPfd = null;
+                in = null;
             }
         }
     }
