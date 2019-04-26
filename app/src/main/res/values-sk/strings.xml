@@ -97,7 +97,7 @@
     <string name="download_description">Popis</string>
     <string name="select_folder_to_save">Vyberte priečinok na uloženie</string>
     <string name="path">Cesta</string>
-    <string name="storage_free_space" formatted="false">Voľné miesta: %1$s</string>
+    <string name="storage_free_space" formatted="false">Voľné miesto: %1$s</string>
     <string name="add_download_error_invalid_url">Nepodarilo sa pridať sťahovanie: Neplatná adresa URL</string>
     <!-- Add user agent dialog -->
     <string name="dialog_add_user_agent_title">Pridať používateľského agenta</string>
@@ -207,7 +207,7 @@
     <string name="pref_autostart_summary">Spustiť appku po spustení zariadenia a začať sťahovania, ak nejaké neboli manuálne pozastavené</string>
     <!-- A synonym for word "unmetered" - unlimited-->
     <string name="pref_umnetered_connections_only_title">Iba neobmedzené pripojenia</string>
-    <string name="pref_umnetered_connections_only_summary">Stiahnuť len cez neobmedzené pripojenia (napríklad, Wi-Fi alebo Ethernet)</string>
+    <string name="pref_umnetered_connections_only_summary">Stiahnuť len cez neobmedzené pripojenia (napríklad Wi-Fi alebo Ethernet)</string>
     <string name="pref_power_management_category">Správa napájania</string>
     <string name="pref_cpu_do_not_sleep_title">Udržať CPU prebudené</string>
     <string name="pref_cpu_do_not_sleep_summary">Zapnutie tejto funkcie zvýši spotrebu batérie. Túto voľbu použite v prípade, ak sa po vypnutí obrazovky zníži rýchlosť sťahovania</string>

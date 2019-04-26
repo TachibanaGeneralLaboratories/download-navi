@@ -48,7 +48,7 @@
     <string name="redownload">重新下载</string>
     <string name="Default">默认</string>
     <string name="warning">警告</string>
-    <string name="apply">申请</string>
+    <string name="apply">应用</string>
     <string name="report">反馈</string>
     <string name="more_details">更多详情</string>
     <!-- Permission dialog -->
@@ -83,13 +83,13 @@
     <string name="download_user_agent">用户代理</string>
     <string name="download_error_empty_link">请输入链接</string>
     <string name="download_error_empty_name">请输入名称</string>
-    <string name="download_error_no_enough_free_space" formatted="false">没有足够的可用空间：％1 $ s可用，但文件大小为％2 $ s</string>
+    <string name="download_error_no_enough_free_space" formatted="false">可用空间不足： %1$s 可用，但文件大小为 %2$s</string>
     <string name="download_error_name_is_not_correct" formatted="false">正确的名称是\"%1$s\"</string>
     <string name="fetch_error_default_fmt" formatted="false">错误: %1$s</string>
     <string name="fetch_error_invalid_url" formatted="false">无效的网址: %1$s</string>
     <string name="fetch_error_network_disconnected">网络已断开</string>
-    <string name="fetch_error_http_response" formatted="false">错误：服务器返回HTTP ％1 $ d code</string>
-    <string name="fetch_error_io" formatted="false">IO错误：％1 $ s</string>
+    <string name="fetch_error_http_response" formatted="false">错误：服务器返回 HTTP %1$d 错误代码</string>
+    <string name="fetch_error_io" formatted="false">IO 错误： %1$s</string>
     <string name="unable_to_open_folder">无法打开所选文件夹。请尝试选择其他文件夹</string>
     <string name="unable_to_create_file">无法创建文件。请尝试选择其他文件夹</string>
     <string name="partial_download_not_supported">此次下载不支持暂停和多线程分段下载</string>
@@ -159,7 +159,7 @@
     <string name="file_name">文件名</string>
     <string name="error_file_exists">文件已存在。确定要覆盖吗？</string>
     <string name="file_name_is_empty">文件名不能为空</string>
-    <string name="system_manager">系统管理员</string>
+    <string name="system_manager">系统文件管理器</string>
     <string name="device_does_not_support_this_feature">您的设备不支持此功能</string>
     <string name="system_file_manager_not_found">找不到系统文件管理器</string>
     <string name="replace_file">替换文件</string>
@@ -216,8 +216,8 @@
     <string name="pref_battery_control_title">电池控制</string>
     <string name="pref_custom_battery_control_title">定义电池百分比</string>
     <string name="pref_custom_battery_control_value_title">电池控制百分比</string>
-    <string name="pref_battery_control_summary" formatted="false">如果电池电量低于％1 $ d％％，则所有下载都将暂停。此限制在充电时不适用</string>
-    <string name="pref_custom_battery_control_summary" formatted="false">如果电池电量低于给定阈值，请设置自定义百分比以暂停下载。启用此选项将忽略默认的％1 $ d %%阈值</string>
+    <string name="pref_battery_control_summary" formatted="false">在电量低于 %1$d%% 时暂停所有下载。此限制在充电时不适用</string>
+    <string name="pref_custom_battery_control_summary" formatted="false">自定义一个百分比值，当电量低于此阈值时暂停下载。启用此选项将忽略默认的 %1$d%% 阈值</string>
     <string name="pref_custom_battery_control_dialog_summary" formatted="false">在下载过程中，为应用程序设置自定义电池百分比将对电池寿命产生负面影响。你确定要启用它吗？</string>
     <string name="pref_enable_roaming_title">允许漫游</string>
     <string name="pref_enable_roaming_summary">仅在设备未漫游时下载</string>

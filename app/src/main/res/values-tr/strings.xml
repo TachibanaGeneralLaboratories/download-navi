@@ -166,7 +166,7 @@
     <!-- Details download dialog -->
     <string name="detail_downloaded">İndirildi</string>
     <!-- downloaded/total (percent) -->
-    <string name="detail_downloaded_format" formatted="false">%1$s/%2$s (%%3$d%)</string>
+    <string name="detail_downloaded_format" formatted="false">%1$s/%2$s (%3$d%%)</string>
     <string name="detail_pieces">Parçalar</string>
     <string name="detail_date_added">Eklenme tarihi</string>
     <string name="detail_user_agent">Kullanıcı aracısı</string>
@@ -216,8 +216,8 @@
     <string name="pref_battery_control_title">Pil kontrolü</string>
     <string name="pref_custom_battery_control_title">Özel pil yüzdesi</string>
     <string name="pref_custom_battery_control_value_title">Akü kontrol yüzdesi</string>
-    <string name="pref_battery_control_summary" formatted="false">Pil seviyesi %1$d% altına düşerse, tüm indirmeler duraklatılır. Limit, şarj sırasında geçerli değildir</string>
-    <string name="pref_custom_battery_control_summary" formatted="false">Pil seviyesi belirli bir eşiğin altındaysa, indirmeyi duraklatmak için özel bir yüzde belirleyin. Bu seçeneğin etkinleştirilmesi, varsayılan %1$d% eşiğini yok sayar</string>
+    <string name="pref_battery_control_summary" formatted="false">Pil seviyesi %1$d%% altına düşerse, tüm indirmeler duraklatılır. Limit, şarj sırasında geçerli değildir</string>
+    <string name="pref_custom_battery_control_summary" formatted="false">Pil seviyesi belirli bir eşiğin altındaysa, indirmeyi duraklatmak için özel bir yüzde belirleyin. Bu seçeneğin etkinleştirilmesi, varsayılan %1$d%% eşiğini yok sayar</string>
     <string name="pref_custom_battery_control_dialog_summary" formatted="false">İndirme işlemi sırasında uygulama için özel bir pil yüzdesi ayarlamak, pil ömrünü olumsuz yönde etkiler. Etkinleştirmek istediğinize emin misin?</string>
     <string name="pref_enable_roaming_title">Dolaşımı etkinleştir</string>
     <string name="pref_enable_roaming_summary">Yalnızca cihaz dolaşımda değilse indir</string>

@@ -7,11 +7,11 @@
     <string name="finished">إنتهى</string>
     <string name="shutdown">إغلاق</string>
     <!-- 1 d. 1 h. 1 m -->
-    <string name="elapsed_time_format_d_h_mm">%1$d يوم. %2$d ساعة. %3$d دقيقة</string>
+    <string name="elapsed_time_format_d_h_mm">%1$dيوم. %2$dساعة. %3$d دقيقة</string>
     <!-- 1 h. 1 m. 1 s -->
-    <string name="elapsed_time_format_h_mm_ss">%1$d ساعة. %2$d دقيقة. %3$d ثانية</string>
+    <string name="elapsed_time_format_h_mm_ss">%1$dساعة. %2$dدقيقة. %3$d ثانية</string>
     <!-- 1 m. 1 s -->
-    <string name="elapsed_time_format_mm_ss">%1$d دقيقة. %2$d ثانية</string>
+    <string name="elapsed_time_format_mm_ss">%1$dدقيقة. %2$d ثانية</string>
     <!-- 1 s -->
     <string name="elapsed_time_format_ss">%1$d ثانية</string>
     <string name="ok">حسناً</string>
@@ -216,8 +216,8 @@
     <string name="pref_battery_control_title">وحدة تحكم البطارية</string>
     <string name="pref_custom_battery_control_title">إظهار نسبة البطارية</string>
     <string name="pref_custom_battery_control_value_title">راقبة النسبة المئوية للبطارية</string>
-    <string name="pref_battery_control_summary" formatted="false">سوف يتم ايقاف كافة التحميلات إذا على مستوى شحن البطارية أقل من %1$d%. لا يتم تطبيق هذا الخيار خلال شحن الهاتف</string>
-    <string name="pref_custom_battery_control_summary" formatted="false">تعيين نسبة مئوية مخصصة لإيقاف التنزيلات في حالة وصول نسبة البطارية اليها. تمكين هذا الخيار سوف يتجاهل النسبة الافتراضية %1$d%</string>
+    <string name="pref_battery_control_summary" formatted="false">سوف يتم ايقاف كافة التحميلات إذا على مستوى شحن البطارية أقل من %1$d%%. لا يتم تطبيق هذا الخيار خلال شحن الهاتف</string>
+    <string name="pref_custom_battery_control_summary" formatted="false">تعيين نسبة مئوية مخصصة لإيقاف التنزيلات في حالة وصول نسبة البطارية اليها. تمكين هذا الخيار سوف يتجاهل النسبة الافتراضية %1$d%%</string>
     <string name="pref_custom_battery_control_dialog_summary" formatted="false">تعيين نسبة مئوية مخصصة للتطبيق لمراقبة التحميل سيكون له أثر سلبي على عمر البطارية عند التحميل. هل أنت متأكد من أنك تريد تمكين هذا؟</string>
     <string name="pref_enable_roaming_title">تفعيل التجوال</string>
     <string name="pref_enable_roaming_summary">تحميل فقط إذا لم يكن الجهاز في وضع التجوال</string>
