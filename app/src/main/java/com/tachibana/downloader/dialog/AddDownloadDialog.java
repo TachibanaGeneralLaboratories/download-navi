@@ -209,11 +209,8 @@ public class AddDownloadDialog extends DialogFragment
             String clipboard = Utils.getClipboard(activity.getApplicationContext());
             if (clipboard != null) {
                 String c = clipboard.toLowerCase();
-                if (c.startsWith(Utils.HTTP_PREFIX) ||
-                        c.startsWith(Utils.HTTPS_PREFIX) ||
-                        c.startsWith(Utils.FTP_PREFIX)) {
+                if (c.startsWith(Utils.HTTP_PREFIX))
                     initParams.url = clipboard;
-                }
             }
         }
         viewModel.params.setUrl(initParams.url);

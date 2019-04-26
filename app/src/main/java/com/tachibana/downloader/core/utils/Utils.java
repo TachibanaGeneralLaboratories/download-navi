@@ -92,9 +92,7 @@ import static com.tachibana.downloader.core.utils.MimeTypeUtils.MIME_TYPE_DELIMI
 public class Utils
 {
     public static final String INFINITY_SYMBOL = "\u221e";
-    public static final String HTTP_PREFIX = "http://";
-    public static final String HTTPS_PREFIX = "https://";
-    public static final String FTP_PREFIX = "ftp://";
+    public static final String HTTP_PREFIX = "http";
     public static final String DEFAULT_DOWNLOAD_FILENAME = "downloadfile";
     private static final String CONTENT_DISPOSITION_PATTERN = "attachment;\\s*filename\\s*=\\s*\"([^\"]*)\"";
 
