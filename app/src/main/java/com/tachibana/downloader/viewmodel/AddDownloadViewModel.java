@@ -72,7 +72,7 @@ public class AddDownloadViewModel extends AndroidViewModel
 
     private FetchLinkTask fetchTask;
     private DataRepository repo;
-    private SharedPreferences pref;
+    public SharedPreferences pref;
     private DownloadEngine engine;
     public AddDownloadParams params = new AddDownloadParams();
     public MutableLiveData<FetchState> fetchState = new MutableLiveData<>();

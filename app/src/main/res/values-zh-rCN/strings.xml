@@ -226,6 +226,8 @@
     <string name="pref_max_download_retries_dialog_msg">0  - 不重试</string>
     <string name="pref_replace_duplicate_downloads_title">替换重复下载</string>
     <string name="pref_replace_duplicate_downloads_summary">替换已添加到列表中的重复下载（使用相同的URL）</string>
+    <string name="pref_auto_connect_title">Auto connect</string>
+    <string name="pref_auto_connect_summary">Auto connect when opening the add dialog</string>
     <!-- Storage settings -->
     <string name="pref_save_downloads_in_title">下载保存目录</string>
     <string name="pref_move_after_download_title">下载后移动</string>

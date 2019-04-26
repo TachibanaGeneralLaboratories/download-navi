@@ -226,6 +226,8 @@
     <string name="pref_max_download_retries_dialog_msg">0 - sem tentativas</string>
     <string name="pref_replace_duplicate_downloads_title">Substituir downloads duplicados</string>
     <string name="pref_replace_duplicate_downloads_summary">Substituir downloads duplicados (com a mesma URL) quando adicionado que já estão na lista</string>
+    <string name="pref_auto_connect_title">Auto connect</string>
+    <string name="pref_auto_connect_summary">Auto connect when opening the add dialog</string>
     <!-- Storage settings -->
     <string name="pref_save_downloads_in_title">Salvar downloads em</string>
     <string name="pref_move_after_download_title">Mover após download</string>

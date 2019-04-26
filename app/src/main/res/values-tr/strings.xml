@@ -226,6 +226,8 @@
     <string name="pref_max_download_retries_dialog_msg">0 - bir daha deneme</string>
     <string name="pref_replace_duplicate_downloads_title">Yinelenen dosyalar yerine</string>
     <string name="pref_replace_duplicate_downloads_summary">Yinelenen dosyalar (aynı URL ile) değiştirmek zaman zaten listede vardır ekledi</string>
+    <string name="pref_auto_connect_title">Auto connect</string>
+    <string name="pref_auto_connect_summary">Auto connect when opening the add dialog</string>
     <!-- Storage settings -->
     <string name="pref_save_downloads_in_title">İndirilenleri kaydet</string>
     <string name="pref_move_after_download_title">İndirdikten sonra taşı</string>

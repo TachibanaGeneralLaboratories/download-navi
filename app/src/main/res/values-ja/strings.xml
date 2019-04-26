@@ -226,6 +226,8 @@
     <string name="pref_max_download_retries_dialog_msg">0 - 再試行なし</string>
     <string name="pref_replace_duplicate_downloads_title">重複ダウンロードを置き換える</string>
     <string name="pref_replace_duplicate_downloads_summary">既にリストにある場合、追加された時に (同じURL) 重複ダウンロードを置き換えます。</string>
+    <string name="pref_auto_connect_title">Auto connect</string>
+    <string name="pref_auto_connect_summary">Auto connect when opening the add dialog</string>
     <!-- Storage settings -->
     <string name="pref_save_downloads_in_title">ダウンロードの保存先</string>
     <string name="pref_move_after_download_title">ダウンロード後の移動</string>

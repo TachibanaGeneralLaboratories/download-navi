@@ -226,6 +226,8 @@
     <string name="pref_max_download_retries_dialog_msg">0 - bez opakování</string>
     <string name="pref_replace_duplicate_downloads_title">Nahradit duplicitní stahování</string>
     <string name="pref_replace_duplicate_downloads_summary">Nahradit duplicitní stahování (se stejné URL) pokud jsou přidány ty, které jsou již v seznamu</string>
+    <string name="pref_auto_connect_title">Auto connect</string>
+    <string name="pref_auto_connect_summary">Auto connect when opening the add dialog</string>
     <!-- Storage settings -->
     <string name="pref_save_downloads_in_title">Uložit stahování v</string>
     <string name="pref_move_after_download_title">Přesunout po stažení</string>

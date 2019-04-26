@@ -36,6 +36,7 @@
     <string name="pref_key_max_active_downloads" translatable="false">pref_key_max_active_downloads</string>
     <string name="pref_key_max_download_retries" translatable="false">pref_key_max_download_retries</string>
     <string name="pref_key_replace_duplicate_downloads" translatable="false">pref_key_replace_duplicate_downloads</string>
+    <string name="pref_key_auto_connect" translatable="false">pref_key_auto_connect</string>
     <!-- Storage settings -->
     <string name="pref_key_save_downloads_in" translatable="false">pref_key_save_downloads_in</string>
     <string name="pref_key_move_after_download" translatable="false">pref_key_move_after_download</string>

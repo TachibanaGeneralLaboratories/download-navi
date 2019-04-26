@@ -242,6 +242,8 @@
     <string name="pref_max_download_retries_dialog_msg">0 - без попыток</string>
     <string name="pref_replace_duplicate_downloads_title">Заменит дубликаты загрузок</string>
     <string name="pref_replace_duplicate_downloads_summary">Заменить дубликаты загрузок (с тем же URL) при добавлении, которые уже есть в списке</string>
+    <string name="pref_auto_connect_title">Автоматическое соединение</string>
+    <string name="pref_auto_connect_summary">Автоматическое соединение при открытии диалога добавления</string>
     <!-- Storage settings -->
     <string name="pref_save_downloads_in_title">Сохранять загрузки в</string>
     <string name="pref_move_after_download_title">Перемещать после загрузки</string>

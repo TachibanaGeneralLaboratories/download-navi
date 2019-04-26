@@ -53,6 +53,7 @@ import com.tachibana.downloader.core.utils.Utils;
 import com.tachibana.downloader.databinding.DialogAddDownloadBinding;
 import com.tachibana.downloader.dialog.filemanager.FileManagerConfig;
 import com.tachibana.downloader.dialog.filemanager.FileManagerDialog;
+import com.tachibana.downloader.settings.SettingsManager;
 import com.tachibana.downloader.viewmodel.AddDownloadViewModel;
 import com.tachibana.downloader.viewmodel.AddInitParams;
 
@@ -411,6 +412,9 @@ public class AddDownloadDialog extends DialogFragment
                     case FETCHED:
                         onFetched();
                         break;
+                    case UNKNOWN:
+                        doAutoFetch();
+                        break;
                 }
             });
 
@@ -568,6 +572,14 @@ public class AddDownloadDialog extends DialogFragment
         binding.layoutLink.requestFocus();
         /* Show connect button */
         alert.getButton(DialogInterface.BUTTON_POSITIVE).setEnabled(true);
+    }
+
+    private void doAutoFetch()
+    {
+        if (!TextUtils.isEmpty(viewModel.params.getUrl()) &&
+            viewModel.pref.getBoolean(getString(R.string.pref_key_auto_connect),
+                                      SettingsManager.Default.autoConnect))
+            fetchLink();
     }
 
     private void fetchLink()

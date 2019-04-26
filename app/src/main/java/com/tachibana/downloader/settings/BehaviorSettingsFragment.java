@@ -132,6 +132,10 @@ public class BehaviorSettingsFragment extends PreferenceFragmentCompat
         SwitchPreferenceCompat replaceDuplicateDownloads = (SwitchPreferenceCompat)findPreference(keyReplaceDuplicateDownloads);
         replaceDuplicateDownloads.setChecked(pref.getBoolean(keyReplaceDuplicateDownloads,
                                                              SettingsManager.Default.replaceDuplicateDownloads));
+
+        String keyAutoConnect = getString(R.string.pref_key_auto_connect);
+        SwitchPreferenceCompat autoConnect = (SwitchPreferenceCompat)findPreference(keyAutoConnect);
+        autoConnect.setChecked(pref.getBoolean(keyAutoConnect, SettingsManager.Default.autoConnect));
     }
 
     @Override

@@ -33,6 +33,11 @@
         android:title="@string/pref_replace_duplicate_downloads_title"
         android:summary="@string/pref_replace_duplicate_downloads_summary" />
 
+    <SwitchPreferenceCompat
+        android:key="@string/pref_key_auto_connect"
+        android:title="@string/pref_auto_connect_title"
+        android:summary="@string/pref_auto_connect_summary"/>
+
     <PreferenceCategory
         android:title="@string/pref_power_management_category">
 
