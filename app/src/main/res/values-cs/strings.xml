@@ -237,8 +237,10 @@
     <string name="pref_preallocate_disk_space_summary">Dostupné pro Android 5.0 Lollipop a vyšší</string>
     <!-- About dialog -->
     <string name="about_title">O Download Navi</string>
-    <string name="about_website">Více informací a také pomoc projektu: https://github.com/TachibanaGeneralLaboratories/download-navi</string>
-    <string name="about_description">Download Navi je bezplatný a open source správce stahování pro Android 4.4+.\n\nDownload Navi je volný software, vydaný za podmínek GNU General Public License v3
-(GPLv3)\nhttp://www.gnu.org/copyleft/gpl.html</string>
+    <string name="about_description"><![CDATA[
+    Více informací a také pomoc projektu: <a href="https://github.com/TachibanaGeneralLaboratories/download-navi">https://github.com/TachibanaGeneralLaboratories/download-navi</a><br><br>
+    Download Navi je bezplatný a open source správce stahování pro Android 4.4+<br><br>
+    Download Navi je volný software, vydaný za podmínek <a href="http://www.gnu.org/copyleft/gpl.html">GNU General Public License v3 (GPLv3)</a><br><br>
+    <a href="https://github.com/TachibanaGeneralLaboratories/download-navi/blob/HEAD/Privacy.md">Zásady ochrany osobních údajů</a>]]></string>
     <string name="about_changelog">Seznam změn</string>
 </resources>

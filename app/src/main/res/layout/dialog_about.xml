@@ -34,20 +34,10 @@
             android:textAppearance="@style/TextCaption" />
 
         <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
-            android:autoLink="web"
-            android:text="@string/about_website"
-            android:textAppearance="@style/TextAppearance.MaterialComponents.Body2" />
-
-        <TextView
             android:id="@+id/about_description"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
-            android:autoLink="web"
-            android:text="@string/about_description"
             android:textAppearance="@style/TextAppearance.MaterialComponents.Body2" />
     </LinearLayout>
 </ScrollView>

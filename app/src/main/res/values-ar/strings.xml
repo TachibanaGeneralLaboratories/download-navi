@@ -237,10 +237,10 @@
     <string name="pref_preallocate_disk_space_summary">متاح لإصدارات أندرويد 5.0 وما فوق</string>
     <!-- About dialog -->
     <string name="about_title">حول Download Navi</string>
-    <string name="about_website">لمزيد من المعلومات و للمساعدة في المشروع: https://github.com/TachibanaGeneralLaboratories/download-navi</string>
-    <string name="about_description">Download Navi حر ومفتوح المصدر للأندرويد 4.4 +.
-هو \"مدير التحميل نافي حر ومفتوح المصدر ، تم أطلاقه بموجب شروط رخصة جنو العمومية
- v3 http://www.gnu.org/copyleft/gpl.html
-(GPLv3)</string>
+    <string name="about_description"><![CDATA[
+    <br><br>لمزيد من المعلومات و للمساعدة في المشروع: <a href="https://github.com/TachibanaGeneralLaboratories/download-navi">https://github.com/TachibanaGeneralLaboratories/download-navi</a>
+    Download Navi حر ومفتوح المصدر للأندرويد 4.4 +<br><br>
+    Download Navi حر ومفتوح المصدر ، تم أطلاقه بموجب شروط رخصة <a href="http://www.gnu.org/copyleft/gpl.html">GNU General Public License v3 (GPLv3)</a><br><br>
+    <a href="https://github.com/TachibanaGeneralLaboratories/download-navi/blob/HEAD/Privacy.md">سياسة الخصوصية</a>]]></string>
     <string name="about_changelog">سِجل التغييرات</string>
 </resources>

@@ -237,7 +237,10 @@
     <string name="pref_preallocate_disk_space_summary">Disponível para Android 5.0 Lollipop ou superior</string>
     <!-- About dialog -->
     <string name="about_title">Sobre Download Navi</string>
-    <string name="about_website">Mais informações e também para ajudar o projeto: https://github.com/TachibanaGeneralLaboratários/download-navi</string>
-    <string name="about_description">Download Navi é um gerenciador de downloads gratuito e de código aberto para Android 4.4+.\n\nDownload Navi é um software livre, lançado sob os termos da Licença Pública Geral GNU v3 (GPLv3)\nhttp://www.gnu.org/copyleft/gpl.html</string>
+    <string name="about_description"><![CDATA[
+    Mais informações e também para ajudar o projeto: <a href="https://github.com/TachibanaGeneralLaboratories/download-navi">https://github.com/TachibanaGeneralLaboratories/download-navi</a><br><br>
+    Download Navi é um gerenciador de downloads gratuito e de código aberto para Android 4.4+<br><br>
+    Download Navi é um software livre, lançado sob os termos da licença <a href="http://www.gnu.org/copyleft/gpl.html">GNU General Public License v3 (GPLv3)</a><br><br>
+    <a href="https://github.com/TachibanaGeneralLaboratories/download-navi/blob/HEAD/Privacy.md">Política de Privacidade</a>]]></string>
     <string name="about_changelog">Alterações</string>
 </resources>

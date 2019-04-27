@@ -1,10 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
 <resources>
     <!-- Global string -->
     <string name="app_name">Download Navi</string>
     <string name="foreground_notification">Foreground notification</string>
-    <string name="download_running">In progress</string>
-    <string name="finished">Finished</string>
-    <string name="shutdown">Shutdown</string>
+    <string name="download_running">У току</string>
+    <string name="finished">Завршено</string>
+    <string name="shutdown">Искључи</string>
     <!-- 1 d. 1 h. 1 m -->
     <string name="elapsed_time_format_d_h_mm">%1$d d. %2$d h. %3$d m</string>
     <!-- 1 h. 1 m. 1 s -->
@@ -13,73 +14,65 @@
     <string name="elapsed_time_format_mm_ss">%1$d m. %2$d s</string>
     <!-- 1 s -->
     <string name="elapsed_time_format_ss">%1$d s</string>
-    <string name="ok">OK</string>
-    <string name="cancel">Cancel</string>
+    <string name="ok">ОК</string>
+    <string name="cancel">Прекини</string>
     <!-- A synonym for word "unmetered" - unlimited-->
     <string name="unmetered_connections_only">Unmetered connections only</string>
-    <string name="connect">Connect</string>
-    <string name="add">Add</string>
+    <string name="connect">Повежи</string>
+    <string name="add">Додај</string>
     <string name="not_available">N/A</string>
-    <string name="open_navigation_drawer">Open navigation drawer</string>
-    <string name="close_navigation_drawer">Close navigation drawer</string>
-    <string name="error_template">Error: %1$s</string>
-    <string name="pause">Pause</string>
-    <string name="resume">Resume</string>
-    <string name="stop">Stop</string>
-    <string name="stopped">Stopped</string>
-    <string name="pending">Pending</string>
-    <string name="delete">Delete</string>
-    <string name="share">Share</string>
-    <string name="menu">Menu</string>
-    <string name="select_all">Select all</string>
-    <string name="share_via">Share via</string>
-    <string name="no">No</string>
-    <string name="yes">Yes</string>
-    <string name="error">Error</string>
-    <string name="file">File</string>
-    <string name="folder">Folder</string>
-    <string name="downloading_metadata">Downloading metadata</string>
-    <string name="all">All</string>
-    <string name="search">Search</string>
-    <string name="settings">Settings</string>
-    <string name="about">About</string>
-    <string name="close">Close</string>
-    <string name="redownload">Redownload</string>
-    <string name="Default">Default</string>
-    <string name="warning">Warning</string>
-    <string name="apply">Apply</string>
-    <string name="report">Report</string>
-    <string name="more_details">More details</string>
-
+    <string name="open_navigation_drawer">Отвори фиоку навигације</string>
+    <string name="close_navigation_drawer">Затвори навигациону фиоку</string>
+    <string name="error_template">Грешка: %1$s</string>
+    <string name="pause">Пауза</string>
+    <string name="resume">Настави</string>
+    <string name="stop">Заустави</string>
+    <string name="stopped">Заустављено</string>
+    <string name="pending">Нa чекању</string>
+    <string name="delete">Обриши</string>
+    <string name="share">Подели</string>
+    <string name="menu">Мени</string>
+    <string name="select_all">Изабери све</string>
+    <string name="share_via">Делите преко</string>
+    <string name="no">Не</string>
+    <string name="yes">Да</string>
+    <string name="error">Грешка</string>
+    <string name="file">Фајл</string>
+    <string name="folder">Фасцикла</string>
+    <string name="downloading_metadata">Преузимање метаподатака</string>
+    <string name="all">Све</string>
+    <string name="search">Претрага</string>
+    <string name="settings">Подешавања</string>
+    <string name="about">О програму</string>
+    <string name="close">Затвори</string>
+    <string name="redownload">Поново преузми</string>
+    <string name="Default">Подразумевано</string>
+    <string name="warning">Упозорење</string>
+    <string name="apply">Примени</string>
+    <string name="report">Пријави</string>
+    <string name="more_details">Детаљније</string>
     <!-- Permission dialog -->
-    <string name="perm_denied_title">Permission denied</string>
+    <string name="perm_denied_title">Дозвола одбијена</string>
     <string name="perm_denied_warning">Without this permission app can\'t save files in memory on some devices and versions of Android. The app will not work properly. Are you sure you want to deny this permission?</string>
-
     <!-- Download progress notification -->
-    <string name="download_ticker_notify" formatted="false">Downloading %1$s</string>
-
+    <string name="download_ticker_notify" formatted="false">Преузимање %1$s</string>
     <!-- Foreground notification -->
-    <string name="app_running_in_the_background">Download Navi running in the background</string>
-    <string name="pause_all">Pause all</string>
+    <string name="app_running_in_the_background">Преузимање Нави ради у позадини</string>
+    <string name="pause_all">Паузирај све</string>
     <string name="resume_all">Resume all</string>
-
     <!-- Finish notification -->
     <string name="download_finished_notify">Download finished</string>
     <string name="open_using">Open using</string>
-
     <!-- Pending notification -->
     <string name="download_in_queue_ticker_notify" formatted="false">%1$s in queue</string>
     <string name="waiting_for_network">Waiting for network</string>
     <string name="waiting_for_retry">Waiting for retry</string>
-
     <!-- Error notification -->
     <string name="download_error_notify_title">Download error</string>
-
     <!-- Applying params notification -->
     <string name="applying_params_title">Applying params</string>
     <string name="applying_params_for_downloads">Applying params for downloads</string>
     <string name="applying_params_error_title" formatted="false">Applying params error for %1$s</string>
-
     <!-- Add download dialog -->
     <string name="add_download">Add download</string>
     <string name="download_link">Link</string>
@@ -106,10 +99,8 @@
     <string name="path">Path</string>
     <string name="storage_free_space" formatted="false">Free space: %1$s</string>
     <string name="add_download_error_invalid_url">Unable to add download: invalid URL</string>
-
     <!-- Add user agent dialog -->
     <string name="dialog_add_user_agent_title">Add user agent</string>
-
     <!-- Main activity -->
     <string name="fragment_title_queued">Queued</string>
     <string name="fragment_title_completed">Completed</string>
@@ -123,41 +114,38 @@
     <string name="drawer_category_images">Images</string>
     <string name="drawer_category_video">Video</string>
     <string name="drawer_category_apk">APK</string>
-    <string name="drawer_category_audio">Audio</string>
-    <string name="drawer_category_archives">Archives</string>
+    <string name="drawer_category_audio">Звук</string>
+    <string name="drawer_category_archives">Архиве</string>
     <!-- Status -->
-    <string name="drawer_status">Status</string>
-    <string name="drawer_status_running">Running</string>
-    <string name="drawer_status_stopped">Stopped</string>
+    <string name="drawer_status">Статус</string>
+    <string name="drawer_status_running">Активно</string>
+    <string name="drawer_status_stopped">Заустављено</string>
     <!-- Date added -->
-    <string name="drawer_date_added">Date added</string>
-    <string name="drawer_date_added_today">Today</string>
-    <string name="drawer_date_added_yesterday">Yesterday</string>
-    <string name="drawer_date_added_week">Week</string>
-    <string name="drawer_date_added_month">Month</string>
-    <string name="drawer_date_added_year">Year</string>
+    <string name="drawer_date_added">Датум додавања</string>
+    <string name="drawer_date_added_today">Данас</string>
+    <string name="drawer_date_added_yesterday">Јуче</string>
+    <string name="drawer_date_added_week">Седмица</string>
+    <string name="drawer_date_added_month">Месец</string>
+    <string name="drawer_date_added_year">Година</string>
     <!-- Sorting -->
-    <string name="drawer_sorting">Sorting</string>
-    <string name="drawer_sorting_date_added">Date added</string>
-    <string name="drawer_sorting_name">Name</string>
-    <string name="drawer_sorting_size">Size</string>
-    <string name="drawer_sorting_category">Category</string>
-    <string name="drawer_sorting_no_sorting">No sorting</string>
-
+    <string name="drawer_sorting">Сортирање</string>
+    <string name="drawer_sorting_date_added">Датум додавања</string>
+    <string name="drawer_sorting_name">Име</string>
+    <string name="drawer_sorting_size">Величина</string>
+    <string name="drawer_sorting_category">Категорија</string>
+    <string name="drawer_sorting_no_sorting">Без сортирања</string>
     <!-- Download list item -->
-
     <!-- downloaded/total • ETA • speed -->
     <string name="download_queued_progress_template" formatted="false">%1$s/%2$s \u2022 %3$s \u2022 %4$s/s</string>
     <!-- downloaded/total • status -->
     <string name="download_queued_template" formatted="false">%1$s/%2$s \u2022 %3$s</string>
     <!-- hostname • total -->
     <string name="download_finished_template" formatted="false">%1$s \u2022 %2$s</string>
-    <string name="download_details">Details</string>
-    <string name="deleting">Deleting</string>
+    <string name="download_details">Детаљи</string>
+    <string name="deleting">Брисање</string>
     <string name="delete_selected_download">Delete the selected download? This operation cannot be undone</string>
     <string name="delete_selected_downloads">Delete the selected downloads? This operation cannot be undone</string>
     <string name="delete_with_downloaded_file">Delete with downloaded file</string>
-
     <!-- Filemanager dialog -->
     <string name="dir_chooser_title">Folder selection</string>
     <string name="file_chooser_title">File selection</string>
@@ -175,7 +163,6 @@
     <string name="device_does_not_support_this_feature">Your device doesn\'t support this feature</string>
     <string name="system_file_manager_not_found">System file manager not found</string>
     <string name="replace_file">Replace file</string>
-
     <!-- Details download dialog -->
     <string name="detail_downloaded">Downloaded</string>
     <!-- downloaded/total (percent) -->
@@ -186,15 +173,12 @@
     <string name="detail_md5_hash_sum">MD5</string>
     <string name="detail_sha256_hash_sum">SHA-256</string>
     <string name="calculate">Calculate</string>
-
     <!-- Error report -->
     <string name="app_error_occurred">The app error occurred. You can send the report to developers</string>
     <string name="error_comment_prompt">You can add extra information and comments here:</string>
-
     <!-- Send text to clipboard -->
     <string name="send_text_to_clipboard">Copy</string>
     <string name="text_copied_to_clipboard">Text copied to clipboard</string>
-
     <!-- Settings -->
     <!-- Headers -->
     <string name="pref_header_appearance">Appearance</string>
@@ -251,7 +235,6 @@
     <string name="pref_delete_file_if_error_title">Delete file if an error occurs</string>
     <string name="pref_preallocate_disk_space_title">Pre-allocate disk space for the file</string>
     <string name="pref_preallocate_disk_space_summary">Available for Android 5.0 Lollipop and above</string>
-
     <!-- About dialog -->
     <string name="about_title">About Download Navi</string>
     <string name="about_description"><![CDATA[

@@ -29,6 +29,8 @@ import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
+import android.text.Html;
+import android.text.method.LinkMovementMethod;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.TextView;
@@ -457,9 +459,12 @@ public class MainActivity extends AppCompatActivity
         Dialog dialog = aboutDialog.getDialog();
         if (dialog != null) {
             TextView versionTextView = dialog.findViewById(R.id.about_version);
+            TextView descriptionTextView = dialog.findViewById(R.id.about_description);
             String versionName = Utils.getAppVersionName(this);
             if (versionName != null)
                 versionTextView.setText(versionName);
+            descriptionTextView.setText(Html.fromHtml(getString(R.string.about_description)));
+            descriptionTextView.setMovementMethod(LinkMovementMethod.getInstance());
         }
     }
 

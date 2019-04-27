@@ -237,7 +237,10 @@
     <string name="pref_preallocate_disk_space_summary">एंड्रॉयड 5.0 लॉलीपॉप और ऊपर के लिए उपलब्ध</string>
     <!-- About dialog -->
     <string name="about_title">Download Navi बारे में</string>
-    <string name="about_website">अधिक जानकारी और भी परियोजना में मदद करने के लिए: https://github.com/TachibanaGeneralLaboratories/download-navi</string>
-    <string name="about_description">Download Navi एंड्रॉयड 4.4 + के लिए एक स्वतंत्र और खुला स्रोत डाउनलोड प्रबंधक है । \n\n डाउनलोड नवी नि: शुल्क सॉफ्टवेयर, जीएनयू जनरल पब्लिक लाइसेंस v3 (GPLv3) की शर्तों के तहत जारी है \n http://www.gnu.org/copyleft/gpl.html</string>
+    <string name="about_description"><![CDATA[
+    अधिक जानकारी और भी परियोजना में मदद करने के लिए: <a href="https://github.com/TachibanaGeneralLaboratories/download-navi">https://github.com/TachibanaGeneralLaboratories/download-navi</a><br><br>
+    Download Navi एंड्रॉयड 4.4 + के लिए एक स्वतंत्र और खुला स्रोत डाउनलोड प्रबंधक है<br><br>
+    Download Navi मुफ्त सॉफ्टवेयर है, की शर्तों के तहत जारी <a href="http://www.gnu.org/copyleft/gpl.html">GNU General Public License v3 (GPLv3)</a><br><br>
+    <a href="https://github.com/TachibanaGeneralLaboratories/download-navi/blob/HEAD/Privacy.md">गोपनीयता नीति</a>]]></string>
     <string name="about_changelog">परिवर्तन लॉग</string>
 </resources>

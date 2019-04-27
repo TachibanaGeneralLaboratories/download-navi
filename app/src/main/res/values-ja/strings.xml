@@ -237,7 +237,10 @@
     <string name="pref_preallocate_disk_space_summary">Android 5.0 Lollipop 以上で有効です</string>
     <!-- About dialog -->
     <string name="about_title">Download Navi について</string>
-    <string name="about_website">詳細情報とプロジェクトの支援: https://github.com/TachibanaGeneralLaboratories/download-navi</string>
-    <string name="about_description">Download Navi は Android 4.4 以上向けの無料のオープンソースダウンロードマネージャです。\n\nDownload Navi は GNU General Public License v3 (GPLv3) の条件の下でリリースされたフリーソフトウェアです。\nhttp://www.gnu.org/copyleft/gpl.html</string>
+    <string name="about_description"><![CDATA[
+    詳細情報とプロジェクトの支援: <a href="https://github.com/TachibanaGeneralLaboratories/download-navi">https://github.com/TachibanaGeneralLaboratories/download-navi</a><br><br>
+    Download Navi は Android 4.4 以上向けの無料のオープンソースダウンロードマネージャです<br><br>
+    Download Navi は <a href="http://www.gnu.org/copyleft/gpl.html">GNU General Public License v3 (GPLv3)</a> の条件の下でリリースされたフリーソフトウェアです<br><br>
+    <a href="https://github.com/TachibanaGeneralLaboratories/download-navi/blob/HEAD/Privacy.md">個人情報保護方針</a>]]></string>
     <string name="about_changelog">更新履歴</string>
 </resources>
