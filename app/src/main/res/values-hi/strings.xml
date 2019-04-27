@@ -1,0 +1,243 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Global string -->
+    <string name="app_name">Download Navi</string>
+    <string name="foreground_notification">अग्रभूमि अधिसूचना</string>
+    <string name="download_running">प्रगति में</string>
+    <string name="finished">समाप्त</string>
+    <string name="shutdown">शटडाउन</string>
+    <!-- 1 d. 1 h. 1 m -->
+    <string name="elapsed_time_format_d_h_mm">%1$d दि. %2$d घं. %3$d मि</string>
+    <!-- 1 h. 1 m. 1 s -->
+    <string name="elapsed_time_format_h_mm_ss">%1$d घं. %2$d मि. %3$d से</string>
+    <!-- 1 m. 1 s -->
+    <string name="elapsed_time_format_mm_ss">%1$d मि. %2$d से</string>
+    <!-- 1 s -->
+    <string name="elapsed_time_format_ss">%1$d से</string>
+    <string name="ok">ठीक है</string>
+    <string name="cancel">रद्द करें</string>
+    <!-- A synonym for word "unmetered" - unlimited-->
+    <string name="unmetered_connections_only">केवल अनमीटर्ड कनेक्शन</string>
+    <string name="connect">कनेक्ट करें</string>
+    <string name="add">जोड़ें</string>
+    <string name="not_available">लागू नहीं</string>
+    <string name="open_navigation_drawer">नेविगेशन ड्रॉवर खोलो</string>
+    <string name="close_navigation_drawer">नेविगेशन ड्रॉवर बंद करो</string>
+    <string name="error_template">त्रुटि: %1$s</string>
+    <string name="pause">विराम</string>
+    <string name="resume">पुनः आरंभ</string>
+    <string name="stop">रुकें</string>
+    <string name="stopped">रोका गया</string>
+    <string name="pending">लंबित</string>
+    <string name="delete">मिटाएँ</string>
+    <string name="share">सांझा करें</string>
+    <string name="menu">विषय सूची</string>
+    <string name="select_all">सभी का चयन करें</string>
+    <string name="share_via">के माध्यम से साझा करें</string>
+    <string name="no">नहीं</string>
+    <string name="yes">हाँ</string>
+    <string name="error">त्रुटि</string>
+    <string name="file">फ़ाइल</string>
+    <string name="folder">फोल्डर</string>
+    <string name="downloading_metadata">मेटाडेटा डाउनलोड कर रहा है</string>
+    <string name="all">सभी</string>
+    <string name="search">खोजें</string>
+    <string name="settings">सेटिंग्स</string>
+    <string name="about">विवरण</string>
+    <string name="close">बंद करें</string>
+    <string name="redownload">फिर से डाउनलोड करें</string>
+    <string name="Default">डिफ़ॉल्ट</string>
+    <string name="warning">चेतावनी</string>
+    <string name="apply">लागू करें</string>
+    <string name="report">रिपोर्ट करें</string>
+    <string name="more_details">अधिक जानकारी</string>
+    <!-- Permission dialog -->
+    <string name="perm_denied_title">अनुमति अस्वीकृत</string>
+    <string name="perm_denied_warning">इस अनुमति एप्लिकेशन के बिना कुछ उपकरणों और Android के संस्करणों पर स्मृति में फ़ाइलों को नहीं बचा सकता । ऐप ठीक से काम नहीं करेगा । क्या आप निश्चयपूर्वक इस अनुमति को अस्वीकार करना चाहते हैं?</string>
+    <!-- Download progress notification -->
+    <string name="download_ticker_notify" formatted="false">%1$s डाउनलोड हो रहा है</string>
+    <!-- Foreground notification -->
+    <string name="app_running_in_the_background">Download Navi पृष्ठभूमि में चल रहा है</string>
+    <string name="pause_all">सभी रोकें</string>
+    <string name="resume_all">सभी को पुनः आरंभ करें</string>
+    <!-- Finish notification -->
+    <string name="download_finished_notify">डाउनलोड समाप्त</string>
+    <string name="open_using">का उपयोग कर खोलें</string>
+    <!-- Pending notification -->
+    <string name="download_in_queue_ticker_notify" formatted="false">%1$s कतार में</string>
+    <string name="waiting_for_network">नेटवर्क का इंतज़ार</string>
+    <string name="waiting_for_retry">पुन: प्रयास का इंतजार</string>
+    <!-- Error notification -->
+    <string name="download_error_notify_title">डाउनलोड त्रुटि</string>
+    <!-- Applying params notification -->
+    <string name="applying_params_title">मापदंड लागू हो रहा</string>
+    <string name="applying_params_for_downloads">डाउनलोड के लिए मापदंड लागू हो रहा</string>
+    <string name="applying_params_error_title" formatted="false">%1$s के लिए मापदंड लागू हो रहा</string>
+    <!-- Add download dialog -->
+    <string name="add_download">डाउनलोड जोड़ें</string>
+    <string name="download_link">लिंक</string>
+    <string name="download_name">नाम</string>
+    <string name="download_size" formatted="false">आकार: %1$s</string>
+    <string name="download_retry">पुन: प्रयास करें</string>
+    <string name="download_advanced">उन्नत</string>
+    <string name="download_user_agent">उपयोगकर्ता एजेंट</string>
+    <string name="download_error_empty_link">कृपया लिंक दर्ज करें</string>
+    <string name="download_error_empty_name">कृपया नाम दर्ज करें</string>
+    <string name="download_error_no_enough_free_space" formatted="false">पर्याप्त खाली स्थान नहीं: %1$s मुफ़्त, लेकिन फ़ाइल का आकार %2$s है</string>
+    <string name="download_error_name_is_not_correct" formatted="false">सही नाम \"%1$s\" है</string>
+    <string name="fetch_error_default_fmt" formatted="false">त्रुटि: %1$s</string>
+    <string name="fetch_error_invalid_url" formatted="false">अमान्य URL:%1$s</string>
+    <string name="fetch_error_network_disconnected">नेटवर्क कनेक्ट नहीं है।</string>
+    <string name="fetch_error_http_response" formatted="false">त्रुटि: सर्वर ने HTTP %1$d कोड लौटा दिया</string>
+    <string name="fetch_error_io" formatted="false">IO त्रुटि: %1$s</string>
+    <string name="unable_to_open_folder">चयनित फ़ोल्डर खोलने में असमर्थ। कृपया किसी अन्य फ़ोल्डर का चयन करने का प्रयास करें</string>
+    <string name="unable_to_create_file">फ़ाइल बनाने में असमर्थ। कृपया किसी अन्य फ़ोल्डर का चयन करने का प्रयास करें</string>
+    <string name="partial_download_not_supported">यह डाउनलोड टुकड़ों द्वारा विराम देने और डाउनलोड करने का समर्थन नहीं करता है</string>
+    <string name="download_pieces_number_title">टुकड़ों की संख्या</string>
+    <string name="download_description">विवरण</string>
+    <string name="select_folder_to_save">सहेजने के लिए फ़ोल्डर का चयन करें</string>
+    <string name="path">पथ</string>
+    <string name="storage_free_space" formatted="false">मुक्त स्थान: %1$s</string>
+    <string name="add_download_error_invalid_url">डाउनलोड जोड़ने में असमर्थ: अमान्य URL</string>
+    <!-- Add user agent dialog -->
+    <string name="dialog_add_user_agent_title">यूजर एजेंट जोड़ें</string>
+    <!-- Main activity -->
+    <string name="fragment_title_queued">पंक्तिबद्ध</string>
+    <string name="fragment_title_completed">पूर्ण</string>
+    <string name="download_list_empty">कोई डाउनलोड नहीं</string>
+    <string name="share_url">URL साझा करें</string>
+    <!-- Navigation drawer -->
+    <!-- Category -->
+    <string name="drawer_category">श्रेणी</string>
+    <string name="drawer_category_others">अन्य</string>
+    <string name="drawer_category_documents">दस्तावेज़</string>
+    <string name="drawer_category_images">छवि</string>
+    <string name="drawer_category_video">वीडियो</string>
+    <string name="drawer_category_apk">APK</string>
+    <string name="drawer_category_audio">ध्वनि</string>
+    <string name="drawer_category_archives">अभिलेखागार</string>
+    <!-- Status -->
+    <string name="drawer_status">स्थिति</string>
+    <string name="drawer_status_running">चल रहा है</string>
+    <string name="drawer_status_stopped">रोका गया</string>
+    <!-- Date added -->
+    <string name="drawer_date_added">जोड़ने की तिथि</string>
+    <string name="drawer_date_added_today">आज</string>
+    <string name="drawer_date_added_yesterday">कल</string>
+    <string name="drawer_date_added_week">सप्ताह</string>
+    <string name="drawer_date_added_month">माह</string>
+    <string name="drawer_date_added_year">वर्ष</string>
+    <!-- Sorting -->
+    <string name="drawer_sorting">क्रमित हो रही है...</string>
+    <string name="drawer_sorting_date_added">जोड़ने की तिथि</string>
+    <string name="drawer_sorting_name">नाम</string>
+    <string name="drawer_sorting_size">आकार</string>
+    <string name="drawer_sorting_category">श्रेणी</string>
+    <string name="drawer_sorting_no_sorting">कोई सॉर्टिंग नहीं</string>
+    <!-- Download list item -->
+    <!-- downloaded/total • ETA • speed -->
+    <string name="download_queued_progress_template" formatted="false">%1$s/%2$s \u2022 %3$s \u2022 %4$s/s</string>
+    <!-- downloaded/total • status -->
+    <string name="download_queued_template" formatted="false">%1$s/%2$s \u2022 %3$s</string>
+    <!-- hostname • total -->
+    <string name="download_finished_template" formatted="false">%1$s \u2022 %2$s</string>
+    <string name="download_details">विवरण</string>
+    <string name="deleting">हटाया जा रहा है</string>
+    <string name="delete_selected_download">चयनित डाउनलोड हटाएं? यह कार्रवाई पूर्ववत् नहीं की जा सकती</string>
+    <string name="delete_selected_downloads">चयनित डाउनलोड हटाएं? यह कार्रवाई पूर्ववत् नहीं की जा सकती</string>
+    <string name="delete_with_downloaded_file">डाउनलोड की गई फ़ाइल हटाएं</string>
+    <!-- Filemanager dialog -->
+    <string name="dir_chooser_title">फ़ोल्डर्स चयन</string>
+    <string name="file_chooser_title">फ़ाइल चयन</string>
+    <string name="dialog_new_folder_title">नया फ़ोल्डर</string>
+    <string name="error_dialog_new_folder">लक्ष्य फ़ोल्डर बनाने में असमर्थ</string>
+    <string name="error_open_dir">स्रोत फ़ोल्डर को खोलने में असमर्थ</string>
+    <string name="home_directory">मुखपृष्ठ</string>
+    <!-- name (size) -->
+    <string name="permission_denied">अनुमति अस्वीकृत</string>
+    <string name="save_file">फाइल सहेजें</string>
+    <string name="file_name">फ़ाइल का नाम</string>
+    <string name="error_file_exists">फ़ाइल पहले से मौजूद है । इसे बदलें?</string>
+    <string name="file_name_is_empty">फ़ाइल का नाम खाली नहीं रह सकता</string>
+    <string name="system_manager">सिस्टम प्रबंधक</string>
+    <string name="device_does_not_support_this_feature">आपका उपकरण इस कार्य का समर्थन नहीं करता है</string>
+    <string name="system_file_manager_not_found">सिस्टम फ़ाइल प्रबंधक नहीं मिला</string>
+    <string name="replace_file">फ़ाइल बदलें</string>
+    <!-- Details download dialog -->
+    <string name="detail_downloaded">डाउनलोड किए गए</string>
+    <!-- downloaded/total (percent) -->
+    <string name="detail_downloaded_format" formatted="false">%1$s/%2$s (%3$d%%)</string>
+    <string name="detail_pieces">टुकड़े</string>
+    <string name="detail_date_added">जोड़ने की तिथि</string>
+    <string name="detail_user_agent">उपयोगकर्ता एजेंट</string>
+    <string name="detail_md5_hash_sum">MD5</string>
+    <string name="detail_sha256_hash_sum">SHA-256</string>
+    <string name="calculate">गणना करें</string>
+    <!-- Error report -->
+    <string name="app_error_occurred">ऐप त्रुटि हुई। आप डेवलपर्स को रिपोर्ट भेज सकते हैं</string>
+    <string name="error_comment_prompt">आप यहां अतिरिक्त जानकारी और टिप्पणियां जोड़ सकते हैं:</string>
+    <!-- Send text to clipboard -->
+    <string name="send_text_to_clipboard">प्रतिलिपि बनाएँ</string>
+    <string name="text_copied_to_clipboard">टेक्स्ट क्लिपबोर्ड पर कॉपी किया गया</string>
+    <!-- Settings -->
+    <!-- Headers -->
+    <string name="pref_header_appearance">स्वरूप</string>
+    <string name="pref_header_behavior">व्यवहार</string>
+    <string name="pref_header_storage">संग्रहण</string>
+    <!-- Appearance settings -->
+    <string name="pref_theme_category">विषयवस्तु सेटिंग्स</string>
+    <string name="pref_theme_title">थीम</string>
+    <string-array name="pref_theme_entries">
+        <item>हल्का</item>
+        <item>अंधेरा</item>
+        <item>काला</item>
+    </string-array>
+    <string name="pref_notification_category">अधिसूचना सेटिंग</string>
+    <string name="pref_progress_notify_title">प्रगति संबंधी अधिसूचना</string>
+    <string name="pref_finish_notify_title">कार्य सूचना समाप्त अधिसूचना</string>
+    <string name="pref_pending_notify_title">अपूर्ण अधिसूचना</string>
+    <string name="pref_play_sound_notify_title">ध्वनि चलाएँ</string>
+    <string name="pref_notify_sound_title">अधिसूचना ध्वनि</string>
+    <string name="pref_led_indicator_notify_title">एलईडी सूचक</string>
+    <string name="pref_led_indicator_color_notify_title">एलईडी सूचक रंग</string>
+    <string name="pref_vibration_notify_title">कंपन</string>
+    <string name="theme_settings_apply_after_reboot">ऐप को पुनरारंभ करने के बाद थीम सेटिंग्स लागू की जाएंगी</string>
+    <!-- Behavior settings -->
+    <string name="pref_autostart_title">स्वत: आरंभ</string>
+    <string name="pref_autostart_summary">यंत्र शुरू करने और डाउनलोड शुरू करने के बाद ऐप चलाएं, अगर वे शारीरिक रूप से रोका नहीं गया था</string>
+    <!-- A synonym for word "unmetered" - unlimited-->
+    <string name="pref_umnetered_connections_only_title">केवल अनमीटर्ड कनेक्शन</string>
+    <string name="pref_umnetered_connections_only_summary">केवल अनमीटर्ड कनेक्शन पर डाउनलोड करें (उदाहरण के लिए, वाई-फाई या ईथरनेट)</string>
+    <string name="pref_power_management_category">ऊर्जा प्रबंधन</string>
+    <string name="pref_cpu_do_not_sleep_title">सीपीयू को जागृत रखें</string>
+    <string name="pref_cpu_do_not_sleep_summary">इसे सक्षम करने से बैटरी का उपयोग बढ़ेगा। स्क्रीन के बंद होने पर डाउनलोड की गति कम हो जाती है तो इस विकल्प का उपयोग करें</string>
+    <string name="pref_download_only_when_charging_title">चार्ज करते समय ही डाउनलोड करें</string>
+    <string name="pref_download_only_when_charging_summary">यदि सक्षम किया गया है, तो डाउनलोडिंग चार्जिंग के दौरान ही होगी। चार्जर से कनेक्ट नहीं होने पर सभी डाउनलोड रुक जाएंगे</string>
+    <string name="pref_battery_control_title">बैटरी नियंत्रण</string>
+    <string name="pref_custom_battery_control_title">अनुकूल बैटरी प्रतिशत</string>
+    <string name="pref_custom_battery_control_value_title">बैटरी नियंत्रण प्रतिशत</string>
+    <string name="pref_battery_control_summary" formatted="false">यदि बैटरी स्तर %1$d%% से नीचे चला जाता है, तो सभी डाउनलोड रोक दिए जाएंगे। चार्जिंग के समय सीमा लागू नहीं होती है</string>
+    <string name="pref_custom_battery_control_summary" formatted="false">अगर बैटरी दी गई सीमा से नीचे गिरती है, तो डाउनलोड को रोकने के लिए एक अनुकूल प्रतिशत सेट करें। इसे सक्षम करने पर डिफ़ॉल्ट %1$d%% सीमा की अनदेखी होगी</string>
+    <string name="pref_custom_battery_control_dialog_summary" formatted="false">एप्लिकेशन को देखने के लिए कस्टम बैटरी प्रतिशत सेट करने से बैटरी के जीवन पर नकारात्मक प्रभाव पड़ेगा जब डाउनलोड हो रहे हैं। क्या आप वाकई इसे सक्षम करना चाहते हैं?</string>
+    <string name="pref_enable_roaming_title">रोमिंग सक्षम करें</string>
+    <string name="pref_enable_roaming_summary">तभी डाउनलोड करें जब डिवाइस रोमिंग में नहीं हो</string>
+    <string name="pref_max_active_downloads_title">अधिकतम सक्रिय डाउनलोड</string>
+    <string name="pref_max_download_retries_title">डाउनलोड पुन: प्रयास की अधिकतम संख्या</string>
+    <string name="pref_max_download_retries_dialog_msg">0 - बिना पुन: प्रयास</string>
+    <string name="pref_replace_duplicate_downloads_title">प्रतिलिपि डाउनलोड बदलें</string>
+    <string name="pref_replace_duplicate_downloads_summary">प्रतिलिपि डाउनलोड (एक ही URL के साथ) को प्रतिस्थापित करें जब जोड़ा जो पहले से ही सूची में है</string>
+    <string name="pref_auto_connect_title">स्वतः जुड़ना</string>
+    <string name="pref_auto_connect_summary">जोड़ें संवाद खोलते समय स्वत: कनेक्ट करें</string>
+    <!-- Storage settings -->
+    <string name="pref_save_downloads_in_title">में डाउनलोड सहेजें</string>
+    <string name="pref_move_after_download_title">डाउनलोड करने के बाद ले जाएं</string>
+    <string name="pref_move_after_download_in_title">में डाउनलोड करने के बाद ले जाएं</string>
+    <string name="pref_delete_file_if_error_title">यदि कोई त्रुटि उत्पंन होती है तो फ़ाइल हटाएं</string>
+    <string name="pref_preallocate_disk_space_title">फ़ाइल के लिए डिस्क स्थान पूर्व-आबंटित करें</string>
+    <string name="pref_preallocate_disk_space_summary">एंड्रॉयड 5.0 लॉलीपॉप और ऊपर के लिए उपलब्ध</string>
+    <!-- About dialog -->
+    <string name="about_title">Download Navi बारे में</string>
+    <string name="about_website">अधिक जानकारी और भी परियोजना में मदद करने के लिए: https://github.com/TachibanaGeneralLaboratories/download-navi</string>
+    <string name="about_description">Download Navi एंड्रॉयड 4.4 + के लिए एक स्वतंत्र और खुला स्रोत डाउनलोड प्रबंधक है । \n\n डाउनलोड नवी नि: शुल्क सॉफ्टवेयर, जीएनयू जनरल पब्लिक लाइसेंस v3 (GPLv3) की शर्तों के तहत जारी है \n http://www.gnu.org/copyleft/gpl.html</string>
+    <string name="about_changelog">परिवर्तन लॉग</string>
+</resources>

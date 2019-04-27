@@ -17,8 +17,8 @@
     <string name="ok">حسناً</string>
     <string name="cancel">إلغاء</string>
     <!-- A synonym for word "unmetered" - unlimited-->
-    <string name="unmetered_connections_only">الاتصالات الثابتة فقط</string>
-    <string name="connect">الاتصال</string>
+    <string name="unmetered_connections_only">الاتصالات الغير محدودة فقط</string>
+    <string name="connect">أبدا</string>
     <string name="add">إضافة</string>
     <string name="not_available">غير متوفر</string>
     <string name="open_navigation_drawer">فتح القائمة الجانبية</string>
@@ -75,15 +75,15 @@
     <string name="applying_params_error_title" formatted="false">خطأ في تطبيق params ل %1$s</string>
     <!-- Add download dialog -->
     <string name="add_download">إضافة تحميل</string>
-    <string name="download_link">رابط</string>
+    <string name="download_link">الرابط</string>
     <string name="download_name">الاسم</string>
     <string name="download_size" formatted="false">الحجم: %1$s</string>
-    <string name="download_retry">اعد المحاولة</string>
+    <string name="download_retry">أعد المحاولة</string>
     <string name="download_advanced">إعدادات متقدمة</string>
     <string name="download_user_agent">وكيل المستخدم</string>
     <string name="download_error_empty_link">يرجي إدخال الرابط</string>
     <string name="download_error_empty_name">الرجاء إدخال الأسم</string>
-    <string name="download_error_no_enough_free_space" formatted="false">مساحة حرة غير كافية: %1$s المتوفرة ، ولكن حجم الملف %2$s</string>
+    <string name="download_error_no_enough_free_space" formatted="false">المساحة الحرة غير كافية: %1$s المتوفرة ، ولكن حجم الملف %2$s</string>
     <string name="download_error_name_is_not_correct" formatted="false">الاسم الصحيح هو \"%1$s\"</string>
     <string name="fetch_error_default_fmt" formatted="false">خطأ: %1$s</string>
     <string name="fetch_error_invalid_url" formatted="false">الرابط غير صالح: %1$s</string>
@@ -93,7 +93,7 @@
     <string name="unable_to_open_folder">غير قادر على فتح المجلد المحدد. الرجاء تحديد مجلد آخر</string>
     <string name="unable_to_create_file">غير قادر على إنشاء الملف. الرجاء تحديد مجلد آخر</string>
     <string name="partial_download_not_supported">لا يدعم هذا التحميل الإيقاف وتحميله بالاجزاء</string>
-    <string name="download_pieces_number_title">عدد القطع</string>
+    <string name="download_pieces_number_title">عدد الاجزاء</string>
     <string name="download_description">الوصف</string>
     <string name="select_folder_to_save">حدد مجلد الحفظ</string>
     <string name="path">المسار</string>
@@ -102,8 +102,8 @@
     <!-- Add user agent dialog -->
     <string name="dialog_add_user_agent_title">إضافة وكيل المستخدم</string>
     <!-- Main activity -->
-    <string name="fragment_title_queued">في الإنتظار</string>
-    <string name="fragment_title_completed">مكتمل</string>
+    <string name="fragment_title_queued">في قائمة الإنتظار</string>
+    <string name="fragment_title_completed">المكتملة</string>
     <string name="download_list_empty">لا توجد تنزيلات</string>
     <string name="share_url">مشاركة الرابط</string>
     <!-- Navigation drawer -->
@@ -113,12 +113,12 @@
     <string name="drawer_category_documents">المستندات</string>
     <string name="drawer_category_images">الصور</string>
     <string name="drawer_category_video">الفيديو</string>
-    <string name="drawer_category_apk">ملف APK</string>
-    <string name="drawer_category_audio">الصوت</string>
+    <string name="drawer_category_apk">ملفات APK</string>
+    <string name="drawer_category_audio">الصوتيات</string>
     <string name="drawer_category_archives">الأرشيف</string>
     <!-- Status -->
     <string name="drawer_status">الحالة</string>
-    <string name="drawer_status_running">قيد التشغيل</string>
+    <string name="drawer_status_running">قيد التنفيذ</string>
     <string name="drawer_status_stopped">متوقف</string>
     <!-- Date added -->
     <string name="drawer_date_added">تاريخ الإضافة</string>
@@ -145,7 +145,7 @@
     <string name="deleting">حذف</string>
     <string name="delete_selected_download">حذف التنزيل المحدد؟ لا يمكن التراجع عن هذه العملية</string>
     <string name="delete_selected_downloads">حذف ملف التنزيل المحدد؟ لا يمكن التراجع عن هذه العملية</string>
-    <string name="delete_with_downloaded_file">حذف مع الملف الذي تم تنزيله</string>
+    <string name="delete_with_downloaded_file">حذف التحميل مع الملف الذي تم تنزيله</string>
     <!-- Filemanager dialog -->
     <string name="dir_chooser_title">اختيار مجلد</string>
     <string name="file_chooser_title">اختيار ملف</string>
@@ -174,7 +174,7 @@
     <string name="detail_sha256_hash_sum">SHA-256</string>
     <string name="calculate">احسب</string>
     <!-- Error report -->
-    <string name="app_error_occurred">حدث خطأ التطبيق. يمكنك إرسال التقرير إلى المطورين</string>
+    <string name="app_error_occurred">حدث خطأ في التطبيق. يمكنك إرسال التقرير إلى المطور</string>
     <string name="error_comment_prompt">يمكنك إضافة معلومات إضافية وتعليقات هنا:</string>
     <!-- Send text to clipboard -->
     <string name="send_text_to_clipboard">نسخ</string>
@@ -192,7 +192,7 @@
         <item>داكن</item>
         <item>أسود</item>
     </string-array>
-    <string name="pref_notification_category">إعدادات الإشعارات</string>
+    <string name="pref_notification_category">إعدادات النتبيهات</string>
     <string name="pref_progress_notify_title">تنبيهات التقدم</string>
     <string name="pref_finish_notify_title">تنبيه الإنتهاء</string>
     <string name="pref_pending_notify_title">تنبيه التعليق</string>
@@ -203,7 +203,7 @@
     <string name="pref_vibration_notify_title">اهتزاز</string>
     <string name="theme_settings_apply_after_reboot">سيتم تطبيق إعدادات السمة بعد إعادة تشغيل التطبيق</string>
     <!-- Behavior settings -->
-    <string name="pref_autostart_title">تشغيل تلقائي</string>
+    <string name="pref_autostart_title">التشغيل التلقائي</string>
     <string name="pref_autostart_summary">تشغيل التطبيق بعد بدء تشغيل الجهاز وابدأ التحميل ، أذا لم يتم أيقافه مؤقتاً</string>
     <!-- A synonym for word "unmetered" - unlimited-->
     <string name="pref_umnetered_connections_only_title">الاتصالات الثابتة فقط</string>
@@ -215,7 +215,7 @@
     <string name="pref_download_only_when_charging_summary">عند تفعيله سيتم التحميل فقط عند الشحن. جميع التحميلات سيتم أيقافها في حال عدم توصيل الجهاز بالشاحن</string>
     <string name="pref_battery_control_title">وحدة تحكم البطارية</string>
     <string name="pref_custom_battery_control_title">إظهار نسبة البطارية</string>
-    <string name="pref_custom_battery_control_value_title">راقبة النسبة المئوية للبطارية</string>
+    <string name="pref_custom_battery_control_value_title">مراقبة النسبة المئوية للبطارية</string>
     <string name="pref_battery_control_summary" formatted="false">سوف يتم ايقاف كافة التحميلات إذا على مستوى شحن البطارية أقل من %1$d%%. لا يتم تطبيق هذا الخيار خلال شحن الهاتف</string>
     <string name="pref_custom_battery_control_summary" formatted="false">تعيين نسبة مئوية مخصصة لإيقاف التنزيلات في حالة وصول نسبة البطارية اليها. تمكين هذا الخيار سوف يتجاهل النسبة الافتراضية %1$d%%</string>
     <string name="pref_custom_battery_control_dialog_summary" formatted="false">تعيين نسبة مئوية مخصصة للتطبيق لمراقبة التحميل سيكون له أثر سلبي على عمر البطارية عند التحميل. هل أنت متأكد من أنك تريد تمكين هذا؟</string>
@@ -226,8 +226,8 @@
     <string name="pref_max_download_retries_dialog_msg">0-بدون اي محاولات</string>
     <string name="pref_replace_duplicate_downloads_title">استبدال التحميلات المتكررة</string>
     <string name="pref_replace_duplicate_downloads_summary">استبدل التحميلات المكررة (التي تحتوي علئ نفس رابط التحميل) و موجدة مسبقاً في قائمة التنزيلات</string>
-    <string name="pref_auto_connect_title">Auto connect</string>
-    <string name="pref_auto_connect_summary">Auto connect when opening the add dialog</string>
+    <string name="pref_auto_connect_title">اللإتصال التلقائي</string>
+    <string name="pref_auto_connect_summary">الاتصال التلقائي عند فتح نافذة الإضافة</string>
     <!-- Storage settings -->
     <string name="pref_save_downloads_in_title">حفظ التنزيلات في</string>
     <string name="pref_move_after_download_title">نقل بعد التحميل</string>
@@ -237,7 +237,10 @@
     <string name="pref_preallocate_disk_space_summary">متاح لإصدارات أندرويد 5.0 وما فوق</string>
     <!-- About dialog -->
     <string name="about_title">حول Download Navi</string>
-    <string name="about_website">لمزيد من المعلومات وأيضا للمساعدة في المشروع: https://github.com/TachibanaGeneralLaboratories/download-navi</string>
-    <string name="about_description">Download Navi حر ومفتوح المصدر للأندرويد 4.4 +.\n\nهو \"مدير التحميل Download Navi الحرة، تم أطلاقه بموجب شروط رخصة جنو العمومية v3 http://www.gnu.org/copyleft/gpl.html\n(GPLv3)</string>
+    <string name="about_website">لمزيد من المعلومات و للمساعدة في المشروع: https://github.com/TachibanaGeneralLaboratories/download-navi</string>
+    <string name="about_description">Download Navi حر ومفتوح المصدر للأندرويد 4.4 +.
+هو \"مدير التحميل نافي حر ومفتوح المصدر ، تم أطلاقه بموجب شروط رخصة جنو العمومية
+ v3 http://www.gnu.org/copyleft/gpl.html
+(GPLv3)</string>
     <string name="about_changelog">سِجل التغييرات</string>
 </resources>

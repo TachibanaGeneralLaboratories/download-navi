@@ -63,6 +63,8 @@ You can help translate the app here: [https://crowdin.com/project/download-navi]
  - **Turkish** *(thanks byzlo685, muhaaliss)*
  - **Arabic** *(thanks rex07)*
  - **Chinese Simplified** *(thanks OR120, dwughjsd)*
+ - **Serbian** *(thanks Aimbot91)*
+ - **Hindi** *(thanks imcmjha)*
 
 Contributors
 ---
