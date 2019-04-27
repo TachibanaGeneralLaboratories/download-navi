@@ -363,13 +363,9 @@ public class FileUtils
      */
 
 
-    public static void fallocate(@NonNull Context context, @NonNull FileDescriptor fd, long length) throws IOException
+    public static void fallocate(@NonNull FileDescriptor fd, long length) throws IOException
     {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            StorageManager storageManager = (StorageManager)context.getSystemService(Context.STORAGE_SERVICE);
-            storageManager.allocateBytes(fd, length);
-
-        } else if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             try {
                 long curSize = Os.fstat(fd).st_size;
                 long newBytes = length - curSize;

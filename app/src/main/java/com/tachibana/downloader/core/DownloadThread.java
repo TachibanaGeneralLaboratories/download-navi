@@ -450,7 +450,7 @@ public class DownloadThread implements Callable<DownloadResult>
             }
 
             try {
-                FileUtils.fallocate(appContext, outFd, info.totalBytes);
+                FileUtils.fallocate(outFd, info.totalBytes);
 
             } catch (InterruptedIOException e) {
                 requestStop();
