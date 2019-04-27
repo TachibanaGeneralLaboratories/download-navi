@@ -3,7 +3,9 @@ Download Navi
 
 ![Download Navi](fastlane/metadata/android/en-US/images/featureGraphic.png)
 
-<img src="https://www.gnu.org/graphics/gplv3-with-text-136x68.png" alt=" [Large GPLv3 logo with “Free as in Freedom”] ">
+[![Releases](https://img.shields.io/github/downloads/TachibanaGeneralLaboratories/download-navi/total.svg)](https://github.com/TachibanaGeneralLaboratories/download-navi/releases)
+[![Crowdin](https://d322cqt584bo4o.cloudfront.net/download-navi/localized.svg)](https://crowdin.com/project/download-navi)
+[![Chat - Telegram](https://img.shields.io/badge/chat-Telegram-blue.svg)](https://t.me/DownloadNavi)
 
 Downloads
 ---
@@ -69,6 +71,14 @@ You can help translate the app here: [https://crowdin.com/project/download-navi]
 Contributors
 ---
 
+#### Developers
+
+* [Yaroslav Pronin](https://github.com/proninyaroslav)
+
+#### Logo
+
+* [Patryk Goworowski](https://github.com/Gowsky)
+
 See [CONTRIBUTING.md](CONTRIBUTING.md)
 
 Screenshots
@@ -76,8 +86,12 @@ Screenshots
 
 ![phone](/art/screenshots/phone.png) ![phone dark](/art/screenshots/phone_dark.png) ![tablet](/art/screenshots/tablet.png)
 
-License
+Privacy
 ---
+Please see our [privacy policy](Privacy.md).
+
+## License
+[![Large GPLv3 logo with “Free as in Freedom”](https://www.gnu.org/graphics/gplv3-with-text-136x68.png)](http://www.gnu.org/licenses/gpl-3.0.en.html)
 
     Copyright (C) 2018, 2019 Tachibana General Laboratories, LLC
     Copyright (C) 2018, 2019 Yaroslav Pronin <proninyaroslav@mail.ru>
@@ -92,5 +106,3 @@ License
     GNU General Public License for more details.
     You should have received a copy of the GNU General Public License
     along with this program.  If not, see <http://www.gnu.org/licenses/>.
-
-[Privacy Policy](Privacy.md)
