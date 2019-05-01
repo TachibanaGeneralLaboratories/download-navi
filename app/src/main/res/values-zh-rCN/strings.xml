@@ -167,7 +167,7 @@
     <string name="detail_downloaded">已下载</string>
     <!-- downloaded/total (percent) -->
     <string name="detail_downloaded_format" formatted="false">%1$s/%2$s (%3$d%%)</string>
-    <string name="detail_pieces">分块</string>
+    <string name="detail_pieces">线程</string>
     <string name="detail_date_added">添加日期</string>
     <string name="detail_user_agent">用户代理</string>
     <string name="detail_md5_hash_sum">MD5</string>
@@ -182,7 +182,7 @@
     <!-- Settings -->
     <!-- Headers -->
     <string name="pref_header_appearance">外观</string>
-    <string name="pref_header_behavior">行为</string>
+    <string name="pref_header_behavior">行为设置</string>
     <string name="pref_header_storage">存储</string>
     <!-- Appearance settings -->
     <string name="pref_theme_category">主题设置</string>
@@ -237,8 +237,7 @@
     <string name="pref_preallocate_disk_space_summary">只在 Android 5.0 Lollipop 及以上版本可用</string>
     <!-- About dialog -->
     <string name="about_title">关于 Download Navi</string>
-    <string name="about_description"><![CDATA[
-    访问此网站获取更多信息或者帮助项目: <a href="https://github.com/TachibanaGeneralLaboratories/download-navi">https://github.com/TachibanaGeneralLaboratories/download-navi</a><br><br>
+    <string name="about_description"><![CDATA[访问此网站获取更多信息或者帮助项目: <a href="https://github.com/TachibanaGeneralLaboratories/download-navi">https://github.com/TachibanaGeneralLaboratories/download-navi</a><br><br>
     Download Navi 是适用于 Android 4.4 及以上版本的免费且开源的下载管理器<br><br>
     Download Navi 是一款自由软件，遵循许可 <a href="http://www.gnu.org/copyleft/gpl.html">GNU General Public License v3 (GPLv3)</a> 的条款发布<br><br>
     <a href="https://github.com/TachibanaGeneralLaboratories/download-navi/blob/HEAD/Privacy.md">隐私政策</a>]]></string>

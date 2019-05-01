@@ -226,8 +226,8 @@
     <string name="pref_max_download_retries_dialog_msg">0 - 再試行なし</string>
     <string name="pref_replace_duplicate_downloads_title">重複ダウンロードを置き換える</string>
     <string name="pref_replace_duplicate_downloads_summary">既にリストにある場合、追加された時に (同じURL) 重複ダウンロードを置き換えます。</string>
-    <string name="pref_auto_connect_title">Auto connect</string>
-    <string name="pref_auto_connect_summary">Auto connect when opening the add dialog</string>
+    <string name="pref_auto_connect_title">自動接続</string>
+    <string name="pref_auto_connect_summary">ダイアログを追加を開いた時自動接続する</string>
     <!-- Storage settings -->
     <string name="pref_save_downloads_in_title">ダウンロードの保存先</string>
     <string name="pref_move_after_download_title">ダウンロード後の移動</string>
@@ -237,8 +237,7 @@
     <string name="pref_preallocate_disk_space_summary">Android 5.0 Lollipop 以上で有効です</string>
     <!-- About dialog -->
     <string name="about_title">Download Navi について</string>
-    <string name="about_description"><![CDATA[
-    詳細情報とプロジェクトの支援: <a href="https://github.com/TachibanaGeneralLaboratories/download-navi">https://github.com/TachibanaGeneralLaboratories/download-navi</a><br><br>
+    <string name="about_description"><![CDATA[詳細情報とプロジェクトの支援: <a href="https://github.com/TachibanaGeneralLaboratories/download-navi">https://github.com/TachibanaGeneralLaboratories/download-navi</a><br><br>
     Download Navi は Android 4.4 以上向けの無料のオープンソースダウンロードマネージャです<br><br>
     Download Navi は <a href="http://www.gnu.org/copyleft/gpl.html">GNU General Public License v3 (GPLv3)</a> の条件の下でリリースされたフリーソフトウェアです<br><br>
     <a href="https://github.com/TachibanaGeneralLaboratories/download-navi/blob/HEAD/Privacy.md">個人情報保護方針</a>]]></string>
