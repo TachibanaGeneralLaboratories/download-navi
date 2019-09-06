@@ -23,10 +23,12 @@ package com.tachibana.downloader;
 import android.app.Application;
 import android.app.NotificationManager;
 
-import com.tachibana.downloader.core.DownloadEngine;
+import com.tachibana.downloader.core.model.DownloadEngine;
+import com.tachibana.downloader.core.DownloadNotifier;
 import com.tachibana.downloader.core.storage.AppDatabase;
 import com.tachibana.downloader.core.storage.DataRepository;
 import com.tachibana.downloader.core.utils.Utils;
+import com.tachibana.downloader.ui.errorreport.ErrorReportActivity;
 
 import org.acra.ACRA;
 import org.acra.annotation.AcraCore;

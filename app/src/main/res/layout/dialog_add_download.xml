@@ -5,7 +5,7 @@
     <data>
         <variable
             name="viewModel"
-            type="com.tachibana.downloader.viewmodel.AddDownloadViewModel" />
+            type="com.tachibana.downloader.ui.adddownload.AddDownloadViewModel" />
     </data>
 
     <androidx.core.widget.NestedScrollView
@@ -191,7 +191,7 @@
                     android:checked="@={viewModel.params.unmeteredConnectionsOnly}" />
             </com.google.android.material.internal.FlowLayout>
 
-            <com.tachibana.downloader.customview.ExpansionHeader
+            <com.tachibana.downloader.ui.customview.ExpansionHeader
                 android:id="@+id/expansion_header"
                 android:layout_width="wrap_content"
                 android:layout_height="48dp"

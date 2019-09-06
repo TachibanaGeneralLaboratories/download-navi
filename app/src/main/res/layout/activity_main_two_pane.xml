@@ -7,7 +7,7 @@
     android:orientation="horizontal"
     android:fitsSystemWindows="true"
     android:gravity="center"
-    tools:context=".MainActivity">
+    tools:context=".ui.main.MainActivity">
 
     <RelativeLayout
         android:layout_width="@dimen/navigation_drawer_width"

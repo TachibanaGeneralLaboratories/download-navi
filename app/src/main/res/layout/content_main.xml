@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:layout_below="@id/toolbar"
-    tools:context=".MainActivity">
+    tools:context=".ui.main.MainActivity">
 
     <RelativeLayout
         android:layout_width="match_parent"

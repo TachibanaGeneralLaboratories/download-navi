@@ -28,8 +28,11 @@ import android.util.Log;
 
 import com.tachibana.downloader.AbstractTest;
 import com.tachibana.downloader.R;
-import com.tachibana.downloader.core.entity.DownloadInfo;
-import com.tachibana.downloader.core.entity.DownloadPiece;
+import com.tachibana.downloader.core.model.data.StatusCode;
+import com.tachibana.downloader.core.model.data.entity.DownloadInfo;
+import com.tachibana.downloader.core.model.data.entity.DownloadPiece;
+import com.tachibana.downloader.core.model.DownloadThread;
+import com.tachibana.downloader.core.model.data.DownloadResult;
 import com.tachibana.downloader.core.utils.DigestUtils;
 import com.tachibana.downloader.core.utils.FileUtils;
 import com.tachibana.downloader.core.utils.Utils;

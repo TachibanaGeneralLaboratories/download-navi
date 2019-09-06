@@ -6,12 +6,12 @@
     <data>
         <variable
             name="viewModel"
-            type="com.tachibana.downloader.viewmodel.filemanager.FileManagerViewModel" />
+            type="com.tachibana.downloader.ui.filemanager.FileManagerViewModel" />
         <variable
             name="enableSystemManagerButton"
             type="java.lang.Boolean" />
         <import
-            type="com.tachibana.downloader.dialog.filemanager.FileManagerConfig" />
+            type="com.tachibana.downloader.ui.filemanager.FileManagerConfig" />
         <import
             type="android.view.View" />
         <import
@@ -24,7 +24,7 @@
         android:layout_height="match_parent"
         android:focusableInTouchMode="true"
         android:fitsSystemWindows="true"
-        tools:context=".dialog.filemanager.FileManagerDialog">
+        tools:context=".ui.filemanager.FileManagerDialog">
 
         <com.google.android.material.appbar.AppBarLayout
             android:id="@+id/app_bar"

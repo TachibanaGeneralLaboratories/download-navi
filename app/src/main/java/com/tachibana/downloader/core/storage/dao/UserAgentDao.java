@@ -20,7 +20,7 @@
 
 package com.tachibana.downloader.core.storage.dao;
 
-import com.tachibana.downloader.core.entity.UserAgent;
+import com.tachibana.downloader.core.model.data.entity.UserAgent;
 
 import java.util.List;
 

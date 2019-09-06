@@ -27,7 +27,7 @@ import android.content.IntentFilter;
 import android.net.ConnectivityManager;
 
 import com.tachibana.downloader.MainApplication;
-import com.tachibana.downloader.core.DownloadEngine;
+import com.tachibana.downloader.core.model.DownloadEngine;
 
 /*
  * The receiver for Wi-Fi connection state changes and roaming state.

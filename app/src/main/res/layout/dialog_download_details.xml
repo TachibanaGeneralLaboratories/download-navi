@@ -5,12 +5,12 @@
     <data>
         <import type="android.view.View"/>
         <import type="com.tachibana.downloader.core.utils.BindingAdapterUtils" />
-        <import type="com.tachibana.downloader.viewmodel.DownloadDetailsInfo.HashSumState" />
-        <import type="com.tachibana.downloader.core.StatusCode" />
+        <import type="com.tachibana.downloader.ui.details.DownloadDetailsInfo" />
+        <import type="com.tachibana.downloader.core.model.data.StatusCode" />
 
         <variable
             name="viewModel"
-            type="com.tachibana.downloader.viewmodel.DownloadDetailsViewModel" />
+            type="com.tachibana.downloader.ui.details.DownloadDetailsViewModel" />
     </data>
 
     <androidx.core.widget.NestedScrollView
@@ -239,7 +239,7 @@
                         app:backgroundTint="?attr/colorPrimary"
                         android:text="@string/calculate"
                         android:onClick="@{() -> viewModel.calcMd5Hash()}"
-                        android:visibility="@{viewModel.info.md5State == HashSumState.UNKNOWN ? View.VISIBLE : View.GONE}"
+                        android:visibility="@{viewModel.info.md5State == DownloadDetailsInfo.HashSumState.UNKNOWN ? View.VISIBLE : View.GONE}"
                         android:focusable="true" />
 
                     <androidx.core.widget.ContentLoadingProgressBar
@@ -247,7 +247,7 @@
                         style="@style/Widget.AppCompat.ProgressBar"
                         android:layout_width="24dp"
                         android:layout_height="24dp"
-                        android:visibility="@{viewModel.info.md5State == HashSumState.CALCULATION ? View.VISIBLE : View.GONE}" />
+                        android:visibility="@{viewModel.info.md5State == DownloadDetailsInfo.HashSumState.CALCULATION ? View.VISIBLE : View.GONE}" />
 
                     <TextView
                         android:id="@+id/md5_hash"
@@ -255,7 +255,7 @@
                         android:layout_height="wrap_content"
                         android:textIsSelectable="true"
                         android:text="@{viewModel.info.md5Hash ?? @string/not_available}"
-                        android:visibility="@{viewModel.info.md5State == HashSumState.CALCULATED ? View.VISIBLE : View.GONE}"
+                        android:visibility="@{viewModel.info.md5State == DownloadDetailsInfo.HashSumState.CALCULATED ? View.VISIBLE : View.GONE}"
                         style="@style/TextAppearance.MaterialComponents.Body1" />
                 </LinearLayout>
 
@@ -280,7 +280,7 @@
                         app:backgroundTint="?attr/colorPrimary"
                         android:text="@string/calculate"
                         android:onClick="@{() -> viewModel.calcSha256Hash()}"
-                        android:visibility="@{viewModel.info.sha256State == HashSumState.UNKNOWN ? View.VISIBLE : View.GONE}"
+                        android:visibility="@{viewModel.info.sha256State == DownloadDetailsInfo.HashSumState.UNKNOWN ? View.VISIBLE : View.GONE}"
                         android:focusable="true" />
 
                     <androidx.core.widget.ContentLoadingProgressBar
@@ -288,7 +288,7 @@
                         style="@style/Widget.AppCompat.ProgressBar"
                         android:layout_width="24dp"
                         android:layout_height="24dp"
-                        android:visibility="@{viewModel.info.sha256State == HashSumState.CALCULATION ? View.VISIBLE : View.GONE}" />
+                        android:visibility="@{viewModel.info.sha256State == DownloadDetailsInfo.HashSumState.CALCULATION ? View.VISIBLE : View.GONE}" />
 
                     <TextView
                         android:id="@+id/sha256_hash"
@@ -296,7 +296,7 @@
                         android:layout_height="wrap_content"
                         android:textIsSelectable="true"
                         android:text="@{viewModel.info.sha256Hash ?? @string/not_available}"
-                        android:visibility="@{viewModel.info.sha256State == HashSumState.CALCULATED ? View.VISIBLE : View.GONE}"
+                        android:visibility="@{viewModel.info.sha256State == DownloadDetailsInfo.HashSumState.CALCULATED ? View.VISIBLE : View.GONE}"
                         style="@style/TextAppearance.MaterialComponents.Body1" />
                 </LinearLayout>
 

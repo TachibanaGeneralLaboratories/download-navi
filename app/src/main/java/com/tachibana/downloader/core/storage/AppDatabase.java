@@ -22,10 +22,10 @@ package com.tachibana.downloader.core.storage;
 
 import android.content.Context;
 
-import com.tachibana.downloader.core.entity.DownloadInfo;
-import com.tachibana.downloader.core.entity.DownloadPiece;
-import com.tachibana.downloader.core.entity.Header;
-import com.tachibana.downloader.core.entity.UserAgent;
+import com.tachibana.downloader.core.model.data.entity.DownloadInfo;
+import com.tachibana.downloader.core.model.data.entity.DownloadPiece;
+import com.tachibana.downloader.core.model.data.entity.Header;
+import com.tachibana.downloader.core.model.data.entity.UserAgent;
 import com.tachibana.downloader.core.storage.converter.UUIDConverter;
 import com.tachibana.downloader.core.storage.dao.DownloadDao;
 import com.tachibana.downloader.core.storage.dao.UserAgentDao;

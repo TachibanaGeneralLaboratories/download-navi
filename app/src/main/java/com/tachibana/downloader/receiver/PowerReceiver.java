@@ -26,7 +26,7 @@ import android.content.Intent;
 import android.content.IntentFilter;
 
 import com.tachibana.downloader.MainApplication;
-import com.tachibana.downloader.core.DownloadEngine;
+import com.tachibana.downloader.core.model.DownloadEngine;
 
 /*
  * The receiver for power monitoring.

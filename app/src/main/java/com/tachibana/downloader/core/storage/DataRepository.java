@@ -24,11 +24,11 @@ import android.content.Context;
 import android.net.Uri;
 import android.util.Log;
 
-import com.tachibana.downloader.core.entity.DownloadInfo;
-import com.tachibana.downloader.core.entity.DownloadPiece;
-import com.tachibana.downloader.core.entity.Header;
-import com.tachibana.downloader.core.entity.InfoAndPieces;
-import com.tachibana.downloader.core.entity.UserAgent;
+import com.tachibana.downloader.core.model.data.entity.DownloadInfo;
+import com.tachibana.downloader.core.model.data.entity.DownloadPiece;
+import com.tachibana.downloader.core.model.data.entity.Header;
+import com.tachibana.downloader.core.model.data.entity.InfoAndPieces;
+import com.tachibana.downloader.core.model.data.entity.UserAgent;
 import com.tachibana.downloader.core.utils.FileUtils;
 
 import java.io.FileNotFoundException;

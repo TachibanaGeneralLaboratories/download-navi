@@ -33,7 +33,7 @@
         android:fullBackupContent="true"
         android:usesCleartextTraffic="true">
 
-        <activity android:name=".MainActivity"
+        <activity android:name=".ui.main.MainActivity"
             android:theme="@style/AppTheme.Launcher">
             <meta-data
                 android:name="android.app.shortcuts"
@@ -51,7 +51,7 @@
             </intent-filter>
         </activity>
 
-        <activity android:name=".AddDownloadActivity"
+        <activity android:name=".ui.adddownload.AddDownloadActivity"
             android:exported="true"
             android:label="@string/app_name"
             android:theme="@style/AppTheme.Translucent">
@@ -1089,15 +1089,15 @@
         </activity>
 
         <activity
-            android:name=".RequestPermissions"
+            android:name=".ui.RequestPermissions"
             android:theme="@style/AppTheme.Translucent" />
 
-        <activity android:name=".dialog.filemanager.FileManagerDialog" />
+        <activity android:name=".ui.filemanager.FileManagerDialog" />
 
         <activity
-            android:name=".settings.PreferenceActivity" />
+            android:name=".ui.settings.PreferenceActivity" />
 
-        <activity android:name=".settings.SettingsActivity"
+        <activity android:name=".ui.settings.SettingsActivity"
             android:label="@string/settings">
             <intent-filter>
                 <action android:name="android.intent.action.APPLICATION_PREFERENCES" />
@@ -1105,14 +1105,14 @@
             </intent-filter>
         </activity>
 
-        <activity android:name=".ErrorReportActivity"
+        <activity android:name=".ui.errorreport.ErrorReportActivity"
             android:theme="@style/AppTheme.Translucent"
             android:process=":acra"
             android:excludeFromRecents="true"
             android:finishOnTaskLaunch="true"
             android:launchMode="singleInstance" />
 
-        <activity android:name=".SendTextToClipboard"
+        <activity android:name=".ui.SendTextToClipboard"
             android:label="@string/send_text_to_clipboard"
             android:icon="@drawable/ic_content_copy_grey600_48dp"
             android:theme="@android:style/Theme.NoDisplay">

@@ -30,15 +30,15 @@ import android.os.Build;
 import android.os.PowerManager;
 import android.util.Log;
 
-import com.tachibana.downloader.MainActivity;
+import com.tachibana.downloader.ui.main.MainActivity;
 import com.tachibana.downloader.MainApplication;
 import com.tachibana.downloader.R;
-import com.tachibana.downloader.core.ChangeableParams;
-import com.tachibana.downloader.core.DownloadEngine;
-import com.tachibana.downloader.core.DownloadEngineListener;
+import com.tachibana.downloader.core.model.ChangeableParams;
+import com.tachibana.downloader.core.model.DownloadEngine;
+import com.tachibana.downloader.core.model.DownloadEngineListener;
 import com.tachibana.downloader.core.utils.Utils;
 import com.tachibana.downloader.receiver.NotificationReceiver;
-import com.tachibana.downloader.settings.SettingsManager;
+import com.tachibana.downloader.core.settings.SettingsManager;
 
 import java.util.UUID;
 

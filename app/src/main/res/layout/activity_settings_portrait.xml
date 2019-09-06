@@ -7,7 +7,7 @@
         layout="@layout/toolbar" />
 
     <fragment
-        class="com.tachibana.downloader.settings.SettingsFragment"
+        class="com.tachibana.downloader.ui.settings.SettingsFragment"
         android:id="@+id/settings_fragmentContainer"
         android:layout_width="match_parent"
         android:layout_height="match_parent"

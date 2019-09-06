@@ -25,7 +25,8 @@ import android.util.Log;
 
 import com.tachibana.downloader.AbstractTest;
 import com.tachibana.downloader.core.utils.FileUtils;
-import com.tachibana.downloader.dialog.filemanager.FileManagerConfig;
+import com.tachibana.downloader.ui.filemanager.FileManagerConfig;
+import com.tachibana.downloader.ui.filemanager.FileManagerViewModel;
 
 import org.junit.Before;
 import org.junit.Test;

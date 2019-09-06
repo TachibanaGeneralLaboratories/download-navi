@@ -21,7 +21,7 @@
 
 package com.tachibana.downloader.core.filter;
 
-import com.tachibana.downloader.core.entity.InfoAndPieces;
+import com.tachibana.downloader.core.model.data.entity.InfoAndPieces;
 
 import io.reactivex.functions.Predicate;
 

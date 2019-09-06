@@ -20,7 +20,7 @@
 
 package com.tachibana.downloader.core.sorting;
 
-import com.tachibana.downloader.adapter.DownloadItem;
+import com.tachibana.downloader.ui.main.DownloadItem;
 
 public class DownloadSorting extends BaseSorting
 {

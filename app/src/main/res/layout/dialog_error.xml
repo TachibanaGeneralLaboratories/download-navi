@@ -14,7 +14,7 @@
         android:orientation="vertical"
         android:minWidth="@dimen/min_width_dialog">
 
-        <com.tachibana.downloader.customview.ExpansionHeader
+        <com.tachibana.downloader.ui.customview.ExpansionHeader
             android:id="@+id/expansion_header"
             android:layout_width="wrap_content"
             android:layout_height="48dp"

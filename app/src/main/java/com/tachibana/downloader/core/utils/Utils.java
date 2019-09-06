@@ -45,24 +45,23 @@ import android.webkit.WebSettings;
 import android.widget.ProgressBar;
 
 import com.tachibana.downloader.R;
-import com.tachibana.downloader.adapter.DownloadItem;
-import com.tachibana.downloader.adapter.drawer.DrawerGroup;
-import com.tachibana.downloader.adapter.drawer.DrawerGroupItem;
-import com.tachibana.downloader.core.RealSystemFacade;
-import com.tachibana.downloader.core.SystemFacade;
-import com.tachibana.downloader.core.entity.DownloadInfo;
+import com.tachibana.downloader.ui.main.DownloadItem;
+import com.tachibana.downloader.ui.main.drawer.DrawerGroup;
+import com.tachibana.downloader.ui.main.drawer.DrawerGroupItem;
+import com.tachibana.downloader.core.system.SystemFacadeImpl;
+import com.tachibana.downloader.core.system.SystemFacade;
+import com.tachibana.downloader.core.model.data.entity.DownloadInfo;
 import com.tachibana.downloader.core.filter.DownloadFilter;
 import com.tachibana.downloader.core.filter.DownloadFilterCollection;
 import com.tachibana.downloader.core.sorting.DownloadSorting;
 import com.tachibana.downloader.core.sorting.DownloadSortingComparator;
 import com.tachibana.downloader.receiver.BootReceiver;
-import com.tachibana.downloader.settings.SettingsManager;
+import com.tachibana.downloader.core.settings.SettingsManager;
 
 import org.acra.ACRA;
 import org.acra.ReportField;
 
 import java.io.File;
-import java.net.IDN;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.security.GeneralSecurityException;
@@ -107,7 +106,7 @@ public class Utils
     public synchronized static SystemFacade getSystemFacade(@NonNull Context context)
     {
         if (systemFacade == null)
-            systemFacade = new RealSystemFacade(context);
+            systemFacade = new SystemFacadeImpl(context);
 
         return systemFacade;
     }

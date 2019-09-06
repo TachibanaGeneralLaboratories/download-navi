@@ -24,7 +24,7 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 
-import com.tachibana.downloader.MainActivity;
+import com.tachibana.downloader.ui.main.MainActivity;
 import com.tachibana.downloader.core.utils.Utils;
 import com.tachibana.downloader.service.DownloadService;
 

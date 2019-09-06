@@ -20,10 +20,10 @@
 
 package com.tachibana.downloader.core.storage.dao;
 
-import com.tachibana.downloader.core.entity.DownloadInfo;
-import com.tachibana.downloader.core.entity.DownloadPiece;
-import com.tachibana.downloader.core.entity.Header;
-import com.tachibana.downloader.core.entity.InfoAndPieces;
+import com.tachibana.downloader.core.model.data.entity.DownloadInfo;
+import com.tachibana.downloader.core.model.data.entity.DownloadPiece;
+import com.tachibana.downloader.core.model.data.entity.Header;
+import com.tachibana.downloader.core.model.data.entity.InfoAndPieces;
 
 import java.util.List;
 import java.util.UUID;

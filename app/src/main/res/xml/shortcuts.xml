@@ -10,7 +10,7 @@
         android:shortcutShortLabel="@string/add_download">
         <intent
             android:action="android.intent.action.VIEW"
-            android:targetClass="com.tachibana.downloader.AddDownloadActivity"
+            android:targetClass="com.tachibana.downloader.ui.adddownload.AddDownloadActivity"
             android:targetPackage="com.tachibana.downloader" />
     </shortcut>
 </shortcuts>

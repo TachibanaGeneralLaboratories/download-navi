@@ -31,6 +31,8 @@ import java.lang.reflect.Method;
 
 import androidx.annotation.NonNull;
 
+import com.tachibana.downloader.core.system.SystemFacade;
+
 import static android.net.NetworkCapabilities.NET_CAPABILITY_NOT_METERED;
 import static android.net.NetworkCapabilities.NET_CAPABILITY_NOT_ROAMING;
 

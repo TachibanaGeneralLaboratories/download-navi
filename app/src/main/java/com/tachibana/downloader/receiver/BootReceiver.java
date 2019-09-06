@@ -27,8 +27,8 @@ import android.content.SharedPreferences;
 
 import com.tachibana.downloader.MainApplication;
 import com.tachibana.downloader.R;
-import com.tachibana.downloader.core.DownloadEngine;
-import com.tachibana.downloader.settings.SettingsManager;
+import com.tachibana.downloader.core.model.DownloadEngine;
+import com.tachibana.downloader.core.settings.SettingsManager;
 
 /*
  * The receiver for autostart stopped downloads.

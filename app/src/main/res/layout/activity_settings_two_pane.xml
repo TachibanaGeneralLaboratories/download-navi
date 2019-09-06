@@ -16,7 +16,7 @@
         android:divider="?attr/divider">
 
         <fragment
-            class="com.tachibana.downloader.settings.SettingsFragment"
+            class="com.tachibana.downloader.ui.settings.SettingsFragment"
             android:id="@+id/settings_fragmentContainer"
             android:layout_width="0dp"
             android:layout_height="match_parent"
