@@ -160,11 +160,8 @@ public class BehaviorSettingsFragment extends PreferenceFragmentCompat
                 .subscribe((event) -> {
                     if (!event.dialogTag.equals(TAG_CUSTOM_BATTERY_DIALOG))
                         return;
-                    switch (event.type) {
-                        case NEGATIVE_BUTTON_CLICKED:
-                            disableCustomBatteryControl();
-                            break;
-                    }
+                    if (event.type == BaseAlertDialog.EventType.NEGATIVE_BUTTON_CLICKED)
+                        disableCustomBatteryControl();
                 });
         disposables.add(d);
     }
@@ -200,7 +197,6 @@ public class BehaviorSettingsFragment extends PreferenceFragmentCompat
             } else if(preference.getKey().equals(getString(R.string.pref_key_custom_battery_control))) {
                 if (!((SwitchPreferenceCompat) preference).isChecked())
                     showCustomBatteryDialog();
-
             }
 
         } else if (preference.getKey().equals(getString(R.string.pref_key_max_active_downloads))) {
@@ -223,8 +219,8 @@ public class BehaviorSettingsFragment extends PreferenceFragmentCompat
 
     private void showCustomBatteryDialog()
     {
-        FragmentManager fm = getFragmentManager();
-        if (fm != null && fm.findFragmentByTag(TAG_CUSTOM_BATTERY_DIALOG) == null) {
+        FragmentManager fm = getChildFragmentManager();
+        if (fm.findFragmentByTag(TAG_CUSTOM_BATTERY_DIALOG) == null) {
             BaseAlertDialog customBatteryDialog = BaseAlertDialog.newInstance(
                     getString(R.string.warning),
                     getString(R.string.pref_custom_battery_control_dialog_summary),

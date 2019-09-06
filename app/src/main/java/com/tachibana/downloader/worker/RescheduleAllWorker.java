@@ -56,7 +56,7 @@ public class RescheduleAllWorker extends Worker
         Context context = getApplicationContext();
         DataRepository repo = ((MainApplication)context).getRepository();
 
-        ListenableFuture<List<WorkInfo>> future = WorkManager.getInstance()
+        ListenableFuture<List<WorkInfo>> future = WorkManager.getInstance(context)
                 .getWorkInfosByTag(DownloadScheduler.TAG_WORK_RUN_TYPE);
         try {
             for (WorkInfo workInfo : future.get()) {

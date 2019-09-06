@@ -30,6 +30,8 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.lifecycle.ViewModelProviders;
 import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.disposables.Disposable;
@@ -143,7 +145,10 @@ public class RequestPermissions extends AppCompatActivity
                         null,
                         false);
 
-                permDialog.show(getSupportFragmentManager(), TAG_PERM_DIALOG);
+                FragmentManager fm = getSupportFragmentManager();
+                FragmentTransaction ft = fm.beginTransaction();
+                ft.add(permDialog, TAG_PERM_DIALOG);
+                ft.commitAllowingStateLoss();
             }
         }
     }

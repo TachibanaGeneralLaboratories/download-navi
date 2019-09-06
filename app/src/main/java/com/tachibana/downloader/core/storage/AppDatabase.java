@@ -88,9 +88,10 @@ public abstract class AppDatabase extends RoomDatabase
         return Room.databaseBuilder(appContext, AppDatabase.class, DATABASE_NAME)
                 .addCallback(new Callback() {
                     @Override
-                    public void onCreate(@NonNull SupportSQLiteDatabase db) {
+                    public void onCreate(@NonNull SupportSQLiteDatabase db)
+                    {
                         super.onCreate(db);
-                       Completable.fromAction(() -> {
+                        Completable.fromAction(() -> {
                             AppDatabase database = AppDatabase.getInstance(appContext);
                             database.runInTransaction(() -> {
                                 UserAgent systemUserAgent = new UserAgent(Utils.getSystemUserAgent(appContext));

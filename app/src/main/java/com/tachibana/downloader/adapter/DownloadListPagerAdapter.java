@@ -26,6 +26,7 @@ import com.tachibana.downloader.R;
 import com.tachibana.downloader.fragment.FinishedDownloadsFragment;
 import com.tachibana.downloader.fragment.QueuedDownloadsFragment;
 
+import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentPagerAdapter;
@@ -45,6 +46,7 @@ public class DownloadListPagerAdapter extends FragmentPagerAdapter
         this.context = context;
     }
 
+    @NonNull
     @Override
     public Fragment getItem(int position)
     {
@@ -55,7 +57,7 @@ public class DownloadListPagerAdapter extends FragmentPagerAdapter
             case COMPLETED_FRAG_POS:
                 return FinishedDownloadsFragment.newInstance();
             default:
-                return null;
+                return new Fragment();
         }
     }
 

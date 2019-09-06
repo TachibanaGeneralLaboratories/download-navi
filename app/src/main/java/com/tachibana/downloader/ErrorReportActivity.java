@@ -31,36 +31,33 @@ import com.tachibana.downloader.dialog.ErrorReportDialog;
 
 import org.acra.ReportField;
 import org.acra.data.CrashReportData;
-import org.acra.dialog.BaseCrashReportDialog;
-import org.acra.file.CrashReportPersister;
-import org.acra.interaction.DialogInteraction;
-import org.json.JSONException;
+import org.acra.dialog.CrashReportDialogHelper;
 
-import java.io.File;
 import java.io.IOException;
-import java.io.Serializable;
 
 import androidx.annotation.Nullable;
-import androidx.annotation.WorkerThread;
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.ViewModelProviders;
 import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.disposables.Disposable;
 
-public class ErrorReportActivity extends BaseCrashReportDialog
+public class ErrorReportActivity extends AppCompatActivity
 {
     @SuppressWarnings("unused")
-    private static final String TAG = ErrorReportDialog.class.getSimpleName();
+    private static final String TAG = ErrorReportActivity.class.getSimpleName();
 
     private static final String TAG_ERROR_DIALOG = "error_dialog";
     private ErrorReportDialog errDialog;
     private BaseAlertDialog.SharedViewModel dialogViewModel;
     private CompositeDisposable disposables = new CompositeDisposable();
+    private CrashReportDialogHelper helper;
 
     @Override
-    protected void init(@Nullable Bundle savedInstanceState)
+    public void onCreate(@Nullable Bundle savedInstanceState)
     {
-        super.init(savedInstanceState);
+        super.onCreate(savedInstanceState);
 
+        helper = new CrashReportDialogHelper(this, getIntent());
         dialogViewModel = ViewModelProviders.of(this).get(BaseAlertDialog.SharedViewModel.class);
         errDialog = (ErrorReportDialog)getSupportFragmentManager().findFragmentByTag(TAG_ERROR_DIALOG);
 
@@ -108,12 +105,12 @@ public class ErrorReportActivity extends BaseCrashReportDialog
                     Editable e = editText.getText();
                     String comment = (e == null ? null : e.toString());
 
-                    sendCrash(comment, null);
+                    helper.sendCrash(comment, null);
                     finish();
                 }
                 break;
             case NEGATIVE_BUTTON_CLICKED:
-                cancelReports();
+                helper.cancelReports();
                 finish();
                 break;
         }
@@ -134,31 +131,14 @@ public class ErrorReportActivity extends BaseCrashReportDialog
         if (i == null)
             return null;
 
-        Serializable reportFile = i.getSerializableExtra(DialogInteraction.EXTRA_REPORT_FILE);
-        if (!(reportFile instanceof File))
-            return null;
-        /*
-         * TODO: replace with CrashReportDialogHelper#getReportData in ACRA version 5.4.0,
-         * see https://github.com/ACRA/acra/pull/736
-         */
-        CrashReportData crashReportData = getReportData((File)reportFile);
-        if (crashReportData == null)
-            return null;
-
-        return crashReportData.getString(ReportField.STACK_TRACE);
-    }
-
-    @WorkerThread
-    private CrashReportData getReportData(File reportFile)
-    {
-        CrashReportData reportData;
+        CrashReportData crashReportData;
         try {
-            reportData = new CrashReportPersister().load(reportFile);
+            crashReportData = helper.getReportData();
 
-        } catch (JSONException | IOException e) {
+        } catch (IOException e) {
             return null;
         }
 
-        return reportData;
+        return crashReportData.getString(ReportField.STACK_TRACE);
     }
 }

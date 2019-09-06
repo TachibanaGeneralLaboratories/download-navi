@@ -212,7 +212,24 @@ public class FileManagerViewModel extends ViewModel
 
     public boolean fileExists(String fileName)
     {
-        return fileName != null && new File(curDir.get(), fileName).exists();
+        if (fileName == null)
+            return false;
+
+        fileName = appendExtension(fileName);
+
+        return new File(curDir.get(), fileName).exists();
+    }
+
+    private String appendExtension(String fileName)
+    {
+        String extension = null;
+        if (TextUtils.isEmpty(FileUtils.getExtension(fileName)))
+            extension = MimeTypeMap.getSingleton().getExtensionFromMimeType(config.mimeType);
+
+        if (extension != null && !fileName.endsWith(extension))
+            fileName += FileUtils.EXTENSION_SEPARATOR + extension;
+
+        return fileName;
     }
 
     public Uri createFile(String fileName) throws SecurityException
@@ -220,14 +237,7 @@ public class FileManagerViewModel extends ViewModel
         if (TextUtils.isEmpty(fileName))
             fileName = config.fileName;
 
-        fileName = FileUtils.buildValidFatFilename(fileName);
-
-        String extension = null;
-        if (TextUtils.isEmpty(FileUtils.getExtension(fileName)))
-            extension = MimeTypeMap.getSingleton().getExtensionFromMimeType(config.mimeType);
-
-        if (extension != null && !fileName.endsWith(extension))
-            fileName += FileUtils.EXTENSION_SEPARATOR + extension;
+        fileName = appendExtension(FileUtils.buildValidFatFilename(fileName));
 
         File f = new File(curDir.get(), fileName);
         if (!f.getParentFile().canWrite())

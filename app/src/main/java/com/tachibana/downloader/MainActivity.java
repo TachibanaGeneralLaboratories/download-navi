@@ -61,6 +61,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.SearchView;
 import androidx.appcompat.widget.Toolbar;
 import androidx.coordinatorlayout.widget.CoordinatorLayout;
+import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.FragmentManager;
 import androidx.lifecycle.ViewModelProviders;
@@ -345,6 +346,8 @@ public class MainActivity extends AppCompatActivity
 
         if (prefKey != null)
             saveSelectionState(prefKey, item);
+
+        drawerLayout.closeDrawer(GravityCompat.START);
     }
 
     private void saveSelectionState(String prefKey, DrawerGroupItem item)

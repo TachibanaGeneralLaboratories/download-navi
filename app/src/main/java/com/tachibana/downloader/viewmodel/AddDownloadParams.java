@@ -33,7 +33,7 @@ public class AddDownloadParams extends BaseObservable
     private String url;
     /* SAF or filesystem storage */
     private Uri dirPath;
-    /* Equal with dirPath is case if the path is non-SAF path */
+    /* Equal with dirPath in case if the path is non-SAF path */
     private String dirName;
     private long storageFreeSpace = -1;
     private String fileName;

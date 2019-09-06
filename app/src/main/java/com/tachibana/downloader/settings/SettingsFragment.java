@@ -103,7 +103,7 @@ public class SettingsFragment extends PreferenceFragmentCompat
     {
         switch (prefName) {
             case AppearanceSettings:
-                if (Utils.isLargeScreenDevice(getActivity())) {
+                if (Utils.isLargeScreenDevice(activity)) {
                     setFragment(AppearanceSettingsFragment.newInstance(),
                             getString(R.string.pref_header_appearance));
                 } else {
@@ -112,7 +112,7 @@ public class SettingsFragment extends PreferenceFragmentCompat
                 }
                 break;
             case BehaviorSettings:
-                if (Utils.isLargeScreenDevice(getActivity())) {
+                if (Utils.isLargeScreenDevice(activity)) {
                     setFragment(BehaviorSettingsFragment.newInstance(),
                             getString(R.string.pref_header_behavior));
                 } else {
@@ -121,7 +121,7 @@ public class SettingsFragment extends PreferenceFragmentCompat
                 }
                 break;
             case StorageSettings:
-                if (Utils.isLargeScreenDevice(getActivity())) {
+                if (Utils.isLargeScreenDevice(activity)) {
                     setFragment(StorageSettingsFragment.newInstance(),
                             getString(R.string.pref_header_storage));
                 } else {

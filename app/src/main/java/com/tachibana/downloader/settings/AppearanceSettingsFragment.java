@@ -66,7 +66,7 @@ public class AppearanceSettingsFragment extends PreferenceFragmentCompat
         ListPreference theme = (ListPreference)findPreference(keyTheme);
         int type = pref.getInt(keyTheme, SettingsManager.Default.theme(getContext()));
         theme.setValueIndex(type);
-        String typesName[] = getResources().getStringArray(R.array.pref_theme_entries);
+        String[] typesName = getResources().getStringArray(R.array.pref_theme_entries);
         theme.setSummary(typesName[type]);
         bindOnPreferenceChangeListener(theme);
 
@@ -136,7 +136,6 @@ public class AppearanceSettingsFragment extends PreferenceFragmentCompat
         String keyLedIndicatorColor = getString(R.string.pref_key_led_indicator_color_notify);
         ColorPreferenceCompat ledIndicatorColor = (ColorPreferenceCompat)findPreference(keyLedIndicatorColor);
         ledIndicatorColor.saveValue(pref.getInt(keyLedIndicatorColor, SettingsManager.Default.ledIndicatorColorNotify(getContext())));
-        bindOnPreferenceChangeListener(ledIndicatorColor);
 
         String keyVibration = getString(R.string.pref_key_vibration_notify);
         SwitchPreferenceCompat vibration = (SwitchPreferenceCompat)findPreference(keyVibration);

@@ -450,9 +450,8 @@ public class FileUtils
         } else if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             Uri pseudoDirPath = DocumentsContract.buildDocumentUriUsingTree(dir,
                     DocumentsContract.getTreeDocumentId(dir));
-            try {
-                ParcelFileDescriptor pfd = context.getContentResolver()
-                        .openFileDescriptor(pseudoDirPath, "r");
+            try (ParcelFileDescriptor pfd = context.getContentResolver()
+                    .openFileDescriptor(pseudoDirPath, "r")){
                 availableBytes = getAvailableBytes(pfd.getFileDescriptor());
 
             } catch (IllegalArgumentException | IOException e) {

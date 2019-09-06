@@ -41,7 +41,7 @@ public class AddDownloadActivity extends AppCompatActivity
 
     private static final String TAG_DOWNLOAD_DIALOG = "add_download_dialog";
 
-    AddDownloadDialog addDownloadDialog;
+    private AddDownloadDialog addDownloadDialog;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState)

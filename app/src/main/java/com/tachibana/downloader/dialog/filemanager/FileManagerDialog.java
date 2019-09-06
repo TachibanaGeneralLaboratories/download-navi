@@ -50,6 +50,7 @@ import java.io.IOException;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.databinding.DataBindingUtil;
+import androidx.fragment.app.FragmentManager;
 import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.DefaultItemAnimator;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -66,7 +67,7 @@ import io.reactivex.disposables.Disposable;
  *  - FILE_CHOOSER_MODE: Uri of the selected file (filesystem or SAF)
  *  - DIR_CHOOSER_MODE: Uri of the selected folder
  *                      (filesystem or SAF; SAF requires Android API >= 21)
- *  - FILE_CHOOSER_MODE: Uri of the created file (filesystem or SAF)
+ *  - SAVE_FILE_MODE: Uri of the created file (filesystem or SAF)
  */
 
 public class FileManagerDialog extends AppCompatActivity
@@ -120,8 +121,10 @@ public class FileManagerDialog extends AppCompatActivity
         binding.setEnableSystemManagerButton(Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT);
         binding.setViewModel(viewModel);
 
+        FragmentManager fm = getSupportFragmentManager();
+        inputNameDialog = (BaseAlertDialog)fm.findFragmentByTag(TAG_INPUT_NAME_DIALOG);
+        errorReportDialog = (ErrorReportDialog)fm.findFragmentByTag(TAG_ERROR_REPORT_DIALOG);
         dialogViewModel = ViewModelProviders.of(this).get(BaseAlertDialog.SharedViewModel.class);
-        inputNameDialog = (BaseAlertDialog)getSupportFragmentManager().findFragmentByTag(TAG_INPUT_NAME_DIALOG);
 
         String title = viewModel.config.title;
         if (TextUtils.isEmpty(title)) {

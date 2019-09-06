@@ -114,12 +114,12 @@ public class DownloadEngine
 
     public void runDownload(@NonNull UUID id)
     {
-        DownloadScheduler.run(id);
+        DownloadScheduler.run(appContext, id);
     }
 
     public void reschedulePendingDownloads()
     {
-        DownloadScheduler.rescheduleAll();
+        DownloadScheduler.rescheduleAll(appContext);
     }
 
     /*
@@ -172,12 +172,12 @@ public class DownloadEngine
 
     public void resumeDownloads(boolean ignorePaused)
     {
-        DownloadScheduler.runAll(ignorePaused);
+        DownloadScheduler.runAll(appContext, ignorePaused);
     }
 
     public void restoreDownloads()
     {
-        DownloadScheduler.restoreDownloads();
+        DownloadScheduler.restoreDownloads(appContext);
     }
 
     public synchronized void stopDownloads()
@@ -271,7 +271,7 @@ public class DownloadEngine
         if (duringChange.containsKey(info.id))
             return;
 
-        DownloadScheduler.undone(info);
+        DownloadScheduler.undone(appContext, info);
         repo.deleteInfo(appContext, info, withFile);
 
         DownloadThread task = activeDownloads.get(info.id);
@@ -290,7 +290,7 @@ public class DownloadEngine
         OneTimeWorkRequest work = new OneTimeWorkRequest.Builder(DeleteDownloadsWorker.class)
                 .setInputData(data)
                 .build();
-        WorkManager.getInstance().enqueue(work);
+        WorkManager.getInstance(appContext).enqueue(work);
     }
 
     /*

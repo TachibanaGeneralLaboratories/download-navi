@@ -58,7 +58,7 @@ public class DownloadScheduler
      * If there is existing pending (uncompleted) work, cancel it
      */
 
-    public static void run(@NonNull Context context, @NonNull DownloadInfo info)
+    public static void run(@NonNull Context appContext, @NonNull DownloadInfo info)
     {
         String downloadTag = getDownloadTag(info.id);
         Data data = new Data.Builder()
@@ -66,15 +66,15 @@ public class DownloadScheduler
                 .build();
         OneTimeWorkRequest work = new OneTimeWorkRequest.Builder(RunDownloadWorker.class)
                 .setInputData(data)
-                .setConstraints(getConstraints(context, info))
+                .setConstraints(getConstraints(appContext, info))
                 .addTag(TAG_WORK_RUN_TYPE)
                 .addTag(downloadTag)
                 .build();
-        WorkManager.getInstance().enqueueUniqueWork(downloadTag,
+        WorkManager.getInstance(appContext).enqueueUniqueWork(downloadTag,
                 ExistingWorkPolicy.REPLACE, work);
     }
 
-    public static void run(@NonNull UUID id)
+    public static void run(@NonNull Context appContext, @NonNull UUID id)
     {
         Data data = new Data.Builder()
                 .putString(GetAndRunDownloadWorker.TAG_ID, id.toString())
@@ -83,23 +83,23 @@ public class DownloadScheduler
                 .setInputData(data)
                 .addTag(TAG_WORK_GET_AND_RUN_TYPE)
                 .build();
-        WorkManager.getInstance().enqueue(work);
+        WorkManager.getInstance(appContext).enqueue(work);
     }
 
-    public static void undone(@NonNull DownloadInfo info)
+    public static void undone(@NonNull Context context, @NonNull DownloadInfo info)
     {
-        WorkManager.getInstance().cancelAllWorkByTag(getDownloadTag(info.id));
+        WorkManager.getInstance(context).cancelAllWorkByTag(getDownloadTag(info.id));
     }
 
-    public static void rescheduleAll()
+    public static void rescheduleAll(@NonNull Context appContext)
     {
         OneTimeWorkRequest work = new OneTimeWorkRequest.Builder(RescheduleAllWorker.class)
                 .addTag(TAG_WORK_RESCHEDULE_TYPE)
                 .build();
-        WorkManager.getInstance().enqueue(work);
+        WorkManager.getInstance(appContext).enqueue(work);
     }
 
-    public static void runAll(boolean ignorePaused)
+    public static void runAll(@NonNull Context appContext, boolean ignorePaused)
     {
         Data data = new Data.Builder()
                 .putBoolean(RunAllWorker.TAG_IGNORE_PAUSED, ignorePaused)
@@ -108,19 +108,19 @@ public class DownloadScheduler
                 .setInputData(data)
                 .addTag(TAG_WORK_RUN_ALL_TYPE)
                 .build();
-        WorkManager.getInstance().enqueue(work);
+        WorkManager.getInstance(appContext).enqueue(work);
     }
 
     /*
      * Run stopped (and with running status) downloads after starting app
      */
 
-    public static void restoreDownloads()
+    public static void restoreDownloads(@NonNull Context appContext)
     {
         OneTimeWorkRequest work = new OneTimeWorkRequest.Builder(RestoreDownloadsWorker.class)
                 .addTag(TAG_WORK_RESTORE_DOWNLOADS_TYPE)
                 .build();
-        WorkManager.getInstance().enqueue(work);
+        WorkManager.getInstance(appContext).enqueue(work);
     }
 
     public static String getDownloadTag(UUID downloadId)
