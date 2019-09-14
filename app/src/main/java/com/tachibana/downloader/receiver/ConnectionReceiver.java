@@ -40,8 +40,7 @@ public class ConnectionReceiver extends BroadcastReceiver
     {
         String action = intent.getAction();
         if (action != null && action.equals(ConnectivityManager.CONNECTIVITY_ACTION)) {
-            DownloadEngine engine = ((MainApplication)context.getApplicationContext()).getDownloadEngine();
-            engine.rescheduleDownloads();
+            DownloadEngine.getInstance(context).rescheduleDownloads();
         }
     }
 

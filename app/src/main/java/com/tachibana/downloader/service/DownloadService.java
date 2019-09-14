@@ -30,6 +30,9 @@ import android.os.Build;
 import android.os.PowerManager;
 import android.util.Log;
 
+import com.tachibana.downloader.core.DownloadNotifier;
+import com.tachibana.downloader.core.RepositoryHelper;
+import com.tachibana.downloader.core.settings.SettingsRepository;
 import com.tachibana.downloader.ui.main.MainActivity;
 import com.tachibana.downloader.MainApplication;
 import com.tachibana.downloader.R;
@@ -38,7 +41,6 @@ import com.tachibana.downloader.core.model.DownloadEngine;
 import com.tachibana.downloader.core.model.DownloadEngineListener;
 import com.tachibana.downloader.core.utils.Utils;
 import com.tachibana.downloader.receiver.NotificationReceiver;
-import com.tachibana.downloader.core.settings.SettingsManager;
 
 import java.util.UUID;
 
@@ -46,6 +48,8 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.core.app.NotificationCompat;
 import androidx.lifecycle.LifecycleService;
+
+import io.reactivex.disposables.CompositeDisposable;
 
 /*
  * Only for work that exceeds 10 minutes and and it's impossible to use WorkManager.
@@ -68,21 +72,22 @@ public class DownloadService extends LifecycleService
     private NotificationManager notifyManager;
     private NotificationCompat.Builder foregroundNotify;
     private DownloadEngine engine;
-    private SharedPreferences pref;
+    private SettingsRepository pref;
     private PowerManager.WakeLock wakeLock;
     private boolean downloadsApplyingParams;
+    private CompositeDisposable disposables = new CompositeDisposable();
 
     private void init()
     {
         Log.i(TAG, "Start " + TAG);
         notifyManager = (NotificationManager)getSystemService(NOTIFICATION_SERVICE);
 
-        pref = SettingsManager.getInstance(getApplicationContext()).getPreferences();
-        pref.registerOnSharedPreferenceChangeListener(sharedPreferenceListener);
+        pref = RepositoryHelper.getSettingsRepository(getApplicationContext());
+        disposables.add(pref.observeSettingsChanged()
+                .subscribe(this::handleSettingsChanged));
 
-        setKeepCpuAwake(pref.getBoolean(getString(R.string.pref_key_cpu_do_not_sleep),
-                                        SettingsManager.Default.cpuDoNotSleep));
-        engine = ((MainApplication)getApplication()).getDownloadEngine();
+        setKeepCpuAwake(pref.cpuDoNotSleep());
+        engine = DownloadEngine.getInstance(getApplicationContext());
         engine.addListener(listener);
 
         makeForegroundNotify();
@@ -126,7 +131,7 @@ public class DownloadService extends LifecycleService
 
     private void stopService()
     {
-        pref.unregisterOnSharedPreferenceChangeListener(sharedPreferenceListener);
+        disposables.clear();
         engine.removeListener(listener);
         isAlreadyRunning = false;
         engine = null;
@@ -155,7 +160,7 @@ public class DownloadService extends LifecycleService
     }
 
     @Override
-    public int onStartCommand(Intent intent, int flags, int startId)
+    public int onStartCommand(@NonNull Intent intent, int flags, int startId)
     {
         super.onStartCommand(intent, flags, startId);
 
@@ -164,11 +169,11 @@ public class DownloadService extends LifecycleService
             isAlreadyRunning = true;
             init();
             /* Run by system */
-            if (intent != null && intent.getAction() == null)
+            if (intent.getAction() == null)
                 engine.restoreDownloads();
         }
 
-        if (intent != null && intent.getAction() != null) {
+        if (intent.getAction() != null) {
             UUID id;
             switch (intent.getAction()) {
                 case NotificationReceiver.NOTIFY_ACTION_SHUTDOWN_APP:
@@ -251,7 +256,7 @@ public class DownloadService extends LifecycleService
                         PendingIntent.FLAG_UPDATE_CURRENT);
 
         foregroundNotify = new NotificationCompat.Builder(getApplicationContext(),
-                Utils.FOREGROUND_NOTIFY_CHAN_ID)
+                DownloadNotifier.FOREGROUND_NOTIFY_CHAN_ID)
                 .setSmallIcon(R.drawable.ic_app_notification)
                 .setContentIntent(startupPendingIntent)
                 .setContentTitle(getString(R.string.app_running_in_the_background))
@@ -328,7 +333,7 @@ public class DownloadService extends LifecycleService
         }
 
         NotificationCompat.Builder builder = new NotificationCompat.Builder(getApplicationContext(),
-                Utils.DEFAULT_NOTIFY_CHAN_ID)
+                DownloadNotifier.DEFAULT_NOTIFY_CHAN_ID)
                 .setContentTitle(getString(R.string.applying_params_title))
                 .setTicker(getString(R.string.applying_params_title))
                 .setContentText(getString(R.string.applying_params_for_downloads))
@@ -348,7 +353,7 @@ public class DownloadService extends LifecycleService
     {
         String title = String.format(getString(R.string.applying_params_error_title), name);
         NotificationCompat.Builder builder = new NotificationCompat.Builder(getApplicationContext(),
-                Utils.DEFAULT_NOTIFY_CHAN_ID)
+                DownloadNotifier.DEFAULT_NOTIFY_CHAN_ID)
                 .setContentTitle(title)
                 .setTicker(title)
                 .setContentText(e.toString())
@@ -384,8 +389,9 @@ public class DownloadService extends LifecycleService
                 .build();
     }
 
-    SharedPreferences.OnSharedPreferenceChangeListener sharedPreferenceListener = (sharedPreferences, key) -> {
+    private void handleSettingsChanged(String key)
+    {
         if (key.equals(getString(R.string.pref_key_cpu_do_not_sleep)))
-            setKeepCpuAwake(sharedPreferences.getBoolean(key, SettingsManager.Default.cpuDoNotSleep));
+            setKeepCpuAwake(pref.cpuDoNotSleep());
     };
 }

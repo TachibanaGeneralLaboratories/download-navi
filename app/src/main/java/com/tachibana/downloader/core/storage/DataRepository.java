@@ -20,179 +20,59 @@
 
 package com.tachibana.downloader.core.storage;
 
-import android.content.Context;
-import android.net.Uri;
-import android.util.Log;
+import androidx.lifecycle.LiveData;
 
 import com.tachibana.downloader.core.model.data.entity.DownloadInfo;
 import com.tachibana.downloader.core.model.data.entity.DownloadPiece;
 import com.tachibana.downloader.core.model.data.entity.Header;
 import com.tachibana.downloader.core.model.data.entity.InfoAndPieces;
 import com.tachibana.downloader.core.model.data.entity.UserAgent;
-import com.tachibana.downloader.core.utils.FileUtils;
 
-import java.io.FileNotFoundException;
 import java.util.List;
 import java.util.UUID;
 
-import androidx.lifecycle.LiveData;
-import androidx.lifecycle.MediatorLiveData;
 import io.reactivex.Flowable;
 import io.reactivex.Single;
 
-public class DataRepository
+public interface DataRepository
 {
-    @SuppressWarnings("unused")
-    private static final String TAG = DataRepository.class.getSimpleName();
+    void addInfo(DownloadInfo info, List<Header> headers);
 
-    private static DataRepository INSTANCE;
+    void replaceInfoByUrl(DownloadInfo info, List<Header> headers);
 
-    private AppDatabase db;
-    private MediatorLiveData<List<UserAgent>> userAgents;
+    void updateInfo(DownloadInfo info,
+                    boolean filePathChanged,
+                    boolean rebuildPieces);
 
-    public static DataRepository getInstance(AppDatabase db)
-    {
-        if (INSTANCE == null) {
-            synchronized (DataRepository.class) {
-                if (INSTANCE == null)
-                    INSTANCE = new DataRepository(db);
-            }
-        }
-        return INSTANCE;
-    }
+    void deleteInfo(DownloadInfo info, boolean withFile);
 
-    private DataRepository(AppDatabase db) {
-        this.db = db;
-        userAgents = new MediatorLiveData<>();
+    Flowable<List<InfoAndPieces>> observeAllInfoAndPieces();
 
-        userAgents.addSource(db.userAgentDao().observeAll(),
-                productEntities -> {
-                    if (db.getDatabaseCreated().getValue() != null)
-                        userAgents.postValue(productEntities);
-                });
-    }
+    Flowable<InfoAndPieces> observeInfoAndPiecesById(UUID id);
 
-    public void addInfo(DownloadInfo info, List<Header> headers)
-    {
-        db.downloadDao().addInfo(info, headers);
-    }
+    Single<List<InfoAndPieces>> getAllInfoAndPiecesSingle();
 
-    public void replaceInfoByUrl(DownloadInfo info, List<Header> headers)
-    {
-        db.downloadDao().replaceInfoByUrl(info, headers);
-    }
+    List<DownloadInfo> getAllInfo();
 
-    public void updateInfo(Context context, DownloadInfo info,
-                           boolean filePathChanged, boolean rebuildPieces)
-    {
-        if (context == null)
-            return;
+    DownloadInfo getInfoById(UUID id);
 
-        if (filePathChanged) {
-            DownloadInfo oldInfo = db.downloadDao().getInfoById(info.id);
-            if (oldInfo == null)
-                return;
-        }
-        if (rebuildPieces)
-            db.downloadDao().updateInfoWithPieces(info);
-        else
-            db.downloadDao().updateInfo(info);
-    }
+    Single<DownloadInfo> getInfoByIdSingle(UUID id);
 
-    public void deleteInfo(Context context, DownloadInfo info, boolean withFile)
-    {
-        db.downloadDao().deleteInfo(info);
+    int updatePiece(DownloadPiece piece);
 
-        if (withFile) {
-            try {
-                Uri filePath = FileUtils.getFileUri(context, info.dirPath, info.fileName);
-                if (filePath == null)
-                    return;
-                FileUtils.deleteFile(context, filePath);
+    List<DownloadPiece> getPiecesById(UUID infoId);
 
-            } catch (FileNotFoundException | SecurityException e) {
-                Log.w(TAG, Log.getStackTraceString(e));
-            }
-        }
-    }
+    List<DownloadPiece> getPiecesByIdSorted(UUID infoId);
 
-    public Flowable<List<InfoAndPieces>> observeAllInfoAndPieces()
-    {
-        return db.downloadDao().observeAllInfoAndPieces();
-    }
+    DownloadPiece getPiece(int index, UUID infoId);
 
-    public Flowable<InfoAndPieces> observeInfoAndPiecesById(UUID id)
-    {
-        return db.downloadDao().observeInfoAndPiecesById(id);
-    }
+    List<Header> getHeadersById(UUID infoId);
 
-    public Single<List<InfoAndPieces>> getAllInfoAndPiecesSingle()
-    {
-        return db.downloadDao().getAllInfoAndPiecesSingle();
-    }
+    void addHeader(Header header);
 
-    public List<DownloadInfo> getAllInfo()
-    {
-        return db.downloadDao().getAllInfo();
-    }
+    void addUserAgent(UserAgent agent);
 
-    public DownloadInfo getInfoById(UUID id)
-    {
-        return db.downloadDao().getInfoById(id);
-    }
+    void deleteUserAgent(UserAgent agent);
 
-    public Single<DownloadInfo> getInfoByIdSingle(UUID id)
-    {
-        return db.downloadDao().getInfoByIdSingle(id);
-    }
-
-    public int updatePiece(DownloadPiece piece)
-    {
-        return db.downloadDao().updatePiece(piece);
-    }
-
-    public List<DownloadPiece> getPiecesById(UUID infoId)
-    {
-        return db.downloadDao().getPiecesById(infoId);
-    }
-
-
-    /*
-     * Sorted by status code
-     */
-
-    public List<DownloadPiece> getPiecesByIdSorted(UUID infoId)
-    {
-        return db.downloadDao().getPiecesByIdSorted(infoId);
-    }
-
-    public DownloadPiece getPiece(int index, UUID infoId)
-    {
-        return db.downloadDao().getPiece(index, infoId);
-    }
-
-    public List<Header> getHeadersById(UUID infoId)
-    {
-        return db.downloadDao().getHeadersById(infoId);
-    }
-
-    public void addHeader(Header header)
-    {
-        db.downloadDao().addHeader(header);
-    }
-
-    public void addUserAgent(UserAgent agent)
-    {
-        db.userAgentDao().add(agent);
-    }
-
-    public void deleteUserAgent(UserAgent agent)
-    {
-        db.userAgentDao().delete(agent);
-    }
-
-    public LiveData<List<UserAgent>> observeUserAgents()
-    {
-        return db.userAgentDao().observeAll();
-    }
+    LiveData<List<UserAgent>> observeUserAgents();
 }

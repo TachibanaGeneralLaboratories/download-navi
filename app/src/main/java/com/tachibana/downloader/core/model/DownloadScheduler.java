@@ -24,8 +24,9 @@ import android.content.Context;
 import android.content.SharedPreferences;
 
 import com.tachibana.downloader.R;
+import com.tachibana.downloader.core.RepositoryHelper;
 import com.tachibana.downloader.core.model.data.entity.DownloadInfo;
-import com.tachibana.downloader.core.settings.SettingsManager;
+import com.tachibana.downloader.core.settings.SettingsRepository;
 import com.tachibana.downloader.service.GetAndRunDownloadWorker;
 import com.tachibana.downloader.service.RescheduleAllWorker;
 import com.tachibana.downloader.service.RestoreDownloadsWorker;
@@ -135,18 +136,14 @@ public class DownloadScheduler
 
     private static Constraints getConstraints(Context context, DownloadInfo info)
     {
-        SharedPreferences pref = SettingsManager.getInstance(context).getPreferences();
+        SettingsRepository pref = RepositoryHelper.getSettingsRepository(context);
 
         NetworkType netType = NetworkType.CONNECTED;
-        boolean onlyCharging = pref.getBoolean(context.getString(R.string.pref_key_download_only_when_charging),
-                                               SettingsManager.Default.onlyCharging);
-        boolean batteryControl = pref.getBoolean(context.getString(R.string.pref_key_battery_control),
-                                                 SettingsManager.Default.batteryControl);
-        if (pref.getBoolean(context.getString(R.string.pref_key_enable_roaming),
-                            SettingsManager.Default.enableRoaming))
+        boolean onlyCharging = pref.onlyCharging();
+        boolean batteryControl = pref.batteryControl();
+        if (pref.enableRoaming())
             netType = NetworkType.NOT_ROAMING;
-        if (info != null && info.unmeteredConnectionsOnly || pref.getBoolean(context.getString(R.string.pref_key_umnetered_connections_only),
-                                                             SettingsManager.Default.unmeteredConnectionsOnly))
+        if (info != null && info.unmeteredConnectionsOnly || pref.unmeteredConnectionsOnly())
             netType = NetworkType.UNMETERED;
 
         return new Constraints.Builder()

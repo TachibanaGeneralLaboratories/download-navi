@@ -20,6 +20,8 @@
 
 package com.tachibana.downloader.core.utils;
 
+import android.webkit.MimeTypeMap;
+
 import java.util.HashMap;
 
 public class MimeTypeUtils
@@ -196,5 +198,15 @@ public class MimeTypeUtils
         mimeToCategory.put("application/x-xz", Category.ARCHIVE);
         mimeToCategory.put("application/zip", Category.ARCHIVE);
         mimeToCategory.put("application/x-zoo", Category.ARCHIVE);
+    }
+
+    public static String getExtensionFromMimeType(String mimeType)
+    {
+        return MimeTypeMap.getSingleton().getExtensionFromMimeType(mimeType);
+    }
+
+    public static String getMimeTypeFromExtension(String extension)
+    {
+        return MimeTypeMap.getSingleton().getMimeTypeFromExtension(extension);
     }
 }

@@ -1,4 +1,4 @@
-package com.tachibana.downloader.core.utils;
+package com.tachibana.downloader.core.urlnormalizer;
 
 import com.anthonynsimon.url.exceptions.InvalidHexException;
 import com.anthonynsimon.url.exceptions.MalformedURLException;

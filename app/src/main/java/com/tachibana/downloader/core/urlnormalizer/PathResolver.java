@@ -1,4 +1,4 @@
-package com.tachibana.downloader.core.utils;
+package com.tachibana.downloader.core.urlnormalizer;
 
 import java.util.ArrayList;
 import java.util.List;

@@ -22,9 +22,11 @@ package com.tachibana.downloader.ui.filemanager;
 import android.app.Dialog;
 import android.content.ActivityNotFoundException;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Parcelable;
+import android.preference.PreferenceManager;
 import android.text.Editable;
 import android.text.TextUtils;
 import android.text.TextWatcher;
@@ -36,7 +38,8 @@ import android.widget.EditText;
 import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.textfield.TextInputEditText;
 import com.tachibana.downloader.R;
-import com.tachibana.downloader.core.utils.FileUtils;
+import com.tachibana.downloader.core.system.SystemFacadeHelper;
+import com.tachibana.downloader.core.system.filesystem.FileSystemFacade;
 import com.tachibana.downloader.core.utils.Utils;
 import com.tachibana.downloader.databinding.ActivityFilemanagerDialogBinding;
 import com.tachibana.downloader.ui.BaseAlertDialog;
@@ -96,6 +99,7 @@ public class FileManagerDialog extends AppCompatActivity
     private ErrorReportDialog errorReportDialog;
     private BaseAlertDialog.SharedViewModel dialogViewModel;
     private CompositeDisposable disposable = new CompositeDisposable();
+    private SharedPreferences pref;
 
     @Override
     public void onCreate(Bundle savedInstanceState)
@@ -110,8 +114,12 @@ public class FileManagerDialog extends AppCompatActivity
             finish();
         }
 
+        FileSystemFacade fs = SystemFacadeHelper.getFileSystemFacade(getApplicationContext());
+        pref = PreferenceManager.getDefaultSharedPreferences(this);
+
+        String startDir = pref.getString(getString(R.string.pref_key_filemanager_last_dir), fs.getDefaultDownloadPath());
         FileManagerViewModelFactory factory = new FileManagerViewModelFactory(this.getApplicationContext(),
-                intent.getParcelableExtra(TAG_CONFIG));
+                intent.getParcelableExtra(TAG_CONFIG), startDir);
         viewModel = ViewModelProviders.of(this, factory).get(FileManagerViewModel.class);
 
         binding = DataBindingUtil.setContentView(this, R.layout.activity_filemanager_dialog);
@@ -421,7 +429,7 @@ public class FileManagerDialog extends AppCompatActivity
 
         } else if (item.getType() == FileManagerNode.Type.FILE &&
                    viewModel.config.showMode == FileManagerConfig.FILE_CHOOSER_MODE) {
-            viewModel.saveCurDirectoryPath();
+            saveCurDirectoryPath();
             returnFileUri(item.getName());
         }
     }
@@ -430,6 +438,17 @@ public class FileManagerDialog extends AppCompatActivity
     {
         binding.swipeContainer.setRefreshing(true);
         viewModel.refreshCurDirectory();
+    }
+
+    private void saveCurDirectoryPath()
+    {
+        String path = viewModel.curDir.get();
+        if (path == null)
+            return;
+
+        String keyFileManagerLastDir = getString(R.string.pref_key_filemanager_last_dir);
+        if (!pref.getString(keyFileManagerLastDir, "").equals(path))
+            pref.edit().putString(keyFileManagerLastDir, path).apply();
     }
 
     @Override
@@ -470,7 +489,7 @@ public class FileManagerDialog extends AppCompatActivity
                 openHomeDirectory();
                 break;
             case R.id.filemanager_ok_menu:
-                viewModel.saveCurDirectoryPath();
+                saveCurDirectoryPath();
                 if (viewModel.config.showMode == FileManagerConfig.SAVE_FILE_MODE)
                     createFile(false);
                 else
@@ -483,7 +502,7 @@ public class FileManagerDialog extends AppCompatActivity
 
     private void openHomeDirectory()
     {
-        String path = FileUtils.getUserDirPath();
+        String path = viewModel.fs.getUserDirPath();
         if (!TextUtils.isEmpty(path)) {
             try {
                 viewModel.jumpToDirectory(path);
@@ -594,6 +613,8 @@ public class FileManagerDialog extends AppCompatActivity
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data)
     {
+        super.onActivityResult(requestCode, resultCode, data);
+
         if (data == null)
             return;
 

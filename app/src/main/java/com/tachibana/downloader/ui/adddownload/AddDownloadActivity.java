@@ -25,10 +25,11 @@ import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.Bundle;
 
+import com.tachibana.downloader.core.RepositoryHelper;
+import com.tachibana.downloader.core.settings.SettingsRepository;
 import com.tachibana.downloader.ui.FragmentCallback;
 import com.tachibana.downloader.R;
 import com.tachibana.downloader.core.utils.Utils;
-import com.tachibana.downloader.core.settings.SettingsManager;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
@@ -66,13 +67,11 @@ public class AddDownloadActivity extends AppCompatActivity
 
     private AddInitParams makeInitParams()
     {
-        SharedPreferences pref = SettingsManager.getInstance(getApplicationContext()).getPreferences();
+        SettingsRepository pref = RepositoryHelper.getSettingsRepository(getApplicationContext());
 
         AddInitParams initParams = new AddInitParams();
         initParams.url = getUrlFromIntent();
-        String path = pref.getString(getString(R.string.pref_key_save_downloads_in),
-                                     SettingsManager.Default.saveDownloadsIn);
-        initParams.dirPath = Uri.parse(path);
+        initParams.dirPath = Uri.parse(pref.saveDownloadsIn());
 
         return initParams;
     }

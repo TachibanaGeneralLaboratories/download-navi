@@ -22,24 +22,24 @@ package com.tachibana.downloader.core.model;
 
 import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.net.Uri;
 import android.text.TextUtils;
 import android.util.Log;
 
-import com.tachibana.downloader.MainApplication;
 import com.tachibana.downloader.R;
+import com.tachibana.downloader.core.RepositoryHelper;
 import com.tachibana.downloader.core.model.data.DownloadResult;
 import com.tachibana.downloader.core.model.data.StatusCode;
 import com.tachibana.downloader.core.model.data.entity.DownloadInfo;
 import com.tachibana.downloader.core.exception.FileAlreadyExistsException;
+import com.tachibana.downloader.core.settings.SettingsRepository;
 import com.tachibana.downloader.core.storage.DataRepository;
-import com.tachibana.downloader.core.utils.FileUtils;
+import com.tachibana.downloader.core.system.SystemFacadeHelper;
+import com.tachibana.downloader.core.system.filesystem.FileSystemFacade;
 import com.tachibana.downloader.core.utils.Utils;
 import com.tachibana.downloader.receiver.ConnectionReceiver;
 import com.tachibana.downloader.receiver.PowerReceiver;
 import com.tachibana.downloader.service.DownloadService;
-import com.tachibana.downloader.core.settings.SettingsManager;
 import com.tachibana.downloader.service.DeleteDownloadsWorker;
 
 import java.io.IOException;
@@ -65,7 +65,8 @@ public class DownloadEngine
 
     private Context appContext;
     private DataRepository repo;
-    private SharedPreferences pref;
+    private SettingsRepository pref;
+    private FileSystemFacade fs;
     private CompositeDisposable disposables = new CompositeDisposable();
     private HashMap<UUID, DownloadThread> activeDownloads = new HashMap<>();
     private ArrayList<DownloadEngineListener> listeners = new ArrayList<>();
@@ -92,11 +93,15 @@ public class DownloadEngine
     private DownloadEngine(Context appContext)
     {
         this.appContext = appContext;
-        repo = ((MainApplication)appContext).getRepository();
-        pref = SettingsManager.getInstance(appContext).getPreferences();
+        repo = RepositoryHelper.getDataRepository(appContext);
+        pref = RepositoryHelper.getSettingsRepository(appContext);
+        fs = SystemFacadeHelper.getFileSystemFacade(appContext);
+
         switchConnectionReceiver();
         switchPowerReceiver();
-        pref.registerOnSharedPreferenceChangeListener(sharedPrefListener);
+
+        disposables.add(pref.observeSettingsChanged()
+                .subscribe(this::handleSettingsChanged));
     }
 
     public void addListener(DownloadEngineListener listener)
@@ -249,7 +254,8 @@ public class DownloadEngine
         if (task != null && task.isRunning())
             return;
 
-        task = new DownloadThread(appContext, id);
+        task = new DownloadThread(appContext, id, repo, pref, fs,
+                SystemFacadeHelper.getSystemFacade(appContext));
         activeDownloads.put(id, task);
         disposables.add(Observable.fromCallable(task)
                 .subscribeOn(Schedulers.io())
@@ -274,7 +280,7 @@ public class DownloadEngine
             return;
 
         DownloadScheduler.undone(appContext, info);
-        repo.deleteInfo(appContext, info, withFile);
+        repo.deleteInfo(info, withFile);
 
         DownloadThread task = activeDownloads.get(info.id);
         if (task != null)
@@ -372,11 +378,9 @@ public class DownloadEngine
         if (nameChanged || dirChanged) {
             changed = true;
             try {
-                FileUtils.moveFile(appContext,
-                        info.dirPath, info.fileName,
+                fs.moveFile(info.dirPath, info.fileName,
                         (dirChanged ? params.dirPath : info.dirPath),
                         (nameChanged ? params.fileName : info.fileName),
-                        info.mimeType,
                         true);
 
             } catch (IOException | FileAlreadyExistsException e) {
@@ -392,7 +396,7 @@ public class DownloadEngine
         }
 
         if (changed)
-            repo.updateInfo(appContext, info, true, false);
+            repo.updateInfo(info, true, false);
     }
 
     private interface CallListener
@@ -476,12 +480,10 @@ public class DownloadEngine
 
     private void checkMoveAfterDownload(DownloadInfo info)
     {
-        if (!pref.getBoolean(appContext.getString(R.string.pref_key_move_after_download),
-                             SettingsManager.Default.moveAfterDownload))
+        if (!pref.moveAfterDownload())
             return;
 
-        Uri movePath = Uri.parse(pref.getString(appContext.getString(R.string.pref_key_move_after_download_in),
-                                                SettingsManager.Default.moveAfterDownloadIn));
+        Uri movePath = Uri.parse(pref.moveAfterDownloadIn());
         if (movePath == null)
             return;
 
@@ -503,8 +505,7 @@ public class DownloadEngine
 
     private boolean isMaxActiveDownloads()
     {
-        return activeDownloads.size() == pref.getInt(appContext.getString(R.string.pref_key_max_active_downloads),
-                                                     SettingsManager.Default.maxActiveDownloads);
+        return activeDownloads.size() == pref.maxActiveDownloads();
     }
 
     private void scheduleWaitingDownload()
@@ -519,7 +520,8 @@ public class DownloadEngine
         runDownload(id);
     }
 
-    private final SharedPreferences.OnSharedPreferenceChangeListener sharedPrefListener = (sharedPreferences, key) -> {
+    private void handleSettingsChanged(String key)
+    {
         boolean reschedule = false;
 
         if (key.equals(appContext.getString(R.string.pref_key_umnetered_connections_only)) ||
@@ -540,16 +542,13 @@ public class DownloadEngine
             reschedulePendingDownloads();
             rescheduleDownloads();
         }
-    };
+    }
 
     private void switchPowerReceiver()
     {
-        boolean batteryControl = pref.getBoolean(appContext.getString(R.string.pref_key_battery_control),
-                                                 SettingsManager.Default.batteryControl);
-        boolean customBatteryControl = pref.getBoolean(appContext.getString(R.string.pref_key_custom_battery_control),
-                                                       SettingsManager.Default.customBatteryControl);
-        boolean onlyCharging = pref.getBoolean(appContext.getString(R.string.pref_key_download_only_when_charging),
-                                               SettingsManager.Default.onlyCharging);
+        boolean batteryControl = pref.batteryControl();
+        boolean customBatteryControl = pref.customBatteryControl();
+        boolean onlyCharging = pref.onlyCharging();
 
         try {
             appContext.unregisterReceiver(powerReceiver);
@@ -568,10 +567,8 @@ public class DownloadEngine
 
     private void switchConnectionReceiver()
     {
-        boolean unmeteredOnly = pref.getBoolean(appContext.getString(R.string.pref_key_umnetered_connections_only),
-                                                SettingsManager.Default.unmeteredConnectionsOnly);
-        boolean roaming = pref.getBoolean(appContext.getString(R.string.pref_key_enable_roaming),
-                                          SettingsManager.Default.enableRoaming);
+        boolean unmeteredOnly = pref.unmeteredConnectionsOnly();
+        boolean roaming = pref.enableRoaming();
 
         try {
             appContext.unregisterReceiver(connectionReceiver);
@@ -585,18 +582,12 @@ public class DownloadEngine
 
     private boolean checkStopDownloads()
     {
-        boolean batteryControl = pref.getBoolean(appContext.getString(R.string.pref_key_battery_control),
-                                                 SettingsManager.Default.batteryControl);
-        boolean customBatteryControl = pref.getBoolean(appContext.getString(R.string.pref_key_custom_battery_control),
-                                                       SettingsManager.Default.customBatteryControl);
-        int customBatteryControlValue = pref.getInt(appContext.getString(R.string.pref_key_custom_battery_control_value),
-                                                    Utils.getDefaultBatteryLowLevel());
-        boolean onlyCharging = pref.getBoolean(appContext.getString(R.string.pref_key_download_only_when_charging),
-                                               SettingsManager.Default.onlyCharging);
-        boolean unmeteredOnly = pref.getBoolean(appContext.getString(R.string.pref_key_umnetered_connections_only),
-                                                SettingsManager.Default.unmeteredConnectionsOnly);
-        boolean roaming = pref.getBoolean(appContext.getString(R.string.pref_key_enable_roaming),
-                                          SettingsManager.Default.enableRoaming);
+        boolean batteryControl = pref.batteryControl();
+        boolean customBatteryControl = pref.customBatteryControl();
+        int customBatteryControlValue = pref.customBatteryControlValue();
+        boolean onlyCharging = pref.onlyCharging();
+        boolean unmeteredOnly = pref.unmeteredConnectionsOnly();
+        boolean roaming = pref.enableRoaming();
 
         boolean stop = false;
         if (roaming)

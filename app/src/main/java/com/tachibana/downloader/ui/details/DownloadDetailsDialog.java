@@ -44,7 +44,6 @@ import com.tachibana.downloader.R;
 import com.tachibana.downloader.core.model.data.entity.DownloadInfo;
 import com.tachibana.downloader.core.exception.FileAlreadyExistsException;
 import com.tachibana.downloader.core.exception.FreeSpaceException;
-import com.tachibana.downloader.core.utils.FileUtils;
 import com.tachibana.downloader.databinding.DialogDownloadDetailsBinding;
 import com.tachibana.downloader.ui.filemanager.FileManagerConfig;
 import com.tachibana.downloader.ui.filemanager.FileManagerDialog;
@@ -343,11 +342,11 @@ public class DownloadDetailsDialog extends DialogFragment
 
             return false;
         }
-        if (!FileUtils.isValidFatFilename(s.toString())) {
+        if (!viewModel.fs.isValidFatFilename(s.toString())) {
             String format = getString(R.string.download_error_name_is_not_correct);
             binding.layoutName.setErrorEnabled(true);
             binding.layoutName.setError(String.format(format,
-                    FileUtils.buildValidFatFilename(s.toString())));
+                    viewModel.fs.buildValidFatFilename(s.toString())));
             binding.layoutName.requestFocus();
 
             return false;
@@ -381,7 +380,7 @@ public class DownloadDetailsDialog extends DialogFragment
 
         String dirPath = null;
         Uri dirUri = viewModel.mutableParams.getDirPath();
-        if (dirUri != null && FileUtils.isFileSystemPath(dirUri))
+        if (dirUri != null && viewModel.fs.isFileSystemPath(dirUri))
             dirPath = dirUri.getPath();
 
         FileManagerConfig config = new FileManagerConfig(dirPath,

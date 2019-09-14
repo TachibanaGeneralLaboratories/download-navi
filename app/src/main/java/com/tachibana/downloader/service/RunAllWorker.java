@@ -23,10 +23,12 @@ package com.tachibana.downloader.service;
 import android.content.Context;
 
 import com.tachibana.downloader.MainApplication;
+import com.tachibana.downloader.core.RepositoryHelper;
 import com.tachibana.downloader.core.model.DownloadScheduler;
 import com.tachibana.downloader.core.model.data.StatusCode;
 import com.tachibana.downloader.core.model.data.entity.DownloadInfo;
 import com.tachibana.downloader.core.storage.DataRepository;
+import com.tachibana.downloader.core.storage.DataRepositoryImpl;
 
 import java.util.List;
 
@@ -55,7 +57,7 @@ public class RunAllWorker extends Worker
     public Result doWork()
     {
         Context context = getApplicationContext();
-        DataRepository repo = ((MainApplication)context).getRepository();
+        DataRepository repo = RepositoryHelper.getDataRepository(context);
         boolean ignorePaused = getInputData().getBoolean(TAG_IGNORE_PAUSED, false);
 
         List<DownloadInfo> infoList = repo.getAllInfo();

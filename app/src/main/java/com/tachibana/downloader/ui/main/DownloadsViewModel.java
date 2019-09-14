@@ -24,6 +24,7 @@ import android.app.Application;
 import android.text.TextUtils;
 
 import com.tachibana.downloader.MainApplication;
+import com.tachibana.downloader.core.RepositoryHelper;
 import com.tachibana.downloader.core.model.DownloadEngine;
 import com.tachibana.downloader.core.model.data.entity.DownloadInfo;
 import com.tachibana.downloader.core.model.data.entity.InfoAndPieces;
@@ -32,6 +33,7 @@ import com.tachibana.downloader.core.filter.DownloadFilterCollection;
 import com.tachibana.downloader.core.sorting.DownloadSorting;
 import com.tachibana.downloader.core.sorting.DownloadSortingComparator;
 import com.tachibana.downloader.core.storage.DataRepository;
+import com.tachibana.downloader.core.storage.DataRepositoryImpl;
 
 import java.util.List;
 
@@ -68,8 +70,8 @@ public class DownloadsViewModel extends AndroidViewModel
     {
         super(application);
 
-        repo = ((MainApplication)getApplication()).getRepository();
-        engine = ((MainApplication)getApplication()).getDownloadEngine();
+        repo = RepositoryHelper.getDataRepository(application);
+        engine = DownloadEngine.getInstance(application);
     }
 
     public Flowable<List<InfoAndPieces>> observerAllInfoAndPieces()

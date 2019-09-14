@@ -46,8 +46,7 @@ public class PowerReceiver extends BroadcastReceiver
             case Intent.ACTION_POWER_CONNECTED:
             case Intent.ACTION_POWER_DISCONNECTED:
             case Intent.ACTION_BATTERY_CHANGED:
-                DownloadEngine engine = ((MainApplication)context.getApplicationContext()).getDownloadEngine();
-                engine.rescheduleDownloads();
+                DownloadEngine.getInstance(context).rescheduleDownloads();
                 break;
         }
     }

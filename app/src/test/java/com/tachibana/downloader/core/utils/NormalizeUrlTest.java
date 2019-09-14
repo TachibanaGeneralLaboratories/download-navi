@@ -1,5 +1,7 @@
 package com.tachibana.downloader.core.utils;
 
+import com.tachibana.downloader.core.urlnormalizer.NormalizeUrl;
+
 import org.junit.Test;
 
 import java.util.ArrayList;

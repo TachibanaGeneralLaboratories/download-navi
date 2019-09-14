@@ -23,14 +23,15 @@ package com.tachibana.downloader.ui.settings.sections;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 
 import com.tachibana.downloader.R;
-import com.tachibana.downloader.core.settings.SettingsManager;
-import com.tachibana.downloader.core.utils.FileUtils;
+import com.tachibana.downloader.core.RepositoryHelper;
+import com.tachibana.downloader.core.settings.SettingsRepository;
+import com.tachibana.downloader.core.system.SystemFacadeHelper;
+import com.tachibana.downloader.core.system.filesystem.FileSystemFacade;
 import com.tachibana.downloader.ui.filemanager.FileManagerConfig;
 import com.tachibana.downloader.ui.filemanager.FileManagerDialog;
 import com.takisoft.preferencex.PreferenceFragmentCompat;
@@ -39,6 +40,7 @@ import androidx.preference.Preference;
 import androidx.preference.SwitchPreferenceCompat;
 
 public class StorageSettingsFragment extends PreferenceFragmentCompat
+    implements Preference.OnPreferenceChangeListener
 {
     @SuppressWarnings("unused")
     private static final String TAG = StorageSettingsFragment.class.getSimpleName();
@@ -47,8 +49,10 @@ public class StorageSettingsFragment extends PreferenceFragmentCompat
 
     private static final int DOWNLOAD_DIR_CHOOSE_REQUEST = 1;
 
+    private SettingsRepository pref;
     /* Preference that is associated with the current dir selection dialog */
     private String dirChooserBindPref;
+    private FileSystemFacade fs;
 
     public static StorageSettingsFragment newInstance()
     {
@@ -66,51 +70,61 @@ public class StorageSettingsFragment extends PreferenceFragmentCompat
         if (savedInstanceState != null)
             dirChooserBindPref = savedInstanceState.getString(TAG_DIR_CHOOSER_BIND_PREF);
 
-        SharedPreferences pref = SettingsManager.getInstance(getActivity().getApplicationContext())
-                .getPreferences();
+        Context context = getActivity().getApplicationContext();
+        pref = RepositoryHelper.getSettingsRepository(context);
+        fs = SystemFacadeHelper.getFileSystemFacade(context);
 
         String keySaveDownloadsIn = getString(R.string.pref_key_save_downloads_in);
         Preference saveDownloadsIn = findPreference(keySaveDownloadsIn);
-        Uri saveInPath = Uri.parse(pref.getString(keySaveDownloadsIn,
-                                                  SettingsManager.Default.saveDownloadsIn));
-        if (saveInPath != null)
-            saveDownloadsIn.setSummary(FileUtils.getDirName(getActivity().getApplicationContext(), saveInPath));
-        saveDownloadsIn.setOnPreferenceClickListener((Preference preference) -> {
-            dirChooserBindPref = getString(R.string.pref_key_save_downloads_in);
-            dirChooseDialog(saveInPath);
+        if (saveDownloadsIn != null) {
+            Uri saveInPath = Uri.parse(pref.saveDownloadsIn());
+            if (saveInPath != null)
+                saveDownloadsIn.setSummary(fs.getDirName(saveInPath));
 
-            return true;
-        });
+            saveDownloadsIn.setOnPreferenceClickListener((preference) -> {
+                dirChooserBindPref = getString(R.string.pref_key_save_downloads_in);
+                dirChooseDialog(saveInPath);
+
+                return true;
+            });
+        }
 
         String keyMoveAfterDownload = getString(R.string.pref_key_move_after_download);
-        SwitchPreferenceCompat moveAfterDownload =
-                (SwitchPreferenceCompat)findPreference(keyMoveAfterDownload);
-        moveAfterDownload.setChecked(pref.getBoolean(keyMoveAfterDownload,
-                                                     SettingsManager.Default.moveAfterDownload));
+        SwitchPreferenceCompat moveAfterDownload = findPreference(keyMoveAfterDownload);
+        if (moveAfterDownload != null) {
+            moveAfterDownload.setChecked(pref.moveAfterDownload());
+            bindOnPreferenceChangeListener(moveAfterDownload);
+        }
 
         String keyMoveAfterDownloadIn = getString(R.string.pref_key_move_after_download_in);
         Preference moveAfterDownloadIn = findPreference(keyMoveAfterDownloadIn);
-        Uri moveInPath = Uri.parse(pref.getString(keyMoveAfterDownloadIn,
-                                                  SettingsManager.Default.moveAfterDownloadIn));
-        if (moveInPath != null)
-            moveAfterDownloadIn.setSummary(FileUtils.getDirName(getActivity().getApplicationContext(), moveInPath));
-        moveAfterDownloadIn.setOnPreferenceClickListener((Preference preference) -> {
-            dirChooserBindPref = getString(R.string.pref_key_move_after_download_in);
-            dirChooseDialog(moveInPath);
+        if (moveAfterDownloadIn != null) {
+            Uri moveInPath = Uri.parse(pref.moveAfterDownloadIn());
+            if (moveInPath != null)
+                moveAfterDownloadIn.setSummary(fs.getDirName(moveInPath));
 
-            return true;
-        });
+            moveAfterDownloadIn.setOnPreferenceClickListener((preference) -> {
+                dirChooserBindPref = getString(R.string.pref_key_move_after_download_in);
+                dirChooseDialog(moveInPath);
+
+                return true;
+            });
+        }
 
         String keyDeleteFileIfError = getString(R.string.pref_key_delete_file_if_error);
-        SwitchPreferenceCompat deleteFileIfError = (SwitchPreferenceCompat)findPreference(keyDeleteFileIfError);
-        deleteFileIfError.setChecked(pref.getBoolean(keyDeleteFileIfError, SettingsManager.Default.deleteFileIfError));
+        SwitchPreferenceCompat deleteFileIfError = findPreference(keyDeleteFileIfError);
+        if (deleteFileIfError != null) {
+            deleteFileIfError.setChecked(pref.deleteFileIfError());
+            bindOnPreferenceChangeListener(deleteFileIfError);
+        }
 
         String keyPreallocateDiskSpace = getString(R.string.pref_key_preallocate_disk_space);
-        SwitchPreferenceCompat preallocateDiskSpace =
-                (SwitchPreferenceCompat)findPreference(keyPreallocateDiskSpace);
-        preallocateDiskSpace.setChecked(pref.getBoolean(keyPreallocateDiskSpace,
-                                        SettingsManager.Default.preallocateDiskSpace));
-        preallocateDiskSpace.setEnabled(Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP);
+        SwitchPreferenceCompat preallocateDiskSpace = findPreference(keyPreallocateDiskSpace);
+        if (preallocateDiskSpace != null) {
+            preallocateDiskSpace.setChecked(pref.preallocateDiskSpace());
+            preallocateDiskSpace.setEnabled(Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP);
+            bindOnPreferenceChangeListener(preallocateDiskSpace);
+        }
     }
 
     @Override
@@ -127,10 +141,15 @@ public class StorageSettingsFragment extends PreferenceFragmentCompat
         setPreferencesFromResource(R.xml.pref_storage, rootKey);
     }
 
+    private void bindOnPreferenceChangeListener(Preference preference)
+    {
+        preference.setOnPreferenceChangeListener(this);
+    }
+
     private void dirChooseDialog(Uri dirUri)
     {
         String dirPath = null;
-        if (dirUri != null && FileUtils.isFileSystemPath(dirUri))
+        if (dirUri != null && fs.isFileSystemPath(dirUri))
             dirPath = dirUri.getPath();
 
         Intent i = new Intent(getActivity(), FileManagerDialog.class);
@@ -144,27 +163,39 @@ public class StorageSettingsFragment extends PreferenceFragmentCompat
     public void onActivityResult(int requestCode, int resultCode, Intent data)
     {
         if (requestCode == DOWNLOAD_DIR_CHOOSE_REQUEST && resultCode == Activity.RESULT_OK) {
-            if (data == null || data.getData() == null || dirChooserBindPref == null)
+            if (data.getData() == null || dirChooserBindPref == null)
                 return;
 
-            Context context = getActivity().getApplicationContext();
-            Uri dirPath = data.getData();
+            Uri path = data.getData();
 
-            SharedPreferences pref = SettingsManager.getInstance(context).getPreferences();
-            try {
-                FileUtils.takeUriPermission(context, dirPath);
-
-            } catch (SecurityException e) {
-                /* Save default value */
-                pref.edit().putString(dirChooserBindPref, SettingsManager.Default.saveDownloadsIn).apply();
-                Preference p = findPreference(dirChooserBindPref);
-                p.setSummary(FileUtils.getDirName(context, Uri.parse(SettingsManager.Default.saveDownloadsIn)));
-
-                return;
-            }
-            pref.edit().putString(dirChooserBindPref, dirPath.toString()).apply();
             Preference p = findPreference(dirChooserBindPref);
-            p.setSummary(FileUtils.getDirName(context, dirPath));
+            if (p == null)
+                return;
+
+            if (dirChooserBindPref.equals(getString(R.string.pref_key_save_downloads_in))) {
+                pref.saveDownloadsIn(path.toString());
+
+            } else if (dirChooserBindPref.equals(getString(R.string.pref_key_move_after_download_in))) {
+                pref.moveAfterDownloadIn(path.toString());
+
+            }
+            p.setSummary(fs.getDirName(path));
         }
+    }
+
+    @Override
+    public boolean onPreferenceChange(Preference preference, Object newValue)
+    {
+        if (preference.getKey().equals(getString(R.string.pref_key_move_after_download))) {
+            pref.moveAfterDownload((boolean)newValue);
+
+        } else if (preference.getKey().equals(getString(R.string.pref_key_delete_file_if_error))) {
+            pref.deleteFileIfError((boolean)newValue);
+
+        } else if (preference.getKey().equals(getString(R.string.pref_key_preallocate_disk_space))) {
+            pref.preallocateDiskSpace((boolean)newValue);
+        }
+
+        return true;
     }
 }

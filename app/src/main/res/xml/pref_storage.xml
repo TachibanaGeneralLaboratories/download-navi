@@ -8,19 +8,22 @@
 
     <SwitchPreferenceCompat
         android:key="@string/pref_key_delete_file_if_error"
-        android:title="@string/pref_delete_file_if_error_title" />
+        android:title="@string/pref_delete_file_if_error_title"
+        android:persistent="false" />
 
     <SwitchPreferenceCompat
         android:key="@string/pref_key_preallocate_disk_space"
         android:title="@string/pref_preallocate_disk_space_title"
-        android:summary="@string/pref_preallocate_disk_space_summary" />
+        android:summary="@string/pref_preallocate_disk_space_summary"
+        android:persistent="false" />
 
     <PreferenceCategory
         android:title="@string/pref_move_after_download_title">
 
         <SwitchPreferenceCompat
             android:key="@string/pref_key_move_after_download"
-            android:title="@string/pref_move_after_download_title" />
+            android:title="@string/pref_move_after_download_title"
+            android:persistent="false" />
 
         <Preference
             android:key="@string/pref_key_move_after_download_in"

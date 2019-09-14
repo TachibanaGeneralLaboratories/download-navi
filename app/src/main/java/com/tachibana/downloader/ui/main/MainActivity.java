@@ -132,7 +132,7 @@ public class MainActivity extends AppCompatActivity
 
         setContentView(R.layout.activity_main);
 
-        engine = ((MainApplication)getApplication()).getDownloadEngine();
+        engine = DownloadEngine.getInstance(getApplicationContext());
 
         initLayout();
         engine.restoreDownloads();

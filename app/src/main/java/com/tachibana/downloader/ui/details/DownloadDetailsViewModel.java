@@ -28,6 +28,7 @@ import android.text.TextUtils;
 import android.util.Log;
 
 import com.tachibana.downloader.MainApplication;
+import com.tachibana.downloader.core.RepositoryHelper;
 import com.tachibana.downloader.core.model.ChangeableParams;
 import com.tachibana.downloader.core.model.DownloadEngine;
 import com.tachibana.downloader.core.model.data.entity.DownloadInfo;
@@ -36,8 +37,10 @@ import com.tachibana.downloader.core.model.data.entity.InfoAndPieces;
 import com.tachibana.downloader.core.exception.FileAlreadyExistsException;
 import com.tachibana.downloader.core.exception.FreeSpaceException;
 import com.tachibana.downloader.core.storage.DataRepository;
+import com.tachibana.downloader.core.storage.DataRepositoryImpl;
+import com.tachibana.downloader.core.system.SystemFacadeHelper;
+import com.tachibana.downloader.core.system.filesystem.FileSystemFacade;
 import com.tachibana.downloader.core.utils.DigestUtils;
-import com.tachibana.downloader.core.utils.FileUtils;
 import com.tachibana.downloader.ui.adddownload.AddDownloadDialog;
 
 import java.io.FileDescriptor;
@@ -66,6 +69,7 @@ public class DownloadDetailsViewModel extends AndroidViewModel
     public DownloadDetailsInfo info = new DownloadDetailsInfo();
     public DownloadDetailsMutableParams mutableParams = new DownloadDetailsMutableParams();
     public MutableLiveData<Boolean> paramsChanged = new MutableLiveData<>();
+    public FileSystemFacade fs;
 
     @Override
     protected void onCleared()
@@ -80,8 +84,9 @@ public class DownloadDetailsViewModel extends AndroidViewModel
     {
         super(application);
 
-        repo = ((MainApplication)getApplication()).getRepository();
-        engine = ((MainApplication)getApplication()).getDownloadEngine();
+        repo = RepositoryHelper.getDataRepository(application);
+        fs = SystemFacadeHelper.getFileSystemFacade(application);
+        engine = DownloadEngine.getInstance(application);
         paramsChanged.setValue(false);
         mutableParams.addOnPropertyChangedCallback(mutableParamsCallback);
     }
@@ -127,8 +132,8 @@ public class DownloadDetailsViewModel extends AndroidViewModel
             if (propertyId == BR.dirPath) {
                 Uri dirPath = mutableParams.getDirPath();
                 if (dirPath != null) {
-                    info.setStorageFreeSpace(FileUtils.getDirAvailableBytes(getApplication(), dirPath));
-                    info.setDirName(FileUtils.getDirName(getApplication(), dirPath));
+                    info.setStorageFreeSpace(fs.getDirAvailableBytes(dirPath));
+                    info.setDirName(fs.getDirName(dirPath));
                 }
             }
 
@@ -194,7 +199,7 @@ public class DownloadDetailsViewModel extends AndroidViewModel
         if (downloadInfo == null)
             return null;
 
-        Uri filePath = FileUtils.getFileUri(getApplication(), downloadInfo.dirPath, downloadInfo.fileName);
+        Uri filePath = fs.getFileUri(downloadInfo.dirPath, downloadInfo.fileName);
         if (filePath == null)
             return null;
 
@@ -266,7 +271,7 @@ public class DownloadDetailsViewModel extends AndroidViewModel
         String fileName = (params.fileName == null ? downloadInfo.fileName : params.fileName);
         Uri dirPath = (params.dirPath == null ? downloadInfo.dirPath : params.dirPath);
 
-        Uri filePath = FileUtils.getFileUri(getApplication(), dirPath, fileName);
+        Uri filePath = fs.getFileUri(dirPath, fileName);
 
         return filePath != null;
     }

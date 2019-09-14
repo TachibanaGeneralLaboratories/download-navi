@@ -14,10 +14,9 @@
  * limitations under the License.
  */
 
-package com.tachibana.downloader.core.utils;
+package com.tachibana.downloader.core.urlnormalizer;
 
 import com.anthonynsimon.url.URL;
-import com.anthonynsimon.url.exceptions.InvalidURLReferenceException;
 import com.anthonynsimon.url.exceptions.MalformedURLException;
 import com.tachibana.downloader.core.exception.NormalizeUrlException;
 

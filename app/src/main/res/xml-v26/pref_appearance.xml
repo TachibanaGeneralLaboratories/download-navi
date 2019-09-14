@@ -17,14 +17,17 @@
 
         <SwitchPreferenceCompat
             android:key="@string/pref_key_progress_notify"
-            android:title="@string/pref_progress_notify_title" />
+            android:title="@string/pref_progress_notify_title"
+            android:persistent="false" />
 
         <SwitchPreferenceCompat
             android:key="@string/pref_key_finish_notify"
-            android:title="@string/pref_finish_notify_title" />
+            android:title="@string/pref_finish_notify_title"
+            android:persistent="false" />
 
         <SwitchPreferenceCompat
             android:key="@string/pref_key_pending_notify"
-            android:title="@string/pref_pending_notify_title" />
+            android:title="@string/pref_pending_notify_title"
+            android:persistent="false" />
     </PreferenceCategory>
 </PreferenceScreen>

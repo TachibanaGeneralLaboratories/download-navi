@@ -31,7 +31,8 @@ import android.widget.Toast;
 
 import com.jaredrummler.android.colorpicker.ColorPreferenceCompat;
 import com.tachibana.downloader.R;
-import com.tachibana.downloader.core.settings.SettingsManager;
+import com.tachibana.downloader.core.RepositoryHelper;
+import com.tachibana.downloader.core.settings.SettingsRepository;
 import com.takisoft.preferencex.PreferenceFragmentCompat;
 
 import androidx.preference.ListPreference;
@@ -39,13 +40,14 @@ import androidx.preference.Preference;
 import androidx.preference.SwitchPreferenceCompat;
 
 public class AppearanceSettingsFragment extends PreferenceFragmentCompat
-        implements
-        Preference.OnPreferenceChangeListener
+        implements Preference.OnPreferenceChangeListener
 {
     @SuppressWarnings("unused")
     private static final String TAG = AppearanceSettingsFragment.class.getSimpleName();
 
     private static final int REQUEST_CODE_ALERT_RINGTONE = 1;
+
+    private SettingsRepository pref;
 
     public static AppearanceSettingsFragment newInstance()
     {
@@ -60,28 +62,38 @@ public class AppearanceSettingsFragment extends PreferenceFragmentCompat
     {
         super.onCreate(savedInstanceState);
 
-        SharedPreferences pref = SettingsManager.getInstance(getActivity()
-                .getApplicationContext()).getPreferences();
+        pref = RepositoryHelper.getSettingsRepository(getActivity().getApplicationContext());
 
         String keyTheme = getString(R.string.pref_key_theme);
-        ListPreference theme = (ListPreference)findPreference(keyTheme);
-        int type = pref.getInt(keyTheme, SettingsManager.Default.theme(getContext()));
-        theme.setValueIndex(type);
-        String[] typesName = getResources().getStringArray(R.array.pref_theme_entries);
-        theme.setSummary(typesName[type]);
-        bindOnPreferenceChangeListener(theme);
+        ListPreference theme = findPreference(keyTheme);
+        if (theme != null) {
+            int type = pref.theme();
+            theme.setValueIndex(type);
+            String[] typesName = getResources().getStringArray(R.array.pref_theme_entries);
+            theme.setSummary(typesName[type]);
+            bindOnPreferenceChangeListener(theme);
+        }
 
         String keyProgressNotify = getString(R.string.pref_key_progress_notify);
-        SwitchPreferenceCompat progressNotify = (SwitchPreferenceCompat)findPreference(keyProgressNotify);
-        progressNotify.setChecked(pref.getBoolean(keyProgressNotify, SettingsManager.Default.progressNotify));
+        SwitchPreferenceCompat progressNotify = findPreference(keyProgressNotify);
+        if (progressNotify != null) {
+            progressNotify.setChecked(pref.progressNotify());
+            bindOnPreferenceChangeListener(progressNotify);
+        }
 
         String keyFinishNotify = getString(R.string.pref_key_finish_notify);
-        SwitchPreferenceCompat finishNotify = (SwitchPreferenceCompat)findPreference(keyFinishNotify);
-        finishNotify.setChecked(pref.getBoolean(keyFinishNotify, SettingsManager.Default.finishNotify));
+        SwitchPreferenceCompat finishNotify = findPreference(keyFinishNotify);
+        if (finishNotify != null) {
+            finishNotify.setChecked(pref.finishNotify());
+            bindOnPreferenceChangeListener(finishNotify);
+        }
 
         String keyPendingNotify = getString(R.string.pref_key_pending_notify);
-        SwitchPreferenceCompat pendingNotify = (SwitchPreferenceCompat)findPreference(keyPendingNotify);
-        pendingNotify.setChecked(pref.getBoolean(keyPendingNotify, SettingsManager.Default.pendingNotify));
+        SwitchPreferenceCompat pendingNotify = findPreference(keyPendingNotify);
+        if (pendingNotify != null) {
+            pendingNotify.setChecked(pref.pendingNotify());
+            bindOnPreferenceChangeListener(pendingNotify);
+        }
 
         if (Build.VERSION.SDK_INT < Build.VERSION_CODES.O)
             initLegacyNotifySettings(pref);
@@ -93,54 +105,68 @@ public class AppearanceSettingsFragment extends PreferenceFragmentCompat
      *       you can change them only in the settings of Android 8.0
      */
 
-    private void initLegacyNotifySettings(SharedPreferences pref)
+    private void initLegacyNotifySettings(SettingsRepository pref)
     {
         String keyPlaySound = getString(R.string.pref_key_play_sound_notify);
-        SwitchPreferenceCompat playSound = (SwitchPreferenceCompat)findPreference(keyPlaySound);
-        playSound.setChecked(pref.getBoolean(keyPlaySound, SettingsManager.Default.playSoundNotify));
+        SwitchPreferenceCompat playSound = findPreference(keyPlaySound);
+        if (playSound != null) {
+            playSound.setChecked(pref.playSoundNotify());
+            bindOnPreferenceChangeListener(playSound);
+        }
 
         final String keyNotifySound = getString(R.string.pref_key_notify_sound);
         Preference notifySound = findPreference(keyNotifySound);
-        String ringtone = pref.getString(keyNotifySound, SettingsManager.Default.notifySound);
-        notifySound.setSummary(RingtoneManager.getRingtone(getActivity().getApplicationContext(), Uri.parse(ringtone))
-                .getTitle(getActivity().getApplicationContext()));
-        /* See https://code.google.com/p/android/issues/detail?id=183255 */
-        notifySound.setOnPreferenceClickListener((preference) -> {
-            Intent intent = new Intent(RingtoneManager.ACTION_RINGTONE_PICKER);
-            intent.putExtra(RingtoneManager.EXTRA_RINGTONE_TYPE, RingtoneManager.TYPE_NOTIFICATION);
-            intent.putExtra(RingtoneManager.EXTRA_RINGTONE_SHOW_DEFAULT, true);
-            intent.putExtra(RingtoneManager.EXTRA_RINGTONE_SHOW_SILENT, true);
-            intent.putExtra(RingtoneManager.EXTRA_RINGTONE_DEFAULT_URI, Settings.System.DEFAULT_NOTIFICATION_URI);
+        String ringtone = pref.notifySound();
+        if (notifySound != null) {
+            notifySound.setSummary(RingtoneManager.getRingtone(getActivity().getApplicationContext(), Uri.parse(ringtone))
+                    .getTitle(getActivity().getApplicationContext()));
+            /* See https://code.google.com/p/android/issues/detail?id=183255 */
+            notifySound.setOnPreferenceClickListener((preference) -> {
+                Intent intent = new Intent(RingtoneManager.ACTION_RINGTONE_PICKER);
+                intent.putExtra(RingtoneManager.EXTRA_RINGTONE_TYPE, RingtoneManager.TYPE_NOTIFICATION);
+                intent.putExtra(RingtoneManager.EXTRA_RINGTONE_SHOW_DEFAULT, true);
+                intent.putExtra(RingtoneManager.EXTRA_RINGTONE_SHOW_SILENT, true);
+                intent.putExtra(RingtoneManager.EXTRA_RINGTONE_DEFAULT_URI, Settings.System.DEFAULT_NOTIFICATION_URI);
 
-            String curRingtone = pref.getString(keyNotifySound, null);
-            if (curRingtone != null) {
-                if (curRingtone.length() == 0) {
-                    /* Select "Silent" */
-                    intent.putExtra(RingtoneManager.EXTRA_RINGTONE_EXISTING_URI, (Uri)null);
+                String curRingtone = pref.notifySound();
+                if (curRingtone != null) {
+                    if (curRingtone.length() == 0) {
+                        /* Select "Silent" */
+                        intent.putExtra(RingtoneManager.EXTRA_RINGTONE_EXISTING_URI, (Uri) null);
+                    } else {
+                        intent.putExtra(RingtoneManager.EXTRA_RINGTONE_EXISTING_URI, Uri.parse(curRingtone));
+                    }
+
                 } else {
-                    intent.putExtra(RingtoneManager.EXTRA_RINGTONE_EXISTING_URI, Uri.parse(curRingtone));
+                    intent.putExtra(RingtoneManager.EXTRA_RINGTONE_EXISTING_URI, Settings.System.DEFAULT_NOTIFICATION_URI);
                 }
 
-            } else {
-                intent.putExtra(RingtoneManager.EXTRA_RINGTONE_EXISTING_URI, Settings.System.DEFAULT_NOTIFICATION_URI);
-            }
+                startActivityForResult(intent, REQUEST_CODE_ALERT_RINGTONE);
 
-            startActivityForResult(intent, REQUEST_CODE_ALERT_RINGTONE);
-
-            return true;
-        });
+                return true;
+            });
+        }
 
         String keyLedIndicator = getString(R.string.pref_key_led_indicator_notify);
-        SwitchPreferenceCompat ledIndicator = (SwitchPreferenceCompat)findPreference(keyLedIndicator);
-        ledIndicator.setChecked(pref.getBoolean(keyLedIndicator, SettingsManager.Default.ledIndicatorNotify));
+        SwitchPreferenceCompat ledIndicator = findPreference(keyLedIndicator);
+        if (ledIndicator != null) {
+            ledIndicator.setChecked(pref.ledIndicatorNotify());
+            bindOnPreferenceChangeListener(ledIndicator);
+        }
 
         String keyLedIndicatorColor = getString(R.string.pref_key_led_indicator_color_notify);
-        ColorPreferenceCompat ledIndicatorColor = (ColorPreferenceCompat)findPreference(keyLedIndicatorColor);
-        ledIndicatorColor.saveValue(pref.getInt(keyLedIndicatorColor, SettingsManager.Default.ledIndicatorColorNotify(getContext())));
+        ColorPreferenceCompat ledIndicatorColor = findPreference(keyLedIndicatorColor);
+        if (ledIndicatorColor != null) {
+            ledIndicatorColor.saveValue(pref.ledIndicatorColorNotify());
+            bindOnPreferenceChangeListener(ledIndicatorColor);
+        }
 
         String keyVibration = getString(R.string.pref_key_vibration_notify);
-        SwitchPreferenceCompat vibration = (SwitchPreferenceCompat)findPreference(keyVibration);
-        vibration.setChecked(pref.getBoolean(keyVibration, SettingsManager.Default.vibrationNotify));
+        SwitchPreferenceCompat vibration = findPreference(keyVibration);
+        if (vibration != null) {
+            vibration.setChecked(pref.vibrationNotify());
+            bindOnPreferenceChangeListener(vibration);
+        }
     }
 
     @Override
@@ -155,14 +181,12 @@ public class AppearanceSettingsFragment extends PreferenceFragmentCompat
         if (requestCode == REQUEST_CODE_ALERT_RINGTONE && data != null) {
             Uri ringtone = data.getParcelableExtra(RingtoneManager.EXTRA_RINGTONE_PICKED_URI);
             if (ringtone != null) {
-                SharedPreferences pref = SettingsManager.getInstance(getActivity()
-                        .getApplicationContext()).getPreferences();
-
                 String keyNotifySound = getString(R.string.pref_key_notify_sound);
                 Preference notifySound = findPreference(keyNotifySound);
-                notifySound.setSummary(RingtoneManager.getRingtone(getActivity().getApplicationContext(), ringtone)
-                        .getTitle(getActivity().getApplicationContext()));
-                pref.edit().putString(keyNotifySound, ringtone.toString()).apply();
+                if (notifySound != null)
+                    notifySound.setSummary(RingtoneManager.getRingtone(getActivity().getApplicationContext(), ringtone)
+                            .getTitle(getActivity().getApplicationContext()));
+                pref.notifySound(ringtone.toString());
             }
 
         } else {
@@ -178,19 +202,36 @@ public class AppearanceSettingsFragment extends PreferenceFragmentCompat
     @Override
     public boolean onPreferenceChange(Preference preference, Object newValue)
     {
-        SharedPreferences pref = SettingsManager.getInstance(getActivity()
-                .getApplicationContext()).getPreferences();
-
         if (preference.getKey().equals(getString(R.string.pref_key_theme))) {
             int type = Integer.parseInt((String)newValue);
-            pref.edit().putInt(preference.getKey(), type).apply();
-            String typesName[] = getResources().getStringArray(R.array.pref_theme_entries);
+            pref.theme(type);
+            String[] typesName = getResources().getStringArray(R.array.pref_theme_entries);
             preference.setSummary(typesName[type]);
 
             Toast.makeText(getActivity().getApplicationContext(),
                     R.string.theme_settings_apply_after_reboot,
                     Toast.LENGTH_SHORT)
                     .show();
+        } else if (preference.getKey().equals(getString(R.string.pref_key_finish_notify))) {
+            pref.finishNotify((boolean)newValue);
+
+        }  else if (preference.getKey().equals(getString(R.string.pref_key_progress_notify))) {
+            pref.progressNotify((boolean)newValue);
+
+        }  else if (preference.getKey().equals(getString(R.string.pref_key_pending_notify))) {
+            pref.pendingNotify((boolean)newValue);
+
+        } else if (preference.getKey().equals(getString(R.string.pref_key_play_sound_notify))) {
+            pref.playSoundNotify((boolean)newValue);
+
+        } else if (preference.getKey().equals(getString(R.string.pref_key_led_indicator_notify))) {
+            pref.ledIndicatorNotify((boolean)newValue);
+
+        } else if (preference.getKey().equals(getString(R.string.pref_key_vibration_notify))) {
+            pref.vibrationNotify((boolean)newValue);
+
+        } else if (preference.getKey().equals(getString(R.string.pref_key_led_indicator_color_notify))) {
+            pref.ledIndicatorColorNotify((int)newValue);
         }
 
         return true;

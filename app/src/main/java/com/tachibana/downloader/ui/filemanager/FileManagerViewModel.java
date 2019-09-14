@@ -20,16 +20,14 @@
 package com.tachibana.downloader.ui.filemanager;
 
 import android.content.Context;
-import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.Build;
 import android.text.TextUtils;
 import android.util.Log;
 import android.webkit.MimeTypeMap;
 
-import com.tachibana.downloader.R;
-import com.tachibana.downloader.core.utils.FileUtils;
-import com.tachibana.downloader.core.settings.SettingsManager;
+import com.tachibana.downloader.core.system.SystemFacadeHelper;
+import com.tachibana.downloader.core.system.filesystem.FileSystemFacade;
 
 import java.io.File;
 import java.io.IOException;
@@ -47,34 +45,32 @@ public class FileManagerViewModel extends ViewModel
     private static final String TAG = FileManagerViewModel.class.getSimpleName();
 
     private Context appContext;
-    SharedPreferences pref;
     public String startDir;
     /* Current directory */
     public ObservableField<String> curDir = new ObservableField<>();
     public FileManagerConfig config;
     public BehaviorSubject<List<FileManagerNode>> childNodes = BehaviorSubject.create();
     public Exception errorReport;
+    public FileSystemFacade fs;
 
-    public FileManagerViewModel(@NonNull Context appContext, FileManagerConfig config)
+    public FileManagerViewModel(@NonNull Context appContext, FileManagerConfig config, String startDir)
     {
         this.appContext = appContext;
         this.config = config;
-        pref = SettingsManager.getInstance(appContext).getPreferences();
+        this.fs = SystemFacadeHelper.getFileSystemFacade(appContext);
+        this.startDir = startDir;
 
         String path = config.path;
         if (TextUtils.isEmpty(path)) {
-            startDir = pref.getString(appContext.getString(R.string.pref_key_filemanager_last_dir),
-                                      SettingsManager.Default.fileManagerLastDir);
-
             if (startDir != null) {
                 File dir = new File(startDir);
                 boolean accessMode = config.showMode == FileManagerConfig.FILE_CHOOSER_MODE ?
                         dir.canRead() :
                         dir.canWrite();
                 if (!(dir.exists() && accessMode))
-                    startDir = FileUtils.getDefaultDownloadPath();
+                    startDir = fs.getDefaultDownloadPath();
             } else {
-                startDir = FileUtils.getDefaultDownloadPath();
+                startDir = fs.getDefaultDownloadPath();
             }
 
         } else {
@@ -196,17 +192,6 @@ public class FileManagerViewModel extends ViewModel
         updateCurDir(dir.getParent());
     }
 
-    public void saveCurDirectoryPath()
-    {
-        String path = curDir.get();
-        if (path == null)
-            return;
-
-        String keyFileManagerLastDir = appContext.getString(R.string.pref_key_filemanager_last_dir);
-        if (!pref.getString(keyFileManagerLastDir, "").equals(path))
-            pref.edit().putString(keyFileManagerLastDir, path).apply();
-    }
-
     public boolean fileExists(String fileName)
     {
         if (fileName == null)
@@ -220,11 +205,11 @@ public class FileManagerViewModel extends ViewModel
     private String appendExtension(String fileName)
     {
         String extension = null;
-        if (TextUtils.isEmpty(FileUtils.getExtension(fileName)))
+        if (TextUtils.isEmpty(fs.getExtension(fileName)))
             extension = MimeTypeMap.getSingleton().getExtensionFromMimeType(config.mimeType);
 
         if (extension != null && !fileName.endsWith(extension))
-            fileName += FileUtils.EXTENSION_SEPARATOR + extension;
+            fileName += fs.getExtensionSeparator() + extension;
 
         return fileName;
     }
@@ -234,7 +219,7 @@ public class FileManagerViewModel extends ViewModel
         if (TextUtils.isEmpty(fileName))
             fileName = config.fileName;
 
-        fileName = appendExtension(FileUtils.buildValidFatFilename(fileName));
+        fileName = appendExtension(fs.buildValidFatFilename(fileName));
 
         File f = new File(curDir.get(), fileName);
         if (!f.getParentFile().canWrite())

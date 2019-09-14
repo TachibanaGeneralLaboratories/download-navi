@@ -22,8 +22,6 @@ package com.tachibana.downloader.core.utils;
 
 import android.Manifest;
 import android.app.Activity;
-import android.app.NotificationChannel;
-import android.app.NotificationManager;
 import android.content.ClipData;
 import android.content.ClipboardManager;
 import android.content.ComponentName;
@@ -44,19 +42,26 @@ import android.util.TypedValue;
 import android.webkit.WebSettings;
 import android.widget.ProgressBar;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.core.content.ContextCompat;
+import androidx.core.content.FileProvider;
+
 import com.tachibana.downloader.R;
+import com.tachibana.downloader.core.RepositoryHelper;
+import com.tachibana.downloader.core.filter.DownloadFilter;
+import com.tachibana.downloader.core.filter.DownloadFilterCollection;
+import com.tachibana.downloader.core.model.data.entity.DownloadInfo;
+import com.tachibana.downloader.core.settings.SettingsRepository;
+import com.tachibana.downloader.core.sorting.DownloadSorting;
+import com.tachibana.downloader.core.sorting.DownloadSortingComparator;
+import com.tachibana.downloader.core.system.SystemFacade;
+import com.tachibana.downloader.core.system.SystemFacadeHelper;
+import com.tachibana.downloader.core.system.filesystem.FileSystemFacade;
+import com.tachibana.downloader.receiver.BootReceiver;
 import com.tachibana.downloader.ui.main.DownloadItem;
 import com.tachibana.downloader.ui.main.drawer.DrawerGroup;
 import com.tachibana.downloader.ui.main.drawer.DrawerGroupItem;
-import com.tachibana.downloader.core.system.SystemFacadeImpl;
-import com.tachibana.downloader.core.system.SystemFacade;
-import com.tachibana.downloader.core.model.data.entity.DownloadInfo;
-import com.tachibana.downloader.core.filter.DownloadFilter;
-import com.tachibana.downloader.core.filter.DownloadFilterCollection;
-import com.tachibana.downloader.core.sorting.DownloadSorting;
-import com.tachibana.downloader.core.sorting.DownloadSortingComparator;
-import com.tachibana.downloader.receiver.BootReceiver;
-import com.tachibana.downloader.core.settings.SettingsManager;
 
 import org.acra.ACRA;
 import org.acra.ReportField;
@@ -78,13 +83,6 @@ import javax.net.ssl.TrustManager;
 import javax.net.ssl.TrustManagerFactory;
 import javax.net.ssl.X509TrustManager;
 
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.annotation.VisibleForTesting;
-import androidx.core.app.NotificationCompat;
-import androidx.core.content.ContextCompat;
-import androidx.core.content.FileProvider;
-
 import static com.tachibana.downloader.core.utils.MimeTypeUtils.DEFAULT_MIME_TYPE;
 import static com.tachibana.downloader.core.utils.MimeTypeUtils.MIME_TYPE_DELIMITER;
 
@@ -94,57 +92,6 @@ public class Utils
     public static final String HTTP_PREFIX = "http";
     public static final String DEFAULT_DOWNLOAD_FILENAME = "downloadfile";
     private static final String CONTENT_DISPOSITION_PATTERN = "attachment;\\s*filename\\s*=\\s*\"([^\"]*)\"";
-
-    public static final String DEFAULT_NOTIFY_CHAN_ID = "com.tachibana.downloader.DEFAULT_NOTIFY_CHAN";
-    public static final String FOREGROUND_NOTIFY_CHAN_ID = "com.tachibana.downloader.FOREGROUND_NOTIFY_CHAN";
-    public static final String ACTIVE_DOWNLOADS_NOTIFY_CHAN_ID = "com.tachibana.downloader.CTIVE_DOWNLOADS_NOTIFY_CHAN";
-    public static final String PENDING_DOWNLOADS_NOTIFY_CHAN_ID = "com.tachibana.downloader.PENDING_DOWNLOADS_NOTIFY_CHAN";
-    public static final String COMPLETED_DOWNLOADS_NOTIFY_CHAN_ID = "com.tachibana.downloader.COMPLETED_DOWNLOADS_NOTIFY_CHAN";
-
-    private static SystemFacade systemFacade;
-
-    public synchronized static SystemFacade getSystemFacade(@NonNull Context context)
-    {
-        if (systemFacade == null)
-            systemFacade = new SystemFacadeImpl(context);
-
-        return systemFacade;
-    }
-
-    @VisibleForTesting
-    public synchronized static void setSystemFacade(@NonNull SystemFacade systemFacade)
-    {
-        Utils.systemFacade = systemFacade;
-    }
-
-    public static void makeNotifyChans(@NonNull Context context,
-                                       @NonNull NotificationManager notifyManager)
-    {
-        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.O)
-            return;
-
-        ArrayList<NotificationChannel> channels = new ArrayList<>();
-
-        channels.add(new NotificationChannel(DEFAULT_NOTIFY_CHAN_ID,
-                context.getText(R.string.Default),
-                NotificationManager.IMPORTANCE_DEFAULT));
-        NotificationChannel foregroundChan = new NotificationChannel(FOREGROUND_NOTIFY_CHAN_ID,
-                context.getString(R.string.foreground_notification),
-                NotificationManager.IMPORTANCE_LOW);
-        foregroundChan.setShowBadge(false);
-        channels.add(foregroundChan);
-        channels.add(new NotificationChannel(ACTIVE_DOWNLOADS_NOTIFY_CHAN_ID,
-                context.getText(R.string.download_running),
-                NotificationManager.IMPORTANCE_MIN));
-        channels.add(new NotificationChannel(PENDING_DOWNLOADS_NOTIFY_CHAN_ID,
-                context.getText(R.string.pending),
-                NotificationManager.IMPORTANCE_LOW));
-        channels.add(new NotificationChannel(COMPLETED_DOWNLOADS_NOTIFY_CHAN_ID,
-                context.getText(R.string.finished),
-                NotificationManager.IMPORTANCE_DEFAULT));
-
-        notifyManager.createNotificationChannels(channels);
-    }
 
     /*
      * Workaround for start service in Android 8+ if app no started.
@@ -194,9 +141,7 @@ public class Utils
 
     public static int getThemePreference(@NonNull Context appContext)
     {
-        return SettingsManager.getInstance(appContext)
-                .getPreferences().getInt(appContext.getString(R.string.pref_key_theme),
-                                         SettingsManager.Default.theme(appContext));
+        return RepositoryHelper.getSettingsRepository(appContext).theme();
     }
 
     public static int getAppTheme(@NonNull Context appContext)
@@ -278,8 +223,13 @@ public class Utils
         return text.toString();
     }
 
-    public static String getHttpFileName(@NonNull String decodedUrl, String contentDisposition, String contentLocation)
+    public static String getHttpFileName(@NonNull Context context,
+                                         @NonNull String decodedUrl,
+                                         String contentDisposition,
+                                         String contentLocation)
     {
+        FileSystemFacade fs = SystemFacadeHelper.getFileSystemFacade(context);
+
         String filename = null;
 
         /* First, try to use the content disposition */
@@ -324,7 +274,7 @@ public class Utils
          * The VFAT file system is assumed as target for downloads.
          * Replace invalid characters according to the specifications of VFAT
          */
-        filename = FileUtils.buildValidFatFilename(filename);
+        filename = fs.buildValidFatFilename(filename);
 
         return filename;
     }
@@ -351,7 +301,7 @@ public class Utils
 
     public static boolean checkConnectivity(@NonNull Context context)
     {
-        SystemFacade systemFacade = getSystemFacade(context);
+        SystemFacade systemFacade = SystemFacadeHelper.getSystemFacade(context);
         NetworkInfo netInfo = systemFacade.getActiveNetworkInfo();
 
         return netInfo != null && netInfo.isConnected() && isNetworkTypeAllowed(context);
@@ -359,13 +309,11 @@ public class Utils
 
     public static boolean isNetworkTypeAllowed(@NonNull Context context)
     {
-        SystemFacade systemFacade = getSystemFacade(context);
+        SystemFacade systemFacade = SystemFacadeHelper.getSystemFacade(context);
 
-        SharedPreferences pref = SettingsManager.getInstance(context).getPreferences();
-        boolean enableRoaming = pref.getBoolean(context.getString(R.string.pref_key_enable_roaming),
-                                                SettingsManager.Default.enableRoaming);
-        boolean unmeteredOnly = pref.getBoolean(context.getString(R.string.pref_key_umnetered_connections_only),
-                                                SettingsManager.Default.unmeteredConnectionsOnly);
+        SettingsRepository pref = RepositoryHelper.getSettingsRepository(context);
+        boolean enableRoaming = pref.enableRoaming();
+        boolean unmeteredOnly = pref.unmeteredConnectionsOnly();
 
         boolean noUnmeteredOnly;
         boolean noRoaming;
@@ -406,7 +354,7 @@ public class Utils
 
     public static boolean isMetered(@NonNull Context context)
     {
-        SystemFacade systemFacade = getSystemFacade(context);
+        SystemFacade systemFacade = SystemFacadeHelper.getSystemFacade(context);
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
             NetworkCapabilities caps = systemFacade.getNetworkCapabilities();
@@ -419,7 +367,7 @@ public class Utils
 
     public static boolean isRoaming(@NonNull Context context)
     {
-        SystemFacade systemFacade = getSystemFacade(context);
+        SystemFacade systemFacade = SystemFacadeHelper.getSystemFacade(context);
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P) {
             NetworkCapabilities caps = systemFacade.getNetworkCapabilities();
@@ -502,6 +450,8 @@ public class Utils
     public static Intent makeFileShareIntent(@NonNull Context context,
                                              @NonNull List<DownloadItem> items)
     {
+        FileSystemFacade fs = SystemFacadeHelper.getFileSystemFacade(context);
+
         Intent i = new Intent();
         String intentAction;
         ArrayList<Uri> itemsUri = new ArrayList<>();
@@ -513,9 +463,9 @@ public class Utils
                 continue;
 
             DownloadInfo info = item.info;
-            Uri filePath = FileUtils.getFileUri(context, info.dirPath, info.fileName);
+            Uri filePath = fs.getFileUri(info.dirPath, info.fileName);
             if (filePath != null) {
-                if (FileUtils.isFileSystemPath(filePath))
+                if (fs.isFileSystemPath(filePath))
                     filePath = FileProvider.getUriForFile(context,
                             context.getPackageName() + ".provider",
                             new File(filePath.getPath()));
@@ -585,15 +535,17 @@ public class Utils
 
     public static Intent createOpenFileIntent(@NonNull Context context, @NonNull DownloadInfo info)
     {
+        FileSystemFacade fs = SystemFacadeHelper.getFileSystemFacade(context);
+        
         Intent i = new Intent();
         i.setAction(Intent.ACTION_VIEW);
         i.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
-
-        Uri filePath = FileUtils.getFileUri(context, info.dirPath, info.fileName);
+        
+        Uri filePath = fs.getFileUri(info.dirPath, info.fileName);
         if (filePath == null)
             return i;
 
-        if (FileUtils.isFileSystemPath(filePath))
+        if (fs.isFileSystemPath(filePath))
             i.setDataAndType(FileProvider.getUriForFile(context,
                     context.getPackageName() + ".provider",
                     new File(filePath.getPath())),
@@ -653,39 +605,6 @@ public class Utils
     public static String getLineSeparator()
     {
         return System.getProperty("line.separator");
-    }
-
-    /*
-     * Starting with the version of Android 8.0,
-     * setting notifications from the app preferences isn't working,
-     * you can change them only in the settings of Android 8.0
-     */
-
-    public static void applyLegacyNotifySettings(@NonNull Context appContext,
-                                                 @NonNull NotificationCompat.Builder builder)
-    {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O)
-            return;
-
-        SharedPreferences pref = SettingsManager.getInstance(appContext).getPreferences();
-        
-        if (pref.getBoolean(appContext.getString(R.string.pref_key_play_sound_notify),
-                SettingsManager.Default.playSoundNotify)) {
-            Uri sound = Uri.parse(pref.getString(appContext.getString(R.string.pref_key_notify_sound),
-                    SettingsManager.Default.notifySound));
-            builder.setSound(sound);
-        }
-
-        if (pref.getBoolean(appContext.getString(R.string.pref_key_vibration_notify),
-                SettingsManager.Default.vibrationNotify))
-            builder.setVibrate(new long[] {1000}); /* ms */
-
-        if (pref.getBoolean(appContext.getString(R.string.pref_key_led_indicator_notify),
-                SettingsManager.Default.ledIndicatorNotify)) {
-            int color = pref.getInt(appContext.getString(R.string.pref_key_led_indicator_color_notify),
-                    SettingsManager.Default.ledIndicatorColorNotify(appContext));
-            builder.setLights(color, 1000, 1000); /* ms */
-        }
     }
 
     public static int getDefaultBatteryLowLevel()

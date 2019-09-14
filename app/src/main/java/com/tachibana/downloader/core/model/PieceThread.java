@@ -29,17 +29,22 @@ import android.os.SystemClock;
 import android.text.TextUtils;
 import android.util.Log;
 
+import androidx.annotation.NonNull;
+
 import com.tachibana.downloader.MainApplication;
 import com.tachibana.downloader.R;
 import com.tachibana.downloader.core.HttpConnection;
+import com.tachibana.downloader.core.RepositoryHelper;
+import com.tachibana.downloader.core.settings.SettingsRepository;
+import com.tachibana.downloader.core.storage.DataRepository;
 import com.tachibana.downloader.core.system.SystemFacade;
 import com.tachibana.downloader.core.model.data.entity.DownloadInfo;
 import com.tachibana.downloader.core.model.data.entity.DownloadPiece;
 import com.tachibana.downloader.core.model.data.entity.Header;
-import com.tachibana.downloader.core.storage.DataRepository;
-import com.tachibana.downloader.core.utils.FileUtils;
+import com.tachibana.downloader.core.storage.DataRepositoryImpl;
+import com.tachibana.downloader.core.system.SystemFacadeHelper;
+import com.tachibana.downloader.core.system.filesystem.FileSystemFacade;
 import com.tachibana.downloader.core.utils.Utils;
-import com.tachibana.downloader.core.settings.SettingsManager;
 
 import java.io.FileDescriptor;
 import java.io.FileOutputStream;
@@ -106,21 +111,31 @@ public class PieceThread extends Thread
     private boolean madeProgress = false;
     private int networkType;
     private DataRepository repo;
-    private SharedPreferences pref;
+    private SettingsRepository pref;
     private Context appContext;
+    private SystemFacade systemFacade;
+    private FileSystemFacade fs;
 
     private ParcelFileDescriptor outPfd;
     private FileDescriptor outFd;
     private FileOutputStream fout;
     private InputStream in;
 
-    public PieceThread(Context appContext, UUID infoId, int pieceIndex)
+    public PieceThread(@NonNull Context appContext,
+                       @NonNull UUID infoId,
+                       int pieceIndex,
+                       @NonNull DataRepository repo,
+                       @NonNull FileSystemFacade fs,
+                       @NonNull SystemFacade systemFacade,
+                       @NonNull SettingsRepository pref)
     {
         this.infoId = infoId;
         this.pieceIndex = pieceIndex;
         this.appContext = appContext;
-        repo = ((MainApplication)appContext).getRepository();
-        pref = SettingsManager.getInstance(appContext).getPreferences();
+        this.repo = repo;
+        this.systemFacade = systemFacade;
+        this.fs = fs;
+        this.pref = pref;
     }
 
     @Override
@@ -147,7 +162,6 @@ public class PieceThread extends Thread
                  * Remember which network this download started on;
                  * used to determine if errors were due to network changes
                  */
-                SystemFacade systemFacade = Utils.getSystemFacade(appContext);
                 NetworkInfo netInfo = systemFacade.getActiveNetworkInfo();
                 if (netInfo != null)
                     networkType = netInfo.getType();
@@ -190,10 +204,7 @@ public class PieceThread extends Thread
         if (isStatusRetryable(piece.statusCode)) {
             ++piece.numFailed;
 
-            int maxRetries = pref.getInt(appContext.getString(R.string.pref_key_max_download_retries),
-                                         SettingsManager.Default.maxDownloadRetries);
-            if (piece.numFailed < maxRetries) {
-                SystemFacade systemFacade = Utils.getSystemFacade(appContext);
+            if (piece.numFailed < pref.maxDownloadRetries()) {
                 NetworkInfo netInfo = systemFacade.getActiveNetworkInfo();
                 if (netInfo != null && netInfo.getType() == networkType && netInfo.isConnected())
                     /* Underlying network is still intact, use normal backoff */
@@ -400,7 +411,7 @@ public class PieceThread extends Thread
             }
 
             try {
-                Uri filePath = FileUtils.getFileUri(appContext, info.dirPath, info.fileName);
+                Uri filePath = fs.getFileUri(info.dirPath, info.fileName);
                 if (filePath == null)
                     throw new IOException("Write error: file not found");
                 outPfd = appContext.getContentResolver().openFileDescriptor(filePath, "rw");
@@ -408,7 +419,7 @@ public class PieceThread extends Thread
                 fout = new FileOutputStream(outFd);
 
                 /* Move into place to begin writing */
-                FileUtils.lseek(fout, piece.curBytes);
+                fs.lseek(fout, piece.curBytes);
 
             } catch (InterruptedIOException e) {
                 return new StopRequest(STATUS_STOPPED, "Download cancelled");
@@ -423,7 +434,7 @@ public class PieceThread extends Thread
             return transferData(in, fout, outFd);
 
         } finally {
-            FileUtils.closeQuietly(in);
+            fs.closeQuietly(in);
             try {
                 if (fout != null)
                     fout.flush();
@@ -433,7 +444,7 @@ public class PieceThread extends Thread
             } catch (IOException e) {
                 /* Ignore */
             } finally {
-                FileUtils.closeQuietly(fout);
+                fs.closeQuietly(fout);
                 fout = null;
                 outFd = null;
                 outPfd = null;

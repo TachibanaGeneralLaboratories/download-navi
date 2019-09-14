@@ -21,13 +21,8 @@
 package com.tachibana.downloader;
 
 import android.app.Application;
-import android.app.NotificationManager;
 
-import com.tachibana.downloader.core.model.DownloadEngine;
 import com.tachibana.downloader.core.DownloadNotifier;
-import com.tachibana.downloader.core.storage.AppDatabase;
-import com.tachibana.downloader.core.storage.DataRepository;
-import com.tachibana.downloader.core.utils.Utils;
 import com.tachibana.downloader.ui.errorreport.ErrorReportActivity;
 
 import org.acra.ACRA;
@@ -35,17 +30,12 @@ import org.acra.annotation.AcraCore;
 import org.acra.annotation.AcraDialog;
 import org.acra.annotation.AcraMailSender;
 
-import androidx.annotation.VisibleForTesting;
-
 @AcraCore(buildConfigClass = BuildConfig.class)
 @AcraMailSender(mailTo = "proninyaroslav@mail.ru")
 @AcraDialog(reportDialogClass = ErrorReportActivity.class)
 
 public class MainApplication extends Application
 {
-    private DownloadNotifier downloadNotifier;
-    private AppDatabase db;
-
     @Override
     public void onCreate()
     {
@@ -53,31 +43,8 @@ public class MainApplication extends Application
 
         ACRA.init(this);
 
-        db = AppDatabase.getInstance(this);
-        Utils.makeNotifyChans(this, (NotificationManager)getSystemService(NOTIFICATION_SERVICE));
-
-        downloadNotifier = new DownloadNotifier(this, getRepository());
+        DownloadNotifier downloadNotifier = DownloadNotifier.getInstance(this);
+        downloadNotifier.makeNotifyChans();
         downloadNotifier.startUpdate();
-    }
-
-    public AppDatabase getDatabase()
-    {
-        return db;
-    }
-
-    @VisibleForTesting
-    public void setDatabase(AppDatabase db)
-    {
-        this.db = db;
-    }
-
-    public DataRepository getRepository()
-    {
-        return DataRepository.getInstance(getDatabase());
-    }
-
-    public DownloadEngine getDownloadEngine()
-    {
-        return DownloadEngine.getInstance(this);
     }
 }

@@ -47,13 +47,11 @@ import com.tachibana.downloader.core.model.data.entity.UserAgent;
 import com.tachibana.downloader.core.exception.FreeSpaceException;
 import com.tachibana.downloader.core.exception.HttpException;
 import com.tachibana.downloader.core.exception.NormalizeUrlException;
-import com.tachibana.downloader.core.utils.FileUtils;
 import com.tachibana.downloader.core.utils.Utils;
 import com.tachibana.downloader.databinding.DialogAddDownloadBinding;
 import com.tachibana.downloader.ui.BaseAlertDialog;
 import com.tachibana.downloader.ui.filemanager.FileManagerConfig;
 import com.tachibana.downloader.ui.filemanager.FileManagerDialog;
-import com.tachibana.downloader.core.settings.SettingsManager;
 
 import java.io.IOException;
 import java.net.ConnectException;
@@ -220,7 +218,7 @@ public class AddDownloadDialog extends DialogFragment
                 viewModel.getPrefUserAgent().userAgent :
                 initParams.userAgent);
         viewModel.params.setDirPath(initParams.dirPath == null ?
-                Uri.parse(FileUtils.getDefaultDownloadPath()) :
+                Uri.parse(viewModel.fs.getDefaultDownloadPath()) :
                 initParams.dirPath);
         viewModel.params.setUnmeteredConnectionsOnly(initParams.unmeteredConnectionsOnly);
         viewModel.params.setRetry(initParams.retry);
@@ -519,11 +517,11 @@ public class AddDownloadDialog extends DialogFragment
 
             return false;
         }
-        if (!FileUtils.isValidFatFilename(s.toString())) {
+        if (!viewModel.fs.isValidFatFilename(s.toString())) {
             String format = getString(R.string.download_error_name_is_not_correct);
             binding.layoutName.setErrorEnabled(true);
             binding.layoutName.setError(String.format(format,
-                    FileUtils.buildValidFatFilename(s.toString())));
+                    viewModel.fs.buildValidFatFilename(s.toString())));
             binding.layoutName.requestFocus();
 
             return false;
@@ -575,9 +573,7 @@ public class AddDownloadDialog extends DialogFragment
 
     private void doAutoFetch()
     {
-        if (!TextUtils.isEmpty(viewModel.params.getUrl()) &&
-            viewModel.pref.getBoolean(getString(R.string.pref_key_auto_connect),
-                                      SettingsManager.Default.autoConnect))
+        if (!TextUtils.isEmpty(viewModel.params.getUrl()) && viewModel.pref.autoConnect())
             fetchLink();
     }
 
@@ -625,7 +621,7 @@ public class AddDownloadDialog extends DialogFragment
 
         String dirPath = null;
         Uri dirUri = viewModel.params.getDirPath();
-        if (dirUri != null && FileUtils.isFileSystemPath(dirUri))
+        if (dirUri != null && viewModel.fs.isFileSystemPath(dirUri))
             dirPath = dirUri.getPath();
 
         FileManagerConfig config = new FileManagerConfig(dirPath,

@@ -22,24 +22,23 @@ package com.tachibana.downloader.core.model;
 
 import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.ParcelFileDescriptor;
 import android.util.Log;
-import android.util.Pair;
 
-import com.tachibana.downloader.MainApplication;
-import com.tachibana.downloader.R;
-import com.tachibana.downloader.core.model.data.DownloadResult;
+import androidx.annotation.NonNull;
+
 import com.tachibana.downloader.core.HttpConnection;
+import com.tachibana.downloader.core.model.data.DownloadResult;
 import com.tachibana.downloader.core.model.data.StatusCode;
 import com.tachibana.downloader.core.model.data.entity.DownloadInfo;
 import com.tachibana.downloader.core.model.data.entity.DownloadPiece;
 import com.tachibana.downloader.core.model.data.entity.Header;
+import com.tachibana.downloader.core.settings.SettingsRepository;
 import com.tachibana.downloader.core.storage.DataRepository;
-import com.tachibana.downloader.core.utils.FileUtils;
+import com.tachibana.downloader.core.system.SystemFacade;
+import com.tachibana.downloader.core.system.filesystem.FileSystemFacade;
 import com.tachibana.downloader.core.utils.Utils;
-import com.tachibana.downloader.core.settings.SettingsManager;
 
 import java.io.FileDescriptor;
 import java.io.IOException;
@@ -90,15 +89,24 @@ public class DownloadThread implements Callable<DownloadResult>
     private boolean running;
     private ExecutorService exec;
     private DataRepository repo;
-    private SharedPreferences pref;
+    private SettingsRepository pref;
     private Context appContext;
+    private FileSystemFacade fs;
+    private SystemFacade systemFacade;
 
-    public DownloadThread(Context appContext, UUID id)
+    public DownloadThread(@NonNull Context appContext,
+                          @NonNull UUID id,
+                          @NonNull DataRepository repo,
+                          @NonNull SettingsRepository pref,
+                          @NonNull FileSystemFacade fs,
+                          @NonNull SystemFacade systemFacade)
     {
         this.id = id;
         this.appContext = appContext;
-        repo = ((MainApplication)appContext).getRepository();
-        pref = SettingsManager.getInstance(appContext).getPreferences();
+        this.repo = repo;
+        this.pref = pref;
+        this.fs = fs;
+        this.systemFacade = systemFacade;
     }
 
     public void requestStop()
@@ -185,14 +193,13 @@ public class DownloadThread implements Callable<DownloadResult>
         if (info != null) {
             writeToDatabase();
 
-            boolean deletePref = pref.getBoolean(appContext.getString(R.string.pref_key_delete_file_if_error),
-                                                 SettingsManager.Default.deleteFileIfError);
+            boolean deletePref = pref.deleteFileIfError();
             if (StatusCode.isStatusError(info.statusCode) && deletePref) {
                 /* When error, free up any disk space */
-                Uri filePath = FileUtils.getFileUri(appContext, info.dirPath, info.fileName);
+                Uri filePath = fs.getFileUri(info.dirPath, info.fileName);
                 if (filePath != null) {
                     try {
-                        FileUtils.deleteFile(appContext, filePath);
+                        fs.deleteFile(filePath);
 
                     } catch (Exception e) {
                         /* Ignore */
@@ -264,25 +271,15 @@ public class DownloadThread implements Callable<DownloadResult>
             }
 
             /* Create file if doesn't exists or replace it */
-            Pair<Uri, String> res;
+            Uri filePath;
             try {
-                res = FileUtils.createFile(appContext, info.dirPath,
-                        info.fileName, info.mimeType, false);
+                filePath = fs.createFile(info.dirPath, info.fileName, false);
 
             } catch (IOException e) {
                 return new StopRequest(STATUS_FILE_ERROR, e);
             }
-            if (res == null || res.first == null)
+            if (filePath == null)
                 return new StopRequest(STATUS_FILE_ERROR, "Unable to create file");
-
-            Uri filePath = res.first;
-
-            /* Maybe an extension was added to the file name */
-            String newName = res.second;
-            if (newName != null && !newName.equals(info.fileName)) {
-                info.fileName = res.second;
-                writeToDatabase();
-            }
 
             if (info.totalBytes == 0)
                 return new StopRequest(STATUS_SUCCESS, "Length is zero; skipping");
@@ -291,14 +288,13 @@ public class DownloadThread implements Callable<DownloadResult>
                 return new StopRequest(STATUS_WAITING_FOR_NETWORK);
 
             /* Check free space */
-            long availBytes = FileUtils.getDirAvailableBytes(appContext, info.dirPath);
+            long availBytes = fs.getDirAvailableBytes(info.dirPath);
             if (availBytes != -1 && availBytes < info.totalBytes)
                 return new StopRequest(StatusCode.STATUS_INSUFFICIENT_SPACE_ERROR,
                         "No space left on device");
 
             /* Pre-flight disk space requirements, when known */
-            if (info.totalBytes > 0 && pref.getBoolean(appContext.getString(R.string.pref_key_preallocate_disk_space),
-                                                       SettingsManager.Default.preallocateDiskSpace)) {
+            if (info.totalBytes > 0 && pref.preallocateDiskSpace()) {
                 if ((ret = allocFileSpace(filePath)) != null)
                     return ret;
             }
@@ -308,7 +304,7 @@ public class DownloadThread implements Callable<DownloadResult>
                     Executors.newFixedThreadPool(info.getNumPieces()));
 
             for (int i = 0; i < info.getNumPieces(); i++)
-                exec.submit(new PieceThread(appContext, id, i));
+                exec.submit(new PieceThread(appContext, id, i, repo, fs, systemFacade, pref));
             exec.shutdown();
             /* Wait "forever" */
             if (!exec.awaitTermination(Long.MAX_VALUE, TimeUnit.NANOSECONDS))
@@ -453,7 +449,7 @@ public class DownloadThread implements Callable<DownloadResult>
             }
 
             try {
-                FileUtils.fallocate(outFd, info.totalBytes);
+                fs.fallocate(outFd, info.totalBytes);
 
             } catch (InterruptedIOException e) {
                 requestStop();
@@ -470,7 +466,7 @@ public class DownloadThread implements Callable<DownloadResult>
             } catch (IOException e) {
                 /* Ignore */
             } finally {
-                FileUtils.closeQuietly(outPfd);
+                fs.closeQuietly(outPfd);
             }
         }
 
@@ -479,12 +475,12 @@ public class DownloadThread implements Callable<DownloadResult>
 
     private void writeToDatabase()
     {
-        repo.updateInfo(appContext, info, false, false);
+        repo.updateInfo(info, false, false);
     }
 
     private void writeToDatabaseWithPieces()
     {
-        repo.updateInfo(appContext, info, false, true);
+        repo.updateInfo(info, false, true);
     }
 
     public StopRequest checkPauseStop()

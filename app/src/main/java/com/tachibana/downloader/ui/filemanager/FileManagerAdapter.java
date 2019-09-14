@@ -29,7 +29,8 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.tachibana.downloader.R;
-import com.tachibana.downloader.core.utils.FileUtils;
+import com.tachibana.downloader.core.system.SystemFacadeHelper;
+import com.tachibana.downloader.core.system.filesystem.FileSystemFacade;
 
 import java.util.Collections;
 import java.util.List;
@@ -126,8 +127,10 @@ public class FileManagerAdapter extends ListAdapter<FileManagerNode, FileManager
 
             itemView.setEnabled(item.isEnabled());
             if (item.isEnabled()) {
-                if (highlightFileTypes != null && highlightFileTypes.contains(FileUtils.getExtension(item.getName()))) {
+                FileSystemFacade fs = SystemFacadeHelper.getFileSystemFacade(context);
+                if (highlightFileTypes != null && highlightFileTypes.contains(fs.getExtension(item.getName()))) {
                     fileName.setTextColor(ContextCompat.getColor(context, R.color.accent));
+
                 } else {
                     TypedArray a = context.obtainStyledAttributes(new TypedValue().data,
                             new int[]{ android.R.attr.textColorPrimary });

@@ -25,7 +25,7 @@ import android.content.Context;
 
 import com.tachibana.downloader.core.FakeSystemFacade;
 import com.tachibana.downloader.core.storage.AppDatabase;
-import com.tachibana.downloader.core.storage.DataRepository;
+import com.tachibana.downloader.core.storage.DataRepositoryImpl;
 import com.tachibana.downloader.core.utils.Utils;
 
 import org.junit.After;
@@ -45,7 +45,7 @@ public class AbstractTest
 
     protected Context context;
     protected AppDatabase db;
-    protected DataRepository repo;
+    protected DataRepositoryImpl repo;
 
     @Before
     public void init()
@@ -56,7 +56,7 @@ public class AbstractTest
                 .allowMainThreadQueries()
                 .build();
         ((MainApplication)context).setDatabase(db);
-        repo = DataRepository.getInstance(db);
+        repo = DataRepositoryImpl.getInstance(db);
         FakeSystemFacade systemFacade = new FakeSystemFacade(context);
         Utils.setSystemFacade(systemFacade);
     }

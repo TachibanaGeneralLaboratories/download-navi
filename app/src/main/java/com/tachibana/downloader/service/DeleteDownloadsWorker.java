@@ -24,9 +24,11 @@ import android.content.Context;
 import android.util.Log;
 
 import com.tachibana.downloader.MainApplication;
+import com.tachibana.downloader.core.RepositoryHelper;
 import com.tachibana.downloader.core.model.DownloadEngine;
 import com.tachibana.downloader.core.model.data.entity.DownloadInfo;
 import com.tachibana.downloader.core.storage.DataRepository;
+import com.tachibana.downloader.core.storage.DataRepositoryImpl;
 
 import java.util.UUID;
 
@@ -57,8 +59,8 @@ public class DeleteDownloadsWorker extends Worker
     public Result doWork()
     {
         Context context = getApplicationContext();
-        DownloadEngine engine = ((MainApplication)context).getDownloadEngine();
-        DataRepository repo = ((MainApplication)context).getRepository();
+        DownloadEngine engine = DownloadEngine.getInstance(context);
+        DataRepository repo = RepositoryHelper.getDataRepository(context);
 
         Data data = getInputData();
         String[] idList = data.getStringArray(TAG_ID_LIST);

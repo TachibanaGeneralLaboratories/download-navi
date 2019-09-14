@@ -27,8 +27,9 @@ import android.content.SharedPreferences;
 
 import com.tachibana.downloader.MainApplication;
 import com.tachibana.downloader.R;
+import com.tachibana.downloader.core.RepositoryHelper;
 import com.tachibana.downloader.core.model.DownloadEngine;
-import com.tachibana.downloader.core.settings.SettingsManager;
+import com.tachibana.downloader.core.settings.SettingsRepository;
 
 /*
  * The receiver for autostart stopped downloads.
@@ -43,9 +44,9 @@ public class BootReceiver extends BroadcastReceiver
             return;
 
         if (intent.getAction().equals(Intent.ACTION_BOOT_COMPLETED)) {
-            SharedPreferences pref = SettingsManager.getInstance(context.getApplicationContext()).getPreferences();
-            if (pref.getBoolean(context.getString(R.string.pref_key_autostart), SettingsManager.Default.autostart)) {
-                DownloadEngine engine = ((MainApplication)context.getApplicationContext()).getDownloadEngine();
+            SettingsRepository pref = RepositoryHelper.getSettingsRepository(context.getApplicationContext());
+            if (pref.autostart()) {
+                DownloadEngine engine = DownloadEngine.getInstance(context.getApplicationContext());
                 engine.restoreDownloads();
             }
         }

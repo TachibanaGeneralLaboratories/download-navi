@@ -20,11 +20,12 @@
 
 package com.tachibana.downloader.core;
 
+import android.app.NotificationChannel;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
+import android.net.Uri;
 import android.os.Build;
 import android.os.SystemClock;
 import android.text.format.Formatter;
@@ -36,12 +37,13 @@ import com.tachibana.downloader.core.model.data.StatusCode;
 import com.tachibana.downloader.core.model.data.entity.DownloadInfo;
 import com.tachibana.downloader.core.model.data.entity.DownloadPiece;
 import com.tachibana.downloader.core.model.data.entity.InfoAndPieces;
+import com.tachibana.downloader.core.settings.SettingsRepository;
 import com.tachibana.downloader.core.storage.DataRepository;
 import com.tachibana.downloader.core.utils.DateUtils;
 import com.tachibana.downloader.core.utils.Utils;
 import com.tachibana.downloader.receiver.NotificationReceiver;
-import com.tachibana.downloader.core.settings.SettingsManager;
 
+import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -71,13 +73,21 @@ public class DownloadNotifier
     @SuppressWarnings("unused")
     private static final String TAG = DownloadNotifier.class.getSimpleName();
 
+    public static final String DEFAULT_NOTIFY_CHAN_ID = "com.tachibana.downloader.DEFAULT_NOTIFY_CHAN";
+    public static final String FOREGROUND_NOTIFY_CHAN_ID = "com.tachibana.downloader.FOREGROUND_NOTIFY_CHAN";
+    public static final String ACTIVE_DOWNLOADS_NOTIFY_CHAN_ID = "com.tachibana.downloader.CTIVE_DOWNLOADS_NOTIFY_CHAN";
+    public static final String PENDING_DOWNLOADS_NOTIFY_CHAN_ID = "com.tachibana.downloader.PENDING_DOWNLOADS_NOTIFY_CHAN";
+    public static final String COMPLETED_DOWNLOADS_NOTIFY_CHAN_ID = "com.tachibana.downloader.COMPLETED_DOWNLOADS_NOTIFY_CHAN";
+
     private static final int TYPE_ACTIVE = 1;
     private static final int TYPE_PENDING = 2;
     private static final int TYPE_COMPLETE = 3;
     /* The minimum amount of time that has to elapse before the progress bar gets updated, ms */
     private static final long MIN_PROGRESS_TIME = 2000;
 
-    private Context context;
+    private static DownloadNotifier INSTANCE;
+
+    private Context appContext;
     private NotificationManager notifyManager;
     /*
      * Currently active notifications, mapped from clustering tag to timestamp
@@ -85,7 +95,7 @@ public class DownloadNotifier
      */
     private final ArrayMap<UUID, Notification> activeNotifs = new ArrayMap<>();
     private DataRepository repo;
-    private SharedPreferences pref;
+    private SettingsRepository pref;
     private CompositeDisposable disposables = new CompositeDisposable();
 
     private class Notification
@@ -102,12 +112,51 @@ public class DownloadNotifier
         }
     }
 
-    public DownloadNotifier(Context context, DataRepository repo)
+    public static DownloadNotifier getInstance(@NonNull Context appContext)
     {
-        this.context = context;
-        notifyManager = (NotificationManager)context.getSystemService(NOTIFICATION_SERVICE);
-        this.repo = repo;
-        pref = SettingsManager.getInstance(context).getPreferences();
+        if (INSTANCE == null) {
+            synchronized (DownloadNotifier.class) {
+                if (INSTANCE == null)
+                    INSTANCE = new DownloadNotifier(appContext);
+            }
+        }
+        return INSTANCE;
+    }
+
+    private DownloadNotifier(Context appContext)
+    {
+        this.appContext = appContext;
+        notifyManager = (NotificationManager)appContext.getSystemService(NOTIFICATION_SERVICE);
+        repo = RepositoryHelper.getDataRepository(appContext);
+        pref = RepositoryHelper.getSettingsRepository(appContext);
+    }
+
+    public void makeNotifyChans()
+    {
+        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.O)
+            return;
+
+        ArrayList<NotificationChannel> channels = new ArrayList<>();
+
+        channels.add(new NotificationChannel(DEFAULT_NOTIFY_CHAN_ID,
+                appContext.getText(R.string.Default),
+                NotificationManager.IMPORTANCE_DEFAULT));
+        NotificationChannel foregroundChan = new NotificationChannel(FOREGROUND_NOTIFY_CHAN_ID,
+                appContext.getString(R.string.foreground_notification),
+                NotificationManager.IMPORTANCE_LOW);
+        foregroundChan.setShowBadge(false);
+        channels.add(foregroundChan);
+        channels.add(new NotificationChannel(ACTIVE_DOWNLOADS_NOTIFY_CHAN_ID,
+                appContext.getText(R.string.download_running),
+                NotificationManager.IMPORTANCE_MIN));
+        channels.add(new NotificationChannel(PENDING_DOWNLOADS_NOTIFY_CHAN_ID,
+                appContext.getText(R.string.pending),
+                NotificationManager.IMPORTANCE_LOW));
+        channels.add(new NotificationChannel(COMPLETED_DOWNLOADS_NOTIFY_CHAN_ID,
+                appContext.getText(R.string.finished),
+                NotificationManager.IMPORTANCE_DEFAULT));
+
+        notifyManager.createNotificationChannels(channels);
     }
 
     public void startUpdate()
@@ -171,14 +220,11 @@ public class DownloadNotifier
     {
         switch (type) {
             case TYPE_ACTIVE:
-                return pref.getBoolean(context.getString(R.string.pref_key_progress_notify),
-                                       SettingsManager.Default.progressNotify);
+                return pref.progressNotify();
             case TYPE_PENDING:
-                return pref.getBoolean(context.getString(R.string.pref_key_pending_notify),
-                                       SettingsManager.Default.pendingNotify);
+                return pref.pendingNotify();
             case TYPE_COMPLETE:
-                return pref.getBoolean(context.getString(R.string.pref_key_finish_notify),
-                                       SettingsManager.Default.finishNotify);
+                return pref.finishNotify();
         }
 
         return false;
@@ -230,18 +276,18 @@ public class DownloadNotifier
         NotificationCompat.Builder builder;
         switch (type) {
             case TYPE_ACTIVE:
-                builder = new NotificationCompat.Builder(context, Utils.ACTIVE_DOWNLOADS_NOTIFY_CHAN_ID);
+                builder = new NotificationCompat.Builder(appContext, ACTIVE_DOWNLOADS_NOTIFY_CHAN_ID);
                 break;
             case TYPE_PENDING:
-                builder = new NotificationCompat.Builder(context, Utils.PENDING_DOWNLOADS_NOTIFY_CHAN_ID);
+                builder = new NotificationCompat.Builder(appContext, PENDING_DOWNLOADS_NOTIFY_CHAN_ID);
                 break;
             case TYPE_COMPLETE:
-                builder = new NotificationCompat.Builder(context, Utils.COMPLETED_DOWNLOADS_NOTIFY_CHAN_ID);
+                builder = new NotificationCompat.Builder(appContext, COMPLETED_DOWNLOADS_NOTIFY_CHAN_ID);
                 break;
             default:
                 return;
         }
-        builder.setColor(ContextCompat.getColor(context, R.color.primary));
+        builder.setColor(ContextCompat.getColor(appContext, R.color.primary));
         builder.setWhen(firstShown);
 
         switch (type) {
@@ -255,7 +301,7 @@ public class DownloadNotifier
                 builder.setSmallIcon(R.drawable.ic_warning_white_24dp);
                 break;
             case TYPE_COMPLETE:
-                Utils.applyLegacyNotifySettings(context, builder);
+                applyLegacyNotifySettings(builder);
                 if (isError)
                     builder.setSmallIcon(R.drawable.ic_error_white_24dp);
                 else
@@ -268,15 +314,15 @@ public class DownloadNotifier
             if (type == TYPE_ACTIVE)
                 builder.setOngoing(true);
 
-            Intent pauseResumeButtonIntent = new Intent(context, NotificationReceiver.class);
+            Intent pauseResumeButtonIntent = new Intent(appContext, NotificationReceiver.class);
             pauseResumeButtonIntent.setAction(NotificationReceiver.NOTIFY_ACTION_PAUSE_RESUME);
             pauseResumeButtonIntent.putExtra(NotificationReceiver.TAG_ID, info.id);
             boolean isStopped = StatusCode.isStatusStoppedOrPaused(info.statusCode);
             int icon = (isStopped ? R.drawable.ic_play_arrow_white_24dp : R.drawable.ic_pause_white_24dp);
-            String text = (isStopped ? context.getString(R.string.resume) : context.getString(R.string.pause));
+            String text = (isStopped ? appContext.getString(R.string.resume) : appContext.getString(R.string.pause));
             PendingIntent pauseResumeButtonPendingIntent =
                     PendingIntent.getBroadcast(
-                            context,
+                            appContext,
                             0,
                             pauseResumeButtonIntent,
                             PendingIntent.FLAG_UPDATE_CURRENT);
@@ -284,19 +330,19 @@ public class DownloadNotifier
             builder.addAction(new NotificationCompat.Action.Builder(
                     icon, text, pauseResumeButtonPendingIntent).build());
 
-            Intent stopButtonIntent = new Intent(context, NotificationReceiver.class);
+            Intent stopButtonIntent = new Intent(appContext, NotificationReceiver.class);
             stopButtonIntent.setAction(NotificationReceiver.NOTIFY_ACTION_CANCEL);
             stopButtonIntent.putExtra(NotificationReceiver.TAG_ID, info.id);
             PendingIntent stopButtonPendingIntent =
                     PendingIntent.getBroadcast(
-                            context,
+                            appContext,
                             0,
                             stopButtonIntent,
                             PendingIntent.FLAG_UPDATE_CURRENT);
 
             builder.addAction(new NotificationCompat.Action.Builder(
                     R.drawable.ic_stop_white_24dp,
-                    context.getString(R.string.stop),
+                    appContext.getString(R.string.stop),
                     stopButtonPendingIntent)
                     .build());
 
@@ -305,10 +351,10 @@ public class DownloadNotifier
             if (!isError) {
                 PendingIntent openPendingIntent =
                         PendingIntent.getActivity(
-                                context,
+                                appContext,
                                 0,
-                                Intent.createChooser(Utils.createOpenFileIntent(context, info),
-                                        context.getString(R.string.open_using)),
+                                Intent.createChooser(Utils.createOpenFileIntent(appContext, info),
+                                        appContext.getString(R.string.open_using)),
                                 PendingIntent.FLAG_UPDATE_CURRENT);
 
                 builder.setContentIntent(openPendingIntent);
@@ -353,35 +399,35 @@ public class DownloadNotifier
             case TYPE_ACTIVE:
                 builder.setContentTitle(info.fileName);
                 builder.setTicker(String.format(
-                        context.getString(R.string.download_ticker_notify),
+                        appContext.getString(R.string.download_ticker_notify),
                         info.fileName));
 
                 NotificationCompat.BigTextStyle progressBigText = new NotificationCompat.BigTextStyle();
                 if (info.statusCode == StatusCode.STATUS_RUNNING) {
-                    progressBigText.bigText(String.format(context.getString(R.string.download_queued_progress_template),
-                            Formatter.formatFileSize(context, downloadBytes),
-                            (info.totalBytes == -1 ? context.getString(R.string.not_available) :
-                                    Formatter.formatFileSize(context, info.totalBytes)),
+                    progressBigText.bigText(String.format(appContext.getString(R.string.download_queued_progress_template),
+                            Formatter.formatFileSize(appContext, downloadBytes),
+                            (info.totalBytes == -1 ? appContext.getString(R.string.not_available) :
+                                    Formatter.formatFileSize(appContext, info.totalBytes)),
                             (ETA == -1 ? Utils.INFINITY_SYMBOL :
-                                    DateUtils.formatElapsedTime(context, ETA)),
-                            Formatter.formatFileSize(context, speed)));
+                                    DateUtils.formatElapsedTime(appContext, ETA)),
+                            Formatter.formatFileSize(appContext, speed)));
                 } else {
                     String statusStr = "";
                     switch (info.statusCode) {
                         case StatusCode.STATUS_PAUSED:
-                            statusStr = context.getString(R.string.pause);
+                            statusStr = appContext.getString(R.string.pause);
                             break;
                         case StatusCode.STATUS_STOPPED:
-                            statusStr = context.getString(R.string.stopped);
+                            statusStr = appContext.getString(R.string.stopped);
                             break;
                         case StatusCode.STATUS_FETCH_METADATA:
-                            statusStr = context.getString(R.string.downloading_metadata);
+                            statusStr = appContext.getString(R.string.downloading_metadata);
                             break;
                     }
-                    progressBigText.bigText(String.format(context.getString(R.string.download_queued_template),
-                            Formatter.formatFileSize(context, downloadBytes),
-                            (info.totalBytes == -1 ? context.getString(R.string.not_available) :
-                                    Formatter.formatFileSize(context, info.totalBytes)),
+                    progressBigText.bigText(String.format(appContext.getString(R.string.download_queued_template),
+                            Formatter.formatFileSize(appContext, downloadBytes),
+                            (info.totalBytes == -1 ? appContext.getString(R.string.not_available) :
+                                    Formatter.formatFileSize(appContext, info.totalBytes)),
                             statusStr));
                 }
                 builder.setStyle(progressBigText);
@@ -389,27 +435,27 @@ public class DownloadNotifier
             case TYPE_PENDING:
                 builder.setContentTitle(info.fileName);
                 builder.setTicker(String.format(
-                        context.getString(R.string.download_in_queue_ticker_notify),
+                        appContext.getString(R.string.download_in_queue_ticker_notify),
                         info.fileName));
 
                 NotificationCompat.BigTextStyle pendingBigText = new NotificationCompat.BigTextStyle();
-                String downloadBytesStr = Formatter.formatFileSize(context, downloadBytes);
+                String downloadBytesStr = Formatter.formatFileSize(appContext, downloadBytes);
                 String totalBytesStr = (info.totalBytes == -1 ?
-                        context.getString(R.string.not_available) :
-                        Formatter.formatFileSize(context, info.totalBytes));
+                        appContext.getString(R.string.not_available) :
+                        Formatter.formatFileSize(appContext, info.totalBytes));
                 String statusStr;
                 switch (info.statusCode) {
                     case StatusCode.STATUS_WAITING_FOR_NETWORK:
-                        statusStr = context.getString(R.string.waiting_for_network);
+                        statusStr = appContext.getString(R.string.waiting_for_network);
                         break;
                     case StatusCode.STATUS_WAITING_TO_RETRY:
-                        statusStr = context.getString(R.string.waiting_for_retry);
+                        statusStr = appContext.getString(R.string.waiting_for_retry);
                         break;
                     default:
-                        statusStr = context.getString(R.string.pending);
+                        statusStr = appContext.getString(R.string.pending);
                         break;
                 }
-                pendingBigText.bigText(String.format(context.getString(R.string.download_queued_template),
+                pendingBigText.bigText(String.format(appContext.getString(R.string.download_queued_template),
                         downloadBytesStr,
                         totalBytesStr,
                         statusStr));
@@ -418,11 +464,11 @@ public class DownloadNotifier
             case TYPE_COMPLETE:
                 if (isError) {
                     builder.setContentTitle(info.fileName);
-                    builder.setTicker(context.getString(R.string.download_error_notify_title));
-                    builder.setContentText(String.format(context.getString(R.string.error_template), info.statusMsg));
+                    builder.setTicker(appContext.getString(R.string.download_error_notify_title));
+                    builder.setContentText(String.format(appContext.getString(R.string.error_template), info.statusMsg));
                 } else {
-                    builder.setContentTitle(context.getString(R.string.download_finished_notify));
-                    builder.setTicker(context.getString(R.string.download_finished_notify));
+                    builder.setContentTitle(appContext.getString(R.string.download_finished_notify));
+                    builder.setTicker(appContext.getString(R.string.download_finished_notify));
                     builder.setContentText(info.fileName);
                 }
                 break;
@@ -459,7 +505,7 @@ public class DownloadNotifier
     {
         info.visibility = VISIBILITY_HIDDEN;
 
-        disposables.add(Completable.fromAction(() -> repo.updateInfo(context, info, false, false))
+        disposables.add(Completable.fromAction(() -> repo.updateInfo(info, false, false))
                 .subscribeOn(Schedulers.io())
                 .subscribe());
     }
@@ -517,5 +563,28 @@ public class DownloadNotifier
         return StatusCode.isStatusCompleted(statusCode) &&
                 (visibility == VISIBILITY_VISIBLE_NOTIFY_COMPLETED ||
                  visibility == VISIBILITY_VISIBLE_NOTIFY_ONLY_COMPLETION);
+    }
+
+    /*
+     * Starting with the version of Android 8.0,
+     * setting notifications from the app preferences isn't working,
+     * you can change them only in the settings of Android 8.0
+     */
+
+    private void applyLegacyNotifySettings(NotificationCompat.Builder builder)
+    {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O)
+            return;
+
+        SettingsRepository pref = RepositoryHelper.getSettingsRepository(appContext);
+
+        if (pref.playSoundNotify())
+            builder.setSound(Uri.parse(pref.notifySound()));
+
+        if (pref.vibrationNotify())
+            builder.setVibrate(new long[] {1000}); /* ms */
+
+        if (pref.ledIndicatorNotify())
+            builder.setLights(pref.ledIndicatorColorNotify(), 1000, 1000); /* ms */
     }
 }

@@ -31,8 +31,11 @@ import android.util.Log;
 
 import com.tachibana.downloader.MainApplication;
 import com.tachibana.downloader.R;
+import com.tachibana.downloader.core.RepositoryHelper;
 import com.tachibana.downloader.core.model.DownloadEngine;
 import com.tachibana.downloader.core.HttpConnection;
+import com.tachibana.downloader.core.settings.SettingsRepository;
+import com.tachibana.downloader.core.storage.DataRepository;
 import com.tachibana.downloader.core.system.SystemFacade;
 import com.tachibana.downloader.core.model.data.entity.DownloadInfo;
 import com.tachibana.downloader.core.model.data.entity.Header;
@@ -40,11 +43,11 @@ import com.tachibana.downloader.core.model.data.entity.UserAgent;
 import com.tachibana.downloader.core.exception.FreeSpaceException;
 import com.tachibana.downloader.core.exception.HttpException;
 import com.tachibana.downloader.core.exception.NormalizeUrlException;
-import com.tachibana.downloader.core.storage.DataRepository;
-import com.tachibana.downloader.core.utils.FileUtils;
-import com.tachibana.downloader.core.utils.NormalizeUrl;
+import com.tachibana.downloader.core.storage.DataRepositoryImpl;
+import com.tachibana.downloader.core.system.SystemFacadeHelper;
+import com.tachibana.downloader.core.system.filesystem.FileSystemFacade;
+import com.tachibana.downloader.core.urlnormalizer.NormalizeUrl;
 import com.tachibana.downloader.core.utils.Utils;
-import com.tachibana.downloader.core.settings.SettingsManager;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -71,11 +74,13 @@ public class AddDownloadViewModel extends AndroidViewModel
 
     private FetchLinkTask fetchTask;
     private DataRepository repo;
-    public SharedPreferences pref;
+    public SettingsRepository pref;
     private DownloadEngine engine;
     public AddDownloadParams params = new AddDownloadParams();
     public MutableLiveData<FetchState> fetchState = new MutableLiveData<>();
     public ObservableInt maxNumPieces = new ObservableInt(DownloadInfo.MAX_PIECES);
+    public SystemFacade systemFacade;
+    public FileSystemFacade fs;
 
     public enum Status
     {
@@ -105,9 +110,11 @@ public class AddDownloadViewModel extends AndroidViewModel
     {
         super(application);
 
-        repo = ((MainApplication)getApplication()).getRepository();
-        pref = SettingsManager.getInstance(getApplication()).getPreferences();
-        engine = ((MainApplication)getApplication()).getDownloadEngine();
+        repo = RepositoryHelper.getDataRepository(application);
+        pref = RepositoryHelper.getSettingsRepository(application);
+        systemFacade = SystemFacadeHelper.getSystemFacade(application);
+        fs = SystemFacadeHelper.getFileSystemFacade(application);
+        engine = DownloadEngine.getInstance(application);
         fetchState.setValue(new FetchState(Status.UNKNOWN));
         params.addOnPropertyChangedCallback(paramsCallback);
     }
@@ -140,9 +147,7 @@ public class AddDownloadViewModel extends AndroidViewModel
 
     public UserAgent getPrefUserAgent()
     {
-        String userAgent = pref.getString(getApplication().getString(R.string.pref_key_user_agent), Utils.getSystemUserAgent(getApplication()));
-
-        return new UserAgent(userAgent);
+        return new UserAgent(pref.userAgent());
     }
 
     public void savePrefUserAgent(UserAgent userAgent)
@@ -150,9 +155,7 @@ public class AddDownloadViewModel extends AndroidViewModel
         if (userAgent == null)
             return;
 
-        pref.edit()
-                .putString(getApplication().getString(R.string.pref_key_user_agent), userAgent.userAgent)
-                .apply();
+        pref.userAgent(userAgent.userAgent);
     }
 
     public void startFetchTask()
@@ -209,8 +212,8 @@ public class AddDownloadViewModel extends AndroidViewModel
                 return e;
             }
 
-            SystemFacade systemFacade = Utils.getSystemFacade(viewModel.get().getApplication().getApplicationContext());
-            NetworkInfo netInfo = systemFacade.getActiveNetworkInfo();
+
+            NetworkInfo netInfo = viewModel.get().systemFacade.getActiveNetworkInfo();
             if (netInfo == null || !netInfo.isConnected())
                 return new ConnectException("Network is disconnected");
 
@@ -290,7 +293,10 @@ public class AddDownloadViewModel extends AndroidViewModel
         String contentLocation = conn.getHeaderField("Content-Location");
 
         if (TextUtils.isEmpty(params.getFileName()))
-            params.setFileName(Utils.getHttpFileName(params.getUrl(), contentDisposition, contentLocation));
+            params.setFileName(Utils.getHttpFileName(getApplication(),
+                    params.getUrl(),
+                    contentDisposition,
+                    contentLocation));
         String mimeType = Intent.normalizeMimeType(conn.getContentType());
         if (mimeType != null)
             params.setMimeType(mimeType);
@@ -339,8 +345,7 @@ public class AddDownloadViewModel extends AndroidViewModel
         /* Sync wait inserting */
         try {
             Thread t = new Thread(() -> {
-                if (pref.getBoolean(getApplication().getString(R.string.pref_key_replace_duplicate_downloads),
-                                    SettingsManager.Default.replaceDuplicateDownloads))
+                if (pref.replaceDuplicateDownloads())
                     repo.replaceInfoByUrl(info, headers);
                 else
                     repo.addInfo(info, headers);
@@ -363,21 +368,19 @@ public class AddDownloadViewModel extends AndroidViewModel
         if (state != null && state.status != Status.FETCHED)
             url = NormalizeUrl.normalize(url);
 
-        Uri filePath = FileUtils.getFileUri(getApplication(),
-                params.getDirPath(), params.getFileName());
+        Uri filePath = fs.getFileUri(params.getDirPath(), params.getFileName());
         String fileName;
         if (params.isReplaceFile()) {
             fileName = params.getFileName();
             try {
                 if (filePath != null)
-                    FileUtils.deleteFile(getApplication(), filePath);
+                    fs.deleteFile(filePath);
 
             } catch (FileNotFoundException e) {
                 /* Ignore */
             }
         } else {
-            fileName = FileUtils.makeFilename(getApplication(),
-                    params.getDirPath(), params.getFileName());
+            fileName = fs.makeFilename(params.getDirPath(), params.getFileName());
         }
 
         DownloadInfo info = new DownloadInfo(dirPath, url, fileName);
@@ -414,8 +417,8 @@ public class AddDownloadViewModel extends AndroidViewModel
             if (propertyId == BR.dirPath) {
                 Uri dirPath = params.getDirPath();
                 if (dirPath != null) {
-                    params.setStorageFreeSpace(FileUtils.getDirAvailableBytes(getApplication(), dirPath));
-                    params.setDirName(FileUtils.getDirName(getApplication(), dirPath));
+                    params.setStorageFreeSpace(fs.getDirAvailableBytes(dirPath));
+                    params.setDirName(fs.getDirName(dirPath));
                 }
             }
         }

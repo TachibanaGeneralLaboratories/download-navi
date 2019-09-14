@@ -24,9 +24,11 @@ import android.content.Context;
 
 import com.google.common.util.concurrent.ListenableFuture;
 import com.tachibana.downloader.MainApplication;
+import com.tachibana.downloader.core.RepositoryHelper;
 import com.tachibana.downloader.core.model.DownloadScheduler;
 import com.tachibana.downloader.core.model.data.entity.DownloadInfo;
 import com.tachibana.downloader.core.storage.DataRepository;
+import com.tachibana.downloader.core.storage.DataRepositoryImpl;
 
 import java.util.List;
 import java.util.UUID;
@@ -54,7 +56,7 @@ public class RescheduleAllWorker extends Worker
     public Result doWork()
     {
         Context context = getApplicationContext();
-        DataRepository repo = ((MainApplication)context).getRepository();
+        DataRepository repo = RepositoryHelper.getDataRepository(context);
 
         ListenableFuture<List<WorkInfo>> future = WorkManager.getInstance(context)
                 .getWorkInfosByTag(DownloadScheduler.TAG_WORK_RUN_TYPE);
