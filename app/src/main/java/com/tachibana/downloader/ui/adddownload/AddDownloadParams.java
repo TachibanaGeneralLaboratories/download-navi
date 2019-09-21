@@ -22,11 +22,11 @@ package com.tachibana.downloader.ui.adddownload;
 
 import android.net.Uri;
 
-import com.tachibana.downloader.core.model.data.entity.DownloadInfo;
-
 import androidx.databinding.BaseObservable;
 import androidx.databinding.Bindable;
 import androidx.databinding.library.baseAdapters.BR;
+
+import com.tachibana.downloader.core.model.data.entity.DownloadInfo;
 
 public class AddDownloadParams extends BaseObservable
 {

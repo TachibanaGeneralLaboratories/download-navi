@@ -24,6 +24,10 @@ import android.content.Context;
 import android.net.Uri;
 import android.util.Log;
 
+import androidx.annotation.NonNull;
+import androidx.lifecycle.LiveData;
+import androidx.lifecycle.MediatorLiveData;
+
 import com.tachibana.downloader.core.model.data.entity.DownloadInfo;
 import com.tachibana.downloader.core.model.data.entity.DownloadPiece;
 import com.tachibana.downloader.core.model.data.entity.Header;
@@ -36,9 +40,6 @@ import java.io.FileNotFoundException;
 import java.util.List;
 import java.util.UUID;
 
-import androidx.annotation.NonNull;
-import androidx.lifecycle.LiveData;
-import androidx.lifecycle.MediatorLiveData;
 import io.reactivex.Flowable;
 import io.reactivex.Single;
 

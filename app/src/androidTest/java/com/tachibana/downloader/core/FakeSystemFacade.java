@@ -26,12 +26,12 @@ import android.net.ConnectivityManager;
 import android.net.NetworkCapabilities;
 import android.net.NetworkInfo;
 
-import java.lang.reflect.Constructor;
-import java.lang.reflect.Method;
-
 import androidx.annotation.NonNull;
 
 import com.tachibana.downloader.core.system.SystemFacade;
+
+import java.lang.reflect.Constructor;
+import java.lang.reflect.Method;
 
 import static android.net.NetworkCapabilities.NET_CAPABILITY_NOT_METERED;
 import static android.net.NetworkCapabilities.NET_CAPABILITY_NOT_ROAMING;

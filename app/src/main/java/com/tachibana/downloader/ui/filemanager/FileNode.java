@@ -23,9 +23,9 @@ package com.tachibana.downloader.ui.filemanager;
  * The interface with basic functions for a file object.
  */
 
-import java.io.Serializable;
-
 import androidx.annotation.NonNull;
+
+import java.io.Serializable;
 
 public interface FileNode<F> extends Comparable<F>
 {

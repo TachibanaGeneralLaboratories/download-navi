@@ -20,13 +20,13 @@
 
 package com.tachibana.downloader.core.model.data.entity;
 
-import java.util.UUID;
-
 import androidx.annotation.NonNull;
 import androidx.room.Entity;
 import androidx.room.ForeignKey;
 import androidx.room.Index;
 import androidx.room.PrimaryKey;
+
+import java.util.UUID;
 
 import static androidx.room.ForeignKey.CASCADE;
 

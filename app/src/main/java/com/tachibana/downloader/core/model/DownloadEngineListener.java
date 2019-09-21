@@ -20,10 +20,10 @@
 
 package com.tachibana.downloader.core.model;
 
-import java.util.UUID;
-
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+
+import java.util.UUID;
 
 public abstract class DownloadEngineListener
 {

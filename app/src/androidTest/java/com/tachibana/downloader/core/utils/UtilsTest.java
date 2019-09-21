@@ -20,33 +20,32 @@
 
 package com.tachibana.downloader.core.utils;
 
+import com.tachibana.downloader.AbstractTest;
+
 import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.robolectric.RobolectricTestRunner;
 
 import static org.junit.Assert.*;
 
-@RunWith(RobolectricTestRunner.class)
-public class UtilsTest
+public class UtilsTest extends AbstractTest
 {
     @Test
     public void testGetHttpFileName()
     {
-        String actual = Utils.getHttpFileName("http://example.org/file.txt", null, null);
+        String actual = Utils.getHttpFileName(context, "http://example.org/file.txt", null, null);
         assertEquals("file.txt", actual);
     }
 
     @Test
     public void testGetHttpFileName_noExtension()
     {
-        String actual = Utils.getHttpFileName("http://example.org/file", null, null);
+        String actual = Utils.getHttpFileName(context, "http://example.org/file", null, null);
         assertEquals("file", actual);
     }
 
     @Test
     public void testGetHttpFileName_withDisposition()
     {
-        String actual = Utils.getHttpFileName("http://example.org/file.txt",
+        String actual = Utils.getHttpFileName(context, "http://example.org/file.txt",
                 "attachment; filename=\"subdir/real.pdf\"", null);
         assertEquals("real.pdf", actual);
     }
@@ -54,7 +53,7 @@ public class UtilsTest
     @Test
     public void testGetHttpFileName_withLocation()
     {
-        String actual = Utils.getHttpFileName("http://example.org/file.txt",
+        String actual = Utils.getHttpFileName(context, "http://example.org/file.txt",
                 null, "Content-Location: subdir/real.pdf");
         assertEquals("real.pdf", actual);
     }
@@ -62,7 +61,7 @@ public class UtilsTest
     @Test
     public void testGetHttpFileName_withDispositionAndLocation()
     {
-        String actual = Utils.getHttpFileName("http://example.org/file.txt",
+        String actual = Utils.getHttpFileName(context, "http://example.org/file.txt",
                 "attachment; filename=\"subdir/real.pdf\"",
                 "Content-Location: subdir/file.pdf");
         assertEquals("real.pdf", actual);

@@ -20,11 +20,11 @@
 
 package com.tachibana.downloader.ui.details;
 
-import com.tachibana.downloader.BR;
-import com.tachibana.downloader.core.model.data.entity.DownloadInfo;
-
 import androidx.databinding.BaseObservable;
 import androidx.databinding.Bindable;
+
+import com.tachibana.downloader.BR;
+import com.tachibana.downloader.core.model.data.entity.DownloadInfo;
 
 public class DownloadDetailsInfo extends BaseObservable
 {

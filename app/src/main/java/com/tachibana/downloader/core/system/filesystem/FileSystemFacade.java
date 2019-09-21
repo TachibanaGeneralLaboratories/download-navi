@@ -29,13 +29,10 @@ import androidx.annotation.Nullable;
 import com.tachibana.downloader.core.exception.FileAlreadyExistsException;
 
 import java.io.Closeable;
-import java.io.File;
 import java.io.FileDescriptor;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
-import java.nio.charset.Charset;
-import java.util.ArrayList;
 
 public interface FileSystemFacade
 {

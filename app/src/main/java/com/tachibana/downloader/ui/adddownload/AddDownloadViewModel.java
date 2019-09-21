@@ -22,28 +22,32 @@ package com.tachibana.downloader.ui.adddownload;
 
 import android.app.Application;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.net.NetworkInfo;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.text.TextUtils;
 import android.util.Log;
 
-import com.tachibana.downloader.MainApplication;
-import com.tachibana.downloader.R;
-import com.tachibana.downloader.core.RepositoryHelper;
-import com.tachibana.downloader.core.model.DownloadEngine;
+import androidx.annotation.NonNull;
+import androidx.databinding.Observable;
+import androidx.databinding.ObservableInt;
+import androidx.databinding.library.baseAdapters.BR;
+import androidx.lifecycle.AndroidViewModel;
+import androidx.lifecycle.LiveData;
+import androidx.lifecycle.MutableLiveData;
+
 import com.tachibana.downloader.core.HttpConnection;
-import com.tachibana.downloader.core.settings.SettingsRepository;
-import com.tachibana.downloader.core.storage.DataRepository;
-import com.tachibana.downloader.core.system.SystemFacade;
-import com.tachibana.downloader.core.model.data.entity.DownloadInfo;
-import com.tachibana.downloader.core.model.data.entity.Header;
-import com.tachibana.downloader.core.model.data.entity.UserAgent;
+import com.tachibana.downloader.core.RepositoryHelper;
 import com.tachibana.downloader.core.exception.FreeSpaceException;
 import com.tachibana.downloader.core.exception.HttpException;
 import com.tachibana.downloader.core.exception.NormalizeUrlException;
-import com.tachibana.downloader.core.storage.DataRepositoryImpl;
+import com.tachibana.downloader.core.model.DownloadEngine;
+import com.tachibana.downloader.core.model.data.entity.DownloadInfo;
+import com.tachibana.downloader.core.model.data.entity.Header;
+import com.tachibana.downloader.core.model.data.entity.UserAgent;
+import com.tachibana.downloader.core.settings.SettingsRepository;
+import com.tachibana.downloader.core.storage.DataRepository;
+import com.tachibana.downloader.core.system.SystemFacade;
 import com.tachibana.downloader.core.system.SystemFacadeHelper;
 import com.tachibana.downloader.core.system.filesystem.FileSystemFacade;
 import com.tachibana.downloader.core.urlnormalizer.NormalizeUrl;
@@ -58,13 +62,6 @@ import java.net.MalformedURLException;
 import java.util.ArrayList;
 import java.util.List;
 
-import androidx.annotation.NonNull;
-import androidx.databinding.Observable;
-import androidx.databinding.ObservableInt;
-import androidx.databinding.library.baseAdapters.BR;
-import androidx.lifecycle.AndroidViewModel;
-import androidx.lifecycle.LiveData;
-import androidx.lifecycle.MutableLiveData;
 import io.reactivex.Completable;
 
 public class AddDownloadViewModel extends AndroidViewModel

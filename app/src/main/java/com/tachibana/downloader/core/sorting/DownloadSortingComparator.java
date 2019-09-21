@@ -20,11 +20,11 @@
 
 package com.tachibana.downloader.core.sorting;
 
+import androidx.annotation.NonNull;
+
 import com.tachibana.downloader.ui.main.DownloadItem;
 
 import java.util.Comparator;
-
-import androidx.annotation.NonNull;
 
 public class DownloadSortingComparator implements Comparator<DownloadItem>
 {

@@ -26,16 +26,16 @@ import android.net.Uri;
 import android.preference.PreferenceManager;
 import android.util.Log;
 
+import androidx.test.ext.junit.runners.AndroidJUnit4;
+import androidx.test.filters.MediumTest;
+
 import com.tachibana.downloader.AbstractTest;
-import com.tachibana.downloader.R;
+import com.tachibana.downloader.core.model.DownloadThreadImpl;
+import com.tachibana.downloader.core.model.data.DownloadResult;
 import com.tachibana.downloader.core.model.data.StatusCode;
 import com.tachibana.downloader.core.model.data.entity.DownloadInfo;
 import com.tachibana.downloader.core.model.data.entity.DownloadPiece;
-import com.tachibana.downloader.core.model.DownloadThread;
-import com.tachibana.downloader.core.model.data.DownloadResult;
 import com.tachibana.downloader.core.utils.DigestUtils;
-import com.tachibana.downloader.core.utils.FileUtils;
-import com.tachibana.downloader.core.utils.Utils;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -51,10 +51,11 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.Future;
 
-import androidx.test.ext.junit.runners.AndroidJUnit4;
-import androidx.test.filters.MediumTest;
-
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotEquals;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.fail;
 
 @MediumTest
 @RunWith(AndroidJUnit4.class)
@@ -72,7 +73,7 @@ public class DownloadThreadTest extends AbstractTest
     {
         super.init();
 
-        dir = Uri.parse("file://" + FileUtils.getDefaultDownloadPath());
+        dir = Uri.parse("file://" + fs.getDefaultDownloadPath());
     }
 
     @Test
@@ -85,7 +86,7 @@ public class DownloadThreadTest extends AbstractTest
         repo.addInfo(info, new ArrayList<>());
 
         /* Run download task and get result */
-        DownloadResult result = runTask(new DownloadThread(context, id));
+        DownloadResult result = runTask(new DownloadThreadImpl(context, id, repo, pref, fs, systemFacade));
         assertNotNull(result);
 
         /* Read download info */
@@ -133,7 +134,7 @@ public class DownloadThreadTest extends AbstractTest
         repo.addInfo(info, new ArrayList<>());
 
         /* Run download task and get result */
-        DownloadResult result = runTask(new DownloadThread(context, id));
+        DownloadResult result = runTask(new DownloadThreadImpl(context, id, repo, pref, fs, systemFacade));
         assertNotNull(result);
 
         /* Read download info */
@@ -169,7 +170,7 @@ public class DownloadThreadTest extends AbstractTest
         repo.addInfo(info, new ArrayList<>());
 
         /* Run download task and get result */
-        DownloadResult result = runTask(new DownloadThread(context, id));
+        DownloadResult result = runTask(new DownloadThreadImpl(context, id, repo, pref, fs, systemFacade));
         assertNotNull(result);
 
         /* Read download info */
@@ -220,7 +221,7 @@ public class DownloadThreadTest extends AbstractTest
         repo.addInfo(info, new ArrayList<>());
 
         /* Run download task and get result */
-        DownloadResult result = runTask(new DownloadThread(context, id));
+        DownloadResult result = runTask(new DownloadThreadImpl(context, id, repo, pref, fs, systemFacade));
         assertNotNull(result);
 
         /* Read download info */
@@ -259,7 +260,7 @@ public class DownloadThreadTest extends AbstractTest
         repo.addInfo(info, new ArrayList<>());
 
         /* Run download task and get result */
-        DownloadResult result = runTask(new DownloadThread(context, id));
+        DownloadResult result = runTask(new DownloadThreadImpl(context, id, repo, pref, fs, systemFacade));
         assertNotNull(result);
 
         /* Read download info */
@@ -288,7 +289,6 @@ public class DownloadThreadTest extends AbstractTest
     @Test
     public void testDownload_networkConnection()
     {
-        FakeSystemFacade systemFacade = (FakeSystemFacade)Utils.getSystemFacade(context);
         SharedPreferences pref = PreferenceManager.getDefaultSharedPreferences(context);
 
         /* Write download info */
@@ -298,81 +298,81 @@ public class DownloadThreadTest extends AbstractTest
         repo.addInfo(info, new ArrayList<>());
 
         /* Reset values */
-        turnUnmeteredOnlyPref(pref, false);
-        turnRoamingPref(pref, false);
+        turnUnmeteredOnlyPref(false);
+        turnRoamingPref(false);
 
         try {
             /* Check unmetered connections only */
-            turnUnmeteredOnlyPref(pref, true);
-            turnRoamingPref(pref, false);
-            enableMobile(systemFacade);
-            turnRoaming(systemFacade, false);
+            turnUnmeteredOnlyPref(true);
+            turnRoamingPref(false);
+            enableMobile();
+            turnRoaming(false);
             runTask_checkWaitingNetwork("Unmetered connections only test failed", id);
 
             /* Check roaming */
-            turnUnmeteredOnlyPref(pref, false);
-            turnRoamingPref(pref, true);
-            enableMobile(systemFacade);
-            turnRoaming(systemFacade, true);
+            turnUnmeteredOnlyPref(false);
+            turnRoamingPref(true);
+            enableMobile();
+            turnRoaming(true);
             runTask_checkWaitingNetwork("Roaming test failed", id);
 
             /* Check unmetered connections only and roaming */
-            turnUnmeteredOnlyPref(pref, true);
-            turnRoamingPref(pref, true);
-            enableMobile(systemFacade);
-            turnRoaming(systemFacade, true);
+            turnUnmeteredOnlyPref(true);
+            turnRoamingPref(true);
+            enableMobile();
+            turnRoaming(true);
             runTask_checkWaitingNetwork("Unmetered connections only and roaming test failed", id);
 
             /* Check unmetered connections only and roaming (with enabled wifi) */
-            turnUnmeteredOnlyPref(pref, true);
-            turnRoamingPref(pref, true);
-            enableWiFi(systemFacade);
+            turnUnmeteredOnlyPref(true);
+            turnRoamingPref(true);
+            enableWiFi();
             runTask_checkWaitingNetwork("Unmetered connections only and roaming (with enabled wifi) test failed", id);
 
         } finally {
             new File(dir.getPath(), linuxName).delete();
 
             /* Restore state */
-            turnUnmeteredOnlyPref(pref, false);
-            turnRoamingPref(pref, false);
+            turnUnmeteredOnlyPref(false);
+            turnRoamingPref(false);
         }
     }
 
     private void runTask_checkWaitingNetwork(String msg, UUID id)
     {
-        runTask(new DownloadThread(context, id));
+        runTask(new DownloadThreadImpl(context, id, repo, pref, fs, systemFacade));
         DownloadInfo info = repo.getInfoById(id);
         assertEquals(msg, StatusCode.STATUS_WAITING_FOR_NETWORK, info.statusCode);
     }
 
-    private void turnUnmeteredOnlyPref(SharedPreferences pref, boolean enable)
+    private void turnUnmeteredOnlyPref(boolean enable)
     {
-        pref.edit().putBoolean(context.getString(R.string.pref_key_umnetered_connections_only), enable).apply();
+        pref.unmeteredConnectionsOnly(enable);
     }
 
-    private void turnRoamingPref(SharedPreferences pref, boolean enable)
+    private void turnRoamingPref(boolean enable)
     {
-        pref.edit().putBoolean(context.getString(R.string.pref_key_enable_roaming), enable).apply();
+        pref.enableRoaming(enable);
     }
 
-    private void enableWiFi(FakeSystemFacade systemFacade)
+    private void enableWiFi()
     {
         systemFacade.activeNetworkType = ConnectivityManager.TYPE_WIFI;
         systemFacade.isMetered = false;
     }
 
-    private void enableMobile(FakeSystemFacade systemFacade)
+    private void enableMobile()
     {
         systemFacade.activeNetworkType = ConnectivityManager.TYPE_MOBILE;
         systemFacade.isMetered = true;
     }
 
-    private void turnRoaming(FakeSystemFacade systemFacade, boolean enable)
+    private void turnRoaming(boolean enable)
     {
         systemFacade.isRoaming = enable;
     }
 
-    private DownloadResult runTask(DownloadThread task)
+    private DownloadResult runTask(DownloadThreadImpl task)
     {
         Future<DownloadResult> f = exec.submit(task);
         DownloadResult result = null;

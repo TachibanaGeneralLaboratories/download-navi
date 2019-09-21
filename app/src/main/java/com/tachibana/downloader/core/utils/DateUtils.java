@@ -22,14 +22,14 @@ package com.tachibana.downloader.core.utils;
 
 import android.content.Context;
 
+import androidx.annotation.NonNull;
+
 import com.tachibana.downloader.R;
 
 import java.util.Calendar;
 import java.util.Formatter;
 import java.util.Locale;
 import java.util.concurrent.locks.ReentrantLock;
-
-import androidx.annotation.NonNull;
 
 public class DateUtils
 {

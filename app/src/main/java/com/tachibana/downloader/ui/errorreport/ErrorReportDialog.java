@@ -21,12 +21,12 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 
+import androidx.annotation.NonNull;
+import androidx.databinding.DataBindingUtil;
+
 import com.tachibana.downloader.R;
 import com.tachibana.downloader.databinding.DialogErrorBinding;
 import com.tachibana.downloader.ui.BaseAlertDialog;
-
-import androidx.annotation.NonNull;
-import androidx.databinding.DataBindingUtil;
 
 public class ErrorReportDialog extends BaseAlertDialog
 {

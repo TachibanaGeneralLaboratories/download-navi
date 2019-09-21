@@ -26,7 +26,6 @@ import android.content.Intent;
 import android.content.IntentFilter;
 import android.net.ConnectivityManager;
 
-import com.tachibana.downloader.MainApplication;
 import com.tachibana.downloader.core.model.DownloadEngine;
 
 /*

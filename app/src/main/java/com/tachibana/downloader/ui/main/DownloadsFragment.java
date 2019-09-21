@@ -33,15 +33,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.CheckBox;
 
-import com.tachibana.downloader.R;
-import com.tachibana.downloader.core.filter.DownloadFilter;
-import com.tachibana.downloader.core.utils.Utils;
-import com.tachibana.downloader.databinding.FragmentDownloadListBinding;
-import com.tachibana.downloader.ui.BaseAlertDialog;
-import com.tachibana.downloader.ui.details.DownloadDetailsDialog;
-
-import java.util.UUID;
-
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
@@ -57,6 +48,16 @@ import androidx.recyclerview.selection.StorageStrategy;
 import androidx.recyclerview.widget.DefaultItemAnimator;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+
+import com.tachibana.downloader.R;
+import com.tachibana.downloader.core.filter.DownloadFilter;
+import com.tachibana.downloader.core.utils.Utils;
+import com.tachibana.downloader.databinding.FragmentDownloadListBinding;
+import com.tachibana.downloader.ui.BaseAlertDialog;
+import com.tachibana.downloader.ui.details.DownloadDetailsDialog;
+
+import java.util.UUID;
+
 import io.reactivex.Flowable;
 import io.reactivex.Observable;
 import io.reactivex.android.schedulers.AndroidSchedulers;

@@ -25,29 +25,26 @@ import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.os.Build;
 import android.os.PowerManager;
 import android.util.Log;
-
-import com.tachibana.downloader.core.DownloadNotifier;
-import com.tachibana.downloader.core.RepositoryHelper;
-import com.tachibana.downloader.core.settings.SettingsRepository;
-import com.tachibana.downloader.ui.main.MainActivity;
-import com.tachibana.downloader.MainApplication;
-import com.tachibana.downloader.R;
-import com.tachibana.downloader.core.model.ChangeableParams;
-import com.tachibana.downloader.core.model.DownloadEngine;
-import com.tachibana.downloader.core.model.DownloadEngineListener;
-import com.tachibana.downloader.core.utils.Utils;
-import com.tachibana.downloader.receiver.NotificationReceiver;
-
-import java.util.UUID;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.core.app.NotificationCompat;
 import androidx.lifecycle.LifecycleService;
+
+import com.tachibana.downloader.R;
+import com.tachibana.downloader.core.DownloadNotifier;
+import com.tachibana.downloader.core.RepositoryHelper;
+import com.tachibana.downloader.core.model.ChangeableParams;
+import com.tachibana.downloader.core.model.DownloadEngine;
+import com.tachibana.downloader.core.model.DownloadEngineListener;
+import com.tachibana.downloader.core.settings.SettingsRepository;
+import com.tachibana.downloader.receiver.NotificationReceiver;
+import com.tachibana.downloader.ui.main.MainActivity;
+
+import java.util.UUID;
 
 import io.reactivex.disposables.CompositeDisposable;
 

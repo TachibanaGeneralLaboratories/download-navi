@@ -22,23 +22,21 @@ package com.tachibana.downloader.service;
 
 import android.content.Context;
 
-import com.google.common.util.concurrent.ListenableFuture;
-import com.tachibana.downloader.MainApplication;
-import com.tachibana.downloader.core.RepositoryHelper;
-import com.tachibana.downloader.core.model.DownloadScheduler;
-import com.tachibana.downloader.core.model.data.entity.DownloadInfo;
-import com.tachibana.downloader.core.storage.DataRepository;
-import com.tachibana.downloader.core.storage.DataRepositoryImpl;
-
-import java.util.List;
-import java.util.UUID;
-import java.util.concurrent.ExecutionException;
-
 import androidx.annotation.NonNull;
 import androidx.work.WorkInfo;
 import androidx.work.WorkManager;
 import androidx.work.Worker;
 import androidx.work.WorkerParameters;
+
+import com.google.common.util.concurrent.ListenableFuture;
+import com.tachibana.downloader.core.RepositoryHelper;
+import com.tachibana.downloader.core.model.DownloadScheduler;
+import com.tachibana.downloader.core.model.data.entity.DownloadInfo;
+import com.tachibana.downloader.core.storage.DataRepository;
+
+import java.util.List;
+import java.util.UUID;
+import java.util.concurrent.ExecutionException;
 
 /*
  * Reschedule all RunDownloadWorker's. Used only by DownloadScheduler.

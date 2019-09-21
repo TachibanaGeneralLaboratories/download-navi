@@ -26,14 +26,14 @@ import android.text.format.Formatter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.databinding.BindingAdapter;
+
 import com.tachibana.downloader.R;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
-
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.databinding.BindingAdapter;
 
 public class BindingAdapterUtils
 {

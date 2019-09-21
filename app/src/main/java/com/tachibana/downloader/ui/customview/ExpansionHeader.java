@@ -29,10 +29,10 @@ import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.tachibana.downloader.R;
-
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+
+import com.tachibana.downloader.R;
 
 /*
  * Based on expansion panels described in Material Design Components

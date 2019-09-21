@@ -28,19 +28,19 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.tachibana.downloader.R;
-import com.tachibana.downloader.core.system.SystemFacadeHelper;
-import com.tachibana.downloader.core.system.filesystem.FileSystemFacade;
-
-import java.util.Collections;
-import java.util.List;
-
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.DiffUtil;
 import androidx.recyclerview.widget.ListAdapter;
 import androidx.recyclerview.widget.RecyclerView;
+
+import com.tachibana.downloader.R;
+import com.tachibana.downloader.core.system.SystemFacadeHelper;
+import com.tachibana.downloader.core.system.filesystem.FileSystemFacade;
+
+import java.util.Collections;
+import java.util.List;
 
 /*
  * The adapter for directory or file chooser dialog.

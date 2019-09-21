@@ -25,6 +25,11 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.widget.CheckBox;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.fragment.app.FragmentManager;
+import androidx.lifecycle.ViewModelProviders;
+
 import com.tachibana.downloader.R;
 import com.tachibana.downloader.core.model.data.StatusCode;
 import com.tachibana.downloader.core.model.data.entity.DownloadInfo;
@@ -33,10 +38,6 @@ import com.tachibana.downloader.ui.BaseAlertDialog;
 
 import java.util.Collections;
 
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.fragment.app.FragmentManager;
-import androidx.lifecycle.ViewModelProviders;
 import io.reactivex.disposables.Disposable;
 
 public class FinishedDownloadsFragment extends DownloadsFragment

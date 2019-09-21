@@ -23,18 +23,21 @@ package com.tachibana.downloader;
 import android.Manifest;
 import android.content.Context;
 
+import androidx.room.Room;
+import androidx.test.core.app.ApplicationProvider;
+import androidx.test.rule.GrantPermissionRule;
+
 import com.tachibana.downloader.core.FakeSystemFacade;
+import com.tachibana.downloader.core.RepositoryHelper;
+import com.tachibana.downloader.core.settings.SettingsRepository;
 import com.tachibana.downloader.core.storage.AppDatabase;
 import com.tachibana.downloader.core.storage.DataRepositoryImpl;
-import com.tachibana.downloader.core.utils.Utils;
+import com.tachibana.downloader.core.system.SystemFacadeHelper;
+import com.tachibana.downloader.core.system.filesystem.FileSystemFacade;
 
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Rule;
-
-import androidx.room.Room;
-import androidx.test.core.app.ApplicationProvider;
-import androidx.test.rule.GrantPermissionRule;
 
 public class AbstractTest
 {
@@ -46,6 +49,9 @@ public class AbstractTest
     protected Context context;
     protected AppDatabase db;
     protected DataRepositoryImpl repo;
+    protected FakeSystemFacade systemFacade;
+    protected SettingsRepository pref;
+    protected FileSystemFacade fs;
 
     @Before
     public void init()
@@ -55,10 +61,10 @@ public class AbstractTest
                 AppDatabase.class)
                 .allowMainThreadQueries()
                 .build();
-        ((MainApplication)context).setDatabase(db);
-        repo = DataRepositoryImpl.getInstance(db);
-        FakeSystemFacade systemFacade = new FakeSystemFacade(context);
-        Utils.setSystemFacade(systemFacade);
+        repo = new DataRepositoryImpl(context, db);
+        systemFacade = new FakeSystemFacade(context);
+        pref = RepositoryHelper.getSettingsRepository(context);
+        fs = SystemFacadeHelper.getFileSystemFacade(context);
     }
 
     @After

@@ -22,19 +22,17 @@ package com.tachibana.downloader.service;
 
 import android.content.Context;
 
-import com.tachibana.downloader.MainApplication;
+import androidx.annotation.NonNull;
+import androidx.work.Worker;
+import androidx.work.WorkerParameters;
+
 import com.tachibana.downloader.core.RepositoryHelper;
 import com.tachibana.downloader.core.model.DownloadScheduler;
 import com.tachibana.downloader.core.model.data.StatusCode;
 import com.tachibana.downloader.core.model.data.entity.DownloadInfo;
 import com.tachibana.downloader.core.storage.DataRepository;
-import com.tachibana.downloader.core.storage.DataRepositoryImpl;
 
 import java.util.List;
-
-import androidx.annotation.NonNull;
-import androidx.work.Worker;
-import androidx.work.WorkerParameters;
 
 /*
  * Used only by DownloadScheduler.

@@ -22,9 +22,9 @@ package com.tachibana.downloader.ui.main;
 
 import android.os.Bundle;
 
-import com.tachibana.downloader.core.model.data.StatusCode;
-
 import androidx.annotation.NonNull;
+
+import com.tachibana.downloader.core.model.data.StatusCode;
 
 public class QueuedDownloadsFragment extends DownloadsFragment
     implements DownloadListAdapter.QueueClickListener

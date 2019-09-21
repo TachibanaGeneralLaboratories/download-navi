@@ -21,7 +21,6 @@
 package com.tachibana.downloader.ui.settings.sections;
 
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.media.RingtoneManager;
 import android.net.Uri;
 import android.os.Build;
@@ -29,15 +28,15 @@ import android.os.Bundle;
 import android.provider.Settings;
 import android.widget.Toast;
 
+import androidx.preference.ListPreference;
+import androidx.preference.Preference;
+import androidx.preference.SwitchPreferenceCompat;
+
 import com.jaredrummler.android.colorpicker.ColorPreferenceCompat;
 import com.tachibana.downloader.R;
 import com.tachibana.downloader.core.RepositoryHelper;
 import com.tachibana.downloader.core.settings.SettingsRepository;
 import com.takisoft.preferencex.PreferenceFragmentCompat;
-
-import androidx.preference.ListPreference;
-import androidx.preference.Preference;
-import androidx.preference.SwitchPreferenceCompat;
 
 public class AppearanceSettingsFragment extends PreferenceFragmentCompat
         implements Preference.OnPreferenceChangeListener

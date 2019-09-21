@@ -23,13 +23,15 @@ package com.tachibana.downloader.core;
 import android.net.Uri;
 import android.util.Log;
 
+import androidx.test.ext.junit.runners.AndroidJUnit4;
+import androidx.test.filters.MediumTest;
+
 import com.tachibana.downloader.AbstractTest;
+import com.tachibana.downloader.core.model.PieceThreadImpl;
 import com.tachibana.downloader.core.model.data.StatusCode;
 import com.tachibana.downloader.core.model.data.entity.DownloadInfo;
 import com.tachibana.downloader.core.model.data.entity.DownloadPiece;
-import com.tachibana.downloader.core.model.PieceThread;
 import com.tachibana.downloader.core.utils.DigestUtils;
-import com.tachibana.downloader.core.utils.FileUtils;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -42,10 +44,10 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.TimeUnit;
 
-import androidx.test.ext.junit.runners.AndroidJUnit4;
-import androidx.test.filters.MediumTest;
-
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.fail;
 
 @MediumTest
 @RunWith(AndroidJUnit4.class)
@@ -61,7 +63,7 @@ public class PieceThreadTest extends AbstractTest
     {
         super.init();
 
-        dir = Uri.parse("file://" + FileUtils.getDefaultDownloadPath());
+        dir = Uri.parse("file://" + fs.getDefaultDownloadPath());
     }
 
     @Test
@@ -87,7 +89,7 @@ public class PieceThreadTest extends AbstractTest
             assertTrue(file.exists());
 
             /* Run piece task */
-            runTask(new PieceThread(context, id, 0));
+            runTask(new PieceThreadImpl(context, id, 0, repo, fs, systemFacade, pref));
 
             /* Read piece info */
             piece = repo.getPiece(0, id);
@@ -132,7 +134,7 @@ public class PieceThreadTest extends AbstractTest
             assertTrue(file.exists());
 
             /* Run piece task */
-            runTask(new PieceThread(context, id, 0));
+            runTask(new PieceThreadImpl(context, id, 0, repo, fs, systemFacade, pref));
 
             /* Read piece info */
             piece = repo.getPiece(0, id);
@@ -149,7 +151,7 @@ public class PieceThreadTest extends AbstractTest
         }
     }
 
-    private void runTask(PieceThread task) throws InterruptedException
+    private void runTask(PieceThreadImpl task) throws InterruptedException
     {
         exec.submit(task);
         exec.shutdownNow();

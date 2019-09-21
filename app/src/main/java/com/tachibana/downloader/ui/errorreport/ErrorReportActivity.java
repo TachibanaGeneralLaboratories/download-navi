@@ -25,6 +25,10 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.text.Editable;
 
+import androidx.annotation.Nullable;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.lifecycle.ViewModelProviders;
+
 import com.google.android.material.textfield.TextInputEditText;
 import com.tachibana.downloader.R;
 import com.tachibana.downloader.ui.BaseAlertDialog;
@@ -35,9 +39,6 @@ import org.acra.dialog.CrashReportDialogHelper;
 
 import java.io.IOException;
 
-import androidx.annotation.Nullable;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.lifecycle.ViewModelProviders;
 import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.disposables.Disposable;
 

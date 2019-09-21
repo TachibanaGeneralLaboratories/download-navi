@@ -21,9 +21,15 @@
 package com.tachibana.downloader.core.model;
 
 import android.content.Context;
-import android.content.SharedPreferences;
 
-import com.tachibana.downloader.R;
+import androidx.annotation.NonNull;
+import androidx.work.Constraints;
+import androidx.work.Data;
+import androidx.work.ExistingWorkPolicy;
+import androidx.work.NetworkType;
+import androidx.work.OneTimeWorkRequest;
+import androidx.work.WorkManager;
+
 import com.tachibana.downloader.core.RepositoryHelper;
 import com.tachibana.downloader.core.model.data.entity.DownloadInfo;
 import com.tachibana.downloader.core.settings.SettingsRepository;
@@ -34,14 +40,6 @@ import com.tachibana.downloader.service.RunAllWorker;
 import com.tachibana.downloader.service.RunDownloadWorker;
 
 import java.util.UUID;
-
-import androidx.annotation.NonNull;
-import androidx.work.Constraints;
-import androidx.work.Data;
-import androidx.work.ExistingWorkPolicy;
-import androidx.work.NetworkType;
-import androidx.work.OneTimeWorkRequest;
-import androidx.work.WorkManager;
 
 public class DownloadScheduler
 {

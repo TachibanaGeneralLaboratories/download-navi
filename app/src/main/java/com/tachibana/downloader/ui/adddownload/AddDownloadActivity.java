@@ -21,19 +21,17 @@
 package com.tachibana.downloader.ui.adddownload;
 
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.Bundle;
-
-import com.tachibana.downloader.core.RepositoryHelper;
-import com.tachibana.downloader.core.settings.SettingsRepository;
-import com.tachibana.downloader.ui.FragmentCallback;
-import com.tachibana.downloader.R;
-import com.tachibana.downloader.core.utils.Utils;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.FragmentManager;
+
+import com.tachibana.downloader.core.RepositoryHelper;
+import com.tachibana.downloader.core.settings.SettingsRepository;
+import com.tachibana.downloader.core.utils.Utils;
+import com.tachibana.downloader.ui.FragmentCallback;
 
 public class AddDownloadActivity extends AppCompatActivity
     implements FragmentCallback

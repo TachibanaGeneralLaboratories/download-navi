@@ -24,8 +24,14 @@ import android.os.Bundle;
 import android.text.InputFilter;
 import android.text.TextUtils;
 
-import com.tachibana.downloader.core.InputFilterMinMax;
+import androidx.fragment.app.FragmentManager;
+import androidx.lifecycle.ViewModelProviders;
+import androidx.preference.Preference;
+import androidx.preference.SeekBarPreference;
+import androidx.preference.SwitchPreferenceCompat;
+
 import com.tachibana.downloader.R;
+import com.tachibana.downloader.core.InputFilterMinMax;
 import com.tachibana.downloader.core.RepositoryHelper;
 import com.tachibana.downloader.core.settings.SettingsRepository;
 import com.tachibana.downloader.core.utils.Utils;
@@ -33,11 +39,6 @@ import com.tachibana.downloader.ui.BaseAlertDialog;
 import com.takisoft.preferencex.EditTextPreference;
 import com.takisoft.preferencex.PreferenceFragmentCompat;
 
-import androidx.fragment.app.FragmentManager;
-import androidx.lifecycle.ViewModelProviders;
-import androidx.preference.Preference;
-import androidx.preference.SeekBarPreference;
-import androidx.preference.SwitchPreferenceCompat;
 import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.disposables.Disposable;
 

@@ -32,14 +32,6 @@ import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
-import com.tachibana.downloader.R;
-import com.tachibana.downloader.ui.Selectable;
-import com.tachibana.downloader.core.model.data.StatusCode;
-import com.tachibana.downloader.core.model.data.entity.DownloadPiece;
-import com.tachibana.downloader.core.utils.DateUtils;
-import com.tachibana.downloader.core.utils.MimeTypeUtils;
-import com.tachibana.downloader.core.utils.Utils;
-
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.widget.PopupMenu;
@@ -52,6 +44,14 @@ import androidx.recyclerview.widget.DiffUtil;
 import androidx.recyclerview.widget.ListAdapter;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.vectordrawable.graphics.drawable.AnimatedVectorDrawableCompat;
+
+import com.tachibana.downloader.R;
+import com.tachibana.downloader.core.model.data.StatusCode;
+import com.tachibana.downloader.core.model.data.entity.DownloadPiece;
+import com.tachibana.downloader.core.utils.DateUtils;
+import com.tachibana.downloader.core.utils.MimeTypeUtils;
+import com.tachibana.downloader.core.utils.Utils;
+import com.tachibana.downloader.ui.Selectable;
 
 public class DownloadListAdapter extends ListAdapter<DownloadItem, DownloadListAdapter.ViewHolder>
     implements Selectable<DownloadItem>

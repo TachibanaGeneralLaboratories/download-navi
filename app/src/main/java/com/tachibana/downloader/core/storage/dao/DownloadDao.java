@@ -20,6 +20,14 @@
 
 package com.tachibana.downloader.core.storage.dao;
 
+import androidx.room.Dao;
+import androidx.room.Delete;
+import androidx.room.Insert;
+import androidx.room.OnConflictStrategy;
+import androidx.room.Query;
+import androidx.room.Transaction;
+import androidx.room.Update;
+
 import com.tachibana.downloader.core.model.data.entity.DownloadInfo;
 import com.tachibana.downloader.core.model.data.entity.DownloadPiece;
 import com.tachibana.downloader.core.model.data.entity.Header;
@@ -28,13 +36,6 @@ import com.tachibana.downloader.core.model.data.entity.InfoAndPieces;
 import java.util.List;
 import java.util.UUID;
 
-import androidx.room.Dao;
-import androidx.room.Delete;
-import androidx.room.Insert;
-import androidx.room.OnConflictStrategy;
-import androidx.room.Query;
-import androidx.room.Transaction;
-import androidx.room.Update;
 import io.reactivex.Flowable;
 import io.reactivex.Single;
 

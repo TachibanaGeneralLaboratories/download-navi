@@ -23,16 +23,16 @@ package com.tachibana.downloader.core.model.data.entity;
 import android.os.Parcel;
 import android.os.Parcelable;
 
-import com.tachibana.downloader.core.model.data.StatusCode;
-
-import java.util.UUID;
-
 import androidx.annotation.NonNull;
 import androidx.room.ColumnInfo;
 import androidx.room.Entity;
 import androidx.room.ForeignKey;
 import androidx.room.Ignore;
 import androidx.room.Index;
+
+import com.tachibana.downloader.core.model.data.StatusCode;
+
+import java.util.UUID;
 
 import static androidx.room.ForeignKey.CASCADE;
 

@@ -20,11 +20,11 @@
 
 package com.tachibana.downloader.core.model;
 
+import androidx.annotation.NonNull;
+
 import java.util.ArrayDeque;
 import java.util.NoSuchElementException;
 import java.util.UUID;
-
-import androidx.annotation.NonNull;
 
 /*
  * The priority queue if we want to defer download for an indefinite period of time,

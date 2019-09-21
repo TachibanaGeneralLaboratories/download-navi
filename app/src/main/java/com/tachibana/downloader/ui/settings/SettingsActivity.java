@@ -24,12 +24,12 @@ import android.os.Bundle;
 import android.view.MenuItem;
 import android.widget.TextView;
 
-import com.tachibana.downloader.R;
-import com.tachibana.downloader.core.utils.Utils;
-
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.lifecycle.ViewModelProviders;
+
+import com.tachibana.downloader.R;
+import com.tachibana.downloader.core.utils.Utils;
 
 public class SettingsActivity extends AppCompatActivity
 {

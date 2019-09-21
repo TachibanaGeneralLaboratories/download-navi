@@ -38,19 +38,6 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
 
-import com.tachibana.downloader.ui.BaseAlertDialog;
-import com.tachibana.downloader.ui.adddownload.AddDownloadActivity;
-import com.tachibana.downloader.R;
-import com.tachibana.downloader.core.model.data.entity.DownloadInfo;
-import com.tachibana.downloader.core.exception.FileAlreadyExistsException;
-import com.tachibana.downloader.core.exception.FreeSpaceException;
-import com.tachibana.downloader.databinding.DialogDownloadDetailsBinding;
-import com.tachibana.downloader.ui.filemanager.FileManagerConfig;
-import com.tachibana.downloader.ui.filemanager.FileManagerDialog;
-import com.tachibana.downloader.ui.adddownload.AddInitParams;
-
-import java.util.UUID;
-
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
@@ -59,6 +46,20 @@ import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.DialogFragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.lifecycle.ViewModelProviders;
+
+import com.tachibana.downloader.R;
+import com.tachibana.downloader.core.exception.FileAlreadyExistsException;
+import com.tachibana.downloader.core.exception.FreeSpaceException;
+import com.tachibana.downloader.core.model.data.entity.DownloadInfo;
+import com.tachibana.downloader.databinding.DialogDownloadDetailsBinding;
+import com.tachibana.downloader.ui.BaseAlertDialog;
+import com.tachibana.downloader.ui.adddownload.AddDownloadActivity;
+import com.tachibana.downloader.ui.adddownload.AddInitParams;
+import com.tachibana.downloader.ui.filemanager.FileManagerConfig;
+import com.tachibana.downloader.ui.filemanager.FileManagerDialog;
+
+import java.util.UUID;
+
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.disposables.Disposable;

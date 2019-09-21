@@ -23,19 +23,17 @@ package com.tachibana.downloader.service;
 import android.content.Context;
 import android.util.Log;
 
-import com.tachibana.downloader.MainApplication;
-import com.tachibana.downloader.core.RepositoryHelper;
-import com.tachibana.downloader.core.model.DownloadEngine;
-import com.tachibana.downloader.core.model.data.entity.DownloadInfo;
-import com.tachibana.downloader.core.storage.DataRepository;
-import com.tachibana.downloader.core.storage.DataRepositoryImpl;
-
-import java.util.UUID;
-
 import androidx.annotation.NonNull;
 import androidx.work.Data;
 import androidx.work.Worker;
 import androidx.work.WorkerParameters;
+
+import com.tachibana.downloader.core.RepositoryHelper;
+import com.tachibana.downloader.core.model.DownloadEngine;
+import com.tachibana.downloader.core.model.data.entity.DownloadInfo;
+import com.tachibana.downloader.core.storage.DataRepository;
+
+import java.util.UUID;
 
 /*
  * Used only by DownloadEngine.

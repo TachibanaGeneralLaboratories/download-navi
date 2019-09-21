@@ -22,6 +22,15 @@ package com.tachibana.downloader.core.storage;
 
 import android.content.Context;
 
+import androidx.annotation.NonNull;
+import androidx.lifecycle.LiveData;
+import androidx.lifecycle.MutableLiveData;
+import androidx.room.Database;
+import androidx.room.Room;
+import androidx.room.RoomDatabase;
+import androidx.room.TypeConverters;
+import androidx.sqlite.db.SupportSQLiteDatabase;
+
 import com.tachibana.downloader.core.model.data.entity.DownloadInfo;
 import com.tachibana.downloader.core.model.data.entity.DownloadPiece;
 import com.tachibana.downloader.core.model.data.entity.Header;
@@ -31,14 +40,6 @@ import com.tachibana.downloader.core.storage.dao.DownloadDao;
 import com.tachibana.downloader.core.storage.dao.UserAgentDao;
 import com.tachibana.downloader.core.utils.Utils;
 
-import androidx.annotation.NonNull;
-import androidx.lifecycle.LiveData;
-import androidx.lifecycle.MutableLiveData;
-import androidx.room.Database;
-import androidx.room.Room;
-import androidx.room.RoomDatabase;
-import androidx.room.TypeConverters;
-import androidx.sqlite.db.SupportSQLiteDatabase;
 import io.reactivex.Completable;
 import io.reactivex.schedulers.Schedulers;
 

@@ -23,23 +23,22 @@ package com.tachibana.downloader.ui.main;
 import android.app.Application;
 import android.text.TextUtils;
 
-import com.tachibana.downloader.MainApplication;
-import com.tachibana.downloader.core.RepositoryHelper;
-import com.tachibana.downloader.core.model.DownloadEngine;
-import com.tachibana.downloader.core.model.data.entity.DownloadInfo;
-import com.tachibana.downloader.core.model.data.entity.InfoAndPieces;
-import com.tachibana.downloader.core.filter.DownloadFilter;
-import com.tachibana.downloader.core.filter.DownloadFilterCollection;
-import com.tachibana.downloader.core.sorting.DownloadSorting;
-import com.tachibana.downloader.core.sorting.DownloadSortingComparator;
-import com.tachibana.downloader.core.storage.DataRepository;
-import com.tachibana.downloader.core.storage.DataRepositoryImpl;
-
-import java.util.List;
-
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.lifecycle.AndroidViewModel;
+
+import com.tachibana.downloader.core.RepositoryHelper;
+import com.tachibana.downloader.core.filter.DownloadFilter;
+import com.tachibana.downloader.core.filter.DownloadFilterCollection;
+import com.tachibana.downloader.core.model.DownloadEngine;
+import com.tachibana.downloader.core.model.data.entity.DownloadInfo;
+import com.tachibana.downloader.core.model.data.entity.InfoAndPieces;
+import com.tachibana.downloader.core.sorting.DownloadSorting;
+import com.tachibana.downloader.core.sorting.DownloadSortingComparator;
+import com.tachibana.downloader.core.storage.DataRepository;
+
+import java.util.List;
+
 import io.reactivex.Flowable;
 import io.reactivex.Observable;
 import io.reactivex.Single;

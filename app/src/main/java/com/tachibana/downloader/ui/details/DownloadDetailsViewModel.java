@@ -27,17 +27,21 @@ import android.os.ParcelFileDescriptor;
 import android.text.TextUtils;
 import android.util.Log;
 
-import com.tachibana.downloader.MainApplication;
+import androidx.annotation.NonNull;
+import androidx.databinding.Observable;
+import androidx.databinding.library.baseAdapters.BR;
+import androidx.lifecycle.AndroidViewModel;
+import androidx.lifecycle.MutableLiveData;
+
 import com.tachibana.downloader.core.RepositoryHelper;
+import com.tachibana.downloader.core.exception.FileAlreadyExistsException;
+import com.tachibana.downloader.core.exception.FreeSpaceException;
 import com.tachibana.downloader.core.model.ChangeableParams;
 import com.tachibana.downloader.core.model.DownloadEngine;
 import com.tachibana.downloader.core.model.data.entity.DownloadInfo;
 import com.tachibana.downloader.core.model.data.entity.DownloadPiece;
 import com.tachibana.downloader.core.model.data.entity.InfoAndPieces;
-import com.tachibana.downloader.core.exception.FileAlreadyExistsException;
-import com.tachibana.downloader.core.exception.FreeSpaceException;
 import com.tachibana.downloader.core.storage.DataRepository;
-import com.tachibana.downloader.core.storage.DataRepositoryImpl;
 import com.tachibana.downloader.core.system.SystemFacadeHelper;
 import com.tachibana.downloader.core.system.filesystem.FileSystemFacade;
 import com.tachibana.downloader.core.utils.DigestUtils;
@@ -48,11 +52,6 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.util.UUID;
 
-import androidx.annotation.NonNull;
-import androidx.databinding.Observable;
-import androidx.databinding.library.baseAdapters.BR;
-import androidx.lifecycle.AndroidViewModel;
-import androidx.lifecycle.MutableLiveData;
 import io.reactivex.Flowable;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.CompositeDisposable;

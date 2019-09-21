@@ -20,14 +20,14 @@
 
 package com.tachibana.downloader.core.utils;
 
+import androidx.annotation.NonNull;
+
 import java.io.BufferedInputStream;
 import java.io.ByteArrayInputStream;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.security.MessageDigest;
-
-import androidx.annotation.NonNull;
 
 /*
  * Hash utils.

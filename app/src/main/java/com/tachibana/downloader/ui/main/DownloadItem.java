@@ -20,10 +20,10 @@
 
 package com.tachibana.downloader.ui.main;
 
-import com.tachibana.downloader.core.model.data.entity.InfoAndPieces;
-
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+
+import com.tachibana.downloader.core.model.data.entity.InfoAndPieces;
 
 /*
  * Wrapper of InfoAndPieces class for DownloadListAdapter, that override Object::equals method

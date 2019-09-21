@@ -34,7 +34,10 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.Random;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.fail;
 
 public class FileUtilsTest extends AbstractTest
 {
@@ -48,7 +51,7 @@ public class FileUtilsTest extends AbstractTest
     {
         super.init();
 
-        dir = Uri.parse("file://" + FileUtils.getDefaultDownloadPath());
+        dir = Uri.parse("file://" + fs.getDefaultDownloadPath());
     }
 
     @Test
@@ -67,7 +70,7 @@ public class FileUtilsTest extends AbstractTest
                 f1Md5Hash = DigestUtils.makeMd5Hash(is);
             }
 
-            FileUtils.copyFile(context, Uri.fromFile(f1), Uri.fromFile(f2), true);
+            fs.copyFile(Uri.fromFile(f1), Uri.fromFile(f2), true);
 
             try (FileInputStream is = new FileInputStream(f2)) {
                 f2Md5Hash = DigestUtils.makeMd5Hash(is);
@@ -92,7 +95,7 @@ public class FileUtilsTest extends AbstractTest
             generateFileContent(f, 1);
 
             Uri uri = Uri.fromFile(f);
-            FileUtils.copyFile(context, uri, uri, true);
+            fs.copyFile(uri, uri, true);
 
         } catch (IllegalArgumentException e) {
             return;
@@ -123,7 +126,7 @@ public class FileUtilsTest extends AbstractTest
                 f1Md5Hash = DigestUtils.makeMd5Hash(is);
             }
 
-            FileUtils.moveFile(context, dir, f1Name, dir, f2Name, null, true);
+            fs.moveFile(dir, f1Name, dir, f2Name, true);
 
             try (FileInputStream is = new FileInputStream(f2)) {
                 f2Md5Hash = DigestUtils.makeMd5Hash(is);

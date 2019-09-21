@@ -22,14 +22,12 @@ package com.tachibana.downloader.ui.main;
 
 import android.content.Context;
 
-import com.tachibana.downloader.R;
-import com.tachibana.downloader.ui.main.FinishedDownloadsFragment;
-import com.tachibana.downloader.ui.main.QueuedDownloadsFragment;
-
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentPagerAdapter;
+
+import com.tachibana.downloader.R;
 
 public class DownloadListPagerAdapter extends FragmentPagerAdapter
 {

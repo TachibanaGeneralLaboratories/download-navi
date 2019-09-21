@@ -39,24 +39,6 @@ import android.widget.Button;
 import android.widget.SeekBar;
 import android.widget.Toast;
 
-import com.google.android.material.textfield.TextInputEditText;
-import com.tachibana.downloader.ui.FragmentCallback;
-import com.tachibana.downloader.R;
-import com.tachibana.downloader.ui.RequestPermissions;
-import com.tachibana.downloader.core.model.data.entity.UserAgent;
-import com.tachibana.downloader.core.exception.FreeSpaceException;
-import com.tachibana.downloader.core.exception.HttpException;
-import com.tachibana.downloader.core.exception.NormalizeUrlException;
-import com.tachibana.downloader.core.utils.Utils;
-import com.tachibana.downloader.databinding.DialogAddDownloadBinding;
-import com.tachibana.downloader.ui.BaseAlertDialog;
-import com.tachibana.downloader.ui.filemanager.FileManagerConfig;
-import com.tachibana.downloader.ui.filemanager.FileManagerDialog;
-
-import java.io.IOException;
-import java.net.ConnectException;
-import java.net.MalformedURLException;
-
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
@@ -65,6 +47,24 @@ import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.DialogFragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.lifecycle.ViewModelProviders;
+
+import com.google.android.material.textfield.TextInputEditText;
+import com.tachibana.downloader.R;
+import com.tachibana.downloader.core.exception.FreeSpaceException;
+import com.tachibana.downloader.core.exception.HttpException;
+import com.tachibana.downloader.core.exception.NormalizeUrlException;
+import com.tachibana.downloader.core.model.data.entity.UserAgent;
+import com.tachibana.downloader.core.utils.Utils;
+import com.tachibana.downloader.databinding.DialogAddDownloadBinding;
+import com.tachibana.downloader.ui.BaseAlertDialog;
+import com.tachibana.downloader.ui.FragmentCallback;
+import com.tachibana.downloader.ui.RequestPermissions;
+import com.tachibana.downloader.ui.filemanager.FileManagerConfig;
+import com.tachibana.downloader.ui.filemanager.FileManagerDialog;
+
+import java.io.IOException;
+import java.net.ConnectException;
+import java.net.MalformedURLException;
 
 import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.disposables.Disposable;

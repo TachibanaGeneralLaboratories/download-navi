@@ -24,19 +24,19 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 
-import com.tachibana.downloader.R;
-import com.tachibana.downloader.core.utils.Utils;
-import com.tachibana.downloader.ui.settings.sections.AppearanceSettingsFragment;
-import com.tachibana.downloader.ui.settings.sections.BehaviorSettingsFragment;
-import com.tachibana.downloader.ui.settings.sections.StorageSettingsFragment;
-import com.takisoft.preferencex.PreferenceFragmentCompat;
-
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.lifecycle.ViewModelProviders;
 import androidx.preference.Preference;
+
+import com.tachibana.downloader.R;
+import com.tachibana.downloader.core.utils.Utils;
+import com.tachibana.downloader.ui.settings.sections.AppearanceSettingsFragment;
+import com.tachibana.downloader.ui.settings.sections.BehaviorSettingsFragment;
+import com.tachibana.downloader.ui.settings.sections.StorageSettingsFragment;
+import com.takisoft.preferencex.PreferenceFragmentCompat;
 
 public class SettingsFragment extends PreferenceFragmentCompat
 {

@@ -26,6 +26,10 @@ import android.text.TextUtils;
 import android.util.Log;
 import android.webkit.MimeTypeMap;
 
+import androidx.annotation.NonNull;
+import androidx.databinding.ObservableField;
+import androidx.lifecycle.ViewModel;
+
 import com.tachibana.downloader.core.system.SystemFacadeHelper;
 import com.tachibana.downloader.core.system.filesystem.FileSystemFacade;
 
@@ -34,9 +38,6 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-import androidx.annotation.NonNull;
-import androidx.databinding.ObservableField;
-import androidx.lifecycle.ViewModel;
 import io.reactivex.subjects.BehaviorSubject;
 
 public class FileManagerViewModel extends ViewModel

@@ -23,13 +23,13 @@ package com.tachibana.downloader.core.model.data.entity;
 import android.os.Parcel;
 import android.os.Parcelable;
 
-import java.util.List;
-
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.room.Embedded;
 import androidx.room.Ignore;
 import androidx.room.Relation;
+
+import java.util.List;
 
 public class InfoAndPieces implements Parcelable
 {

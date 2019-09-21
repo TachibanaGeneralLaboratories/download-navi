@@ -23,10 +23,7 @@ package com.tachibana.downloader.receiver;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
 
-import com.tachibana.downloader.MainApplication;
-import com.tachibana.downloader.R;
 import com.tachibana.downloader.core.RepositoryHelper;
 import com.tachibana.downloader.core.model.DownloadEngine;
 import com.tachibana.downloader.core.settings.SettingsRepository;

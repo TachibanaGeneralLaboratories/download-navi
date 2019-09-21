@@ -23,15 +23,14 @@ package com.tachibana.downloader.service;
 import android.content.Context;
 import android.content.Intent;
 
-import com.tachibana.downloader.core.utils.Utils;
-import com.tachibana.downloader.service.DownloadService;
-
-import java.util.UUID;
-
 import androidx.annotation.NonNull;
 import androidx.work.Data;
 import androidx.work.Worker;
 import androidx.work.WorkerParameters;
+
+import com.tachibana.downloader.core.utils.Utils;
+
+import java.util.UUID;
 
 /*
  * Used only by DownloadScheduler.

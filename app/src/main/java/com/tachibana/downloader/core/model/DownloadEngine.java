@@ -26,12 +26,17 @@ import android.net.Uri;
 import android.text.TextUtils;
 import android.util.Log;
 
+import androidx.annotation.NonNull;
+import androidx.work.Data;
+import androidx.work.OneTimeWorkRequest;
+import androidx.work.WorkManager;
+
 import com.tachibana.downloader.R;
 import com.tachibana.downloader.core.RepositoryHelper;
+import com.tachibana.downloader.core.exception.FileAlreadyExistsException;
 import com.tachibana.downloader.core.model.data.DownloadResult;
 import com.tachibana.downloader.core.model.data.StatusCode;
 import com.tachibana.downloader.core.model.data.entity.DownloadInfo;
-import com.tachibana.downloader.core.exception.FileAlreadyExistsException;
 import com.tachibana.downloader.core.settings.SettingsRepository;
 import com.tachibana.downloader.core.storage.DataRepository;
 import com.tachibana.downloader.core.system.SystemFacadeHelper;
@@ -39,8 +44,8 @@ import com.tachibana.downloader.core.system.filesystem.FileSystemFacade;
 import com.tachibana.downloader.core.utils.Utils;
 import com.tachibana.downloader.receiver.ConnectionReceiver;
 import com.tachibana.downloader.receiver.PowerReceiver;
-import com.tachibana.downloader.service.DownloadService;
 import com.tachibana.downloader.service.DeleteDownloadsWorker;
+import com.tachibana.downloader.service.DownloadService;
 
 import java.io.IOException;
 import java.net.HttpURLConnection;
@@ -49,10 +54,6 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.UUID;
 
-import androidx.annotation.NonNull;
-import androidx.work.Data;
-import androidx.work.OneTimeWorkRequest;
-import androidx.work.WorkManager;
 import io.reactivex.Observable;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.CompositeDisposable;
@@ -254,7 +255,7 @@ public class DownloadEngine
         if (task != null && task.isRunning())
             return;
 
-        task = new DownloadThread(appContext, id, repo, pref, fs,
+        task = new DownloadThreadImpl(appContext, id, repo, pref, fs,
                 SystemFacadeHelper.getSystemFacade(appContext));
         activeDownloads.put(id, task);
         disposables.add(Observable.fromCallable(task)

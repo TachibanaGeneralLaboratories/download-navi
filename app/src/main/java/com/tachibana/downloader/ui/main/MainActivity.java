@@ -35,28 +35,6 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.TextView;
 
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
-import com.google.android.material.navigation.NavigationView;
-import com.google.android.material.tabs.TabLayout;
-import com.h6ah4i.android.widget.advrecyclerview.animator.GeneralItemAnimator;
-import com.h6ah4i.android.widget.advrecyclerview.animator.RefactoredDefaultItemAnimator;
-import com.h6ah4i.android.widget.advrecyclerview.expandable.RecyclerViewExpandableItemManager;
-import com.tachibana.downloader.ui.adddownload.AddDownloadActivity;
-import com.tachibana.downloader.MainApplication;
-import com.tachibana.downloader.R;
-import com.tachibana.downloader.ui.RequestPermissions;
-import com.tachibana.downloader.ui.main.drawer.DrawerExpandableAdapter;
-import com.tachibana.downloader.ui.main.drawer.DrawerGroup;
-import com.tachibana.downloader.ui.main.drawer.DrawerGroupItem;
-import com.tachibana.downloader.core.model.DownloadEngine;
-import com.tachibana.downloader.core.utils.Utils;
-import com.tachibana.downloader.ui.BaseAlertDialog;
-import com.tachibana.downloader.receiver.NotificationReceiver;
-import com.tachibana.downloader.service.DownloadService;
-import com.tachibana.downloader.ui.settings.SettingsActivity;
-
-import java.util.List;
-
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
@@ -70,6 +48,28 @@ import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.viewpager.widget.ViewPager;
+
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.android.material.navigation.NavigationView;
+import com.google.android.material.tabs.TabLayout;
+import com.h6ah4i.android.widget.advrecyclerview.animator.GeneralItemAnimator;
+import com.h6ah4i.android.widget.advrecyclerview.animator.RefactoredDefaultItemAnimator;
+import com.h6ah4i.android.widget.advrecyclerview.expandable.RecyclerViewExpandableItemManager;
+import com.tachibana.downloader.R;
+import com.tachibana.downloader.core.model.DownloadEngine;
+import com.tachibana.downloader.core.utils.Utils;
+import com.tachibana.downloader.receiver.NotificationReceiver;
+import com.tachibana.downloader.service.DownloadService;
+import com.tachibana.downloader.ui.BaseAlertDialog;
+import com.tachibana.downloader.ui.RequestPermissions;
+import com.tachibana.downloader.ui.adddownload.AddDownloadActivity;
+import com.tachibana.downloader.ui.main.drawer.DrawerExpandableAdapter;
+import com.tachibana.downloader.ui.main.drawer.DrawerGroup;
+import com.tachibana.downloader.ui.main.drawer.DrawerGroupItem;
+import com.tachibana.downloader.ui.settings.SettingsActivity;
+
+import java.util.List;
+
 import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.disposables.Disposable;
 

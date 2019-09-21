@@ -29,6 +29,9 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import androidx.annotation.NonNull;
+import androidx.recyclerview.widget.RecyclerView;
+
 import com.h6ah4i.android.widget.advrecyclerview.expandable.ExpandableItemState;
 import com.h6ah4i.android.widget.advrecyclerview.expandable.RecyclerViewExpandableItemManager;
 import com.h6ah4i.android.widget.advrecyclerview.utils.AbstractExpandableItemAdapter;
@@ -39,9 +42,6 @@ import com.tachibana.downloader.ui.customview.ExpansionHeader;
 
 import java.util.ArrayList;
 import java.util.List;
-
-import androidx.annotation.NonNull;
-import androidx.recyclerview.widget.RecyclerView;
 
 /*
  * Adapter for expandable groups of clickable items (radio button-like behavior).

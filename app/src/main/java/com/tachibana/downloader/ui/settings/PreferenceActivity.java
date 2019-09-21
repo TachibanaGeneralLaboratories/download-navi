@@ -24,15 +24,15 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
 
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
+
 import com.tachibana.downloader.R;
 import com.tachibana.downloader.core.utils.Utils;
 import com.tachibana.downloader.ui.settings.sections.AppearanceSettingsFragment;
 import com.tachibana.downloader.ui.settings.sections.BehaviorSettingsFragment;
 import com.tachibana.downloader.ui.settings.sections.StorageSettingsFragment;
 import com.takisoft.preferencex.PreferenceFragmentCompat;
-
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
 
 public class PreferenceActivity extends AppCompatActivity
 {

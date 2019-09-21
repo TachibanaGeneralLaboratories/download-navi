@@ -24,9 +24,9 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 
-import com.tachibana.downloader.ui.main.MainActivity;
 import com.tachibana.downloader.core.utils.Utils;
 import com.tachibana.downloader.service.DownloadService;
+import com.tachibana.downloader.ui.main.MainActivity;
 
 /*
  * The receiver for actions of foreground notification, added by service.

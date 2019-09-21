@@ -27,6 +27,9 @@ import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 
+import androidx.preference.Preference;
+import androidx.preference.SwitchPreferenceCompat;
+
 import com.tachibana.downloader.R;
 import com.tachibana.downloader.core.RepositoryHelper;
 import com.tachibana.downloader.core.settings.SettingsRepository;
@@ -35,9 +38,6 @@ import com.tachibana.downloader.core.system.filesystem.FileSystemFacade;
 import com.tachibana.downloader.ui.filemanager.FileManagerConfig;
 import com.tachibana.downloader.ui.filemanager.FileManagerDialog;
 import com.takisoft.preferencex.PreferenceFragmentCompat;
-
-import androidx.preference.Preference;
-import androidx.preference.SwitchPreferenceCompat;
 
 public class StorageSettingsFragment extends PreferenceFragmentCompat
     implements Preference.OnPreferenceChangeListener

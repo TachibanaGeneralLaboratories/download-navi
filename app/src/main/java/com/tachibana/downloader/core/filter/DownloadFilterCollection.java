@@ -20,11 +20,11 @@
 
 package com.tachibana.downloader.core.filter;
 
+import androidx.annotation.NonNull;
+
 import com.tachibana.downloader.core.model.data.StatusCode;
 import com.tachibana.downloader.core.utils.DateUtils;
 import com.tachibana.downloader.core.utils.MimeTypeUtils;
-
-import androidx.annotation.NonNull;
 
 public class DownloadFilterCollection
 {
