@@ -77,16 +77,17 @@ public class StorageSettingsFragment extends PreferenceFragmentCompat
         String keySaveDownloadsIn = getString(R.string.pref_key_save_downloads_in);
         Preference saveDownloadsIn = findPreference(keySaveDownloadsIn);
         if (saveDownloadsIn != null) {
-            Uri saveInPath = Uri.parse(pref.saveDownloadsIn());
-            if (saveInPath != null)
-                saveDownloadsIn.setSummary(fs.getDirName(saveInPath));
+            String saveInPath = pref.saveDownloadsIn();
+            if (saveInPath != null) {
+                Uri uri = Uri.parse(saveInPath);
+                saveDownloadsIn.setSummary(fs.getDirName(uri));
+                saveDownloadsIn.setOnPreferenceClickListener((preference) -> {
+                    dirChooserBindPref = getString(R.string.pref_key_save_downloads_in);
+                    dirChooseDialog(uri);
 
-            saveDownloadsIn.setOnPreferenceClickListener((preference) -> {
-                dirChooserBindPref = getString(R.string.pref_key_save_downloads_in);
-                dirChooseDialog(saveInPath);
-
-                return true;
-            });
+                    return true;
+                });
+            }
         }
 
         String keyMoveAfterDownload = getString(R.string.pref_key_move_after_download);
@@ -99,16 +100,17 @@ public class StorageSettingsFragment extends PreferenceFragmentCompat
         String keyMoveAfterDownloadIn = getString(R.string.pref_key_move_after_download_in);
         Preference moveAfterDownloadIn = findPreference(keyMoveAfterDownloadIn);
         if (moveAfterDownloadIn != null) {
-            Uri moveInPath = Uri.parse(pref.moveAfterDownloadIn());
-            if (moveInPath != null)
-                moveAfterDownloadIn.setSummary(fs.getDirName(moveInPath));
+            String moveInPath = pref.moveAfterDownloadIn();
+            if (moveInPath != null) {
+                Uri uri = Uri.parse(moveInPath);
+                moveAfterDownloadIn.setSummary(fs.getDirName(uri));
+                moveAfterDownloadIn.setOnPreferenceClickListener((preference) -> {
+                    dirChooserBindPref = getString(R.string.pref_key_move_after_download_in);
+                    dirChooseDialog(uri);
 
-            moveAfterDownloadIn.setOnPreferenceClickListener((preference) -> {
-                dirChooserBindPref = getString(R.string.pref_key_move_after_download_in);
-                dirChooseDialog(moveInPath);
-
-                return true;
-            });
+                    return true;
+                });
+            }
         }
 
         String keyDeleteFileIfError = getString(R.string.pref_key_delete_file_if_error);
