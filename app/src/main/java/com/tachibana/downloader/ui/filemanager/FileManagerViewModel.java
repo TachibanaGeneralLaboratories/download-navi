@@ -19,7 +19,9 @@
 
 package com.tachibana.downloader.ui.filemanager;
 
+import android.content.ContentResolver;
 import android.content.Context;
+import android.content.Intent;
 import android.net.Uri;
 import android.os.Build;
 import android.text.TextUtils;
@@ -262,5 +264,18 @@ public class FileManagerViewModel extends ViewModel
             throw new SecurityException("Permission denied");
 
         return Uri.fromFile(f);
+    }
+
+    public void takeSafPermissions(Intent data)
+    {
+        ContentResolver resolver = appContext.getContentResolver();
+
+        int takeFlags = data.getFlags() &
+                (Intent.FLAG_GRANT_READ_URI_PERMISSION |
+                 Intent.FLAG_GRANT_WRITE_URI_PERMISSION);
+
+        Uri uri = data.getData();
+        if (uri != null)
+            resolver.takePersistableUriPermission(uri, takeFlags);
     }
 }
