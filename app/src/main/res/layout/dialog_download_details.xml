@@ -136,7 +136,8 @@
                 <com.google.android.material.internal.FlowLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginBottom="16dp">
+                    android:layout_marginBottom="16dp"
+                    app:itemSpacing="8dp">
 
                     <CheckBox
                         android:id="@+id/unmetered_connections_only"
