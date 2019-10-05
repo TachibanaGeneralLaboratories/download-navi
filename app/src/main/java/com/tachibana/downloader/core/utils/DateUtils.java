@@ -21,6 +21,7 @@
 package com.tachibana.downloader.core.utils;
 
 import android.content.Context;
+import android.os.SystemClock;
 
 import androidx.annotation.NonNull;
 
@@ -219,5 +220,10 @@ public class DateUtils
         calendar.set(Calendar.DAY_OF_YEAR, 1);
 
         return calendar.getTimeInMillis();
+    }
+
+    public static long elapsedRealtime()
+    {
+        return SystemClock.elapsedRealtime();
     }
 }

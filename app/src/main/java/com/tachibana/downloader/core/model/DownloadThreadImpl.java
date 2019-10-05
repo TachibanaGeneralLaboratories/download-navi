@@ -21,9 +21,7 @@
 package com.tachibana.downloader.core.model;
 
 import android.content.Context;
-import android.content.Intent;
 import android.net.Uri;
-import android.os.ParcelFileDescriptor;
 import android.util.Log;
 
 import androidx.annotation.NonNull;
@@ -37,7 +35,9 @@ import com.tachibana.downloader.core.model.data.entity.Header;
 import com.tachibana.downloader.core.settings.SettingsRepository;
 import com.tachibana.downloader.core.storage.DataRepository;
 import com.tachibana.downloader.core.system.SystemFacade;
+import com.tachibana.downloader.core.system.filesystem.FileDescriptorWrapper;
 import com.tachibana.downloader.core.system.filesystem.FileSystemFacade;
+import com.tachibana.downloader.core.utils.MimeTypeUtils;
 import com.tachibana.downloader.core.utils.Utils;
 
 import java.io.FileDescriptor;
@@ -394,7 +394,7 @@ public class DownloadThreadImpl implements DownloadThread
 
     private StopRequest parseOkHeaders(HttpURLConnection conn)
     {
-        String mimeType = Intent.normalizeMimeType(conn.getContentType());
+        String mimeType = MimeTypeUtils.normalizeMimeType(conn.getContentType());
         if (mimeType != null && !mimeType.equals(info.mimeType))
             info.mimeType = mimeType;
 
@@ -439,19 +439,11 @@ public class DownloadThreadImpl implements DownloadThread
 
     private StopRequest allocFileSpace(Uri filePath)
     {
-        ParcelFileDescriptor outPfd = null;
-        FileDescriptor outFd = null;
-        try {
+        FileDescriptor fd = null;
+        try (FileDescriptorWrapper w = fs.getFD(filePath)) {
+            fd = w.open("rw");
             try {
-                outPfd = appContext.getContentResolver().openFileDescriptor(filePath, "rw");
-                outFd = outPfd.getFileDescriptor();
-
-            } catch (IOException e) {
-                return new StopRequest(STATUS_FILE_ERROR, e);
-            }
-
-            try {
-                fs.fallocate(outFd, info.totalBytes);
+                fs.fallocate(fd, info.totalBytes);
 
             } catch (InterruptedIOException e) {
                 requestStop();
@@ -460,15 +452,15 @@ public class DownloadThreadImpl implements DownloadThread
                 return null;
             }
 
+        } catch (IOException e) {
+            return new StopRequest(STATUS_FILE_ERROR, e);
+
         } finally {
             try {
-                if (outFd != null)
-                    outFd.sync();
-
+                if (fd != null)
+                    fd.sync();
             } catch (IOException e) {
                 /* Ignore */
-            } finally {
-                fs.closeQuietly(outPfd);
             }
         }
 

@@ -20,6 +20,7 @@
 
 package com.tachibana.downloader.core.utils;
 
+import android.content.Intent;
 import android.webkit.MimeTypeMap;
 
 import java.util.HashMap;
@@ -208,5 +209,10 @@ public class MimeTypeUtils
     public static String getMimeTypeFromExtension(String extension)
     {
         return MimeTypeMap.getSingleton().getMimeTypeFromExtension(extension);
+    }
+
+    public static String normalizeMimeType(String mimeType)
+    {
+        return Intent.normalizeMimeType(mimeType);
     }
 }

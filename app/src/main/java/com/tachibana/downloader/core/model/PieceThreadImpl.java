@@ -23,8 +23,6 @@ package com.tachibana.downloader.core.model;
 import android.content.Context;
 import android.net.NetworkInfo;
 import android.net.Uri;
-import android.os.ParcelFileDescriptor;
-import android.os.SystemClock;
 import android.text.TextUtils;
 import android.util.Log;
 
@@ -37,7 +35,9 @@ import com.tachibana.downloader.core.model.data.entity.Header;
 import com.tachibana.downloader.core.settings.SettingsRepository;
 import com.tachibana.downloader.core.storage.DataRepository;
 import com.tachibana.downloader.core.system.SystemFacade;
+import com.tachibana.downloader.core.system.filesystem.FileDescriptorWrapper;
 import com.tachibana.downloader.core.system.filesystem.FileSystemFacade;
+import com.tachibana.downloader.core.utils.DateUtils;
 import com.tachibana.downloader.core.utils.Utils;
 
 import java.io.FileDescriptor;
@@ -109,7 +109,6 @@ public class PieceThreadImpl extends Thread implements PieceThread {
     private SystemFacade systemFacade;
     private FileSystemFacade fs;
 
-    private ParcelFileDescriptor outPfd;
     private FileDescriptor outFd;
     private FileOutputStream fout;
     private InputStream in;
@@ -407,8 +406,8 @@ public class PieceThreadImpl extends Thread implements PieceThread {
                 Uri filePath = fs.getFileUri(info.dirPath, info.fileName);
                 if (filePath == null)
                     throw new IOException("Write error: file not found");
-                outPfd = appContext.getContentResolver().openFileDescriptor(filePath, "rw");
-                outFd = outPfd.getFileDescriptor();
+                FileDescriptorWrapper w = fs.getFD(filePath);
+                outFd = w.open("rw");
                 fout = new FileOutputStream(outFd);
 
                 /* Move into place to begin writing */
@@ -440,7 +439,6 @@ public class PieceThreadImpl extends Thread implements PieceThread {
                 fs.closeQuietly(fout);
                 fout = null;
                 outFd = null;
-                outPfd = null;
                 in = null;
             }
         }
@@ -502,7 +500,7 @@ public class PieceThreadImpl extends Thread implements PieceThread {
 
     private StopRequest updateProgress(FileDescriptor outFd) throws IOException
     {
-        long now = SystemClock.elapsedRealtime();
+        long now = DateUtils.elapsedRealtime();
         long currentBytes = piece.curBytes;
 
         final long sampleDelta = now - speedSampleStart;
