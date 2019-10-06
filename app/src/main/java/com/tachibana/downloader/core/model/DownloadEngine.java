@@ -49,10 +49,10 @@ import com.tachibana.downloader.service.DownloadService;
 
 import java.io.IOException;
 import java.net.HttpURLConnection;
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.UUID;
+import java.util.concurrent.ConcurrentLinkedQueue;
 
 import io.reactivex.Observable;
 import io.reactivex.android.schedulers.AndroidSchedulers;
@@ -70,7 +70,7 @@ public class DownloadEngine
     private FileSystemFacade fs;
     private CompositeDisposable disposables = new CompositeDisposable();
     private HashMap<UUID, DownloadThread> activeDownloads = new HashMap<>();
-    private ArrayList<DownloadEngineListener> listeners = new ArrayList<>();
+    private ConcurrentLinkedQueue<DownloadEngineListener> listeners = new ConcurrentLinkedQueue<>();
     private HashMap<UUID, ChangeableParams> duringChange = new HashMap<>();
     private DownloadQueue queue = new DownloadQueue();
 
