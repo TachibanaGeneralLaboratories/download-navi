@@ -1,7 +1,5 @@
 package com.tachibana.downloader.core.urlnormalizer;
 
-import com.tachibana.downloader.core.urlnormalizer.NormalizeUrl;
-
 import org.junit.Test;
 
 import java.util.ArrayList;
@@ -166,6 +164,14 @@ public class NormalizeUrlTest
                 "http://example.org?foo=bar&utm_medium=test&ref=test_ref",
                 "http://example.org/?foo=bar",
                 options));
+        tests.add(new TestNormalize("query string in query value",
+                "http://example.org?foo1=http://example.org?foo2=bar2",
+                "http://example.org/?foo1=http://example.org?foo2=bar2",
+                null));
+        tests.add(new TestNormalize("query string in query value with '&'",
+                "http://example.org?foo1=http://example.org?foo2=bar2&foo=bar",
+                "http://example.org/?foo=bar&foo1=http://example.org?foo2=bar2",
+                null));
 
         execTests(tests);
     }

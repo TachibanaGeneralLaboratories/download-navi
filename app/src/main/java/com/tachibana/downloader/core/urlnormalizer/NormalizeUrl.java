@@ -338,15 +338,22 @@ public class NormalizeUrl
 
         String[] pairs = query.split("&");
         for (String pair : pairs) {
-            String[] parts = pair.split("=");
-            if (parts.length > 0 && !parts[0].isEmpty()) {
-                Collection<String> existing = queryPairs.get(parts[0]);
+            /* Ignore nested query string in the value of the pair, if one exists */
+            int equalPos = pair.indexOf('=');
+            if (equalPos <= 0)
+                continue;
+
+            String key = pair.substring(0, equalPos);
+            String value = pair.substring(equalPos + 1);
+
+            if (!key.isEmpty()) {
+                Collection<String> existing = queryPairs.get(key);
                 if (existing == null)
                     existing = new ArrayList<>();
 
-                if (parts.length == 2)
-                    existing.add(parts[1]);
-                queryPairs.put(parts[0], existing);
+                if (!value.isEmpty())
+                    existing.add(value);
+                queryPairs.put(key, existing);
             }
         }
 
