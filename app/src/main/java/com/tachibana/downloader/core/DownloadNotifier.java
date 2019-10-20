@@ -261,13 +261,14 @@ public class DownloadNotifier
             /* Save previous tag for deleting */
             prevTag = notify.tag;
         }
+        notify.tag = tag;
+
         boolean isError = StatusCode.isStatusError(info.statusCode);
 
         /* Use time when notification was first shown to avoid shuffling */
         long firstShown;
         if (notify.timestamp == 0) {
             firstShown = System.currentTimeMillis();
-            notify.tag = tag;
             notify.timestamp = firstShown;
             activeNotifs.put(info.id, notify);
         } else {
@@ -493,8 +494,9 @@ public class DownloadNotifier
             }
         }
 
-        if (prevTag != null && !prevTag.equals(notify.tag))
+        if (prevTag != null && !prevTag.equals(notify.tag)) {
             notifyManager.cancel(prevTag, 0);
+        }
         notifyManager.notify(notify.tag, 0, builder.build());
     }
 
