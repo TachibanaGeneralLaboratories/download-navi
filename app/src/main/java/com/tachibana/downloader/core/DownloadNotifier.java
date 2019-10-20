@@ -374,8 +374,6 @@ public class DownloadNotifier
                 downloadBytes += info.getDownloadedBytes(piece);
                 speed += piece.speed;
             }
-            /* Average speed */
-            speed /= size;
         }
 
         int progress = 0;
