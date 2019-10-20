@@ -112,6 +112,7 @@ public class PieceThreadImpl extends Thread implements PieceThread {
     private FileDescriptor outFd;
     private FileOutputStream fout;
     private InputStream in;
+    private FileDescriptorWrapper fdWrapper;
 
     public PieceThreadImpl(@NonNull Context appContext,
                            @NonNull UUID infoId,
@@ -406,8 +407,8 @@ public class PieceThreadImpl extends Thread implements PieceThread {
                 Uri filePath = fs.getFileUri(info.dirPath, info.fileName);
                 if (filePath == null)
                     throw new IOException("Write error: file not found");
-                FileDescriptorWrapper w = fs.getFD(filePath);
-                outFd = w.open("rw");
+                fdWrapper = fs.getFD(filePath);
+                outFd = fdWrapper.open("rw");
                 fout = new FileOutputStream(outFd);
 
                 /* Move into place to begin writing */
@@ -440,6 +441,7 @@ public class PieceThreadImpl extends Thread implements PieceThread {
                 fout = null;
                 outFd = null;
                 in = null;
+                fdWrapper = null;
             }
         }
     }
