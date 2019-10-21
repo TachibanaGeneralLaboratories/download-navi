@@ -308,8 +308,6 @@ public class PieceThreadImpl extends Thread implements PieceThread {
                     ret[0] = new StopRequest(STATUS_UNHANDLED_HTTP_CODE, e);
                 else if (e instanceof SocketTimeoutException)
                     ret[0] = new StopRequest(HTTP_GATEWAY_TIMEOUT, "Download timeout");
-                else if (e instanceof InterruptedIOException)
-                    ret[0] = new StopRequest(STATUS_STOPPED, "Download cancelled");
                 else
                     /* Trouble with low-level sockets */
                     ret[0] = new StopRequest(STATUS_HTTP_DATA_ERROR, e);
@@ -397,8 +395,6 @@ public class PieceThreadImpl extends Thread implements PieceThread {
 
             } catch (SocketTimeoutException e) {
                 return new StopRequest(HTTP_GATEWAY_TIMEOUT, "Download timeout");
-            } catch(InterruptedIOException e) {
-                return new StopRequest(STATUS_STOPPED, "Download cancelled");
             } catch (IOException e) {
                 return new StopRequest(STATUS_HTTP_DATA_ERROR, e);
             }
@@ -414,8 +410,6 @@ public class PieceThreadImpl extends Thread implements PieceThread {
                 /* Move into place to begin writing */
                 fs.lseek(fout, piece.curBytes);
 
-            } catch (InterruptedIOException e) {
-                return new StopRequest(STATUS_STOPPED, "Download cancelled");
             } catch (IOException e) {
                 return new StopRequest(STATUS_FILE_ERROR, e);
             }
@@ -463,8 +457,6 @@ public class PieceThreadImpl extends Thread implements PieceThread {
             try {
                 len = in.read(buffer);
 
-            } catch (InterruptedIOException e) {
-                return new StopRequest(STATUS_STOPPED, "Download cancelled");
             } catch (IOException e) {
                 return new StopRequest(STATUS_HTTP_DATA_ERROR,
                         "Failed reading response: " + e, e);
@@ -480,8 +472,6 @@ public class PieceThreadImpl extends Thread implements PieceThread {
                 if ((ret = updateProgress(outFd)) != null)
                     return ret;
 
-            } catch (InterruptedIOException e) {
-                return new StopRequest(STATUS_STOPPED, "Download cancelled");
             } catch (IOException e) {
                 return new StopRequest(STATUS_FILE_ERROR, e);
             }
