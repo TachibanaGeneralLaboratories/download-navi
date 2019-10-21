@@ -107,38 +107,6 @@ public class Utils
             context.startService(i);
     }
 
-    public static SSLContext getSSLContext() throws GeneralSecurityException
-    {
-        TrustManagerFactory tmf = TrustManagerFactory.getInstance(TrustManagerFactory.getDefaultAlgorithm());
-        tmf.init((KeyStore)null);
-
-        TrustManager[] trustManagers = tmf.getTrustManagers();
-        final X509TrustManager origTrustManager = (X509TrustManager)trustManagers[0];
-
-        TrustManager[] wrappedTrustManagers = new TrustManager[]{
-                new X509TrustManager() {
-                    public java.security.cert.X509Certificate[] getAcceptedIssuers()
-                    {
-                        return origTrustManager.getAcceptedIssuers();
-                    }
-
-                    public void checkClientTrusted(X509Certificate[] certs, String authType) throws CertificateException
-                    {
-                        origTrustManager.checkClientTrusted(certs, authType);
-                    }
-
-                    public void checkServerTrusted(X509Certificate[] certs, String authType) throws CertificateException
-                    {
-                            origTrustManager.checkServerTrusted(certs, authType);
-                    }
-                }
-        };
-        SSLContext sslContext = SSLContext.getInstance("TLS");
-        sslContext.init(null, wrappedTrustManagers, null);
-
-        return sslContext;
-    }
-
     public static int getThemePreference(@NonNull Context appContext)
     {
         return RepositoryHelper.getSettingsRepository(appContext).theme();
