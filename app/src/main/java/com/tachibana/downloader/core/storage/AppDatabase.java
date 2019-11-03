@@ -23,12 +23,14 @@ package com.tachibana.downloader.core.storage;
 import android.content.Context;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.VisibleForTesting;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.room.Database;
 import androidx.room.Room;
 import androidx.room.RoomDatabase;
 import androidx.room.TypeConverters;
+import androidx.room.migration.Migration;
 import androidx.sqlite.db.SupportSQLiteDatabase;
 
 import com.tachibana.downloader.core.model.data.entity.DownloadInfo;
@@ -47,7 +49,7 @@ import io.reactivex.schedulers.Schedulers;
         DownloadPiece.class,
         Header.class,
         UserAgent.class},
-        version = 1)
+        version = 2)
 @TypeConverters({UUIDConverter.class})
 public abstract class AppDatabase extends RoomDatabase
 {
@@ -106,6 +108,7 @@ public abstract class AppDatabase extends RoomDatabase
                        .subscribe();
                     }
                 })
+                .addMigrations(MIGRATION_1_2)
                 .build();
     }
 
@@ -129,4 +132,24 @@ public abstract class AppDatabase extends RoomDatabase
     {
         return isDatabaseCreated;
     }
+
+    @VisibleForTesting
+    static final Migration MIGRATION_1_2 = new Migration(1, 2) {
+        @Override
+        public void migrate(final SupportSQLiteDatabase database)
+        {
+            /* Add `numFailed` column to `DownloadInfo` table */
+            database.execSQL("ALTER TABLE `DownloadInfo` ADD COLUMN `numFailed` INTEGER NOT NULL DEFAULT 0");
+
+            /* Remove `numFailed` column from `DownloadPiece` table */
+            database.execSQL("ALTER TABLE `DownloadPiece` RENAME TO `DownloadPiece_old`;");
+            database.execSQL("DROP INDEX IF EXISTS `index_DownloadPiece_infoId`");
+
+            database.execSQL("CREATE TABLE IF NOT EXISTS `DownloadPiece` (`pieceIndex` INTEGER NOT NULL, `infoId` TEXT NOT NULL, `size` INTEGER NOT NULL, `curBytes` INTEGER NOT NULL, `statusCode` INTEGER NOT NULL, `statusMsg` TEXT, `speed` INTEGER NOT NULL, PRIMARY KEY(`pieceIndex`, `infoId`), FOREIGN KEY(`infoId`) REFERENCES `DownloadInfo`(`id`) ON UPDATE NO ACTION ON DELETE CASCADE );");
+            database.execSQL("CREATE INDEX IF NOT EXISTS `index_DownloadPiece_infoId` ON `DownloadPiece` (`infoId`)");
+
+            database.execSQL("INSERT INTO `DownloadPiece` (`pieceIndex`, `infoId`, `size`, `curBytes`, `statusCode`, `statusMsg`, `speed`) SELECT `pieceIndex`, `infoId`, `size`, `curBytes`, `statusCode`, `statusMsg`, `speed` FROM `DownloadPiece_old`;");
+            database.execSQL("DROP TABLE `DownloadPiece_old`;");
+        }
+    };
 }

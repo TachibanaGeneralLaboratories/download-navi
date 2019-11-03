@@ -67,7 +67,6 @@ public class DownloadPiece implements Parcelable
     public long size;
     public long curBytes;
     public int statusCode = StatusCode.STATUS_PENDING;
-    public int numFailed = 0;
     public String statusMsg;
     public long speed;
 
@@ -86,7 +85,6 @@ public class DownloadPiece implements Parcelable
         size = source.readLong();
         index = source.readInt();
         curBytes = source.readLong();
-        numFailed = source.readInt();
         statusCode = source.readInt();
         statusMsg = source.readString();
     }
@@ -104,7 +102,6 @@ public class DownloadPiece implements Parcelable
         dest.writeLong(size);
         dest.writeInt(index);
         dest.writeLong(curBytes);
-        dest.writeInt(numFailed);
         dest.writeInt(statusCode);
         dest.writeString(statusMsg);
     }
@@ -154,7 +151,6 @@ public class DownloadPiece implements Parcelable
                 curBytes == piece.curBytes &&
                 speed == piece.speed &&
                 statusCode == piece.statusCode &&
-                numFailed == piece.numFailed &&
                 (statusMsg == null || statusMsg.equals(piece.statusMsg));
     }
 
@@ -167,7 +163,6 @@ public class DownloadPiece implements Parcelable
                 ", size=" + size +
                 ", curBytes=" + curBytes +
                 ", statusCode=" + statusCode +
-                ", numFailed=" + numFailed +
                 ", statusMsg='" + statusMsg + '\'' +
                 ", speed=" + speed +
                 '}';

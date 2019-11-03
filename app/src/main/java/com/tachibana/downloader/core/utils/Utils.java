@@ -69,22 +69,17 @@ import org.acra.ReportField;
 import java.io.File;
 import java.net.MalformedURLException;
 import java.net.URL;
-import java.security.GeneralSecurityException;
-import java.security.KeyStore;
-import java.security.cert.CertificateException;
-import java.security.cert.X509Certificate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import javax.net.ssl.SSLContext;
-import javax.net.ssl.TrustManager;
-import javax.net.ssl.TrustManagerFactory;
-import javax.net.ssl.X509TrustManager;
-
+import static com.tachibana.downloader.core.model.data.StatusCode.STATUS_FILE_ERROR;
+import static com.tachibana.downloader.core.model.data.StatusCode.STATUS_HTTP_DATA_ERROR;
 import static com.tachibana.downloader.core.utils.MimeTypeUtils.DEFAULT_MIME_TYPE;
 import static com.tachibana.downloader.core.utils.MimeTypeUtils.MIME_TYPE_DELIMITER;
+import static java.net.HttpURLConnection.HTTP_INTERNAL_ERROR;
+import static java.net.HttpURLConnection.HTTP_UNAVAILABLE;
 
 public class Utils
 {
@@ -650,6 +645,19 @@ public class Utils
             return null;
 
         return url.substring(0, indexColon).toLowerCase();
+    }
+
+    public static boolean isStatusRetryable(int statusCode)
+    {
+        switch (statusCode) {
+            case STATUS_HTTP_DATA_ERROR:
+            case HTTP_UNAVAILABLE:
+            case HTTP_INTERNAL_ERROR:
+            case STATUS_FILE_ERROR:
+                return true;
+            default:
+                return false;
+        }
     }
 
     public static List<DrawerGroup> getNavigationDrawerItems(@NonNull Context context,

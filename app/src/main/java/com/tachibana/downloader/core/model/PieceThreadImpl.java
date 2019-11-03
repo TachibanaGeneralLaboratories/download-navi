@@ -29,6 +29,7 @@ import android.util.Log;
 import androidx.annotation.NonNull;
 
 import com.tachibana.downloader.core.HttpConnection;
+import com.tachibana.downloader.core.model.data.PieceResult;
 import com.tachibana.downloader.core.model.data.entity.DownloadInfo;
 import com.tachibana.downloader.core.model.data.entity.DownloadPiece;
 import com.tachibana.downloader.core.model.data.entity.Header;
@@ -76,7 +77,8 @@ import static java.net.HttpURLConnection.HTTP_UNAVAILABLE;
  * Represent one task of piece downloading.
  */
 
-public class PieceThreadImpl extends Thread implements PieceThread {
+public class PieceThreadImpl extends Thread implements PieceThread
+{
     @SuppressWarnings("unused")
     private static final String TAG = PieceThreadImpl.class.getSimpleName();
 
@@ -97,16 +99,8 @@ public class PieceThreadImpl extends Thread implements PieceThread {
     private long speedSampleStart;
     /* Bytes transferred since current sample started */
     private long speedSampleBytes;
-    /*
-     * Flag indicating if we've made forward progress transferring file data
-     * from a remote server.
-     */
-    private boolean madeProgress = false;
-    private int networkType;
     private DataRepository repo;
-    private SettingsRepository pref;
     private Context appContext;
-    private SystemFacade systemFacade;
     private FileSystemFacade fs;
 
     private FileDescriptor outFd;
@@ -118,46 +112,36 @@ public class PieceThreadImpl extends Thread implements PieceThread {
                            @NonNull UUID infoId,
                            int pieceIndex,
                            @NonNull DataRepository repo,
-                           @NonNull FileSystemFacade fs,
-                           @NonNull SystemFacade systemFacade,
-                           @NonNull SettingsRepository pref)
+                           @NonNull FileSystemFacade fs)
     {
         this.infoId = infoId;
         this.pieceIndex = pieceIndex;
         this.appContext = appContext;
         this.repo = repo;
-        this.systemFacade = systemFacade;
         this.fs = fs;
-        this.pref = pref;
     }
 
     @Override
-    public void run()
+    public PieceResult call()
     {
+        PieceResult res = new PieceResult(infoId, pieceIndex);
         StopRequest ret;
         try {
             piece = repo.getPiece(pieceIndex, infoId);
             if (piece == null) {
                 Log.w(TAG, "Piece " + pieceIndex + " is null, skipping");
-                return;
+                return res;
             }
 
             if (piece.statusCode == STATUS_SUCCESS) {
                 Log.w(TAG, pieceIndex + " already finished, skipping");
-                return;
+                return res;
             }
 
             do {
                 piece.statusCode = STATUS_RUNNING;
                 piece.statusMsg = null;
                 writeToDatabase();
-                /*
-                 * Remember which network this download started on;
-                 * used to determine if errors were due to network changes
-                 */
-                NetworkInfo netInfo = systemFacade.getActiveNetworkInfo();
-                if (netInfo != null)
-                    networkType = netInfo.getType();
 
                 if ((ret = execDownload()) != null)
                     handleRequest(ret);
@@ -174,6 +158,8 @@ public class PieceThreadImpl extends Thread implements PieceThread {
         } finally {
             finalizeThread();
         }
+
+        return res;
     }
 
     private void handleRequest(StopRequest request)
@@ -194,27 +180,8 @@ public class PieceThreadImpl extends Thread implements PieceThread {
             throw new IllegalStateException("Execution should always throw final error codes");
 
         /* Some errors should be retryable, unless we fail too many times */
-        if (isStatusRetryable(piece.statusCode)) {
-            ++piece.numFailed;
-
-            if (piece.numFailed < pref.maxDownloadRetries()) {
-                NetworkInfo netInfo = systemFacade.getActiveNetworkInfo();
-                if (netInfo != null && netInfo.getType() == networkType && netInfo.isConnected())
-                    /* Underlying network is still intact, use normal backoff */
-                    piece.statusCode = STATUS_WAITING_TO_RETRY;
-                else
-                    /* Network changed, retry on any next available */
-                    piece.statusCode = STATUS_WAITING_FOR_NETWORK;
-
-                if (getETag(repo.getHeadersById(infoId)) == null && madeProgress) {
-                    /*
-                     * However, if we wrote data and have no ETag to verify
-                     * contents against later, we can't actually resume
-                     */
-                    piece.statusCode = STATUS_CANNOT_RESUME;
-                }
-            }
-        }
+        if (Utils.isStatusRetryable(piece.statusCode))
+            piece.statusCode = STATUS_WAITING_TO_RETRY;
     }
 
     private void finalizeThread()
@@ -467,7 +434,6 @@ public class PieceThreadImpl extends Thread implements PieceThread {
             try {
                 fout.write(buffer, 0, len);
 
-                madeProgress = true;
                 piece.curBytes += len;
                 if ((ret = updateProgress(outFd)) != null)
                     return ret;
@@ -537,29 +503,6 @@ public class PieceThreadImpl extends Thread implements PieceThread {
     private void writeToDatabase()
     {
         repo.updatePiece(piece);
-    }
-
-    private Header getETag(List<Header> headers)
-    {
-        for (Header header : headers) {
-            if ("ETag".equals(header.name))
-                return header;
-        }
-
-        return null;
-    }
-
-    private boolean isStatusRetryable(int statusCode)
-    {
-        switch (statusCode) {
-            case STATUS_HTTP_DATA_ERROR:
-            case HTTP_UNAVAILABLE:
-            case HTTP_INTERNAL_ERROR:
-            case STATUS_FILE_ERROR:
-                return true;
-            default:
-                return false;
-        }
     }
 
     private StopRequest checkCancel()

@@ -1,6 +1,6 @@
 /*
- * Copyright (C) 2018, 2019 Tachibana General Laboratories, LLC
- * Copyright (C) 2018, 2019 Yaroslav Pronin <proninyaroslav@mail.ru>
+ * Copyright (C) 2019 Tachibana General Laboratories, LLC
+ * Copyright (C) 2019 Yaroslav Pronin <proninyaroslav@mail.ru>
  *
  * This file is part of Download Navi.
  *
@@ -18,11 +18,18 @@
  * along with Download Navi.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+package com.tachibana.downloader.core.model.data;
 
-package com.tachibana.downloader.core.model;
+import java.util.UUID;
 
-import com.tachibana.downloader.core.model.data.PieceResult;
+public class PieceResult
+{
+    public UUID infoId;
+    public int pieceIndex;
 
-import java.util.concurrent.Callable;
-
-public interface PieceThread extends Callable<PieceResult> {}
+    public PieceResult(UUID infoId, int pieceIndex)
+    {
+        this.infoId = infoId;
+        this.pieceIndex = pieceIndex;
+    }
+}

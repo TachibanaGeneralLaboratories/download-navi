@@ -94,6 +94,7 @@ public class DownloadInfo implements Parcelable, Comparable<DownloadInfo>
     /* E.g. MIME-type, size, headers, etc */
     public boolean hasMetadata = true;
     public String userAgent;
+    public int numFailed = 0;
 
     public DownloadInfo(@NonNull Uri dirPath,
                         @NonNull String url,
@@ -269,7 +270,8 @@ public class DownloadInfo implements Parcelable, Comparable<DownloadInfo>
                 (statusMsg == null || statusMsg.equals(info.statusMsg)) &&
                 dateAdded == info.dateAdded &&
                 visibility == info.visibility &&
-                (userAgent == null || userAgent.equals(info.userAgent));
+                (userAgent == null || userAgent.equals(info.userAgent)) &&
+                numFailed == info.numFailed;
     }
 
     @Override
@@ -293,6 +295,7 @@ public class DownloadInfo implements Parcelable, Comparable<DownloadInfo>
                 ", visibility=" + visibility +
                 ", hasMetadata=" + hasMetadata +
                 ", userAgent=" + userAgent +
+                ", numFailed=" + numFailed +
                 '}';
     }
 }

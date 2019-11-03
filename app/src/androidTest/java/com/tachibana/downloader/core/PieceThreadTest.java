@@ -27,7 +27,9 @@ import androidx.test.ext.junit.runners.AndroidJUnit4;
 import androidx.test.filters.MediumTest;
 
 import com.tachibana.downloader.AbstractTest;
+import com.tachibana.downloader.core.model.PieceThread;
 import com.tachibana.downloader.core.model.PieceThreadImpl;
+import com.tachibana.downloader.core.model.data.PieceResult;
 import com.tachibana.downloader.core.model.data.StatusCode;
 import com.tachibana.downloader.core.model.data.entity.DownloadInfo;
 import com.tachibana.downloader.core.model.data.entity.DownloadPiece;
@@ -42,6 +44,7 @@ import java.util.ArrayList;
 import java.util.UUID;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
+import java.util.concurrent.Future;
 import java.util.concurrent.TimeUnit;
 
 import static org.junit.Assert.assertEquals;
@@ -89,7 +92,7 @@ public class PieceThreadTest extends AbstractTest
             assertTrue(file.exists());
 
             /* Run piece task */
-            runTask(new PieceThreadImpl(context, id, 0, repo, fs, systemFacade, pref));
+            runTask(new PieceThreadImpl(context, id, 0, repo, fs));
 
             /* Read piece info */
             piece = repo.getPiece(0, id);
@@ -134,7 +137,7 @@ public class PieceThreadTest extends AbstractTest
             assertTrue(file.exists());
 
             /* Run piece task */
-            runTask(new PieceThreadImpl(context, id, 0, repo, fs, systemFacade, pref));
+            runTask(new PieceThreadImpl(context, id, 0, repo, fs));
 
             /* Read piece info */
             piece = repo.getPiece(0, id);
@@ -151,7 +154,7 @@ public class PieceThreadTest extends AbstractTest
         }
     }
 
-    private void runTask(PieceThreadImpl task) throws InterruptedException
+    private void runTask(PieceThread task) throws InterruptedException
     {
         exec.submit(task);
         exec.shutdownNow();

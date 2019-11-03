@@ -21,6 +21,7 @@
 package com.tachibana.downloader.core.model;
 
 import android.content.Context;
+import android.net.NetworkInfo;
 import android.net.Uri;
 import android.util.Log;
 
@@ -47,6 +48,7 @@ import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.ProtocolException;
 import java.security.GeneralSecurityException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 import java.util.concurrent.ExecutorService;
@@ -66,6 +68,7 @@ import static com.tachibana.downloader.core.model.data.StatusCode.STATUS_TOO_MAN
 import static com.tachibana.downloader.core.model.data.StatusCode.STATUS_UNHANDLED_HTTP_CODE;
 import static com.tachibana.downloader.core.model.data.StatusCode.STATUS_UNKNOWN_ERROR;
 import static com.tachibana.downloader.core.model.data.StatusCode.STATUS_WAITING_FOR_NETWORK;
+import static com.tachibana.downloader.core.model.data.StatusCode.STATUS_WAITING_TO_RETRY;
 import static java.net.HttpURLConnection.HTTP_INTERNAL_ERROR;
 import static java.net.HttpURLConnection.HTTP_OK;
 import static java.net.HttpURLConnection.HTTP_PRECON_FAILED;
@@ -92,6 +95,7 @@ public class DownloadThreadImpl implements DownloadThread
     private Context appContext;
     private FileSystemFacade fs;
     private SystemFacade systemFacade;
+    private int networkType;
 
     public DownloadThreadImpl(@NonNull Context appContext,
                               @NonNull UUID id,
@@ -134,7 +138,7 @@ public class DownloadThreadImpl implements DownloadThread
     public DownloadResult call()
     {
         running = true;
-        StopRequest ret = null;
+        StopRequest ret;
         try {
             info = repo.getInfoById(id);
             if (info == null) {
@@ -153,6 +157,13 @@ public class DownloadThreadImpl implements DownloadThread
                 info.statusCode = STATUS_RUNNING;
             info.statusMsg = null;
             writeToDatabase();
+            /*
+             * Remember which network this download started on;
+             * used to determine if errors were due to network changes
+             */
+            NetworkInfo netInfo = systemFacade.getActiveNetworkInfo();
+            if (netInfo != null)
+                networkType = netInfo.getType();
 
             if ((ret = execDownload()) != null) {
                 info.statusCode = ret.getFinalStatus();
@@ -243,7 +254,21 @@ public class DownloadThreadImpl implements DownloadThread
             if ((ret = checkPauseStop()) != null) {
                 info.statusCode = ret.getFinalStatus();
             } else {
+                boolean retry = false;
+                /*
+                 * Flag indicating if we've made forward progress transferring file data
+                 * from a remote server.
+                 */
+                boolean madeProgress = false;
+
                 for (DownloadPiece piece : pieces) {
+                    /* Some errors should be retryable, unless we fail too many times */
+                    if (Utils.isStatusRetryable(piece.statusCode)) {
+                        retry = true;
+                        madeProgress = info.getDownloadedBytes(piece) > 0;
+                        break;
+                    }
+
                     /* TODO: maybe change handle status behaviour */
                     boolean replaceStatus = StatusCode.isStatusError(piece.statusCode) &&
                             piece.statusCode > info.statusCode ||
@@ -256,8 +281,44 @@ public class DownloadThreadImpl implements DownloadThread
                         break;
                     }
                 }
+
+                if (retry)
+                    handleRetryableStatus(madeProgress);
             }
         }
+    }
+
+    private void handleRetryableStatus(boolean madeProgress)
+    {
+        info.numFailed++;
+
+        if (info.numFailed < pref.maxDownloadRetries()) {
+            NetworkInfo netInfo = systemFacade.getActiveNetworkInfo();
+            if (netInfo != null && netInfo.getType() == networkType && netInfo.isConnected())
+                /* Underlying network is still intact, use normal backoff */
+                info.statusCode = STATUS_WAITING_TO_RETRY;
+            else
+                /* Network changed, retry on any next available */
+                info.statusCode = STATUS_WAITING_FOR_NETWORK;
+
+            if (getETag(repo.getHeadersById(id)) == null && madeProgress) {
+                /*
+                 * However, if we wrote data and have no ETag to verify
+                 * contents against later, we can't actually resume
+                 */
+                info.statusCode = STATUS_CANNOT_RESUME;
+            }
+        }
+    }
+
+    private Header getETag(List<Header> headers)
+    {
+        for (Header header : headers) {
+            if ("ETag".equals(header.name))
+                return header;
+        }
+
+        return null;
     }
 
     private StopRequest execDownload()
@@ -305,12 +366,12 @@ public class DownloadThreadImpl implements DownloadThread
                     Executors.newSingleThreadExecutor() :
                     Executors.newFixedThreadPool(info.getNumPieces()));
 
+            ArrayList<PieceThread> pieceThreads = new ArrayList<>(info.getNumPieces());
             for (int i = 0; i < info.getNumPieces(); i++)
-                exec.submit(new PieceThreadImpl(appContext, id, i, repo, fs, systemFacade, pref));
-            exec.shutdown();
-            /* Wait "forever" */
-            if (!exec.awaitTermination(Long.MAX_VALUE, TimeUnit.NANOSECONDS))
-                requestStop();
+                pieceThreads.add(new PieceThreadImpl(appContext, id, i, repo, fs));
+
+            /* Wait all threads */
+            exec.invokeAll(pieceThreads);
 
         } catch (InterruptedException e) {
             requestStop();
