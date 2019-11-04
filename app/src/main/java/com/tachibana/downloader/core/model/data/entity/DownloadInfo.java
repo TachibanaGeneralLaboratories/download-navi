@@ -125,6 +125,7 @@ public class DownloadInfo implements Parcelable, Comparable<DownloadInfo>
         visibility = source.readInt();
         hasMetadata = source.readByte() > 0;
         userAgent = source.readString();
+        numFailed = source.readInt();
     }
 
     @Override
@@ -152,6 +153,7 @@ public class DownloadInfo implements Parcelable, Comparable<DownloadInfo>
         dest.writeInt(visibility);
         dest.writeByte((byte)(hasMetadata ? 1 : 0));
         dest.writeString(userAgent);
+        dest.writeInt(numFailed);
     }
 
     public static final Parcelable.Creator<DownloadInfo> CREATOR =
