@@ -21,6 +21,7 @@
 package com.tachibana.downloader.core.model;
 
 import android.content.Context;
+import android.text.format.DateUtils;
 
 import androidx.annotation.NonNull;
 import androidx.work.Constraints;
@@ -31,6 +32,7 @@ import androidx.work.OneTimeWorkRequest;
 import androidx.work.WorkManager;
 
 import com.tachibana.downloader.core.RepositoryHelper;
+import com.tachibana.downloader.core.model.data.StatusCode;
 import com.tachibana.downloader.core.model.data.entity.DownloadInfo;
 import com.tachibana.downloader.core.settings.SettingsRepository;
 import com.tachibana.downloader.service.GetAndRunDownloadWorker;
@@ -39,7 +41,9 @@ import com.tachibana.downloader.service.RestoreDownloadsWorker;
 import com.tachibana.downloader.service.RunAllWorker;
 import com.tachibana.downloader.service.RunDownloadWorker;
 
+import java.util.Random;
 import java.util.UUID;
+import java.util.concurrent.TimeUnit;
 
 public class DownloadScheduler
 {
@@ -51,6 +55,15 @@ public class DownloadScheduler
     public static final String TAG_WORK_RUN_TYPE = "run";
     public static final String TAG_WORK_GET_AND_RUN_TYPE = "get_and_run";
     public static final String TAG_WORK_RESCHEDULE_TYPE = "reschedule";
+
+    /*
+     * The time between a failure and the first retry after an IOException.
+     * Each subsequent retry grows exponentially, doubling each time.
+     * The time is in seconds
+     */
+    private static final int RETRY_FIRST_DELAY = 30;
+
+    private static Random random = new Random();
 
     /*
      * Run unique work for starting download.
@@ -66,6 +79,7 @@ public class DownloadScheduler
         OneTimeWorkRequest work = new OneTimeWorkRequest.Builder(RunDownloadWorker.class)
                 .setInputData(data)
                 .setConstraints(getConstraints(appContext, info))
+                .setInitialDelay(getInitialDelay(info), TimeUnit.MILLISECONDS)
                 .addTag(TAG_WORK_RUN_TYPE)
                 .addTag(downloadTag)
                 .build();
@@ -149,5 +163,39 @@ public class DownloadScheduler
                 .setRequiresCharging(onlyCharging)
                 .setRequiresBatteryNotLow(batteryControl)
                 .build();
+    }
+
+    /*
+     * Return initial delay in milliseconds required before this download is
+     * allowed to start again
+     */
+
+    private static long getInitialDelay(DownloadInfo info)
+    {
+        if (info.statusCode == StatusCode.STATUS_WAITING_TO_RETRY) {
+            long now = System.currentTimeMillis();
+            long startAfter;
+            if (info.retryAfter > 0) {
+                startAfter = info.lastModify + fuzzDelay(info.retryAfter);
+            } else {
+                final long delay = (RETRY_FIRST_DELAY * DateUtils.SECOND_IN_MILLIS *
+                        (1 << (info.numFailed - 1)));
+                startAfter = info.lastModify + fuzzDelay(delay);
+            }
+            return Math.max(0, startAfter - now);
+
+        } else {
+            return 0;
+        }
+    }
+
+    /*
+     * Add random fuzz to the given delay so it's anywhere between 1-1.5x the
+     * requested delay.
+     */
+
+    private static long fuzzDelay(long delay)
+    {
+        return delay + random.nextInt((int)(delay / 2));
     }
 }

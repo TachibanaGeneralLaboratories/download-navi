@@ -48,6 +48,7 @@ import java.util.concurrent.Future;
 import java.util.concurrent.TimeUnit;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
@@ -92,7 +93,14 @@ public class PieceThreadTest extends AbstractTest
             assertTrue(file.exists());
 
             /* Run piece task */
-            runTask(new PieceThreadImpl(context, id, 0, repo, fs));
+            Future<PieceResult> f = runTask(new PieceThreadImpl(context, id, 0, repo, fs));
+            assertTrue(f.isDone());
+            assertFalse(f.isCancelled());
+
+            PieceResult res = f.get();
+            assertNotNull(res);
+            assertEquals(id, res.infoId);
+            assertEquals(0, res.pieceIndex);
 
             /* Read piece info */
             piece = repo.getPiece(0, id);
@@ -137,7 +145,14 @@ public class PieceThreadTest extends AbstractTest
             assertTrue(file.exists());
 
             /* Run piece task */
-            runTask(new PieceThreadImpl(context, id, 0, repo, fs));
+            Future<PieceResult> f = runTask(new PieceThreadImpl(context, id, 0, repo, fs));
+            assertTrue(f.isDone());
+            assertFalse(f.isCancelled());
+
+            PieceResult res = f.get();
+            assertNotNull(res);
+            assertEquals(id, res.infoId);
+            assertEquals(0, res.pieceIndex);
 
             /* Read piece info */
             piece = repo.getPiece(0, id);
@@ -154,11 +169,13 @@ public class PieceThreadTest extends AbstractTest
         }
     }
 
-    private void runTask(PieceThread task) throws InterruptedException
+    private Future<PieceResult> runTask(PieceThread task) throws InterruptedException
     {
-        exec.submit(task);
+        Future<PieceResult> f = exec.submit(task);
         exec.shutdownNow();
         /* Wait 5 minutes */
         exec.awaitTermination(5, TimeUnit.MINUTES);
+
+        return f;
     }
 }

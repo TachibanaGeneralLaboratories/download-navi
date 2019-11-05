@@ -29,6 +29,7 @@ import androidx.annotation.NonNull;
 
 import com.tachibana.downloader.core.HttpConnection;
 import com.tachibana.downloader.core.model.data.DownloadResult;
+import com.tachibana.downloader.core.model.data.PieceResult;
 import com.tachibana.downloader.core.model.data.StatusCode;
 import com.tachibana.downloader.core.model.data.entity.DownloadInfo;
 import com.tachibana.downloader.core.model.data.entity.DownloadPiece;
@@ -38,6 +39,7 @@ import com.tachibana.downloader.core.storage.DataRepository;
 import com.tachibana.downloader.core.system.SystemFacade;
 import com.tachibana.downloader.core.system.filesystem.FileDescriptorWrapper;
 import com.tachibana.downloader.core.system.filesystem.FileSystemFacade;
+import com.tachibana.downloader.core.utils.DateUtils;
 import com.tachibana.downloader.core.utils.MimeTypeUtils;
 import com.tachibana.downloader.core.utils.Utils;
 
@@ -49,11 +51,12 @@ import java.net.MalformedURLException;
 import java.net.ProtocolException;
 import java.security.GeneralSecurityException;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.UUID;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
-import java.util.concurrent.TimeUnit;
+import java.util.concurrent.Future;
 
 import static com.tachibana.downloader.core.model.data.StatusCode.STATUS_BAD_REQUEST;
 import static com.tachibana.downloader.core.model.data.StatusCode.STATUS_CANNOT_RESUME;
@@ -97,6 +100,19 @@ public class DownloadThreadImpl implements DownloadThread
     private SystemFacade systemFacade;
     private int networkType;
 
+    private class ExecDownloadResult
+    {
+        StopRequest stopRequest;
+        List<Future<PieceResult>> pieceResultList;
+
+        public ExecDownloadResult(StopRequest stopRequest,
+                                  List<Future<PieceResult>> pieceResultList)
+        {
+            this.stopRequest = stopRequest;
+            this.pieceResultList = pieceResultList;
+        }
+    }
+
     public DownloadThreadImpl(@NonNull Context appContext,
                               @NonNull UUID id,
                               @NonNull DataRepository repo,
@@ -138,7 +154,6 @@ public class DownloadThreadImpl implements DownloadThread
     public DownloadResult call()
     {
         running = true;
-        StopRequest ret;
         try {
             info = repo.getInfoById(id);
             if (info == null) {
@@ -156,7 +171,7 @@ public class DownloadThreadImpl implements DownloadThread
             else
                 info.statusCode = STATUS_RUNNING;
             info.statusMsg = null;
-            writeToDatabase();
+            writeToDatabase(false);
             /*
              * Remember which network this download started on;
              * used to determine if errors were due to network changes
@@ -165,15 +180,16 @@ public class DownloadThreadImpl implements DownloadThread
             if (netInfo != null)
                 networkType = netInfo.getType();
 
-            if ((ret = execDownload()) != null) {
-                info.statusCode = ret.getFinalStatus();
-                info.statusMsg = ret.getMessage();
+            ExecDownloadResult res = execDownload();
+            if (res.stopRequest != null) {
+                info.statusCode = res.stopRequest.getFinalStatus();
+                info.statusMsg = res.stopRequest.getMessage();
                 Log.i(TAG, "id=" + id + ", code=" + info.statusCode + ", msg=" + info.statusMsg);
             } else {
                 info.statusCode = STATUS_SUCCESS;
             }
 
-            checkPiecesStatus();
+            checkPiecesStatus(res.pieceResultList);
 
         } catch (Throwable t) {
             Log.e(TAG, Log.getStackTraceString(t));
@@ -204,7 +220,7 @@ public class DownloadThreadImpl implements DownloadThread
     private void finalizeThread()
     {
         if (info != null) {
-            writeToDatabase();
+            writeToDatabase(false);
 
             boolean deletePref = pref.deleteFileIfError();
             if (StatusCode.isStatusError(info.statusCode) && deletePref) {
@@ -226,8 +242,11 @@ public class DownloadThreadImpl implements DownloadThread
         pause = false;
     }
 
-    private void checkPiecesStatus()
+    private void checkPiecesStatus(List<Future<PieceResult>> resList)
     {
+        if (info.statusCode == HTTP_UNAVAILABLE)
+            extractRetryAfter(resList);
+
         List<DownloadPiece> pieces = repo.getPiecesByIdSorted(id);
         if (pieces == null || pieces.isEmpty()) {
             String errMsg = "Download deleted or missing";
@@ -288,6 +307,27 @@ public class DownloadThreadImpl implements DownloadThread
         }
     }
 
+    private void extractRetryAfter(List<Future<PieceResult>> resList)
+    {
+        long maxRetryAfter = 0;
+        for (Future<PieceResult> f : resList) {
+            PieceResult res;
+            try {
+                res = f.get();
+
+            } catch (Exception e) {
+                continue;
+            }
+            if (res == null)
+                continue;
+
+            maxRetryAfter = Math.max(res.retryAfter, maxRetryAfter);
+        }
+
+        if (maxRetryAfter > 0)
+            info.retryAfter = constrainRetryAfter(maxRetryAfter);
+    }
+
     private void handleRetryableStatus(boolean madeProgress)
     {
         info.numFailed++;
@@ -321,16 +361,18 @@ public class DownloadThreadImpl implements DownloadThread
         return null;
     }
 
-    private StopRequest execDownload()
+    private ExecDownloadResult execDownload()
     {
+        StopRequest ret = null;
+        List<Future<PieceResult>> resList = Collections.emptyList();
+
         try {
-            StopRequest ret;
             if ((ret = checkPauseStop()) != null)
-                return ret;
+                return new ExecDownloadResult(ret, resList);
 
             if (!info.hasMetadata) {
                 if ((ret = fetchMetadata()) != null)
-                    return ret;
+                    return new ExecDownloadResult(ret, resList);
             }
 
             /* Create file if doesn't exists or replace it */
@@ -339,27 +381,36 @@ public class DownloadThreadImpl implements DownloadThread
                 filePath = fs.createFile(info.dirPath, info.fileName, false);
 
             } catch (IOException e) {
-                return new StopRequest(STATUS_FILE_ERROR, e);
+                ret = new StopRequest(STATUS_FILE_ERROR, e);
+                return new ExecDownloadResult(ret, resList);
             }
-            if (filePath == null)
-                return new StopRequest(STATUS_FILE_ERROR, "Unable to create file");
+            if (filePath == null) {
+                ret = new StopRequest(STATUS_FILE_ERROR, "Unable to create file");
+                return new ExecDownloadResult(ret, resList);
+            }
 
-            if (info.totalBytes == 0)
-                return new StopRequest(STATUS_SUCCESS, "Length is zero; skipping");
+            if (info.totalBytes == 0) {
+                ret = new StopRequest(STATUS_SUCCESS, "Length is zero; skipping");
+                return new ExecDownloadResult(ret, resList);
+            }
 
-            if (!Utils.checkConnectivity(appContext))
-                return new StopRequest(STATUS_WAITING_FOR_NETWORK);
+            if (!Utils.checkConnectivity(appContext)) {
+                ret = new StopRequest(STATUS_WAITING_FOR_NETWORK);
+                return new ExecDownloadResult(ret, resList);
+            }
 
             /* Check free space */
             long availBytes = fs.getDirAvailableBytes(info.dirPath);
-            if (availBytes != -1 && availBytes < info.totalBytes)
-                return new StopRequest(StatusCode.STATUS_INSUFFICIENT_SPACE_ERROR,
-                        "No space left on device");
+            if (availBytes != -1 && availBytes < info.totalBytes) {
+                ret = new StopRequest(StatusCode.STATUS_INSUFFICIENT_SPACE_ERROR,
+                                    "No space left on device");
+                return new ExecDownloadResult(ret, resList);
+            }
 
             /* Pre-flight disk space requirements, when known */
             if (info.totalBytes > 0 && pref.preallocateDiskSpace()) {
                 if ((ret = allocFileSpace(filePath)) != null)
-                    return ret;
+                    return new ExecDownloadResult(ret, resList);
             }
 
             exec = (info.getNumPieces() == 1 ?
@@ -371,13 +422,13 @@ public class DownloadThreadImpl implements DownloadThread
                 pieceThreads.add(new PieceThreadImpl(appContext, id, i, repo, fs));
 
             /* Wait all threads */
-            exec.invokeAll(pieceThreads);
+            resList = exec.invokeAll(pieceThreads);
 
         } catch (InterruptedException e) {
             requestStop();
         }
 
-        return null;
+        return new ExecDownloadResult(ret, resList);
     }
 
     private StopRequest fetchMetadata()
@@ -413,6 +464,7 @@ public class DownloadThreadImpl implements DownloadThread
                                 "Precondition failed");
                         break;
                     case HTTP_UNAVAILABLE:
+                        parseUnavailableHeaders(conn);
                         ret[0] = new StopRequest(HTTP_UNAVAILABLE, message);
                         break;
                     case HTTP_INTERNAL_ERROR:
@@ -489,13 +541,35 @@ public class DownloadThreadImpl implements DownloadThread
 
         info.hasMetadata = true;
         info.statusCode = STATUS_RUNNING;
-        writeToDatabaseWithPieces();
+        writeToDatabase(true);
 
         StopRequest ret;
         if ((ret = checkPauseStop()) != null)
             return ret;
 
         return null;
+    }
+
+    private void parseUnavailableHeaders(@NonNull HttpURLConnection conn)
+    {
+        long retryAfter = conn.getHeaderFieldInt("Retry-After", -1);
+
+        if (retryAfter > 0)
+            info.retryAfter = constrainRetryAfter(retryAfter);
+    }
+
+    private int constrainRetryAfter(long retryAfter)
+    {
+        retryAfter = constrain(retryAfter,
+                DownloadInfo.MIN_RETRY_AFTER,
+                DownloadInfo.MAX_RETRY_AFTER);
+
+        return (int)(retryAfter * DateUtils.SECOND_IN_MILLIS);
+    }
+
+    private long constrain(long amount, long low, long high)
+    {
+        return amount < low ? low : (amount > high ? high : amount);
     }
 
     private StopRequest allocFileSpace(Uri filePath)
@@ -528,14 +602,10 @@ public class DownloadThreadImpl implements DownloadThread
         return null;
     }
 
-    private void writeToDatabase()
+    private void writeToDatabase(boolean withPieces)
     {
-        repo.updateInfo(info, false, false);
-    }
-
-    private void writeToDatabaseWithPieces()
-    {
-        repo.updateInfo(info, false, true);
+        info.lastModify = System.currentTimeMillis();
+        repo.updateInfo(info, false, withPieces);
     }
 
     @Override

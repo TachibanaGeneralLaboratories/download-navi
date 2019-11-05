@@ -26,6 +26,7 @@ public class PieceResult
 {
     public UUID infoId;
     public int pieceIndex;
+    public long retryAfter;
 
     public PieceResult(UUID infoId, int pieceIndex)
     {

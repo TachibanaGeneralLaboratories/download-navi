@@ -34,6 +34,8 @@ import java.util.concurrent.locks.ReentrantLock;
 
 public class DateUtils
 {
+    public static final long SECOND_IN_MILLIS = 1000;
+
     private static final int secondsInDay = 86400;
     private static final int secondsInHour = 3600;
     private static final int secondsInMinute = 60;

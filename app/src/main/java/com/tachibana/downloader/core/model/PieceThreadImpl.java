@@ -102,6 +102,7 @@ public class PieceThreadImpl extends Thread implements PieceThread
     private DataRepository repo;
     private Context appContext;
     private FileSystemFacade fs;
+    private PieceResult result;
 
     private FileDescriptor outFd;
     private FileOutputStream fout;
@@ -119,23 +120,23 @@ public class PieceThreadImpl extends Thread implements PieceThread
         this.appContext = appContext;
         this.repo = repo;
         this.fs = fs;
+        this.result = new PieceResult(infoId, pieceIndex);
     }
 
     @Override
     public PieceResult call()
     {
-        PieceResult res = new PieceResult(infoId, pieceIndex);
         StopRequest ret;
         try {
             piece = repo.getPiece(pieceIndex, infoId);
             if (piece == null) {
                 Log.w(TAG, "Piece " + pieceIndex + " is null, skipping");
-                return res;
+                return result;
             }
 
             if (piece.statusCode == STATUS_SUCCESS) {
                 Log.w(TAG, pieceIndex + " already finished, skipping");
-                return res;
+                return result;
             }
 
             do {
@@ -159,7 +160,7 @@ public class PieceThreadImpl extends Thread implements PieceThread
             finalizeThread();
         }
 
-        return res;
+        return result;
     }
 
     private void handleRequest(StopRequest request)
@@ -251,6 +252,7 @@ public class PieceThreadImpl extends Thread implements PieceThread
                                 "Precondition failed");
                         break;
                     case HTTP_UNAVAILABLE:
+                        parseUnavailableHeaders(conn);
                         ret[0] = new StopRequest(HTTP_UNAVAILABLE, message);
                         break;
                     case HTTP_INTERNAL_ERROR:
@@ -491,6 +493,11 @@ public class PieceThreadImpl extends Thread implements PieceThread
         }
 
         return null;
+    }
+
+    private void parseUnavailableHeaders(@NonNull HttpURLConnection conn)
+    {
+        result.retryAfter = conn.getHeaderFieldInt("Retry-After", -1);
     }
 
     private StopRequest writeToDatabaseOrCancel()

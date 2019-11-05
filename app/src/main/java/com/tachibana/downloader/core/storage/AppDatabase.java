@@ -49,7 +49,7 @@ import io.reactivex.schedulers.Schedulers;
         DownloadPiece.class,
         Header.class,
         UserAgent.class},
-        version = 2)
+        version = 3)
 @TypeConverters({UUIDConverter.class})
 public abstract class AppDatabase extends RoomDatabase
 {
@@ -108,7 +108,7 @@ public abstract class AppDatabase extends RoomDatabase
                        .subscribe();
                     }
                 })
-                .addMigrations(MIGRATION_1_2)
+                .addMigrations(MIGRATION_1_2, MIGRATION_2_3)
                 .build();
     }
 
@@ -136,7 +136,7 @@ public abstract class AppDatabase extends RoomDatabase
     @VisibleForTesting
     static final Migration MIGRATION_1_2 = new Migration(1, 2) {
         @Override
-        public void migrate(final SupportSQLiteDatabase database)
+        public void migrate(@NonNull SupportSQLiteDatabase database)
         {
             /* Add `numFailed` column to `DownloadInfo` table */
             database.execSQL("ALTER TABLE `DownloadInfo` ADD COLUMN `numFailed` INTEGER NOT NULL DEFAULT 0");
@@ -150,6 +150,16 @@ public abstract class AppDatabase extends RoomDatabase
 
             database.execSQL("INSERT INTO `DownloadPiece` (`pieceIndex`, `infoId`, `size`, `curBytes`, `statusCode`, `statusMsg`, `speed`) SELECT `pieceIndex`, `infoId`, `size`, `curBytes`, `statusCode`, `statusMsg`, `speed` FROM `DownloadPiece_old`;");
             database.execSQL("DROP TABLE `DownloadPiece_old`;");
+        }
+    };
+
+    @VisibleForTesting
+    static final Migration MIGRATION_2_3 = new Migration(2, 3) {
+        @Override
+        public void migrate(@NonNull SupportSQLiteDatabase database)
+        {
+            database.execSQL("ALTER TABLE `DownloadInfo` ADD COLUMN `retryAfter` INTEGER NOT NULL DEFAULT 0");
+            database.execSQL("ALTER TABLE `DownloadInfo` ADD COLUMN `lastModify` INTEGER NOT NULL DEFAULT 0");
         }
     };
 }

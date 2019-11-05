@@ -64,6 +64,17 @@ public class DownloadInfo implements Parcelable, Comparable<DownloadInfo>
     public static final int VISIBILITY_HIDDEN = 2;
     /* This download shows in the notifications after completion ONLY */
     public static final int VISIBILITY_VISIBLE_NOTIFY_ONLY_COMPLETION = 3;
+    /*
+     * The minimum amount of time that the download manager accepts for
+     * a Retry-After response header with a parameter in delta-seconds
+     */
+    public static final int MIN_RETRY_AFTER = 30; /* 30 s */
+    /*
+     * The maximum amount of time that the download manager accepts for
+     * a Retry-After response header with a parameter in delta-seconds
+     */
+    public static final int MAX_RETRY_AFTER = 24 * 60 * 60; /* 24 h */
+
 
     @PrimaryKey
     @NonNull
@@ -95,6 +106,9 @@ public class DownloadInfo implements Parcelable, Comparable<DownloadInfo>
     public boolean hasMetadata = true;
     public String userAgent;
     public int numFailed = 0;
+    /* In ms */
+    public int retryAfter;
+    public long lastModify;
 
     public DownloadInfo(@NonNull Uri dirPath,
                         @NonNull String url,
@@ -126,6 +140,8 @@ public class DownloadInfo implements Parcelable, Comparable<DownloadInfo>
         hasMetadata = source.readByte() > 0;
         userAgent = source.readString();
         numFailed = source.readInt();
+        retryAfter = source.readInt();
+        lastModify = source.readLong();
     }
 
     @Override
@@ -154,6 +170,8 @@ public class DownloadInfo implements Parcelable, Comparable<DownloadInfo>
         dest.writeByte((byte)(hasMetadata ? 1 : 0));
         dest.writeString(userAgent);
         dest.writeInt(numFailed);
+        dest.writeInt(retryAfter);
+        dest.writeLong(lastModify);
     }
 
     public static final Parcelable.Creator<DownloadInfo> CREATOR =
@@ -273,7 +291,9 @@ public class DownloadInfo implements Parcelable, Comparable<DownloadInfo>
                 dateAdded == info.dateAdded &&
                 visibility == info.visibility &&
                 (userAgent == null || userAgent.equals(info.userAgent)) &&
-                numFailed == info.numFailed;
+                numFailed == info.numFailed &&
+                retryAfter == info.retryAfter &&
+                lastModify == info.lastModify;
     }
 
     @Override
@@ -298,6 +318,8 @@ public class DownloadInfo implements Parcelable, Comparable<DownloadInfo>
                 ", hasMetadata=" + hasMetadata +
                 ", userAgent=" + userAgent +
                 ", numFailed=" + numFailed +
+                ", retryAfter=" + retryAfter +
+                ", lastModify=" + lastModify +
                 '}';
     }
 }
