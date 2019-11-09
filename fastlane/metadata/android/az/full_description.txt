@@ -1,0 +1,20 @@
+Download Navi, Android 4.4+ üçün ödənişsiz və Açıq Mənbəli endirmə idarəçisidir.
+
+# Xüsusiyyətlər
+
+* Ödənişsiz və Açıq Mənbə proqram təminatı (FOSS)
+* Material Dizayn
+* Çoxlu tema (Açıq, Tünd, Qara)
+* Android TV dəstəyi
+* Chrome OS dəstəyi
+* Endirmələrə fasilə vermə və davam etdirmə
+* Səyyah dəstəyi
+* Eyni zamanda bir neçə endirmə (ilkin 3)
+* Hissəli endirmə (ən çox 16)
+* Faylları arxaplanda endirmə
+* Yalnız limitsiz bağlantılar dəstəyi (məs. Wi-Fi)
+* Roaminq nəzarəti
+* İstifadəçi agent nəzarəti
+* Hash dəyəri hesablama (MD5 & SHA-256)
+* Enerji İdarəsi və batereyaya nəzarət
+* Endirmədən sonra müxtəlif avtomatik hərəkətlər

@@ -21,7 +21,7 @@
     <string name="connect">Conectar</string>
     <string name="add">Adicionar</string>
     <string name="not_available">N/A</string>
-    <string name="open_navigation_drawer">Abra o painel de navegação</string>
+    <string name="open_navigation_drawer">Abrir o painel de navegação</string>
     <string name="close_navigation_drawer">Fechar gaveta de navegação</string>
     <string name="error_template">Erro: %1$s</string>
     <string name="pause">Pausar</string>
@@ -59,13 +59,13 @@
     <!-- Foreground notification -->
     <string name="app_running_in_the_background">Download Navi em segundo plano</string>
     <string name="pause_all">Pausar todos</string>
-    <string name="resume_all">Resuma tudo</string>
+    <string name="resume_all">Retomar tudo</string>
     <!-- Finish notification -->
     <string name="download_finished_notify">Download concluído</string>
-    <string name="open_using">Abra usando</string>
+    <string name="open_using">Abrir usando</string>
     <!-- Pending notification -->
     <string name="download_in_queue_ticker_notify" formatted="false">%1$s na fila</string>
-    <string name="waiting_for_network">Esperando por rede</string>
+    <string name="waiting_for_network">Aguardando rede</string>
     <string name="waiting_for_retry">Aguardando nova tentativa</string>
     <!-- Error notification -->
     <string name="download_error_notify_title">Erro de download</string>
@@ -237,8 +237,7 @@
     <string name="pref_preallocate_disk_space_summary">Disponível para Android 5.0 Lollipop ou superior</string>
     <!-- About dialog -->
     <string name="about_title">Sobre Download Navi</string>
-    <string name="about_description"><![CDATA[
-    Mais informações e também para ajudar o projeto: <a href="https://github.com/TachibanaGeneralLaboratories/download-navi">https://github.com/TachibanaGeneralLaboratories/download-navi</a><br><br>
+    <string name="about_description"><![CDATA[    Mais informações e também para ajudar o projeto: <a href="https://github.com/TachibanaGeneralLaboratories/download-navi">https://github.com/TachibanaGeneralLaboratories/download-navi</a><br><br>
     Download Navi é um gerenciador de downloads gratuito e de código aberto para Android 4.4+<br><br>
     Download Navi é um software livre, lançado sob os termos da licença <a href="http://www.gnu.org/copyleft/gpl.html">GNU General Public License v3 (GPLv3)</a><br><br>
     <a href="https://github.com/TachibanaGeneralLaboratories/download-navi/blob/HEAD/Privacy.md">Política de Privacidade</a>]]></string>

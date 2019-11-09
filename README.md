@@ -69,6 +69,10 @@ You can help translate the app here: [https://crowdin.com/project/download-navi]
  - **Chinese Simplified** *(thanks OR120, dwughjsd)*
  - **Serbian** *(thanks Aimbot91)*
  - **Hindi** *(thanks imcmjha)*
+ - **Chinese Traditional** *(thanks Fei1Yang)*
+ - **Azerbaijani** *(thanks Khan27)*
+ - **Indonesian** *(thanks bzntm)*
+ - **Vietnamese** *(thanks pnhpnh)*
 
 Contributors
 ---

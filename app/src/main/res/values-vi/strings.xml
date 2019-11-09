@@ -1,0 +1,245 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Global string -->
+    <string name="app_name">Download Navi</string>
+    <string name="foreground_notification">Thông báo trên màn hình</string>
+    <string name="download_running">Đang tải</string>
+    <string name="finished">Đã hoàn thành</string>
+    <string name="shutdown">Tắt</string>
+    <!-- 1 d. 1 h. 1 m -->
+    <string name="elapsed_time_format_d_h_mm">%1$d n %2$dh %3$d\'</string>
+    <!-- 1 h. 1 m. 1 s -->
+    <string name="elapsed_time_format_h_mm_ss">%1$dh %2$d\' %3$d\'\'</string>
+    <!-- 1 m. 1 s -->
+    <string name="elapsed_time_format_mm_ss">%1$d\' %2$d\'\'</string>
+    <!-- 1 s -->
+    <string name="elapsed_time_format_ss">%1$d s</string>
+    <string name="ok">OK</string>
+    <string name="cancel">Huỷ</string>
+    <!-- A synonym for word "unmetered" - unlimited-->
+    <string name="unmetered_connections_only">Chỉ tải khi kết nối không tính cước</string>
+    <string name="connect">Kết nối</string>
+    <string name="add">Thêm</string>
+    <string name="not_available">Không có</string>
+    <string name="open_navigation_drawer">Mở ngăn điều hướng</string>
+    <string name="close_navigation_drawer">Đóng ngăn điều hướng</string>
+    <string name="error_template">Lỗi: %1$s</string>
+    <string name="pause">Tạm dừng</string>
+    <string name="resume">Tiếp tục</string>
+    <string name="stop">Dừng</string>
+    <string name="stopped">Đã dừng</string>
+    <string name="pending">Chờ xử lí</string>
+    <string name="delete">Xoá</string>
+    <string name="share">Chia sẻ</string>
+    <string name="menu">Menu</string>
+    <string name="select_all">Chọn tất cả</string>
+    <string name="share_via">Chia sẻ qua</string>
+    <string name="no">Không</string>
+    <string name="yes">Có</string>
+    <string name="error">Lỗi</string>
+    <string name="file">Tập tin</string>
+    <string name="folder">Thư mục</string>
+    <string name="downloading_metadata">Đang tải metadata</string>
+    <string name="all">Tất cả</string>
+    <string name="search">Tìm kiếm</string>
+    <string name="settings">Thiết lập</string>
+    <string name="about">Giới thiệu</string>
+    <string name="close">Đóng</string>
+    <string name="redownload">Tải xuống lại</string>
+    <string name="Default">Mặc định</string>
+    <string name="warning">Cảnh báo</string>
+    <string name="apply">Áp dụng thay đổi</string>
+    <string name="report">Báo cáo</string>
+    <string name="more_details">Thêm thông tin</string>
+    <!-- Permission dialog -->
+    <string name="perm_denied_title">Quyền truy cập bị từ chối</string>
+    <string name="perm_denied_warning">Nếu không có quyền này, ứng dụng không thể lưu dữ liệu trên một số máy và một số phiên bản Android nên không thể hoạt động bình thường được. Bạn có chắc chắn muốn từ chối quyền này không?</string>
+    <!-- Download progress notification -->
+    <string name="download_ticker_notify" formatted="false">Đang tải %1$s</string>
+    <!-- Foreground notification -->
+    <string name="app_running_in_the_background">Download Navi đang chạy ngầm</string>
+    <string name="pause_all">Tạm dừng tất cả</string>
+    <string name="resume_all">Tiếp tục tất cả</string>
+    <!-- Finish notification -->
+    <string name="download_finished_notify">Đã tải xong</string>
+    <string name="open_using">Mở bằng</string>
+    <!-- Pending notification -->
+    <string name="download_in_queue_ticker_notify" formatted="false">%1$s đang chờ tải</string>
+    <string name="waiting_for_network">Đang chờ kết nối mạng</string>
+    <string name="waiting_for_retry">Đang chờ thử lại</string>
+    <!-- Error notification -->
+    <string name="download_error_notify_title">Lỗi khi tải xuống</string>
+    <!-- Applying params notification -->
+    <string name="applying_params_title">Đang áp dụng các thông số</string>
+    <string name="applying_params_for_downloads">Đang áp dụng các thông số khi tải xuống</string>
+    <string name="applying_params_error_title" formatted="false">Áp dụng thông số bị lỗi đối với %1$s</string>
+    <!-- Add download dialog -->
+    <string name="add_download">Thêm mục tải xuống</string>
+    <string name="download_link">Liên kết</string>
+    <string name="download_name">Tên</string>
+    <string name="download_size" formatted="false">Kích cỡ: %1$s</string>
+    <string name="download_retry">Tải lại</string>
+    <string name="download_advanced">Nâng cao</string>
+    <string name="download_user_agent">Tác nhân người dùng (user agent)</string>
+    <string name="download_error_empty_link">Hãy nhập liên kết</string>
+    <string name="download_error_empty_name">Hãy nhập tên</string>
+    <string name="download_error_no_enough_free_space" formatted="false">Không đủ dung lượng: còn trống %1$s, nhưng tập tin nặng %2$s</string>
+    <string name="download_error_name_is_not_correct" formatted="false">Tên đúng là \"%1$s\"</string>
+    <string name="fetch_error_default_fmt" formatted="false">Lỗi: %1$s</string>
+    <string name="fetch_error_invalid_url" formatted="false">URL không hợp lệ: %1$s</string>
+    <string name="fetch_error_network_disconnected">Mạng mất kết nối</string>
+    <string name="fetch_error_http_response" formatted="false">Lỗi: máy chủ trả về lỗi HTTP mã %1$d</string>
+    <string name="fetch_error_io" formatted="false">Lỗi đọc ghi: %1$s</string>
+    <string name="unable_to_open_folder">Không mở được thư mục đã chọn. Hãy chọn thư mục khác</string>
+    <string name="unable_to_create_file">Không tạo được tập tin. Hãy chọn thư mục khác</string>
+    <string name="partial_download_not_supported">Tải xuống này không hỗ trợ tạm dừng và tải phân mảnh</string>
+    <string name="download_pieces_number_title">Số mảnh</string>
+    <string name="download_description">Mô tả</string>
+    <string name="select_folder_to_save">Chọn thư mục lưu</string>
+    <string name="path">Đường dẫn</string>
+    <string name="storage_free_space" formatted="false">Bộ nhớ còn trống: %1$s</string>
+    <string name="add_download_error_invalid_url">Không thêm được mục tải: URL không hợp lệ</string>
+    <!-- Add user agent dialog -->
+    <string name="dialog_add_user_agent_title">Thêm tác nhân người dùng (user agent)</string>
+    <!-- Main activity -->
+    <string name="fragment_title_queued">Đang tải</string>
+    <string name="fragment_title_completed">Đã xong</string>
+    <string name="download_list_empty">Không có mục tải xuống</string>
+    <string name="share_url">Chia sẻ URL</string>
+    <!-- Navigation drawer -->
+    <!-- Category -->
+    <string name="drawer_category">Loại tập tin</string>
+    <string name="drawer_category_others">Khác</string>
+    <string name="drawer_category_documents">Tài liệu</string>
+    <string name="drawer_category_images">Hình ảnh</string>
+    <string name="drawer_category_video">Video</string>
+    <string name="drawer_category_apk">APK</string>
+    <string name="drawer_category_audio">Âm thanh</string>
+    <string name="drawer_category_archives">Lưu trữ</string>
+    <!-- Status -->
+    <string name="drawer_status">Trạng thái</string>
+    <string name="drawer_status_running">Đang tải</string>
+    <string name="drawer_status_stopped">Đã dừng</string>
+    <!-- Date added -->
+    <string name="drawer_date_added">Ngày được thêm</string>
+    <string name="drawer_date_added_today">Hôm nay</string>
+    <string name="drawer_date_added_yesterday">Hôm qua</string>
+    <string name="drawer_date_added_week">Tuần</string>
+    <string name="drawer_date_added_month">Tháng</string>
+    <string name="drawer_date_added_year">Năm</string>
+    <!-- Sorting -->
+    <string name="drawer_sorting">Sắp xếp theo</string>
+    <string name="drawer_sorting_date_added">Ngày được thêm</string>
+    <string name="drawer_sorting_name">Tên</string>
+    <string name="drawer_sorting_size">Kích cỡ</string>
+    <string name="drawer_sorting_category">Phân loại</string>
+    <string name="drawer_sorting_no_sorting">Không sắp xếp</string>
+    <!-- Download list item -->
+    <!-- downloaded/total • ETA • speed -->
+    <string name="download_queued_progress_template" formatted="false">%1$s/%2$s \u2022 %3$s \u2022 %4$s/s</string>
+    <!-- downloaded/total • status -->
+    <string name="download_queued_template" formatted="false">%1$s/%2$s \u2022 %3$s</string>
+    <!-- hostname • total -->
+    <string name="download_finished_template" formatted="false">%1$s \u2022 %2$s</string>
+    <string name="download_details">Thông tin</string>
+    <string name="deleting">Đang xoá</string>
+    <string name="delete_selected_download">Xoá mục đã chọn? Thao tác này không thể khôi phục</string>
+    <string name="delete_selected_downloads">Xoá các mục đã chọn? Thao tác này không thể khôi phục</string>
+    <string name="delete_with_downloaded_file">Xoá kèm tập tin tải xuống</string>
+    <!-- Filemanager dialog -->
+    <string name="dir_chooser_title">Chọn thư mục</string>
+    <string name="file_chooser_title">Chọn tập tin</string>
+    <string name="dialog_new_folder_title">Tạo thư mục</string>
+    <string name="error_dialog_new_folder">Không tạo được thư mục mới</string>
+    <string name="error_open_dir">Không mở được thư mục</string>
+    <string name="home_directory">Thư mục gốc</string>
+    <!-- name (size) -->
+    <string name="permission_denied">Quyền truy cập bị từ chối</string>
+    <string name="save_file">Lưu tập tin</string>
+    <string name="file_name">Tên tập tin</string>
+    <string name="error_file_exists">Đã tồn tại tập tin này. Ghi đè lên?</string>
+    <string name="file_name_is_empty">Tên tập tin không thể để trống</string>
+    <string name="system_manager">Trình quản lí tập tin hệ thống</string>
+    <string name="device_does_not_support_this_feature">Thiết bị của bạn không hỗ trợ tính năng này</string>
+    <string name="system_file_manager_not_found">Không tìm thấy trình quản lí tập tin hệ thống</string>
+    <string name="replace_file">Ghi đè tập tin</string>
+    <!-- Details download dialog -->
+    <string name="detail_downloaded">Đã tải xuống</string>
+    <!-- downloaded/total (percent) -->
+    <string name="detail_downloaded_format" formatted="false">%1$s/%2$s (%3$d%%)</string>
+    <string name="detail_pieces">Số mảnh</string>
+    <string name="detail_date_added">Ngày được thêm</string>
+    <string name="detail_user_agent">Tác nhân người dùng (user agent)</string>
+    <string name="detail_md5_hash_sum">MD5</string>
+    <string name="detail_sha256_hash_sum">SHA-256</string>
+    <string name="calculate">Tính toán</string>
+    <!-- Error report -->
+    <string name="app_error_occurred">Đã xảy ra lỗi. Bạn có thể gửi báo cáo lỗi tới nhà phát triển</string>
+    <string name="error_comment_prompt">Bạn có điền thêm thông tin và nhận xét vào đây:</string>
+    <!-- Send text to clipboard -->
+    <string name="send_text_to_clipboard">Sao chép</string>
+    <string name="text_copied_to_clipboard">Đã sao chép thông tin vào bảng nhớ tạm</string>
+    <!-- Settings -->
+    <!-- Headers -->
+    <string name="pref_header_appearance">Giao diện</string>
+    <string name="pref_header_behavior">Hoạt động</string>
+    <string name="pref_header_storage">Lưu trữ</string>
+    <!-- Appearance settings -->
+    <string name="pref_theme_category">Thiết lập chủ đề</string>
+    <string name="pref_theme_title">Giao diện</string>
+    <string-array name="pref_theme_entries">
+        <item>Sáng</item>
+        <item>Tối</item>
+        <item>Đen</item>
+    </string-array>
+    <string name="pref_notification_category">Thiết lập thông báo</string>
+    <string name="pref_progress_notify_title">Thông báo quá trình tải</string>
+    <string name="pref_finish_notify_title">Thông báo đã tải xong</string>
+    <string name="pref_pending_notify_title">Thông báo đang chờ tải</string>
+    <string name="pref_play_sound_notify_title">Bật âm thanh</string>
+    <string name="pref_notify_sound_title">Âm thanh thông báo</string>
+    <string name="pref_led_indicator_notify_title">Đèn LED chỉ báo</string>
+    <string name="pref_led_indicator_color_notify_title">Màu sắc đèn LED</string>
+    <string name="pref_vibration_notify_title">Rung</string>
+    <string name="theme_settings_apply_after_reboot">Thay đổi về giao diện sẽ có hiệu lực sau khi khởi động lại ứng dụng</string>
+    <!-- Behavior settings -->
+    <string name="pref_autostart_title">Tự khởi động</string>
+    <string name="pref_autostart_summary">Chạy ứng dụng sau khi bật máy và bắt đầu các mục tải xuống nếu trước đó người dùng không tự tạm dừng</string>
+    <!-- A synonym for word "unmetered" - unlimited-->
+    <string name="pref_umnetered_connections_only_title">Chỉ dùng kết nối không tính cước</string>
+    <string name="pref_umnetered_connections_only_summary">Chỉ tải khi có kết nối không tính cước (chẳng hạn như Wi-Fi và Ethernet)</string>
+    <string name="pref_power_management_category">Quản lí năng lượng</string>
+    <string name="pref_cpu_do_not_sleep_title">Giữ CPU thức</string>
+    <string name="pref_cpu_do_not_sleep_summary">Bật tính năng này sẽ gây tốn pin hơn. Dùng tính năng này nếu tốc độ tải bị giảm khi tắt màn hình</string>
+    <string name="pref_download_only_when_charging_title">Chỉ tải khi sạc</string>
+    <string name="pref_download_only_when_charging_summary">Nếu bật, ứng dụng chỉ tải xuống khi sạc pin. Khi rút sạc tất cả các mục tải xuống sẽ tạm dừng</string>
+    <string name="pref_battery_control_title">Kiểm soát pin</string>
+    <string name="pref_custom_battery_control_title">Tuỳ chọn phần trăm pin</string>
+    <string name="pref_custom_battery_control_value_title">Kiểm soát phần trăm pin</string>
+    <string name="pref_battery_control_summary" formatted="false">Tất cả các mục tải xuống sẽ tạm dừng nếu pin xuống dưới mức %1$d%%. Giới hạn này không có tác dụng khi đang sạc pin</string>
+    <string name="pref_custom_battery_control_summary" formatted="false">Chọn mức pin để khi xuống dưới mức đó các mục tải xuống sẽ tạm dừng. Nếu bật tính năng này, mức pin mặc định là %1$d%% sẽ bị bỏ qua</string>
+    <string name="pref_custom_battery_control_dialog_summary" formatted="false">Chọn phần trăm pin để ứng dụng theo dõi sẽ gây tốn pin hơn khi đang tải xuống. Bạn có chắc chắn muốn bật tính năng này không?</string>
+    <string name="pref_enable_roaming_title">Bật chuyển vùng</string>
+    <string name="pref_enable_roaming_summary">Chỉ tải khi không chuyển vùng</string>
+    <string name="pref_max_active_downloads_title">Số tải xuống hoạt động tối đa</string>
+    <string name="pref_max_download_retries_title">Số lần thử tải lại tối đa</string>
+    <string name="pref_max_download_retries_dialog_msg">0 - không tải lại</string>
+    <string name="pref_replace_duplicate_downloads_title">Thay thế các mục tải xuống trùng nhau</string>
+    <string name="pref_replace_duplicate_downloads_summary">Thay thế các mục tải xuống trùng nhau (cùng URL) khi thêm vào danh sách</string>
+    <string name="pref_auto_connect_title">Tự động kết nối</string>
+    <string name="pref_auto_connect_summary">Tự động kết nối khi mở hộp thoại thêm tải xuống</string>
+    <!-- Storage settings -->
+    <string name="pref_save_downloads_in_title">Lưu tập tin tải xuống vào</string>
+    <string name="pref_move_after_download_title">Di chuyển tập tin sau khi tải</string>
+    <string name="pref_move_after_download_in_title">Sau khi tải, di chuyển vào</string>
+    <string name="pref_delete_file_if_error_title">Xoá tập tin nếu xảy ra lỗi</string>
+    <string name="pref_preallocate_disk_space_title">Dành khoảng trống trên đĩa để tải tập tin</string>
+    <string name="pref_preallocate_disk_space_summary">Dùng được cho Android 5.0 trở lên</string>
+    <!-- About dialog -->
+    <string name="about_title">Giới thiệu về Download Navi</string>
+    <string name="about_description"><![CDATA[    Thông tin thêm về dự án và cách đóng góp cho dự án: <a href="https://github.com/TachibanaGeneralLaboratories/download-navi">https://github.com/TachibanaGeneralLaboratories/download-navi</a><br><br>
+    Download Navi là trình quản lí tải xuống miễn phí, mã nguồn mở, dành cho Android 4.4+<br><br>
+    Download Navi là phần mềm tự do, được phân phối theo <a href="http://www.gnu.org/copyleft/gpl.html">Giấy phép công cộng GNU phiên bản 3 (GPLv3)</a><br><br>
+    <a href="https://github.com/TachibanaGeneralLaboratories/download-navi/blob/HEAD/Privacy.md">Chính sách quyền riêng tư</a>]]></string>
+    <string name="about_changelog">Nhật kí thay đổi</string>
+</resources>

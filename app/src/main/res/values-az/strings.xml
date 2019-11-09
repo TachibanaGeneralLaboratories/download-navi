@@ -1,0 +1,245 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Global string -->
+    <string name="app_name">Download Navi</string>
+    <string name="foreground_notification">Önplan bildirişi</string>
+    <string name="download_running">Davam edir</string>
+    <string name="finished">Bitdi</string>
+    <string name="shutdown">Söndür</string>
+    <!-- 1 d. 1 h. 1 m -->
+    <string name="elapsed_time_format_d_h_mm">%1$d g. %2$d s. %3$d d</string>
+    <!-- 1 h. 1 m. 1 s -->
+    <string name="elapsed_time_format_h_mm_ss">%1$d s. %2$d d. %3$d s</string>
+    <!-- 1 m. 1 s -->
+    <string name="elapsed_time_format_mm_ss">%1$d d. %2$d s</string>
+    <!-- 1 s -->
+    <string name="elapsed_time_format_ss">%1$d sn</string>
+    <string name="ok">Oldu</string>
+    <string name="cancel">İmtina</string>
+    <!-- A synonym for word "unmetered" - unlimited-->
+    <string name="unmetered_connections_only">Yalnız limitsiz bağlantılar</string>
+    <string name="connect">Bağlantı qur</string>
+    <string name="add">Əlavə et</string>
+    <string name="not_available">Mövcud deyil</string>
+    <string name="open_navigation_drawer">Hərəkət siyirməsini aç</string>
+    <string name="close_navigation_drawer">Hərəkət siyirməsini bağla</string>
+    <string name="error_template">Xəta: %1$s</string>
+    <string name="pause">Fasilə ver</string>
+    <string name="resume">Davam et</string>
+    <string name="stop">Dayandır</string>
+    <string name="stopped">Dayandırıldı</string>
+    <string name="pending">Gözləyir</string>
+    <string name="delete">Sil</string>
+    <string name="share">Paylaş</string>
+    <string name="menu">Menyu</string>
+    <string name="select_all">Hamısını seç</string>
+    <string name="share_via">Paylaşma üsulu</string>
+    <string name="no">Xeyr</string>
+    <string name="yes">Bəli</string>
+    <string name="error">Xəta</string>
+    <string name="file">Fayl</string>
+    <string name="folder">Qovluq</string>
+    <string name="downloading_metadata">Meta verilənlər endirilir</string>
+    <string name="all">Hamısı</string>
+    <string name="search">Axtar</string>
+    <string name="settings">Tənzimləmələr</string>
+    <string name="about">Haqqında</string>
+    <string name="close">Bağla</string>
+    <string name="redownload">Yenidən endir</string>
+    <string name="Default">İlkin</string>
+    <string name="warning">Xəbərdarlıq</string>
+    <string name="apply">Tətbiq et</string>
+    <string name="report">Xəbər ver</string>
+    <string name="more_details">Daha çox təfsilat</string>
+    <!-- Permission dialog -->
+    <string name="perm_denied_title">İcazə verilmədi</string>
+    <string name="perm_denied_warning">Bu icazə olmasa tətbiq Android versiyasında və bəzi cihazlarda faylları yaddaşda saxlaya bilməz. Tətbiq düzgün işləməz. Bu icazəni rədd etmək istədiyinizə əminsiniz?</string>
+    <!-- Download progress notification -->
+    <string name="download_ticker_notify" formatted="false">%1$s endirilir</string>
+    <!-- Foreground notification -->
+    <string name="app_running_in_the_background">Download Navi arxaplanda işləyir</string>
+    <string name="pause_all">Hamısına fasilə ver</string>
+    <string name="resume_all">Hamısına fasilə ver</string>
+    <!-- Finish notification -->
+    <string name="download_finished_notify">Endirmə bitdi</string>
+    <string name="open_using">Açma üsulu</string>
+    <!-- Pending notification -->
+    <string name="download_in_queue_ticker_notify" formatted="false">%1$s sıradadır</string>
+    <string name="waiting_for_network">Şəbəkə gözlənilir</string>
+    <string name="waiting_for_retry">Yenidən sınama gözlənilir</string>
+    <!-- Error notification -->
+    <string name="download_error_notify_title">Endirmə xətası</string>
+    <!-- Applying params notification -->
+    <string name="applying_params_title">Parametrlər tətbiq edilir</string>
+    <string name="applying_params_for_downloads">Endirmələr üçün parametrlər tətbiq edilir</string>
+    <string name="applying_params_error_title" formatted="false">%1$s üçün parametr tətbiq etmə xətası</string>
+    <!-- Add download dialog -->
+    <string name="add_download">Endirmə əlavə et</string>
+    <string name="download_link">Bağlantı</string>
+    <string name="download_name">Ad</string>
+    <string name="download_size" formatted="false">Həcmi: %1$s</string>
+    <string name="download_retry">Yenidən sına</string>
+    <string name="download_advanced">Qabaqcıl</string>
+    <string name="download_user_agent">İstifadəçi agenti</string>
+    <string name="download_error_empty_link">Zəhmət olmasa bağlantını daxil et</string>
+    <string name="download_error_empty_name">Zəhmət olmasa adı daxil et</string>
+    <string name="download_error_no_enough_free_space" formatted="false">Kifayət qədər boş yer yoxdur: %1$s boşdur, ancaq faylın həcmi %2$s</string>
+    <string name="download_error_name_is_not_correct" formatted="false">Doğru ad belədir: \"%1$s\"</string>
+    <string name="fetch_error_default_fmt" formatted="false">Xəta: %1$s</string>
+    <string name="fetch_error_invalid_url" formatted="false">Etibarsız URL: %1$s</string>
+    <string name="fetch_error_network_disconnected">şəbəkə bağlantısı kəsildi</string>
+    <string name="fetch_error_http_response" formatted="false">Xəta: server HTTP %1$d kodunu qaytardı</string>
+    <string name="fetch_error_io" formatted="false">GÇ xətası: %1$s</string>
+    <string name="unable_to_open_folder">Seçilmiş qovluq açıla bilmir. Zəhmət olmasa başqa qovluq seçməyə çalışın</string>
+    <string name="unable_to_create_file">Fayl yaradıla bilmir. Zəhmət omasa başqa qovluq seçməyə çalışın</string>
+    <string name="partial_download_not_supported">Bu endirmə, fasilə vermə və hissəli endirməni dəstəkləmir</string>
+    <string name="download_pieces_number_title">Hissə sayı</string>
+    <string name="download_description">Açıqlama</string>
+    <string name="select_folder_to_save">Saxlanılacaq qovluğu seç</string>
+    <string name="path">Yol</string>
+    <string name="storage_free_space" formatted="false">Boş yer: %1$s</string>
+    <string name="add_download_error_invalid_url">Endirmə əlavə edilə bilmədi: etibarsız URL</string>
+    <!-- Add user agent dialog -->
+    <string name="dialog_add_user_agent_title">İstifadəçi agenti əlavə et</string>
+    <!-- Main activity -->
+    <string name="fragment_title_queued">Sıradadır</string>
+    <string name="fragment_title_completed">Tamamlandı</string>
+    <string name="download_list_empty">Endirmə yoxdur</string>
+    <string name="share_url">URL-ni paylaş</string>
+    <!-- Navigation drawer -->
+    <!-- Category -->
+    <string name="drawer_category">Kateqoriya</string>
+    <string name="drawer_category_others">Digərləri</string>
+    <string name="drawer_category_documents">Sənədlər</string>
+    <string name="drawer_category_images">Təsvirlər</string>
+    <string name="drawer_category_video">Video</string>
+    <string name="drawer_category_apk">APK</string>
+    <string name="drawer_category_audio">Səs</string>
+    <string name="drawer_category_archives">Arxivlər</string>
+    <!-- Status -->
+    <string name="drawer_status">Vəziyyəti</string>
+    <string name="drawer_status_running">İşləyir</string>
+    <string name="drawer_status_stopped">Dayandırıldı</string>
+    <!-- Date added -->
+    <string name="drawer_date_added">Əlavə edilmə tarixi</string>
+    <string name="drawer_date_added_today">Bugün</string>
+    <string name="drawer_date_added_yesterday">Dünən</string>
+    <string name="drawer_date_added_week">Həftə</string>
+    <string name="drawer_date_added_month">Ay</string>
+    <string name="drawer_date_added_year">İl</string>
+    <!-- Sorting -->
+    <string name="drawer_sorting">Sıralama</string>
+    <string name="drawer_sorting_date_added">Əlavə edilmə tarixi</string>
+    <string name="drawer_sorting_name">Ad</string>
+    <string name="drawer_sorting_size">Həcmi</string>
+    <string name="drawer_sorting_category">Kateqoriya</string>
+    <string name="drawer_sorting_no_sorting">Sıralama yoxdur</string>
+    <!-- Download list item -->
+    <!-- downloaded/total • ETA • speed -->
+    <string name="download_queued_progress_template" formatted="false">%1$s/%2$s \u2022 %3$s \u2022 %4$s/sn</string>
+    <!-- downloaded/total • status -->
+    <string name="download_queued_template" formatted="false">%1$s/%2$s \u2022 %3$s</string>
+    <!-- hostname • total -->
+    <string name="download_finished_template" formatted="false">%1$s \u2022 %2$s</string>
+    <string name="download_details">Təfsilatlar</string>
+    <string name="deleting">Silinir</string>
+    <string name="delete_selected_download">Seçilmiş endirmə silinsin? Bu əməliyyatın geri dönüşü yoxdur</string>
+    <string name="delete_selected_downloads">Seçilmiş endirmələr silinsin? Bu əməliyyatın geri dönüşü yoxdur</string>
+    <string name="delete_with_downloaded_file">Endirilmiş faylı da sil</string>
+    <!-- Filemanager dialog -->
+    <string name="dir_chooser_title">Qovluq seçimi</string>
+    <string name="file_chooser_title">Fayl seçimi</string>
+    <string name="dialog_new_folder_title">Yeni qovluq</string>
+    <string name="error_dialog_new_folder">Yeni qovluq yaradıla bilmir</string>
+    <string name="error_open_dir">Qovluq açıla bilmir</string>
+    <string name="home_directory">Əsas səhifə</string>
+    <!-- name (size) -->
+    <string name="permission_denied">İcazə rədd edildi</string>
+    <string name="save_file">Faylı saxla</string>
+    <string name="file_name">Fayl adı</string>
+    <string name="error_file_exists">Fayl artıq mövcuddur. Əvəzlənsin?</string>
+    <string name="file_name_is_empty">Fayl adı boş ola bilməz</string>
+    <string name="system_manager">Sistem idarəçisi</string>
+    <string name="device_does_not_support_this_feature">Cihazınız bu xüsusiyyəti dəstəkləmir</string>
+    <string name="system_file_manager_not_found">Sistem fayl idarəçisi tapılmadı</string>
+    <string name="replace_file">Faylı əvəz et</string>
+    <!-- Details download dialog -->
+    <string name="detail_downloaded">Endirildi</string>
+    <!-- downloaded/total (percent) -->
+    <string name="detail_downloaded_format" formatted="false">%1$s/%2$s (%3$d%%)</string>
+    <string name="detail_pieces">Hissələr</string>
+    <string name="detail_date_added">Əlavə edilmə tarixi</string>
+    <string name="detail_user_agent">İstifadəçi agenti</string>
+    <string name="detail_md5_hash_sum">MD5</string>
+    <string name="detail_sha256_hash_sum">SHA-256</string>
+    <string name="calculate">Hesabla</string>
+    <!-- Error report -->
+    <string name="app_error_occurred">Tətbiq xətası baş verdi. Hesabatı tərtibatçılara göndərə bilərsiniz</string>
+    <string name="error_comment_prompt">Əlavə məlumat və rəyinizi bura yaza bilərsiniz:</string>
+    <!-- Send text to clipboard -->
+    <string name="send_text_to_clipboard">Kopyala</string>
+    <string name="text_copied_to_clipboard">Mətn lövhəyə kopyalandı</string>
+    <!-- Settings -->
+    <!-- Headers -->
+    <string name="pref_header_appearance">Görünüş</string>
+    <string name="pref_header_behavior">Davranış</string>
+    <string name="pref_header_storage">Anbar</string>
+    <!-- Appearance settings -->
+    <string name="pref_theme_category">Tema tənzimləmələri</string>
+    <string name="pref_theme_title">Tema</string>
+    <string-array name="pref_theme_entries">
+        <item>Açıq</item>
+        <item>Tünd</item>
+        <item>Qara</item>
+    </string-array>
+    <string name="pref_notification_category">Bildiriş tənzimləmələri</string>
+    <string name="pref_progress_notify_title">İrəliləyiş bildirişi</string>
+    <string name="pref_finish_notify_title">Bitdi bildirişi</string>
+    <string name="pref_pending_notify_title">Gözləyir bildirişi</string>
+    <string name="pref_play_sound_notify_title">Səs oynat</string>
+    <string name="pref_notify_sound_title">Bildiriş səsi</string>
+    <string name="pref_led_indicator_notify_title">LED göstəricisi</string>
+    <string name="pref_led_indicator_color_notify_title">LED göstərici rəngi</string>
+    <string name="pref_vibration_notify_title">Titrəmə</string>
+    <string name="theme_settings_apply_after_reboot">Tema tənzimləmələri tətbiq yenidən başladıldıqdan sonra tətbiq ediləcək</string>
+    <!-- Behavior settings -->
+    <string name="pref_autostart_title">Avtomatik başlatma</string>
+    <string name="pref_autostart_summary">Cihaz açılanda tətbiqi işlət və fasilə verilməyən endirmələri davam etdir</string>
+    <!-- A synonym for word "unmetered" - unlimited-->
+    <string name="pref_umnetered_connections_only_title">Yalnız limitsiz bağlantılar</string>
+    <string name="pref_umnetered_connections_only_summary">Yalnız limitsiz bağlantılarda endir (Wi-Fi və ya Ethernet)</string>
+    <string name="pref_power_management_category">Enerji idarəsi</string>
+    <string name="pref_cpu_do_not_sleep_title">CPU-nu oyaq saxla</string>
+    <string name="pref_cpu_do_not_sleep_summary">Bunu fəallaşdırmaq batereya istifadəsini artırar. Ekran sönəndə endirmə sürəti azalsa bu seçimi istifadə et</string>
+    <string name="pref_download_only_when_charging_title">Yalnız batereya doldurularkən endir</string>
+    <string name="pref_download_only_when_charging_summary">Fəallaşdırılsa, endirmə yalnız batereya doldurma vaxtı həyata keçiriləcək. Batereya doldurma qurğusu cihazdan ayrılanda bütün endirmələrə fasilə verilər</string>
+    <string name="pref_battery_control_title">Batereyaya nəzarət</string>
+    <string name="pref_custom_battery_control_title">Fərdi batereya faizi</string>
+    <string name="pref_custom_battery_control_value_title">Batereyaya nəzarət faizi</string>
+    <string name="pref_battery_control_summary" formatted="false">Batereya səviyyəsi %1$d%% altında olanda bütün endirmələrə fasilə verilər. Limit batereya doldurma vaxtı tətbiq edilmir</string>
+    <string name="pref_custom_battery_control_summary" formatted="false">Batereya səviyyəsi müəyyən bir dəyərdən az olsa, endirməyə fasilə vermək üçün bir faiz müəyyən edin. Bu seçimin fəallaşdırılması, ilkin %1$d%% dəyərini əhəmiyyətsiz edər</string>
+    <string name="pref_custom_battery_control_dialog_summary" formatted="false">Endirmə ərzində tətbiqetmə üçün fərdi batereya faizi tənzimləmək, batereya ömrünə mənfi yöndə təsir edər. Fəallaşdırmaq istədiyinizə əminsiniz?</string>
+    <string name="pref_enable_roaming_title">Roaminqi fəallaşdır</string>
+    <string name="pref_enable_roaming_summary">Cihaz roaminqdə olmayanda endir</string>
+    <string name="pref_max_active_downloads_title">Maksimum aktiv endirmə</string>
+    <string name="pref_max_download_retries_title">Endirmə cəhdinin maksimum sayı</string>
+    <string name="pref_max_download_retries_dialog_msg">0 - cəhd yoxdur</string>
+    <string name="pref_replace_duplicate_downloads_title">Təkrarlanan endirmələri əvəz et</string>
+    <string name="pref_replace_duplicate_downloads_summary">Siyahıya əlavə ediləndə (eyni URL ilə) təkrarlanan endirmələri əvəz et</string>
+    <string name="pref_auto_connect_title">Avto bağlantı qur</string>
+    <string name="pref_auto_connect_summary">Əlavə etmə pəncərəsi açılanda avtomatik bağlantı qur</string>
+    <!-- Storage settings -->
+    <string name="pref_save_downloads_in_title">Endirmələrin saxlanması</string>
+    <string name="pref_move_after_download_title">Endirəndən sonra köçürt</string>
+    <string name="pref_move_after_download_in_title">Endirəndən sonra köçürt</string>
+    <string name="pref_delete_file_if_error_title">Bir xəta baş versə faylı sil</string>
+    <string name="pref_preallocate_disk_space_title">Fayl üçün əvvəlcədən ayrılmış disk sahəsi</string>
+    <string name="pref_preallocate_disk_space_summary">Android 5.0 və sonrakılar üçün əlçatandır</string>
+    <!-- About dialog -->
+    <string name="about_title">Download Navi Haqqında</string>
+    <string name="about_description"><![CDATA[    Layihəyə kömək etmək üçün ətraflı məlumat: <a href="https://github.com/TachibanaGeneralLaboratories/download-navi">https://github.com/TachibanaGeneralLaboratories/download-navi</a><br><br>
+    Download Navi, Android 4.4+ üçün ödənişsiz Açıq Mənbəli endirmə idarəçisidir<br><br>
+    Download Navi ödənişsiz proqram təminatıdır,<a href="http://www.gnu.org/copyleft/gpl.html">GNU Ümumi İctimai Lisenziyası v3 (GPLv3)</a><br><br>
+    <a href="https://github.com/TachibanaGeneralLaboratories/download-navi/blob/HEAD/Privacy.md">Gizlilik siyasəti</a> şərtləri altında buraxılıb]]></string>
+    <string name="about_changelog">Dəyişiklik jurnalı</string>
+</resources>

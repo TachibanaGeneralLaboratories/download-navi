@@ -1,0 +1,20 @@
+Download Navi là trình quản lí tải xuống tự do mã nguồn mở dành cho Android 4.4+.
+
+# Tính năng
+
+* Là phần mềm tự do mã nguồn mở (FOSS)
+* Material Design
+* Nhiều chủ đề (Sáng, Tối, Đen)
+* Hỗ trợ Android TV
+* Hỗ trợ Chrome OS
+* Tạm dừng và tiếp tục tải xuống
+* Hỗ trợ các trình duyệt
+* Tải xuống song song (mặc định là 3)
+* Tải xuống phân mảnh (tối đa là 16)
+* Tải xuống khi chạy ngầm
+* Chỉ tải khi mạng không tính cước (ví dụ Wi-Fi)
+* Kiểm soát chuyển vùng
+* Cài đặt tác nhân người dùng (user agent)
+* Tính mã băm (MD5 & SHA-256)
+* Quản lí nguồn năng lượng và pin
+* Nhiều thao tác tự động sau khi tải xong

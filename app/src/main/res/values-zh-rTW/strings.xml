@@ -1,0 +1,245 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Global string -->
+    <string name="app_name">Download Navi</string>
+    <string name="foreground_notification">前台服務通知</string>
+    <string name="download_running">進行中</string>
+    <string name="finished">已完成</string>
+    <string name="shutdown">關閉</string>
+    <!-- 1 d. 1 h. 1 m -->
+    <string name="elapsed_time_format_d_h_mm">%1$d 天 %2$d 小時 %3$d 分</string>
+    <!-- 1 h. 1 m. 1 s -->
+    <string name="elapsed_time_format_h_mm_ss">%1$d 小時 %2$d 分 %3$d 秒</string>
+    <!-- 1 m. 1 s -->
+    <string name="elapsed_time_format_mm_ss">%1$d 分 %2$d 秒</string>
+    <!-- 1 s -->
+    <string name="elapsed_time_format_ss">%1$d 秒</string>
+    <string name="ok">確認</string>
+    <string name="cancel">取消</string>
+    <!-- A synonym for word "unmetered" - unlimited-->
+    <string name="unmetered_connections_only">只使用非計量計費網路</string>
+    <string name="connect">連線</string>
+    <string name="add">新增</string>
+    <string name="not_available">N/A</string>
+    <string name="open_navigation_drawer">打開導覽列表</string>
+    <string name="close_navigation_drawer">關閉導覽列表</string>
+    <string name="error_template">錯誤：%1$s</string>
+    <string name="pause">暫停</string>
+    <string name="resume">恢復</string>
+    <string name="stop">停止</string>
+    <string name="stopped">已停止</string>
+    <string name="pending">等待中</string>
+    <string name="delete">刪除</string>
+    <string name="share">分享</string>
+    <string name="menu">選單</string>
+    <string name="select_all">選取全部</string>
+    <string name="share_via">分享方式：</string>
+    <string name="no">取消</string>
+    <string name="yes">完成</string>
+    <string name="error">錯誤</string>
+    <string name="file">檔案</string>
+    <string name="folder">資料夾</string>
+    <string name="downloading_metadata">下載元資料中</string>
+    <string name="all">全部</string>
+    <string name="search">搜尋</string>
+    <string name="settings">設定</string>
+    <string name="about">關於</string>
+    <string name="close">關閉</string>
+    <string name="redownload">重新下載</string>
+    <string name="Default">預設</string>
+    <string name="warning">警告</string>
+    <string name="apply">套用</string>
+    <string name="report">回報</string>
+    <string name="more_details">更多細節</string>
+    <!-- Permission dialog -->
+    <string name="perm_denied_title">權限被拒絕</string>
+    <string name="perm_denied_warning">如果拒絕此權限，應用程式將無法在某些裝置和 Android 版本的記憶體中保存文件。此應用程式將無法正常工作。您確定要拒絕此權限嗎？</string>
+    <!-- Download progress notification -->
+    <string name="download_ticker_notify" formatted="false">正在下載 %1$s</string>
+    <!-- Foreground notification -->
+    <string name="app_running_in_the_background">Download Navi 正在後台執行</string>
+    <string name="pause_all">全部暫停</string>
+    <string name="resume_all">全部恢復</string>
+    <!-- Finish notification -->
+    <string name="download_finished_notify">下載完成</string>
+    <string name="open_using">打開方式</string>
+    <!-- Pending notification -->
+    <string name="download_in_queue_ticker_notify" formatted="false">%1$s 在隊列中</string>
+    <string name="waiting_for_network">等待網路</string>
+    <string name="waiting_for_retry">等待重試</string>
+    <!-- Error notification -->
+    <string name="download_error_notify_title">下載出錯</string>
+    <!-- Applying params notification -->
+    <string name="applying_params_title">套用參數</string>
+    <string name="applying_params_for_downloads">對下載套用參數</string>
+    <string name="applying_params_error_title" formatted="false">對 %1$s 套用參數出錯</string>
+    <!-- Add download dialog -->
+    <string name="add_download">新增下載</string>
+    <string name="download_link">連接</string>
+    <string name="download_name">名稱</string>
+    <string name="download_size" formatted="false">大小：%1$s</string>
+    <string name="download_retry">重試</string>
+    <string name="download_advanced">進階</string>
+    <string name="download_user_agent">使用者代理</string>
+    <string name="download_error_empty_link">請輸入連結</string>
+    <string name="download_error_empty_name">請輸入檔案名稱</string>
+    <string name="download_error_no_enough_free_space" formatted="false">可用空間不足：剩餘 %1$s，但檔案大小為 %2$s</string>
+    <string name="download_error_name_is_not_correct" formatted="false">正確的名稱爲 \"%1$s\"</string>
+    <string name="fetch_error_default_fmt" formatted="false">錯誤：%1$s</string>
+    <string name="fetch_error_invalid_url" formatted="false">無效的連接：%1$s</string>
+    <string name="fetch_error_network_disconnected">網路已斷開</string>
+    <string name="fetch_error_http_response" formatted="false">錯誤：伺服器返回 HTTP %1$d 錯誤</string>
+    <string name="fetch_error_io" formatted="false">IO 錯誤：%1$s</string>
+    <string name="unable_to_open_folder">無法打開所選資料夾，請嘗試選擇其他資料夾</string>
+    <string name="unable_to_create_file">無法創建檔案，請嘗試選擇其他資料夾</string>
+    <string name="partial_download_not_supported">此檔案不支援暫停或多執行緒分片下載</string>
+    <string name="download_pieces_number_title">分片數</string>
+    <string name="download_description">詳情</string>
+    <string name="select_folder_to_save">選擇要儲存的資料夾</string>
+    <string name="path">路徑</string>
+    <string name="storage_free_space" formatted="false">可用空間：%1$s</string>
+    <string name="add_download_error_invalid_url">無法新增下載：連接無效</string>
+    <!-- Add user agent dialog -->
+    <string name="dialog_add_user_agent_title">新增使用者代理</string>
+    <!-- Main activity -->
+    <string name="fragment_title_queued">隊列中</string>
+    <string name="fragment_title_completed">已完成</string>
+    <string name="download_list_empty">沒有下載</string>
+    <string name="share_url">分享連接</string>
+    <!-- Navigation drawer -->
+    <!-- Category -->
+    <string name="drawer_category">分類</string>
+    <string name="drawer_category_others">其他</string>
+    <string name="drawer_category_documents">文件</string>
+    <string name="drawer_category_images">圖片</string>
+    <string name="drawer_category_video">影片</string>
+    <string name="drawer_category_apk">APK</string>
+    <string name="drawer_category_audio">音訊</string>
+    <string name="drawer_category_archives">封存檔</string>
+    <!-- Status -->
+    <string name="drawer_status">狀態</string>
+    <string name="drawer_status_running">執行中</string>
+    <string name="drawer_status_stopped">已停止</string>
+    <!-- Date added -->
+    <string name="drawer_date_added">新增日期</string>
+    <string name="drawer_date_added_today">今天</string>
+    <string name="drawer_date_added_yesterday">昨天</string>
+    <string name="drawer_date_added_week">週</string>
+    <string name="drawer_date_added_month">月</string>
+    <string name="drawer_date_added_year">年</string>
+    <!-- Sorting -->
+    <string name="drawer_sorting">排序</string>
+    <string name="drawer_sorting_date_added">新增日期</string>
+    <string name="drawer_sorting_name">名稱</string>
+    <string name="drawer_sorting_size">大小</string>
+    <string name="drawer_sorting_category">分類</string>
+    <string name="drawer_sorting_no_sorting">無排序</string>
+    <!-- Download list item -->
+    <!-- downloaded/total • ETA • speed -->
+    <string name="download_queued_progress_template" formatted="false">%1$s/%2$s \u2022 %3$s \u2022 %4$s/秒</string>
+    <!-- downloaded/total • status -->
+    <string name="download_queued_template" formatted="false">%1$s/%2$s \u2022 %3$s</string>
+    <!-- hostname • total -->
+    <string name="download_finished_template" formatted="false">%1$s \u2022 %2$s</string>
+    <string name="download_details">詳細資料</string>
+    <string name="deleting">正在刪除</string>
+    <string name="delete_selected_download">您要刪除選中的下載嗎？此操作無法撤消</string>
+    <string name="delete_selected_downloads">您要刪除選中的下載嗎？此操作無法撤消</string>
+    <string name="delete_with_downloaded_file">同時刪除已下載檔案</string>
+    <!-- Filemanager dialog -->
+    <string name="dir_chooser_title">資料夾選擇</string>
+    <string name="file_chooser_title">檔案選中</string>
+    <string name="dialog_new_folder_title">新資料夾</string>
+    <string name="error_dialog_new_folder">無法建立新資料夾</string>
+    <string name="error_open_dir">無法打開此資料夾</string>
+    <string name="home_directory">首頁</string>
+    <!-- name (size) -->
+    <string name="permission_denied">權限被拒絕</string>
+    <string name="save_file">儲存檔案</string>
+    <string name="file_name">檔案名稱</string>
+    <string name="error_file_exists">已有相同的檔案。您要覆寫它嗎？</string>
+    <string name="file_name_is_empty">檔案名稱不能爲空</string>
+    <string name="system_manager">系統檔案管理員</string>
+    <string name="device_does_not_support_this_feature">您的裝置不支援此功能</string>
+    <string name="system_file_manager_not_found">找不到系統檔案管理員</string>
+    <string name="replace_file">取代檔案</string>
+    <!-- Details download dialog -->
+    <string name="detail_downloaded">已下載</string>
+    <!-- downloaded/total (percent) -->
+    <string name="detail_downloaded_format" formatted="false">%1$s/%2$s (%3$d%%)</string>
+    <string name="detail_pieces">檔案分片</string>
+    <string name="detail_date_added">加入日期</string>
+    <string name="detail_user_agent">使用者代理 (User agent)</string>
+    <string name="detail_md5_hash_sum">MD5</string>
+    <string name="detail_sha256_hash_sum">SHA-256</string>
+    <string name="calculate">計算</string>
+    <!-- Error report -->
+    <string name="app_error_occurred">發生了應用程式錯誤。您可以將此報告發傳送至開發者</string>
+    <string name="error_comment_prompt">您可以在此處補充額外訊息和評論：</string>
+    <!-- Send text to clipboard -->
+    <string name="send_text_to_clipboard">複製</string>
+    <string name="text_copied_to_clipboard">文字已複製至剪貼簿</string>
+    <!-- Settings -->
+    <!-- Headers -->
+    <string name="pref_header_appearance">外觀</string>
+    <string name="pref_header_behavior">行爲</string>
+    <string name="pref_header_storage">存儲</string>
+    <!-- Appearance settings -->
+    <string name="pref_theme_category">主題設定</string>
+    <string name="pref_theme_title">佈景主題</string>
+    <string-array name="pref_theme_entries">
+        <item>明亮</item>
+        <item>黑暗</item>
+        <item>黑色</item>
+    </string-array>
+    <string name="pref_notification_category">通知設定</string>
+    <string name="pref_progress_notify_title">進度通知</string>
+    <string name="pref_finish_notify_title">完成通知</string>
+    <string name="pref_pending_notify_title">待下載通知</string>
+    <string name="pref_play_sound_notify_title">播放音效</string>
+    <string name="pref_notify_sound_title">通知音效</string>
+    <string name="pref_led_indicator_notify_title">LED 指示燈</string>
+    <string name="pref_led_indicator_color_notify_title">LEF 指示燈顏色</string>
+    <string name="pref_vibration_notify_title">震動</string>
+    <string name="theme_settings_apply_after_reboot">主題設定將在重新啓動應用程式後套用</string>
+    <!-- Behavior settings -->
+    <string name="pref_autostart_title">自動啓動</string>
+    <string name="pref_autostart_summary">系統啓動後自動運行這個應用程式，並開始下載未被手動暫停的任務</string>
+    <!-- A synonym for word "unmetered" - unlimited-->
+    <string name="pref_umnetered_connections_only_title">只使用非計量計費網路</string>
+    <string name="pref_umnetered_connections_only_summary">只使用非計量計費的網路（如 WiFi 或乙太網路）</string>
+    <string name="pref_power_management_category">電源管理</string>
+    <string name="pref_cpu_do_not_sleep_title">停用休眠</string>
+    <string name="pref_cpu_do_not_sleep_summary">啓用此選項將增加電池用量。只應在關閉熒幕後下載速度顯著下降時啓用此選項</string>
+    <string name="pref_download_only_when_charging_title">只在充電時下載</string>
+    <string name="pref_download_only_when_charging_summary">如果啓用此選項，下載任務將只在充電時開始。所有的下載任務將在未連接充電器時暫停</string>
+    <string name="pref_battery_control_title">電池控制</string>
+    <string name="pref_custom_battery_control_title">顯示電量百分比</string>
+    <string name="pref_custom_battery_control_value_title">電池控制百分比</string>
+    <string name="pref_battery_control_summary" formatted="false">在電量低於 %1$d%% 時暫停所有下載。此限制將不會在充電時套用</string>
+    <string name="pref_custom_battery_control_summary" formatted="false">自訂一個百分比值，當電量低於此閾值時自動暫停下載。啟用此選項將忽略默認的 %1$d%% 閾值</string>
+    <string name="pref_custom_battery_control_dialog_summary" formatted="false">在下載過程中，為應用程式設定自訂電池百分比將對電池壽命產生負面影響。你確定要啟用它嗎？</string>
+    <string name="pref_enable_roaming_title">啓用漫遊</string>
+    <string name="pref_enable_roaming_summary">只在裝置未漫遊時下載</string>
+    <string name="pref_max_active_downloads_title">最大活躍下載數</string>
+    <string name="pref_max_download_retries_title">最大下載重試次數</string>
+    <string name="pref_max_download_retries_dialog_msg">0 - 不重試</string>
+    <string name="pref_replace_duplicate_downloads_title">替換重複的下載</string>
+    <string name="pref_replace_duplicate_downloads_summary">替換已新增至列表中的重複下載（使用相同連接）</string>
+    <string name="pref_auto_connect_title">自動連線</string>
+    <string name="pref_auto_connect_summary">在打開新增對話方塊時自動連線下載位址</string>
+    <!-- Storage settings -->
+    <string name="pref_save_downloads_in_title">下載儲存資料夾</string>
+    <string name="pref_move_after_download_title">下載後移動</string>
+    <string name="pref_move_after_download_in_title">下載後移動資料夾</string>
+    <string name="pref_delete_file_if_error_title">發生錯誤後刪除檔案</string>
+    <string name="pref_preallocate_disk_space_title">爲下載檔案預分配儲存空間</string>
+    <string name="pref_preallocate_disk_space_summary">僅在 Android 5.0 Lollipop 及以上版本可用</string>
+    <!-- About dialog -->
+    <string name="about_title">關於 Download Navi</string>
+    <string name="about_description"><![CDATA[    訪問此網站以獲取更多資訊或取得幫助：<a href="https://github.com/TachibanaGeneralLaboratories/download-navi">https://github.com/TachibanaGeneralLaboratories/download-navi</a><br><br>
+    Download Navi 是一款適用於 Android 4.4 及以上版本的免費且開源的下載管理員<br><br>
+    Download Navi 是一款自由軟體，遵循 <a href="http://www.gnu.org/copyleft/gpl.html">GNU General Public License v3 (GPLv3)</a> 的許可條款發佈<br><br>
+    <a href="https://github.com/TachibanaGeneralLaboratories/download-navi/blob/HEAD/Privacy.md">隱私政策</a>]]></string>
+    <string name="about_changelog">更新日誌</string>
+</resources>

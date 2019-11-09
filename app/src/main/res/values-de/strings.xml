@@ -3,9 +3,9 @@
     <!-- Global string -->
     <string name="app_name">Download Navi</string>
     <string name="foreground_notification">Benachrichtigung im Vordergrund</string>
-    <string name="download_running">In Arbeit</string>
-    <string name="finished">Abgeschlossen</string>
-    <string name="shutdown">Herunterfahren</string>
+    <string name="download_running">In Bearbeitung</string>
+    <string name="finished">Fertig</string>
+    <string name="shutdown">Beenden</string>
     <!-- 1 d. 1 h. 1 m -->
     <string name="elapsed_time_format_d_h_mm">%1$d d. %2$d h. %3$d m</string>
     <!-- 1 h. 1 m. 1 s -->
@@ -237,8 +237,7 @@
     <string name="pref_preallocate_disk_space_summary">Verfügbar für Android 5.0 Lollipop und höher</string>
     <!-- About dialog -->
     <string name="about_title">Über Download Navi</string>
-    <string name="about_description"><![CDATA[
-    Weitere Informationen und auch um das Projekt zu unterstützen: <a href="https://github.com/TachibanaGeneralLaboratories/download-navi">https://github.com/TachibanaGeneralLaboratories/download-navi</a><br><br>
+    <string name="about_description"><![CDATA[    Weitere Informationen und auch um das Projekt zu unterstützen: <a href="https://github.com/TachibanaGeneralLaboratories/download-navi">https://github.com/TachibanaGeneralLaboratories/download-navi</a><br><br>
     Download Navi ist ein kostenloser und Open Source Download Manager für Android 4.4+<br><br>
     Download Navi ist freie Software, veröffentlicht unter den Bedingungen der <a href="http://www.gnu.org/copyleft/gpl.html">GNU General Public License v3 (GPLv3)</a><br><br>
     <a href="https://github.com/TachibanaGeneralLaboratories/download-navi/blob/HEAD/Privacy.md">Datenschutz-Bestimmungen</a>]]></string>
