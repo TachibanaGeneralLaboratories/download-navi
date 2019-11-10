@@ -169,6 +169,18 @@ public class BehaviorSettingsFragment extends PreferenceFragmentCompat
             autoConnect.setChecked(pref.autoConnect());
             bindOnPreferenceChangeListener(autoConnect);
         }
+
+        String keyTimeout = getString(R.string.pref_key_timeout);
+        EditTextPreference timeout = findPreference(keyTimeout);
+        if (timeout != null) {
+            timeout.setDialogMessage(R.string.pref_timeout_summary);
+            String value = Integer.toString(pref.timeout());
+            timeout.setOnBindEditTextListener((editText) ->
+                    editText.setFilters(new InputFilter[]{new InputFilterMinMax(0, Integer.MAX_VALUE)}));
+            timeout.setSummary(value);
+            timeout.setText(value);
+            bindOnPreferenceChangeListener(timeout);
+        }
     }
 
     @Override
@@ -264,6 +276,12 @@ public class BehaviorSettingsFragment extends PreferenceFragmentCompat
         } else if(preference.getKey().equals(getString(R.string.pref_key_auto_connect))) {
             pref.autoConnect((boolean)newValue);
 
+        } else if(preference.getKey().equals(getString(R.string.pref_key_timeout))) {
+            int value = 0;
+            if (!TextUtils.isEmpty((String)newValue))
+                value = Integer.parseInt((String)newValue);
+            pref.timeout(value);
+            preference.setSummary(Integer.toString(value));
         }
 
         return true;

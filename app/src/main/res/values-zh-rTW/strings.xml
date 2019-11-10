@@ -228,6 +228,8 @@
     <string name="pref_replace_duplicate_downloads_summary">替換已新增至列表中的重複下載（使用相同連接）</string>
     <string name="pref_auto_connect_title">自動連線</string>
     <string name="pref_auto_connect_summary">在打開新增對話方塊時自動連線下載位址</string>
+    <string name="pref_timeout_title">Timeout</string>
+    <string name="pref_timeout_summary">The number of milliseconds to wait before the connection timed out. Zero is interpreted as an infinite timeout</string>
     <!-- Storage settings -->
     <string name="pref_save_downloads_in_title">下載儲存資料夾</string>
     <string name="pref_move_after_download_title">下載後移動</string>

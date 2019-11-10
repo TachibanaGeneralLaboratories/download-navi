@@ -228,6 +228,8 @@
     <string name="pref_replace_duplicate_downloads_summary">प्रतिलिपि डाउनलोड (एक ही URL के साथ) को प्रतिस्थापित करें जब जोड़ा जो पहले से ही सूची में है</string>
     <string name="pref_auto_connect_title">स्वतः जुड़ना</string>
     <string name="pref_auto_connect_summary">जोड़ें संवाद खोलते समय स्वत: कनेक्ट करें</string>
+    <string name="pref_timeout_title">Timeout</string>
+    <string name="pref_timeout_summary">The number of milliseconds to wait before the connection timed out. Zero is interpreted as an infinite timeout</string>
     <!-- Storage settings -->
     <string name="pref_save_downloads_in_title">में डाउनलोड सहेजें</string>
     <string name="pref_move_after_download_title">डाउनलोड करने के बाद ले जाएं</string>

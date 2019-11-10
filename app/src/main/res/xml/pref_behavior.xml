@@ -31,6 +31,12 @@
         android:inputType="numberDecimal"
         android:persistent="false" />
 
+    <EditTextPreference
+        android:key="@string/pref_key_timeout"
+        android:title="@string/pref_timeout_title"
+        android:inputType="numberDecimal"
+        android:persistent="false" />
+
     <SwitchPreferenceCompat
         android:key="@string/pref_key_replace_duplicate_downloads"
         android:title="@string/pref_replace_duplicate_downloads_title"

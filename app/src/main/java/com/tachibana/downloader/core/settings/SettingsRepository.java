@@ -114,6 +114,10 @@ public interface SettingsRepository
 
     void maxDownloadRetries(int val);
 
+    int timeout();
+
+    void timeout(int val);
+
     boolean replaceDuplicateDownloads();
 
     void replaceDuplicateDownloads(boolean val);

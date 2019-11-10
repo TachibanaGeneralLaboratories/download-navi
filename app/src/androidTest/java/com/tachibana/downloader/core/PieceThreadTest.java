@@ -93,7 +93,7 @@ public class PieceThreadTest extends AbstractTest
             assertTrue(file.exists());
 
             /* Run piece task */
-            Future<PieceResult> f = runTask(new PieceThreadImpl(context, id, 0, repo, fs));
+            Future<PieceResult> f = runTask(new PieceThreadImpl(context, id, 0, repo, fs, pref));
             assertTrue(f.isDone());
             assertFalse(f.isCancelled());
 
@@ -145,7 +145,7 @@ public class PieceThreadTest extends AbstractTest
             assertTrue(file.exists());
 
             /* Run piece task */
-            Future<PieceResult> f = runTask(new PieceThreadImpl(context, id, 0, repo, fs));
+            Future<PieceResult> f = runTask(new PieceThreadImpl(context, id, 0, repo, fs, pref));
             assertTrue(f.isDone());
             assertFalse(f.isCancelled());
 

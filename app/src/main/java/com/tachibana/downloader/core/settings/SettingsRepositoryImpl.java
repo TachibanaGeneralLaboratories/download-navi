@@ -29,6 +29,7 @@ import androidx.annotation.NonNull;
 import androidx.core.content.ContextCompat;
 
 import com.tachibana.downloader.R;
+import com.tachibana.downloader.core.HttpConnection;
 import com.tachibana.downloader.core.system.SystemFacadeHelper;
 import com.tachibana.downloader.core.utils.Utils;
 
@@ -70,6 +71,7 @@ public class SettingsRepositoryImpl implements SettingsRepository
         static final int customBatteryControlValue = Utils.getDefaultBatteryLowLevel();
         static final int maxActiveDownloads = 3;
         static final int maxDownloadRetries = 5;
+        static final int timeout = HttpConnection.DEFAULT_TIMEOUT;
         static final boolean replaceDuplicateDownloads = true;
         static final boolean autoConnect = true;
         static String userAgent(@NonNull Context context)
@@ -399,6 +401,21 @@ public class SettingsRepositoryImpl implements SettingsRepository
     {
         pref.edit()
                 .putInt(appContext.getString(R.string.pref_key_max_download_retries), val)
+                .apply();
+    }
+
+    @Override
+    public int timeout()
+    {
+        return pref.getInt(appContext.getString(R.string.pref_key_timeout),
+                Default.timeout);
+    }
+
+    @Override
+    public void timeout(int val)
+    {
+        pref.edit()
+                .putInt(appContext.getString(R.string.pref_key_timeout), val)
                 .apply();
     }
 

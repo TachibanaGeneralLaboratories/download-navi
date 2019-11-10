@@ -41,11 +41,12 @@ public class HttpConnection implements Runnable
 {
     /* Can't be more than 7 */
     private static final int MAX_REDIRECTS = 5;
-    private static final int DEFAULT_TIMEOUT = (int)(20 * SECOND_IN_MILLIS);
+    public static final int DEFAULT_TIMEOUT = (int)(20 * SECOND_IN_MILLIS);
 
     private URL url;
     private TLSSocketFactory socketFactory;
     private Listener listener;
+    private int timeout = DEFAULT_TIMEOUT;
 
     public interface Listener
     {
@@ -71,6 +72,16 @@ public class HttpConnection implements Runnable
         this.listener = listener;
     }
 
+    /*
+     * The non-negative number of milliseconds to wait before the connection timed out.
+     * Zero is interpreted as an infinite timeout
+     */
+
+    public void setTimeout(int timeout)
+    {
+        this.timeout = timeout;
+    }
+
     @Override
     public void run()
     {
@@ -80,8 +91,8 @@ public class HttpConnection implements Runnable
             try {
                 conn = (HttpURLConnection)url.openConnection();
                 conn.setInstanceFollowRedirects(false);
-                conn.setConnectTimeout(DEFAULT_TIMEOUT);
-                conn.setReadTimeout(DEFAULT_TIMEOUT);
+                conn.setConnectTimeout(timeout);
+                conn.setReadTimeout(timeout);
 
                 if (conn instanceof HttpsURLConnection)
                     ((HttpsURLConnection) conn).setSSLSocketFactory(socketFactory);

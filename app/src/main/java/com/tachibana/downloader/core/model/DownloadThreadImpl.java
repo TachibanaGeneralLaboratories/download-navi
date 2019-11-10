@@ -419,7 +419,7 @@ public class DownloadThreadImpl implements DownloadThread
 
             ArrayList<PieceThread> pieceThreads = new ArrayList<>(info.getNumPieces());
             for (int i = 0; i < info.getNumPieces(); i++)
-                pieceThreads.add(new PieceThreadImpl(appContext, id, i, repo, fs));
+                pieceThreads.add(new PieceThreadImpl(appContext, id, i, repo, fs, pref));
 
             /* Wait all threads */
             resList = exec.invokeAll(pieceThreads);
@@ -444,7 +444,7 @@ public class DownloadThreadImpl implements DownloadThread
         } catch (GeneralSecurityException e) {
             return new StopRequest(STATUS_UNKNOWN_ERROR, "Unable to create SSLContext");
         }
-
+        connection.setTimeout(pref.timeout());
         connection.setListener(new HttpConnection.Listener() {
             @Override
             public void onConnectionCreated(HttpURLConnection conn)

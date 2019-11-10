@@ -208,7 +208,7 @@ public class AddDownloadViewModel extends AndroidViewModel
             } catch (Exception e) {
                 return e;
             }
-
+            connection.setTimeout(viewModel.get().pref.timeout());
 
             NetworkInfo netInfo = viewModel.get().systemFacade.getActiveNetworkInfo();
             if (netInfo == null || !netInfo.isConnected())

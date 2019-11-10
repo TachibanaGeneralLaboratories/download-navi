@@ -228,6 +228,8 @@
     <string name="pref_replace_duplicate_downloads_summary">既にリストにある場合、追加された時に (同じURL) 重複ダウンロードを置き換えます。</string>
     <string name="pref_auto_connect_title">自動接続</string>
     <string name="pref_auto_connect_summary">ダイアログを追加を開いた時自動接続する</string>
+    <string name="pref_timeout_title">Timeout</string>
+    <string name="pref_timeout_summary">The number of milliseconds to wait before the connection timed out. Zero is interpreted as an infinite timeout</string>
     <!-- Storage settings -->
     <string name="pref_save_downloads_in_title">ダウンロードの保存先</string>
     <string name="pref_move_after_download_title">ダウンロード後の移動</string>

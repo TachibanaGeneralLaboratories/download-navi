@@ -228,6 +228,8 @@
     <string name="pref_replace_duplicate_downloads_summary">Ganti duplikat unduhan (dengan URL yang sama) jika saat ditambahkan sudah ada di dalam daftar</string>
     <string name="pref_auto_connect_title">Otomatis tersambung</string>
     <string name="pref_auto_connect_summary">Otomatis tersambung saat membuka dialog tambah</string>
+    <string name="pref_timeout_title">Timeout</string>
+    <string name="pref_timeout_summary">The number of milliseconds to wait before the connection timed out. Zero is interpreted as an infinite timeout</string>
     <!-- Storage settings -->
     <string name="pref_save_downloads_in_title">Simpan unduhan di</string>
     <string name="pref_move_after_download_title">Pindah setelah diunduh</string>

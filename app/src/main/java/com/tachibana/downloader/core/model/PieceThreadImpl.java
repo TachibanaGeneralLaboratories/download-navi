@@ -21,7 +21,6 @@
 package com.tachibana.downloader.core.model;
 
 import android.content.Context;
-import android.net.NetworkInfo;
 import android.net.Uri;
 import android.text.TextUtils;
 import android.util.Log;
@@ -35,7 +34,6 @@ import com.tachibana.downloader.core.model.data.entity.DownloadPiece;
 import com.tachibana.downloader.core.model.data.entity.Header;
 import com.tachibana.downloader.core.settings.SettingsRepository;
 import com.tachibana.downloader.core.storage.DataRepository;
-import com.tachibana.downloader.core.system.SystemFacade;
 import com.tachibana.downloader.core.system.filesystem.FileDescriptorWrapper;
 import com.tachibana.downloader.core.system.filesystem.FileSystemFacade;
 import com.tachibana.downloader.core.utils.DateUtils;
@@ -45,13 +43,11 @@ import java.io.FileDescriptor;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
-import java.io.InterruptedIOException;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.ProtocolException;
 import java.net.SocketTimeoutException;
 import java.security.GeneralSecurityException;
-import java.util.List;
 import java.util.UUID;
 
 import static com.tachibana.downloader.core.model.data.StatusCode.STATUS_BAD_REQUEST;
@@ -102,6 +98,7 @@ public class PieceThreadImpl extends Thread implements PieceThread
     private DataRepository repo;
     private Context appContext;
     private FileSystemFacade fs;
+    private SettingsRepository pref;
     private PieceResult result;
 
     private FileDescriptor outFd;
@@ -113,13 +110,15 @@ public class PieceThreadImpl extends Thread implements PieceThread
                            @NonNull UUID infoId,
                            int pieceIndex,
                            @NonNull DataRepository repo,
-                           @NonNull FileSystemFacade fs)
+                           @NonNull FileSystemFacade fs,
+                           @NonNull SettingsRepository pref)
     {
         this.infoId = infoId;
         this.pieceIndex = pieceIndex;
         this.appContext = appContext;
         this.repo = repo;
         this.fs = fs;
+        this.pref = pref;
         this.result = new PieceResult(infoId, pieceIndex);
     }
 
@@ -218,6 +217,7 @@ public class PieceThreadImpl extends Thread implements PieceThread
         } catch (GeneralSecurityException e) {
             return new StopRequest(STATUS_UNKNOWN_ERROR, "Unable to create SSLContext");
         }
+        connection.setTimeout(pref.timeout());
 
         if (!Utils.checkConnectivity(appContext))
             return new StopRequest(STATUS_WAITING_FOR_NETWORK);

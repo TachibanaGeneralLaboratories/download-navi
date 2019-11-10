@@ -228,6 +228,8 @@
     <string name="pref_replace_duplicate_downloads_summary">Thay thế các mục tải xuống trùng nhau (cùng URL) khi thêm vào danh sách</string>
     <string name="pref_auto_connect_title">Tự động kết nối</string>
     <string name="pref_auto_connect_summary">Tự động kết nối khi mở hộp thoại thêm tải xuống</string>
+    <string name="pref_timeout_title">Timeout</string>
+    <string name="pref_timeout_summary">The number of milliseconds to wait before the connection timed out. Zero is interpreted as an infinite timeout</string>
     <!-- Storage settings -->
     <string name="pref_save_downloads_in_title">Lưu tập tin tải xuống vào</string>
     <string name="pref_move_after_download_title">Di chuyển tập tin sau khi tải</string>
