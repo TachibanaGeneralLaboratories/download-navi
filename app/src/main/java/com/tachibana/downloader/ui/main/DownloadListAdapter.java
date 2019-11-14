@@ -138,7 +138,7 @@ public class DownloadListAdapter extends ListAdapter<DownloadItem, DownloadListA
         protected TextView filename;
         protected TextView status;
         /* For selection support */
-        private ItemDetails details = new ItemDetails();
+        private DownloadItem selectionKey;
         private boolean isSelected;
 
         ViewHolder(View itemView)
@@ -152,8 +152,7 @@ public class DownloadListAdapter extends ListAdapter<DownloadItem, DownloadListA
         void bind(DownloadItem item, ClickListener listener)
         {
             Context context = itemView.getContext();
-            details.adapterPosition = getAdapterPosition();
-            details.selectionKey = item;
+            selectionKey = item;
 
             cardView = (CardView)itemView;
             if (isSelected)
@@ -181,7 +180,7 @@ public class DownloadListAdapter extends ListAdapter<DownloadItem, DownloadListA
         @Override
         public ItemDetails getItemDetails()
         {
-            return details;
+            return new ItemDetails(selectionKey, getAdapterPosition());
         }
     }
 
@@ -408,9 +407,9 @@ public class DownloadListAdapter extends ListAdapter<DownloadItem, DownloadListA
 
     public static final class KeyProvider extends ItemKeyProvider<DownloadItem>
     {
-        Selectable<DownloadItem> selectable;
+        private Selectable<DownloadItem> selectable;
 
-        public KeyProvider(Selectable<DownloadItem> selectable)
+        KeyProvider(Selectable<DownloadItem> selectable)
         {
             super(SCOPE_MAPPED);
 
@@ -433,8 +432,14 @@ public class DownloadListAdapter extends ListAdapter<DownloadItem, DownloadListA
 
     public static final class ItemDetails extends ItemDetailsLookup.ItemDetails<DownloadItem>
     {
-        public DownloadItem selectionKey;
-        public int adapterPosition;
+        private DownloadItem selectionKey;
+        private int adapterPosition;
+
+        ItemDetails(DownloadItem selectionKey, int adapterPosition)
+        {
+            this.selectionKey = selectionKey;
+            this.adapterPosition = adapterPosition;
+        }
 
         @Nullable
         @Override
@@ -454,7 +459,7 @@ public class DownloadListAdapter extends ListAdapter<DownloadItem, DownloadListA
     {
         private final RecyclerView recyclerView;
 
-        public ItemLookup(RecyclerView recyclerView)
+        ItemLookup(RecyclerView recyclerView)
         {
             this.recyclerView = recyclerView;
         }
