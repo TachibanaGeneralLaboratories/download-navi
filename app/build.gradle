@@ -43,6 +43,10 @@ android {
     sourceSets {
         androidTest.assets.srcDirs += files("$projectDir/schemas".toString())
     }
+
+    lintOptions {
+        abortOnError false
+    }
 }
 
 def ACRA_VERSION = "5.4.0"
