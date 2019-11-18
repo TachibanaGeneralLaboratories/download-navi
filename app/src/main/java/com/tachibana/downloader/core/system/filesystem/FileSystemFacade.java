@@ -60,6 +60,8 @@ public interface FileSystemFacade
 
     String getExtensionSeparator();
 
+    String appendExtension(@NonNull String fileName, @NonNull String mimeType);
+
     @Nullable
     String getDefaultDownloadPath();
 

@@ -26,7 +26,6 @@ import android.net.Uri;
 import android.os.Build;
 import android.text.TextUtils;
 import android.util.Log;
-import android.webkit.MimeTypeMap;
 
 import androidx.annotation.NonNull;
 import androidx.databinding.ObservableField;
@@ -200,29 +199,19 @@ public class FileManagerViewModel extends ViewModel
         if (fileName == null)
             return false;
 
-        fileName = appendExtension(fileName);
+        fileName = fs.appendExtension(fileName, config.mimeType);
 
         return new File(curDir.get(), fileName).exists();
     }
 
-    private String appendExtension(String fileName)
-    {
-        String extension = null;
-        if (TextUtils.isEmpty(fs.getExtension(fileName)))
-            extension = MimeTypeMap.getSingleton().getExtensionFromMimeType(config.mimeType);
 
-        if (extension != null && !fileName.endsWith(extension))
-            fileName += fs.getExtensionSeparator() + extension;
-
-        return fileName;
-    }
 
     public Uri createFile(String fileName) throws SecurityException
     {
         if (TextUtils.isEmpty(fileName))
             fileName = config.fileName;
 
-        fileName = appendExtension(fs.buildValidFatFilename(fileName));
+        fileName = fs.appendExtension(fs.buildValidFatFilename(fileName), config.mimeType);
 
         File f = new File(curDir.get(), fileName);
         if (!f.getParentFile().canWrite())

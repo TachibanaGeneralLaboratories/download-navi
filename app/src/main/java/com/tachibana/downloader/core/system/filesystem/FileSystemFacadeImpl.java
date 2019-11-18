@@ -31,6 +31,7 @@ import android.system.OsConstants;
 import android.system.StructStatVfs;
 import android.text.TextUtils;
 import android.util.Log;
+import android.webkit.MimeTypeMap;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -287,6 +288,19 @@ public class FileSystemFacadeImpl implements FileSystemFacade
         return EXTENSION_SEPARATOR;
     }
 
+    @Override
+    public String appendExtension(@NonNull String fileName, @NonNull String mimeType)
+    {
+        String extension = null;
+        if (TextUtils.isEmpty(getExtension(fileName)))
+            extension = MimeTypeMap.getSingleton().getExtensionFromMimeType(mimeType);
+
+        if (extension != null && !fileName.endsWith(extension))
+            fileName += getExtensionSeparator() + extension;
+
+        return fileName;
+    }
+
     /*
      * Return path to the standard Download directory.
      * If the directory doesn't exist, the function creates it automatically.
@@ -418,8 +432,6 @@ public class FileSystemFacadeImpl implements FileSystemFacade
     /*
      * Returns Uri of created file.
      * Note: if replace == false, doesn't replace file if it exists and returns its Uri.
-     *       Storage Access Framework can change the name after creating the file
-     *       (e.g. extension), please check it after returning.
      */
 
     @Override
