@@ -31,6 +31,7 @@ import androidx.core.content.ContextCompat;
 import com.tachibana.downloader.R;
 import com.tachibana.downloader.core.HttpConnection;
 import com.tachibana.downloader.core.system.SystemFacadeHelper;
+import com.tachibana.downloader.core.utils.UserAgentUtils;
 import com.tachibana.downloader.core.utils.Utils;
 
 import io.reactivex.BackpressureStrategy;
@@ -76,7 +77,9 @@ public class SettingsRepositoryImpl implements SettingsRepository
         static final boolean autoConnect = true;
         static String userAgent(@NonNull Context context)
         {
-            return SystemFacadeHelper.getSystemFacade(context).getSystemUserAgent();
+            String userAgent = SystemFacadeHelper.getSystemFacade(context).getSystemUserAgent();
+
+            return (userAgent == null ? UserAgentUtils.defaultUserAgents[0].userAgent : userAgent);
         }
         /* Storage settings */
         static String saveDownloadsIn(@NonNull Context context)
