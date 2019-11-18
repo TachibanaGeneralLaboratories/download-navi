@@ -76,7 +76,7 @@ public class SettingsRepositoryImpl implements SettingsRepository
         static final boolean autoConnect = true;
         static String userAgent(@NonNull Context context)
         {
-            return Utils.getSystemUserAgent(context);
+            return SystemFacadeHelper.getSystemFacade(context).getSystemUserAgent();
         }
         /* Storage settings */
         static String saveDownloadsIn(@NonNull Context context)

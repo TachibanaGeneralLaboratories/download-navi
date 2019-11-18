@@ -132,7 +132,7 @@ public class AddDownloadViewModel extends AndroidViewModel
     public Completable deleteUserAgent(UserAgent userAgent)
     {
         if (userAgent.userAgent.equals(params.getUserAgent()))
-            params.setUserAgent(Utils.getSystemUserAgent(getApplication()));
+            params.setUserAgent(systemFacade.getSystemUserAgent());
 
         return Completable.fromAction(() -> repo.deleteUserAgent(userAgent));
     }

@@ -26,6 +26,7 @@ import android.net.ConnectivityManager;
 import android.net.Network;
 import android.net.NetworkCapabilities;
 import android.net.NetworkInfo;
+import android.webkit.WebSettings;
 
 import androidx.annotation.NonNull;
 
@@ -64,5 +65,17 @@ public class SystemFacadeImpl implements SystemFacade
         ConnectivityManager cm = (ConnectivityManager)context.getSystemService(Context.CONNECTIVITY_SERVICE);
 
         return cm.isActiveNetworkMetered();
+    }
+
+    @Override
+    public String getSystemUserAgent()
+    {
+        try {
+            return WebSettings.getDefaultUserAgent(context);
+
+        } catch (UnsupportedOperationException e) {
+            /* Fallback JVM user agent if WebView doesn't supported */
+            return System.getProperty("http.agent");
+        }
     }
 }

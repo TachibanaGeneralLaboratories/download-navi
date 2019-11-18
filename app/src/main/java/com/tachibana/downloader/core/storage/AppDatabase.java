@@ -40,6 +40,8 @@ import com.tachibana.downloader.core.model.data.entity.UserAgent;
 import com.tachibana.downloader.core.storage.converter.UUIDConverter;
 import com.tachibana.downloader.core.storage.dao.DownloadDao;
 import com.tachibana.downloader.core.storage.dao.UserAgentDao;
+import com.tachibana.downloader.core.system.SystemFacade;
+import com.tachibana.downloader.core.system.SystemFacadeHelper;
 import com.tachibana.downloader.core.utils.Utils;
 
 import io.reactivex.Completable;
@@ -97,7 +99,8 @@ public abstract class AppDatabase extends RoomDatabase
                         Completable.fromAction(() -> {
                             AppDatabase database = AppDatabase.getInstance(appContext);
                             database.runInTransaction(() -> {
-                                UserAgent systemUserAgent = new UserAgent(Utils.getSystemUserAgent(appContext));
+                                SystemFacade systemFacade = SystemFacadeHelper.getSystemFacade(appContext);
+                                UserAgent systemUserAgent = new UserAgent(systemFacade.getSystemUserAgent());
                                 systemUserAgent.readOnly = true;
                                 database.userAgentDao().add(systemUserAgent);
                                 database.userAgentDao().add(defaultUserAgents);

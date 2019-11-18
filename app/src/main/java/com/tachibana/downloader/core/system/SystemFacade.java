@@ -30,4 +30,6 @@ public interface SystemFacade
     NetworkCapabilities getNetworkCapabilities();
 
     boolean isActiveNetworkMetered();
+
+    String getSystemUserAgent();
 }
