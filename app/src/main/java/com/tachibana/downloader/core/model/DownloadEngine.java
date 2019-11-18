@@ -151,10 +151,8 @@ public class DownloadEngine
                 .subscribe((info) -> {
                             if (StatusCode.isStatusStoppedOrPaused(info.statusCode) ||
                                 StatusCode.isStatusError(info.statusCode)) {
-                                Log.e(TAG, "resume");
                                 runDownload(info);
                             } else {
-                                Log.e(TAG, "pause");
                                 DownloadThread task = activeDownloads.get(id);
                                 if (task != null && !duringChange.containsKey(id))
                                     task.requestPause();
