@@ -152,7 +152,7 @@ public class FinishedDownloadsFragment extends DownloadsFragment
     @Override
     public void onItemResumeClicked(@NonNull DownloadItem item)
     {
-        viewModel.pauseResumeDownload(item.info);
+        viewModel.resumeIfError(item.info);
     }
 
     private void showDeleteDownloadDialog()

@@ -156,4 +156,9 @@ public class DownloadsViewModel extends AndroidViewModel
     {
         engine.pauseResumeDownload(info.id);
     }
+
+    public void resumeIfError(@NonNull DownloadInfo info)
+    {
+        engine.resumeIfError(info.id);
+    }
 }

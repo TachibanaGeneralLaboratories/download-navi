@@ -149,14 +149,32 @@ public class DownloadEngine
                 .observeOn(AndroidSchedulers.mainThread())
                 .filter((info) -> info != null)
                 .subscribe((info) -> {
-                            if (StatusCode.isStatusStoppedOrPaused(info.statusCode) ||
-                                StatusCode.isStatusError(info.statusCode)) {
+                            if (StatusCode.isStatusStoppedOrPaused(info.statusCode)) {
                                 runDownload(info);
                             } else {
                                 DownloadThread task = activeDownloads.get(id);
                                 if (task != null && !duringChange.containsKey(id))
                                     task.requestPause();
                             }
+                        },
+                        (Throwable t) -> {
+                            Log.e(TAG, "Getting info " + id + " error: " +
+                                    Log.getStackTraceString(t));
+                            if (checkNoDownloads())
+                                notifyListeners(DownloadEngineListener::onDownloadsCompleted);
+                        })
+        );
+    }
+
+    public void resumeIfError(@NonNull UUID id)
+    {
+        disposables.add(repo.getInfoByIdSingle(id)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .filter((info) -> info != null)
+                .subscribe((info) -> {
+                            if (StatusCode.isStatusError(info.statusCode))
+                                runDownload(info);
                         },
                         (Throwable t) -> {
                             Log.e(TAG, "Getting info " + id + " error: " +

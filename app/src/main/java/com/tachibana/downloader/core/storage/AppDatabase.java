@@ -43,7 +43,6 @@ import com.tachibana.downloader.core.storage.dao.UserAgentDao;
 import com.tachibana.downloader.core.system.SystemFacade;
 import com.tachibana.downloader.core.system.SystemFacadeHelper;
 import com.tachibana.downloader.core.utils.UserAgentUtils;
-import com.tachibana.downloader.core.utils.Utils;
 
 import io.reactivex.Completable;
 import io.reactivex.schedulers.Schedulers;
