@@ -15,15 +15,18 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <ImageView
-            android:id="@+id/icon"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+        <ImageButton
+            android:id="@+id/resume"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
             android:layout_marginStart="8dp"
             android:layout_marginTop="8dp"
             android:layout_marginBottom="8dp"
-            android:contentDescription="@null"
-            android:padding="8dp"
+            android:background="?attr/transparentRoundRipple"
+            app:srcCompat="@drawable/play_vector"
+            android:contentDescription="@string/resume"
+            android:padding="3dp"
+            android:scaleType="fitXY"
             android:layout_centerInParent="true"
             android:layout_alignParentStart="true" />
 
@@ -34,7 +37,7 @@
             android:layout_margin="16dp"
             android:orientation="vertical"
             android:layout_centerInParent="true"
-            android:layout_toEndOf="@id/icon"
+            android:layout_toEndOf="@id/resume"
             android:layout_toStartOf="@id/menu">
 
             <TextView
@@ -54,6 +57,17 @@
                 android:gravity="center_vertical"
                 android:maxLines="2"
                 android:textAppearance="@style/TextCaption" />
+
+            <TextView
+                android:id="@+id/error"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:ellipsize="end"
+                android:gravity="center_vertical"
+                android:maxLines="3"
+                android:textAppearance="@style/TextAppearance.MaterialComponents.Body2"
+                android:textColor="@color/error" />
         </LinearLayout>
 
         <ImageButton

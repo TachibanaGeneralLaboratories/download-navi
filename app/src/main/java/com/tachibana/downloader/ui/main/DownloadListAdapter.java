@@ -58,6 +58,7 @@ public class DownloadListAdapter extends ListAdapter<DownloadItem, DownloadListA
 {
     private static final int VIEW_QUEUE = 0;
     private static final int VIEW_FINISH = 1;
+    private static final int VIEW_ERROR = 2;
 
     private ClickListener listener;
     private SelectionTracker<DownloadItem> selectionTracker;
@@ -78,12 +79,18 @@ public class DownloadListAdapter extends ListAdapter<DownloadItem, DownloadListA
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType)
     {
-        if (viewType == VIEW_QUEUE)
-            return new QueueViewHolder(LayoutInflater.from(parent.getContext())
-                    .inflate(R.layout.item_download_list_queue, parent, false));
-        else
-            return new FinishViewHolder(LayoutInflater.from(parent.getContext())
-                    .inflate(R.layout.item_download_list_finish, parent, false));
+
+        switch (viewType) {
+            case VIEW_ERROR:
+                return new ErrorViewHolder(LayoutInflater.from(parent.getContext())
+                        .inflate(R.layout.item_download_list_error, parent, false));
+            case VIEW_FINISH:
+                return new FinishViewHolder(LayoutInflater.from(parent.getContext())
+                        .inflate(R.layout.item_download_list_finish, parent, false));
+            default:
+                return new QueueViewHolder(LayoutInflater.from(parent.getContext())
+                        .inflate(R.layout.item_download_list_queue, parent, false));
+        }
     }
 
     @Override
@@ -91,7 +98,12 @@ public class DownloadListAdapter extends ListAdapter<DownloadItem, DownloadListA
     {
         DownloadItem item = getItem(position);
 
-        return StatusCode.isStatusCompleted(item.info.statusCode) ? VIEW_FINISH : VIEW_QUEUE;
+        if (StatusCode.isStatusError(item.info.statusCode))
+            return VIEW_ERROR;
+        else if (StatusCode.isStatusCompleted(item.info.statusCode))
+            return VIEW_FINISH;
+        else
+            return VIEW_QUEUE;
     }
 
     @Override
@@ -108,6 +120,9 @@ public class DownloadListAdapter extends ListAdapter<DownloadItem, DownloadListA
         } else if (holder instanceof FinishViewHolder) {
             FinishViewHolder finishHolder = (FinishViewHolder)holder;
             finishHolder.bind(item, (FinishClickListener)listener);
+        }  else if (holder instanceof ErrorViewHolder) {
+            ErrorViewHolder errorHolder = (ErrorViewHolder)holder;
+            errorHolder.bind(item, (ErrorClickListener)listener);
         }
     }
 
@@ -298,7 +313,6 @@ public class DownloadListAdapter extends ListAdapter<DownloadItem, DownloadListA
     {
         private ImageView icon;
         private ImageButton menu;
-        private TextView error;
 
         FinishViewHolder(View itemView)
         {
@@ -306,7 +320,6 @@ public class DownloadListAdapter extends ListAdapter<DownloadItem, DownloadListA
 
             icon = itemView.findViewById(R.id.icon);
             menu = itemView.findViewById(R.id.menu);
-            error = itemView.findViewById(R.id.error);
         }
 
         void bind(DownloadItem item, FinishClickListener listener)
@@ -357,6 +370,51 @@ public class DownloadListAdapter extends ListAdapter<DownloadItem, DownloadListA
                     (hostname == null ? "" : hostname),
                     (item.info.totalBytes == -1 ? context.getString(R.string.not_available) :
                             Formatter.formatFileSize(context, item.info.totalBytes))));
+        }
+    }
+
+    public static class ErrorViewHolder extends ViewHolder
+    {
+        private ImageButton resumeButton;
+        private ImageButton menu;
+        private TextView error;
+
+        ErrorViewHolder(View itemView)
+        {
+            super(itemView);
+
+            resumeButton = itemView.findViewById(R.id.resume);
+            menu = itemView.findViewById(R.id.menu);
+            error = itemView.findViewById(R.id.error);
+        }
+
+        void bind(DownloadItem item, ErrorClickListener listener)
+        {
+            super.bind(item, listener);
+
+            Context context = itemView.getContext();
+
+            resumeButton.setOnClickListener((v) -> {
+                if (listener != null)
+                    listener.onItemResumeClicked(item);
+            });
+
+            menu.setOnClickListener((v) -> {
+                PopupMenu popup = new PopupMenu(v.getContext(), v);
+                popup.inflate(R.menu.download_item_popup);
+                popup.setOnMenuItemClickListener((MenuItem menuItem) -> {
+                    if (listener != null)
+                        listener.onItemMenuClicked(menuItem.getItemId(), item);
+                    return true;
+                });
+                popup.show();
+            });
+
+            String hostname = Utils.getHostFromUrl(item.info.url);
+            status.setText(String.format(context.getString(R.string.download_finished_template),
+                    (hostname == null ? "" : hostname),
+                    (item.info.totalBytes == -1 ? context.getString(R.string.not_available) :
+                            Formatter.formatFileSize(context, item.info.totalBytes))));
 
             if (StatusCode.isStatusError(item.info.statusCode) && item.info.statusMsg != null) {
                 error.setVisibility(View.VISIBLE);
@@ -381,6 +439,13 @@ public class DownloadListAdapter extends ListAdapter<DownloadItem, DownloadListA
 
     public interface FinishClickListener extends ClickListener
     {
+        void onItemMenuClicked(int menuId, @NonNull DownloadItem item);
+    }
+
+    public interface ErrorClickListener extends ClickListener
+    {
+        void onItemResumeClicked(@NonNull DownloadItem item);
+
         void onItemMenuClicked(int menuId, @NonNull DownloadItem item);
     }
 

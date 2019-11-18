@@ -149,9 +149,12 @@ public class DownloadEngine
                 .observeOn(AndroidSchedulers.mainThread())
                 .filter((info) -> info != null)
                 .subscribe((info) -> {
-                            if (StatusCode.isStatusStoppedOrPaused(info.statusCode)) {
+                            if (StatusCode.isStatusStoppedOrPaused(info.statusCode) ||
+                                StatusCode.isStatusError(info.statusCode)) {
+                                Log.e(TAG, "resume");
                                 runDownload(info);
                             } else {
+                                Log.e(TAG, "pause");
                                 DownloadThread task = activeDownloads.get(id);
                                 if (task != null && !duringChange.containsKey(id))
                                     task.requestPause();

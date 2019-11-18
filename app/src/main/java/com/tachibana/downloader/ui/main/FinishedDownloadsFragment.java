@@ -41,7 +41,8 @@ import java.util.Collections;
 import io.reactivex.disposables.Disposable;
 
 public class FinishedDownloadsFragment extends DownloadsFragment
-    implements DownloadListAdapter.FinishClickListener
+    implements DownloadListAdapter.FinishClickListener,
+               DownloadListAdapter.ErrorClickListener
 {
     @SuppressWarnings("unused")
     private static final String TAG = FinishedDownloadsFragment.class.getSimpleName();
@@ -146,6 +147,12 @@ public class FinishedDownloadsFragment extends DownloadsFragment
                 shareUrl(item);
                 break;
         }
+    }
+
+    @Override
+    public void onItemResumeClicked(@NonNull DownloadItem item)
+    {
+        viewModel.pauseResumeDownload(item.info);
     }
 
     private void showDeleteDownloadDialog()
