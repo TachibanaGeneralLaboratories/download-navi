@@ -91,7 +91,7 @@ public class SettingsRepositoryImpl implements SettingsRepository
         {
             return "file://" + SystemFacadeHelper.getFileSystemFacade(context).getDefaultDownloadPath();
         }
-        static final boolean deleteFileIfError = true;
+        static final boolean deleteFileIfError = false;
         static final boolean preallocateDiskSpace = true;
     }
 
