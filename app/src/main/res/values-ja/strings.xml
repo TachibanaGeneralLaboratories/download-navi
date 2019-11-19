@@ -51,6 +51,7 @@
     <string name="apply">適用</string>
     <string name="report">レポート</string>
     <string name="more_details">詳細</string>
+    <string name="clipboard">Clipboard</string>
     <!-- Permission dialog -->
     <string name="perm_denied_title">承認が拒否されました</string>
     <string name="perm_denied_warning">この許可がないとアプリは Android のいくつかの端末とバージョンでメモリにファイルを保存することができません。アプリは正しく機能しません。 この許可を拒否してよろしいですか？</string>

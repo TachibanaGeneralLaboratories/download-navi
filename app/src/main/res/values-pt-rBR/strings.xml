@@ -51,6 +51,7 @@
     <string name="apply">Aplicar</string>
     <string name="report">Reportar</string>
     <string name="more_details">Mais detalhes</string>
+    <string name="clipboard">Clipboard</string>
     <!-- Permission dialog -->
     <string name="perm_denied_title">Permissão negada</string>
     <string name="perm_denied_warning">Sem essa permissão o app não pode salvar arquivos em memória em alguns dispositivos e versões do Android. O aplicativo não funcionará corretamente. Tem certeza que deseja negar essa permissão?</string>

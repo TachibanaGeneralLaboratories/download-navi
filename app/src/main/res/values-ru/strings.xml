@@ -50,6 +50,7 @@
     <string name="apply">Применить</string>
     <string name="report">Сообщить</string>
     <string name="more_details">Подробнее</string>
+    <string name="clipboard">Буфер обмена</string>
 
     <!-- Permission dialog -->
     <string name="perm_denied_title">Разрешение отклонено</string>

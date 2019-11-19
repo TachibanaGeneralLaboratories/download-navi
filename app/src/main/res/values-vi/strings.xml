@@ -51,6 +51,7 @@
     <string name="apply">Áp dụng thay đổi</string>
     <string name="report">Báo cáo</string>
     <string name="more_details">Thêm thông tin</string>
+    <string name="clipboard">Clipboard</string>
     <!-- Permission dialog -->
     <string name="perm_denied_title">Quyền truy cập bị từ chối</string>
     <string name="perm_denied_warning">Nếu không có quyền này, ứng dụng không thể lưu dữ liệu trên một số máy và một số phiên bản Android nên không thể hoạt động bình thường được. Bạn có chắc chắn muốn từ chối quyền này không?</string>

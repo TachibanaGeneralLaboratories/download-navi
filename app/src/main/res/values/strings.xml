@@ -50,6 +50,7 @@
     <string name="apply">Apply</string>
     <string name="report">Report</string>
     <string name="more_details">More details</string>
+    <string name="clipboard">Clipboard</string>
 
     <!-- Permission dialog -->
     <string name="perm_denied_title">Permission denied</string>

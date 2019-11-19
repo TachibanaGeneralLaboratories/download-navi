@@ -51,6 +51,7 @@
     <string name="apply">Terapkan</string>
     <string name="report">Lapor</string>
     <string name="more_details">Lebih detail</string>
+    <string name="clipboard">Clipboard</string>
     <!-- Permission dialog -->
     <string name="perm_denied_title">Izin ditolak</string>
     <string name="perm_denied_warning">Tanpa izin ini aplikasi tidak bisa menyimpan berkas pada beberapa perangkat dan versi Android. Aplikasi tidak akan berfungsi dengan baik. Apakah anda yakin ingin tetap menolak izin ini?</string>

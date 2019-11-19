@@ -51,6 +51,7 @@
     <string name="apply">Použiť</string>
     <string name="report">Nahlásiť</string>
     <string name="more_details">Viac informácií</string>
+    <string name="clipboard">Clipboard</string>
     <!-- Permission dialog -->
     <string name="perm_denied_title">Prístup zamietnutý</string>
     <string name="perm_denied_warning">Bez tohto povolenia appka nemôže ukladať súbory na úložisko niektorých zariadení a verzí Androidu. Aplikácia nebude pracovať správne. Naozaj chcete zakázať toto povolenie?</string>

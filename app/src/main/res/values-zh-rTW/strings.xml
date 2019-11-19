@@ -51,6 +51,7 @@
     <string name="apply">套用</string>
     <string name="report">回報</string>
     <string name="more_details">更多細節</string>
+    <string name="clipboard">Clipboard</string>
     <!-- Permission dialog -->
     <string name="perm_denied_title">權限被拒絕</string>
     <string name="perm_denied_warning">如果拒絕此權限，應用程式將無法在某些裝置和 Android 版本的記憶體中保存文件。此應用程式將無法正常工作。您確定要拒絕此權限嗎？</string>

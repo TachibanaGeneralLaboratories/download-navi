@@ -51,6 +51,7 @@
     <string name="apply">Uygula</string>
     <string name="report">Bildir</string>
     <string name="more_details">Detaylar</string>
+    <string name="clipboard">Clipboard</string>
     <!-- Permission dialog -->
     <string name="perm_denied_title">İzin reddedildi</string>
     <string name="perm_denied_warning">Bu izin olmadan uygulama, bazı cihazlarda ve Android sürümlerinde dosyaları belleğe kaydedemez. Uygulama düzgün çalışmayacak. Bu izni reddetmek istediğinden emin misin?</string>

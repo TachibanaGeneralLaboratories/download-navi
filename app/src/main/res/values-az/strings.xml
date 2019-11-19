@@ -51,6 +51,7 @@
     <string name="apply">Tətbiq et</string>
     <string name="report">Xəbər ver</string>
     <string name="more_details">Daha çox təfsilat</string>
+    <string name="clipboard">Clipboard</string>
     <!-- Permission dialog -->
     <string name="perm_denied_title">İcazə verilmədi</string>
     <string name="perm_denied_warning">Bu icazə olmasa tətbiq Android versiyasında və bəzi cihazlarda faylları yaddaşda saxlaya bilməz. Tətbiq düzgün işləməz. Bu icazəni rədd etmək istədiyinizə əminsiniz?</string>

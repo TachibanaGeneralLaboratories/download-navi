@@ -22,6 +22,8 @@ package com.tachibana.downloader.ui.details;
 
 import android.app.Activity;
 import android.app.Dialog;
+import android.content.ClipData;
+import android.content.ClipboardManager;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -51,8 +53,10 @@ import com.tachibana.downloader.R;
 import com.tachibana.downloader.core.exception.FileAlreadyExistsException;
 import com.tachibana.downloader.core.exception.FreeSpaceException;
 import com.tachibana.downloader.core.model.data.entity.DownloadInfo;
+import com.tachibana.downloader.core.utils.Utils;
 import com.tachibana.downloader.databinding.DialogDownloadDetailsBinding;
 import com.tachibana.downloader.ui.BaseAlertDialog;
+import com.tachibana.downloader.ui.ClipboardDialog;
 import com.tachibana.downloader.ui.adddownload.AddDownloadActivity;
 import com.tachibana.downloader.ui.adddownload.AddInitParams;
 import com.tachibana.downloader.ui.filemanager.FileManagerConfig;
@@ -74,6 +78,7 @@ public class DownloadDetailsDialog extends DialogFragment
     private static final String TAG_OPEN_DIR_ERROR_DIALOG = "open_dir_error_dialog";
     private static final String TAG_REPLACE_FILE_DIALOG = "replace_file_dialog";
     private static final String TAG_ID = "id";
+    private static final String TAG_CLIPBOARD_DIALOG = "clipboard_dialog";
 
     private AlertDialog alert;
     private AppCompatActivity activity;
@@ -81,6 +86,8 @@ public class DownloadDetailsDialog extends DialogFragment
     private DownloadDetailsViewModel viewModel;
     private BaseAlertDialog.SharedViewModel dialogViewModel;
     private CompositeDisposable disposables = new CompositeDisposable();
+    private ClipboardDialog clipboardDialog;
+    private ClipboardDialog.SharedViewModel clipboardViewModel;
 
     public static DownloadDetailsDialog newInstance(UUID downloadId)
     {
@@ -127,6 +134,7 @@ public class DownloadDetailsDialog extends DialogFragment
     {
         super.onStop();
 
+        unsubscribeClipboardManager();
         disposables.clear();
     }
 
@@ -137,6 +145,7 @@ public class DownloadDetailsDialog extends DialogFragment
 
         observeDownload();
         subscribeAlertDialog();
+        subscribeClipboardManager();
     }
 
     private void observeDownload()
@@ -163,6 +172,25 @@ public class DownloadDetailsDialog extends DialogFragment
     {
         Disposable d = dialogViewModel.observeEvents().subscribe(this::handleAlertDialogEvent);
         disposables.add(d);
+        d = clipboardViewModel.observeSelectedItem().subscribe(this::handleSelectedClipboardItem);
+        disposables.add(d);
+    }
+    private void subscribeClipboardManager() {
+        ClipboardManager clipboard = (ClipboardManager)activity.getSystemService(Activity.CLIPBOARD_SERVICE);
+        clipboard.addPrimaryClipChangedListener(clipListener);
+    }
+
+    private void unsubscribeClipboardManager() {
+        ClipboardManager clipboard = (ClipboardManager)activity.getSystemService(Activity.CLIPBOARD_SERVICE);
+        clipboard.removePrimaryClipChangedListener(clipListener);
+    }
+
+    private ClipboardManager.OnPrimaryClipChangedListener clipListener = this::switchClipboardButton;
+
+    private void switchClipboardButton()
+    {
+        ClipData clip = Utils.getClipData(activity.getApplicationContext());
+        viewModel.showClipboardButton.set(clip != null);
     }
 
     private void handleAlertDialogEvent(BaseAlertDialog.Event event)
@@ -176,6 +204,14 @@ public class DownloadDetailsDialog extends DialogFragment
         }
     }
 
+    private void handleSelectedClipboardItem(String item)
+    {
+        if (TextUtils.isEmpty(item))
+            return;
+
+        viewModel.mutableParams.setUrl(item.toLowerCase());
+    }
+
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState)
     {
@@ -183,6 +219,7 @@ public class DownloadDetailsDialog extends DialogFragment
 
         viewModel = ViewModelProviders.of(this).get(DownloadDetailsViewModel.class);
         dialogViewModel = ViewModelProviders.of(activity).get(BaseAlertDialog.SharedViewModel.class);
+        clipboardViewModel = ViewModelProviders.of(activity).get(ClipboardDialog.SharedViewModel.class);
     }
 
     @NonNull
@@ -191,6 +228,10 @@ public class DownloadDetailsDialog extends DialogFragment
     {
         if (activity == null)
             activity = (AppCompatActivity)getActivity();
+
+        FragmentManager fm = getFragmentManager();
+        if (fm != null)
+            clipboardDialog = (ClipboardDialog)fm.findFragmentByTag(TAG_CLIPBOARD_DIALOG);
 
         LayoutInflater i = LayoutInflater.from(activity);
         binding = DataBindingUtil.inflate(i, R.layout.dialog_download_details, null, false);
@@ -235,6 +276,9 @@ public class DownloadDetailsDialog extends DialogFragment
         });
 
         binding.folderChooserButton.setOnClickListener((v) -> showChooseDirDialog());
+        binding.clipboardButton.setOnClickListener((v) -> showClipboardDialog());
+
+        switchClipboardButton();
 
         initAlertDialog(binding.getRoot());
     }
@@ -390,6 +434,15 @@ public class DownloadDetailsDialog extends DialogFragment
 
         i.putExtra(FileManagerDialog.TAG_CONFIG, config);
         startActivityForResult(i, CHOOSE_PATH_TO_SAVE_REQUEST_CODE);
+    }
+
+    private void showClipboardDialog()
+    {
+        FragmentManager fm = getFragmentManager();
+        if (fm != null && fm.findFragmentByTag(TAG_CLIPBOARD_DIALOG) == null) {
+            clipboardDialog = ClipboardDialog.newInstance();
+            clipboardDialog.show(fm, TAG_CLIPBOARD_DIALOG);
+        }
     }
 
     @Override

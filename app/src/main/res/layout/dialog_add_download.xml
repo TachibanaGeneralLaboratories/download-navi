@@ -3,6 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <data>
+        <import type="android.view.View" />
         <variable
             name="viewModel"
             type="com.tachibana.downloader.ui.adddownload.AddDownloadViewModel" />
@@ -34,7 +35,8 @@
                     android:id="@+id/layout_link"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_toStartOf="@id/fetch_progress">
+                    android:layout_toEndOf="@id/fetch_progress"
+                    android:layout_toStartOf="@+id/clipboard_button">
 
                     <com.google.android.material.textfield.TextInputEditText
                         android:id="@+id/link"
@@ -50,11 +52,25 @@
                     style="@style/Widget.AppCompat.ProgressBar"
                     android:layout_width="24dp"
                     android:layout_height="24dp"
-                    android:layout_marginStart="16dp"
-                    android:layout_marginEnd="8dp"
-                    android:layout_alignParentEnd="true"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginEnd="16dp"
+                    android:layout_alignParentStart="true"
                     android:layout_centerInParent="true"
                     android:visibility="gone" />
+
+                <ImageButton
+                    android:id="@+id/clipboard_button"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:scaleType="fitCenter"
+                    android:layout_marginTop="12dp"
+                    android:layout_marginStart="8dp"
+                    android:layout_alignParentEnd="true"
+                    android:padding="8dp"
+                    android:background="?attr/dialogRoundRipple"
+                    android:contentDescription="@string/clipboard"
+                    android:src="@drawable/ic_content_copy_grey600_48dp"
+                    android:visibility="@{viewModel.showClipboardButton ? View.VISIBLE : View.GONE}" />
             </RelativeLayout>
 
             <com.google.android.material.textfield.TextInputLayout

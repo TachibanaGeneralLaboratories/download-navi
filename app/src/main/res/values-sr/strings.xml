@@ -51,6 +51,7 @@
     <string name="apply">Примени</string>
     <string name="report">Пријави</string>
     <string name="more_details">Детаљније</string>
+    <string name="clipboard">Clipboard</string>
     <!-- Permission dialog -->
     <string name="perm_denied_title">Дозвола одбијена</string>
     <string name="perm_denied_warning">Without this permission app can\'t save files in memory on some devices and versions of Android. The app will not work properly. Are you sure you want to deny this permission?</string>

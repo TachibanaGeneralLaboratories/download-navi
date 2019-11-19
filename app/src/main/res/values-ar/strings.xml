@@ -51,6 +51,7 @@
     <string name="apply">تطبيق</string>
     <string name="report">إبلاغ</string>
     <string name="more_details">المزيد من التفاصيل</string>
+    <string name="clipboard">Clipboard</string>
     <!-- Permission dialog -->
     <string name="perm_denied_title">الإذن مرفوض</string>
     <string name="perm_denied_warning">التطبيق بدون هذا الإذن لا يمكنه حفظ الملفات في الذاكرة في بعض الأجهزة وإصدارات الاندرويد. ولن يعمل التطبيق بالشكل المطلوب. هل أنت متأكد من أنك تريد رفض هذا الإذن؟</string>

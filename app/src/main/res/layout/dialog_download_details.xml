@@ -44,20 +44,41 @@
                 android:orientation="vertical"
                 android:visibility="@{viewModel.info.downloadInfo == null ? View.GONE : View.VISIBLE}">
 
-                <com.google.android.material.textfield.TextInputLayout
-                    android:id="@+id/layout_link"
+                <RelativeLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="16dp">
 
-                    <com.google.android.material.textfield.TextInputEditText
-                        android:id="@+id/link"
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:id="@+id/layout_link"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:inputType="text|textNoSuggestions"
-                        android:text="@={viewModel.mutableParams.url}"
-                        android:hint="@string/download_link" />
-                </com.google.android.material.textfield.TextInputLayout>
+                        android:layout_toStartOf="@id/clipboard_button"
+                        android:layout_marginBottom="16dp">
+
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/link"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:inputType="text|textNoSuggestions"
+                            android:text="@={viewModel.mutableParams.url}"
+                            android:hint="@string/download_link" />
+                    </com.google.android.material.textfield.TextInputLayout>
+
+                    <ImageButton
+                        android:id="@+id/clipboard_button"
+                        android:layout_width="40dp"
+                        android:layout_height="40dp"
+                        android:scaleType="fitCenter"
+                        android:layout_marginTop="12dp"
+                        android:layout_marginStart="8dp"
+                        android:layout_alignParentEnd="true"
+                        android:padding="8dp"
+                        android:background="?attr/dialogRoundRipple"
+                        android:contentDescription="@string/clipboard"
+                        android:src="@drawable/ic_content_copy_grey600_48dp"
+                        android:visibility="@{viewModel.showClipboardButton ? View.VISIBLE : View.GONE}" />
+                </RelativeLayout>
 
                 <com.google.android.material.textfield.TextInputLayout
                     android:id="@+id/layout_name"

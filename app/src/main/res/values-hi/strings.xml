@@ -51,6 +51,7 @@
     <string name="apply">लागू करें</string>
     <string name="report">रिपोर्ट करें</string>
     <string name="more_details">अधिक जानकारी</string>
+    <string name="clipboard">Clipboard</string>
     <!-- Permission dialog -->
     <string name="perm_denied_title">अनुमति अस्वीकृत</string>
     <string name="perm_denied_warning">इस अनुमति एप्लिकेशन के बिना कुछ उपकरणों और Android के संस्करणों पर स्मृति में फ़ाइलों को नहीं बचा सकता । ऐप ठीक से काम नहीं करेगा । क्या आप निश्चयपूर्वक इस अनुमति को अस्वीकार करना चाहते हैं?</string>

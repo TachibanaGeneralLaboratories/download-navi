@@ -29,6 +29,7 @@ import android.util.Log;
 
 import androidx.annotation.NonNull;
 import androidx.databinding.Observable;
+import androidx.databinding.ObservableBoolean;
 import androidx.databinding.library.baseAdapters.BR;
 import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.MutableLiveData;
@@ -68,6 +69,7 @@ public class DownloadDetailsViewModel extends AndroidViewModel
     public DownloadDetailsInfo info = new DownloadDetailsInfo();
     public DownloadDetailsMutableParams mutableParams = new DownloadDetailsMutableParams();
     public MutableLiveData<Boolean> paramsChanged = new MutableLiveData<>();
+    public ObservableBoolean showClipboardButton = new ObservableBoolean(false);
     public FileSystemFacade fs;
 
     @Override

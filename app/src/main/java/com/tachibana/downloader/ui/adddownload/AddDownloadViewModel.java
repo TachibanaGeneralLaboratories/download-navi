@@ -30,6 +30,7 @@ import android.util.Log;
 
 import androidx.annotation.NonNull;
 import androidx.databinding.Observable;
+import androidx.databinding.ObservableBoolean;
 import androidx.databinding.ObservableInt;
 import androidx.databinding.library.baseAdapters.BR;
 import androidx.lifecycle.AndroidViewModel;
@@ -76,6 +77,7 @@ public class AddDownloadViewModel extends AndroidViewModel
     public AddDownloadParams params = new AddDownloadParams();
     public MutableLiveData<FetchState> fetchState = new MutableLiveData<>();
     public ObservableInt maxNumPieces = new ObservableInt(DownloadInfo.MAX_PIECES);
+    public ObservableBoolean showClipboardButton = new ObservableBoolean(false);
     public SystemFacade systemFacade;
     public FileSystemFacade fs;
 
@@ -318,7 +320,7 @@ public class AddDownloadViewModel extends AndroidViewModel
         /* The number of pieces can't be more than the number of bytes */
         long total = params.getTotalBytes();
         if (total > 0)
-            maxNumPieces.set(total < maxNumPieces.get() ? (int)total : maxNumPieces.get());
+            maxNumPieces.set(total < maxNumPieces.get() ? (int)total : DownloadInfo.MAX_PIECES);
     }
 
     /*
