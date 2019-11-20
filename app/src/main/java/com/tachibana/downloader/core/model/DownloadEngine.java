@@ -347,10 +347,11 @@ public class DownloadEngine
                 .subscribeOn(Schedulers.io())
                 .subscribe((info) -> {
                             Throwable[] err = new Throwable[1];
+                            boolean urlChanged = false;
                             try {
                                 if (info == null)
                                     throw new NullPointerException();
-                                doApplyParams(info, params);
+                                urlChanged = doApplyParams(info, params);
 
                             } catch (Throwable e) {
                                 err[0] = e;
@@ -358,7 +359,7 @@ public class DownloadEngine
                                 duringChange.remove(id);
                                 String name = (info == null ? null : info.fileName);
                                 notifyListeners((listener) -> listener.onParamsApplied(id, name, err[0]));
-                                if (runAfter)
+                                if (runAfter || urlChanged)
                                     runDownload(id);
                             }
                         },
@@ -372,7 +373,7 @@ public class DownloadEngine
         );
     }
 
-    private void doApplyParams(DownloadInfo info, ChangeableParams params)
+    private boolean doApplyParams(DownloadInfo info, ChangeableParams params)
     {
         boolean changed = false;
         if (!TextUtils.isEmpty(params.url)) {
@@ -395,6 +396,7 @@ public class DownloadEngine
         Exception err = null;
         boolean nameChanged = !TextUtils.isEmpty(params.fileName);
         boolean dirChanged = params.dirPath != null;
+        boolean urlChanged = !TextUtils.isEmpty(params.url);
         if (nameChanged || dirChanged) {
             changed = true;
             try {
@@ -417,6 +419,8 @@ public class DownloadEngine
 
         if (changed)
             repo.updateInfo(info, true, false);
+
+        return urlChanged;
     }
 
     private interface CallListener
