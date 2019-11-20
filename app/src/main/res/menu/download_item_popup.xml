@@ -6,6 +6,10 @@
         app:showAsAction="never"
         android:title="@string/download_details" />
 
+    <item android:id="@+id/redownload_menu"
+        app:showAsAction="never"
+        android:title="@string/redownload" />
+
     <item android:id="@+id/share_menu"
         app:showAsAction="never"
         android:title="@string/share" />

@@ -35,6 +35,8 @@ import com.tachibana.downloader.core.model.data.StatusCode;
 import com.tachibana.downloader.core.model.data.entity.DownloadInfo;
 import com.tachibana.downloader.core.utils.Utils;
 import com.tachibana.downloader.ui.BaseAlertDialog;
+import com.tachibana.downloader.ui.adddownload.AddDownloadActivity;
+import com.tachibana.downloader.ui.adddownload.AddInitParams;
 
 import java.util.Collections;
 
@@ -146,6 +148,9 @@ public class FinishedDownloadsFragment extends DownloadsFragment
             case R.id.share_url_menu:
                 shareUrl(item);
                 break;
+            case R.id.redownload_menu:
+                showAddDownloadDialog(item.info);
+                break;
         }
     }
 
@@ -189,5 +194,22 @@ public class FinishedDownloadsFragment extends DownloadsFragment
         startActivity(Intent.createChooser(
                 Utils.makeShareUrlIntent(item.info.url),
                 getString(R.string.share_via)));
+    }
+
+    private void showAddDownloadDialog(DownloadInfo info)
+    {
+        AddInitParams initParams = new AddInitParams();
+        initParams.url = info.url;
+        initParams.dirPath = info.dirPath;
+        initParams.fileName = info.fileName;
+        initParams.description = info.description;
+        initParams.userAgent = info.userAgent;
+        initParams.unmeteredConnectionsOnly = info.unmeteredConnectionsOnly;
+        initParams.retry = info.retry;
+        initParams.replaceFile = true;
+
+        Intent i = new Intent(activity, AddDownloadActivity.class);
+        i.putExtra(AddDownloadActivity.TAG_INIT_PARAMS, initParams);
+        startActivity(i);
     }
 }
