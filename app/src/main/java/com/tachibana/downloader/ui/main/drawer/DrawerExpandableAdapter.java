@@ -231,10 +231,10 @@ public class DrawerExpandableAdapter extends AbstractExpandableItemAdapter<
                 icon.setImageResource(item.iconResId);
 
             if (group.isItemSelected(item.id)) {
-                itemView.setBackgroundColor(Utils.getAttributeColor(context, R.attr.selectableColor));
+                itemView.setBackgroundColor(Utils.getAttributeColor(context, R.attr.selectableDrawer));
             } else {
                 TypedArray a = context.obtainStyledAttributes(new TypedValue().data, new int[] {
-                        R.attr.defaultRectRipple
+                        R.attr.dialogRectRipple
                 });
                 itemView.setBackground(a.getDrawable(0));
                 a.recycle();

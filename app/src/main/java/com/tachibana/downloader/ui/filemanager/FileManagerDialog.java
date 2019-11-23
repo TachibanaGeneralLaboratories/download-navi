@@ -23,6 +23,7 @@ import android.app.Dialog;
 import android.content.ActivityNotFoundException;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.res.TypedArray;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Parcelable;
@@ -31,6 +32,7 @@ import android.text.Editable;
 import android.text.TextUtils;
 import android.text.TextWatcher;
 import android.util.Log;
+import android.util.TypedValue;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.EditText;
@@ -182,7 +184,6 @@ public class FileManagerDialog extends AppCompatActivity
         adapter = new FileManagerAdapter(viewModel.config.highlightFileTypes, this);
         binding.fileList.setAdapter(adapter);
 
-        binding.swipeContainer.setColorSchemeColors(getResources().getColor(R.color.accent));
         binding.swipeContainer.setOnRefreshListener(this::refreshDir);
     }
 

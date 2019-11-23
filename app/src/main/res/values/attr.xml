@@ -2,6 +2,7 @@
 <resources>
     <declare-styleable name="dynamic_style_attrs">
         <attr name="background" format="reference" />
+        <attr name="backgroundDialog" format="reference" />
         <attr name="foreground" format="reference" />
         <attr name="popupTheme" format="reference" />
         <attr name="divider" format="reference" />
@@ -12,7 +13,10 @@
         <attr name="dialogRectRipple" format="reference" />
         <attr name="dialogRoundRipple" format="reference" />
         <attr name="selectableColor" format="reference" />
+        <attr name="selectableDrawer" format="reference" />
         <attr name="menuIconTint" format="reference" />
+        <attr name="toolbarColor" format="reference" />
+        <attr name="statusBarColor" format="reference" />
     </declare-styleable>
 
     <declare-styleable name="ExpansionHeader">

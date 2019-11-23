@@ -35,7 +35,7 @@
                 android:id="@+id/toolbar"
                 android:layout_width="match_parent"
                 android:layout_height="?attr/actionBarSize"
-                android:background="?attr/foreground"
+                android:background="?attr/toolbarColor"
                 android:focusable="true"
                 android:minHeight="?attr/actionBarSize"
                 android:transitionName="actionBar"
@@ -46,7 +46,7 @@
             <HorizontalScrollView
                 android:layout_width="match_parent"
                 android:layout_height="?attr/actionBarSize"
-                android:background="?attr/foreground"
+                android:background="?attr/toolbarColor"
                 android:paddingLeft="16dp"
                 android:paddingRight="16dp">
 
@@ -65,7 +65,7 @@
             </HorizontalScrollView>
         </com.google.android.material.appbar.AppBarLayout>
 
-        <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+        <com.tachibana.downloader.ui.customview.ThemedSwipeRefreshLayout
             android:id="@+id/swipe_container"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -83,7 +83,7 @@
                 android:scrollbars="vertical"
                 android:focusable="true"
                 android:scrollbarStyle="outsideOverlay" /> <!-- Need for padding -->
-        </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
+        </com.tachibana.downloader.ui.customview.ThemedSwipeRefreshLayout>
 
         <com.google.android.material.button.MaterialButton
             android:id="@+id/open_system_filemanager_fab"
@@ -94,7 +94,7 @@
             android:layout_marginTop="135dp"
             android:layout_gravity="top|start"
             android:visibility="@{enableSystemManagerButton.booleanValue() ? View.VISIBLE : View.GONE}"
-            app:backgroundTint="@color/accent"
+            app:backgroundTint="?attr/colorSecondary"
             app:cornerRadius="16dp"
             app:icon="@drawable/ic_folder_grey600_24dp"
             android:focusable="true" />

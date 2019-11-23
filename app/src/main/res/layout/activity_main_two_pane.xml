@@ -22,7 +22,7 @@
             android:layout_height="match_parent"
             android:layout_below="@id/toolbar"
             app:elevation="0dp"
-            android:background="?attr/background"
+            android:background="?attr/backgroundDialog"
             android:focusable="true">
 
             <include
@@ -39,7 +39,7 @@
             android:id="@+id/toolbar_divider"
             android:layout_width="1dp"
             android:layout_height="?attr/actionBarSize"
-            android:background="?attr/foreground" />
+            android:background="?attr/statusBarColor" />
 
         <View
             android:id="@+id/content_divider"

@@ -4,6 +4,7 @@
     <style name="AppTheme.Black" parent="BaseTheme.Black" />
     <style name="AppTheme.Dialog" parent="BaseTheme.Dialog" />
     <style name="AppTheme.Dialog.Dark" parent="BaseTheme.Dialog.Dark" />
+    <style name="AppTheme.Dialog.Black" parent="BaseTheme.Dialog.Black" />
     <style name="AppTheme.Translucent" parent="BaseTheme.Translucent" />
     <style name="AppTheme.Translucent.Dark" parent="BaseTheme.Translucent.Dark" />
     <style name="AppTheme.Translucent.Black" parent="BaseTheme.Translucent.Black" />
@@ -17,8 +18,8 @@
         <item name="colorOnSurface">@color/text_primary</item>
         <item name="android:colorBackground">@color/background</item>
         <item name="colorOnBackground">@color/text_primary</item>
-        <item name="android:actionModeBackground">@color/foreground</item>
-        <item name="actionModeBackground">@color/foreground</item> <!-- For pre-Lollipop -->
+        <item name="android:actionModeBackground">@color/toolbar</item>
+        <item name="actionModeBackground">@color/toolbar</item> <!-- For pre-Lollipop -->
         <item name="actionBarPopupTheme">@style/ThemeOverlay.AppCompat.Light</item>
         <item name="popupTheme">@style/ThemeOverlay.AppCompat.Light</item>
         <item name="android:popupMenuStyle">@style/PopupMenu</item>
@@ -27,6 +28,7 @@
         <item name="alertDialogTheme">@style/AppTheme.Dialog</item> <!-- For pre-Lollipop -->
 
         <item name="background">@color/background</item>
+        <item name="backgroundDialog">@color/background_dialog</item>
         <item name="foreground">@color/foreground</item>
         <item name="defaultRectRipple">@drawable/default_rect_ripple</item>
         <item name="defaultRoundRipple">@drawable/default_round_ripple</item>
@@ -36,9 +38,11 @@
         <item name="dialogRectRipple">@drawable/default_rect_ripple</item>
         <item name="dialogRoundRipple">@drawable/default_round_ripple</item>
         <item name="selectableColor">@color/selectable</item>
+        <item name="selectableDrawer">@color/selectable_drawer</item>
         <item name="menuIconTint">@android:color/black</item>
+        <item name="toolbarColor">@color/toolbar</item>
+        <item name="statusBarColor">@color/status_bar</item>
 
-        <!-- General part -->
         <item name="colorPrimary">@color/primary</item>
         <item name="colorPrimaryVariant">@color/primary_dark</item>
         <item name="colorOnPrimary">@color/text_primary</item>
@@ -58,8 +62,8 @@
         <item name="colorOnSurface">@color/text_primary_inverse</item>
         <item name="android:colorBackground">@color/background_dark</item>
         <item name="colorOnBackground">@color/text_primary_inverse</item>
-        <item name="android:actionModeBackground">@color/foreground_dark</item>
-        <item name="actionModeBackground">@color/foreground_dark</item> <!-- For pre-Lollipop -->
+        <item name="android:actionModeBackground">@color/toolbar_dark</item>
+        <item name="actionModeBackground">@color/toolbar_dark</item> <!-- For pre-Lollipop -->
         <item name="actionBarPopupTheme">@style/ThemeOverlay.AppCompat.Dark</item>
         <item name="popupTheme">@style/ThemeOverlay.AppCompat.Dark</item>
         <item name="android:popupMenuStyle">@style/PopupMenu_Dark</item>
@@ -68,6 +72,7 @@
         <item name="alertDialogTheme">@style/AppTheme.Dialog.Dark</item> <!-- For pre-Lollipop -->
 
         <item name="background">@color/background_dark</item>
+        <item name="backgroundDialog">@color/background_dialog_dark</item>
         <item name="foreground">@color/foreground_dark</item>
         <item name="defaultRectRipple">@drawable/default_rect_ripple_dark</item>
         <item name="defaultRoundRipple">@drawable/default_round_ripple_dark</item>
@@ -77,16 +82,18 @@
         <item name="dialogRectRipple">@drawable/dialog_rect_ripple_dark</item>
         <item name="dialogRoundRipple">@drawable/dialog_round_ripple_dark</item>
         <item name="selectableColor">@color/selectable_dark</item>
+        <item name="selectableDrawer">@color/selectable_drawer_dark</item>
         <item name="menuIconTint">@android:color/white</item>
+        <item name="toolbarColor">@color/toolbar_dark</item>
+        <item name="statusBarColor">@color/dark_theme_status_bar</item>
 
-        <!-- General part -->
-        <item name="colorPrimary">@color/primary</item>
+        <item name="colorPrimary">@color/primary_light</item>
         <item name="colorPrimaryVariant">@color/primary_dark</item>
         <item name="colorOnPrimary">@color/text_primary</item>
-        <item name="colorSecondary">@color/accent</item>
+        <item name="colorSecondary">@color/accent_light</item>
         <item name="colorSecondaryVariant">@color/accent_dark</item>
         <item name="colorOnSecondary">@color/text_primary</item>
-        <item name="colorError">@color/error</item>
+        <item name="colorError">@color/error_light</item>
         <item name="colorOnError">@android:color/white</item>
         <item name="textInputStyle">@style/AppTextField</item>
         <item name="windowActionBar">false</item>
@@ -95,16 +102,23 @@
     </style>
 
     <style name="BaseTheme.Black" parent="BaseTheme.Dark">
-        <item name="colorSurface">@color/foreground_black</item>
+        <item name="colorSurface">@color/foreground_dark</item>
         <item name="android:colorBackground">@android:color/black</item>
         <item name="android:windowBackground">@android:color/black</item>
-        <item name="android:actionModeBackground">@color/foreground_black</item>
-        <item name="actionModeBackground">@color/foreground_black</item> <!-- For pre-Lollipop -->
+        <item name="android:actionModeBackground">@android:color/black</item>
+        <item name="actionModeBackground">@android:color/black</item> <!-- For pre-Lollipop -->
+        <item name="android:alertDialogTheme">@style/AppTheme.Dialog.Black</item>
+        <item name="alertDialogTheme">@style/AppTheme.Dialog.Black</item> <!-- For pre-Lollipop -->
 
         <item name="background">@android:color/black</item>
-        <item name="foreground">@color/foreground_black</item>
+        <item name="backgroundDialog">@color/background_dialog_black</item>
+        <item name="foreground">@android:color/black</item>
         <item name="defaultRectRipple">@drawable/default_rect_ripple_black</item>
         <item name="defaultRoundRipple">@drawable/default_round_ripple_black</item>
+        <item name="dialogRectRipple">@drawable/dialog_rect_ripple_black</item>
+        <item name="dialogRoundRipple">@drawable/dialog_round_ripple_black</item>
+        <item name="toolbarColor">@android:color/black</item>
+        <item name="statusBarColor">@android:color/black</item>
     </style>
 
     <style name="BaseTheme.Dialog" parent="Theme.MaterialComponents.Light.Dialog">
@@ -129,10 +143,10 @@
     </style>
 
     <style name="BaseTheme.Dialog.Dark" parent="Theme.MaterialComponents.Dialog">
-        <item name="colorPrimary">@color/primary</item>
+        <item name="colorPrimary">@color/primary_light</item>
         <item name="colorPrimaryVariant">@color/primary_dark</item>
         <item name="colorOnPrimary">@color/text_primary</item>
-        <item name="colorSecondary">@color/accent</item>
+        <item name="colorSecondary">@color/accent_light</item>
         <item name="colorSecondaryVariant">@color/accent_dark</item>
         <item name="colorOnSecondary">@color/text_primary</item>
         <item name="android:windowBackground">@drawable/background_dialog_rounded_dark</item>
@@ -149,6 +163,21 @@
         <item name="android:topDark">@color/background_dialog_dark</item>
     </style>
 
+    <style name="BaseTheme.Dialog.Black" parent="BaseTheme.Dialog.Dark">
+        <item name="android:windowBackground">@drawable/background_dialog_rounded_black</item>
+
+        <item name="android:bottomBright">@color/background_dialog_black</item>
+        <item name="android:bottomDark">@color/background_dialog_black</item>
+        <item name="android:bottomMedium">@color/background_dialog_black</item>
+        <item name="android:centerBright">@color/background_dialog_black</item>
+        <item name="android:centerDark">@color/background_dialog_black</item>
+        <item name="android:centerMedium">@color/background_dialog_black</item>
+        <item name="android:fullBright">@color/background_dialog_black</item>
+        <item name="android:fullDark">@color/background_dialog_black</item>
+        <item name="android:topBright">@color/background_dialog_black</item>
+        <item name="android:topDark">@color/background_dialog_black</item>
+    </style>
+
     <style name="BaseTheme.EmptyView" parent="@style/TextAppearance.MaterialComponents.Headline4">
         <item name="android:gravity">center</item>
         <item name="android:visibility">gone</item>
@@ -160,6 +189,8 @@
         <item name="android:colorBackgroundCacheHint">@null</item>
         <item name="android:windowIsTranslucent">true</item>
         <item name="android:windowAnimationStyle">@null</item>
+
+        <item name="statusBarColor">@color/status_bar</item>
     </style>
 
     <style name="BaseTheme.Translucent.Dark" parent="BaseTheme.Dark">
@@ -168,9 +199,19 @@
         <item name="android:colorBackgroundCacheHint">@null</item>
         <item name="android:windowIsTranslucent">true</item>
         <item name="android:windowAnimationStyle">@null</item>
+
+        <item name="statusBarColor">@color/dark_theme_status_bar</item>
     </style>
 
-    <style name="BaseTheme.Translucent.Black" parent="BaseTheme.Translucent.Dark" />
+    <style name="BaseTheme.Translucent.Black" parent="BaseTheme.Black">
+        <item name="android:windowNoTitle">true</item>
+        <item name="android:windowBackground">@android:color/transparent</item>
+        <item name="android:colorBackgroundCacheHint">@null</item>
+        <item name="android:windowIsTranslucent">true</item>
+        <item name="android:windowAnimationStyle">@null</item>
+
+        <item name="statusBarColor">@android:color/black</item>
+    </style>
 
     <style name="PopupMenu" parent="ThemeOverlay.MaterialComponents.Light">
         <item name="android:popupBackground">@drawable/popup_menu_light</item>
@@ -192,13 +233,21 @@
         <item name="android:textColor">?attr/colorSecondary</item>
     </style>
 
-    <style name="BaseTheme.Settings" parent="BaseTheme" />
+    <style name="BaseTheme.Settings" parent="BaseTheme">
+        <item name="statusBarColor">@color/status_bar</item>
+    </style>
 
-    <style name="BaseTheme.Settings.Dark" parent="BaseTheme.Dark" />
+    <style name="BaseTheme.Settings.Dark" parent="BaseTheme.Dark">
+        <item name="statusBarColor">@color/dark_theme_status_bar</item>
+    </style>
 
-    <style name="BaseTheme.Settings.Black" parent="BaseTheme.Black" />
+    <style name="BaseTheme.Settings.Black" parent="BaseTheme.Black">
+        <item name="statusBarColor">@android:color/black</item>
+    </style>
 
     <style name="BaseTheme.Launcher" parent="BaseTheme">
         <item name="android:windowBackground">@drawable/splash_screen</item>
+
+        <item name="statusBarColor">@color/primary_dark</item>
     </style>
 </resources>
