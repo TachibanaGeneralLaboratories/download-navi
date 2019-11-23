@@ -349,7 +349,8 @@ public class MainActivity extends AppCompatActivity
         if (prefKey != null)
             saveSelectionState(prefKey, item);
 
-        drawerLayout.closeDrawer(GravityCompat.START);
+        if (drawerLayout != null)
+            drawerLayout.closeDrawer(GravityCompat.START);
     }
 
     private void saveSelectionState(String prefKey, DrawerGroupItem item)
