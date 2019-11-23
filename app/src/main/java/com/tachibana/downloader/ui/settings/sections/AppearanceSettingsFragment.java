@@ -26,16 +26,24 @@ import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.provider.Settings;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.coordinatorlayout.widget.CoordinatorLayout;
 import androidx.preference.ListPreference;
 import androidx.preference.Preference;
 import androidx.preference.SwitchPreferenceCompat;
 
+import com.google.android.material.snackbar.Snackbar;
 import com.jaredrummler.android.colorpicker.ColorPreferenceCompat;
 import com.tachibana.downloader.R;
 import com.tachibana.downloader.core.RepositoryHelper;
 import com.tachibana.downloader.core.settings.SettingsRepository;
+import com.tachibana.downloader.ui.main.MainActivity;
 import com.takisoft.preferencex.PreferenceFragmentCompat;
 
 public class AppearanceSettingsFragment extends PreferenceFragmentCompat
@@ -47,6 +55,7 @@ public class AppearanceSettingsFragment extends PreferenceFragmentCompat
     private static final int REQUEST_CODE_ALERT_RINGTONE = 1;
 
     private SettingsRepository pref;
+    private CoordinatorLayout coordinatorLayout;
 
     public static AppearanceSettingsFragment newInstance()
     {
@@ -54,6 +63,14 @@ public class AppearanceSettingsFragment extends PreferenceFragmentCompat
         fragment.setArguments(new Bundle());
 
         return fragment;
+    }
+
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState)
+    {
+        super.onViewCreated(view, savedInstanceState);
+
+        coordinatorLayout = view.findViewById(R.id.coordinator_layout);
     }
 
     @Override
@@ -207,10 +224,12 @@ public class AppearanceSettingsFragment extends PreferenceFragmentCompat
             String[] typesName = getResources().getStringArray(R.array.pref_theme_entries);
             preference.setSummary(typesName[type]);
 
-            Toast.makeText(getActivity().getApplicationContext(),
+            Snackbar.make(coordinatorLayout,
                     R.string.theme_settings_apply_after_reboot,
-                    Toast.LENGTH_SHORT)
+                    Snackbar.LENGTH_LONG)
+                    .setAction(R.string.apply, (v) -> restartMainActivity())
                     .show();
+
         } else if (preference.getKey().equals(getString(R.string.pref_key_finish_notify))) {
             pref.finishNotify((boolean)newValue);
 
@@ -234,5 +253,12 @@ public class AppearanceSettingsFragment extends PreferenceFragmentCompat
         }
 
         return true;
+    }
+
+    private void restartMainActivity()
+    {
+        Intent intent = new Intent(getActivity().getApplicationContext(), MainActivity.class);
+        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
+        startActivity(intent);
     }
 }

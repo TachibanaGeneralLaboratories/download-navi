@@ -234,14 +234,20 @@
     </style>
 
     <style name="BaseTheme.Settings" parent="BaseTheme">
+        <item name="android:layout">@layout/fragment_custom_preference</item>
+
         <item name="statusBarColor">@color/status_bar</item>
     </style>
 
     <style name="BaseTheme.Settings.Dark" parent="BaseTheme.Dark">
+        <item name="android:layout">@layout/fragment_custom_preference</item>
+
         <item name="statusBarColor">@color/dark_theme_status_bar</item>
     </style>
 
     <style name="BaseTheme.Settings.Black" parent="BaseTheme.Black">
+        <item name="android:layout">@layout/fragment_custom_preference</item>
+
         <item name="statusBarColor">@android:color/black</item>
     </style>
 
