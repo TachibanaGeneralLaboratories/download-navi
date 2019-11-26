@@ -128,7 +128,6 @@
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="16dp"
                 android:textAppearance="@style/TextAppearance.MaterialComponents.Body1"
-                android:textColor="?android:attr/textColorPrimary"
                 app:fileSize="@{viewModel.params.storageFreeSpace}"
                 app:formatFileSize="@{@string/storage_free_space}" />
 
@@ -145,7 +144,6 @@
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="16dp"
                     android:textAppearance="@style/TextAppearance.MaterialComponents.Body1"
-                    android:textColor="?android:attr/textColorPrimary"
                     app:fileSize="@{viewModel.params.totalBytes}"
                     app:formatFileSize="@{@string/download_size}"/>
 
@@ -165,14 +163,14 @@
                         android:layout_alignParentStart="true"
                         android:contentDescription="@null"
                         android:src="@drawable/ic_warning_white_24dp"
-                        app:colorFilter="@{@color/warning}" />
+                        android:tint="?attr/colorWarning" />
 
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:layout_toEndOf="@id/partial_support_warning_img"
                         android:layout_centerInParent="true"
-                        android:textColor="@color/warning"
+                        android:textColor="?attr/colorWarning"
                         android:text="@string/partial_download_not_supported" />
                 </RelativeLayout>
             </LinearLayout>
@@ -187,7 +185,6 @@
                     android:id="@+id/retry"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textColor="?android:attr/textColorPrimary"
                     android:checked="@={viewModel.params.retry}"
                     android:text="@string/download_retry" />
 
@@ -195,7 +192,6 @@
                     android:id="@+id/replace_file"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textColor="?android:attr/textColorPrimary"
                     android:text="@string/replace_file"
                     android:checked="@={viewModel.params.replaceFile}" />
 
@@ -203,7 +199,6 @@
                     android:id="@+id/unmetered_connections_only"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textColor="?android:attr/textColorPrimary"
                     android:text="@string/unmetered_connections_only"
                     android:checked="@={viewModel.params.unmeteredConnectionsOnly}" />
             </com.google.android.material.internal.FlowLayout>

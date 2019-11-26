@@ -17,6 +17,7 @@
         <attr name="menuIconTint" format="reference" />
         <attr name="toolbarColor" format="reference" />
         <attr name="statusBarColor" format="reference" />
+        <attr name="colorWarning" format="reference" />
     </declare-styleable>
 
     <declare-styleable name="ExpansionHeader">

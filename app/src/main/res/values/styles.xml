@@ -42,6 +42,7 @@
         <item name="menuIconTint">@android:color/black</item>
         <item name="toolbarColor">@color/toolbar</item>
         <item name="statusBarColor">@color/status_bar</item>
+        <item name="colorWarning">@color/warning</item>
 
         <item name="colorPrimary">@color/primary</item>
         <item name="colorPrimaryVariant">@color/primary_dark</item>
@@ -86,6 +87,7 @@
         <item name="menuIconTint">@android:color/white</item>
         <item name="toolbarColor">@color/toolbar_dark</item>
         <item name="statusBarColor">@color/dark_theme_status_bar</item>
+        <item name="colorWarning">@color/warning_light</item>
 
         <item name="colorPrimary">@color/primary_light</item>
         <item name="colorPrimaryVariant">@color/primary_dark</item>

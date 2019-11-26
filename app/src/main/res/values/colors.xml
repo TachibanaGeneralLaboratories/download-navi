@@ -33,5 +33,5 @@
     <color name="error">#B00020</color>
     <color name="error_light">#CF6679</color>
     <color name="warning">#FFD600</color>
-    <color name="ok">#00C853</color>
+    <color name="warning_light">#FFF394</color>
 </resources>

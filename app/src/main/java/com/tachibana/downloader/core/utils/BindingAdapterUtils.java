@@ -47,12 +47,6 @@ public class BindingAdapterUtils
         view.setText((formatFileSize == null ? sizeStr : String.format(formatFileSize, sizeStr)));
     }
 
-    @BindingAdapter("colorFilter")
-    public static void setColorFilter(@NonNull ImageView view, int colorFilter)
-    {
-        view.getDrawable().setColorFilter(colorFilter, PorterDuff.Mode.SRC_IN);
-    }
-
     @BindingAdapter({"formatDate"})
     public static void formatDate(@NonNull TextView view, long date)
     {

@@ -60,8 +60,7 @@
                     android:paddingLeft="16dp"
                     android:paddingRight="16dp"
                     android:text="@{viewModel.curDir}"
-                    android:textAppearance="@style/TextAppearance.MaterialComponents.Subtitle1"
-                    android:textColor="?android:attr/textColorPrimary" />
+                    android:textAppearance="@style/TextAppearance.MaterialComponents.Subtitle1" />
             </HorizontalScrollView>
         </com.google.android.material.appbar.AppBarLayout>
 
@@ -136,8 +135,7 @@
                         style="@style/TextAppearance.MaterialComponents.Subtitle1"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:hint="@string/file_name"
-                        android:textColor="?android:attr/textColorPrimary" />
+                        android:hint="@string/file_name"  />
                 </com.google.android.material.textfield.TextInputLayout>
             </FrameLayout>
         </FrameLayout>

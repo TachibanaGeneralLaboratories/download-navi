@@ -150,7 +150,6 @@
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="16dp"
                     android:textAppearance="@style/TextAppearance.MaterialComponents.Body1"
-                    android:textColor="?android:attr/textColorPrimary"
                     app:fileSize="@{viewModel.info.storageFreeSpace}"
                     app:formatFileSize="@{@string/storage_free_space}" />
 
@@ -164,7 +163,6 @@
                         android:id="@+id/unmetered_connections_only"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:textColor="?android:attr/textColorPrimary"
                         android:checked="@={viewModel.mutableParams.unmeteredConnectionsOnly}"
                         android:text="@string/unmetered_connections_only" />
 
@@ -172,7 +170,6 @@
                         android:id="@+id/retry"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:textColor="?android:attr/textColorPrimary"
                         android:checked="@={viewModel.mutableParams.retry}"
                         android:text="@string/download_retry" />
                 </com.google.android.material.internal.FlowLayout>
