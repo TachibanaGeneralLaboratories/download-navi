@@ -51,7 +51,7 @@
     <string name="apply">Aplicar</string>
     <string name="report">Informe</string>
     <string name="more_details">Más detalles</string>
-    <string name="clipboard">Clipboard</string>
+    <string name="clipboard">Portapapeles</string>
     <!-- Permission dialog -->
     <string name="perm_denied_title">Permiso denegado</string>
     <string name="perm_denied_warning">Sin este permiso la aplicación no puede guardar archivos en memoria en algunos dispositivos y versiones de Android. La aplicación no funcionará correctamente. ¿Realmente desea denegar este permiso?</string>
@@ -213,36 +213,36 @@
     <string name="pref_cpu_do_not_sleep_title">Mantener CPU activo</string>
     <string name="pref_cpu_do_not_sleep_summary">Activar esto aumentará el uso de la batería. Utilice esta opción si la velocidad de descarga se reduce cuando la pantalla se apaga</string>
     <string name="pref_download_only_when_charging_title">Descargar sólo cuando se carga</string>
-    <string name="pref_download_only_when_charging_summary">If enabled, downloading will occur only during charging. All downloads will pause when not connected to charger</string>
+    <string name="pref_download_only_when_charging_summary">Si está habilitado, la descarga se producirá solo durante la carga de la batería. Todas las descargas se detendrán cuando no esté conectado al cargador</string>
     <string name="pref_battery_control_title">Control de batería</string>
     <string name="pref_custom_battery_control_title">Porcentaje de batería personalizado</string>
     <string name="pref_custom_battery_control_value_title">Porcentaje de control de batería</string>
     <string name="pref_battery_control_summary" formatted="false">Todas las descargas se pausarán si el nivel de batería va por debajo de %1$d%%. El límite no se aplica en el momento de cargar</string>
-    <string name="pref_custom_battery_control_summary" formatted="false">Set a custom percentage to pause downloads at if the battery drops below the given threshold. Enabling this will ignore the default %1$d%% threshold</string>
-    <string name="pref_custom_battery_control_dialog_summary" formatted="false">Setting a custom battery percentage for the application to watch for will have a negative impact on battery life while downloads are occurring. Are you sure you want to enable this?</string>
-    <string name="pref_enable_roaming_title">Enable roaming</string>
-    <string name="pref_enable_roaming_summary">Download only if the device isn\'t roaming</string>
-    <string name="pref_max_active_downloads_title">Maximum active downloads</string>
-    <string name="pref_max_download_retries_title">Maximum number of download retries</string>
-    <string name="pref_max_download_retries_dialog_msg">0 - without retries</string>
-    <string name="pref_replace_duplicate_downloads_title">Replace duplicate downloads</string>
-    <string name="pref_replace_duplicate_downloads_summary">Replace duplicate downloads (with the same URL) when added that are already in the list</string>
-    <string name="pref_auto_connect_title">Auto connect</string>
-    <string name="pref_auto_connect_summary">Auto connect when opening the add dialog</string>
-    <string name="pref_timeout_title">Timeout</string>
-    <string name="pref_timeout_summary">The number of milliseconds to wait before the connection timed out. Zero is interpreted as an infinite timeout</string>
+    <string name="pref_custom_battery_control_summary" formatted="false">Establecer un porcentaje personalizado para pausar las descargas si la batería cae por debajo del umbral dado. Activar esto ignorará el umbral predeterminado de %1$d%%</string>
+    <string name="pref_custom_battery_control_dialog_summary" formatted="false">Establecer un porcentaje de batería personalizado para la aplicación para ver tendrá un impacto negativo en la vida de la batería mientras se están produciendo descargas. ¿Está seguro de que desea activar esto?</string>
+    <string name="pref_enable_roaming_title">Habilitar itinerancia</string>
+    <string name="pref_enable_roaming_summary">Descargar solo si el dispositivo no está en itinerancia</string>
+    <string name="pref_max_active_downloads_title">Número máximo de descargas activas</string>
+    <string name="pref_max_download_retries_title">Número máximo de intentos de descarga</string>
+    <string name="pref_max_download_retries_dialog_msg">0 - sin reintentos</string>
+    <string name="pref_replace_duplicate_downloads_title">Reemplazar descargas duplicadas</string>
+    <string name="pref_replace_duplicate_downloads_summary">Reemplazar descargas duplicadas (con la misma URL) cuando se añaden si ya están en la lista</string>
+    <string name="pref_auto_connect_title">Conectar automáticamente</string>
+    <string name="pref_auto_connect_summary">Conectar automáticamente al abrir el diálogo de añadir</string>
+    <string name="pref_timeout_title">Tiempo agotado</string>
+    <string name="pref_timeout_summary">Cantidad de milisegundos a esperar antes de que se agotar el tiempo de conexión. Cero se interpreta como un tiempo de espera infinito</string>
     <!-- Storage settings -->
-    <string name="pref_save_downloads_in_title">Save downloads in</string>
-    <string name="pref_move_after_download_title">Move after download</string>
-    <string name="pref_move_after_download_in_title">Move after download in</string>
-    <string name="pref_delete_file_if_error_title">Delete file if an error occurs</string>
-    <string name="pref_preallocate_disk_space_title">Pre-allocate disk space for the file</string>
-    <string name="pref_preallocate_disk_space_summary">Available for Android 5.0 Lollipop and above</string>
+    <string name="pref_save_downloads_in_title">Guardar descargas en</string>
+    <string name="pref_move_after_download_title">Mover después de la descarga</string>
+    <string name="pref_move_after_download_in_title">Mover después de la descarga a</string>
+    <string name="pref_delete_file_if_error_title">Borrar archivo si ocurre un error</string>
+    <string name="pref_preallocate_disk_space_title">Reservar espacio en disco para el archivo</string>
+    <string name="pref_preallocate_disk_space_summary">Disponible para Android 5.0 Lollipop y superior</string>
     <!-- About dialog -->
-    <string name="about_title">About Download Navi</string>
-    <string name="about_description"><![CDATA[More information and also to help the project: <a href="https://github.com/TachibanaGeneralLaboratories/download-navi">https://github.com/TachibanaGeneralLaboratories/download-navi</a><br><br>
-    Download Navi is a free and Open Source download manager for Android 4.4+<br><br>
-    Download Navi is free software, released under the terms of the <a href="http://www.gnu.org/copyleft/gpl.html">GNU General Public License v3 (GPLv3)</a><br><br>
-    <a href="https://github.com/TachibanaGeneralLaboratories/download-navi/blob/HEAD/Privacy.md">Privacy Policy</a>]]></string>
-    <string name="about_changelog">Changelog</string>
+    <string name="about_title">Acerca de Download Navi</string>
+    <string name="about_description"><![CDATA[Para más información y para ayudar en el proyecto: <a href="https://github.com/TachibanaGeneralLaboratories/download-navi">https://github.com/TachibanaGeneralLaboratories/download-navi</a><br><br>
+    Download Navi es un gestor de descargas libre y Open Source para Android 4.4+<br><br>
+    Download Navi es software libre, liberado bajo los términos de la<a href="http://www.gnu.org/copyleft/gpl.html">GNU General Public License v3 (GPLv3)</a><br><br>
+    <a href="https://github.com/TachibanaGeneralLaboratories/download-navi/blob/HEAD/Privacy.md">Política de Privacidad</a>]]></string>
+    <string name="about_changelog">Historial de cambios</string>
 </resources>

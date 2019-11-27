@@ -229,8 +229,8 @@
     <string name="pref_replace_duplicate_downloads_summary">Substituir downloads duplicados (com a mesma URL) quando adicionado que já estão na lista</string>
     <string name="pref_auto_connect_title">Conectar automaticamente</string>
     <string name="pref_auto_connect_summary">Conexão automática ao abrir o diálogo de adicionar</string>
-    <string name="pref_timeout_title">Timeout</string>
-    <string name="pref_timeout_summary">The number of milliseconds to wait before the connection timed out. Zero is interpreted as an infinite timeout</string>
+    <string name="pref_timeout_title">Tempo Esgotado</string>
+    <string name="pref_timeout_summary">O número de milissegundos a aguardar antes que a conexão atingisse o tempo limite. Zero é interpretado como um tempo limite infinito</string>
     <!-- Storage settings -->
     <string name="pref_save_downloads_in_title">Salvar downloads em</string>
     <string name="pref_move_after_download_title">Mover após download</string>

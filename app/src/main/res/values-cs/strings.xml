@@ -51,7 +51,7 @@
     <string name="apply">Použít</string>
     <string name="report">Nahlásit</string>
     <string name="more_details">Více informací</string>
-    <string name="clipboard">Clipboard</string>
+    <string name="clipboard">Schránka</string>
     <!-- Permission dialog -->
     <string name="perm_denied_title">Přístup odepřen</string>
     <string name="perm_denied_warning">Bez tohoto oprávnění nemůže aplikace ukládat soubory do úložiště na některých zařízeních a verzích Androidu. Aplikace nebude správně fungovat. Opravdu chcete toto oprávnění odmítnout?</string>
@@ -229,8 +229,8 @@
     <string name="pref_replace_duplicate_downloads_summary">Nahradit duplicitní stahování (se stejné URL) pokud jsou přidány ty, které jsou již v seznamu</string>
     <string name="pref_auto_connect_title">Automatické připojení</string>
     <string name="pref_auto_connect_summary">Automaticky připojit při otevírání dialogu pro přidání</string>
-    <string name="pref_timeout_title">Timeout</string>
-    <string name="pref_timeout_summary">The number of milliseconds to wait before the connection timed out. Zero is interpreted as an infinite timeout</string>
+    <string name="pref_timeout_title">Časový limit</string>
+    <string name="pref_timeout_summary">Čekání v milisekundách před vypršení časového limitu připojení. Nula je interpretována jako nekonečný časový limit</string>
     <!-- Storage settings -->
     <string name="pref_save_downloads_in_title">Uložit stahování v</string>
     <string name="pref_move_after_download_title">Přesunout po stažení</string>
@@ -240,8 +240,7 @@
     <string name="pref_preallocate_disk_space_summary">Dostupné pro Android 5.0 Lollipop a vyšší</string>
     <!-- About dialog -->
     <string name="about_title">O Download Navi</string>
-    <string name="about_description"><![CDATA[
-    Více informací a také pomoc projektu: <a href="https://github.com/TachibanaGeneralLaboratories/download-navi">https://github.com/TachibanaGeneralLaboratories/download-navi</a><br><br>
+    <string name="about_description"><![CDATA[    Více informací a také pomoc projektu: <a href="https://github.com/TachibanaGeneralLaboratories/download-navi">https://github.com/TachibanaGeneralLaboratories/download-navi</a><br><br>
     Download Navi je bezplatný a open source správce stahování pro Android 4.4+<br><br>
     Download Navi je volný software, vydaný za podmínek <a href="http://www.gnu.org/copyleft/gpl.html">GNU General Public License v3 (GPLv3)</a><br><br>
     <a href="https://github.com/TachibanaGeneralLaboratories/download-navi/blob/HEAD/Privacy.md">Zásady ochrany osobních údajů</a>]]></string>

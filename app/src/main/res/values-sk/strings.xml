@@ -51,7 +51,7 @@
     <string name="apply">Použiť</string>
     <string name="report">Nahlásiť</string>
     <string name="more_details">Viac informácií</string>
-    <string name="clipboard">Clipboard</string>
+    <string name="clipboard">Schránka</string>
     <!-- Permission dialog -->
     <string name="perm_denied_title">Prístup zamietnutý</string>
     <string name="perm_denied_warning">Bez tohto povolenia appka nemôže ukladať súbory na úložisko niektorých zariadení a verzí Androidu. Aplikácia nebude pracovať správne. Naozaj chcete zakázať toto povolenie?</string>
@@ -227,10 +227,10 @@
     <string name="pref_max_download_retries_dialog_msg">0 - neopakovať</string>
     <string name="pref_replace_duplicate_downloads_title">Nahradiť duplicitné sťahovania</string>
     <string name="pref_replace_duplicate_downloads_summary">Nahradiť duplicitné sťahovania (s rovnakou adresou URL), ak sa už nachádza v zozname</string>
-    <string name="pref_auto_connect_title">Auto connect</string>
-    <string name="pref_auto_connect_summary">Auto connect when opening the add dialog</string>
-    <string name="pref_timeout_title">Timeout</string>
-    <string name="pref_timeout_summary">The number of milliseconds to wait before the connection timed out. Zero is interpreted as an infinite timeout</string>
+    <string name="pref_auto_connect_title">Automatické pripojenie</string>
+    <string name="pref_auto_connect_summary">Automaticky pripojiť pri otváraní dialógu pre pridanie</string>
+    <string name="pref_timeout_title">Časový limit</string>
+    <string name="pref_timeout_summary">Koľko milisekúnd sa má čakať pred vypršaním časového limitu pripojenia. Nula znamená nekonečný časový limit</string>
     <!-- Storage settings -->
     <string name="pref_save_downloads_in_title">Uložiť sťahovanie do</string>
     <string name="pref_move_after_download_title">Po stiahnutí presunúť</string>
@@ -240,8 +240,7 @@
     <string name="pref_preallocate_disk_space_summary">K dispozícii pre Android 5.0 Lollipop a vyššie</string>
     <!-- About dialog -->
     <string name="about_title">O Download Navi</string>
-    <string name="about_description"><![CDATA[
-    Viac informácií a tiež pomoc s projektom: <a href="https://github.com/TachibanaGeneralLaboratories/download-navi">https://github.com/TachibanaGeneralLaboratories/download-navi</a><br><br>
+    <string name="about_description"><![CDATA[    Viac informácií a tiež pomoc s projektom: <a href="https://github.com/TachibanaGeneralLaboratories/download-navi">https://github.com/TachibanaGeneralLaboratories/download-navi</a><br><br>
     Download Navi je bezplatný správca sťahovania s otvorený kódom pre Android 4.4+<br><br>
     Download Navi je bezplatný softvér vydaný za podmienok <a href="http://www.gnu.org/copyleft/gpl.html">GNU General Public License v3 (GPLv3)</a><br><br>
     <a href="https://github.com/TachibanaGeneralLaboratories/download-navi/blob/HEAD/Privacy.md">Zásady ochrany osobných údajov</a>]]></string>

@@ -240,7 +240,7 @@
     <string name="pref_preallocate_disk_space_summary">只在 Android 5.0 Lollipop 及以上版本可用</string>
     <!-- About dialog -->
     <string name="about_title">关于 Download Navi</string>
-    <string name="about_description"><![CDATA[访问此网站获取更多信息或者帮助项目: <a href="https://github.com/TachibanaGeneralLaboratories/download-navi">https://github.com/TachibanaGeneralLaboratories/download-navi</a><br><br>
+    <string name="about_description"><![CDATA[    访问此网站获取更多信息或者帮助项目: <a href="https://github.com/TachibanaGeneralLaboratories/download-navi">https://github.com/TachibanaGeneralLaboratories/download-navi</a><br><br>
     Download Navi 是适用于 Android 4.4 及以上版本的免费且开源的下载管理器<br><br>
     Download Navi 是一款自由软件，遵循许可 <a href="http://www.gnu.org/copyleft/gpl.html">GNU General Public License v3 (GPLv3)</a> 的条款发布<br><br>
     <a href="https://github.com/TachibanaGeneralLaboratories/download-navi/blob/HEAD/Privacy.md">隐私政策</a>]]></string>

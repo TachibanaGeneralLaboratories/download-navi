@@ -1,1 +1,1 @@
-Download Navi器是Android 4.4+的免费开源下载管理器。
+Download Navi 是兼容 Android 4.4 及以上版本的自由且开源的下载管理器。

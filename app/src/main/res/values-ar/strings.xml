@@ -51,7 +51,7 @@
     <string name="apply">تطبيق</string>
     <string name="report">إبلاغ</string>
     <string name="more_details">المزيد من التفاصيل</string>
-    <string name="clipboard">Clipboard</string>
+    <string name="clipboard">الحافظة</string>
     <!-- Permission dialog -->
     <string name="perm_denied_title">الإذن مرفوض</string>
     <string name="perm_denied_warning">التطبيق بدون هذا الإذن لا يمكنه حفظ الملفات في الذاكرة في بعض الأجهزة وإصدارات الاندرويد. ولن يعمل التطبيق بالشكل المطلوب. هل أنت متأكد من أنك تريد رفض هذا الإذن؟</string>
@@ -229,8 +229,8 @@
     <string name="pref_replace_duplicate_downloads_summary">استبدال التحميلات المكررة (التي تحتوي علئ نفس رابط التحميل) و موجودة مسبقاً في قائمة التنزيلات</string>
     <string name="pref_auto_connect_title">اللإتصال التلقائي</string>
     <string name="pref_auto_connect_summary">الاتصال التلقائي عند فتح نافذة الإضافة</string>
-    <string name="pref_timeout_title">Timeout</string>
-    <string name="pref_timeout_summary">The number of milliseconds to wait before the connection timed out. Zero is interpreted as an infinite timeout</string>
+    <string name="pref_timeout_title">انتهت المهلة</string>
+    <string name="pref_timeout_summary">وقت الانتظار بالملي ثانية قبل انتهاء مهلة الاتصال. يتم تفسير الصفر كـ مهلة لانهائية</string>
     <!-- Storage settings -->
     <string name="pref_save_downloads_in_title">حفظ التنزيلات في</string>
     <string name="pref_move_after_download_title">نقل بعد التحميل</string>
@@ -240,7 +240,7 @@
     <string name="pref_preallocate_disk_space_summary">متاح لإصدارات أندرويد 5.0 وما فوق</string>
     <!-- About dialog -->
     <string name="about_title">حول Download Navi</string>
-    <string name="about_description"><![CDATA[<br><br>لمزيد من المعلومات و للمساعدة في المشروع: <a href="https://github.com/TachibanaGeneralLaboratories/download-navi">https://github.com/TachibanaGeneralLaboratories/download-navi</a>
+    <string name="about_description"><![CDATA[    <br><br>لمزيد من المعلومات و للمساعدة في المشروع: <a href="https://github.com/TachibanaGeneralLaboratories/download-navi">https://github.com/TachibanaGeneralLaboratories/download-navi</a>
     مدير التحميلات Download Navi حر ومفتوح المصدر للأندرويد 4.4 +<br><br>
     تطبيق Download Navi هو برمجية حرة ، تم أطلاقها بموجب شروط رخصة <a
 href="http://www.gnu.org/copyleft/gpl.html">

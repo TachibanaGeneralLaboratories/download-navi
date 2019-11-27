@@ -2,7 +2,7 @@
 <resources>
     <!-- Global string -->
     <string name="app_name">Download Navi</string>
-    <string name="foreground_notification">Foreground notification</string>
+    <string name="foreground_notification">Обавештење у првом плану</string>
     <string name="download_running">У току</string>
     <string name="finished">Завршено</string>
     <string name="shutdown">Искључи</string>
@@ -17,10 +17,10 @@
     <string name="ok">ОК</string>
     <string name="cancel">Прекини</string>
     <!-- A synonym for word "unmetered" - unlimited-->
-    <string name="unmetered_connections_only">Unmetered connections only</string>
+    <string name="unmetered_connections_only">Само неограничене конекције</string>
     <string name="connect">Повежи</string>
     <string name="add">Додај</string>
-    <string name="not_available">N/A</string>
+    <string name="not_available">Недоступно</string>
     <string name="open_navigation_drawer">Отвори фиоку навигације</string>
     <string name="close_navigation_drawer">Затвори навигациону фиоку</string>
     <string name="error_template">Грешка: %1$s</string>
@@ -54,66 +54,66 @@
     <string name="clipboard">Clipboard</string>
     <!-- Permission dialog -->
     <string name="perm_denied_title">Дозвола одбијена</string>
-    <string name="perm_denied_warning">Without this permission app can\'t save files in memory on some devices and versions of Android. The app will not work properly. Are you sure you want to deny this permission?</string>
+    <string name="perm_denied_warning">Без ове дозволе апликације неће моћи да чува фајлове у меморији на неким верзијама система. Апликације неће радити правилно. Да ли сигурно желите да одбијете ову дозволу?</string>
     <!-- Download progress notification -->
     <string name="download_ticker_notify" formatted="false">Преузимање %1$s</string>
     <!-- Foreground notification -->
     <string name="app_running_in_the_background">Преузимање Нави ради у позадини</string>
     <string name="pause_all">Паузирај све</string>
-    <string name="resume_all">Resume all</string>
+    <string name="resume_all">Настави све</string>
     <!-- Finish notification -->
-    <string name="download_finished_notify">Download finished</string>
-    <string name="open_using">Open using</string>
+    <string name="download_finished_notify">Преузимање завршено</string>
+    <string name="open_using">Отвори помоћу</string>
     <!-- Pending notification -->
-    <string name="download_in_queue_ticker_notify" formatted="false">%1$s in queue</string>
-    <string name="waiting_for_network">Waiting for network</string>
-    <string name="waiting_for_retry">Waiting for retry</string>
+    <string name="download_in_queue_ticker_notify" formatted="false">%1$s у реду</string>
+    <string name="waiting_for_network">Чека се мрежа</string>
+    <string name="waiting_for_retry">Чека се поновни покушај</string>
     <!-- Error notification -->
-    <string name="download_error_notify_title">Download error</string>
+    <string name="download_error_notify_title">Грешка у преузимању</string>
     <!-- Applying params notification -->
-    <string name="applying_params_title">Applying params</string>
-    <string name="applying_params_for_downloads">Applying params for downloads</string>
-    <string name="applying_params_error_title" formatted="false">Applying params error for %1$s</string>
+    <string name="applying_params_title">Примењује параметре</string>
+    <string name="applying_params_for_downloads">Примењује параметре за преузимања</string>
+    <string name="applying_params_error_title" formatted="false">Грешка у примењивању параметара за %1$s</string>
     <!-- Add download dialog -->
-    <string name="add_download">Add download</string>
-    <string name="download_link">Link</string>
-    <string name="download_name">Name</string>
-    <string name="download_size" formatted="false">Size: %1$s</string>
-    <string name="download_retry">Retry</string>
-    <string name="download_advanced">Advanced</string>
-    <string name="download_user_agent">User agent</string>
-    <string name="download_error_empty_link">Please enter link</string>
-    <string name="download_error_empty_name">Please enter name</string>
-    <string name="download_error_no_enough_free_space" formatted="false">Not enough free space: %1$s free, but file size is %2$s</string>
-    <string name="download_error_name_is_not_correct" formatted="false">Correct name is \"%1$s\"</string>
-    <string name="fetch_error_default_fmt" formatted="false">Error: %1$s</string>
-    <string name="fetch_error_invalid_url" formatted="false">Invalid URL: %1$s</string>
-    <string name="fetch_error_network_disconnected">network is disconnected</string>
-    <string name="fetch_error_http_response" formatted="false">Error: server returned HTTP %1$d code</string>
-    <string name="fetch_error_io" formatted="false">IO error: %1$s</string>
-    <string name="unable_to_open_folder">Unable to open selected folder. Please try to select another folder</string>
-    <string name="unable_to_create_file">Unable to create file. Please try to select another folder</string>
-    <string name="partial_download_not_supported">This download doesn\'t support pause and downloading by pieces</string>
-    <string name="download_pieces_number_title">Number of pieces</string>
-    <string name="download_description">Description</string>
-    <string name="select_folder_to_save">Select the folder to save</string>
-    <string name="path">Path</string>
-    <string name="storage_free_space" formatted="false">Free space: %1$s</string>
-    <string name="add_download_error_invalid_url">Unable to add download: invalid URL</string>
+    <string name="add_download">Додај преузимање</string>
+    <string name="download_link">Линк</string>
+    <string name="download_name">Име</string>
+    <string name="download_size" formatted="false">Величина: %1$s</string>
+    <string name="download_retry">Понови</string>
+    <string name="download_advanced">Напредно</string>
+    <string name="download_user_agent">Кориснички агент</string>
+    <string name="download_error_empty_link">Молимо унеси линк</string>
+    <string name="download_error_empty_name">Молимо унесите име</string>
+    <string name="download_error_no_enough_free_space" formatted="false">Нема довољно слободног места: %1$s слободно, а величина фајла је %2$s</string>
+    <string name="download_error_name_is_not_correct" formatted="false">Исправно име је \"%1$s\"</string>
+    <string name="fetch_error_default_fmt" formatted="false">Грешка: %1$s</string>
+    <string name="fetch_error_invalid_url" formatted="false">Невалидан URL: %1$s</string>
+    <string name="fetch_error_network_disconnected">мрежа није повезана</string>
+    <string name="fetch_error_http_response" formatted="false">Грешка: сервер је повратио HTTP %1$d код</string>
+    <string name="fetch_error_io" formatted="false">IO решка: %1$s</string>
+    <string name="unable_to_open_folder">Неуспешно отварање изабраног фолдера. Молимо пробајте неки други фолдер</string>
+    <string name="unable_to_create_file">Неуспешно креирање фајла. Молимо пробајте неки други фолдер</string>
+    <string name="partial_download_not_supported">Ово преузимање не подржава паузирање и преузимање по деловима</string>
+    <string name="download_pieces_number_title">Број делова</string>
+    <string name="download_description">Опис</string>
+    <string name="select_folder_to_save">Изабери фолдер за преузимање</string>
+    <string name="path">Путања</string>
+    <string name="storage_free_space" formatted="false">Слободно места: %1$s</string>
+    <string name="add_download_error_invalid_url">Неуспешно преузимање: погрешан URL</string>
     <!-- Add user agent dialog -->
-    <string name="dialog_add_user_agent_title">Add user agent</string>
+    <string name="dialog_add_user_agent_title">Додајте корисничког агента</string>
     <!-- Main activity -->
-    <string name="fragment_title_queued">Queued</string>
-    <string name="fragment_title_completed">Completed</string>
-    <string name="download_list_empty">No downloads</string>
-    <string name="share_url">Share URL</string>
+    <string name="fragment_title_queued">На чекању</string>
+    <string name="fragment_title_completed">Завршено</string>
+    <string name="download_list_empty">Нема преузимања</string>
+    <string name="share_url">Подели URL</string>
     <!-- Navigation drawer -->
     <!-- Category -->
-    <string name="drawer_category">Category</string>
-    <string name="drawer_category_others">Others</string>
-    <string name="drawer_category_documents">Documents</string>
-    <string name="drawer_category_images">Images</string>
-    <string name="drawer_category_video">Video</string>
+    <string name="drawer_category">Категорија</string>
+    <string name="drawer_category_others">Остало</string>
+    <string name="drawer_category_documents">Документи</string>
+    <string name="drawer_category_images">Слике</string>
+    <string name="drawer_category_video">Видео</string>
     <string name="drawer_category_apk">APK</string>
     <string name="drawer_category_audio">Звук</string>
     <string name="drawer_category_archives">Архиве</string>
@@ -144,106 +144,105 @@
     <string name="download_finished_template" formatted="false">%1$s \u2022 %2$s</string>
     <string name="download_details">Детаљи</string>
     <string name="deleting">Брисање</string>
-    <string name="delete_selected_download">Delete the selected download? This operation cannot be undone</string>
-    <string name="delete_selected_downloads">Delete the selected downloads? This operation cannot be undone</string>
-    <string name="delete_with_downloaded_file">Delete with downloaded file</string>
+    <string name="delete_selected_download">Избриши изабрано преузимање? Ова операција не може бити повраћена</string>
+    <string name="delete_selected_downloads">Избриши изабрана преузимања? Ова операција не може бити повраћена</string>
+    <string name="delete_with_downloaded_file">Избриши са преузетим фајлом</string>
     <!-- Filemanager dialog -->
-    <string name="dir_chooser_title">Folder selection</string>
-    <string name="file_chooser_title">File selection</string>
-    <string name="dialog_new_folder_title">New folder</string>
-    <string name="error_dialog_new_folder">Unable to create a new folder</string>
-    <string name="error_open_dir">Unable to open the folder</string>
-    <string name="home_directory">Home</string>
+    <string name="dir_chooser_title">Избор фолдера</string>
+    <string name="file_chooser_title">Избор фајлова</string>
+    <string name="dialog_new_folder_title">Нови фолдер</string>
+    <string name="error_dialog_new_folder">Неуспешно креирање новог фолдера</string>
+    <string name="error_open_dir">Неуспешно отварање фолдера</string>
+    <string name="home_directory">Почетак</string>
     <!-- name (size) -->
-    <string name="permission_denied">Permission denied</string>
-    <string name="save_file">Save file</string>
-    <string name="file_name">File name</string>
-    <string name="error_file_exists">File already exists. Replace it?</string>
-    <string name="file_name_is_empty">File name cannot be empty</string>
-    <string name="system_manager">System manager</string>
-    <string name="device_does_not_support_this_feature">Your device doesn\'t support this feature</string>
-    <string name="system_file_manager_not_found">System file manager not found</string>
-    <string name="replace_file">Replace file</string>
+    <string name="permission_denied">Забрањен приступ</string>
+    <string name="save_file">Сачувај фајл</string>
+    <string name="file_name">Име фајла</string>
+    <string name="error_file_exists">Фајл већ постоји. Замени га?</string>
+    <string name="file_name_is_empty">Име фајла не може бити празно</string>
+    <string name="system_manager">Системски менаџер</string>
+    <string name="device_does_not_support_this_feature">Ваш уређај не подржава ову функцију</string>
+    <string name="system_file_manager_not_found">Системски фајл менаџер није пронађен</string>
+    <string name="replace_file">Замени фајл</string>
     <!-- Details download dialog -->
-    <string name="detail_downloaded">Downloaded</string>
+    <string name="detail_downloaded">Преузето</string>
     <!-- downloaded/total (percent) -->
     <string name="detail_downloaded_format" formatted="false">%1$s/%2$s (%3$d%%)</string>
-    <string name="detail_pieces">Pieces</string>
-    <string name="detail_date_added">Date added</string>
-    <string name="detail_user_agent">User agent</string>
+    <string name="detail_pieces">Делови</string>
+    <string name="detail_date_added">Датум додавања</string>
+    <string name="detail_user_agent">Кориснички агент</string>
     <string name="detail_md5_hash_sum">MD5</string>
     <string name="detail_sha256_hash_sum">SHA-256</string>
-    <string name="calculate">Calculate</string>
+    <string name="calculate">Израчунај</string>
     <!-- Error report -->
-    <string name="app_error_occurred">The app error occurred. You can send the report to developers</string>
-    <string name="error_comment_prompt">You can add extra information and comments here:</string>
+    <string name="app_error_occurred">Догодила се грешка апликације. Можете нам послати извештај</string>
+    <string name="error_comment_prompt">Можеш додати информације и коментаре овде:</string>
     <!-- Send text to clipboard -->
-    <string name="send_text_to_clipboard">Copy</string>
-    <string name="text_copied_to_clipboard">Text copied to clipboard</string>
+    <string name="send_text_to_clipboard">Копирај</string>
+    <string name="text_copied_to_clipboard">Текст копиран на клипборд</string>
     <!-- Settings -->
     <!-- Headers -->
-    <string name="pref_header_appearance">Appearance</string>
-    <string name="pref_header_behavior">Behavior</string>
-    <string name="pref_header_storage">Storage</string>
+    <string name="pref_header_appearance">Изглед</string>
+    <string name="pref_header_behavior">Понашање</string>
+    <string name="pref_header_storage">Меморија</string>
     <!-- Appearance settings -->
-    <string name="pref_theme_category">Theme settings</string>
-    <string name="pref_theme_title">Theme</string>
+    <string name="pref_theme_category">Подешавање теме</string>
+    <string name="pref_theme_title">Тема</string>
     <string-array name="pref_theme_entries">
-        <item>Light</item>
-        <item>Dark</item>
-        <item>Black</item>
+        <item>Светла</item>
+        <item>Тамна</item>
+        <item>Црна</item>
     </string-array>
-    <string name="pref_notification_category">Notification settings</string>
-    <string name="pref_progress_notify_title">Progress notification</string>
-    <string name="pref_finish_notify_title">Finish notification</string>
-    <string name="pref_pending_notify_title">Pending notification</string>
-    <string name="pref_play_sound_notify_title">Play sound</string>
-    <string name="pref_notify_sound_title">Notification sound</string>
-    <string name="pref_led_indicator_notify_title">LED indicator</string>
-    <string name="pref_led_indicator_color_notify_title">LED indicator color</string>
-    <string name="pref_vibration_notify_title">Vibration</string>
-    <string name="theme_settings_apply_after_reboot">Theme settings will be applied after restarting the app</string>
+    <string name="pref_notification_category">Подешавања обавештења</string>
+    <string name="pref_progress_notify_title">Обавештење о напретку</string>
+    <string name="pref_finish_notify_title">Обавештење о завршетку</string>
+    <string name="pref_pending_notify_title">Неизвесна обавештења</string>
+    <string name="pref_play_sound_notify_title">Пусти звук</string>
+    <string name="pref_notify_sound_title">Звук обавештења</string>
+    <string name="pref_led_indicator_notify_title">LED Индикатор</string>
+    <string name="pref_led_indicator_color_notify_title">Боја LED индикатора</string>
+    <string name="pref_vibration_notify_title">Вибрација</string>
+    <string name="theme_settings_apply_after_reboot">Подешавања теме ће бити сачувана након рестартовања апликације</string>
     <!-- Behavior settings -->
-    <string name="pref_autostart_title">Autostart</string>
-    <string name="pref_autostart_summary">Run the app after start device and start downloads, if they weren\'t manually paused</string>
+    <string name="pref_autostart_title">Аутоматско покретање</string>
+    <string name="pref_autostart_summary">Покрени апликацију одмах након паљења уређаја и покрени преузимања осим ако нису мануално паузирана</string>
     <!-- A synonym for word "unmetered" - unlimited-->
-    <string name="pref_umnetered_connections_only_title">Unmetered connections only</string>
-    <string name="pref_umnetered_connections_only_summary">Download only over unmetered connections (for example, Wi-Fi or Ethernet)</string>
-    <string name="pref_power_management_category">Power management</string>
-    <string name="pref_cpu_do_not_sleep_title">Keep CPU awake</string>
-    <string name="pref_cpu_do_not_sleep_summary">Enabling this will increase the battery usage. Use this option if the download speed reduces when screen turns off</string>
-    <string name="pref_download_only_when_charging_title">Download only when charging</string>
-    <string name="pref_download_only_when_charging_summary">If enabled, downloading will occur only during charging. All downloads will pause when not connected to charger</string>
-    <string name="pref_battery_control_title">Battery control</string>
-    <string name="pref_custom_battery_control_title">Custom battery percentage</string>
-    <string name="pref_custom_battery_control_value_title">Battery control percentage</string>
-    <string name="pref_battery_control_summary" formatted="false">All downloads will be paused if the battery level goes below %1$d%%. Limit doesn\'t apply at the time of charging</string>
-    <string name="pref_custom_battery_control_summary" formatted="false">Set a custom percentage to pause downloads at if the battery drops below the given threshold. Enabling this will ignore the default %1$d%% threshold</string>
-    <string name="pref_custom_battery_control_dialog_summary" formatted="false">Setting a custom battery percentage for the application to watch for will have a negative impact on battery life while downloads are occurring. Are you sure you want to enable this?</string>
-    <string name="pref_enable_roaming_title">Enable roaming</string>
-    <string name="pref_enable_roaming_summary">Download only if the device isn\'t roaming</string>
-    <string name="pref_max_active_downloads_title">Maximum active downloads</string>
-    <string name="pref_max_download_retries_title">Maximum number of download retries</string>
-    <string name="pref_max_download_retries_dialog_msg">0 - without retries</string>
-    <string name="pref_replace_duplicate_downloads_title">Replace duplicate downloads</string>
-    <string name="pref_replace_duplicate_downloads_summary">Replace duplicate downloads (with the same URL) when added that are already in the list</string>
-    <string name="pref_auto_connect_title">Auto connect</string>
-    <string name="pref_auto_connect_summary">Auto connect when opening the add dialog</string>
-    <string name="pref_timeout_title">Timeout</string>
-    <string name="pref_timeout_summary">The number of milliseconds to wait before the connection timed out. Zero is interpreted as an infinite timeout</string>
+    <string name="pref_umnetered_connections_only_title">Само неограничене конекције</string>
+    <string name="pref_umnetered_connections_only_summary">Преузимај само преко неограничених конекција (Wi-Fi или Ethernet, на пример)</string>
+    <string name="pref_power_management_category">Управљање потрошњом</string>
+    <string name="pref_cpu_do_not_sleep_title">Задржи CPU будним</string>
+    <string name="pref_cpu_do_not_sleep_summary">Паљече овога ће повећати потрошњу батерије. Користити ову опцију ако се брзина преузимања смањи када је екран угашен</string>
+    <string name="pref_download_only_when_charging_title">Преузимај само када се уређај пуни</string>
+    <string name="pref_download_only_when_charging_summary">Ако је укључено, преузимање се врши само током пуњења уређаја. Сва преузимања ће иначе бити паузирана</string>
+    <string name="pref_battery_control_title">Контрола батерије</string>
+    <string name="pref_custom_battery_control_title">Задат проценат батерије</string>
+    <string name="pref_custom_battery_control_value_title">Проценат контроле батерије</string>
+    <string name="pref_battery_control_summary" formatted="false">Сва преузимања ће бити паузирана када ниво батерије оде испод %1$d%%. Ограничење не важи ако је уређај на пуњачу</string>
+    <string name="pref_custom_battery_control_summary" formatted="false">Постави проценат на којем ће се преузимања паузирати када батерија падне испод прага. Паљење овога ће игнорисати уобичајени %1$d%% праг</string>
+    <string name="pref_custom_battery_control_dialog_summary" formatted="false">Постављање процента батерије који апликација треба да прати ће имати негативан утицај на трајање батерије док се преузимање врши. Да ли сигурно желите упалити ово?</string>
+    <string name="pref_enable_roaming_title">Укључи роминг</string>
+    <string name="pref_enable_roaming_summary">Преузимај само ако уређај није у ромингу</string>
+    <string name="pref_max_active_downloads_title">Максимално активних преузимања</string>
+    <string name="pref_max_download_retries_title">Максимално поновних покушаја преузимања</string>
+    <string name="pref_max_download_retries_dialog_msg">0 - без поновних покушаја</string>
+    <string name="pref_replace_duplicate_downloads_title">Замени дупликате преузимања</string>
+    <string name="pref_replace_duplicate_downloads_summary">Замени дупликате преузимања (са истим URL) када се додају са оним већ на листи</string>
+    <string name="pref_auto_connect_title">Аутоматско повезивање</string>
+    <string name="pref_auto_connect_summary">Аутоматско повезивање када се отвори дијалог додавања</string>
+    <string name="pref_timeout_title">Тајмаут</string>
+    <string name="pref_timeout_summary">Број милисекунди за чекање пре него што конекција истекне. Нула се разуме као неограничено време</string>
     <!-- Storage settings -->
-    <string name="pref_save_downloads_in_title">Save downloads in</string>
-    <string name="pref_move_after_download_title">Move after download</string>
-    <string name="pref_move_after_download_in_title">Move after download in</string>
-    <string name="pref_delete_file_if_error_title">Delete file if an error occurs</string>
-    <string name="pref_preallocate_disk_space_title">Pre-allocate disk space for the file</string>
-    <string name="pref_preallocate_disk_space_summary">Available for Android 5.0 Lollipop and above</string>
+    <string name="pref_save_downloads_in_title">Сачувај преузимања у</string>
+    <string name="pref_move_after_download_title">Премести након преузимања</string>
+    <string name="pref_move_after_download_in_title">Премести након преузимања у</string>
+    <string name="pref_delete_file_if_error_title">Избриши фајл ако дође до грешке</string>
+    <string name="pref_preallocate_disk_space_title">Заузми потребно место за фајл</string>
+    <string name="pref_preallocate_disk_space_summary">Доступно за Android 5.0 Lollipop и новије</string>
     <!-- About dialog -->
-    <string name="about_title">About Download Navi</string>
-    <string name="about_description"><![CDATA[
-    More information and also to help the project: <a href="https://github.com/TachibanaGeneralLaboratories/download-navi">https://github.com/TachibanaGeneralLaboratories/download-navi</a><br><br>
-    Download Navi is a free and Open Source download manager for Android 4.4+<br><br>
-    Download Navi is free software, released under the terms of the <a href="http://www.gnu.org/copyleft/gpl.html">GNU General Public License v3 (GPLv3)</a><br><br>
-    <a href="https://github.com/TachibanaGeneralLaboratories/download-navi/blob/HEAD/Privacy.md">Privacy Policy</a>]]></string>
-    <string name="about_changelog">Changelog</string>
+    <string name="about_title">Више о Download Navi</string>
+    <string name="about_description"><![CDATA[    Више информација, као и помагање пројекту: <a href="https://github.com/TachibanaGeneralLaboratories/download-navi">https://github.com/TachibanaGeneralLaboratories/download-navi</a><br><br>
+    Download Navi је бесплатан менаџер преузимања отвореног кода, намењен за Android 4.4+<br><br>
+    Download Navi је бесплатан софтвер, објављен под условима <a href="http://www.gnu.org/copyleft/gpl.html">GNU General Public License v3 (GPLv3)</a><br><br>
+    <a href="https://github.com/TachibanaGeneralLaboratories/download-navi/blob/HEAD/Privacy.md">Полиса приватности</a>]]></string>
+    <string name="about_changelog">Евиденција измена</string>
 </resources>

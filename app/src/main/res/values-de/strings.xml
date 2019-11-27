@@ -51,7 +51,7 @@
     <string name="apply">Anwenden</string>
     <string name="report">Probleme melden</string>
     <string name="more_details">Weitere Details</string>
-    <string name="clipboard">Clipboard</string>
+    <string name="clipboard">Zwischenablage</string>
     <!-- Permission dialog -->
     <string name="perm_denied_title">Berechtigung verweigert</string>
     <string name="perm_denied_warning">Auf einigen Geräten und Androidversionen kann die App ohne diese Berechtigung Dateien nicht im Speicher speichern. Die App wird nicht richtig funktionieren. Bist du sicher, dass du diese Berechtigung verweigern willst?</string>
@@ -229,8 +229,8 @@
     <string name="pref_replace_duplicate_downloads_summary">Hinzugefügte Duplikate-Downloads ersetzen (mit derselben URL), die bereits in der Liste sind</string>
     <string name="pref_auto_connect_title">Automatisch verbinden</string>
     <string name="pref_auto_connect_summary">Automatisch verbinden beim Öffnen des Hinzufügen-Dialogs</string>
-    <string name="pref_timeout_title">Timeout</string>
-    <string name="pref_timeout_summary">The number of milliseconds to wait before the connection timed out. Zero is interpreted as an infinite timeout</string>
+    <string name="pref_timeout_title">Time-out</string>
+    <string name="pref_timeout_summary">Die Anzahl an Millisekunden, die abgewartet werden, bevor die Verbindung aufgrund Zeitüberschreitung unterbrochen wird. Null wird als unendlicher Zeitfehler interpretiert</string>
     <!-- Storage settings -->
     <string name="pref_save_downloads_in_title">Downloads speichern unter</string>
     <string name="pref_move_after_download_title">Nach dem Download verschieben</string>
