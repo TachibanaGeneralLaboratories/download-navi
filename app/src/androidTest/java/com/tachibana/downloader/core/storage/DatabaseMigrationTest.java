@@ -136,7 +136,7 @@ public class DatabaseMigrationTest
     {
         AppDatabase db = Room.databaseBuilder(context,
                 AppDatabase.class, TEST_DATABASE_NAME)
-                .addMigrations(AppDatabase.MIGRATION_1_2)
+                .addMigrations(AppDatabase.MIGRATION_1_2, AppDatabase.MIGRATION_2_3)
                 .build();
         /* Close the database and release any stream resources when the test finishes */
         helper.closeWhenFinished(db);

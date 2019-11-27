@@ -95,7 +95,6 @@ public class DownloadThreadImpl implements DownloadThread
     private ExecutorService exec;
     private DataRepository repo;
     private SettingsRepository pref;
-    private Context appContext;
     private FileSystemFacade fs;
     private SystemFacade systemFacade;
     private int networkType;
@@ -113,15 +112,13 @@ public class DownloadThreadImpl implements DownloadThread
         }
     }
 
-    public DownloadThreadImpl(@NonNull Context appContext,
-                              @NonNull UUID id,
+    public DownloadThreadImpl(@NonNull UUID id,
                               @NonNull DataRepository repo,
                               @NonNull SettingsRepository pref,
                               @NonNull FileSystemFacade fs,
                               @NonNull SystemFacade systemFacade)
     {
         this.id = id;
-        this.appContext = appContext;
         this.repo = repo;
         this.pref = pref;
         this.fs = fs;
@@ -394,7 +391,7 @@ public class DownloadThreadImpl implements DownloadThread
                 return new ExecDownloadResult(ret, resList);
             }
 
-            if (!Utils.checkConnectivity(appContext)) {
+            if (!Utils.checkConnectivity(pref, systemFacade)) {
                 ret = new StopRequest(STATUS_WAITING_FOR_NETWORK);
                 return new ExecDownloadResult(ret, resList);
             }
@@ -419,7 +416,7 @@ public class DownloadThreadImpl implements DownloadThread
 
             ArrayList<PieceThread> pieceThreads = new ArrayList<>(info.getNumPieces());
             for (int i = 0; i < info.getNumPieces(); i++)
-                pieceThreads.add(new PieceThreadImpl(appContext, id, i, repo, fs, pref));
+                pieceThreads.add(new PieceThreadImpl(id, i, repo, fs, systemFacade, pref));
 
             /* Wait all threads */
             resList = exec.invokeAll(pieceThreads);

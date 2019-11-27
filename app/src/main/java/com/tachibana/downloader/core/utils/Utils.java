@@ -250,19 +250,17 @@ public class Utils
         return null;
     }
 
-    public static boolean checkConnectivity(@NonNull Context context)
+    public static boolean checkConnectivity(@NonNull SettingsRepository pref,
+                                            @NonNull SystemFacade systemFacade)
     {
-        SystemFacade systemFacade = SystemFacadeHelper.getSystemFacade(context);
         NetworkInfo netInfo = systemFacade.getActiveNetworkInfo();
 
-        return netInfo != null && netInfo.isConnected() && isNetworkTypeAllowed(context);
+        return netInfo != null && netInfo.isConnected() && isNetworkTypeAllowed(pref, systemFacade);
     }
 
-    public static boolean isNetworkTypeAllowed(@NonNull Context context)
+    public static boolean isNetworkTypeAllowed(@NonNull SettingsRepository pref,
+                                               @NonNull SystemFacade systemFacade)
     {
-        SystemFacade systemFacade = SystemFacadeHelper.getSystemFacade(context);
-
-        SettingsRepository pref = RepositoryHelper.getSettingsRepository(context);
         boolean enableRoaming = pref.enableRoaming();
         boolean unmeteredOnly = pref.unmeteredConnectionsOnly();
 
@@ -303,10 +301,8 @@ public class Utils
         return noUnmeteredOnly && noRoaming;
     }
 
-    public static boolean isMetered(@NonNull Context context)
+    public static boolean isMetered(@NonNull SystemFacade systemFacade)
     {
-        SystemFacade systemFacade = SystemFacadeHelper.getSystemFacade(context);
-
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
             NetworkCapabilities caps = systemFacade.getNetworkCapabilities();
             return caps != null && !caps.hasCapability(NetworkCapabilities.NET_CAPABILITY_NOT_METERED) ||
@@ -316,10 +312,8 @@ public class Utils
         }
     }
 
-    public static boolean isRoaming(@NonNull Context context)
+    public static boolean isRoaming(@NonNull SystemFacade systemFacade)
     {
-        SystemFacade systemFacade = SystemFacadeHelper.getSystemFacade(context);
-
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P) {
             NetworkCapabilities caps = systemFacade.getNetworkCapabilities();
             return caps != null && !caps.hasCapability(NetworkCapabilities.NET_CAPABILITY_NOT_ROAMING);

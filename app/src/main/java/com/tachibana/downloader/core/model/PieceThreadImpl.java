@@ -34,6 +34,7 @@ import com.tachibana.downloader.core.model.data.entity.DownloadPiece;
 import com.tachibana.downloader.core.model.data.entity.Header;
 import com.tachibana.downloader.core.settings.SettingsRepository;
 import com.tachibana.downloader.core.storage.DataRepository;
+import com.tachibana.downloader.core.system.SystemFacade;
 import com.tachibana.downloader.core.system.filesystem.FileDescriptorWrapper;
 import com.tachibana.downloader.core.system.filesystem.FileSystemFacade;
 import com.tachibana.downloader.core.utils.DateUtils;
@@ -96,8 +97,8 @@ public class PieceThreadImpl extends Thread implements PieceThread
     /* Bytes transferred since current sample started */
     private long speedSampleBytes;
     private DataRepository repo;
-    private Context appContext;
     private FileSystemFacade fs;
+    private SystemFacade systemFacade;
     private SettingsRepository pref;
     private PieceResult result;
 
@@ -106,18 +107,18 @@ public class PieceThreadImpl extends Thread implements PieceThread
     private InputStream in;
     private FileDescriptorWrapper fdWrapper;
 
-    public PieceThreadImpl(@NonNull Context appContext,
-                           @NonNull UUID infoId,
+    public PieceThreadImpl(@NonNull UUID infoId,
                            int pieceIndex,
                            @NonNull DataRepository repo,
                            @NonNull FileSystemFacade fs,
+                           @NonNull SystemFacade systemFacade,
                            @NonNull SettingsRepository pref)
     {
         this.infoId = infoId;
         this.pieceIndex = pieceIndex;
-        this.appContext = appContext;
         this.repo = repo;
         this.fs = fs;
+        this.systemFacade = systemFacade;
         this.pref = pref;
         this.result = new PieceResult(infoId, pieceIndex);
     }
@@ -219,7 +220,7 @@ public class PieceThreadImpl extends Thread implements PieceThread
         }
         connection.setTimeout(pref.timeout());
 
-        if (!Utils.checkConnectivity(appContext))
+        if (!Utils.checkConnectivity(pref, systemFacade))
             return new StopRequest(STATUS_WAITING_FOR_NETWORK);
 
         final StopRequest[] ret = new StopRequest[1];

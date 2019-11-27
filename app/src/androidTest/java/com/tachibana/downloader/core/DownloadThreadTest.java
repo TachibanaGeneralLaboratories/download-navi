@@ -86,7 +86,7 @@ public class DownloadThreadTest extends AbstractTest
         repo.addInfo(info, new ArrayList<>());
 
         /* Run download task and get result */
-        DownloadResult result = runTask(new DownloadThreadImpl(context, id, repo, pref, fs, systemFacade));
+        DownloadResult result = runTask(new DownloadThreadImpl(id, repo, pref, fs, systemFacade));
         assertNotNull(result);
 
         /* Read download info */
@@ -134,7 +134,7 @@ public class DownloadThreadTest extends AbstractTest
         repo.addInfo(info, new ArrayList<>());
 
         /* Run download task and get result */
-        DownloadResult result = runTask(new DownloadThreadImpl(context, id, repo, pref, fs, systemFacade));
+        DownloadResult result = runTask(new DownloadThreadImpl(id, repo, pref, fs, systemFacade));
         assertNotNull(result);
 
         /* Read download info */
@@ -170,7 +170,7 @@ public class DownloadThreadTest extends AbstractTest
         repo.addInfo(info, new ArrayList<>());
 
         /* Run download task and get result */
-        DownloadResult result = runTask(new DownloadThreadImpl(context, id, repo, pref, fs, systemFacade));
+        DownloadResult result = runTask(new DownloadThreadImpl(id, repo, pref, fs, systemFacade));
         assertNotNull(result);
 
         /* Read download info */
@@ -221,7 +221,7 @@ public class DownloadThreadTest extends AbstractTest
         repo.addInfo(info, new ArrayList<>());
 
         /* Run download task and get result */
-        DownloadResult result = runTask(new DownloadThreadImpl(context, id, repo, pref, fs, systemFacade));
+        DownloadResult result = runTask(new DownloadThreadImpl(id, repo, pref, fs, systemFacade));
         assertNotNull(result);
 
         /* Read download info */
@@ -260,7 +260,7 @@ public class DownloadThreadTest extends AbstractTest
         repo.addInfo(info, new ArrayList<>());
 
         /* Run download task and get result */
-        DownloadResult result = runTask(new DownloadThreadImpl(context, id, repo, pref, fs, systemFacade));
+        DownloadResult result = runTask(new DownloadThreadImpl(id, repo, pref, fs, systemFacade));
         assertNotNull(result);
 
         /* Read download info */
@@ -289,8 +289,6 @@ public class DownloadThreadTest extends AbstractTest
     @Test
     public void testDownload_networkConnection()
     {
-        SharedPreferences pref = PreferenceManager.getDefaultSharedPreferences(context);
-
         /* Write download info */
         DownloadInfo info = new DownloadInfo(dir, linuxUrl, linuxName);
         UUID id = info.id;
@@ -340,7 +338,7 @@ public class DownloadThreadTest extends AbstractTest
 
     private void runTask_checkWaitingNetwork(String msg, UUID id)
     {
-        runTask(new DownloadThreadImpl(context, id, repo, pref, fs, systemFacade));
+        runTask(new DownloadThreadImpl(id, repo, pref, fs, systemFacade));
         DownloadInfo info = repo.getInfoById(id);
         assertEquals(msg, StatusCode.STATUS_WAITING_FOR_NETWORK, info.statusCode);
     }

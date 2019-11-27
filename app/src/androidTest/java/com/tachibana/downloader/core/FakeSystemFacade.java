@@ -108,4 +108,10 @@ public class FakeSystemFacade implements SystemFacade
     {
         return isMetered;
     }
+
+    @Override
+    public String getSystemUserAgent()
+    {
+        return System.getProperty("http.agent");
+    }
 }

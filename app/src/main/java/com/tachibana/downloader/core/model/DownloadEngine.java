@@ -39,6 +39,7 @@ import com.tachibana.downloader.core.model.data.StatusCode;
 import com.tachibana.downloader.core.model.data.entity.DownloadInfo;
 import com.tachibana.downloader.core.settings.SettingsRepository;
 import com.tachibana.downloader.core.storage.DataRepository;
+import com.tachibana.downloader.core.system.SystemFacade;
 import com.tachibana.downloader.core.system.SystemFacadeHelper;
 import com.tachibana.downloader.core.system.filesystem.FileSystemFacade;
 import com.tachibana.downloader.core.utils.Utils;
@@ -274,7 +275,7 @@ public class DownloadEngine
         if (task != null && task.isRunning())
             return;
 
-        task = new DownloadThreadImpl(appContext, id, repo, pref, fs,
+        task = new DownloadThreadImpl(id, repo, pref, fs,
                 SystemFacadeHelper.getSystemFacade(appContext));
         activeDownloads.put(id, task);
         disposables.add(Observable.fromCallable(task)
@@ -613,11 +614,13 @@ public class DownloadEngine
         boolean unmeteredOnly = pref.unmeteredConnectionsOnly();
         boolean roaming = pref.enableRoaming();
 
+        SystemFacade systemFacade = SystemFacadeHelper.getSystemFacade(appContext);
+
         boolean stop = false;
         if (roaming)
-            stop = Utils.isRoaming(appContext);
+            stop = Utils.isRoaming(systemFacade);
         if (unmeteredOnly)
-            stop = Utils.isMetered(appContext);
+            stop = Utils.isMetered(systemFacade);
         if (onlyCharging)
             stop |= !Utils.isBatteryCharging(appContext);
         if (customBatteryControl)
