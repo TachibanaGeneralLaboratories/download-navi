@@ -1,0 +1,16 @@
+ * Bugfixing
+ * Changed Dark and Black theme
+ * Added:
+     - Clipboard button in the add dialog
+     - Resume button for failed downloads
+     - Reboot button after changing the theme
+     - Timeout settings
+     - Adaptive delay between retries for failed downloads
+     - Handling Retry-After header
+     - Automatically adding file extensions after adding downloads
+ * Updated current translations
+ * New translations:
+     - Azerbaijani
+     - Indonesian
+     - Vietnamese
+     - Chinese Traditional
