@@ -1,6 +1,6 @@
 /*
  * Copyright (C) 2019 Tachibana General Laboratories, LLC
- * Copyright (C) 2019 Yaroslav Pronin <proninyaroslav@mail.ru>ru>
+ * Copyright (C) 2019 Yaroslav Pronin <proninyaroslav@mail.ru>
  *
  * This file is part of Download Navi.
  *
@@ -18,15 +18,27 @@
  * along with Download Navi.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package com.tachibana.downloader.core.system.filesystem;
+package com.tachibana.downloader.core.system;
 
 import androidx.annotation.NonNull;
 
-import java.io.Closeable;
 import java.io.FileDescriptor;
-import java.io.FileNotFoundException;
 
-public interface FileDescriptorWrapper extends Closeable
+public class FakeFileDescriptorWrapper implements FileDescriptorWrapper
 {
-    FileDescriptor open(@NonNull String mode) throws FileNotFoundException;
+    private FileDescriptor fd;
+
+    public FakeFileDescriptorWrapper(FileDescriptor fd)
+    {
+        this.fd = fd;
+    }
+
+    @Override
+    public FileDescriptor open(@NonNull String mode)
+    {
+        return fd;
+    }
+
+    @Override
+    public void close() { }
 }

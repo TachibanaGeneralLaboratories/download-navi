@@ -1,6 +1,6 @@
 /*
  * Copyright (C) 2019 Tachibana General Laboratories, LLC
- * Copyright (C) 2019 Yaroslav Pronin <proninyaroslav@mail.ru>ru>
+ * Copyright (C) 2019 Yaroslav Pronin <proninyaroslav@mail.ru>
  *
  * This file is part of Download Navi.
  *
@@ -20,29 +20,29 @@
 
 package com.tachibana.downloader.core.system;
 
-import android.content.Context;
-
 import androidx.annotation.NonNull;
 
-public class SystemFacadeHelper
+import java.io.FileDescriptor;
+import java.io.IOException;
+
+public class FakeSysCall implements SysCall
 {
-    private static SystemFacade systemFacade;
-    private static FileSystemFacade fileSystemFacade;
+    private long availableBytes = -1;
 
-    public synchronized static SystemFacade getSystemFacade(@NonNull Context appContext)
+    @Override
+    public void lseek(@NonNull FileDescriptor fd, long offset) { }
+
+    @Override
+    public void fallocate(@NonNull FileDescriptor fd, long length) { }
+
+    @Override
+    public long availableBytes(@NonNull FileDescriptor fd) throws IOException
     {
-        if (systemFacade == null)
-            systemFacade = new SystemFacadeImpl(appContext);
-
-        return systemFacade;
+        return availableBytes;
     }
 
-    public synchronized static FileSystemFacade getFileSystemFacade(@NonNull Context appContext)
+    public void setAvailableBytes(long availableBytes)
     {
-        if (fileSystemFacade == null)
-            fileSystemFacade = new FileSystemFacadeImpl(new SysCallImpl(),
-                    new FsModuleResolverImpl(appContext));
-
-        return fileSystemFacade;
+        this.availableBytes = availableBytes;
     }
 }

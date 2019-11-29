@@ -33,7 +33,7 @@ import com.tachibana.downloader.core.settings.SettingsRepository;
 import com.tachibana.downloader.core.storage.AppDatabase;
 import com.tachibana.downloader.core.storage.DataRepositoryImpl;
 import com.tachibana.downloader.core.system.SystemFacadeHelper;
-import com.tachibana.downloader.core.system.filesystem.FileSystemFacade;
+import com.tachibana.downloader.core.system.FileSystemFacade;
 
 import org.junit.After;
 import org.junit.Before;

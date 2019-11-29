@@ -41,7 +41,7 @@ import com.tachibana.downloader.core.settings.SettingsRepository;
 import com.tachibana.downloader.core.storage.DataRepository;
 import com.tachibana.downloader.core.system.SystemFacade;
 import com.tachibana.downloader.core.system.SystemFacadeHelper;
-import com.tachibana.downloader.core.system.filesystem.FileSystemFacade;
+import com.tachibana.downloader.core.system.FileSystemFacade;
 import com.tachibana.downloader.core.utils.Utils;
 import com.tachibana.downloader.receiver.ConnectionReceiver;
 import com.tachibana.downloader.receiver.PowerReceiver;

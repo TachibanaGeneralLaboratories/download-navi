@@ -30,7 +30,7 @@ import android.webkit.WebSettings;
 
 import androidx.annotation.NonNull;
 
-public class SystemFacadeImpl implements SystemFacade
+class SystemFacadeImpl implements SystemFacade
 {
     private Context context;
 

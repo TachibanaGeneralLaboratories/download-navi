@@ -203,7 +203,7 @@ public class AddDownloadDialog extends DialogFragment {
         if (TextUtils.isEmpty(item))
             return;
 
-        viewModel.params.setUrl(item.toLowerCase());
+        viewModel.params.setUrl(item);
         doAutoFetch();
     }
 
@@ -629,7 +629,7 @@ public class AddDownloadDialog extends DialogFragment {
 
         String dirPath = null;
         Uri dirUri = viewModel.params.getDirPath();
-        if (dirUri != null && viewModel.fs.isFileSystemPath(dirUri))
+        if (dirUri != null && Utils.isFileSystemPath(dirUri))
             dirPath = dirUri.getPath();
 
         FileManagerConfig config = new FileManagerConfig(dirPath,

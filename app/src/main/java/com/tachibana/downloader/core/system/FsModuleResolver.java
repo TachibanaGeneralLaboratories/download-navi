@@ -1,6 +1,6 @@
 /*
  * Copyright (C) 2019 Tachibana General Laboratories, LLC
- * Copyright (C) 2019 Yaroslav Pronin <proninyaroslav@mail.ru>ru>
+ * Copyright (C) 2019 Yaroslav Pronin <proninyaroslav@mail.ru>
  *
  * This file is part of Download Navi.
  *
@@ -20,29 +20,15 @@
 
 package com.tachibana.downloader.core.system;
 
-import android.content.Context;
+import android.net.Uri;
 
 import androidx.annotation.NonNull;
 
-public class SystemFacadeHelper
+/*
+ * An FsModule provider.
+ */
+
+interface FsModuleResolver
 {
-    private static SystemFacade systemFacade;
-    private static FileSystemFacade fileSystemFacade;
-
-    public synchronized static SystemFacade getSystemFacade(@NonNull Context appContext)
-    {
-        if (systemFacade == null)
-            systemFacade = new SystemFacadeImpl(appContext);
-
-        return systemFacade;
-    }
-
-    public synchronized static FileSystemFacade getFileSystemFacade(@NonNull Context appContext)
-    {
-        if (fileSystemFacade == null)
-            fileSystemFacade = new FileSystemFacadeImpl(new SysCallImpl(),
-                    new FsModuleResolverImpl(appContext));
-
-        return fileSystemFacade;
-    }
+    FsModule resolveFsByUri(@NonNull Uri uri);
 }

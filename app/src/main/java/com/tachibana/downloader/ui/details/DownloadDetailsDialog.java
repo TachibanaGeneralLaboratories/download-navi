@@ -209,7 +209,7 @@ public class DownloadDetailsDialog extends DialogFragment
         if (TextUtils.isEmpty(item))
             return;
 
-        viewModel.mutableParams.setUrl(item.toLowerCase());
+        viewModel.mutableParams.setUrl(item);
     }
 
     @Override
@@ -425,7 +425,7 @@ public class DownloadDetailsDialog extends DialogFragment
 
         String dirPath = null;
         Uri dirUri = viewModel.mutableParams.getDirPath();
-        if (dirUri != null && viewModel.fs.isFileSystemPath(dirUri))
+        if (dirUri != null && Utils.isFileSystemPath(dirUri))
             dirPath = dirUri.getPath();
 
         FileManagerConfig config = new FileManagerConfig(dirPath,

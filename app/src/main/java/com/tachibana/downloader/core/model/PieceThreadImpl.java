@@ -20,7 +20,6 @@
 
 package com.tachibana.downloader.core.model;
 
-import android.content.Context;
 import android.net.Uri;
 import android.text.TextUtils;
 import android.util.Log;
@@ -35,8 +34,8 @@ import com.tachibana.downloader.core.model.data.entity.Header;
 import com.tachibana.downloader.core.settings.SettingsRepository;
 import com.tachibana.downloader.core.storage.DataRepository;
 import com.tachibana.downloader.core.system.SystemFacade;
-import com.tachibana.downloader.core.system.filesystem.FileDescriptorWrapper;
-import com.tachibana.downloader.core.system.filesystem.FileSystemFacade;
+import com.tachibana.downloader.core.system.FileDescriptorWrapper;
+import com.tachibana.downloader.core.system.FileSystemFacade;
 import com.tachibana.downloader.core.utils.DateUtils;
 import com.tachibana.downloader.core.utils.Utils;
 
@@ -378,7 +377,7 @@ public class PieceThreadImpl extends Thread implements PieceThread
                 fout = new FileOutputStream(outFd);
 
                 /* Move into place to begin writing */
-                fs.lseek(fout, piece.curBytes);
+                fs.seek(fout, piece.curBytes);
 
             } catch (IOException e) {
                 return new StopRequest(STATUS_FILE_ERROR, e);

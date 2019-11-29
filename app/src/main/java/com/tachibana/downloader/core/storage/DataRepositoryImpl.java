@@ -34,7 +34,7 @@ import com.tachibana.downloader.core.model.data.entity.Header;
 import com.tachibana.downloader.core.model.data.entity.InfoAndPieces;
 import com.tachibana.downloader.core.model.data.entity.UserAgent;
 import com.tachibana.downloader.core.system.SystemFacadeHelper;
-import com.tachibana.downloader.core.system.filesystem.FileSystemFacade;
+import com.tachibana.downloader.core.system.FileSystemFacade;
 
 import java.io.FileNotFoundException;
 import java.util.List;

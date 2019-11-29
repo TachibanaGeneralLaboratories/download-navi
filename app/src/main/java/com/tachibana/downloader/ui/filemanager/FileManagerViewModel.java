@@ -32,7 +32,7 @@ import androidx.databinding.ObservableField;
 import androidx.lifecycle.ViewModel;
 
 import com.tachibana.downloader.core.system.SystemFacadeHelper;
-import com.tachibana.downloader.core.system.filesystem.FileSystemFacade;
+import com.tachibana.downloader.core.system.FileSystemFacade;
 
 import java.io.File;
 import java.io.IOException;

@@ -34,7 +34,8 @@ import com.tachibana.downloader.R;
 import com.tachibana.downloader.core.RepositoryHelper;
 import com.tachibana.downloader.core.settings.SettingsRepository;
 import com.tachibana.downloader.core.system.SystemFacadeHelper;
-import com.tachibana.downloader.core.system.filesystem.FileSystemFacade;
+import com.tachibana.downloader.core.system.FileSystemFacade;
+import com.tachibana.downloader.core.utils.Utils;
 import com.tachibana.downloader.ui.filemanager.FileManagerConfig;
 import com.tachibana.downloader.ui.filemanager.FileManagerDialog;
 import com.takisoft.preferencex.PreferenceFragmentCompat;
@@ -151,7 +152,7 @@ public class StorageSettingsFragment extends PreferenceFragmentCompat
     private void dirChooseDialog(Uri dirUri)
     {
         String dirPath = null;
-        if (dirUri != null && fs.isFileSystemPath(dirUri))
+        if (dirUri != null && Utils.isFileSystemPath(dirUri))
             dirPath = dirUri.getPath();
 
         Intent i = new Intent(getActivity(), FileManagerDialog.class);

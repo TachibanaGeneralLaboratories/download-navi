@@ -18,9 +18,8 @@
  * along with Download Navi.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package com.tachibana.downloader.core.system.filesystem;
+package com.tachibana.downloader.core.system;
 
-import android.annotation.TargetApi;
 import android.net.Uri;
 
 import androidx.annotation.NonNull;
@@ -36,10 +35,9 @@ import java.io.IOException;
 
 public interface FileSystemFacade
 {
-    void lseek(@NonNull FileOutputStream fout, long offset) throws IOException;
+    void seek(@NonNull FileOutputStream fout, long offset) throws IOException;
 
-    @TargetApi(21)
-    void fallocate(@NonNull FileDescriptor fd, long length) throws IOException;
+    void allocate(@NonNull FileDescriptor fd, long length) throws IOException;
 
     void closeQuietly(Closeable closeable);
 
@@ -65,14 +63,8 @@ public interface FileSystemFacade
     @Nullable
     String getDefaultDownloadPath();
 
-    String altExtStoragePath();
-
     @Nullable
     String getUserDirPath();
-
-    boolean isSafPath(@NonNull Uri path);
-
-    boolean isFileSystemPath(@NonNull Uri path);
 
     boolean deleteFile(@NonNull Uri path) throws FileNotFoundException;
 
@@ -85,12 +77,6 @@ public interface FileSystemFacade
     Uri createFile(@NonNull Uri dir,
                    @NonNull String fileName,
                    boolean replace) throws IOException;
-
-    String makeFileSystemPath(@NonNull Uri uri,
-                              String relativePath);
-
-    @TargetApi(21)
-    long getAvailableBytes(@NonNull FileDescriptor fd) throws IOException;
 
     long getDirAvailableBytes(@NonNull Uri dir);
 

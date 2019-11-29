@@ -17,7 +17,7 @@
  * along with LibreTorrent.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package com.tachibana.downloader.core.system.filesystem;
+package com.tachibana.downloader.core.system;
 
 import android.annotation.TargetApi;
 import android.content.ContentResolver;

@@ -54,9 +54,10 @@ import com.tachibana.downloader.core.model.data.entity.DownloadInfo;
 import com.tachibana.downloader.core.settings.SettingsRepository;
 import com.tachibana.downloader.core.sorting.DownloadSorting;
 import com.tachibana.downloader.core.sorting.DownloadSortingComparator;
+import com.tachibana.downloader.core.system.SafFileSystem;
 import com.tachibana.downloader.core.system.SystemFacade;
 import com.tachibana.downloader.core.system.SystemFacadeHelper;
-import com.tachibana.downloader.core.system.filesystem.FileSystemFacade;
+import com.tachibana.downloader.core.system.FileSystemFacade;
 import com.tachibana.downloader.receiver.BootReceiver;
 import com.tachibana.downloader.ui.main.DownloadItem;
 import com.tachibana.downloader.ui.main.drawer.DrawerGroup;
@@ -392,6 +393,20 @@ public class Utils
         return color;
     }
 
+    public static boolean isSafPath(@NonNull Context appContext, @NonNull Uri path)
+    {
+        return SafFileSystem.getInstance(appContext).isSafPath(path);
+    }
+
+    public static boolean isFileSystemPath(@NonNull Uri path)
+    {
+        String scheme = path.getScheme();
+        if (scheme == null)
+            throw new IllegalArgumentException("Scheme of " + path.getPath() + " is null");
+
+        return scheme.equals("file");
+    }
+
     public static Intent makeFileShareIntent(@NonNull Context context,
                                              @NonNull List<DownloadItem> items)
     {
@@ -410,7 +425,7 @@ public class Utils
             DownloadInfo info = item.info;
             Uri filePath = fs.getFileUri(info.dirPath, info.fileName);
             if (filePath != null) {
-                if (fs.isFileSystemPath(filePath))
+                if (Utils.isFileSystemPath(filePath))
                     filePath = FileProvider.getUriForFile(context,
                             context.getPackageName() + ".provider",
                             new File(filePath.getPath()));
@@ -490,7 +505,7 @@ public class Utils
         if (filePath == null)
             return i;
 
-        if (fs.isFileSystemPath(filePath))
+        if (Utils.isFileSystemPath(filePath))
             i.setDataAndType(FileProvider.getUriForFile(context,
                     context.getPackageName() + ".provider",
                     new File(filePath.getPath())),

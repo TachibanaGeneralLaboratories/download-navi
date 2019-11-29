@@ -20,7 +20,6 @@
 
 package com.tachibana.downloader.core.model;
 
-import android.content.Context;
 import android.net.NetworkInfo;
 import android.net.Uri;
 import android.util.Log;
@@ -37,8 +36,8 @@ import com.tachibana.downloader.core.model.data.entity.Header;
 import com.tachibana.downloader.core.settings.SettingsRepository;
 import com.tachibana.downloader.core.storage.DataRepository;
 import com.tachibana.downloader.core.system.SystemFacade;
-import com.tachibana.downloader.core.system.filesystem.FileDescriptorWrapper;
-import com.tachibana.downloader.core.system.filesystem.FileSystemFacade;
+import com.tachibana.downloader.core.system.FileDescriptorWrapper;
+import com.tachibana.downloader.core.system.FileSystemFacade;
 import com.tachibana.downloader.core.utils.DateUtils;
 import com.tachibana.downloader.core.utils.MimeTypeUtils;
 import com.tachibana.downloader.core.utils.Utils;
@@ -575,7 +574,7 @@ public class DownloadThreadImpl implements DownloadThread
         try (FileDescriptorWrapper w = fs.getFD(filePath)) {
             fd = w.open("rw");
             try {
-                fs.fallocate(fd, info.totalBytes);
+                fs.allocate(fd, info.totalBytes);
 
             } catch (InterruptedIOException e) {
                 requestStop();

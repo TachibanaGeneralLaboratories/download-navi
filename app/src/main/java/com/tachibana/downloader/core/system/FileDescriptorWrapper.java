@@ -20,29 +20,13 @@
 
 package com.tachibana.downloader.core.system;
 
-import android.content.Context;
-
 import androidx.annotation.NonNull;
 
-public class SystemFacadeHelper
+import java.io.Closeable;
+import java.io.FileDescriptor;
+import java.io.FileNotFoundException;
+
+public interface FileDescriptorWrapper extends Closeable
 {
-    private static SystemFacade systemFacade;
-    private static FileSystemFacade fileSystemFacade;
-
-    public synchronized static SystemFacade getSystemFacade(@NonNull Context appContext)
-    {
-        if (systemFacade == null)
-            systemFacade = new SystemFacadeImpl(appContext);
-
-        return systemFacade;
-    }
-
-    public synchronized static FileSystemFacade getFileSystemFacade(@NonNull Context appContext)
-    {
-        if (fileSystemFacade == null)
-            fileSystemFacade = new FileSystemFacadeImpl(new SysCallImpl(),
-                    new FsModuleResolverImpl(appContext));
-
-        return fileSystemFacade;
-    }
+    FileDescriptor open(@NonNull String mode) throws FileNotFoundException;
 }

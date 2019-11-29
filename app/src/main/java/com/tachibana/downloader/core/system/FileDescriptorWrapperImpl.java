@@ -18,7 +18,7 @@
  * along with Download Navi.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package com.tachibana.downloader.core.system.filesystem;
+package com.tachibana.downloader.core.system;
 
 import android.content.ContentResolver;
 import android.content.Context;
@@ -31,7 +31,7 @@ import java.io.FileDescriptor;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 
-public class FileDescriptorWrapperImpl implements FileDescriptorWrapper
+class FileDescriptorWrapperImpl implements FileDescriptorWrapper
 {
     private ContentResolver contentResolver;
     private Uri path;

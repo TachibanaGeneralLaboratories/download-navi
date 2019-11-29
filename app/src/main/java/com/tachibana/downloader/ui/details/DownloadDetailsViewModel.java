@@ -44,7 +44,7 @@ import com.tachibana.downloader.core.model.data.entity.DownloadPiece;
 import com.tachibana.downloader.core.model.data.entity.InfoAndPieces;
 import com.tachibana.downloader.core.storage.DataRepository;
 import com.tachibana.downloader.core.system.SystemFacadeHelper;
-import com.tachibana.downloader.core.system.filesystem.FileSystemFacade;
+import com.tachibana.downloader.core.system.FileSystemFacade;
 import com.tachibana.downloader.core.utils.DigestUtils;
 import com.tachibana.downloader.ui.adddownload.AddDownloadDialog;
 

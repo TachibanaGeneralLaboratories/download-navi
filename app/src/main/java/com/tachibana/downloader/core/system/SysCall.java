@@ -1,6 +1,6 @@
 /*
  * Copyright (C) 2019 Tachibana General Laboratories, LLC
- * Copyright (C) 2019 Yaroslav Pronin <proninyaroslav@mail.ru>ru>
+ * Copyright (C) 2019 Yaroslav Pronin <proninyaroslav@mail.ru>
  *
  * This file is part of Download Navi.
  *
@@ -20,29 +20,20 @@
 
 package com.tachibana.downloader.core.system;
 
-import android.content.Context;
-
 import androidx.annotation.NonNull;
 
-public class SystemFacadeHelper
+import java.io.FileDescriptor;
+import java.io.IOException;
+
+/*
+ * A platform dependent interface for system calls.
+ */
+
+interface SysCall
 {
-    private static SystemFacade systemFacade;
-    private static FileSystemFacade fileSystemFacade;
+    void lseek(@NonNull FileDescriptor fd, long offset) throws IOException, UnsupportedOperationException;
 
-    public synchronized static SystemFacade getSystemFacade(@NonNull Context appContext)
-    {
-        if (systemFacade == null)
-            systemFacade = new SystemFacadeImpl(appContext);
+    void fallocate(@NonNull FileDescriptor fd, long length) throws IOException;
 
-        return systemFacade;
-    }
-
-    public synchronized static FileSystemFacade getFileSystemFacade(@NonNull Context appContext)
-    {
-        if (fileSystemFacade == null)
-            fileSystemFacade = new FileSystemFacadeImpl(new SysCallImpl(),
-                    new FsModuleResolverImpl(appContext));
-
-        return fileSystemFacade;
-    }
+    long availableBytes(@NonNull FileDescriptor fd) throws IOException;
 }

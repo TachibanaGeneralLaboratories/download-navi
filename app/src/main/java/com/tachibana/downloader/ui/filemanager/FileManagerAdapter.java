@@ -37,7 +37,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.tachibana.downloader.R;
 import com.tachibana.downloader.core.system.SystemFacadeHelper;
-import com.tachibana.downloader.core.system.filesystem.FileSystemFacade;
+import com.tachibana.downloader.core.system.FileSystemFacade;
 
 import java.util.Collections;
 import java.util.List;
