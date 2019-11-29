@@ -20,7 +20,6 @@
 
 package com.tachibana.downloader.core.system;
 
-import android.content.Context;
 import android.net.Uri;
 import android.os.Environment;
 import android.text.TextUtils;
