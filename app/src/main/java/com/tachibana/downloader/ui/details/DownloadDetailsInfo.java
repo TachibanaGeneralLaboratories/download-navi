@@ -149,6 +149,7 @@ public class DownloadDetailsInfo extends BaseObservable
                 ", dirName='" + dirName + '\'' +
                 ", md5Hash='" + md5Hash + '\'' +
                 ", sha256Hash='" + sha256Hash + '\'' +
+                ", storageFreeSpace=" + storageFreeSpace +
                 ", md5State=" + md5State +
                 ", sha256State=" + sha256State +
                 '}';

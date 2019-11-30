@@ -51,6 +51,7 @@
     <string name="report">Report</string>
     <string name="more_details">More details</string>
     <string name="clipboard">Clipboard</string>
+    <string name="verify">Verify</string>
 
     <!-- Permission dialog -->
     <string name="perm_denied_title">Permission denied</string>
@@ -107,6 +108,9 @@
     <string name="path">Path</string>
     <string name="storage_free_space" formatted="false">Free space: %1$s</string>
     <string name="add_download_error_invalid_url">Unable to add download: invalid URL</string>
+    <string name="checksum">Checksum</string>
+    <string name="add_dialog_checksum_description">MD5, SHA-256</string>
+    <string name="error_invalid_checksum">Invalid checksum</string>
 
     <!-- Add user agent dialog -->
     <string name="dialog_add_user_agent_title">Add user agent</string>
@@ -158,6 +162,7 @@
     <string name="delete_selected_download">Delete the selected download? This operation cannot be undone</string>
     <string name="delete_selected_downloads">Delete the selected downloads? This operation cannot be undone</string>
     <string name="delete_with_downloaded_file">Delete with downloaded file</string>
+    <string name="error_verify_checksum">Invalid file checksum</string>
 
     <!-- Filemanager dialog -->
     <string name="dir_chooser_title">Folder selection</string>

@@ -39,15 +39,19 @@ import com.tachibana.downloader.core.model.data.StatusCode;
 import com.tachibana.downloader.core.model.data.entity.DownloadInfo;
 import com.tachibana.downloader.core.settings.SettingsRepository;
 import com.tachibana.downloader.core.storage.DataRepository;
+import com.tachibana.downloader.core.system.FileDescriptorWrapper;
 import com.tachibana.downloader.core.system.FileSystemFacade;
 import com.tachibana.downloader.core.system.SystemFacade;
 import com.tachibana.downloader.core.system.SystemFacadeHelper;
+import com.tachibana.downloader.core.utils.DigestUtils;
 import com.tachibana.downloader.core.utils.Utils;
 import com.tachibana.downloader.receiver.ConnectionReceiver;
 import com.tachibana.downloader.receiver.PowerReceiver;
 import com.tachibana.downloader.service.DeleteDownloadsWorker;
 import com.tachibana.downloader.service.DownloadService;
 
+import java.io.FileDescriptor;
+import java.io.FileInputStream;
 import java.io.IOException;
 import java.net.HttpURLConnection;
 import java.util.HashMap;
@@ -257,6 +261,69 @@ public class DownloadEngine
         appContext.startService(i);
     }
 
+    public void verifyChecksum(@NonNull UUID id)
+    {
+        disposables.add(repo.getInfoByIdSingle(id)
+                .subscribeOn(Schedulers.io())
+                .filter((info) -> info != null)
+                .subscribe((info) -> {
+                            if (TextUtils.isEmpty(info.checksum))
+                                return;
+
+                            if (!verifyChecksumSync(info)) {
+                                info.statusCode = StatusCode.STATUS_CHECKSUM_ERROR;
+                                info.statusMsg = appContext.getString(R.string.error_verify_checksum);
+                            } else {
+                                info.statusCode = StatusCode.STATUS_SUCCESS;
+                                info.statusMsg = null;
+                            }
+
+                            repo.updateInfo(info, false, false);
+                        },
+                        (Throwable t) -> {
+                            Log.e(TAG, "Getting info " + id + " error: " +
+                                    Log.getStackTraceString(t));
+                            if (checkNoDownloads())
+                                notifyListeners(DownloadEngineListener::onDownloadsCompleted);
+                        })
+        );
+    }
+
+    private boolean verifyChecksumSync(DownloadInfo info)
+    {
+        String hash;
+        try {
+            if (DigestUtils.isMd5Hash(info.checksum)) {
+                hash = calcHashSum(info, false);
+
+            } else if (DigestUtils.isSha256Hash(info.checksum)) {
+                hash = calcHashSum(info, true);
+
+            } else {
+                throw new IllegalArgumentException("Unknown checksum type:" + info.checksum);
+            }
+
+        } catch (IOException e) {
+            return false;
+        }
+
+        return (hash != null && hash.toLowerCase().equals(info.checksum.toLowerCase()));
+    }
+
+    private String calcHashSum(DownloadInfo info, boolean sha256Hash) throws IOException
+    {
+        Uri filePath = fs.getFileUri(info.dirPath, info.fileName);
+        if (filePath == null)
+            return null;
+
+        try (FileDescriptorWrapper w = fs.getFD(filePath)) {
+            FileDescriptor outFd = w.open("r");
+            try (FileInputStream is = new FileInputStream(outFd)) {
+                return (sha256Hash ? DigestUtils.makeSha256Hash(is) : DigestUtils.makeMd5Hash(is));
+            }
+        }
+    }
+
     /*
      * Do not call directly
      */
@@ -393,11 +460,16 @@ public class DownloadEngine
             changed = true;
             info.retry = params.retry;
         }
+        if (params.checksum != null) {
+            changed = true;
+            info.checksum = params.checksum;
+        }
 
         Exception err = null;
         boolean nameChanged = !TextUtils.isEmpty(params.fileName);
         boolean dirChanged = params.dirPath != null;
         boolean urlChanged = !TextUtils.isEmpty(params.url);
+        boolean checksumChanged = !TextUtils.isEmpty(params.checksum);
         if (nameChanged || dirChanged) {
             changed = true;
             try {
@@ -415,6 +487,15 @@ public class DownloadEngine
                     info.fileName = params.fileName;
                 if (dirChanged)
                     info.dirPath = params.dirPath;
+            }
+        }
+        if (checksumChanged) {
+            if (!verifyChecksumSync(info)) {
+                info.statusCode = StatusCode.STATUS_CHECKSUM_ERROR;
+                info.statusMsg = appContext.getString(R.string.error_verify_checksum);
+            } else {
+                info.statusCode = StatusCode.STATUS_SUCCESS;
+                info.statusMsg = null;
             }
         }
 
@@ -471,6 +552,9 @@ public class DownloadEngine
                             handleInfoStatus(info);
                             if (checkNoDownloads())
                                 notifyListeners(DownloadEngineListener::onDownloadsCompleted);
+
+                            if (!TextUtils.isEmpty(info.checksum))
+                                verifyChecksum(id);
                         },
                         (Throwable t) -> {
                             Log.e(TAG, "Getting info " + id + " error: " +

@@ -31,8 +31,8 @@ import androidx.annotation.NonNull;
 import androidx.databinding.ObservableField;
 import androidx.lifecycle.ViewModel;
 
-import com.tachibana.downloader.core.system.SystemFacadeHelper;
 import com.tachibana.downloader.core.system.FileSystemFacade;
+import com.tachibana.downloader.core.system.SystemFacadeHelper;
 
 import java.io.File;
 import java.io.IOException;

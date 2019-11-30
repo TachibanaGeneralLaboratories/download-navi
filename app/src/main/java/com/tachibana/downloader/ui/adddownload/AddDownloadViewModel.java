@@ -48,10 +48,11 @@ import com.tachibana.downloader.core.model.data.entity.Header;
 import com.tachibana.downloader.core.model.data.entity.UserAgent;
 import com.tachibana.downloader.core.settings.SettingsRepository;
 import com.tachibana.downloader.core.storage.DataRepository;
+import com.tachibana.downloader.core.system.FileSystemFacade;
 import com.tachibana.downloader.core.system.SystemFacade;
 import com.tachibana.downloader.core.system.SystemFacadeHelper;
-import com.tachibana.downloader.core.system.FileSystemFacade;
 import com.tachibana.downloader.core.urlnormalizer.NormalizeUrl;
+import com.tachibana.downloader.core.utils.DigestUtils;
 import com.tachibana.downloader.core.utils.Utils;
 
 import java.io.FileNotFoundException;
@@ -399,6 +400,11 @@ public class AddDownloadViewModel extends AndroidViewModel
                 DownloadInfo.MIN_PIECES));
         info.retry = params.isRetry();
         info.userAgent = params.getUserAgent();
+
+        String checksum = params.getChecksum();
+        if (isChecksumValid(checksum))
+            info.checksum = checksum;
+
         info.dateAdded = System.currentTimeMillis();
 
         if (state != null)
@@ -412,6 +418,14 @@ public class AddDownloadViewModel extends AndroidViewModel
         long storageFreeSpace = params.getStorageFreeSpace();
 
         return storageFreeSpace == -1 || storageFreeSpace >= params.getTotalBytes();
+    }
+
+    public boolean isChecksumValid(String checksum)
+    {
+        if (checksum == null)
+            return false;
+
+        return DigestUtils.isMd5Hash(checksum) || DigestUtils.isSha256Hash(checksum);
     }
 
     private final Observable.OnPropertyChangedCallback paramsCallback = new Observable.OnPropertyChangedCallback()

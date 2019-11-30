@@ -34,6 +34,7 @@ public class DownloadDetailsMutableParams extends BaseObservable
     private Uri dirPath;
     private boolean unmeteredConnectionsOnly = false;
     private boolean retry = false;
+    private String checksum;
 
     @Bindable
     public String getUrl()
@@ -107,6 +108,18 @@ public class DownloadDetailsMutableParams extends BaseObservable
         notifyPropertyChanged(BR.retry);
     }
 
+    @Bindable
+    public String getChecksum()
+    {
+        return checksum;
+    }
+
+    public void setChecksum(String checksum)
+    {
+        this.checksum = checksum;
+        notifyPropertyChanged(BR.checksum);
+    }
+
     @Override
     public String toString()
     {
@@ -117,6 +130,7 @@ public class DownloadDetailsMutableParams extends BaseObservable
                 ", dirPath=" + dirPath +
                 ", unmeteredConnectionsOnly=" + unmeteredConnectionsOnly +
                 ", retry=" + retry +
+                ", checksum='" + checksum + '\'' +
                 '}';
     }
 }

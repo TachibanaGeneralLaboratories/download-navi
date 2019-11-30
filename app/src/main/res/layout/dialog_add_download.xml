@@ -36,7 +36,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_toEndOf="@id/fetch_progress"
-                    android:layout_toStartOf="@+id/clipboard_button">
+                    android:layout_toStartOf="@+id/url_clipboard_button">
 
                     <com.google.android.material.textfield.TextInputEditText
                         android:id="@+id/link"
@@ -59,7 +59,7 @@
                     android:visibility="gone" />
 
                 <ImageButton
-                    android:id="@+id/clipboard_button"
+                    android:id="@+id/url_clipboard_button"
                     android:layout_width="40dp"
                     android:layout_height="40dp"
                     android:scaleType="fitCenter"
@@ -250,7 +250,6 @@
                         android:id="@+id/pieces_number"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginBottom="8dp"
                         android:text="@string/download_pieces_number_title"
                         style="@style/TitleText"/>
 
@@ -285,12 +284,14 @@
                         android:id="@+id/user_agent_title"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:layout_marginBottom="0dp"
                         android:text="@string/download_user_agent"
                         style="@style/TitleText" />
 
                     <RelativeLayout
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content">
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="16dp">
 
                         <Spinner
                             android:id="@+id/user_agent"
@@ -310,6 +311,48 @@
                             android:contentDescription="@null"
                             android:background="?attr/dialogRoundRipple"
                             android:src="@drawable/ic_add_grey600_24px" />
+                    </RelativeLayout>
+
+                    <TextView
+                        android:id="@+id/checksum_title"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="@string/checksum"
+                        style="@style/TitleText" />
+
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+
+                        <com.google.android.material.textfield.TextInputLayout
+                            android:id="@+id/layout_checksum"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            app:hintEnabled="false"
+                            android:layout_toStartOf="@+id/checksum_clipboard_button">
+
+                            <com.google.android.material.textfield.TextInputEditText
+                                android:id="@+id/checksum"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:inputType="text|textNoSuggestions"
+                                android:hint="@string/add_dialog_checksum_description"
+                                android:text="@={viewModel.params.checksum}"/>
+                        </com.google.android.material.textfield.TextInputLayout>
+
+                        <ImageButton
+                            android:id="@+id/checksum_clipboard_button"
+                            android:layout_width="40dp"
+                            android:layout_height="40dp"
+                            android:scaleType="fitCenter"
+                            android:layout_marginTop="9dp"
+                            android:layout_marginStart="8dp"
+                            android:layout_alignParentEnd="true"
+                            android:padding="8dp"
+                            android:background="?attr/dialogRoundRipple"
+                            android:contentDescription="@string/clipboard"
+                            android:src="@drawable/ic_content_copy_grey600_48dp"
+                            android:visibility="@{viewModel.showClipboardButton ? View.VISIBLE : View.GONE}" />
                     </RelativeLayout>
                 </LinearLayout>
             </net.cachapa.expandablelayout.ExpandableLayout>

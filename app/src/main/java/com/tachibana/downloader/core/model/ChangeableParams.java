@@ -19,6 +19,7 @@ public class ChangeableParams implements Parcelable
     public Uri dirPath;
     public Boolean unmeteredConnectionsOnly;
     public Boolean retry;
+    public String checksum;
 
     public ChangeableParams() {}
 
@@ -34,6 +35,7 @@ public class ChangeableParams implements Parcelable
         byte retryVal = source.readByte();
         if (retryVal != -1)
             retry = retryVal > 0;
+        checksum = source.readString();
     }
 
     @Override
@@ -57,6 +59,7 @@ public class ChangeableParams implements Parcelable
             dest.writeByte((byte)-1);
         else
             dest.writeByte((byte)(retry ? 1 : 0));
+        dest.writeString(checksum);
     }
 
     public static final Parcelable.Creator<ChangeableParams> CREATOR =
@@ -85,6 +88,7 @@ public class ChangeableParams implements Parcelable
                 ", dirPath=" + dirPath +
                 ", unmeteredConnectionsOnly=" + unmeteredConnectionsOnly +
                 ", retry=" + retry +
+                ", checksum='" + checksum + '\'' +
                 '}';
     }
 }

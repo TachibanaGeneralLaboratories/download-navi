@@ -31,4 +31,6 @@
     <color name="error_light">#CF6679</color>
     <color name="warning">#FFD600</color>
     <color name="warning_light">#FFF394</color>
+    <color name="ok">#20B000</color>
+    <color name="ok_light">#9CD791</color>
 </resources>

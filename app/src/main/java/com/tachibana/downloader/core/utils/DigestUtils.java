@@ -28,6 +28,7 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.security.MessageDigest;
+import java.util.regex.Pattern;
 
 /*
  * Hash utils.
@@ -35,6 +36,8 @@ import java.security.MessageDigest;
 
 public class DigestUtils
 {
+    private static final String MD5_PATTERN = "[A-Fa-f0-9]{32}";
+    private static final String SHA256_PATTERN = "[A-Fa-f0-9]{64}";
     private static final int STREAM_BUFFER_LENGTH = 1024;
 
     public static String makeSha256Hash(@NonNull FileInputStream is)
@@ -108,5 +111,15 @@ public class DigestUtils
         }
 
         return sha1.toString();
+    }
+
+    public static boolean isMd5Hash(@NonNull String hash)
+    {
+        return Pattern.compile(MD5_PATTERN).matcher(hash).matches();
+    }
+
+    public static boolean isSha256Hash(@NonNull String hash)
+    {
+        return Pattern.compile(SHA256_PATTERN).matcher(hash).matches();
     }
 }

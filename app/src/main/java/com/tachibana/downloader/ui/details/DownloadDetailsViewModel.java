@@ -21,9 +21,7 @@
 package com.tachibana.downloader.ui.details;
 
 import android.app.Application;
-import android.content.ContentResolver;
 import android.net.Uri;
-import android.os.ParcelFileDescriptor;
 import android.text.TextUtils;
 import android.util.Log;
 
@@ -33,18 +31,21 @@ import androidx.databinding.ObservableBoolean;
 import androidx.databinding.library.baseAdapters.BR;
 import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.MutableLiveData;
+import androidx.lifecycle.Observer;
 
 import com.tachibana.downloader.core.RepositoryHelper;
 import com.tachibana.downloader.core.exception.FileAlreadyExistsException;
 import com.tachibana.downloader.core.exception.FreeSpaceException;
 import com.tachibana.downloader.core.model.ChangeableParams;
 import com.tachibana.downloader.core.model.DownloadEngine;
+import com.tachibana.downloader.core.model.data.StatusCode;
 import com.tachibana.downloader.core.model.data.entity.DownloadInfo;
 import com.tachibana.downloader.core.model.data.entity.DownloadPiece;
 import com.tachibana.downloader.core.model.data.entity.InfoAndPieces;
 import com.tachibana.downloader.core.storage.DataRepository;
-import com.tachibana.downloader.core.system.SystemFacadeHelper;
+import com.tachibana.downloader.core.system.FileDescriptorWrapper;
 import com.tachibana.downloader.core.system.FileSystemFacade;
+import com.tachibana.downloader.core.system.SystemFacadeHelper;
 import com.tachibana.downloader.core.utils.DigestUtils;
 import com.tachibana.downloader.ui.adddownload.AddDownloadDialog;
 
@@ -123,6 +124,7 @@ public class DownloadDetailsViewModel extends AndroidViewModel
         mutableParams.setDirPath(downloadInfo.dirPath);
         mutableParams.setUnmeteredConnectionsOnly(downloadInfo.unmeteredConnectionsOnly);
         mutableParams.setRetry(downloadInfo.retry);
+        mutableParams.setChecksum(downloadInfo.checksum);
     }
 
     private final Observable.OnPropertyChangedCallback mutableParamsCallback = new Observable.OnPropertyChangedCallback()
@@ -153,7 +155,8 @@ public class DownloadDetailsViewModel extends AndroidViewModel
                 !downloadInfo.dirPath.equals(mutableParams.getDirPath()) ||
                 !(TextUtils.isEmpty(mutableParams.getDescription()) || mutableParams.getDescription().equals(downloadInfo.description)) ||
                 downloadInfo.unmeteredConnectionsOnly != mutableParams.isUnmeteredConnectionsOnly() ||
-                downloadInfo.retry != mutableParams.isRetry();
+                downloadInfo.retry != mutableParams.isRetry() ||
+                !(TextUtils.isEmpty(mutableParams.getChecksum()) || mutableParams.getChecksum().equals(downloadInfo.checksum));
 
         paramsChanged.setValue(changed);
     }
@@ -204,9 +207,8 @@ public class DownloadDetailsViewModel extends AndroidViewModel
         if (filePath == null)
             return null;
 
-        ContentResolver resolver = getApplication().getContentResolver();
-        try (ParcelFileDescriptor outPfd = resolver.openFileDescriptor(filePath, "r")) {
-            FileDescriptor outFd = outPfd.getFileDescriptor();
+        try (FileDescriptorWrapper w = fs.getFD(filePath)) {
+            FileDescriptor outFd = w.open("r");
             try (FileInputStream is = new FileInputStream(outFd)) {
                 return (sha256Hash ? DigestUtils.makeSha256Hash(is) : DigestUtils.makeMd5Hash(is));
             }
@@ -243,6 +245,7 @@ public class DownloadDetailsViewModel extends AndroidViewModel
         String description = mutableParams.getDescription();
         boolean unmeteredConnectionsOnly = mutableParams.isUnmeteredConnectionsOnly();
         boolean retry = mutableParams.isRetry();
+        String checksum = mutableParams.getChecksum();
 
         if (!downloadInfo.url.equals(url))
             params.url = url;
@@ -256,8 +259,19 @@ public class DownloadDetailsViewModel extends AndroidViewModel
             params.unmeteredConnectionsOnly = unmeteredConnectionsOnly;
         if (downloadInfo.retry != retry)
             params.retry = retry;
+        if (isChecksumValid(checksum) && !(TextUtils.isEmpty(checksum) ||
+                checksum.equals(downloadInfo.checksum)))
+            params.checksum = checksum;
 
         return params;
+    }
+
+    public boolean isChecksumValid(String checksum)
+    {
+        if (checksum == null)
+            return false;
+
+        return DigestUtils.isMd5Hash(checksum) || DigestUtils.isSha256Hash(checksum);
     }
 
     private boolean checkFreeSpace()

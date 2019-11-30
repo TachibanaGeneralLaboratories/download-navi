@@ -33,7 +33,6 @@ import android.text.Editable;
 import android.text.TextUtils;
 import android.text.TextWatcher;
 import android.text.format.Formatter;
-import android.util.Log;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -84,7 +83,9 @@ public class AddDownloadDialog extends DialogFragment {
     private static final String TAG_PERM_DIALOG_IS_SHOW = "perm_dialog_is_show";
     private static final String TAG_CREATE_FILE_ERROR_DIALOG = "create_file_error_dialog";
     private static final String TAG_OPEN_DIR_ERROR_DIALOG = "open_dir_error_dialog";
-    private static final String TAG_CLIPBOARD_DIALOG = "clipboard_dialog";
+    private static final String TAG_URL_CLIPBOARD_DIALOG = "url_clipboard_dialog";
+    private static final String TAG_CHECKSUM_CLIPBOARD_DIALOG = "checksum_clipboard_dialog";
+    private static final String TAG_CUR_CLIPBOARD_TAG = "cur_clipboard_tag";
 
     private AlertDialog alert;
     private AppCompatActivity activity;
@@ -97,6 +98,7 @@ public class AddDownloadDialog extends DialogFragment {
     private boolean permDialogIsShow = false;
     private ClipboardDialog clipboardDialog;
     private ClipboardDialog.SharedViewModel clipboardViewModel;
+    private String curClipboardTag;
 
     public static AddDownloadDialog newInstance(@NonNull AddInitParams initParams) {
         AddDownloadDialog frag = new AddDownloadDialog();
@@ -154,7 +156,16 @@ public class AddDownloadDialog extends DialogFragment {
     private void subscribeAlertDialog() {
         Disposable d = dialogViewModel.observeEvents().subscribe(this::handleAlertDialogEvent);
         disposables.add(d);
-        d = clipboardViewModel.observeSelectedItem().subscribe(this::handleSelectedClipboardItem);
+        d = clipboardViewModel.observeSelectedItem().subscribe((item) -> {
+            switch (item.dialogTag) {
+                case TAG_URL_CLIPBOARD_DIALOG:
+                    handleUrlClipItem(item.str);
+                    break;
+                case TAG_CHECKSUM_CLIPBOARD_DIALOG:
+                    handleChecksumClipItem(item.str);
+                    break;
+            }
+        });
         disposables.add(d);
     }
 
@@ -198,13 +209,21 @@ public class AddDownloadDialog extends DialogFragment {
         }
     }
 
-    private void handleSelectedClipboardItem(String item)
+    private void handleUrlClipItem(String item)
     {
         if (TextUtils.isEmpty(item))
             return;
 
         viewModel.params.setUrl(item);
         doAutoFetch();
+    }
+
+    private void handleChecksumClipItem(String item)
+    {
+        if (TextUtils.isEmpty(item))
+            return;
+
+        viewModel.params.setChecksum(item);
     }
 
     @Override
@@ -254,10 +273,13 @@ public class AddDownloadDialog extends DialogFragment {
         if (activity == null)
             activity = (AppCompatActivity)getActivity();
 
+        if (savedInstanceState != null)
+            curClipboardTag = savedInstanceState.getString(TAG_CUR_CLIPBOARD_TAG);
+
         FragmentManager fm = getFragmentManager();
         if (fm != null) {
             addUserAgentDialog = (BaseAlertDialog)fm.findFragmentByTag(TAG_ADD_USER_AGENT_DIALOG);
-            clipboardDialog = (ClipboardDialog)fm.findFragmentByTag(TAG_CLIPBOARD_DIALOG);
+            clipboardDialog = (ClipboardDialog)fm.findFragmentByTag(curClipboardTag);
         }
 
         LayoutInflater i = LayoutInflater.from(activity);
@@ -351,9 +373,26 @@ public class AddDownloadDialog extends DialogFragment {
                 binding.layoutName.setError(null);
             }
         });
+        binding.checksum.addTextChangedListener(new TextWatcher()
+        {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {}
+
+            @Override
+            public void afterTextChanged(Editable s)
+            {
+                checkChecksumField(s);
+            }
+        });
 
         binding.folderChooserButton.setOnClickListener((v) -> showChooseDirDialog());
-        binding.clipboardButton.setOnClickListener((v) -> showClipboardDialog());
+        binding.urlClipboardButton.setOnClickListener((v) ->
+                showClipboardDialog(TAG_URL_CLIPBOARD_DIALOG));
+        binding.checksumClipboardButton.setOnClickListener((v) ->
+                showClipboardDialog(TAG_CHECKSUM_CLIPBOARD_DIALOG));
 
         userAgentAdapter = new UserAgentAdapter(activity, (userAgent) -> {
             disposables.add(viewModel.deleteUserAgent(userAgent)
@@ -456,6 +495,7 @@ public class AddDownloadDialog extends DialogFragment {
     public void onSaveInstanceState(@NonNull Bundle outState)
     {
         outState.putBoolean(TAG_PERM_DIALOG_IS_SHOW, permDialogIsShow);
+        outState.putString(TAG_CUR_CLIPBOARD_TAG, curClipboardTag);
 
         super.onSaveInstanceState(outState);
     }
@@ -541,6 +581,20 @@ public class AddDownloadDialog extends DialogFragment {
         binding.layoutName.setError(null);
 
         return true;
+    }
+
+    private void checkChecksumField(Editable s)
+    {
+        if (!TextUtils.isEmpty(s) && !viewModel.isChecksumValid(s.toString())) {
+            binding.layoutChecksum.setErrorEnabled(true);
+            binding.layoutChecksum.setError(getString(R.string.error_invalid_checksum));
+            binding.layoutChecksum.requestFocus();
+
+            return;
+        }
+
+        binding.layoutChecksum.setErrorEnabled(false);
+        binding.layoutChecksum.setError(null);
     }
 
     private void showFetchError(Throwable e)
@@ -640,12 +694,13 @@ public class AddDownloadDialog extends DialogFragment {
         startActivityForResult(i, CHOOSE_PATH_TO_SAVE_REQUEST_CODE);
     }
 
-    private void showClipboardDialog()
+    private void showClipboardDialog(String tag)
     {
         FragmentManager fm = getFragmentManager();
-        if (fm != null && fm.findFragmentByTag(TAG_CLIPBOARD_DIALOG) == null) {
+        if (fm != null && fm.findFragmentByTag(tag) == null) {
+            curClipboardTag = tag;
             clipboardDialog = ClipboardDialog.newInstance();
-            clipboardDialog.show(fm, TAG_CLIPBOARD_DIALOG);
+            clipboardDialog.show(fm, tag);
         }
     }
 

@@ -51,7 +51,7 @@ import io.reactivex.schedulers.Schedulers;
         DownloadPiece.class,
         Header.class,
         UserAgent.class},
-        version = 3)
+        version = 4)
 @TypeConverters({UUIDConverter.class})
 public abstract class AppDatabase extends RoomDatabase
 {
@@ -109,7 +109,10 @@ public abstract class AppDatabase extends RoomDatabase
                        .subscribe();
                     }
                 })
-                .addMigrations(MIGRATION_1_2, MIGRATION_2_3)
+                .addMigrations(
+                        MIGRATION_1_2,
+                        MIGRATION_2_3,
+                        MIGRATION_3_4)
                 .build();
     }
 
@@ -161,6 +164,15 @@ public abstract class AppDatabase extends RoomDatabase
         {
             database.execSQL("ALTER TABLE `DownloadInfo` ADD COLUMN `retryAfter` INTEGER NOT NULL DEFAULT 0");
             database.execSQL("ALTER TABLE `DownloadInfo` ADD COLUMN `lastModify` INTEGER NOT NULL DEFAULT 0");
+        }
+    };
+
+    @VisibleForTesting
+    static final Migration MIGRATION_3_4 = new Migration(3, 4) {
+        @Override
+        public void migrate(@NonNull SupportSQLiteDatabase database)
+        {
+            database.execSQL("ALTER TABLE `DownloadInfo` ADD COLUMN `checksum` TEXT");
         }
     };
 }

@@ -109,6 +109,8 @@ public class DownloadInfo implements Parcelable, Comparable<DownloadInfo>
     /* In ms */
     public int retryAfter;
     public long lastModify;
+    /* MD5, SHA-256 */
+    public String checksum;
 
     public DownloadInfo(@NonNull Uri dirPath,
                         @NonNull String url,
@@ -142,6 +144,7 @@ public class DownloadInfo implements Parcelable, Comparable<DownloadInfo>
         numFailed = source.readInt();
         retryAfter = source.readInt();
         lastModify = source.readLong();
+        checksum = source.readString();
     }
 
     @Override
@@ -172,6 +175,7 @@ public class DownloadInfo implements Parcelable, Comparable<DownloadInfo>
         dest.writeInt(numFailed);
         dest.writeInt(retryAfter);
         dest.writeLong(lastModify);
+        dest.writeString(checksum);
     }
 
     public static final Parcelable.Creator<DownloadInfo> CREATOR =
@@ -293,7 +297,8 @@ public class DownloadInfo implements Parcelable, Comparable<DownloadInfo>
                 (userAgent == null || userAgent.equals(info.userAgent)) &&
                 numFailed == info.numFailed &&
                 retryAfter == info.retryAfter &&
-                lastModify == info.lastModify;
+                lastModify == info.lastModify &&
+                (checksum == null || checksum.equals(info.checksum));
     }
 
     @Override
@@ -320,6 +325,7 @@ public class DownloadInfo implements Parcelable, Comparable<DownloadInfo>
                 ", numFailed=" + numFailed +
                 ", retryAfter=" + retryAfter +
                 ", lastModify=" + lastModify +
+                ", checksum=" + checksum +
                 '}';
     }
 }

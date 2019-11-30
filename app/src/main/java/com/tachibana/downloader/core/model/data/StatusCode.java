@@ -63,6 +63,8 @@ public class StatusCode
     public static final int STATUS_BAD_REQUEST = 400;
     /* Some possibly transient error occurred, but we can't resume the download */
     public static final int STATUS_CANNOT_RESUME = 489;
+    /* The file hash is different from the specified hash of the download */
+    public static final int STATUS_CHECKSUM_ERROR = 490;
     /*
      * This download has completed with an error.
      * Warning: there will be other status values that indicate errors in

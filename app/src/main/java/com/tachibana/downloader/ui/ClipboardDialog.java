@@ -48,16 +48,28 @@ public class ClipboardDialog extends DialogFragment
 
     public static class SharedViewModel extends androidx.lifecycle.ViewModel
     {
-        private final PublishSubject<String> selectedItemSubject = PublishSubject.create();
+        private final PublishSubject<Item> selectedItemSubject = PublishSubject.create();
 
-        public Observable<String> observeSelectedItem()
+        public Observable<Item> observeSelectedItem()
         {
             return selectedItemSubject;
         }
 
-        public void sendSelectedItem(String item)
+        public void sendSelectedItem(Item item)
         {
             selectedItemSubject.onNext(item);
+        }
+    }
+
+    public class Item
+    {
+        public String dialogTag;
+        public String str;
+
+        public Item(String dialogTag, String str)
+        {
+            this.dialogTag = dialogTag;
+            this.str = str;
         }
     }
 
@@ -106,7 +118,7 @@ public class ClipboardDialog extends DialogFragment
         dialogBuilder.setAdapter(adapter, (dialog, which) -> {
             CharSequence item = adapter.getItem(which);
             if (item != null)
-                viewModel.sendSelectedItem(item.toString());
+                viewModel.sendSelectedItem(new Item(getTag(), item.toString()));
         });
 
         return dialogBuilder.create();

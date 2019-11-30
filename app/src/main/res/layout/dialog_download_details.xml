@@ -53,8 +53,7 @@
                         android:id="@+id/layout_link"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_toStartOf="@id/clipboard_button"
-                        android:layout_marginBottom="16dp">
+                        android:layout_toStartOf="@id/url_clipboard_button">
 
                         <com.google.android.material.textfield.TextInputEditText
                             android:id="@+id/link"
@@ -66,7 +65,7 @@
                     </com.google.android.material.textfield.TextInputLayout>
 
                     <ImageButton
-                        android:id="@+id/clipboard_button"
+                        android:id="@+id/url_clipboard_button"
                         android:layout_width="40dp"
                         android:layout_height="40dp"
                         android:scaleType="fitCenter"
@@ -174,68 +173,90 @@
                         android:text="@string/download_retry" />
                 </com.google.android.material.internal.FlowLayout>
 
-                <LinearLayout
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/detail_downloaded"
+                    style="@style/TitleText" />
+
+                <TextView
+                    android:id="@+id/downloaded"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="16dp"
-                    android:orientation="vertical">
+                    android:text="@{BindingAdapterUtils.formatProgress(context, viewModel.info.downloadedBytes, viewModel.info.downloadInfo.totalBytes, @string/detail_downloaded_format)}"
+                    style="@style/TextAppearance.MaterialComponents.Body1" />
 
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginBottom="8dp"
-                        android:text="@string/detail_downloaded"
-                        style="@style/TitleText" />
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/detail_pieces"
+                    style="@style/TitleText" />
 
-                    <TextView
-                        android:id="@+id/downloaded"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="@{BindingAdapterUtils.formatProgress(context, viewModel.info.downloadedBytes, viewModel.info.downloadInfo.totalBytes, @string/detail_downloaded_format)}"
-                        style="@style/TextAppearance.MaterialComponents.Body1" />
-                </LinearLayout>
-
-                <LinearLayout
+                <TextView
+                    android:id="@+id/num_pieces"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="16dp"
-                    android:orientation="vertical">
+                    android:text="@{String.valueOf(viewModel.info.downloadInfo.numPieces)}"
+                    style="@style/TextAppearance.MaterialComponents.Body1" />
 
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginBottom="8dp"
-                        android:text="@string/detail_pieces"
-                        style="@style/TitleText" />
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/detail_date_added"
+                    style="@style/TitleText" />
 
-                    <TextView
-                        android:id="@+id/num_pieces"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="@{String.valueOf(viewModel.info.downloadInfo.numPieces)}"
-                        style="@style/TextAppearance.MaterialComponents.Body1" />
-                </LinearLayout>
-
-                <LinearLayout
+                <TextView
+                    android:id="@+id/date_added"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="16dp"
-                    android:orientation="vertical">
+                    app:formatDate="@{viewModel.info.downloadInfo.dateAdded}"
+                    style="@style/TextAppearance.MaterialComponents.Body1" />
 
-                    <TextView
+                <TextView
+                    android:id="@+id/checksum_title"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/checksum"
+                    style="@style/TitleText" />
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="16dp">
+
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:id="@+id/layout_checksum"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginBottom="8dp"
-                        android:text="@string/detail_date_added"
-                        style="@style/TitleText" />
+                        app:hintEnabled="false"
+                        android:layout_toStartOf="@+id/checksum_clipboard_button">
 
-                    <TextView
-                        android:id="@+id/date_added"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        app:formatDate="@{viewModel.info.downloadInfo.dateAdded}"
-                        style="@style/TextAppearance.MaterialComponents.Body1" />
-                </LinearLayout>
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/checksum"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:inputType="text|textNoSuggestions"
+                            android:hint="@string/add_dialog_checksum_description"
+                            android:text="@={viewModel.mutableParams.checksum}"/>
+                    </com.google.android.material.textfield.TextInputLayout>
+
+                    <ImageButton
+                        android:id="@+id/checksum_clipboard_button"
+                        android:layout_width="40dp"
+                        android:layout_height="40dp"
+                        android:scaleType="fitCenter"
+                        android:layout_marginTop="9dp"
+                        android:layout_marginStart="8dp"
+                        android:layout_alignParentEnd="true"
+                        android:padding="8dp"
+                        android:background="?attr/dialogRoundRipple"
+                        android:contentDescription="@string/clipboard"
+                        android:src="@drawable/ic_content_copy_grey600_48dp"
+                        android:visibility="@{viewModel.showClipboardButton ? View.VISIBLE : View.GONE}" />
+                </RelativeLayout>
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -247,7 +268,6 @@
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginBottom="8dp"
                         android:text="@string/detail_md5_hash_sum"
                         style="@style/TitleText" />
 
@@ -255,6 +275,7 @@
                         android:id="@+id/calculate_md5_hash"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:minWidth="64dp"
                         app:backgroundTint="?attr/colorPrimary"
                         android:text="@string/calculate"
                         android:onClick="@{() -> viewModel.calcMd5Hash()}"
@@ -288,7 +309,6 @@
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginBottom="8dp"
                         android:text="@string/detail_sha256_hash_sum"
                         style="@style/TitleText" />
 
@@ -296,6 +316,7 @@
                         android:id="@+id/calculate_sha256_hash"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:minWidth="64dp"
                         app:backgroundTint="?attr/colorPrimary"
                         android:text="@string/calculate"
                         android:onClick="@{() -> viewModel.calcSha256Hash()}"
@@ -327,7 +348,6 @@
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginBottom="8dp"
                         android:text="@string/detail_user_agent"
                         style="@style/TitleText" />
 

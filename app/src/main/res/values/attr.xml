@@ -18,6 +18,7 @@
         <attr name="toolbarColor" format="reference" />
         <attr name="statusBarColor" format="reference" />
         <attr name="colorWarning" format="reference" />
+        <attr name="colorOk" format="reference" />
     </declare-styleable>
 
     <declare-styleable name="ExpansionHeader">

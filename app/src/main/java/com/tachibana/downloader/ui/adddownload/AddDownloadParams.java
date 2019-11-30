@@ -47,6 +47,7 @@ public class AddDownloadParams extends BaseObservable
     private boolean partialSupport = true;
     private boolean retry;
     private boolean replaceFile;
+    private String checksum;
 
     @Bindable
     public String getUrl()
@@ -220,6 +221,18 @@ public class AddDownloadParams extends BaseObservable
         notifyPropertyChanged(BR.replaceFile);
     }
 
+    @Bindable
+    public String getChecksum()
+    {
+        return checksum;
+    }
+
+    public void setChecksum(String checksum)
+    {
+        this.checksum = checksum;
+        notifyPropertyChanged(BR.checksum);
+    }
+
     @Override
     public String toString()
     {
@@ -239,6 +252,7 @@ public class AddDownloadParams extends BaseObservable
                 ", partialSupport=" + partialSupport +
                 ", retry=" + retry +
                 ", replaceFile=" + replaceFile +
+                ", checksum='" + checksum + '\'' +
                 '}';
     }
 }
