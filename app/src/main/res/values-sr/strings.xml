@@ -51,7 +51,8 @@
     <string name="apply">Примени</string>
     <string name="report">Пријави</string>
     <string name="more_details">Детаљније</string>
-    <string name="clipboard">Clipboard</string>
+    <string name="clipboard">Клипборд</string>
+    <string name="verify">Verify</string>
     <!-- Permission dialog -->
     <string name="perm_denied_title">Дозвола одбијена</string>
     <string name="perm_denied_warning">Без ове дозволе апликације неће моћи да чува фајлове у меморији на неким верзијама система. Апликације неће радити правилно. Да ли сигурно желите да одбијете ову дозволу?</string>
@@ -100,6 +101,9 @@
     <string name="path">Путања</string>
     <string name="storage_free_space" formatted="false">Слободно места: %1$s</string>
     <string name="add_download_error_invalid_url">Неуспешно преузимање: погрешан URL</string>
+    <string name="checksum">Checksum</string>
+    <string name="add_dialog_checksum_description">MD5, SHA-256</string>
+    <string name="error_invalid_checksum">Invalid checksum</string>
     <!-- Add user agent dialog -->
     <string name="dialog_add_user_agent_title">Додајте корисничког агента</string>
     <!-- Main activity -->
@@ -147,6 +151,7 @@
     <string name="delete_selected_download">Избриши изабрано преузимање? Ова операција не може бити повраћена</string>
     <string name="delete_selected_downloads">Избриши изабрана преузимања? Ова операција не може бити повраћена</string>
     <string name="delete_with_downloaded_file">Избриши са преузетим фајлом</string>
+    <string name="error_verify_checksum">Invalid file checksum</string>
     <!-- Filemanager dialog -->
     <string name="dir_chooser_title">Избор фолдера</string>
     <string name="file_chooser_title">Избор фајлова</string>

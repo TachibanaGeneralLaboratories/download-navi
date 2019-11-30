@@ -52,6 +52,7 @@
     <string name="report">Nahlásiť</string>
     <string name="more_details">Viac informácií</string>
     <string name="clipboard">Schránka</string>
+    <string name="verify">Overiť</string>
     <!-- Permission dialog -->
     <string name="perm_denied_title">Prístup zamietnutý</string>
     <string name="perm_denied_warning">Bez tohto povolenia appka nemôže ukladať súbory na úložisko niektorých zariadení a verzí Androidu. Aplikácia nebude pracovať správne. Naozaj chcete zakázať toto povolenie?</string>
@@ -100,6 +101,9 @@
     <string name="path">Cesta</string>
     <string name="storage_free_space" formatted="false">Voľné miesto: %1$s</string>
     <string name="add_download_error_invalid_url">Nepodarilo sa pridať sťahovanie: Neplatná adresa URL</string>
+    <string name="checksum">Kontrolný súčet</string>
+    <string name="add_dialog_checksum_description">MD5, SHA-256</string>
+    <string name="error_invalid_checksum">Neplatný kontrolný súčet</string>
     <!-- Add user agent dialog -->
     <string name="dialog_add_user_agent_title">Pridať používateľského agenta</string>
     <!-- Main activity -->
@@ -147,6 +151,7 @@
     <string name="delete_selected_download">Odstrániť vybrané sťahovanie? Táto operácia sa nedá vrátiť</string>
     <string name="delete_selected_downloads">Odstrániť vybrané sťahovania? Táto operácia sa nedá vrátiť</string>
     <string name="delete_with_downloaded_file">Odstrániť so stiahnutím súborom</string>
+    <string name="error_verify_checksum">Neplatný kontrolný súčet súboru</string>
     <!-- Filemanager dialog -->
     <string name="dir_chooser_title">Výber priečinka</string>
     <string name="file_chooser_title">Výber súboru</string>

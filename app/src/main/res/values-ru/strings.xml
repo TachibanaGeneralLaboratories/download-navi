@@ -51,6 +51,7 @@
     <string name="report">Сообщить</string>
     <string name="more_details">Подробнее</string>
     <string name="clipboard">Буфер обмена</string>
+    <string name="verify">Проверить</string>
 
     <!-- Permission dialog -->
     <string name="perm_denied_title">Разрешение отклонено</string>
@@ -107,6 +108,9 @@
     <string name="path">Путь</string>
     <string name="storage_free_space" formatted="false">Свободно: %1$s</string>
     <string name="add_download_error_invalid_url">Невозможно добавить загрузку: неверный URL</string>
+    <string name="checksum">Контрольная сумма</string>
+    <string name="add_dialog_checksum_description">MD5, SHA-256</string>
+    <string name="error_invalid_checksum">Неверная контрольная сумма</string>
 
     <!-- Add user agent dialog -->
     <string name="dialog_add_user_agent_title">Добавить user agent</string>
@@ -158,6 +162,7 @@
     <string name="delete_selected_download">Удалить выбранную загрузку? Эта операция не может быть отменена</string>
     <string name="delete_selected_downloads">Удалить выбранные загрузки? Эта операция не может быть отменена</string>
     <string name="delete_with_downloaded_file">Удалить вместе с загруженным файлом</string>
+    <string name="error_verify_checksum">Неверная контрольная сумма файла</string>
 
     <!-- Filemanager dialog -->
     <string name="dir_chooser_title">Выбор папки</string>

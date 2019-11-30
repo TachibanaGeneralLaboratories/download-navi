@@ -51,7 +51,8 @@
     <string name="apply">Uygula</string>
     <string name="report">Bildir</string>
     <string name="more_details">Detaylar</string>
-    <string name="clipboard">Clipboard</string>
+    <string name="clipboard">Pano</string>
+    <string name="verify">Doğrula</string>
     <!-- Permission dialog -->
     <string name="perm_denied_title">İzin reddedildi</string>
     <string name="perm_denied_warning">Bu izin olmadan uygulama, bazı cihazlarda ve Android sürümlerinde dosyaları belleğe kaydedemez. Uygulama düzgün çalışmayacak. Bu izni reddetmek istediğinden emin misin?</string>
@@ -100,6 +101,9 @@
     <string name="path">Yol</string>
     <string name="storage_free_space" formatted="false">Boş alan: %1$s</string>
     <string name="add_download_error_invalid_url">İndirme eklenemedi: geçersiz URL</string>
+    <string name="checksum">Sağlama</string>
+    <string name="add_dialog_checksum_description">MD5, SHA-256</string>
+    <string name="error_invalid_checksum">Geçersiz sağlama toplamı</string>
     <!-- Add user agent dialog -->
     <string name="dialog_add_user_agent_title">Kullanıcı aracısı ekle</string>
     <!-- Main activity -->
@@ -147,6 +151,7 @@
     <string name="delete_selected_download">Seçili indirme silinsin mi? Bu işlem geri alınamaz</string>
     <string name="delete_selected_downloads">Seçili indirmeler silinsin mi? Bu işlem geri alınamaz</string>
     <string name="delete_with_downloaded_file">İndirilen dosyayı da sil</string>
+    <string name="error_verify_checksum">Geçersiz dosya sağlama toplamı</string>
     <!-- Filemanager dialog -->
     <string name="dir_chooser_title">Klasör seç</string>
     <string name="file_chooser_title">Dosya seç</string>

@@ -52,6 +52,7 @@
     <string name="report">रिपोर्ट करें</string>
     <string name="more_details">अधिक जानकारी</string>
     <string name="clipboard">Clipboard</string>
+    <string name="verify">Verify</string>
     <!-- Permission dialog -->
     <string name="perm_denied_title">अनुमति अस्वीकृत</string>
     <string name="perm_denied_warning">इस अनुमति एप्लिकेशन के बिना कुछ उपकरणों और Android के संस्करणों पर स्मृति में फ़ाइलों को नहीं बचा सकता । ऐप ठीक से काम नहीं करेगा । क्या आप निश्चयपूर्वक इस अनुमति को अस्वीकार करना चाहते हैं?</string>
@@ -100,6 +101,9 @@
     <string name="path">पथ</string>
     <string name="storage_free_space" formatted="false">मुक्त स्थान: %1$s</string>
     <string name="add_download_error_invalid_url">डाउनलोड जोड़ने में असमर्थ: अमान्य URL</string>
+    <string name="checksum">Checksum</string>
+    <string name="add_dialog_checksum_description">MD5, SHA-256</string>
+    <string name="error_invalid_checksum">Invalid checksum</string>
     <!-- Add user agent dialog -->
     <string name="dialog_add_user_agent_title">यूजर एजेंट जोड़ें</string>
     <!-- Main activity -->
@@ -147,6 +151,7 @@
     <string name="delete_selected_download">चयनित डाउनलोड हटाएं? यह कार्रवाई पूर्ववत् नहीं की जा सकती</string>
     <string name="delete_selected_downloads">चयनित डाउनलोड हटाएं? यह कार्रवाई पूर्ववत् नहीं की जा सकती</string>
     <string name="delete_with_downloaded_file">डाउनलोड की गई फ़ाइल हटाएं</string>
+    <string name="error_verify_checksum">Invalid file checksum</string>
     <!-- Filemanager dialog -->
     <string name="dir_chooser_title">फ़ोल्डर्स चयन</string>
     <string name="file_chooser_title">फ़ाइल चयन</string>

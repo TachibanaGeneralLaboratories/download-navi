@@ -52,6 +52,7 @@
     <string name="report">レポート</string>
     <string name="more_details">詳細</string>
     <string name="clipboard">Clipboard</string>
+    <string name="verify">Verify</string>
     <!-- Permission dialog -->
     <string name="perm_denied_title">承認が拒否されました</string>
     <string name="perm_denied_warning">この許可がないとアプリは Android のいくつかの端末とバージョンでメモリにファイルを保存することができません。アプリは正しく機能しません。 この許可を拒否してよろしいですか？</string>
@@ -100,6 +101,9 @@
     <string name="path">パス</string>
     <string name="storage_free_space" formatted="false">空き容量: %1$s</string>
     <string name="add_download_error_invalid_url">ダウンロードを追加できません: 無効な URL</string>
+    <string name="checksum">Checksum</string>
+    <string name="add_dialog_checksum_description">MD5, SHA-256</string>
+    <string name="error_invalid_checksum">Invalid checksum</string>
     <!-- Add user agent dialog -->
     <string name="dialog_add_user_agent_title">ユーザーエージェントを追加</string>
     <!-- Main activity -->
@@ -147,6 +151,7 @@
     <string name="delete_selected_download">選択したダウンロードを削除しますか? この操作は元に戻せません。</string>
     <string name="delete_selected_downloads">選択したダウンロードを削除しますか? この操作は元に戻せません。</string>
     <string name="delete_with_downloaded_file">全てのダウンロード済みファイルを削除</string>
+    <string name="error_verify_checksum">Invalid file checksum</string>
     <!-- Filemanager dialog -->
     <string name="dir_chooser_title">フォルダ選択</string>
     <string name="file_chooser_title">ファイル選択</string>

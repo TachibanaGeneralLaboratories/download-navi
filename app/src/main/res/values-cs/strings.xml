@@ -52,6 +52,7 @@
     <string name="report">Nahlásit</string>
     <string name="more_details">Více informací</string>
     <string name="clipboard">Schránka</string>
+    <string name="verify">Verify</string>
     <!-- Permission dialog -->
     <string name="perm_denied_title">Přístup odepřen</string>
     <string name="perm_denied_warning">Bez tohoto oprávnění nemůže aplikace ukládat soubory do úložiště na některých zařízeních a verzích Androidu. Aplikace nebude správně fungovat. Opravdu chcete toto oprávnění odmítnout?</string>
@@ -100,6 +101,9 @@
     <string name="path">Cesta</string>
     <string name="storage_free_space" formatted="false">Volné místo: %1$s</string>
     <string name="add_download_error_invalid_url">Nelze přidat stahování: neplatná URL</string>
+    <string name="checksum">Checksum</string>
+    <string name="add_dialog_checksum_description">MD5, SHA-256</string>
+    <string name="error_invalid_checksum">Invalid checksum</string>
     <!-- Add user agent dialog -->
     <string name="dialog_add_user_agent_title">Přidat uživatelského agenta</string>
     <!-- Main activity -->
@@ -147,6 +151,7 @@
     <string name="delete_selected_download">Smazat vybrané stahování? Tuto operaci nelze vrátit zpět</string>
     <string name="delete_selected_downloads">Smazat vybraná stahování? Tuto operaci nelze vrátit zpět</string>
     <string name="delete_with_downloaded_file">Smazat se staženým souborem</string>
+    <string name="error_verify_checksum">Invalid file checksum</string>
     <!-- Filemanager dialog -->
     <string name="dir_chooser_title">Výběr složky</string>
     <string name="file_chooser_title">Výběr souboru</string>
