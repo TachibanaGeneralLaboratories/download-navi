@@ -6,12 +6,12 @@ android {
         applicationId "com.tachibana.downloader"
         minSdkVersion 19
         targetSdkVersion 28
-        versionCode 6
+        versionCode 7
         /*
          * Convection:
          *  major.minor.[revision][-some_info]
          */
-        versionName "1.1"
+        versionName "1.1.1"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         vectorDrawables.useSupportLibrary = true
 

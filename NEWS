@@ -1,3 +1,9 @@
+Version 1.1.1 (2019-11-30)
+========================
+
+ * Fixed path selection through the system file manager
+ * Added checksum verification option
+
 Version 1.1 (2019-11-27)
 ========================
 

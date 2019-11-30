@@ -1,0 +1,2 @@
+ * Fixed path selection through the system file manager
+ * Added checksum verification option
