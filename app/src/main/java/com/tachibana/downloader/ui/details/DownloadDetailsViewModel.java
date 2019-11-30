@@ -30,15 +30,12 @@ import androidx.databinding.Observable;
 import androidx.databinding.ObservableBoolean;
 import androidx.databinding.library.baseAdapters.BR;
 import androidx.lifecycle.AndroidViewModel;
-import androidx.lifecycle.MutableLiveData;
-import androidx.lifecycle.Observer;
 
 import com.tachibana.downloader.core.RepositoryHelper;
 import com.tachibana.downloader.core.exception.FileAlreadyExistsException;
 import com.tachibana.downloader.core.exception.FreeSpaceException;
 import com.tachibana.downloader.core.model.ChangeableParams;
 import com.tachibana.downloader.core.model.DownloadEngine;
-import com.tachibana.downloader.core.model.data.StatusCode;
 import com.tachibana.downloader.core.model.data.entity.DownloadInfo;
 import com.tachibana.downloader.core.model.data.entity.DownloadPiece;
 import com.tachibana.downloader.core.model.data.entity.InfoAndPieces;
@@ -69,7 +66,6 @@ public class DownloadDetailsViewModel extends AndroidViewModel
     private CompositeDisposable disposables = new CompositeDisposable();
     public DownloadDetailsInfo info = new DownloadDetailsInfo();
     public DownloadDetailsMutableParams mutableParams = new DownloadDetailsMutableParams();
-    public MutableLiveData<Boolean> paramsChanged = new MutableLiveData<>();
     public ObservableBoolean showClipboardButton = new ObservableBoolean(false);
     public FileSystemFacade fs;
 
@@ -89,7 +85,6 @@ public class DownloadDetailsViewModel extends AndroidViewModel
         repo = RepositoryHelper.getDataRepository(application);
         fs = SystemFacadeHelper.getFileSystemFacade(application);
         engine = DownloadEngine.getInstance(application);
-        paramsChanged.setValue(false);
         mutableParams.addOnPropertyChangedCallback(mutableParamsCallback);
     }
 
@@ -139,27 +134,8 @@ public class DownloadDetailsViewModel extends AndroidViewModel
                     info.setDirName(fs.getDirName(dirPath));
                 }
             }
-
-            checkParamsChanged();
         }
     };
-
-    private void checkParamsChanged()
-    {
-        DownloadInfo downloadInfo = info.getDownloadInfo();
-        if (info == null)
-            return;
-
-        boolean changed = !downloadInfo.url.equals(mutableParams.getUrl()) ||
-                !downloadInfo.fileName.equals(mutableParams.getFileName()) ||
-                !downloadInfo.dirPath.equals(mutableParams.getDirPath()) ||
-                !(TextUtils.isEmpty(mutableParams.getDescription()) || mutableParams.getDescription().equals(downloadInfo.description)) ||
-                downloadInfo.unmeteredConnectionsOnly != mutableParams.isUnmeteredConnectionsOnly() ||
-                downloadInfo.retry != mutableParams.isRetry() ||
-                !(TextUtils.isEmpty(mutableParams.getChecksum()) || mutableParams.getChecksum().equals(downloadInfo.checksum));
-
-        paramsChanged.setValue(changed);
-    }
 
     public void calcMd5Hash()
     {
@@ -253,14 +229,14 @@ public class DownloadDetailsViewModel extends AndroidViewModel
             params.fileName = fileName;
         if (!downloadInfo.dirPath.equals(dirPath))
             params.dirPath = dirPath;
-        if (!(TextUtils.isEmpty(description) || description.equals(downloadInfo.description)))
+        if (TextUtils.isEmpty(description) || !description.equals(downloadInfo.description))
             params.description = description;
         if (downloadInfo.unmeteredConnectionsOnly != unmeteredConnectionsOnly)
             params.unmeteredConnectionsOnly = unmeteredConnectionsOnly;
         if (downloadInfo.retry != retry)
             params.retry = retry;
-        if (isChecksumValid(checksum) && !(TextUtils.isEmpty(checksum) ||
-                checksum.equals(downloadInfo.checksum)))
+        if (TextUtils.isEmpty(checksum) || isChecksumValid(checksum) &&
+                !checksum.equals(downloadInfo.checksum))
             params.checksum = checksum;
 
         return params;

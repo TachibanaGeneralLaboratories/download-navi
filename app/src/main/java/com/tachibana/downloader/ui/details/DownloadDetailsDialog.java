@@ -339,13 +339,6 @@ public class DownloadDetailsDialog extends DialogFragment
             Button applyButton = alert.getButton(AlertDialog.BUTTON_NEGATIVE);
             Button redownloadButton = alert.getButton(AlertDialog.BUTTON_NEUTRAL);
 
-            viewModel.paramsChanged.observe(this, (changed) -> {
-                if (changed)
-                    applyButton.setVisibility(View.VISIBLE);
-                else
-                    applyButton.setVisibility(View.GONE);
-            });
-
             closeButton.setOnClickListener((v) -> finish());
             applyButton.setOnClickListener((v) -> applyChangedParams(false));
             redownloadButton.setOnClickListener((v) -> showAddDownloadDialog());

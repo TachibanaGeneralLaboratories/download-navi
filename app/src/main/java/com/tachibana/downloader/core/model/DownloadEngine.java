@@ -267,15 +267,12 @@ public class DownloadEngine
                 .subscribeOn(Schedulers.io())
                 .filter((info) -> info != null)
                 .subscribe((info) -> {
-                            if (TextUtils.isEmpty(info.checksum))
-                                return;
-
-                            if (!verifyChecksumSync(info)) {
-                                info.statusCode = StatusCode.STATUS_CHECKSUM_ERROR;
-                                info.statusMsg = appContext.getString(R.string.error_verify_checksum);
-                            } else {
+                            if (verifyChecksumSync(info)) {
                                 info.statusCode = StatusCode.STATUS_SUCCESS;
                                 info.statusMsg = null;
+                            } else {
+                                info.statusCode = StatusCode.STATUS_CHECKSUM_ERROR;
+                                info.statusMsg = appContext.getString(R.string.error_verify_checksum);
                             }
 
                             repo.updateInfo(info, false, false);
@@ -291,6 +288,9 @@ public class DownloadEngine
 
     private boolean verifyChecksumSync(DownloadInfo info)
     {
+        if (TextUtils.isEmpty(info.checksum))
+            return true;
+
         String hash;
         try {
             if (DigestUtils.isMd5Hash(info.checksum)) {
@@ -444,11 +444,11 @@ public class DownloadEngine
     private boolean doApplyParams(DownloadInfo info, ChangeableParams params)
     {
         boolean changed = false;
-        if (!TextUtils.isEmpty(params.url)) {
+        if (params.url != null) {
             changed = true;
             info.url = params.url;
         }
-        if (!TextUtils.isEmpty(params.description)) {
+        if (params.description != null) {
             changed = true;
             info.description = params.description;
         }
@@ -466,10 +466,10 @@ public class DownloadEngine
         }
 
         Exception err = null;
-        boolean nameChanged = !TextUtils.isEmpty(params.fileName);
+        boolean nameChanged = params.fileName != null;
         boolean dirChanged = params.dirPath != null;
-        boolean urlChanged = !TextUtils.isEmpty(params.url);
-        boolean checksumChanged = !TextUtils.isEmpty(params.checksum);
+        boolean urlChanged = params.url != null;
+        boolean checksumChanged = params.checksum != null;
         if (nameChanged || dirChanged) {
             changed = true;
             try {
@@ -490,12 +490,12 @@ public class DownloadEngine
             }
         }
         if (checksumChanged) {
-            if (!verifyChecksumSync(info)) {
-                info.statusCode = StatusCode.STATUS_CHECKSUM_ERROR;
-                info.statusMsg = appContext.getString(R.string.error_verify_checksum);
-            } else {
+            if (verifyChecksumSync(info)) {
                 info.statusCode = StatusCode.STATUS_SUCCESS;
                 info.statusMsg = null;
+            } else {
+                info.statusCode = StatusCode.STATUS_CHECKSUM_ERROR;
+                info.statusMsg = appContext.getString(R.string.error_verify_checksum);
             }
         }
 
