@@ -54,4 +54,26 @@ public class DigestUtilsTest
                 unicodeStr.getBytes(Charset.forName("UTF-8"))));
         assertEquals(md5HashBinary, DigestUtils.makeMd5Hash(binary));
     }
+
+    @Test
+    public void testIsMd5Hash()
+    {
+        assertTrue(DigestUtils.isMd5Hash(md5HashBinary));
+        assertTrue(DigestUtils.isMd5Hash(md5HashUnicode));
+        assertFalse(DigestUtils.isMd5Hash(sha256HashBinary));
+        assertFalse(DigestUtils.isMd5Hash(sha256HashUnicode));
+        assertFalse(DigestUtils.isMd5Hash(""));
+        assertFalse(DigestUtils.isMd5Hash(unicodeStr));
+    }
+
+    @Test
+    public void testIsSha256Hash()
+    {
+        assertTrue(DigestUtils.isSha256Hash(sha256HashBinary));
+        assertTrue(DigestUtils.isSha256Hash(sha256HashUnicode));
+        assertFalse(DigestUtils.isSha256Hash(md5HashBinary));
+        assertFalse(DigestUtils.isSha256Hash(md5HashUnicode));
+        assertFalse(DigestUtils.isSha256Hash(""));
+        assertFalse(DigestUtils.isSha256Hash(unicodeStr));
+    }
 }
