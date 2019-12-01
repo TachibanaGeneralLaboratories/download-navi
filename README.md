@@ -73,6 +73,8 @@ You can help translate the app here: [https://crowdin.com/project/download-navi]
  - **Azerbaijani** *(thanks Khan27)*
  - **Indonesian** *(thanks bzntm)*
  - **Vietnamese** *(thanks pnhpnh)*
+ - **French** *(thanks Ilith, KaKi87)*
+ - **Italian** *(thanks alisseo)*
 
 Contributors
 ---

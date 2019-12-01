@@ -1,0 +1,253 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Global string -->
+    <string name="app_name">Download Navi</string>
+    <string name="foreground_notification">Notifica in primo piano</string>
+    <string name="download_running">In corso</string>
+    <string name="finished">Completato</string>
+    <string name="shutdown">Esci</string>
+    <!-- 1 d. 1 h. 1 m -->
+    <string name="elapsed_time_format_d_h_mm">%1$d g. %2$d h. %3$d m</string>
+    <!-- 1 h. 1 m. 1 s -->
+    <string name="elapsed_time_format_h_mm_ss">%1$d h. %2$d m. %3$d s</string>
+    <!-- 1 m. 1 s -->
+    <string name="elapsed_time_format_mm_ss">%1$d m. %2$d s</string>
+    <!-- 1 s -->
+    <string name="elapsed_time_format_ss">%1$d s</string>
+    <string name="ok">OK</string>
+    <string name="cancel">Annulla</string>
+    <!-- A synonym for word "unmetered" - unlimited-->
+    <string name="unmetered_connections_only">Solo connessioni illimitate</string>
+    <string name="connect">Connetti</string>
+    <string name="add">Aggiungi</string>
+    <string name="not_available">Non disponibile</string>
+    <string name="open_navigation_drawer">Apri pannello di navigazione</string>
+    <string name="close_navigation_drawer">Chiudi il pannello di navigazione</string>
+    <string name="error_template">Errore: %1$s</string>
+    <string name="pause">Pausa</string>
+    <string name="resume">Riprendi</string>
+    <string name="stop">Interrompi</string>
+    <string name="stopped">Interrotto</string>
+    <string name="pending">In Attesa</string>
+    <string name="delete">Cancella</string>
+    <string name="share">Condividi</string>
+    <string name="menu">Menu</string>
+    <string name="select_all">Seleziona tutti</string>
+    <string name="share_via">Condividi via</string>
+    <string name="no">No</string>
+    <string name="yes">Si</string>
+    <string name="error">Errore</string>
+    <string name="file">File</string>
+    <string name="folder">Cartella</string>
+    <string name="downloading_metadata">Scaricamento metadata</string>
+    <string name="all">Tutti</string>
+    <string name="search">Cerca</string>
+    <string name="settings">Impostazioni</string>
+    <string name="about">Info su</string>
+    <string name="close">Chiudi</string>
+    <string name="redownload">Scarica di nuovo</string>
+    <string name="Default">Default</string>
+    <string name="warning">Attenzione</string>
+    <string name="apply">Applica</string>
+    <string name="report">Riporta</string>
+    <string name="more_details">Mostra dettagli</string>
+    <string name="clipboard">Clipboard</string>
+    <string name="verify">Verify</string>
+    <!-- Permission dialog -->
+    <string name="perm_denied_title">Permesso negato</string>
+    <string name="perm_denied_warning">Senza questa autorizzazione l\'app non può salvare file in memoria su alcuni dispositivi e versioni di Android. L\'app non funzionerà correttamente. Sei sicuro di voler negare questa autorizzazione?</string>
+    <!-- Download progress notification -->
+    <string name="download_ticker_notify" formatted="false">Download in corso %1$s</string>
+    <!-- Foreground notification -->
+    <string name="app_running_in_the_background">Download Navi in esecuzione in background</string>
+    <string name="pause_all">Pausa per tutti</string>
+    <string name="resume_all">Riavvia tutti</string>
+    <!-- Finish notification -->
+    <string name="download_finished_notify">Download terminato</string>
+    <string name="open_using">Apri con</string>
+    <!-- Pending notification -->
+    <string name="download_in_queue_ticker_notify" formatted="false">%1$s in coda</string>
+    <string name="waiting_for_network">In attesa della rete</string>
+    <string name="waiting_for_retry">In attesa di riprovare</string>
+    <!-- Error notification -->
+    <string name="download_error_notify_title">Errore download</string>
+    <!-- Applying params notification -->
+    <string name="applying_params_title">Applica</string>
+    <string name="applying_params_for_downloads">Applica parametri per i download</string>
+    <string name="applying_params_error_title" formatted="false">Parametro errato %1$s</string>
+    <!-- Add download dialog -->
+    <string name="add_download">Aggiungi Download</string>
+    <string name="download_link">Link</string>
+    <string name="download_name">Nome</string>
+    <string name="download_size" formatted="false">Dimensione: %1$s</string>
+    <string name="download_retry">Riprova</string>
+    <string name="download_advanced">Avanzate</string>
+    <string name="download_user_agent">User agent</string>
+    <string name="download_error_empty_link">Inserisci il link</string>
+    <string name="download_error_empty_name">Inserisci il nome</string>
+    <string name="download_error_no_enough_free_space" formatted="false">Non c\'è abbastanza spazio libero: %1$s disponibile, ma la dimensione del file è %2$s</string>
+    <string name="download_error_name_is_not_correct" formatted="false">Il nome corretto è \"%1$s\"</string>
+    <string name="fetch_error_default_fmt" formatted="false">Errore: %1$s</string>
+    <string name="fetch_error_invalid_url" formatted="false">URL non valido: %1$s</string>
+    <string name="fetch_error_network_disconnected">rete disconnessa</string>
+    <string name="fetch_error_http_response" formatted="false">Errore: il server ha restituito il codice HTTP %1$d</string>
+    <string name="fetch_error_io" formatted="false">Errore applicazione: %1$s</string>
+    <string name="unable_to_open_folder">Impossibile aprire la cartella selezionata. Si prega di provare a selezionare un\'altra cartella</string>
+    <string name="unable_to_create_file">Impossibile creare il file. Si prega di provare a selezionare un\'altra cartella</string>
+    <string name="partial_download_not_supported">Questo download non supporta la pausa e il download multipart</string>
+    <string name="download_pieces_number_title">Numero di parti</string>
+    <string name="download_description">Descrizione</string>
+    <string name="select_folder_to_save">Selezionare cartella di salvataggio</string>
+    <string name="path">Percorso</string>
+    <string name="storage_free_space" formatted="false">Spazio libero: %1$s</string>
+    <string name="add_download_error_invalid_url">Impossibile aggiungere il download: URL non valido</string>
+    <string name="checksum">Checksum</string>
+    <string name="add_dialog_checksum_description">MD5, SHA-256</string>
+    <string name="error_invalid_checksum">Invalid checksum</string>
+    <!-- Add user agent dialog -->
+    <string name="dialog_add_user_agent_title">Aggiungi user agent</string>
+    <!-- Main activity -->
+    <string name="fragment_title_queued">In coda</string>
+    <string name="fragment_title_completed">Completato</string>
+    <string name="download_list_empty">Nessun download</string>
+    <string name="share_url">Condividi URL</string>
+    <!-- Navigation drawer -->
+    <!-- Category -->
+    <string name="drawer_category">Categoria</string>
+    <string name="drawer_category_others">Altri</string>
+    <string name="drawer_category_documents">Documenti</string>
+    <string name="drawer_category_images">Immagini</string>
+    <string name="drawer_category_video">Video</string>
+    <string name="drawer_category_apk">APK</string>
+    <string name="drawer_category_audio">Audio</string>
+    <string name="drawer_category_archives">Archivi</string>
+    <!-- Status -->
+    <string name="drawer_status">Stato</string>
+    <string name="drawer_status_running">In esecuzione</string>
+    <string name="drawer_status_stopped">Fermato</string>
+    <!-- Date added -->
+    <string name="drawer_date_added">Aggiunto il</string>
+    <string name="drawer_date_added_today">Oggi</string>
+    <string name="drawer_date_added_yesterday">Ieri</string>
+    <string name="drawer_date_added_week">Settimana</string>
+    <string name="drawer_date_added_month">Mese</string>
+    <string name="drawer_date_added_year">Anno</string>
+    <!-- Sorting -->
+    <string name="drawer_sorting">Ordina</string>
+    <string name="drawer_sorting_date_added">Aggiunto il</string>
+    <string name="drawer_sorting_name">Nome</string>
+    <string name="drawer_sorting_size">Dimensione</string>
+    <string name="drawer_sorting_category">Categoria</string>
+    <string name="drawer_sorting_no_sorting">Nessun ordinamento</string>
+    <!-- Download list item -->
+    <!-- downloaded/total • ETA • speed -->
+    <string name="download_queued_progress_template" formatted="false">%1$s/%2$s \u2022 %3$s \u2022 %4$s/s</string>
+    <!-- downloaded/total • status -->
+    <string name="download_queued_template" formatted="false">%1$s/%2$s \u2022 %3$s</string>
+    <!-- hostname • total -->
+    <string name="download_finished_template" formatted="false">%1$s \u2022 %2$s</string>
+    <string name="download_details">Dettagli</string>
+    <string name="deleting">Eliminazione</string>
+    <string name="delete_selected_download">Eliminare il download selezionato? Questa operazione non può essere annullata</string>
+    <string name="delete_selected_downloads">Eliminare i download selezionati? Questa operazione non può essere annullata</string>
+    <string name="delete_with_downloaded_file">Elimina con il file scaricato</string>
+    <string name="error_verify_checksum">Invalid file checksum</string>
+    <!-- Filemanager dialog -->
+    <string name="dir_chooser_title">Selezione cartella</string>
+    <string name="file_chooser_title">Selezione file</string>
+    <string name="dialog_new_folder_title">Nuova cartella</string>
+    <string name="error_dialog_new_folder">Impossibile creare cartellla</string>
+    <string name="error_open_dir">Impossibile aprire la cartella</string>
+    <string name="home_directory">Home</string>
+    <!-- name (size) -->
+    <string name="permission_denied">Permesso negato</string>
+    <string name="save_file">Salva file</string>
+    <string name="file_name">Nome file</string>
+    <string name="error_file_exists">File già esistente. Sostituirlo?</string>
+    <string name="file_name_is_empty">Il nome del file non può essere vuoto</string>
+    <string name="system_manager">Gestore di sistema</string>
+    <string name="device_does_not_support_this_feature">Il dispositivo non supporta questa funzione</string>
+    <string name="system_file_manager_not_found">Gestore file di sistema non trovato</string>
+    <string name="replace_file">Sostituisci file</string>
+    <!-- Details download dialog -->
+    <string name="detail_downloaded">Scaricato</string>
+    <!-- downloaded/total (percent) -->
+    <string name="detail_downloaded_format" formatted="false">%1$s/%2$s (%3$d%%)</string>
+    <string name="detail_pieces">Parti</string>
+    <string name="detail_date_added">Aggiunto il</string>
+    <string name="detail_user_agent">User agent</string>
+    <string name="detail_md5_hash_sum">MD5</string>
+    <string name="detail_sha256_hash_sum">SHA-256</string>
+    <string name="calculate">Calcola</string>
+    <!-- Error report -->
+    <string name="app_error_occurred">Si è verificato un errore nell\'app. Inviare il report agli sviluppatori</string>
+    <string name="error_comment_prompt">Puoi aggiungere ulteriori informazioni e commenti qui:</string>
+    <!-- Send text to clipboard -->
+    <string name="send_text_to_clipboard">Copia</string>
+    <string name="text_copied_to_clipboard">Testo copiato negli appunti</string>
+    <!-- Settings -->
+    <!-- Headers -->
+    <string name="pref_header_appearance">Aspetto</string>
+    <string name="pref_header_behavior">Funzionalità</string>
+    <string name="pref_header_storage">Memoria</string>
+    <!-- Appearance settings -->
+    <string name="pref_theme_category">Impostazioni tema</string>
+    <string name="pref_theme_title">Tema</string>
+    <string-array name="pref_theme_entries">
+        <item>Chiaro</item>
+        <item>Scuro</item>
+        <item>Nero</item>
+    </string-array>
+    <string name="pref_notification_category">Impostazioni notifiche</string>
+    <string name="pref_progress_notify_title">Notifica di avanzamento</string>
+    <string name="pref_finish_notify_title">Notifica quando finito</string>
+    <string name="pref_pending_notify_title">Notifica in sospeso</string>
+    <string name="pref_play_sound_notify_title">Riproduci suono</string>
+    <string name="pref_notify_sound_title">Suono di notifica</string>
+    <string name="pref_led_indicator_notify_title">Indicatore LED</string>
+    <string name="pref_led_indicator_color_notify_title">Colore indicatore LED</string>
+    <string name="pref_vibration_notify_title">Vibrazione</string>
+    <string name="theme_settings_apply_after_reboot">Le impostazioni del tema verranno applicate dopo il riavvio dell\'app</string>
+    <!-- Behavior settings -->
+    <string name="pref_autostart_title">Avvio automatico</string>
+    <string name="pref_autostart_summary">Esegui l\'app dopo l\'avvio del dispositivo e avvia i download, se non sono stati messi in pausa</string>
+    <!-- A synonym for word "unmetered" - unlimited-->
+    <string name="pref_umnetered_connections_only_title">Solo connessioni illimitate</string>
+    <string name="pref_umnetered_connections_only_summary">Scarica solo con connessioni illimitate (per esempio, Wi-Fi)</string>
+    <string name="pref_power_management_category">Gestione Energia</string>
+    <string name="pref_cpu_do_not_sleep_title">Mantieni attiva la CPU</string>
+    <string name="pref_cpu_do_not_sleep_summary">Abilitando questa opzione aumenterà l\'utilizzo della batteria. Usa questa opzione se la velocità di download diminuisce quando lo schermo si spegne</string>
+    <string name="pref_download_only_when_charging_title">Scarica solo quando in carica</string>
+    <string name="pref_download_only_when_charging_summary">Se abilitato, il download si svolgerà solo durante la carica. I download si fermeranno quando non collegato al caricabatteria</string>
+    <string name="pref_battery_control_title">Controllo batteria</string>
+    <string name="pref_custom_battery_control_title">Percentuale batteria personalizzata</string>
+    <string name="pref_custom_battery_control_value_title">Controllo percentuale della batteria</string>
+    <string name="pref_battery_control_summary" formatted="false">Tutti i download saranno sospesi se il livello della batteria scende al di sotto del %1$d%%. Il limite non si applica al momento della ricarica</string>
+    <string name="pref_custom_battery_control_summary" formatted="false">Imposta una percentuale personalizzata per mettere in pausa i download in caso di calo della batteria al di sotto della soglia specificata. Abilitando questa opzione si ignora la soglia predefinita del %1$d%%</string>
+    <string name="pref_custom_battery_control_dialog_summary" formatted="false">Impostare una percentuale di batteria personalizzata per l\'applicazione da monitorare avrà un impatto negativo sulla durata della batteria durante il download. Sei sicuro di voler abilitare questo?</string>
+    <string name="pref_enable_roaming_title">Abilita roaming</string>
+    <string name="pref_enable_roaming_summary">Scarica solo se il dispositivo non è in roaming</string>
+    <string name="pref_max_active_downloads_title">Numero massimo di download attivi</string>
+    <string name="pref_max_download_retries_title">Numero massimo di tentativi di download</string>
+    <string name="pref_max_download_retries_dialog_msg">0 - senza riprovare</string>
+    <string name="pref_replace_duplicate_downloads_title">Sostituisci i download duplicati</string>
+    <string name="pref_replace_duplicate_downloads_summary">Sostituisci i download duplicati (con lo stesso URL) quando sono già nella lista</string>
+    <string name="pref_auto_connect_title">Connessione Automatica</string>
+    <string name="pref_auto_connect_summary">Connetti automaticamente quando si apre la finestra di aggiunta</string>
+    <string name="pref_timeout_title">Timeout</string>
+    <string name="pref_timeout_summary">The number of milliseconds to wait before the connection timed out. Zero is interpreted as an infinite timeout</string>
+    <!-- Storage settings -->
+    <string name="pref_save_downloads_in_title">Salva download in</string>
+    <string name="pref_move_after_download_title">Sposta dopo il download</string>
+    <string name="pref_move_after_download_in_title">Sposta dopo il download in</string>
+    <string name="pref_delete_file_if_error_title">Elimina il file se si verifica un errore</string>
+    <string name="pref_preallocate_disk_space_title">Pre-allocare lo spazio su disco per il file</string>
+    <string name="pref_preallocate_disk_space_summary">Disponibile per Android 5.0 Lollipop e superiore</string>
+    <!-- About dialog -->
+    <string name="about_title">Info su Download Navi</string>
+    <string name="about_description"><![CDATA[Maggiori informazioni ed anche per contribuire al progetto: <a href="https://github.com/TachibanaGeneralLaboratories/download-navi">https://github.com/TachibanaGeneralLaboratories/download-navi</a><br><br>
+    Download Navi is a free and Open Source download manager for Android 4.4+<br><br>
+    Download Navi is free software, rilasciato sotto licenza <a href="http://www.gnu.org/copyleft/gpl.html">GNU General Public License v3 (GPLv3)</a><br><br>
+    <a href="https://github.com/TachibanaGeneralLaboratories/download-navi/blob/HEAD/Privacy.md">Privacy Policy</a>]]></string>
+    <string name="about_changelog">Changelog</string>
+</resources>

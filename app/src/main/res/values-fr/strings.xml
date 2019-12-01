@@ -1,0 +1,253 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Global string -->
+    <string name="app_name">Download Navi</string>
+    <string name="foreground_notification">Notification en premier plan</string>
+    <string name="download_running">En cours</string>
+    <string name="finished">Terminé</string>
+    <string name="shutdown">Fermeture</string>
+    <!-- 1 d. 1 h. 1 m -->
+    <string name="elapsed_time_format_d_h_mm">%1$d j. %2$d h. %3$d m</string>
+    <!-- 1 h. 1 m. 1 s -->
+    <string name="elapsed_time_format_h_mm_ss">%1$d h. %2$d mn. %3$d s</string>
+    <!-- 1 m. 1 s -->
+    <string name="elapsed_time_format_mm_ss">%1$d mn. %2$d s</string>
+    <!-- 1 s -->
+    <string name="elapsed_time_format_ss">%1$d s</string>
+    <string name="ok">Ok</string>
+    <string name="cancel">Annuler</string>
+    <!-- A synonym for word "unmetered" - unlimited-->
+    <string name="unmetered_connections_only">Connexions Internet illimité uniquement</string>
+    <string name="connect">Connexion</string>
+    <string name="add">Ajouter</string>
+    <string name="not_available">N/A</string>
+    <string name="open_navigation_drawer">Ouvrir le panneau de navigation</string>
+    <string name="close_navigation_drawer">Fermer le panneau de navigation</string>
+    <string name="error_template">Erreur: %1$s</string>
+    <string name="pause">Suspendre</string>
+    <string name="resume">Reprendre</string>
+    <string name="stop">Arrêt</string>
+    <string name="stopped">Arrêté</string>
+    <string name="pending">En attente</string>
+    <string name="delete">Supprimer</string>
+    <string name="share">Partager</string>
+    <string name="menu">Menu</string>
+    <string name="select_all">Tout sélectionner</string>
+    <string name="share_via">Partager via</string>
+    <string name="no">Non</string>
+    <string name="yes">Oui</string>
+    <string name="error">Erreur</string>
+    <string name="file">Fichier</string>
+    <string name="folder">Dossier</string>
+    <string name="downloading_metadata">Téléchargement de métadonnées</string>
+    <string name="all">Tout</string>
+    <string name="search">Rechercher</string>
+    <string name="settings">Paramètres</string>
+    <string name="about">À propos</string>
+    <string name="close">Fermer</string>
+    <string name="redownload">Re-télécharger</string>
+    <string name="Default">Défaut</string>
+    <string name="warning">Avertissement</string>
+    <string name="apply">Appliquer</string>
+    <string name="report">Signaler un problème</string>
+    <string name="more_details">Plus de détails</string>
+    <string name="clipboard">Presse-papier</string>
+    <string name="verify">Vérifier</string>
+    <!-- Permission dialog -->
+    <string name="perm_denied_title">Permission refusée</string>
+    <string name="perm_denied_warning">Sans cette autorisation l\'application ne peut pas enregistrer des fichiers dans la mémoire de certains périphériques ainsi que certaines versions d’Android. L’application risque de ne pas fonctionner correctement. Êtes-vous certain de vouloir refuser cette autorisation?</string>
+    <!-- Download progress notification -->
+    <string name="download_ticker_notify" formatted="false">Télécharger à %1$s</string>
+    <!-- Foreground notification -->
+    <string name="app_running_in_the_background">Download Navi s\'exécute en arrière-plan</string>
+    <string name="pause_all">Tout mettre en pause</string>
+    <string name="resume_all">Tout reprendre</string>
+    <!-- Finish notification -->
+    <string name="download_finished_notify">Téléchargement terminé avec succès</string>
+    <string name="open_using">Ouvrir avec</string>
+    <!-- Pending notification -->
+    <string name="download_in_queue_ticker_notify" formatted="false">%1$s dans la file d’attente</string>
+    <string name="waiting_for_network">En attente de connexion réseau</string>
+    <string name="waiting_for_retry">En attente d\'une nouvelle tentative</string>
+    <!-- Error notification -->
+    <string name="download_error_notify_title">Erreur lors du téléchargement</string>
+    <!-- Applying params notification -->
+    <string name="applying_params_title">Appliquer les paramètres</string>
+    <string name="applying_params_for_downloads">Appliquer les paramètres pour les téléchargements</string>
+    <string name="applying_params_error_title" formatted="false">Appliquer les paramètres d\'erreur pour %1$s</string>
+    <!-- Add download dialog -->
+    <string name="add_download">Ajouter le téléchargement</string>
+    <string name="download_link">Lien</string>
+    <string name="download_name">Nom</string>
+    <string name="download_size" formatted="false">Taille: %1$s</string>
+    <string name="download_retry">Réessayer</string>
+    <string name="download_advanced">Avancé</string>
+    <string name="download_user_agent">Agent utilisateur</string>
+    <string name="download_error_empty_link">Veuillez saisir un lien</string>
+    <string name="download_error_empty_name">Veuillez saisir un nom</string>
+    <string name="download_error_no_enough_free_space" formatted="false">Espace libre insuffisant : %1$s libre, mais la taille du fichier est de %2$s</string>
+    <string name="download_error_name_is_not_correct" formatted="false">Un nom correct est \"%1$s\"</string>
+    <string name="fetch_error_default_fmt" formatted="false">Erreur: %1$s</string>
+    <string name="fetch_error_invalid_url" formatted="false">URL invalide: %1$s</string>
+    <string name="fetch_error_network_disconnected">le réseau est déconnecté</string>
+    <string name="fetch_error_http_response" formatted="false">Erreur: le serveur a retourné le code HTTP %1$d</string>
+    <string name="fetch_error_io" formatted="false">Erreur I/O: %1$s</string>
+    <string name="unable_to_open_folder">Impossible d\'ouvrir le dossier sélectionné. Veuillez essayer de sélectionner un autre dossier</string>
+    <string name="unable_to_create_file">Impossible de créer le fichier. Veuillez essayer de sélectionner un autre dossier</string>
+    <string name="partial_download_not_supported">Ce téléchargement ne supporte pas la pause ni le téléchargement par morceaux</string>
+    <string name="download_pieces_number_title">Nombre de pièces</string>
+    <string name="download_description">Description</string>
+    <string name="select_folder_to_save">Sélectionnez le dossier à enregistrer</string>
+    <string name="path">Chemin d\'accès</string>
+    <string name="storage_free_space" formatted="false">Espace libre: %1$s</string>
+    <string name="add_download_error_invalid_url">Impossible d\'ajouter le téléchargement : l\'URL est invalide</string>
+    <string name="checksum">Somme de contrôle</string>
+    <string name="add_dialog_checksum_description">MD5, SHA-256</string>
+    <string name="error_invalid_checksum">Somme de contrôle invalide</string>
+    <!-- Add user agent dialog -->
+    <string name="dialog_add_user_agent_title">Ajouter un agent utilisateur</string>
+    <!-- Main activity -->
+    <string name="fragment_title_queued">En file d\'attente</string>
+    <string name="fragment_title_completed">Complété</string>
+    <string name="download_list_empty">Aucun téléchargement</string>
+    <string name="share_url">Partager l\'URL</string>
+    <!-- Navigation drawer -->
+    <!-- Category -->
+    <string name="drawer_category">Catégorie</string>
+    <string name="drawer_category_others">Autres</string>
+    <string name="drawer_category_documents">Documents</string>
+    <string name="drawer_category_images">Images</string>
+    <string name="drawer_category_video">Vidéo</string>
+    <string name="drawer_category_apk">APK</string>
+    <string name="drawer_category_audio">Audio</string>
+    <string name="drawer_category_archives">Archives</string>
+    <!-- Status -->
+    <string name="drawer_status">État </string>
+    <string name="drawer_status_running">En cours</string>
+    <string name="drawer_status_stopped">Arrêté</string>
+    <!-- Date added -->
+    <string name="drawer_date_added">Date d\'ajout</string>
+    <string name="drawer_date_added_today">Aujourd\'hui</string>
+    <string name="drawer_date_added_yesterday">Hier</string>
+    <string name="drawer_date_added_week">Semaine</string>
+    <string name="drawer_date_added_month">Mois</string>
+    <string name="drawer_date_added_year">Année</string>
+    <!-- Sorting -->
+    <string name="drawer_sorting">Tri</string>
+    <string name="drawer_sorting_date_added">Date d\'ajout</string>
+    <string name="drawer_sorting_name">Nom</string>
+    <string name="drawer_sorting_size">Taille</string>
+    <string name="drawer_sorting_category">Catégorie</string>
+    <string name="drawer_sorting_no_sorting">Aucun tri</string>
+    <!-- Download list item -->
+    <!-- downloaded/total • ETA • speed -->
+    <string name="download_queued_progress_template" formatted="false">%1$s/%2$s \u2022 %3$s \u2022 %4$s/s</string>
+    <!-- downloaded/total • status -->
+    <string name="download_queued_template" formatted="false">%1$s/%2$s \u2022 %3$s</string>
+    <!-- hostname • total -->
+    <string name="download_finished_template" formatted="false">%1$s \u2022 %2$s</string>
+    <string name="download_details">Détails</string>
+    <string name="deleting">Suppression</string>
+    <string name="delete_selected_download">Supprimer le téléchargement sélectionné? Cette opération ne peut pas être annulée</string>
+    <string name="delete_selected_downloads">Supprimer le téléchargement sélectionné? Cette opération ne peut pas être annulée</string>
+    <string name="delete_with_downloaded_file">Supprimer aussi le fichier téléchargé</string>
+    <string name="error_verify_checksum">Somme de contrôle de fichier invalide</string>
+    <!-- Filemanager dialog -->
+    <string name="dir_chooser_title">Choix du dossier</string>
+    <string name="file_chooser_title">Sélection de fichier</string>
+    <string name="dialog_new_folder_title">Nouveau dossier</string>
+    <string name="error_dialog_new_folder">Impossible de créer un nouveau dossier</string>
+    <string name="error_open_dir">Impossible d\'ouvrir le dossier</string>
+    <string name="home_directory">Page d’accueil</string>
+    <!-- name (size) -->
+    <string name="permission_denied">Permission refusée</string>
+    <string name="save_file">Sauvegarder le fichier</string>
+    <string name="file_name">Nom de fichier</string>
+    <string name="error_file_exists">Le fichier existe déjà. Le remplacer?</string>
+    <string name="file_name_is_empty">Un nom de fichier ne peut être vide</string>
+    <string name="system_manager">Gestionnaire système</string>
+    <string name="device_does_not_support_this_feature">Votre appareil ne supporte pas cette fonctionnalité</string>
+    <string name="system_file_manager_not_found">Gestionnaire de fichiers système introuvable</string>
+    <string name="replace_file">Remplacer le fichier</string>
+    <!-- Details download dialog -->
+    <string name="detail_downloaded">Reçu</string>
+    <!-- downloaded/total (percent) -->
+    <string name="detail_downloaded_format" formatted="false">%1$s/%2$s (%3$d%%)</string>
+    <string name="detail_pieces">Pièces</string>
+    <string name="detail_date_added">Date d\'ajout</string>
+    <string name="detail_user_agent">Agent utilisateur</string>
+    <string name="detail_md5_hash_sum">MD5</string>
+    <string name="detail_sha256_hash_sum">SHA-256</string>
+    <string name="calculate">Calculer</string>
+    <!-- Error report -->
+    <string name="app_error_occurred">Un bog s\'est produite dans l\'application . Vous pouvez envoyer le rapport aux développeurs</string>
+    <string name="error_comment_prompt">Vous pouvez ajouter des informations et commentaires supplémentaires ici:</string>
+    <!-- Send text to clipboard -->
+    <string name="send_text_to_clipboard">Copier</string>
+    <string name="text_copied_to_clipboard">Le texte a été copié dans le presse-papier</string>
+    <!-- Settings -->
+    <!-- Headers -->
+    <string name="pref_header_appearance">Apparence</string>
+    <string name="pref_header_behavior">Comportement</string>
+    <string name="pref_header_storage">Stockage</string>
+    <!-- Appearance settings -->
+    <string name="pref_theme_category">Configuration thème</string>
+    <string name="pref_theme_title">Thème</string>
+    <string-array name="pref_theme_entries">
+        <item>Clair</item>
+        <item>Sombre</item>
+        <item>Noir</item>
+    </string-array>
+    <string name="pref_notification_category">Préférences de notification</string>
+    <string name="pref_progress_notify_title">Notification d\'avancement</string>
+    <string name="pref_finish_notify_title">Notification de fin</string>
+    <string name="pref_pending_notify_title">Notification en attente</string>
+    <string name="pref_play_sound_notify_title">Jouer un son</string>
+    <string name="pref_notify_sound_title">Son de notification</string>
+    <string name="pref_led_indicator_notify_title">Témoin Led</string>
+    <string name="pref_led_indicator_color_notify_title">Couleur du témoin Led</string>
+    <string name="pref_vibration_notify_title">Vibration</string>
+    <string name="theme_settings_apply_after_reboot">Les paramètres du thème seront appliqués après le redémarrage de l\'application</string>
+    <!-- Behavior settings -->
+    <string name="pref_autostart_title">Démarrage automatique</string>
+    <string name="pref_autostart_summary">Exécutez l\'application au démarrage de l\'appareil et démarrez les téléchargements, s\'ils n\'avaient pas été mis en pause manuellement</string>
+    <!-- A synonym for word "unmetered" - unlimited-->
+    <string name="pref_umnetered_connections_only_title">Connexions Internet illimité uniquement</string>
+    <string name="pref_umnetered_connections_only_summary">Télécharger uniquement sur les connexions illimitées (par exemple, Wi-Fi ou Ethernet)</string>
+    <string name="pref_power_management_category">Gestion de l\'alimentation</string>
+    <string name="pref_cpu_do_not_sleep_title">Maintenir le processeur éveillé</string>
+    <string name="pref_cpu_do_not_sleep_summary">Activer ceci augmentera l\'utilisation de la batterie. Utilisez cette option si la vitesse de téléchargement diminue lorsque l\'écran s\'éteint</string>
+    <string name="pref_download_only_when_charging_title">Télécharger uniquement lors de la charge secteur</string>
+    <string name="pref_download_only_when_charging_summary">Si activé, le téléchargement ne se produira que pendant la charge. Tous les téléchargements seront en pause si vous n\'êtes pas connecté au chargeur d\'alimentation</string>
+    <string name="pref_battery_control_title">Contrôle de batterie</string>
+    <string name="pref_custom_battery_control_title">Affichage du pourcentage de batterie personnalisé</string>
+    <string name="pref_custom_battery_control_value_title">Contrôle batterie en pourcentage</string>
+    <string name="pref_battery_control_summary" formatted="false">Tous les téléchargements seront suspendus si le niveau de batterie est inférieur à %1$d%%. La limite ne s\'applique pas au moment de la charge sur secteur</string>
+    <string name="pref_custom_battery_control_summary" formatted="false">Définir un pourcentage personnalisé pour mettre en pause les téléchargements lorsque le niveau de batterie baisse en dessous du seuil donné. Activer ceci ignorera le seuil par défaut de %1$d%%</string>
+    <string name="pref_custom_battery_control_dialog_summary" formatted="false">Définir un pourcentage de batterie personnalisé pour l\'application à surveiller aura un impact négatif sur la durée de vie de la batterie pendant que les téléchargements se produisent. Êtes-vous sûr de vouloir activer cela ?</string>
+    <string name="pref_enable_roaming_title">Activer l\'itinérance des données</string>
+    <string name="pref_enable_roaming_summary">Télécharger uniquement si l\'appareil n\'est pas en itinérance</string>
+    <string name="pref_max_active_downloads_title">Nombre maximum de téléchargements actifs</string>
+    <string name="pref_max_download_retries_title">Nombre maximum de tentatives de téléchargements</string>
+    <string name="pref_max_download_retries_dialog_msg">0 - aucune tentatives</string>
+    <string name="pref_replace_duplicate_downloads_title">Remplacer les téléchargements en double</string>
+    <string name="pref_replace_duplicate_downloads_summary">Remplacer les téléchargements en double (avec la même URL) lorsque ajoutés alors qu\'ils sont déjà dans la liste</string>
+    <string name="pref_auto_connect_title">Connexion automatique</string>
+    <string name="pref_auto_connect_summary">Connexion automatique lors de l\'ouverture de la boîte de dialogue d\'ajout</string>
+    <string name="pref_timeout_title">Expiré</string>
+    <string name="pref_timeout_summary">Le nombre de millisecondes d\'attente avant que la connexion n\'expire. Zéro est interprété comme un délai d\'attente infini</string>
+    <!-- Storage settings -->
+    <string name="pref_save_downloads_in_title">Enregistrer les téléchargements dans</string>
+    <string name="pref_move_after_download_title">Déplacer après téléchargement</string>
+    <string name="pref_move_after_download_in_title">Déplacer après téléchargement dans</string>
+    <string name="pref_delete_file_if_error_title">Supprimer le fichier si une erreur survient</string>
+    <string name="pref_preallocate_disk_space_title">Pré-allouer l\'espace disque pour le fichier</string>
+    <string name="pref_preallocate_disk_space_summary">Disponible pour Android 5.0 Lollipop et plus récent</string>
+    <!-- About dialog -->
+    <string name="about_title">À propos du gestionnaire de Download Navi</string>
+    <string name="about_description"><![CDATA[Plus d'informations et aussi pour aider le projet: <a href="https://github.com/TachibanaGeneralLaboratories/download-navi">https://github.com/TachibanaGeneralLaboratories/download-navi</a><br><br>
+    Download Navi est un gestionnaire de téléchargement gratuit et Open Source pour Android 4.4+<br><br>
+    Download Navi est un logiciel gratuit, publié selon les termes de la <a href="http://www.gnu.org/copyleft/gpl.html">GNU General Public License v3 (GPLv3)</a><br><br>
+    <a href="https://github.com/TachibanaGeneralLaboratories/download-navi/blob/HEAD/Privacy.md">Politique de confidentialité</a>]]></string>
+    <string name="about_changelog">Journal des modifications</string>
+</resources>

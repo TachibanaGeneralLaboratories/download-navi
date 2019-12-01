@@ -52,7 +52,7 @@
     <string name="report">Informe</string>
     <string name="more_details">Más detalles</string>
     <string name="clipboard">Portapapeles</string>
-    <string name="verify">Verify</string>
+    <string name="verify">Verificar</string>
     <!-- Permission dialog -->
     <string name="perm_denied_title">Permiso denegado</string>
     <string name="perm_denied_warning">Sin este permiso la aplicación no puede guardar archivos en memoria en algunos dispositivos y versiones de Android. La aplicación no funcionará correctamente. ¿Realmente desea denegar este permiso?</string>
@@ -101,9 +101,9 @@
     <string name="path">Ruta</string>
     <string name="storage_free_space" formatted="false">Espacio libre: %1$s</string>
     <string name="add_download_error_invalid_url">No se puede agregar la descarga: URL inválida</string>
-    <string name="checksum">Checksum</string>
+    <string name="checksum">Suma de verificación</string>
     <string name="add_dialog_checksum_description">MD5, SHA-256</string>
-    <string name="error_invalid_checksum">Invalid checksum</string>
+    <string name="error_invalid_checksum">Suma de comprobación no válida</string>
     <!-- Add user agent dialog -->
     <string name="dialog_add_user_agent_title">Agregar agente de usuario</string>
     <!-- Main activity -->
@@ -151,7 +151,7 @@
     <string name="delete_selected_download">¿Eliminar la descarga seleccionada? Esta operación no se puede deshacer</string>
     <string name="delete_selected_downloads">¿Eliminar las descargas seleccionadas? Esta operación no se puede deshacer</string>
     <string name="delete_with_downloaded_file">Eliminar con el archivo descargado</string>
-    <string name="error_verify_checksum">Invalid file checksum</string>
+    <string name="error_verify_checksum">Suma de comprobación de archivo no válida</string>
     <!-- Filemanager dialog -->
     <string name="dir_chooser_title">Selección de carpeta</string>
     <string name="file_chooser_title">Selección de archivo</string>
