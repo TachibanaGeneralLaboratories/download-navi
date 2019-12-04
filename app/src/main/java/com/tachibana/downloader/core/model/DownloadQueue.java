@@ -31,7 +31,7 @@ import java.util.UUID;
  * for example, simultaneous downloads.
  */
 
-public class DownloadQueue
+class DownloadQueue
 {
     @SuppressWarnings("unused")
     private static final String TAG = DownloadQueue.class.getSimpleName();

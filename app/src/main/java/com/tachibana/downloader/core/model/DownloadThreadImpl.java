@@ -80,7 +80,7 @@ import static java.net.HttpURLConnection.HTTP_UNAVAILABLE;
  * Represent one task of downloading.
  */
 
-public class DownloadThreadImpl implements DownloadThread
+class DownloadThreadImpl implements DownloadThread
 {
     @SuppressWarnings("unused")
     private static final String TAG = DownloadThreadImpl.class.getSimpleName();

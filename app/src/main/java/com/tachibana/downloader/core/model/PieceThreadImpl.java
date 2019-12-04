@@ -73,7 +73,7 @@ import static java.net.HttpURLConnection.HTTP_UNAVAILABLE;
  * Represent one task of piece downloading.
  */
 
-public class PieceThreadImpl extends Thread implements PieceThread
+class PieceThreadImpl extends Thread implements PieceThread
 {
     @SuppressWarnings("unused")
     private static final String TAG = PieceThreadImpl.class.getSimpleName();

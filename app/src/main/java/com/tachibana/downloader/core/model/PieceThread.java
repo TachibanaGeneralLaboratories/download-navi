@@ -25,4 +25,4 @@ import com.tachibana.downloader.core.model.data.PieceResult;
 
 import java.util.concurrent.Callable;
 
-public interface PieceThread extends Callable<PieceResult> {}
+interface PieceThread extends Callable<PieceResult> {}

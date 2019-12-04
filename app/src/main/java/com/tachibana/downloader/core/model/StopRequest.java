@@ -27,7 +27,7 @@ package com.tachibana.downloader.core.model;
 import static com.tachibana.downloader.core.model.data.StatusCode.STATUS_UNHANDLED_HTTP_CODE;
 import static com.tachibana.downloader.core.model.data.StatusCode.STATUS_UNHANDLED_REDIRECT;
 
-public class StopRequest
+class StopRequest
 {
     private String message;
     private final int finalStatus;
