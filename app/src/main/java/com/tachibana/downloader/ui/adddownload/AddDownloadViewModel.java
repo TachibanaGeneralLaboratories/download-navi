@@ -296,14 +296,15 @@ public class AddDownloadViewModel extends AndroidViewModel
         String contentDisposition = conn.getHeaderField("Content-Disposition");
         String contentLocation = conn.getHeaderField("Content-Location");
 
-        if (TextUtils.isEmpty(params.getFileName()))
-            params.setFileName(Utils.getHttpFileName(getApplication(),
-                    params.getUrl(),
-                    contentDisposition,
-                    contentLocation));
         String mimeType = Intent.normalizeMimeType(conn.getContentType());
         if (mimeType != null)
             params.setMimeType(mimeType);
+        if (TextUtils.isEmpty(params.getFileName()))
+            params.setFileName(Utils.getHttpFileName(fs,
+                    params.getUrl(),
+                    contentDisposition,
+                    contentLocation,
+                    mimeType));
         params.setEtag(conn.getHeaderField("ETag"));
         final String transferEncoding = conn.getHeaderField("Transfer-Encoding");
         if (transferEncoding == null) {

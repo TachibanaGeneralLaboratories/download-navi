@@ -71,6 +71,7 @@ import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -86,7 +87,9 @@ public class Utils
     public static final String INFINITY_SYMBOL = "\u221e";
     public static final String HTTP_PREFIX = "http";
     public static final String DEFAULT_DOWNLOAD_FILENAME = "downloadfile";
-    private static final String CONTENT_DISPOSITION_PATTERN = "attachment;\\s*filename\\s*=\\s*\"([^\"]*)\"";
+    private static final Pattern CONTENT_DISPOSITION_PATTERN =
+            Pattern.compile("attachment;\\s*filename\\s*=\\s*(\"?)([^\"]*)\\1\\s*$",
+            Pattern.CASE_INSENSITIVE);
 
     /*
      * Workaround for start service in Android 8+ if app no started.
@@ -175,14 +178,14 @@ public class Utils
         return clip;
     }
 
-    public static String getHttpFileName(@NonNull Context context,
+    public static String getHttpFileName(@NonNull FileSystemFacade fs,
                                          @NonNull String decodedUrl,
                                          String contentDisposition,
-                                         String contentLocation)
+                                         String contentLocation,
+                                         String mimeType)
     {
-        FileSystemFacade fs = SystemFacadeHelper.getFileSystemFacade(context);
-
         String filename = null;
+        String extension = null;
 
         /* First, try to use the content disposition */
         if (filename == null && contentDisposition != null) {
@@ -197,24 +200,34 @@ public class Utils
         /* If we still have nothing at this point, try the content location */
         if (filename == null && contentLocation != null) {
             String decodedContentLocation = Uri.decode(contentLocation);
-            if (decodedContentLocation != null &&
-                !decodedContentLocation.endsWith("/") &&
-                decodedContentLocation.indexOf('?') < 0)
-            {
-                int index = decodedContentLocation.lastIndexOf('/') + 1;
-                if (index > 0)
-                    filename = decodedContentLocation.substring(index);
-                else
-                    filename = decodedContentLocation;
+            if (decodedContentLocation != null) {
+                int queryIndex = decodedUrl.indexOf('?');
+                /* If there is a query string strip it, same as desktop browsers */
+                if (queryIndex > 0)
+                    decodedUrl = decodedContentLocation.substring(0, queryIndex);
+
+                if (!decodedContentLocation.endsWith("/")) {
+                    int index = decodedContentLocation.lastIndexOf('/') + 1;
+                    if (index > 0)
+                        filename = decodedContentLocation.substring(index);
+                    else
+                        filename = decodedContentLocation;
+                }
             }
         }
 
         /* If all the other http-related approaches failed, use the plain uri */
         if (filename == null) {
-            if (!decodedUrl.endsWith("/") && decodedUrl.indexOf('?') < 0) {
+            int queryIndex = decodedUrl.indexOf('?');
+            /* If there is a query string strip it, same as desktop browsers */
+            if (queryIndex > 0)
+                decodedUrl = decodedUrl.substring(0, queryIndex);
+
+            if (!decodedUrl.endsWith("/")) {
                 int index = decodedUrl.lastIndexOf('/') + 1;
-                if (index > 0)
+                if (index > 0) {
                     filename = decodedUrl.substring(index);
+                }
             }
         }
 
@@ -223,10 +236,51 @@ public class Utils
             filename = DEFAULT_DOWNLOAD_FILENAME;
 
         /*
+         * Split filename between base and extension.
+         * Add an extension if filename does not have one
+         */
+        int dotIndex = filename.indexOf('.');
+        if (dotIndex < 0) {
+            if (mimeType != null) {
+                extension = MimeTypeUtils.getExtensionFromMimeType(mimeType);
+                if (extension != null)
+                    extension = "." + extension;
+            }
+            if (extension == null) {
+                if (mimeType != null && mimeType.toLowerCase(Locale.ROOT).startsWith("text/")) {
+                    if (mimeType.equalsIgnoreCase("text/html"))
+                        extension = ".html";
+                    else
+                        extension = ".txt";
+                } else {
+                    extension = ".bin";
+                }
+            }
+        } else {
+            if (mimeType != null) {
+                /*
+                 * Compare the last segment of the extension against the mime type.
+                 * If there's a mismatch, discard the entire extension.
+                 */
+                int lastDotIndex = filename.lastIndexOf('.');
+                String typeFromExt = MimeTypeUtils.getMimeTypeFromExtension(filename.substring(lastDotIndex + 1));
+                if (typeFromExt != null && !typeFromExt.equalsIgnoreCase(mimeType)) {
+                    extension = MimeTypeUtils.getExtensionFromMimeType(mimeType);
+                    if (extension != null)
+                        extension = "." + extension;
+                }
+            }
+            if (extension == null)
+                extension = filename.substring(dotIndex);
+
+            filename = filename.substring(0, dotIndex);
+        }
+
+        /*
          * The VFAT file system is assumed as target for downloads.
          * Replace invalid characters according to the specifications of VFAT
          */
-        filename = fs.buildValidFatFilename(filename);
+        filename = fs.buildValidFatFilename(filename + extension);
 
         return filename;
     }
@@ -241,9 +295,9 @@ public class Utils
     private static String parseContentDisposition(@NonNull String contentDisposition)
     {
         try {
-            Matcher m = Pattern.compile(CONTENT_DISPOSITION_PATTERN).matcher(contentDisposition);
+            Matcher m = CONTENT_DISPOSITION_PATTERN.matcher(contentDisposition);
             if (m.find())
-                return m.group(1);
+                return m.group(2);
 
         } catch (IllegalStateException e) {
             /* Ignore */

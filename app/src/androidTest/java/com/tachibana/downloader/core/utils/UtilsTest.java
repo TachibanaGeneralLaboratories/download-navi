@@ -21,6 +21,7 @@
 package com.tachibana.downloader.core.utils;
 
 import com.tachibana.downloader.AbstractTest;
+import com.tachibana.downloader.core.system.FileSystemFacade;
 
 import org.junit.Test;
 
@@ -31,39 +32,45 @@ public class UtilsTest extends AbstractTest
     @Test
     public void testGetHttpFileName()
     {
-        String actual = Utils.getHttpFileName(context, "http://example.org/file.txt", null, null);
+        String actual = Utils.getHttpFileName(fs, "http://example.org/file.txt", null, null, null);
+        assertEquals("file.txt", actual);
+        actual = Utils.getHttpFileName(fs, "http://example.org/file.txt?foo=bar", null, null, null);
         assertEquals("file.txt", actual);
     }
 
     @Test
     public void testGetHttpFileName_noExtension()
     {
-        String actual = Utils.getHttpFileName(context, "http://example.org/file", null, null);
-        assertEquals("file", actual);
+        String actual = Utils.getHttpFileName(fs, "http://example.org/file", null, null, null);
+        assertEquals("file.bin", actual);
+        actual = Utils.getHttpFileName(fs, "http://example.org/file", null, null, "image/jpeg");
+        assertEquals("file.jpg", actual);
+        actual = Utils.getHttpFileName(fs, "http://example.org/file", null, null, "application/octet-stream");
+        assertEquals("file.bin", actual);
     }
 
     @Test
     public void testGetHttpFileName_withDisposition()
     {
-        String actual = Utils.getHttpFileName(context, "http://example.org/file.txt",
-                "attachment; filename=\"subdir/real.pdf\"", null);
+        String actual = Utils.getHttpFileName(fs, "http://example.org/file.txt",
+                "attachment; filename=\"subdir/real.pdf\"", null, null);
         assertEquals("real.pdf", actual);
     }
 
     @Test
     public void testGetHttpFileName_withLocation()
     {
-        String actual = Utils.getHttpFileName(context, "http://example.org/file.txt",
-                null, "Content-Location: subdir/real.pdf");
+        String actual = Utils.getHttpFileName(fs, "http://example.org/file.txt",
+                null, "Content-Location: subdir/real.pdf", null);
         assertEquals("real.pdf", actual);
     }
 
     @Test
     public void testGetHttpFileName_withDispositionAndLocation()
     {
-        String actual = Utils.getHttpFileName(context, "http://example.org/file.txt",
+        String actual = Utils.getHttpFileName(fs, "http://example.org/file.txt",
                 "attachment; filename=\"subdir/real.pdf\"",
-                "Content-Location: subdir/file.pdf");
+                "Content-Location: subdir/file.pdf", null);
         assertEquals("real.pdf", actual);
     }
 }
