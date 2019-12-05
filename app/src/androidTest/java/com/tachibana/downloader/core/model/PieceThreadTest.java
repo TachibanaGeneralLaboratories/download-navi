@@ -18,7 +18,7 @@
  * along with Download Navi.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package com.tachibana.downloader.core;
+package com.tachibana.downloader.core.model;
 
 import android.net.Uri;
 import android.util.Log;
