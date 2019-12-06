@@ -58,11 +58,11 @@ import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.schedulers.Schedulers;
 
-import static android.app.DownloadManager.Request.VISIBILITY_HIDDEN;
-import static android.app.DownloadManager.Request.VISIBILITY_VISIBLE;
-import static android.app.DownloadManager.Request.VISIBILITY_VISIBLE_NOTIFY_COMPLETED;
-import static android.app.DownloadManager.Request.VISIBILITY_VISIBLE_NOTIFY_ONLY_COMPLETION;
 import static android.content.Context.NOTIFICATION_SERVICE;
+import static com.tachibana.downloader.core.model.data.entity.DownloadInfo.VISIBILITY_HIDDEN;
+import static com.tachibana.downloader.core.model.data.entity.DownloadInfo.VISIBILITY_VISIBLE;
+import static com.tachibana.downloader.core.model.data.entity.DownloadInfo.VISIBILITY_VISIBLE_NOTIFY_COMPLETED;
+import static com.tachibana.downloader.core.model.data.entity.DownloadInfo.VISIBILITY_VISIBLE_NOTIFY_ONLY_COMPLETION;
 
 /*
  * Update NotificationManager to reflect current download states.
