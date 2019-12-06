@@ -110,7 +110,7 @@ public class DatabaseMigrationTest
         sqliteDb.close();
 
         helper.runMigrationsAndValidate(TEST_DATABASE_NAME, 2, true,
-                AppDatabase.MIGRATION_1_2);
+                DatabaseMigration.MIGRATION_1_2);
 
         AppDatabase db = getMigratedRoomDatabase();
 
@@ -136,10 +136,7 @@ public class DatabaseMigrationTest
     {
         AppDatabase db = Room.databaseBuilder(context,
                 AppDatabase.class, TEST_DATABASE_NAME)
-                .addMigrations(
-                        AppDatabase.MIGRATION_1_2,
-                        AppDatabase.MIGRATION_2_3,
-                        AppDatabase.MIGRATION_3_4)
+                .addMigrations(DatabaseMigration.getMigrations())
                 .build();
         /* Close the database and release any stream resources when the test finishes */
         helper.closeWhenFinished(db);
