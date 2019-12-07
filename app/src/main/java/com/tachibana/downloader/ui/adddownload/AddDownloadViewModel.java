@@ -381,7 +381,8 @@ public class AddDownloadViewModel extends AndroidViewModel
         fileName = fs.appendExtension(fileName, params.getMimeType());
         if (params.isReplaceFile()) {
             try {
-                fs.deleteFile(filePath);
+                if (filePath != null)
+                    fs.deleteFile(filePath);
 
             } catch (FileNotFoundException e) {
                 /* Ignore */
