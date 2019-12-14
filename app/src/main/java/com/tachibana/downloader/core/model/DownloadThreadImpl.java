@@ -604,8 +604,7 @@ class DownloadThreadImpl implements DownloadThread
         repo.updateInfo(info, false, withPieces);
     }
 
-    @Override
-    public StopRequest checkPauseStop()
+    private StopRequest checkPauseStop()
     {
         if (pause)
             return new StopRequest(STATUS_PAUSED, "Download paused");

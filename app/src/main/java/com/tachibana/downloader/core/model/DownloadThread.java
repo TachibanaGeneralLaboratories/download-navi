@@ -31,6 +31,4 @@ interface DownloadThread extends Callable<DownloadResult>
     void requestPause();
 
     boolean isRunning();
-
-    StopRequest checkPauseStop();
 }
