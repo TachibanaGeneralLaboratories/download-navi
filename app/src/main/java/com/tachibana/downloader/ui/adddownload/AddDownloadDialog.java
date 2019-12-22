@@ -100,7 +100,8 @@ public class AddDownloadDialog extends DialogFragment {
     private ClipboardDialog.SharedViewModel clipboardViewModel;
     private String curClipboardTag;
 
-    public static AddDownloadDialog newInstance(@NonNull AddInitParams initParams) {
+    public static AddDownloadDialog newInstance(@NonNull AddInitParams initParams)
+    {
         AddDownloadDialog frag = new AddDownloadDialog();
 
         Bundle args = new Bundle();
@@ -111,7 +112,8 @@ public class AddDownloadDialog extends DialogFragment {
     }
 
     @Override
-    public void onAttach(@NonNull Context context) {
+    public void onAttach(@NonNull Context context)
+    {
         super.onAttach(context);
 
         if (context instanceof AppCompatActivity)
@@ -119,7 +121,8 @@ public class AddDownloadDialog extends DialogFragment {
     }
 
     @Override
-    public void onResume() {
+    public void onResume()
+    {
         super.onResume();
 
         /* Back button handle */
@@ -138,7 +141,8 @@ public class AddDownloadDialog extends DialogFragment {
     }
 
     @Override
-    public void onStop() {
+    public void onStop()
+    {
         super.onStop();
 
         unsubscribeClipboardManager();
@@ -146,14 +150,16 @@ public class AddDownloadDialog extends DialogFragment {
     }
 
     @Override
-    public void onStart() {
+    public void onStart()
+    {
         super.onStart();
 
         subscribeAlertDialog();
         subscribeClipboardManager();
     }
 
-    private void subscribeAlertDialog() {
+    private void subscribeAlertDialog()
+    {
         Disposable d = dialogViewModel.observeEvents().subscribe(this::handleAlertDialogEvent);
         disposables.add(d);
         d = clipboardViewModel.observeSelectedItem().subscribe((item) -> {
@@ -169,12 +175,14 @@ public class AddDownloadDialog extends DialogFragment {
         disposables.add(d);
     }
 
-    private void subscribeClipboardManager() {
+    private void subscribeClipboardManager()
+    {
         ClipboardManager clipboard = (ClipboardManager)activity.getSystemService(Activity.CLIPBOARD_SERVICE);
         clipboard.addPrimaryClipChangedListener(clipListener);
     }
 
-    private void unsubscribeClipboardManager() {
+    private void unsubscribeClipboardManager()
+    {
         ClipboardManager clipboard = (ClipboardManager)activity.getSystemService(Activity.CLIPBOARD_SERVICE);
         clipboard.removePrimaryClipChangedListener(clipListener);
     }

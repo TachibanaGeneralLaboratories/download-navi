@@ -51,8 +51,8 @@
     <string name="apply">应用</string>
     <string name="report">反馈</string>
     <string name="more_details">更多详情</string>
-    <string name="clipboard">Clipboard</string>
-    <string name="verify">Verify</string>
+    <string name="clipboard">剪贴板</string>
+    <string name="verify">验证</string>
     <!-- Permission dialog -->
     <string name="perm_denied_title">权限不足</string>
     <string name="perm_denied_warning">如果没有此权限，应用无法在某些设备和Android版本的内存中保存文件。该应用程序将无法正常工作。您确定要拒绝此权限吗？</string>
@@ -101,9 +101,9 @@
     <string name="path">路径</string>
     <string name="storage_free_space" formatted="false">可用空间: %1$s</string>
     <string name="add_download_error_invalid_url">无法添加下载：网址无效</string>
-    <string name="checksum">Checksum</string>
-    <string name="add_dialog_checksum_description">MD5, SHA-256</string>
-    <string name="error_invalid_checksum">Invalid checksum</string>
+    <string name="checksum">校验和</string>
+    <string name="add_dialog_checksum_description">MD5 和 SHA 256</string>
+    <string name="error_invalid_checksum">无效校验和</string>
     <!-- Add user agent dialog -->
     <string name="dialog_add_user_agent_title">添加用户代理</string>
     <!-- Main activity -->
@@ -151,7 +151,7 @@
     <string name="delete_selected_download">删除所选下载？此操作无法撤消</string>
     <string name="delete_selected_downloads">删除所选下载？此操作无法撤消</string>
     <string name="delete_with_downloaded_file">同时删除已下载文件</string>
-    <string name="error_verify_checksum">Invalid file checksum</string>
+    <string name="error_verify_checksum">无效的文件校验和</string>
     <!-- Filemanager dialog -->
     <string name="dir_chooser_title">目录选择</string>
     <string name="file_chooser_title">文件选择</string>
@@ -234,8 +234,8 @@
     <string name="pref_replace_duplicate_downloads_summary">替换已添加到列表中的重复下载（使用相同的URL）</string>
     <string name="pref_auto_connect_title">自动连接</string>
     <string name="pref_auto_connect_summary">在打开添加下载对话框时自动连接下载地址</string>
-    <string name="pref_timeout_title">Timeout</string>
-    <string name="pref_timeout_summary">The number of milliseconds to wait before the connection timed out. Zero is interpreted as an infinite timeout</string>
+    <string name="pref_timeout_title">超时</string>
+    <string name="pref_timeout_summary">等待连接超时的毫秒数。零被解释为无限超时</string>
     <!-- Storage settings -->
     <string name="pref_save_downloads_in_title">下载保存目录</string>
     <string name="pref_move_after_download_title">下载后移动</string>

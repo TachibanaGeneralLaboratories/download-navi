@@ -52,7 +52,7 @@
     <string name="report">Lapor</string>
     <string name="more_details">Lebih detail</string>
     <string name="clipboard">Papan klip</string>
-    <string name="verify">Verify</string>
+    <string name="verify">Verifikasi</string>
     <!-- Permission dialog -->
     <string name="perm_denied_title">Izin ditolak</string>
     <string name="perm_denied_warning">Tanpa izin ini aplikasi tidak bisa menyimpan berkas pada beberapa perangkat dan versi Android. Aplikasi tidak akan berfungsi dengan baik. Apakah anda yakin ingin tetap menolak izin ini?</string>
@@ -103,7 +103,7 @@
     <string name="add_download_error_invalid_url">Tidak bisa menambahkan unduhan: URL tidak valid</string>
     <string name="checksum">Checksum</string>
     <string name="add_dialog_checksum_description">MD5, SHA-256</string>
-    <string name="error_invalid_checksum">Invalid checksum</string>
+    <string name="error_invalid_checksum">Checksum tidak valid</string>
     <!-- Add user agent dialog -->
     <string name="dialog_add_user_agent_title">Tambah agen pengguna</string>
     <!-- Main activity -->
@@ -151,7 +151,7 @@
     <string name="delete_selected_download">Hapus unduhan yang dipilih? Tindakan ini tidak bisa diurungkan</string>
     <string name="delete_selected_downloads">Hapus unduhan yang dipilih? Tindakan ini tidak bisa diurungkan</string>
     <string name="delete_with_downloaded_file">Hapus juga berkas yang diunduh</string>
-    <string name="error_verify_checksum">Invalid file checksum</string>
+    <string name="error_verify_checksum">Checksum berkas tidak valid</string>
     <!-- Filemanager dialog -->
     <string name="dir_chooser_title">Pemilihan folder</string>
     <string name="file_chooser_title">Pemilihan berkas</string>
