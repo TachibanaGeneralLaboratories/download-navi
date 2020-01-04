@@ -1,0 +1,20 @@
+Download Navi adalah pengelola unduhan yang bebas dan bersumber terbuka untuk Android 4.4+.
+
+# Fitur
+
+* Aplikasi Bebas dan Bersumber Terbuka (FOSS)
+* Desain Material
+* Tema Khusus (Terang, Gelalp, Hitam)
+* Dukungan Android TV
+* Dukungan Chrome OS
+* Jeda dan lanjutkan unduhan
+* Dukungan peramban
+* Unduhan simultan (default 3)
+* Unduhan berjenjang (maks 16)
+* Unduh berkas di latar belakang
+* Dukungan untuk hanya menggunakan koneksi tak terbatas (mis. Wi-Fi)
+* Pengaturan Roaming
+* Pengaturan user agent
+* Kalkulasi nilai hash (MD5 & SHA-256)
+* Manajemen daya dan pengaturan baterei
+* Tindakan otomatis setelah unduhan selesai
