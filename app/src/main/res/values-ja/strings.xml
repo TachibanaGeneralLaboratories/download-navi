@@ -51,8 +51,8 @@
     <string name="apply">適用</string>
     <string name="report">レポート</string>
     <string name="more_details">詳細</string>
-    <string name="clipboard">Clipboard</string>
-    <string name="verify">Verify</string>
+    <string name="clipboard">クリップボード</string>
+    <string name="verify">検証</string>
     <!-- Permission dialog -->
     <string name="perm_denied_title">承認が拒否されました</string>
     <string name="perm_denied_warning">この許可がないとアプリは Android のいくつかの端末とバージョンでメモリにファイルを保存することができません。アプリは正しく機能しません。 この許可を拒否してよろしいですか？</string>
@@ -101,9 +101,9 @@
     <string name="path">パス</string>
     <string name="storage_free_space" formatted="false">空き容量: %1$s</string>
     <string name="add_download_error_invalid_url">ダウンロードを追加できません: 無効な URL</string>
-    <string name="checksum">Checksum</string>
+    <string name="checksum">チェックサム</string>
     <string name="add_dialog_checksum_description">MD5, SHA-256</string>
-    <string name="error_invalid_checksum">Invalid checksum</string>
+    <string name="error_invalid_checksum">無効なチェックサム</string>
     <!-- Add user agent dialog -->
     <string name="dialog_add_user_agent_title">ユーザーエージェントを追加</string>
     <!-- Main activity -->
@@ -151,7 +151,7 @@
     <string name="delete_selected_download">選択したダウンロードを削除しますか? この操作は元に戻せません。</string>
     <string name="delete_selected_downloads">選択したダウンロードを削除しますか? この操作は元に戻せません。</string>
     <string name="delete_with_downloaded_file">全てのダウンロード済みファイルを削除</string>
-    <string name="error_verify_checksum">Invalid file checksum</string>
+    <string name="error_verify_checksum">無効なファイルチェックサム</string>
     <!-- Filemanager dialog -->
     <string name="dir_chooser_title">フォルダ選択</string>
     <string name="file_chooser_title">ファイル選択</string>
@@ -234,8 +234,8 @@
     <string name="pref_replace_duplicate_downloads_summary">既にリストにある場合、追加された時に (同じURL) 重複ダウンロードを置き換えます。</string>
     <string name="pref_auto_connect_title">自動接続</string>
     <string name="pref_auto_connect_summary">ダイアログを追加を開いた時自動接続する</string>
-    <string name="pref_timeout_title">Timeout</string>
-    <string name="pref_timeout_summary">The number of milliseconds to wait before the connection timed out. Zero is interpreted as an infinite timeout</string>
+    <string name="pref_timeout_title">タイムアウト</string>
+    <string name="pref_timeout_summary">接続がタイムアウトするまで待機するミリ秒数。ゼロは制限時間無しとして解釈されます。</string>
     <!-- Storage settings -->
     <string name="pref_save_downloads_in_title">ダウンロードの保存先</string>
     <string name="pref_move_after_download_title">ダウンロード後の移動</string>
@@ -245,7 +245,7 @@
     <string name="pref_preallocate_disk_space_summary">Android 5.0 Lollipop 以上で有効です</string>
     <!-- About dialog -->
     <string name="about_title">Download Navi について</string>
-    <string name="about_description"><![CDATA[詳細情報とプロジェクトの支援: <a href="https://github.com/TachibanaGeneralLaboratories/download-navi">https://github.com/TachibanaGeneralLaboratories/download-navi</a><br><br>
+    <string name="about_description"><![CDATA[    詳細情報とプロジェクトの支援: <a href="https://github.com/TachibanaGeneralLaboratories/download-navi">https://github.com/TachibanaGeneralLaboratories/download-navi</a><br><br>
     Download Navi は Android 4.4 以上向けの無料のオープンソースダウンロードマネージャです<br><br>
     Download Navi は <a href="http://www.gnu.org/copyleft/gpl.html">GNU General Public License v3 (GPLv3)</a> の条件の下でリリースされたフリーソフトウェアです<br><br>
     <a href="https://github.com/TachibanaGeneralLaboratories/download-navi/blob/HEAD/Privacy.md">個人情報保護方針</a>]]></string>

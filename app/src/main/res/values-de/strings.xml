@@ -52,7 +52,7 @@
     <string name="report">Probleme melden</string>
     <string name="more_details">Weitere Details</string>
     <string name="clipboard">Zwischenablage</string>
-    <string name="verify">Verify</string>
+    <string name="verify">Verifizieren</string>
     <!-- Permission dialog -->
     <string name="perm_denied_title">Berechtigung verweigert</string>
     <string name="perm_denied_warning">Auf einigen Geräten und Androidversionen kann die App ohne diese Berechtigung Dateien nicht im Speicher speichern. Die App wird nicht richtig funktionieren. Bist du sicher, dass du diese Berechtigung verweigern willst?</string>
@@ -101,9 +101,9 @@
     <string name="path">Pfad</string>
     <string name="storage_free_space" formatted="false">Freier Speicher: %1$s</string>
     <string name="add_download_error_invalid_url">Download konnte nicht hinzugefügt werden: ungültige URL</string>
-    <string name="checksum">Checksum</string>
+    <string name="checksum">Prüfsumme</string>
     <string name="add_dialog_checksum_description">MD5, SHA-256</string>
-    <string name="error_invalid_checksum">Invalid checksum</string>
+    <string name="error_invalid_checksum">Ungültige Prüfsumme</string>
     <!-- Add user agent dialog -->
     <string name="dialog_add_user_agent_title">User-Agent hinzufügen</string>
     <!-- Main activity -->
@@ -151,7 +151,7 @@
     <string name="delete_selected_download">Ausgewählten Download löschen? Dieser Vorgang kann nicht rückgängig gemacht werden</string>
     <string name="delete_selected_downloads">Ausgewählte Downloads löschen? Dieser Vorgang kann nicht rückgängig gemacht werden</string>
     <string name="delete_with_downloaded_file">Löschen inkl. der heruntergeladenen Datei</string>
-    <string name="error_verify_checksum">Invalid file checksum</string>
+    <string name="error_verify_checksum">Ungültige Datei-Prüfsumme</string>
     <!-- Filemanager dialog -->
     <string name="dir_chooser_title">Ordnerauswahl</string>
     <string name="file_chooser_title">Dateiauswahl</string>
