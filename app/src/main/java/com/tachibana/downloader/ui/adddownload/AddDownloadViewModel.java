@@ -127,6 +127,33 @@ public class AddDownloadViewModel extends AndroidViewModel
         params.removeOnPropertyChangedCallback(paramsCallback);
     }
 
+    public void initParams(AddInitParams initParams)
+    {
+        if (TextUtils.isEmpty(initParams.url)) {
+            /* Inserting a link from the clipboard */
+            List<CharSequence> clipboard = Utils.getClipboardText(getApplication());
+            if (!clipboard.isEmpty()) {
+                String firstItem = clipboard.get(0).toString();
+                String c = firstItem.toLowerCase();
+                if (c.startsWith(Utils.HTTP_PREFIX))
+                    initParams.url = firstItem;
+            }
+        }
+
+        params.setUrl(initParams.url);
+        params.setFileName(initParams.fileName);
+        params.setDescription(initParams.description);
+        params.setUserAgent(initParams.userAgent == null ?
+                getPrefUserAgent().userAgent :
+                initParams.userAgent);
+        params.setDirPath(initParams.dirPath == null ?
+                Uri.parse(fs.getDefaultDownloadPath()) :
+                initParams.dirPath);
+        params.setUnmeteredConnectionsOnly(initParams.unmeteredConnectionsOnly);
+        params.setRetry(initParams.retry);
+        params.setReplaceFile(initParams.replaceFile);
+    }
+
     public LiveData<List<UserAgent>> observeUserAgents()
     {
         return repo.observeUserAgents();

@@ -247,7 +247,7 @@ public class AddDownloadDialog extends DialogFragment {
         /* Clear init params */
         getArguments().putParcelable(TAG_INIT_PARAMS, null);
         if (initParams != null)
-            initParams(initParams);
+            viewModel.initParams(initParams);
 
         if (savedInstanceState != null)
             permDialogIsShow = savedInstanceState.getBoolean(TAG_PERM_DIALOG_IS_SHOW);
@@ -256,22 +256,6 @@ public class AddDownloadDialog extends DialogFragment {
             permDialogIsShow = true;
             startActivity(new Intent(activity, RequestPermissions.class));
         }
-    }
-
-    private void initParams(AddInitParams initParams)
-    {
-        viewModel.params.setUrl(initParams.url);
-        viewModel.params.setFileName(initParams.fileName);
-        viewModel.params.setDescription(initParams.description);
-        viewModel.params.setUserAgent(initParams.userAgent == null ?
-                viewModel.getPrefUserAgent().userAgent :
-                initParams.userAgent);
-        viewModel.params.setDirPath(initParams.dirPath == null ?
-                Uri.parse(viewModel.fs.getDefaultDownloadPath()) :
-                initParams.dirPath);
-        viewModel.params.setUnmeteredConnectionsOnly(initParams.unmeteredConnectionsOnly);
-        viewModel.params.setRetry(initParams.retry);
-        viewModel.params.setReplaceFile(initParams.replaceFile);
     }
 
     @NonNull
