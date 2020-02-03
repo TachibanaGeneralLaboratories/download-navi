@@ -503,7 +503,7 @@ public class Utils
                             new File(filePath.getPath()));
 
                 itemsUri.add(filePath);
-            };
+            }
 
             String mimeType = item.info.mimeType;
             if (TextUtils.isEmpty(mimeType)) {

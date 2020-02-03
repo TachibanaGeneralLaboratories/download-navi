@@ -28,7 +28,7 @@ import android.widget.CheckBox;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.FragmentManager;
-import androidx.lifecycle.ViewModelProviders;
+import androidx.lifecycle.ViewModelProvider;
 
 import com.tachibana.downloader.R;
 import com.tachibana.downloader.core.model.data.StatusCode;
@@ -83,7 +83,7 @@ public class FinishedDownloadsFragment extends DownloadsFragment
     {
         Disposable d = dialogViewModel.observeEvents()
                 .subscribe((event) -> {
-                    if (!event.dialogTag.equals(TAG_DELETE_DOWNLOAD_DIALOG) || deleteDownloadDialog == null)
+                    if (event.dialogTag == null || !event.dialogTag.equals(TAG_DELETE_DOWNLOAD_DIALOG) || deleteDownloadDialog == null)
                         return;
                     switch (event.type) {
                         case POSITIVE_BUTTON_CLICKED:
@@ -109,10 +109,9 @@ public class FinishedDownloadsFragment extends DownloadsFragment
         if (savedInstanceState != null)
             downloadForDeletion = savedInstanceState.getParcelable(TAG_DOWNLOAD_FOR_DELETION);
 
-        FragmentManager fm = getFragmentManager();
-        if (fm != null)
-            deleteDownloadDialog = (BaseAlertDialog)fm.findFragmentByTag(TAG_DELETE_DOWNLOAD_DIALOG);
-        dialogViewModel = ViewModelProviders.of(activity).get(BaseAlertDialog.SharedViewModel.class);
+        FragmentManager fm = getChildFragmentManager();
+        deleteDownloadDialog = (BaseAlertDialog)fm.findFragmentByTag(TAG_DELETE_DOWNLOAD_DIALOG);
+        dialogViewModel = new ViewModelProvider(activity).get(BaseAlertDialog.SharedViewModel.class);
     }
 
     @Override
@@ -162,8 +161,11 @@ public class FinishedDownloadsFragment extends DownloadsFragment
 
     private void showDeleteDownloadDialog()
     {
-        FragmentManager fm = getFragmentManager();
-        if (fm != null && fm.findFragmentByTag(TAG_DELETE_DOWNLOAD_DIALOG) == null) {
+        if (!isAdded())
+            return;
+
+        FragmentManager fm = getChildFragmentManager();
+        if (fm.findFragmentByTag(TAG_DELETE_DOWNLOAD_DIALOG) == null) {
             deleteDownloadDialog = BaseAlertDialog.newInstance(
                     getString(R.string.deleting),
                     getString(R.string.delete_selected_download),

@@ -40,7 +40,7 @@ import androidx.appcompat.view.ActionMode;
 import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
-import androidx.lifecycle.ViewModelProviders;
+import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.selection.MutableSelection;
 import androidx.recyclerview.selection.SelectionPredicates;
 import androidx.recyclerview.selection.SelectionTracker;
@@ -133,7 +133,7 @@ public abstract class DownloadsFragment extends Fragment
                 .withSelectionPredicate(SelectionPredicates.createSelectAnything())
                 .build();
 
-        selectionTracker.addObserver(new SelectionTracker.SelectionObserver() {
+        selectionTracker.addObserver(new SelectionTracker.SelectionObserver<DownloadItem>() {
             @Override
             public void onSelectionChanged()
             {
@@ -200,7 +200,7 @@ public abstract class DownloadsFragment extends Fragment
     {
         Disposable d = dialogViewModel.observeEvents()
                 .subscribe((event) -> {
-                    if (!event.dialogTag.equals(TAG_DELETE_DOWNLOADS_DIALOG) || deleteDownloadsDialog == null)
+                    if (event.dialogTag == null || !event.dialogTag.equals(TAG_DELETE_DOWNLOADS_DIALOG) || deleteDownloadsDialog == null)
                         return;
                     switch (event.type) {
                         case POSITIVE_BUTTON_CLICKED:
@@ -235,12 +235,12 @@ public abstract class DownloadsFragment extends Fragment
         if (activity == null)
             activity = (AppCompatActivity)getActivity();
 
-        viewModel = ViewModelProviders.of(activity).get(DownloadsViewModel.class);
+        ViewModelProvider provider = new ViewModelProvider(activity);
+        viewModel = provider.get(DownloadsViewModel.class);
+        dialogViewModel = provider.get(BaseAlertDialog.SharedViewModel.class);
 
-        FragmentManager fm = getFragmentManager();
-        if (fm != null)
-            deleteDownloadsDialog = (BaseAlertDialog)fm.findFragmentByTag(TAG_DELETE_DOWNLOADS_DIALOG);
-        dialogViewModel = ViewModelProviders.of(activity).get(BaseAlertDialog.SharedViewModel.class);
+        FragmentManager fm = getChildFragmentManager();
+        deleteDownloadsDialog = (BaseAlertDialog)fm.findFragmentByTag(TAG_DELETE_DOWNLOADS_DIALOG);
     }
 
     @Override
@@ -372,8 +372,11 @@ public abstract class DownloadsFragment extends Fragment
 
     private void deleteDownloadsDialog()
     {
-        FragmentManager fm = getFragmentManager();
-        if (fm != null && fm.findFragmentByTag(TAG_DELETE_DOWNLOADS_DIALOG) == null) {
+        if (!isAdded())
+            return;
+
+        FragmentManager fm = getChildFragmentManager();
+        if (fm.findFragmentByTag(TAG_DELETE_DOWNLOADS_DIALOG) == null) {
             deleteDownloadsDialog = BaseAlertDialog.newInstance(
                     getString(R.string.deleting),
                     (selectionTracker.getSelection().size() > 1 ?
@@ -440,8 +443,11 @@ public abstract class DownloadsFragment extends Fragment
 
     protected void showDetailsDialog(UUID id)
     {
-        FragmentManager fm = getFragmentManager();
-        if (fm != null && fm.findFragmentByTag(TAG_DOWNLOAD_DETAILS) == null) {
+        if (!isAdded())
+            return;
+
+        FragmentManager fm = getChildFragmentManager();
+        if (fm.findFragmentByTag(TAG_DOWNLOAD_DETAILS) == null) {
             DownloadDetailsDialog details = DownloadDetailsDialog.newInstance(id);
             details.show(fm, TAG_DOWNLOAD_DETAILS);
         }

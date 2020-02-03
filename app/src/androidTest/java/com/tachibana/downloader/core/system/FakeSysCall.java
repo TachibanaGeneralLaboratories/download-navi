@@ -36,7 +36,7 @@ public class FakeSysCall implements SysCall
     public void fallocate(@NonNull FileDescriptor fd, long length) { }
 
     @Override
-    public long availableBytes(@NonNull FileDescriptor fd) throws IOException
+    public long availableBytes(@NonNull FileDescriptor fd)
     {
         return availableBytes;
     }

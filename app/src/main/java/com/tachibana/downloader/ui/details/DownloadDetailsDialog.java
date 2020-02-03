@@ -47,7 +47,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.DialogFragment;
 import androidx.fragment.app.FragmentManager;
-import androidx.lifecycle.ViewModelProviders;
+import androidx.lifecycle.ViewModelProvider;
 
 import com.tachibana.downloader.R;
 import com.tachibana.downloader.core.exception.FileAlreadyExistsException;
@@ -207,13 +207,10 @@ public class DownloadDetailsDialog extends DialogFragment
 
     private void handleAlertDialogEvent(BaseAlertDialog.Event event)
     {
-        if (!event.dialogTag.equals(TAG_REPLACE_FILE_DIALOG))
+        if (event.dialogTag == null || !event.dialogTag.equals(TAG_REPLACE_FILE_DIALOG))
             return;
-        switch (event.type) {
-            case POSITIVE_BUTTON_CLICKED:
-                applyChangedParams(true);
-                break;
-        }
+        if (event.type == BaseAlertDialog.EventType.POSITIVE_BUTTON_CLICKED)
+            applyChangedParams(true);
     }
 
     private void handleUrlClipItem(String item)
@@ -238,9 +235,10 @@ public class DownloadDetailsDialog extends DialogFragment
     {
         super.onCreate(savedInstanceState);
 
-        viewModel = ViewModelProviders.of(this).get(DownloadDetailsViewModel.class);
-        dialogViewModel = ViewModelProviders.of(activity).get(BaseAlertDialog.SharedViewModel.class);
-        clipboardViewModel = ViewModelProviders.of(activity).get(ClipboardDialog.SharedViewModel.class);
+        viewModel = new ViewModelProvider(this).get(DownloadDetailsViewModel.class);
+        ViewModelProvider provider = new ViewModelProvider(activity);
+        dialogViewModel = provider.get(BaseAlertDialog.SharedViewModel.class);
+        clipboardViewModel = provider.get(ClipboardDialog.SharedViewModel.class);
     }
 
     @NonNull
@@ -253,9 +251,8 @@ public class DownloadDetailsDialog extends DialogFragment
         if (savedInstanceState != null)
             curClipboardTag = savedInstanceState.getString(TAG_CUR_CLIPBOARD_TAG);
 
-        FragmentManager fm = getFragmentManager();
-        if (fm != null)
-            clipboardDialog = (ClipboardDialog)fm.findFragmentByTag(curClipboardTag);
+        FragmentManager fm = getChildFragmentManager();
+        clipboardDialog = (ClipboardDialog)fm.findFragmentByTag(curClipboardTag);
 
         LayoutInflater i = LayoutInflater.from(activity);
         binding = DataBindingUtil.inflate(i, R.layout.dialog_download_details, null, false);
@@ -486,8 +483,11 @@ public class DownloadDetailsDialog extends DialogFragment
 
     private void showClipboardDialog(String tag)
     {
-        FragmentManager fm = getFragmentManager();
-        if (fm != null && fm.findFragmentByTag(tag) == null) {
+        if (!isAdded())
+            return;
+
+        FragmentManager fm = getChildFragmentManager();
+        if (fm.findFragmentByTag(tag) == null) {
             curClipboardTag = tag;
             clipboardDialog = ClipboardDialog.newInstance();
             clipboardDialog.show(fm, tag);
@@ -510,8 +510,11 @@ public class DownloadDetailsDialog extends DialogFragment
 
     private void showOpenDirErrorDialog()
     {
-        FragmentManager fm = getFragmentManager();
-        if (fm != null && fm.findFragmentByTag(TAG_OPEN_DIR_ERROR_DIALOG) == null) {
+        if (!isAdded())
+            return;
+
+        FragmentManager fm = getChildFragmentManager();
+        if (fm.findFragmentByTag(TAG_OPEN_DIR_ERROR_DIALOG) == null) {
             BaseAlertDialog openDirErrorDialog = BaseAlertDialog.newInstance(
                     getString(R.string.error),
                     getString(R.string.unable_to_open_folder),
@@ -527,8 +530,11 @@ public class DownloadDetailsDialog extends DialogFragment
 
     private void showReplaceFileDialog()
     {
-        FragmentManager fm = getFragmentManager();
-        if (fm != null && fm.findFragmentByTag(TAG_REPLACE_FILE_DIALOG) == null) {
+        if (!isAdded())
+            return;
+
+        FragmentManager fm = getChildFragmentManager();
+        if (fm.findFragmentByTag(TAG_REPLACE_FILE_DIALOG) == null) {
             BaseAlertDialog replaceFileDialog = BaseAlertDialog.newInstance(
                     getString(R.string.replace_file),
                     getString(R.string.error_file_exists),

@@ -390,5 +390,5 @@ public class DownloadService extends LifecycleService
     {
         if (key.equals(getString(R.string.pref_key_cpu_do_not_sleep)))
             setKeepCpuAwake(pref.cpuDoNotSleep());
-    };
+    }
 }

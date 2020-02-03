@@ -27,7 +27,7 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.DialogFragment;
-import androidx.lifecycle.ViewModelProviders;
+import androidx.lifecycle.ViewModelProvider;
 
 import com.tachibana.downloader.R;
 import com.tachibana.downloader.core.utils.Utils;
@@ -97,7 +97,7 @@ public class ClipboardDialog extends DialogFragment
     {
         super.onCreate(savedInstanceState);
 
-        viewModel = ViewModelProviders.of(getActivity()).get(SharedViewModel.class);
+        viewModel = new ViewModelProvider(getActivity()).get(SharedViewModel.class);
     }
 
     @NonNull
@@ -126,7 +126,7 @@ public class ClipboardDialog extends DialogFragment
 
     private ArrayList<CharSequence> getClipboardText()
     {
-        ArrayList<CharSequence> clipboardText = new ArrayList<CharSequence>();
+        ArrayList<CharSequence> clipboardText = new ArrayList<>();
 
         ClipData clip = Utils.getClipData(activity.getApplicationContext());
         if (clip == null)

@@ -26,7 +26,7 @@ import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
-import androidx.lifecycle.ViewModelProviders;
+import androidx.lifecycle.ViewModelProvider;
 
 import com.tachibana.downloader.R;
 import com.tachibana.downloader.core.utils.Utils;
@@ -46,7 +46,7 @@ public class SettingsActivity extends AppCompatActivity
         setTheme(Utils.getSettingsTheme(getApplicationContext()));
         super.onCreate(savedInstanceState);
 
-        viewModel = ViewModelProviders.of(this).get(SettingsViewModel.class);
+        viewModel = new ViewModelProvider(this).get(SettingsViewModel.class);
 
         setContentView(R.layout.activity_settings);
 

@@ -21,7 +21,6 @@
 package com.tachibana.downloader.core.utils;
 
 import com.tachibana.downloader.AbstractTest;
-import com.tachibana.downloader.core.system.FileSystemFacade;
 
 import org.junit.Test;
 

@@ -248,7 +248,7 @@ public class AddDownloadViewModel extends AndroidViewModel
             if (netInfo == null || !netInfo.isConnected())
                 return new ConnectException("Network is disconnected");
 
-            Exception err[] = new Exception[1];
+            Exception[] err = new Exception[1];
             connection.setListener(new HttpConnection.Listener() {
                 @Override
                 public void onConnectionCreated(HttpURLConnection conn)
@@ -262,14 +262,10 @@ public class AddDownloadViewModel extends AndroidViewModel
                     if (viewModel.get() == null)
                         return;
 
-                    switch (code) {
-                        case HttpURLConnection.HTTP_OK:
-                            viewModel.get().parseOkHeaders(conn);
-                            break;
-                        default:
-                            err[0] = new HttpException("Failed to fetch link, response code: " + code, code);
-                            break;
-                    }
+                    if (code == HttpURLConnection.HTTP_OK)
+                        viewModel.get().parseOkHeaders(conn);
+                    else
+                        err[0] = new HttpException("Failed to fetch link, response code: " + code, code);
                 }
 
                 @Override

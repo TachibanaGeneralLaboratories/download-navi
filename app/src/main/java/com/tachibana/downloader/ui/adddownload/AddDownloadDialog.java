@@ -48,7 +48,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.DialogFragment;
 import androidx.fragment.app.FragmentManager;
-import androidx.lifecycle.ViewModelProviders;
+import androidx.lifecycle.ViewModelProvider;
 
 import com.google.android.material.textfield.TextInputEditText;
 import com.tachibana.downloader.R;
@@ -197,7 +197,7 @@ public class AddDownloadDialog extends DialogFragment {
 
     private void handleAlertDialogEvent(BaseAlertDialog.Event event)
     {
-        if (!event.dialogTag.equals(TAG_ADD_USER_AGENT_DIALOG) || addUserAgentDialog == null)
+        if (event.dialogTag == null || !event.dialogTag.equals(TAG_ADD_USER_AGENT_DIALOG) || addUserAgentDialog == null)
             return;
         switch (event.type) {
             case POSITIVE_BUTTON_CLICKED:
@@ -239,9 +239,10 @@ public class AddDownloadDialog extends DialogFragment {
     {
         super.onCreate(savedInstanceState);
 
-        viewModel = ViewModelProviders.of(activity).get(AddDownloadViewModel.class);
-        dialogViewModel = ViewModelProviders.of(activity).get(BaseAlertDialog.SharedViewModel.class);
-        clipboardViewModel = ViewModelProviders.of(activity).get(ClipboardDialog.SharedViewModel.class);
+        ViewModelProvider provider = new ViewModelProvider(activity);
+        viewModel = provider.get(AddDownloadViewModel.class);
+        dialogViewModel = provider.get(BaseAlertDialog.SharedViewModel.class);
+        clipboardViewModel = provider.get(ClipboardDialog.SharedViewModel.class);
 
         AddInitParams initParams = getArguments().getParcelable(TAG_INIT_PARAMS);
         /* Clear init params */
@@ -268,11 +269,9 @@ public class AddDownloadDialog extends DialogFragment {
         if (savedInstanceState != null)
             curClipboardTag = savedInstanceState.getString(TAG_CUR_CLIPBOARD_TAG);
 
-        FragmentManager fm = getFragmentManager();
-        if (fm != null) {
-            addUserAgentDialog = (BaseAlertDialog)fm.findFragmentByTag(TAG_ADD_USER_AGENT_DIALOG);
-            clipboardDialog = (ClipboardDialog)fm.findFragmentByTag(curClipboardTag);
-        }
+        FragmentManager fm = getChildFragmentManager();
+        addUserAgentDialog = (BaseAlertDialog)fm.findFragmentByTag(TAG_ADD_USER_AGENT_DIALOG);
+        clipboardDialog = (ClipboardDialog)fm.findFragmentByTag(curClipboardTag);
 
         LayoutInflater i = LayoutInflater.from(activity);
         binding = DataBindingUtil.inflate(i, R.layout.dialog_add_download, null, false);
@@ -494,8 +493,11 @@ public class AddDownloadDialog extends DialogFragment {
 
     private void addUserAgentDialog()
     {
-        FragmentManager fm = getFragmentManager();
-        if (fm != null && fm.findFragmentByTag(TAG_ADD_USER_AGENT_DIALOG) == null) {
+        if (!isAdded())
+            return;
+
+        FragmentManager fm = getChildFragmentManager();
+        if (fm.findFragmentByTag(TAG_ADD_USER_AGENT_DIALOG) == null) {
             addUserAgentDialog = BaseAlertDialog.newInstance(
                     getString(R.string.dialog_add_user_agent_title),
                     null,
@@ -688,8 +690,11 @@ public class AddDownloadDialog extends DialogFragment {
 
     private void showClipboardDialog(String tag)
     {
-        FragmentManager fm = getFragmentManager();
-        if (fm != null && fm.findFragmentByTag(tag) == null) {
+        if (!isAdded())
+            return;
+
+        FragmentManager fm = getChildFragmentManager();
+        if (fm.findFragmentByTag(tag) == null) {
             curClipboardTag = tag;
             clipboardDialog = ClipboardDialog.newInstance();
             clipboardDialog.show(fm, tag);
@@ -712,8 +717,11 @@ public class AddDownloadDialog extends DialogFragment {
 
     private void showCreateFileErrorDialog()
     {
-        FragmentManager fm = getFragmentManager();
-        if (fm != null && fm.findFragmentByTag(TAG_CREATE_FILE_ERROR_DIALOG) == null) {
+        if (!isAdded())
+            return;
+
+        FragmentManager fm = getChildFragmentManager();
+        if (fm.findFragmentByTag(TAG_CREATE_FILE_ERROR_DIALOG) == null) {
             BaseAlertDialog createFileErrorDialog = BaseAlertDialog.newInstance(
                     getString(R.string.error),
                     getString(R.string.unable_to_create_file),
@@ -729,8 +737,11 @@ public class AddDownloadDialog extends DialogFragment {
 
     private void showOpenDirErrorDialog()
     {
-        FragmentManager fm = getFragmentManager();
-        if (fm != null && fm.findFragmentByTag(TAG_OPEN_DIR_ERROR_DIALOG) == null) {
+        if (!isAdded())
+            return;
+
+        FragmentManager fm = getChildFragmentManager();
+        if (fm.findFragmentByTag(TAG_OPEN_DIR_ERROR_DIALOG) == null) {
             BaseAlertDialog openDirErrorDialog = BaseAlertDialog.newInstance(
                     getString(R.string.error),
                     getString(R.string.unable_to_open_folder),
@@ -746,8 +757,11 @@ public class AddDownloadDialog extends DialogFragment {
 
     private void showInvalidUrlDialog()
     {
-        FragmentManager fm = getFragmentManager();
-        if (fm != null && fm.findFragmentByTag(TAG_CREATE_FILE_ERROR_DIALOG) == null) {
+        if (!isAdded())
+            return;
+
+        FragmentManager fm = getChildFragmentManager();
+        if (fm.findFragmentByTag(TAG_CREATE_FILE_ERROR_DIALOG) == null) {
             BaseAlertDialog invalidUrlDialog = BaseAlertDialog.newInstance(
                     getString(R.string.error),
                     getString(R.string.add_download_error_invalid_url),

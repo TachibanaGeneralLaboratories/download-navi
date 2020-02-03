@@ -37,13 +37,13 @@ final class PercentEncoder {
         }
 
         char[] chars = str.toCharArray();
-        String result = "";
+        StringBuilder result = new StringBuilder();
         int len = str.length();
         int i = 0;
         while (i < chars.length) {
             char c = chars[i];
             if (c != '%') {
-                result += c;
+                result.append(c);
                 i++;
             } else {
                 if (i + 2 >= len) {
@@ -67,9 +67,7 @@ final class PercentEncoder {
                 for (int j = 0; j < readBytes; j++) {
                     if (str.charAt(i) != '%') {
                         byte[] currentBuffer = new byte[j];
-                        for (int h = 0; h < j; h++) {
-                            currentBuffer[h] = buffer[h];
-                        }
+                        System.arraycopy(buffer, 0, currentBuffer, 0, j);
                         buffer = currentBuffer;
                         break;
                     }
@@ -84,10 +82,10 @@ final class PercentEncoder {
                     }
                     i += 3;
                 }
-                result += new String(buffer);
+                result.append(new String(buffer));
             }
         }
-        return result;
+        return result.toString();
     }
 
     /**

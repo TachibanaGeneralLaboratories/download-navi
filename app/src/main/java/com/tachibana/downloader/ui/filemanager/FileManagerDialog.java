@@ -39,7 +39,7 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.FragmentManager;
-import androidx.lifecycle.ViewModelProviders;
+import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.DefaultItemAnimator;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
@@ -121,7 +121,7 @@ public class FileManagerDialog extends AppCompatActivity
         String startDir = pref.getString(getString(R.string.pref_key_filemanager_last_dir), fs.getDefaultDownloadPath());
         FileManagerViewModelFactory factory = new FileManagerViewModelFactory(this.getApplicationContext(),
                 intent.getParcelableExtra(TAG_CONFIG), startDir);
-        viewModel = ViewModelProviders.of(this, factory).get(FileManagerViewModel.class);
+        viewModel = new ViewModelProvider(this, factory).get(FileManagerViewModel.class);
 
         binding = DataBindingUtil.setContentView(this, R.layout.activity_filemanager_dialog);
         binding.setEnableSystemManagerButton(Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT);
@@ -130,7 +130,7 @@ public class FileManagerDialog extends AppCompatActivity
         FragmentManager fm = getSupportFragmentManager();
         inputNameDialog = (BaseAlertDialog)fm.findFragmentByTag(TAG_INPUT_NAME_DIALOG);
         errorReportDialog = (ErrorReportDialog)fm.findFragmentByTag(TAG_ERROR_REPORT_DIALOG);
-        dialogViewModel = ViewModelProviders.of(this).get(BaseAlertDialog.SharedViewModel.class);
+        dialogViewModel = new ViewModelProvider(this).get(BaseAlertDialog.SharedViewModel.class);
 
         String title = viewModel.config.title;
         if (TextUtils.isEmpty(title)) {
@@ -203,9 +203,6 @@ public class FileManagerDialog extends AppCompatActivity
 
     private void showSAFDialog()
     {
-        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.KITKAT)
-            return;
-
         String mimeType = viewModel.config.mimeType;
         Intent i;
         int requestCode;
@@ -292,6 +289,9 @@ public class FileManagerDialog extends AppCompatActivity
 
     private void handleAlertDialogEvent(BaseAlertDialog.Event event)
     {
+        if (event.dialogTag == null)
+            return;
+
         switch (event.type) {
             case POSITIVE_BUTTON_CLICKED:
                 if (event.dialogTag.equals(TAG_INPUT_NAME_DIALOG) && inputNameDialog != null) {

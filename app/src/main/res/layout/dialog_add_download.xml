@@ -218,7 +218,6 @@
                 android:id="@+id/advanced_layout"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_below="@id/expansion_header"
                 android:orientation="vertical"
                 app:el_duration="5"
                 app:el_parallax="0"

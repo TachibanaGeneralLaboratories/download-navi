@@ -20,10 +20,8 @@
 
 package com.tachibana.downloader.core.model;
 
-import android.content.SharedPreferences;
 import android.net.ConnectivityManager;
 import android.net.Uri;
-import android.preference.PreferenceManager;
 import android.util.Log;
 
 import androidx.test.ext.junit.runners.AndroidJUnit4;

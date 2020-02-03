@@ -95,10 +95,7 @@ class DefaultFsModule implements FsModule
         } catch (Exception e) {
             /* This provides invalid space on some devices */
             StatFs stat = new StatFs(dir.getPath());
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR2)
-                availableBytes = stat.getAvailableBytes();
-            else
-                availableBytes = (long)stat.getBlockSize() * (long)stat.getAvailableBlocks();
+            availableBytes = stat.getAvailableBytes();
         }
 
         return availableBytes;

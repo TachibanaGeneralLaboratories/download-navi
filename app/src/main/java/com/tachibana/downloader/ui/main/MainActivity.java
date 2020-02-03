@@ -44,7 +44,7 @@ import androidx.coordinatorlayout.widget.CoordinatorLayout;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.FragmentManager;
-import androidx.lifecycle.ViewModelProviders;
+import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.viewpager.widget.ViewPager;
@@ -118,8 +118,9 @@ public class MainActivity extends AppCompatActivity
             return;
         }
 
-        fragmentViewModel = ViewModelProviders.of(this).get(DownloadsViewModel.class);
-        dialogViewModel = ViewModelProviders.of(this).get(BaseAlertDialog.SharedViewModel.class);
+        ViewModelProvider provider = new ViewModelProvider(this);
+        fragmentViewModel = provider.get(DownloadsViewModel.class);
+        dialogViewModel = provider.get(BaseAlertDialog.SharedViewModel.class);
         aboutDialog = (BaseAlertDialog)getSupportFragmentManager().findFragmentByTag(TAG_ABOUT_DIALOG);
 
         if (savedInstanceState != null)
@@ -245,7 +246,7 @@ public class MainActivity extends AppCompatActivity
     {
         Disposable d = dialogViewModel.observeEvents()
                 .subscribe((event) -> {
-                    if (!event.dialogTag.equals(TAG_ABOUT_DIALOG))
+                    if (event.dialogTag == null || !event.dialogTag.equals(TAG_ABOUT_DIALOG))
                         return;
                     switch (event.type) {
                         case NEGATIVE_BUTTON_CLICKED:
@@ -359,7 +360,7 @@ public class MainActivity extends AppCompatActivity
                 .edit()
                 .putLong(prefKey, item.id)
                 .apply();
-    };
+    }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu)

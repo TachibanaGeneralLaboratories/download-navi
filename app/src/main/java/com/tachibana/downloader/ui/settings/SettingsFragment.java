@@ -28,7 +28,7 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
-import androidx.lifecycle.ViewModelProviders;
+import androidx.lifecycle.ViewModelProvider;
 import androidx.preference.Preference;
 
 import com.tachibana.downloader.R;
@@ -76,7 +76,7 @@ public class SettingsFragment extends PreferenceFragmentCompat
         if (activity == null)
             activity = (AppCompatActivity)getActivity();
 
-        viewModel = ViewModelProviders.of(activity).get(SettingsViewModel.class);
+        viewModel = new ViewModelProvider(activity).get(SettingsViewModel.class);
 
         if (Utils.isTwoPane(activity)) {
             Fragment f = activity.getSupportFragmentManager()
