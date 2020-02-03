@@ -58,7 +58,7 @@ tasks.withType(Test) {
 }
 
 def ACRA_VERSION = "5.4.0"
-def ROOM_VERSION = "2.2.2"
+def ROOM_VERSION = "2.2.3"
 
 dependencies {
     implementation fileTree(dir: "libs", include: ["*.jar"])
@@ -69,24 +69,24 @@ dependencies {
     androidTestImplementation "androidx.test.ext:junit:1.1.1"
     androidTestImplementation "androidx.test.espresso:espresso-core:3.2.0"
     androidTestImplementation "androidx.test:rules:1.2.0"
-    androidTestImplementation "androidx.room:room-testing:2.2.2"
+    androidTestImplementation "androidx.room:room-testing:2.2.3"
 
     /* AndroidX libraries */
     implementation "androidx.appcompat:appcompat:1.1.0"
-    implementation "androidx.constraintlayout:constraintlayout:2.0.0-beta3"
+    implementation "androidx.constraintlayout:constraintlayout:2.0.0-beta4"
     implementation "androidx.recyclerview:recyclerview:1.1.0"
-    implementation "androidx.recyclerview:recyclerview-selection:1.1.0-alpha06"
-    implementation "com.google.android.material:material:1.2.0-alpha02"
+    implementation "androidx.recyclerview:recyclerview-selection:1.1.0-beta01"
+    implementation "com.google.android.material:material:1.2.0-alpha04"
     implementation "androidx.swiperefreshlayout:swiperefreshlayout:1.1.0-alpha03"
-    implementation "androidx.lifecycle:lifecycle-extensions:2.1.0"
+    implementation "androidx.lifecycle:lifecycle-extensions:2.2.0"
     implementation "androidx.room:room-runtime:$ROOM_VERSION"
     implementation "androidx.room:room-rxjava2:$ROOM_VERSION"
     annotationProcessor "androidx.room:room-compiler:$ROOM_VERSION" /* For schemas import */
-    implementation "androidx.work:work-runtime:2.2.0"
+    implementation "androidx.work:work-runtime:2.3.0"
 
     /* ReactiveX */
     implementation "io.reactivex.rxjava2:rxjava:2.2.9"
-    implementation "io.reactivex.rxjava2:rxandroid:2.0.2"
+    implementation "io.reactivex.rxjava2:rxandroid:2.1.1"
 
     /* ACRA */
     implementation "ch.acra:acra-mail:$ACRA_VERSION"
@@ -95,7 +95,7 @@ dependencies {
     /* Other */
     implementation "net.cachapa.expandablelayout:expandablelayout:2.9.2"
     implementation "com.h6ah4i.android.widget.advrecyclerview:advrecyclerview:1.0.0"
-    implementation "com.takisoft.preferencex:preferencex:1.1.0-alpha05"
+    implementation "com.takisoft.preferencex:preferencex:1.1.0"
     implementation "com.jaredrummler:colorpicker:1.1.0"
     implementation 'com.github.anthonynsimon:jurl:v0.4.2'
 }
