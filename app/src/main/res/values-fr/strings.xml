@@ -57,7 +57,7 @@
     <string name="perm_denied_title">Permission refusée</string>
     <string name="perm_denied_warning">Sans cette autorisation l\'application ne peut pas enregistrer des fichiers dans la mémoire de certains périphériques ainsi que certaines versions d’Android. L’application risque de ne pas fonctionner correctement. Êtes-vous certain de vouloir refuser cette autorisation?</string>
     <!-- Download progress notification -->
-    <string name="download_ticker_notify" formatted="false">Télécharger à %1$s</string>
+    <string name="download_ticker_notify">Télécharger à %1$s</string>
     <!-- Foreground notification -->
     <string name="app_running_in_the_background">Download Navi s\'exécute en arrière-plan</string>
     <string name="pause_all">Tout mettre en pause</string>
@@ -66,7 +66,7 @@
     <string name="download_finished_notify">Téléchargement terminé avec succès</string>
     <string name="open_using">Ouvrir avec</string>
     <!-- Pending notification -->
-    <string name="download_in_queue_ticker_notify" formatted="false">%1$s dans la file d’attente</string>
+    <string name="download_in_queue_ticker_notify">%1$s dans la file d’attente</string>
     <string name="waiting_for_network">En attente de connexion réseau</string>
     <string name="waiting_for_retry">En attente d\'une nouvelle tentative</string>
     <!-- Error notification -->
@@ -74,24 +74,24 @@
     <!-- Applying params notification -->
     <string name="applying_params_title">Appliquer les paramètres</string>
     <string name="applying_params_for_downloads">Appliquer les paramètres pour les téléchargements</string>
-    <string name="applying_params_error_title" formatted="false">Appliquer les paramètres d\'erreur pour %1$s</string>
+    <string name="applying_params_error_title">Appliquer les paramètres d\'erreur pour %1$s</string>
     <!-- Add download dialog -->
     <string name="add_download">Ajouter le téléchargement</string>
     <string name="download_link">Lien</string>
     <string name="download_name">Nom</string>
-    <string name="download_size" formatted="false">Taille: %1$s</string>
+    <string name="download_size">Taille: %1$s</string>
     <string name="download_retry">Réessayer</string>
     <string name="download_advanced">Avancé</string>
     <string name="download_user_agent">Agent utilisateur</string>
     <string name="download_error_empty_link">Veuillez saisir un lien</string>
     <string name="download_error_empty_name">Veuillez saisir un nom</string>
-    <string name="download_error_no_enough_free_space" formatted="false">Espace libre insuffisant : %1$s libre, mais la taille du fichier est de %2$s</string>
-    <string name="download_error_name_is_not_correct" formatted="false">Un nom correct est \"%1$s\"</string>
-    <string name="fetch_error_default_fmt" formatted="false">Erreur: %1$s</string>
-    <string name="fetch_error_invalid_url" formatted="false">URL invalide: %1$s</string>
+    <string name="download_error_no_enough_free_space">Espace libre insuffisant : %1$s libre, mais la taille du fichier est de %2$s</string>
+    <string name="download_error_name_is_not_correct">Un nom correct est \"%1$s\"</string>
+    <string name="fetch_error_default_fmt">Erreur: %1$s</string>
+    <string name="fetch_error_invalid_url">URL invalide: %1$s</string>
     <string name="fetch_error_network_disconnected">le réseau est déconnecté</string>
-    <string name="fetch_error_http_response" formatted="false">Erreur: le serveur a retourné le code HTTP %1$d</string>
-    <string name="fetch_error_io" formatted="false">Erreur I/O: %1$s</string>
+    <string name="fetch_error_http_response">Erreur: le serveur a retourné le code HTTP %1$d</string>
+    <string name="fetch_error_io">Erreur I/O: %1$s</string>
     <string name="unable_to_open_folder">Impossible d\'ouvrir le dossier sélectionné. Veuillez essayer de sélectionner un autre dossier</string>
     <string name="unable_to_create_file">Impossible de créer le fichier. Veuillez essayer de sélectionner un autre dossier</string>
     <string name="partial_download_not_supported">Ce téléchargement ne supporte pas la pause ni le téléchargement par morceaux</string>
@@ -99,7 +99,7 @@
     <string name="download_description">Description</string>
     <string name="select_folder_to_save">Sélectionnez le dossier à enregistrer</string>
     <string name="path">Chemin d\'accès</string>
-    <string name="storage_free_space" formatted="false">Espace libre: %1$s</string>
+    <string name="storage_free_space">Espace libre: %1$s</string>
     <string name="add_download_error_invalid_url">Impossible d\'ajouter le téléchargement : l\'URL est invalide</string>
     <string name="checksum">Somme de contrôle</string>
     <string name="add_dialog_checksum_description">MD5, SHA-256</string>
@@ -141,11 +141,11 @@
     <string name="drawer_sorting_no_sorting">Aucun tri</string>
     <!-- Download list item -->
     <!-- downloaded/total • ETA • speed -->
-    <string name="download_queued_progress_template" formatted="false">%1$s/%2$s \u2022 %3$s \u2022 %4$s/s</string>
+    <string name="download_queued_progress_template">%1$s/%2$s \u2022 %3$s \u2022 %4$s/s</string>
     <!-- downloaded/total • status -->
-    <string name="download_queued_template" formatted="false">%1$s/%2$s \u2022 %3$s</string>
+    <string name="download_queued_template">%1$s/%2$s \u2022 %3$s</string>
     <!-- hostname • total -->
-    <string name="download_finished_template" formatted="false">%1$s \u2022 %2$s</string>
+    <string name="download_finished_template">%1$s \u2022 %2$s</string>
     <string name="download_details">Détails</string>
     <string name="deleting">Suppression</string>
     <string name="delete_selected_download">Supprimer le téléchargement sélectionné? Cette opération ne peut pas être annulée</string>
@@ -172,7 +172,7 @@
     <!-- Details download dialog -->
     <string name="detail_downloaded">Reçu</string>
     <!-- downloaded/total (percent) -->
-    <string name="detail_downloaded_format" formatted="false">%1$s/%2$s (%3$d%%)</string>
+    <string name="detail_downloaded_format">%1$s/%2$s (%3$d%%)</string>
     <string name="detail_pieces">Pièces</string>
     <string name="detail_date_added">Date d\'ajout</string>
     <string name="detail_user_agent">Agent utilisateur</string>
@@ -222,9 +222,9 @@
     <string name="pref_battery_control_title">Contrôle de batterie</string>
     <string name="pref_custom_battery_control_title">Affichage du pourcentage de batterie personnalisé</string>
     <string name="pref_custom_battery_control_value_title">Contrôle batterie en pourcentage</string>
-    <string name="pref_battery_control_summary" formatted="false">Tous les téléchargements seront suspendus si le niveau de batterie est inférieur à %1$d%%. La limite ne s\'applique pas au moment de la charge sur secteur</string>
-    <string name="pref_custom_battery_control_summary" formatted="false">Définir un pourcentage personnalisé pour mettre en pause les téléchargements lorsque le niveau de batterie baisse en dessous du seuil donné. Activer ceci ignorera le seuil par défaut de %1$d%%</string>
-    <string name="pref_custom_battery_control_dialog_summary" formatted="false">Définir un pourcentage de batterie personnalisé pour l\'application à surveiller aura un impact négatif sur la durée de vie de la batterie pendant que les téléchargements se produisent. Êtes-vous sûr de vouloir activer cela ?</string>
+    <string name="pref_battery_control_summary">Tous les téléchargements seront suspendus si le niveau de batterie est inférieur à %1$d%%. La limite ne s\'applique pas au moment de la charge sur secteur</string>
+    <string name="pref_custom_battery_control_summary">Définir un pourcentage personnalisé pour mettre en pause les téléchargements lorsque le niveau de batterie baisse en dessous du seuil donné. Activer ceci ignorera le seuil par défaut de %1$d%%</string>
+    <string name="pref_custom_battery_control_dialog_summary">Définir un pourcentage de batterie personnalisé pour l\'application à surveiller aura un impact négatif sur la durée de vie de la batterie pendant que les téléchargements se produisent. Êtes-vous sûr de vouloir activer cela ?</string>
     <string name="pref_enable_roaming_title">Activer l\'itinérance des données</string>
     <string name="pref_enable_roaming_summary">Télécharger uniquement si l\'appareil n\'est pas en itinérance</string>
     <string name="pref_max_active_downloads_title">Nombre maximum de téléchargements actifs</string>

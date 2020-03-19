@@ -398,13 +398,11 @@ public class DownloadNotifier
         switch (type) {
             case TYPE_ACTIVE:
                 builder.setContentTitle(info.fileName);
-                builder.setTicker(String.format(
-                        appContext.getString(R.string.download_ticker_notify),
-                        info.fileName));
+                builder.setTicker(appContext.getString(R.string.download_ticker_notify, info.fileName));
 
                 NotificationCompat.BigTextStyle progressBigText = new NotificationCompat.BigTextStyle();
                 if (info.statusCode == StatusCode.STATUS_RUNNING) {
-                    progressBigText.bigText(String.format(appContext.getString(R.string.download_queued_progress_template),
+                    progressBigText.bigText(appContext.getString(R.string.download_queued_progress_template,
                             Formatter.formatFileSize(appContext, downloadBytes),
                             (info.totalBytes == -1 ? appContext.getString(R.string.not_available) :
                                     Formatter.formatFileSize(appContext, info.totalBytes)),
@@ -424,7 +422,7 @@ public class DownloadNotifier
                             statusStr = appContext.getString(R.string.downloading_metadata);
                             break;
                     }
-                    progressBigText.bigText(String.format(appContext.getString(R.string.download_queued_template),
+                    progressBigText.bigText(appContext.getString(R.string.download_queued_template,
                             Formatter.formatFileSize(appContext, downloadBytes),
                             (info.totalBytes == -1 ? appContext.getString(R.string.not_available) :
                                     Formatter.formatFileSize(appContext, info.totalBytes)),
@@ -434,9 +432,7 @@ public class DownloadNotifier
                 break;
             case TYPE_PENDING:
                 builder.setContentTitle(info.fileName);
-                builder.setTicker(String.format(
-                        appContext.getString(R.string.download_in_queue_ticker_notify),
-                        info.fileName));
+                builder.setTicker(appContext.getString(R.string.download_in_queue_ticker_notify, info.fileName));
 
                 NotificationCompat.BigTextStyle pendingBigText = new NotificationCompat.BigTextStyle();
                 String downloadBytesStr = Formatter.formatFileSize(appContext, downloadBytes);
@@ -455,7 +451,7 @@ public class DownloadNotifier
                         statusStr = appContext.getString(R.string.pending);
                         break;
                 }
-                pendingBigText.bigText(String.format(appContext.getString(R.string.download_queued_template),
+                pendingBigText.bigText(appContext.getString(R.string.download_queued_template,
                         downloadBytesStr,
                         totalBytesStr,
                         statusStr));
@@ -465,7 +461,7 @@ public class DownloadNotifier
                 if (isError) {
                     builder.setContentTitle(info.fileName);
                     builder.setTicker(appContext.getString(R.string.download_error_notify_title));
-                    builder.setContentText(String.format(appContext.getString(R.string.error_template), info.statusMsg));
+                    builder.setContentText(appContext.getString(R.string.error_template, info.statusMsg));
                 } else {
                     builder.setContentTitle(appContext.getString(R.string.download_finished_notify));
                     builder.setTicker(appContext.getString(R.string.download_finished_notify));

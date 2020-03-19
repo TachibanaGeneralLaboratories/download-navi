@@ -57,7 +57,7 @@
     <string name="perm_denied_title">الإذن مرفوض</string>
     <string name="perm_denied_warning">التطبيق بدون هذا الإذن لا يمكنه حفظ الملفات في الذاكرة في بعض الأجهزة وإصدارات الاندرويد. ولن يعمل التطبيق بالشكل المطلوب. هل أنت متأكد من أنك تريد رفض هذا الإذن؟</string>
     <!-- Download progress notification -->
-    <string name="download_ticker_notify" formatted="false">جارٍ تنزيل %1$s</string>
+    <string name="download_ticker_notify">جارٍ تنزيل %1$s</string>
     <!-- Foreground notification -->
     <string name="app_running_in_the_background">Download Navi يعمل في الخلفية</string>
     <string name="pause_all">إيقاف مؤقت للكل</string>
@@ -66,7 +66,7 @@
     <string name="download_finished_notify">انتهى التحميل</string>
     <string name="open_using">فتح بأستخدام</string>
     <!-- Pending notification -->
-    <string name="download_in_queue_ticker_notify" formatted="false">%1$s في قائمة الانتظار</string>
+    <string name="download_in_queue_ticker_notify">%1$s في قائمة الانتظار</string>
     <string name="waiting_for_network">في إنتظار الشبكة</string>
     <string name="waiting_for_retry">في إنتظار إعادة المحاولة</string>
     <!-- Error notification -->
@@ -74,24 +74,24 @@
     <!-- Applying params notification -->
     <string name="applying_params_title">تطبيق params</string>
     <string name="applying_params_for_downloads">تطبيق Params للتنزيلات</string>
-    <string name="applying_params_error_title" formatted="false">خطأ في تطبيق params ل %1$s</string>
+    <string name="applying_params_error_title">خطأ في تطبيق params ل %1$s</string>
     <!-- Add download dialog -->
     <string name="add_download">إضافة تحميل</string>
     <string name="download_link">الرابط</string>
     <string name="download_name">الاسم</string>
-    <string name="download_size" formatted="false">الحجم: %1$s</string>
+    <string name="download_size">الحجم: %1$s</string>
     <string name="download_retry">أعد المحاولة</string>
     <string name="download_advanced">إعدادات متقدمة</string>
     <string name="download_user_agent">وكيل المستخدم</string>
     <string name="download_error_empty_link">يرجى إدخال الرابط</string>
     <string name="download_error_empty_name">الرجاء إدخال الأسم</string>
-    <string name="download_error_no_enough_free_space" formatted="false">المساحة الحرة غير كافية: %1$s المتوفرة ، ولكن حجم الملف %2$s</string>
-    <string name="download_error_name_is_not_correct" formatted="false">الاسم الصحيح هو \"%1$s\"</string>
-    <string name="fetch_error_default_fmt" formatted="false">خطأ: %1$s</string>
-    <string name="fetch_error_invalid_url" formatted="false">الرابط غير صالح: %1$s</string>
+    <string name="download_error_no_enough_free_space">المساحة الحرة غير كافية: %1$s المتوفرة ، ولكن حجم الملف %2$s</string>
+    <string name="download_error_name_is_not_correct">الاسم الصحيح هو \"%1$s\"</string>
+    <string name="fetch_error_default_fmt">خطأ: %1$s</string>
+    <string name="fetch_error_invalid_url">الرابط غير صالح: %1$s</string>
     <string name="fetch_error_network_disconnected">تم قطع الاتصال بالشبكة</string>
-    <string name="fetch_error_http_response" formatted="false">خطأ: السيرفر ارسل كود HTTP %1$d</string>
-    <string name="fetch_error_io" formatted="false">حصل خطأ: %1$s</string>
+    <string name="fetch_error_http_response">خطأ: السيرفر ارسل كود HTTP %1$d</string>
+    <string name="fetch_error_io">حصل خطأ: %1$s</string>
     <string name="unable_to_open_folder">غير قادر على فتح المجلد المحدد. الرجاء تحديد مجلد آخر</string>
     <string name="unable_to_create_file">غير قادر على إنشاء الملف. الرجاء تحديد مجلد آخر</string>
     <string name="partial_download_not_supported">لا يدعم هذا التحميل الإيقاف وتحميله بالاجزاء</string>
@@ -99,7 +99,7 @@
     <string name="download_description">الوصف</string>
     <string name="select_folder_to_save">حدد مجلد الحفظ</string>
     <string name="path">المسار</string>
-    <string name="storage_free_space" formatted="false">المساحه الحره: %1$s</string>
+    <string name="storage_free_space">المساحه الحره: %1$s</string>
     <string name="add_download_error_invalid_url">لايمكن اضافة التحميل: الرابط غير صحيح</string>
     <string name="checksum">Checksum</string>
     <string name="add_dialog_checksum_description">MD5, SHA-256</string>
@@ -141,11 +141,11 @@
     <string name="drawer_sorting_no_sorting">بدون فرز</string>
     <!-- Download list item -->
     <!-- downloaded/total • ETA • speed -->
-    <string name="download_queued_progress_template" formatted="false">%1$s/%2$s \u2022 %3$s \u2022 %4$s/ثانية</string>
+    <string name="download_queued_progress_template">%1$s/%2$s \u2022 %3$s \u2022 %4$s/ثانية</string>
     <!-- downloaded/total • status -->
-    <string name="download_queued_template" formatted="false">%1$s/%2$s \u2022 %3$s</string>
+    <string name="download_queued_template">%1$s/%2$s \u2022 %3$s</string>
     <!-- hostname • total -->
-    <string name="download_finished_template" formatted="false">%1$s \u2022 %2$s</string>
+    <string name="download_finished_template">%1$s \u2022 %2$s</string>
     <string name="download_details">التفاصيل</string>
     <string name="deleting">حذف</string>
     <string name="delete_selected_download">حذف التنزيل المحدد؟ لا يمكن التراجع عن هذه العملية</string>
@@ -172,7 +172,7 @@
     <!-- Details download dialog -->
     <string name="detail_downloaded">الملفات المحملة</string>
     <!-- downloaded/total (percent) -->
-    <string name="detail_downloaded_format" formatted="false">%1$s/%2$s (%3$d%%)</string>
+    <string name="detail_downloaded_format">%1$s/%2$s (%3$d%%)</string>
     <string name="detail_pieces">القطع</string>
     <string name="detail_date_added">تاريخ الإضافة</string>
     <string name="detail_user_agent">وكيل المستخدم</string>
@@ -222,9 +222,9 @@
     <string name="pref_battery_control_title">وحدة تحكم البطارية</string>
     <string name="pref_custom_battery_control_title">إظهار نسبة البطارية</string>
     <string name="pref_custom_battery_control_value_title">مراقبة النسبة المئوية للبطارية</string>
-    <string name="pref_battery_control_summary" formatted="false">سوف يتم ايقاف كافة التحميلات إذا كان مستوى شحن البطارية أقل من %1$d%%. لا يتم تطبيق هذا الخيار عند شحن الهاتف</string>
-    <string name="pref_custom_battery_control_summary" formatted="false">تعيين نسبة مئوية مخصصة لإيقاف التنزيلات عند وصول نسبة البطارية اليها. تمكين هذا الخيار سوف يتجاهل النسبة الافتراضية %1$d%%</string>
-    <string name="pref_custom_battery_control_dialog_summary" formatted="false">تعيين نسبة مئوية مخصصة للتطبيق لمراقبة التحميل سيكون له أثر سلبي على عمر البطارية عند التحميل. هل أنت متأكد من أنك تريد تمكين هذا؟</string>
+    <string name="pref_battery_control_summary">سوف يتم ايقاف كافة التحميلات إذا كان مستوى شحن البطارية أقل من %1$d%%. لا يتم تطبيق هذا الخيار عند شحن الهاتف</string>
+    <string name="pref_custom_battery_control_summary">تعيين نسبة مئوية مخصصة لإيقاف التنزيلات عند وصول نسبة البطارية اليها. تمكين هذا الخيار سوف يتجاهل النسبة الافتراضية %1$d%%</string>
+    <string name="pref_custom_battery_control_dialog_summary">تعيين نسبة مئوية مخصصة للتطبيق لمراقبة التحميل سيكون له أثر سلبي على عمر البطارية عند التحميل. هل أنت متأكد من أنك تريد تمكين هذا؟</string>
     <string name="pref_enable_roaming_title">تفعيل التجوال</string>
     <string name="pref_enable_roaming_summary">تحميل فقط إذا لم يكن الجهاز في وضع التجوال</string>
     <string name="pref_max_active_downloads_title">الحد الأقصى من التحميلات النشطة</string>

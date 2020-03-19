@@ -57,7 +57,7 @@
     <string name="perm_denied_title">Berechtigung verweigert</string>
     <string name="perm_denied_warning">Auf einigen Geräten und Androidversionen kann die App ohne diese Berechtigung Dateien nicht im Speicher speichern. Die App wird nicht richtig funktionieren. Bist du sicher, dass du diese Berechtigung verweigern willst?</string>
     <!-- Download progress notification -->
-    <string name="download_ticker_notify" formatted="false">%1$s wird heruntergeladen</string>
+    <string name="download_ticker_notify">%1$s wird heruntergeladen</string>
     <!-- Foreground notification -->
     <string name="app_running_in_the_background">Download Navi läuft im Hintergrund</string>
     <string name="pause_all">Alle pausieren</string>
@@ -66,7 +66,7 @@
     <string name="download_finished_notify">Download abgeschlossen</string>
     <string name="open_using">Öffnen mit</string>
     <!-- Pending notification -->
-    <string name="download_in_queue_ticker_notify" formatted="false">%1$s in der Warteschlange</string>
+    <string name="download_in_queue_ticker_notify">%1$s in der Warteschlange</string>
     <string name="waiting_for_network">Auf Netzwerk wartend</string>
     <string name="waiting_for_retry">Auf erneuten Versuch wartend</string>
     <!-- Error notification -->
@@ -74,24 +74,24 @@
     <!-- Applying params notification -->
     <string name="applying_params_title">Parameter werden angewandt</string>
     <string name="applying_params_for_downloads">Download-Parameter werden angewandt</string>
-    <string name="applying_params_error_title" formatted="false">Fehler für %1$s beim Anwenden der Parameter</string>
+    <string name="applying_params_error_title">Fehler für %1$s beim Anwenden der Parameter</string>
     <!-- Add download dialog -->
     <string name="add_download">Download hinzufügen</string>
     <string name="download_link">Link</string>
     <string name="download_name">Name</string>
-    <string name="download_size" formatted="false">Größe: %1$s</string>
+    <string name="download_size">Größe: %1$s</string>
     <string name="download_retry">Wiederholen</string>
     <string name="download_advanced">Erweitert</string>
     <string name="download_user_agent">User-Agent</string>
     <string name="download_error_empty_link">Bitte Link eingeben</string>
     <string name="download_error_empty_name">Bitte Namen eingeben</string>
-    <string name="download_error_no_enough_free_space" formatted="false">Nicht genügend freier Speicher: %1$s frei, aber Dateigröße ist %2$s</string>
-    <string name="download_error_name_is_not_correct" formatted="false">Korrekter Name ist \"%1$s\"</string>
-    <string name="fetch_error_default_fmt" formatted="false">Fehler: %1$s</string>
-    <string name="fetch_error_invalid_url" formatted="false">Ungültige URL: %1$s</string>
+    <string name="download_error_no_enough_free_space">Nicht genügend freier Speicher: %1$s frei, aber Dateigröße ist %2$s</string>
+    <string name="download_error_name_is_not_correct">Korrekter Name ist \"%1$s\"</string>
+    <string name="fetch_error_default_fmt">Fehler: %1$s</string>
+    <string name="fetch_error_invalid_url">Ungültige URL: %1$s</string>
     <string name="fetch_error_network_disconnected">Netzwerk ist nicht verbunden</string>
-    <string name="fetch_error_http_response" formatted="false">Fehler: Server hat mit HTTP-Code %1$d geantwortet</string>
-    <string name="fetch_error_io" formatted="false">EIngabe-/Ausgabefehler: %1$s</string>
+    <string name="fetch_error_http_response">Fehler: Server hat mit HTTP-Code %1$d geantwortet</string>
+    <string name="fetch_error_io">EIngabe-/Ausgabefehler: %1$s</string>
     <string name="unable_to_open_folder">Kann den ausgewählten Ordner nicht öffnen. Bitte versuche einen anderen Ordner auszuwählen</string>
     <string name="unable_to_create_file">Datei kann nicht erstellt werden. Bitte versuche einen anderen Ordner auszuwählen</string>
     <string name="partial_download_not_supported">Dieser Download unterstützt Pausieren und segmentweises Herunterladen nicht</string>
@@ -99,7 +99,7 @@
     <string name="download_description">Beschreibung</string>
     <string name="select_folder_to_save">Ordner zum Speichern auswählen</string>
     <string name="path">Pfad</string>
-    <string name="storage_free_space" formatted="false">Freier Speicher: %1$s</string>
+    <string name="storage_free_space">Freier Speicher: %1$s</string>
     <string name="add_download_error_invalid_url">Download konnte nicht hinzugefügt werden: ungültige URL</string>
     <string name="checksum">Prüfsumme</string>
     <string name="add_dialog_checksum_description">MD5, SHA-256</string>
@@ -141,11 +141,11 @@
     <string name="drawer_sorting_no_sorting">Keine Sortierung</string>
     <!-- Download list item -->
     <!-- downloaded/total • ETA • speed -->
-    <string name="download_queued_progress_template" formatted="false">%1$s/%2$s \u2022 %3$s \u2022 %4$s/s</string>
+    <string name="download_queued_progress_template">%1$s/%2$s \u2022 %3$s \u2022 %4$s/s</string>
     <!-- downloaded/total • status -->
-    <string name="download_queued_template" formatted="false">%1$s/%2$s \u2022 %3$s</string>
+    <string name="download_queued_template">%1$s/%2$s \u2022 %3$s</string>
     <!-- hostname • total -->
-    <string name="download_finished_template" formatted="false">%1$s \u2022 %2$s</string>
+    <string name="download_finished_template">%1$s \u2022 %2$s</string>
     <string name="download_details">Details</string>
     <string name="deleting">Am Löschen</string>
     <string name="delete_selected_download">Ausgewählten Download löschen? Dieser Vorgang kann nicht rückgängig gemacht werden</string>
@@ -172,7 +172,7 @@
     <!-- Details download dialog -->
     <string name="detail_downloaded">Heruntergeladen</string>
     <!-- downloaded/total (percent) -->
-    <string name="detail_downloaded_format" formatted="false">%1$s/%2$s (%3$d%%)</string>
+    <string name="detail_downloaded_format">%1$s/%2$s (%3$d%%)</string>
     <string name="detail_pieces">Segmente</string>
     <string name="detail_date_added">Datum hinzugefügt</string>
     <string name="detail_user_agent">User-Agent</string>
@@ -222,9 +222,9 @@
     <string name="pref_battery_control_title">Akkusteuerung</string>
     <string name="pref_custom_battery_control_title">Nutzerdefinierter Akkustand</string>
     <string name="pref_custom_battery_control_value_title">Akkustand</string>
-    <string name="pref_battery_control_summary" formatted="false">Alle Downloads werden pausiert, wenn der Akkustand unter %1$d%% fällt. Begrenzung gilt nicht während des Aufladens</string>
-    <string name="pref_custom_battery_control_summary" formatted="false">Einen benutzerdefinierten Akkustand festlegen, um Downloads zu pausieren, wenn der Akku unter den angegebenen Schwellenwert sinkt. Bei Aktivierung wird die voreingestellte Schwelle von %1$d%% ignoriert</string>
-    <string name="pref_custom_battery_control_dialog_summary" formatted="false">Das Festlegen eines benutzerdefinierten Akkustandes, auf den die App achten soll, wird einen negativen Einfluss auf die Akkulaufzeit haben, während Downloads ausgeführt werden. Bist du sicher, dass du dies aktivieren möchtest?</string>
+    <string name="pref_battery_control_summary">Alle Downloads werden pausiert, wenn der Akkustand unter %1$d%% fällt. Begrenzung gilt nicht während des Aufladens</string>
+    <string name="pref_custom_battery_control_summary">Einen benutzerdefinierten Akkustand festlegen, um Downloads zu pausieren, wenn der Akku unter den angegebenen Schwellenwert sinkt. Bei Aktivierung wird die voreingestellte Schwelle von %1$d%% ignoriert</string>
+    <string name="pref_custom_battery_control_dialog_summary">Das Festlegen eines benutzerdefinierten Akkustandes, auf den die App achten soll, wird einen negativen Einfluss auf die Akkulaufzeit haben, während Downloads ausgeführt werden. Bist du sicher, dass du dies aktivieren möchtest?</string>
     <string name="pref_enable_roaming_title">Roaming aktivieren</string>
     <string name="pref_enable_roaming_summary">Nur herunterladen, falls kein Roaming stattfindet</string>
     <string name="pref_max_active_downloads_title">Maximum an aktiven Downloads</string>

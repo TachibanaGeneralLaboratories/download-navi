@@ -57,7 +57,7 @@
     <string name="perm_denied_title">權限被拒絕</string>
     <string name="perm_denied_warning">如果拒絕此權限，應用程式將無法在某些裝置和 Android 版本的記憶體中保存文件。此應用程式將無法正常工作。您確定要拒絕此權限嗎？</string>
     <!-- Download progress notification -->
-    <string name="download_ticker_notify" formatted="false">正在下載 %1$s</string>
+    <string name="download_ticker_notify">正在下載 %1$s</string>
     <!-- Foreground notification -->
     <string name="app_running_in_the_background">Download Navi 正在後台執行</string>
     <string name="pause_all">全部暫停</string>
@@ -66,7 +66,7 @@
     <string name="download_finished_notify">下載完成</string>
     <string name="open_using">打開方式</string>
     <!-- Pending notification -->
-    <string name="download_in_queue_ticker_notify" formatted="false">%1$s 在隊列中</string>
+    <string name="download_in_queue_ticker_notify">%1$s 在隊列中</string>
     <string name="waiting_for_network">等待網路</string>
     <string name="waiting_for_retry">等待重試</string>
     <!-- Error notification -->
@@ -74,24 +74,24 @@
     <!-- Applying params notification -->
     <string name="applying_params_title">套用參數</string>
     <string name="applying_params_for_downloads">對下載套用參數</string>
-    <string name="applying_params_error_title" formatted="false">對 %1$s 套用參數出錯</string>
+    <string name="applying_params_error_title">對 %1$s 套用參數出錯</string>
     <!-- Add download dialog -->
     <string name="add_download">新增下載</string>
     <string name="download_link">連接</string>
     <string name="download_name">名稱</string>
-    <string name="download_size" formatted="false">大小：%1$s</string>
+    <string name="download_size">大小：%1$s</string>
     <string name="download_retry">重試</string>
     <string name="download_advanced">進階</string>
     <string name="download_user_agent">使用者代理</string>
     <string name="download_error_empty_link">請輸入連結</string>
     <string name="download_error_empty_name">請輸入檔案名稱</string>
-    <string name="download_error_no_enough_free_space" formatted="false">可用空間不足：剩餘 %1$s，但檔案大小為 %2$s</string>
-    <string name="download_error_name_is_not_correct" formatted="false">正確的名稱爲 \"%1$s\"</string>
-    <string name="fetch_error_default_fmt" formatted="false">錯誤：%1$s</string>
-    <string name="fetch_error_invalid_url" formatted="false">無效的連接：%1$s</string>
+    <string name="download_error_no_enough_free_space">可用空間不足：剩餘 %1$s，但檔案大小為 %2$s</string>
+    <string name="download_error_name_is_not_correct">正確的名稱爲 \"%1$s\"</string>
+    <string name="fetch_error_default_fmt">錯誤：%1$s</string>
+    <string name="fetch_error_invalid_url">無效的連接：%1$s</string>
     <string name="fetch_error_network_disconnected">網路已斷開</string>
-    <string name="fetch_error_http_response" formatted="false">錯誤：伺服器返回 HTTP %1$d 錯誤</string>
-    <string name="fetch_error_io" formatted="false">IO 錯誤：%1$s</string>
+    <string name="fetch_error_http_response">錯誤：伺服器返回 HTTP %1$d 錯誤</string>
+    <string name="fetch_error_io">IO 錯誤：%1$s</string>
     <string name="unable_to_open_folder">無法打開所選資料夾，請嘗試選擇其他資料夾</string>
     <string name="unable_to_create_file">無法創建檔案，請嘗試選擇其他資料夾</string>
     <string name="partial_download_not_supported">此檔案不支援暫停或多執行緒分片下載</string>
@@ -99,7 +99,7 @@
     <string name="download_description">詳情</string>
     <string name="select_folder_to_save">選擇要儲存的資料夾</string>
     <string name="path">路徑</string>
-    <string name="storage_free_space" formatted="false">可用空間：%1$s</string>
+    <string name="storage_free_space">可用空間：%1$s</string>
     <string name="add_download_error_invalid_url">無法新增下載：連接無效</string>
     <string name="checksum">Checksum</string>
     <string name="add_dialog_checksum_description">MD5, SHA-256</string>
@@ -141,11 +141,11 @@
     <string name="drawer_sorting_no_sorting">無排序</string>
     <!-- Download list item -->
     <!-- downloaded/total • ETA • speed -->
-    <string name="download_queued_progress_template" formatted="false">%1$s/%2$s \u2022 %3$s \u2022 %4$s/秒</string>
+    <string name="download_queued_progress_template">%1$s/%2$s \u2022 %3$s \u2022 %4$s/秒</string>
     <!-- downloaded/total • status -->
-    <string name="download_queued_template" formatted="false">%1$s/%2$s \u2022 %3$s</string>
+    <string name="download_queued_template">%1$s/%2$s \u2022 %3$s</string>
     <!-- hostname • total -->
-    <string name="download_finished_template" formatted="false">%1$s \u2022 %2$s</string>
+    <string name="download_finished_template">%1$s \u2022 %2$s</string>
     <string name="download_details">詳細資料</string>
     <string name="deleting">正在刪除</string>
     <string name="delete_selected_download">您要刪除選中的下載嗎？此操作無法撤消</string>
@@ -172,7 +172,7 @@
     <!-- Details download dialog -->
     <string name="detail_downloaded">已下載</string>
     <!-- downloaded/total (percent) -->
-    <string name="detail_downloaded_format" formatted="false">%1$s/%2$s (%3$d%%)</string>
+    <string name="detail_downloaded_format">%1$s/%2$s (%3$d%%)</string>
     <string name="detail_pieces">檔案分片</string>
     <string name="detail_date_added">加入日期</string>
     <string name="detail_user_agent">使用者代理 (User agent)</string>
@@ -222,9 +222,9 @@
     <string name="pref_battery_control_title">電池控制</string>
     <string name="pref_custom_battery_control_title">顯示電量百分比</string>
     <string name="pref_custom_battery_control_value_title">電池控制百分比</string>
-    <string name="pref_battery_control_summary" formatted="false">在電量低於 %1$d%% 時暫停所有下載。此限制將不會在充電時套用</string>
-    <string name="pref_custom_battery_control_summary" formatted="false">自訂一個百分比值，當電量低於此閾值時自動暫停下載。啟用此選項將忽略默認的 %1$d%% 閾值</string>
-    <string name="pref_custom_battery_control_dialog_summary" formatted="false">在下載過程中，為應用程式設定自訂電池百分比將對電池壽命產生負面影響。你確定要啟用它嗎？</string>
+    <string name="pref_battery_control_summary">在電量低於 %1$d%% 時暫停所有下載。此限制將不會在充電時套用</string>
+    <string name="pref_custom_battery_control_summary">自訂一個百分比值，當電量低於此閾值時自動暫停下載。啟用此選項將忽略默認的 %1$d%% 閾值</string>
+    <string name="pref_custom_battery_control_dialog_summary">在下載過程中，為應用程式設定自訂電池百分比將對電池壽命產生負面影響。你確定要啟用它嗎？</string>
     <string name="pref_enable_roaming_title">啓用漫遊</string>
     <string name="pref_enable_roaming_summary">只在裝置未漫遊時下載</string>
     <string name="pref_max_active_downloads_title">最大活躍下載數</string>

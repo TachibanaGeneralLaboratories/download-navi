@@ -57,7 +57,7 @@
     <string name="perm_denied_title">İcazə verilmədi</string>
     <string name="perm_denied_warning">Bu icazə olmasa tətbiq Android versiyasında və bəzi cihazlarda faylları yaddaşda saxlaya bilməz. Tətbiq düzgün işləməz. Bu icazəni rədd etmək istədiyinizə əminsiniz?</string>
     <!-- Download progress notification -->
-    <string name="download_ticker_notify" formatted="false">%1$s endirilir</string>
+    <string name="download_ticker_notify">%1$s endirilir</string>
     <!-- Foreground notification -->
     <string name="app_running_in_the_background">Download Navi arxaplanda işləyir</string>
     <string name="pause_all">Hamısına fasilə ver</string>
@@ -66,7 +66,7 @@
     <string name="download_finished_notify">Endirmə bitdi</string>
     <string name="open_using">Açma üsulu</string>
     <!-- Pending notification -->
-    <string name="download_in_queue_ticker_notify" formatted="false">%1$s sıradadır</string>
+    <string name="download_in_queue_ticker_notify">%1$s sıradadır</string>
     <string name="waiting_for_network">Şəbəkə gözlənilir</string>
     <string name="waiting_for_retry">Yenidən sınama gözlənilir</string>
     <!-- Error notification -->
@@ -74,24 +74,24 @@
     <!-- Applying params notification -->
     <string name="applying_params_title">Parametrlər tətbiq edilir</string>
     <string name="applying_params_for_downloads">Endirmələr üçün parametrlər tətbiq edilir</string>
-    <string name="applying_params_error_title" formatted="false">%1$s üçün parametr tətbiq etmə xətası</string>
+    <string name="applying_params_error_title">%1$s üçün parametr tətbiq etmə xətası</string>
     <!-- Add download dialog -->
     <string name="add_download">Endirmə əlavə et</string>
     <string name="download_link">Bağlantı</string>
     <string name="download_name">Ad</string>
-    <string name="download_size" formatted="false">Həcmi: %1$s</string>
+    <string name="download_size">Həcmi: %1$s</string>
     <string name="download_retry">Yenidən sına</string>
     <string name="download_advanced">Qabaqcıl</string>
     <string name="download_user_agent">İstifadəçi agenti</string>
     <string name="download_error_empty_link">Zəhmət olmasa bağlantını daxil et</string>
     <string name="download_error_empty_name">Zəhmət olmasa adı daxil et</string>
-    <string name="download_error_no_enough_free_space" formatted="false">Kifayət qədər boş yer yoxdur: %1$s boşdur, ancaq faylın həcmi %2$s</string>
-    <string name="download_error_name_is_not_correct" formatted="false">Doğru ad belədir: \"%1$s\"</string>
-    <string name="fetch_error_default_fmt" formatted="false">Xəta: %1$s</string>
-    <string name="fetch_error_invalid_url" formatted="false">Etibarsız URL: %1$s</string>
+    <string name="download_error_no_enough_free_space">Kifayət qədər boş yer yoxdur: %1$s boşdur, ancaq faylın həcmi %2$s</string>
+    <string name="download_error_name_is_not_correct">Doğru ad belədir: \"%1$s\"</string>
+    <string name="fetch_error_default_fmt">Xəta: %1$s</string>
+    <string name="fetch_error_invalid_url">Etibarsız URL: %1$s</string>
     <string name="fetch_error_network_disconnected">şəbəkə bağlantısı kəsildi</string>
-    <string name="fetch_error_http_response" formatted="false">Xəta: server HTTP %1$d kodunu qaytardı</string>
-    <string name="fetch_error_io" formatted="false">GÇ xətası: %1$s</string>
+    <string name="fetch_error_http_response">Xəta: server HTTP %1$d kodunu qaytardı</string>
+    <string name="fetch_error_io">GÇ xətası: %1$s</string>
     <string name="unable_to_open_folder">Seçilmiş qovluq açıla bilmir. Zəhmət olmasa başqa qovluq seçməyə çalışın</string>
     <string name="unable_to_create_file">Fayl yaradıla bilmir. Zəhmət omasa başqa qovluq seçməyə çalışın</string>
     <string name="partial_download_not_supported">Bu endirmə, fasilə vermə və hissəli endirməni dəstəkləmir</string>
@@ -99,7 +99,7 @@
     <string name="download_description">Açıqlama</string>
     <string name="select_folder_to_save">Saxlanılacaq qovluğu seç</string>
     <string name="path">Yol</string>
-    <string name="storage_free_space" formatted="false">Boş yer: %1$s</string>
+    <string name="storage_free_space">Boş yer: %1$s</string>
     <string name="add_download_error_invalid_url">Endirmə əlavə edilə bilmədi: etibarsız URL</string>
     <string name="checksum">Checksum</string>
     <string name="add_dialog_checksum_description">MD5, SHA-256</string>
@@ -141,11 +141,11 @@
     <string name="drawer_sorting_no_sorting">Sıralama yoxdur</string>
     <!-- Download list item -->
     <!-- downloaded/total • ETA • speed -->
-    <string name="download_queued_progress_template" formatted="false">%1$s/%2$s \u2022 %3$s \u2022 %4$s/sn</string>
+    <string name="download_queued_progress_template">%1$s/%2$s \u2022 %3$s \u2022 %4$s/sn</string>
     <!-- downloaded/total • status -->
-    <string name="download_queued_template" formatted="false">%1$s/%2$s \u2022 %3$s</string>
+    <string name="download_queued_template">%1$s/%2$s \u2022 %3$s</string>
     <!-- hostname • total -->
-    <string name="download_finished_template" formatted="false">%1$s \u2022 %2$s</string>
+    <string name="download_finished_template">%1$s \u2022 %2$s</string>
     <string name="download_details">Təfsilatlar</string>
     <string name="deleting">Silinir</string>
     <string name="delete_selected_download">Seçilmiş endirmə silinsin? Bu əməliyyatın geri dönüşü yoxdur</string>
@@ -172,7 +172,7 @@
     <!-- Details download dialog -->
     <string name="detail_downloaded">Endirildi</string>
     <!-- downloaded/total (percent) -->
-    <string name="detail_downloaded_format" formatted="false">%1$s/%2$s (%3$d%%)</string>
+    <string name="detail_downloaded_format">%1$s/%2$s (%3$d%%)</string>
     <string name="detail_pieces">Hissələr</string>
     <string name="detail_date_added">Əlavə edilmə tarixi</string>
     <string name="detail_user_agent">İstifadəçi agenti</string>
@@ -222,9 +222,9 @@
     <string name="pref_battery_control_title">Batereyaya nəzarət</string>
     <string name="pref_custom_battery_control_title">Fərdi batereya faizi</string>
     <string name="pref_custom_battery_control_value_title">Batereyaya nəzarət faizi</string>
-    <string name="pref_battery_control_summary" formatted="false">Batereya səviyyəsi %1$d%% altında olanda bütün endirmələrə fasilə verilər. Limit batereya doldurma vaxtı tətbiq edilmir</string>
-    <string name="pref_custom_battery_control_summary" formatted="false">Batereya səviyyəsi müəyyən bir dəyərdən az olsa, endirməyə fasilə vermək üçün bir faiz müəyyən edin. Bu seçimin fəallaşdırılması, ilkin %1$d%% dəyərini əhəmiyyətsiz edər</string>
-    <string name="pref_custom_battery_control_dialog_summary" formatted="false">Endirmə ərzində tətbiqetmə üçün fərdi batereya faizi tənzimləmək, batereya ömrünə mənfi yöndə təsir edər. Fəallaşdırmaq istədiyinizə əminsiniz?</string>
+    <string name="pref_battery_control_summary">Batereya səviyyəsi %1$d%% altında olanda bütün endirmələrə fasilə verilər. Limit batereya doldurma vaxtı tətbiq edilmir</string>
+    <string name="pref_custom_battery_control_summary">Batereya səviyyəsi müəyyən bir dəyərdən az olsa, endirməyə fasilə vermək üçün bir faiz müəyyən edin. Bu seçimin fəallaşdırılması, ilkin %1$d%% dəyərini əhəmiyyətsiz edər</string>
+    <string name="pref_custom_battery_control_dialog_summary">Endirmə ərzində tətbiqetmə üçün fərdi batereya faizi tənzimləmək, batereya ömrünə mənfi yöndə təsir edər. Fəallaşdırmaq istədiyinizə əminsiniz?</string>
     <string name="pref_enable_roaming_title">Roaminqi fəallaşdır</string>
     <string name="pref_enable_roaming_summary">Cihaz roaminqdə olmayanda endir</string>
     <string name="pref_max_active_downloads_title">Maksimum aktiv endirmə</string>

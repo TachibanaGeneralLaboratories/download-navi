@@ -57,7 +57,7 @@
     <string name="perm_denied_title">权限不足</string>
     <string name="perm_denied_warning">如果没有此权限，应用无法在某些设备和Android版本的内存中保存文件。该应用程序将无法正常工作。您确定要拒绝此权限吗？</string>
     <!-- Download progress notification -->
-    <string name="download_ticker_notify" formatted="false">正在下载 %1$s</string>
+    <string name="download_ticker_notify">正在下载 %1$s</string>
     <!-- Foreground notification -->
     <string name="app_running_in_the_background">Download Navi 正在后台运行</string>
     <string name="pause_all">全部暂停</string>
@@ -66,7 +66,7 @@
     <string name="download_finished_notify">下载完成</string>
     <string name="open_using">打开方式</string>
     <!-- Pending notification -->
-    <string name="download_in_queue_ticker_notify" formatted="false">%1$s 排队</string>
+    <string name="download_in_queue_ticker_notify">%1$s 排队</string>
     <string name="waiting_for_network">等待网络</string>
     <string name="waiting_for_retry">等待重试</string>
     <!-- Error notification -->
@@ -74,24 +74,24 @@
     <!-- Applying params notification -->
     <string name="applying_params_title">应用参数</string>
     <string name="applying_params_for_downloads">应用参数进行下载</string>
-    <string name="applying_params_error_title" formatted="false">应用参数错误 %1$s</string>
+    <string name="applying_params_error_title">应用参数错误 %1$s</string>
     <!-- Add download dialog -->
     <string name="add_download">添加下载</string>
     <string name="download_link">链接</string>
     <string name="download_name">名称</string>
-    <string name="download_size" formatted="false">大小: %1$s</string>
+    <string name="download_size">大小: %1$s</string>
     <string name="download_retry">重试</string>
     <string name="download_advanced">高级</string>
     <string name="download_user_agent">用户代理</string>
     <string name="download_error_empty_link">请输入链接</string>
     <string name="download_error_empty_name">请输入名称</string>
-    <string name="download_error_no_enough_free_space" formatted="false">可用空间不足： %1$s 可用，但文件大小为 %2$s</string>
-    <string name="download_error_name_is_not_correct" formatted="false">正确的名称是 \"%1$s\"</string>
-    <string name="fetch_error_default_fmt" formatted="false">错误: %1$s</string>
-    <string name="fetch_error_invalid_url" formatted="false">网址无效: %1$s</string>
+    <string name="download_error_no_enough_free_space">可用空间不足： %1$s 可用，但文件大小为 %2$s</string>
+    <string name="download_error_name_is_not_correct">正确的名称是 \"%1$s\"</string>
+    <string name="fetch_error_default_fmt">错误: %1$s</string>
+    <string name="fetch_error_invalid_url">网址无效: %1$s</string>
     <string name="fetch_error_network_disconnected">网络已断开</string>
-    <string name="fetch_error_http_response" formatted="false">错误：服务器返回 HTTP %1$d 错误代码</string>
-    <string name="fetch_error_io" formatted="false">IO 错误： %1$s</string>
+    <string name="fetch_error_http_response">错误：服务器返回 HTTP %1$d 错误代码</string>
+    <string name="fetch_error_io">IO 错误： %1$s</string>
     <string name="unable_to_open_folder">无法打开所选文件夹。请尝试选择其他文件夹</string>
     <string name="unable_to_create_file">无法创建文件。请尝试选择其他文件夹</string>
     <string name="partial_download_not_supported">此次下载不支持暂停和多线程分段下载</string>
@@ -99,7 +99,7 @@
     <string name="download_description">描述</string>
     <string name="select_folder_to_save">选择要保存的目录</string>
     <string name="path">路径</string>
-    <string name="storage_free_space" formatted="false">可用空间: %1$s</string>
+    <string name="storage_free_space">可用空间: %1$s</string>
     <string name="add_download_error_invalid_url">无法添加下载：网址无效</string>
     <string name="checksum">校验和</string>
     <string name="add_dialog_checksum_description">MD5 和 SHA 256</string>
@@ -141,11 +141,11 @@
     <string name="drawer_sorting_no_sorting">不排序</string>
     <!-- Download list item -->
     <!-- downloaded/total • ETA • speed -->
-    <string name="download_queued_progress_template" formatted="false">%1$s/%2$s \u2022 %3$s \u2022 %4$s/s</string>
+    <string name="download_queued_progress_template">%1$s/%2$s \u2022 %3$s \u2022 %4$s/s</string>
     <!-- downloaded/total • status -->
-    <string name="download_queued_template" formatted="false">%1$s/%2$s \u2022 %3$s</string>
+    <string name="download_queued_template">%1$s/%2$s \u2022 %3$s</string>
     <!-- hostname • total -->
-    <string name="download_finished_template" formatted="false">%1$s \u2022 %2$s</string>
+    <string name="download_finished_template">%1$s \u2022 %2$s</string>
     <string name="download_details">详情</string>
     <string name="deleting">删除</string>
     <string name="delete_selected_download">删除所选下载？此操作无法撤消</string>
@@ -172,7 +172,7 @@
     <!-- Details download dialog -->
     <string name="detail_downloaded">已下载</string>
     <!-- downloaded/total (percent) -->
-    <string name="detail_downloaded_format" formatted="false">%1$s/%2$s (%3$d%%)</string>
+    <string name="detail_downloaded_format">%1$s/%2$s (%3$d%%)</string>
     <string name="detail_pieces">线程</string>
     <string name="detail_date_added">添加日期</string>
     <string name="detail_user_agent">用户代理</string>
@@ -222,9 +222,9 @@
     <string name="pref_battery_control_title">电池控制</string>
     <string name="pref_custom_battery_control_title">自定义电池百分比</string>
     <string name="pref_custom_battery_control_value_title">电池控制百分比</string>
-    <string name="pref_battery_control_summary" formatted="false">在电量低于 %1$d%% 时暂停所有下载。此限制在充电时不适用</string>
-    <string name="pref_custom_battery_control_summary" formatted="false">自定义一个百分比值，当电量低于此阈值时暂停下载。启用此选项将忽略默认的 %1$d%% 阈值</string>
-    <string name="pref_custom_battery_control_dialog_summary" formatted="false">在下载过程中，为应用程序设置自定义电池百分比将对电池寿命产生负面影响。你确定要启用它吗？</string>
+    <string name="pref_battery_control_summary">在电量低于 %1$d%% 时暂停所有下载。此限制在充电时不适用</string>
+    <string name="pref_custom_battery_control_summary">自定义一个百分比值，当电量低于此阈值时暂停下载。启用此选项将忽略默认的 %1$d%% 阈值</string>
+    <string name="pref_custom_battery_control_dialog_summary">在下载过程中，为应用程序设置自定义电池百分比将对电池寿命产生负面影响。你确定要启用它吗？</string>
     <string name="pref_enable_roaming_title">允许漫游</string>
     <string name="pref_enable_roaming_summary">仅在设备未漫游时下载</string>
     <string name="pref_max_active_downloads_title">最大同时下载任务</string>

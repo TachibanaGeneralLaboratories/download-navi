@@ -348,7 +348,7 @@ public class DownloadService extends LifecycleService
 
     private void makeApplyingParamsErrorNotify(UUID id, String name, Throwable e)
     {
-        String title = String.format(getString(R.string.applying_params_error_title), name);
+        String title = getString(R.string.applying_params_error_title, name);
         NotificationCompat.Builder builder = new NotificationCompat.Builder(getApplicationContext(),
                 DownloadNotifier.DEFAULT_NOTIFY_CHAN_ID)
                 .setContentTitle(title)

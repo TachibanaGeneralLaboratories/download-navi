@@ -57,7 +57,7 @@
     <string name="perm_denied_title">Quyền truy cập bị từ chối</string>
     <string name="perm_denied_warning">Nếu không có quyền này, ứng dụng không thể lưu dữ liệu trên một số máy và một số phiên bản Android nên không thể hoạt động bình thường được. Bạn có chắc chắn muốn từ chối quyền này không?</string>
     <!-- Download progress notification -->
-    <string name="download_ticker_notify" formatted="false">Đang tải %1$s</string>
+    <string name="download_ticker_notify">Đang tải %1$s</string>
     <!-- Foreground notification -->
     <string name="app_running_in_the_background">Download Navi đang chạy ngầm</string>
     <string name="pause_all">Tạm dừng tất cả</string>
@@ -66,7 +66,7 @@
     <string name="download_finished_notify">Đã tải xong</string>
     <string name="open_using">Mở bằng</string>
     <!-- Pending notification -->
-    <string name="download_in_queue_ticker_notify" formatted="false">%1$s đang chờ tải</string>
+    <string name="download_in_queue_ticker_notify">%1$s đang chờ tải</string>
     <string name="waiting_for_network">Đang chờ kết nối mạng</string>
     <string name="waiting_for_retry">Đang chờ thử lại</string>
     <!-- Error notification -->
@@ -74,24 +74,24 @@
     <!-- Applying params notification -->
     <string name="applying_params_title">Đang áp dụng các thông số</string>
     <string name="applying_params_for_downloads">Đang áp dụng các thông số khi tải xuống</string>
-    <string name="applying_params_error_title" formatted="false">Áp dụng thông số bị lỗi đối với %1$s</string>
+    <string name="applying_params_error_title">Áp dụng thông số bị lỗi đối với %1$s</string>
     <!-- Add download dialog -->
     <string name="add_download">Thêm mục tải xuống</string>
     <string name="download_link">Liên kết</string>
     <string name="download_name">Tên</string>
-    <string name="download_size" formatted="false">Kích cỡ: %1$s</string>
+    <string name="download_size">Kích cỡ: %1$s</string>
     <string name="download_retry">Tải lại</string>
     <string name="download_advanced">Nâng cao</string>
     <string name="download_user_agent">Tác nhân người dùng (user agent)</string>
     <string name="download_error_empty_link">Hãy nhập liên kết</string>
     <string name="download_error_empty_name">Hãy nhập tên</string>
-    <string name="download_error_no_enough_free_space" formatted="false">Không đủ dung lượng: còn trống %1$s, nhưng tập tin nặng %2$s</string>
-    <string name="download_error_name_is_not_correct" formatted="false">Tên đúng là \"%1$s\"</string>
-    <string name="fetch_error_default_fmt" formatted="false">Lỗi: %1$s</string>
-    <string name="fetch_error_invalid_url" formatted="false">URL không hợp lệ: %1$s</string>
+    <string name="download_error_no_enough_free_space">Không đủ dung lượng: còn trống %1$s, nhưng tập tin nặng %2$s</string>
+    <string name="download_error_name_is_not_correct">Tên đúng là \"%1$s\"</string>
+    <string name="fetch_error_default_fmt">Lỗi: %1$s</string>
+    <string name="fetch_error_invalid_url">URL không hợp lệ: %1$s</string>
     <string name="fetch_error_network_disconnected">Mạng mất kết nối</string>
-    <string name="fetch_error_http_response" formatted="false">Lỗi: máy chủ trả về lỗi HTTP mã %1$d</string>
-    <string name="fetch_error_io" formatted="false">Lỗi đọc ghi: %1$s</string>
+    <string name="fetch_error_http_response">Lỗi: máy chủ trả về lỗi HTTP mã %1$d</string>
+    <string name="fetch_error_io">Lỗi đọc ghi: %1$s</string>
     <string name="unable_to_open_folder">Không mở được thư mục đã chọn. Hãy chọn thư mục khác</string>
     <string name="unable_to_create_file">Không tạo được tập tin. Hãy chọn thư mục khác</string>
     <string name="partial_download_not_supported">Tải xuống này không hỗ trợ tạm dừng và tải phân mảnh</string>
@@ -99,7 +99,7 @@
     <string name="download_description">Mô tả</string>
     <string name="select_folder_to_save">Chọn thư mục lưu</string>
     <string name="path">Đường dẫn</string>
-    <string name="storage_free_space" formatted="false">Bộ nhớ còn trống: %1$s</string>
+    <string name="storage_free_space">Bộ nhớ còn trống: %1$s</string>
     <string name="add_download_error_invalid_url">Không thêm được mục tải: URL không hợp lệ</string>
     <string name="checksum">Checksum</string>
     <string name="add_dialog_checksum_description">MD5, SHA-256</string>
@@ -141,11 +141,11 @@
     <string name="drawer_sorting_no_sorting">Không sắp xếp</string>
     <!-- Download list item -->
     <!-- downloaded/total • ETA • speed -->
-    <string name="download_queued_progress_template" formatted="false">%1$s/%2$s \u2022 %3$s \u2022 %4$s/s</string>
+    <string name="download_queued_progress_template">%1$s/%2$s \u2022 %3$s \u2022 %4$s/s</string>
     <!-- downloaded/total • status -->
-    <string name="download_queued_template" formatted="false">%1$s/%2$s \u2022 %3$s</string>
+    <string name="download_queued_template">%1$s/%2$s \u2022 %3$s</string>
     <!-- hostname • total -->
-    <string name="download_finished_template" formatted="false">%1$s \u2022 %2$s</string>
+    <string name="download_finished_template">%1$s \u2022 %2$s</string>
     <string name="download_details">Thông tin</string>
     <string name="deleting">Đang xoá</string>
     <string name="delete_selected_download">Xoá mục đã chọn? Thao tác này không thể khôi phục</string>
@@ -172,7 +172,7 @@
     <!-- Details download dialog -->
     <string name="detail_downloaded">Đã tải xuống</string>
     <!-- downloaded/total (percent) -->
-    <string name="detail_downloaded_format" formatted="false">%1$s/%2$s (%3$d%%)</string>
+    <string name="detail_downloaded_format">%1$s/%2$s (%3$d%%)</string>
     <string name="detail_pieces">Số mảnh</string>
     <string name="detail_date_added">Ngày được thêm</string>
     <string name="detail_user_agent">Tác nhân người dùng (user agent)</string>
@@ -222,9 +222,9 @@
     <string name="pref_battery_control_title">Kiểm soát pin</string>
     <string name="pref_custom_battery_control_title">Tuỳ chọn phần trăm pin</string>
     <string name="pref_custom_battery_control_value_title">Kiểm soát phần trăm pin</string>
-    <string name="pref_battery_control_summary" formatted="false">Tất cả các mục tải xuống sẽ tạm dừng nếu pin xuống dưới mức %1$d%%. Giới hạn này không có tác dụng khi đang sạc pin</string>
-    <string name="pref_custom_battery_control_summary" formatted="false">Chọn mức pin để khi xuống dưới mức đó các mục tải xuống sẽ tạm dừng. Nếu bật tính năng này, mức pin mặc định là %1$d%% sẽ bị bỏ qua</string>
-    <string name="pref_custom_battery_control_dialog_summary" formatted="false">Chọn phần trăm pin để ứng dụng theo dõi sẽ gây tốn pin hơn khi đang tải xuống. Bạn có chắc chắn muốn bật tính năng này không?</string>
+    <string name="pref_battery_control_summary">Tất cả các mục tải xuống sẽ tạm dừng nếu pin xuống dưới mức %1$d%%. Giới hạn này không có tác dụng khi đang sạc pin</string>
+    <string name="pref_custom_battery_control_summary">Chọn mức pin để khi xuống dưới mức đó các mục tải xuống sẽ tạm dừng. Nếu bật tính năng này, mức pin mặc định là %1$d%% sẽ bị bỏ qua</string>
+    <string name="pref_custom_battery_control_dialog_summary">Chọn phần trăm pin để ứng dụng theo dõi sẽ gây tốn pin hơn khi đang tải xuống. Bạn có chắc chắn muốn bật tính năng này không?</string>
     <string name="pref_enable_roaming_title">Bật chuyển vùng</string>
     <string name="pref_enable_roaming_summary">Chỉ tải khi không chuyển vùng</string>
     <string name="pref_max_active_downloads_title">Số tải xuống hoạt động tối đa</string>

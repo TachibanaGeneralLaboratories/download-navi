@@ -419,9 +419,8 @@ public class DownloadDetailsDialog extends DialogFragment
             return false;
         }
         if (!viewModel.fs.isValidFatFilename(s.toString())) {
-            String format = getString(R.string.download_error_name_is_not_correct);
             binding.layoutName.setErrorEnabled(true);
-            binding.layoutName.setError(String.format(format,
+            binding.layoutName.setError(getString(R.string.download_error_name_is_not_correct,
                     viewModel.fs.buildValidFatFilename(s.toString())));
             binding.layoutName.requestFocus();
 
@@ -456,10 +455,9 @@ public class DownloadDetailsDialog extends DialogFragment
 
         String totalSizeStr = Formatter.formatFileSize(activity, downloadInfo.totalBytes);
         String availSizeStr = Formatter.formatFileSize(activity, viewModel.info.getStorageFreeSpace());
-        String format = activity.getString(R.string.download_error_no_enough_free_space);
 
         Toast.makeText(activity.getApplicationContext(),
-                String.format(format, availSizeStr, totalSizeStr),
+                activity.getString(R.string.download_error_no_enough_free_space, availSizeStr, totalSizeStr),
                 Toast.LENGTH_LONG)
                 .show();
     }

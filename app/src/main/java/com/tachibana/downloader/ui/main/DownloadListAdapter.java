@@ -255,7 +255,7 @@ public class DownloadListAdapter extends ListAdapter<DownloadItem, DownloadListA
                 } else {
                     progressBar.setIndeterminate(true);
                 }
-                status.setText(String.format(context.getString(R.string.download_queued_progress_template),
+                status.setText(context.getString(R.string.download_queued_progress_template,
                         Formatter.formatFileSize(context, downloadedBytes),
                         (item.info.totalBytes == -1 ? context.getString(R.string.not_available) :
                                 Formatter.formatFileSize(context, item.info.totalBytes)),
@@ -291,7 +291,7 @@ public class DownloadListAdapter extends ListAdapter<DownloadItem, DownloadListA
                     progressBar.setVisibility(View.GONE);
                 }
 
-                status.setText(String.format(context.getString(R.string.download_queued_template),
+                status.setText(context.getString(R.string.download_queued_template,
                         Formatter.formatFileSize(context, downloadedBytes),
                         (item.info.totalBytes == -1 ? context.getString(R.string.not_available) :
                                 Formatter.formatFileSize(context, item.info.totalBytes)),
@@ -366,7 +366,7 @@ public class DownloadListAdapter extends ListAdapter<DownloadItem, DownloadListA
             icon.setImageDrawable(ContextCompat.getDrawable(context, resId));
 
             String hostname = Utils.getHostFromUrl(item.info.url);
-            status.setText(String.format(context.getString(R.string.download_finished_template),
+            status.setText(context.getString(R.string.download_finished_template,
                     (hostname == null ? "" : hostname),
                     (item.info.totalBytes == -1 ? context.getString(R.string.not_available) :
                             Formatter.formatFileSize(context, item.info.totalBytes))));
@@ -411,14 +411,14 @@ public class DownloadListAdapter extends ListAdapter<DownloadItem, DownloadListA
             });
 
             String hostname = Utils.getHostFromUrl(item.info.url);
-            status.setText(String.format(context.getString(R.string.download_finished_template),
+            status.setText(context.getString(R.string.download_finished_template,
                     (hostname == null ? "" : hostname),
                     (item.info.totalBytes == -1 ? context.getString(R.string.not_available) :
                             Formatter.formatFileSize(context, item.info.totalBytes))));
 
             if (StatusCode.isStatusError(item.info.statusCode) && item.info.statusMsg != null) {
                 error.setVisibility(View.VISIBLE);
-                error.setText(String.format(context.getString(R.string.error_template), item.info.statusMsg));
+                error.setText(context.getString(R.string.error_template, item.info.statusMsg));
             } else {
                 error.setVisibility(View.GONE);
             }

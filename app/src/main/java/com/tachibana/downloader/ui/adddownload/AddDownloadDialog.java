@@ -562,9 +562,8 @@ public class AddDownloadDialog extends DialogFragment {
             return false;
         }
         if (!viewModel.fs.isValidFatFilename(name)) {
-            String format = getString(R.string.download_error_name_is_not_correct);
             binding.layoutName.setErrorEnabled(true);
-            binding.layoutName.setError(String.format(format,
+            binding.layoutName.setError(getString(R.string.download_error_name_is_not_correct,
                     viewModel.fs.buildValidFatFilename(name)));
             binding.layoutName.requestFocus();
 
@@ -601,24 +600,24 @@ public class AddDownloadDialog extends DialogFragment {
         String errorStr;
 
         if (e instanceof MalformedURLException) {
-            errorStr = String.format(getString(R.string.fetch_error_invalid_url), e.getMessage());
+            errorStr = getString(R.string.fetch_error_invalid_url, e.getMessage());
 
         } else if (e instanceof ConnectException) {
-            errorStr = String.format(getString(R.string.fetch_error_default_fmt),
+            errorStr = getString(R.string.fetch_error_default_fmt,
                     getString(R.string.fetch_error_network_disconnected));
 
         } else if (e instanceof HttpException) {
             HttpException httpErr = (HttpException)e;
             if (httpErr.getResponseCode() > 0)
-                errorStr = String.format(getString(R.string.fetch_error_http_response), httpErr.getResponseCode());
+                errorStr = getString(R.string.fetch_error_http_response, httpErr.getResponseCode());
             else
-                errorStr = String.format(getString(R.string.fetch_error_default_fmt), httpErr.getMessage());
+                errorStr = getString(R.string.fetch_error_default_fmt, httpErr.getMessage());
 
         } else if (e instanceof IOException) {
-            errorStr = String.format(getString(R.string.fetch_error_io), e.getMessage());
+            errorStr = getString(R.string.fetch_error_io, e.getMessage());
 
         } else {
-            errorStr = String.format(getString(R.string.fetch_error_default_fmt), e.getMessage());
+            errorStr = getString(R.string.fetch_error_default_fmt, e.getMessage());
         }
 
         binding.link.setEnabled(true);
@@ -663,8 +662,7 @@ public class AddDownloadDialog extends DialogFragment {
         }
 
         Toast.makeText(activity.getApplicationContext(),
-                String.format(getString(R.string.download_ticker_notify),
-                        viewModel.params.getFileName()),
+                getString(R.string.download_ticker_notify, viewModel.params.getFileName()),
                 Toast.LENGTH_SHORT)
                 .show();
 
@@ -779,10 +777,9 @@ public class AddDownloadDialog extends DialogFragment {
     {
         String totalSizeStr = Formatter.formatFileSize(activity, viewModel.params.getTotalBytes());
         String availSizeStr = Formatter.formatFileSize(activity, viewModel.params.getStorageFreeSpace());
-        String format = activity.getString(R.string.download_error_no_enough_free_space);
 
         Toast.makeText(activity.getApplicationContext(),
-                String.format(format, availSizeStr, totalSizeStr),
+                activity.getString(R.string.download_error_no_enough_free_space, availSizeStr, totalSizeStr),
                 Toast.LENGTH_LONG)
                 .show();
     }

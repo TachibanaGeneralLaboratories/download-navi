@@ -58,7 +58,7 @@
     <string name="perm_denied_warning">Без этого разрешения приложение не может сохранять файлы в памяти на некоторых устройствах и версиях Android. Приложение не будет работать должным образом. Вы уверены, что хотите запретить это разрешение?</string>
 
     <!-- Download progress notification -->
-    <string name="download_ticker_notify" formatted="false">Загрузка %1$s</string>
+    <string name="download_ticker_notify">Загрузка %1$s</string>
 
     <!-- Foreground notification -->
     <string name="app_running_in_the_background">Download Navi запущен в фоне</string>
@@ -70,7 +70,7 @@
     <string name="open_using">Открыть с помощью</string>
 
     <!-- Pending notification -->
-    <string name="download_in_queue_ticker_notify" formatted="false">%1$s в очереди</string>
+    <string name="download_in_queue_ticker_notify">%1$s в очереди</string>
     <string name="waiting_for_network">Ожидание сети</string>
     <string name="waiting_for_retry">Ожидание повторной попытки</string>
 
@@ -80,25 +80,25 @@
     <!-- Applying params notification -->
     <string name="applying_params_title">Применение параметров</string>
     <string name="applying_params_for_downloads">Применение параметров для загрузок</string>
-    <string name="applying_params_error_title" formatted="false">Ошибка применения параметров для %1$s</string>
+    <string name="applying_params_error_title">Ошибка применения параметров для %1$s</string>
 
     <!-- Add download dialog -->
     <string name="add_download">Добавить загрузку</string>
     <string name="download_link">Ссылка</string>
     <string name="download_name">Имя</string>
-    <string name="download_size" formatted="false">Размер: %1$s</string>
+    <string name="download_size">Размер: %1$s</string>
     <string name="download_retry">Повтор</string>
     <string name="download_advanced">Дополнительно</string>
     <string name="download_user_agent">User agent</string>
     <string name="download_error_empty_link">Пожалуйста, введите ссылку</string>
     <string name="download_error_empty_name">Пожалуйста, введите имя</string>
-    <string name="download_error_no_enough_free_space" formatted="false">Недостаточно свободного места: свободно %1$s, но размер файла %2$s</string>
-    <string name="download_error_name_is_not_correct" formatted="false">Правильное имя \"%1$s\"</string>
-    <string name="fetch_error_default_fmt" formatted="false">Ошибка: %1$s</string>
-    <string name="fetch_error_invalid_url" formatted="false">Неверный URL: %1$s</string>
+    <string name="download_error_no_enough_free_space">Недостаточно свободного места: свободно %1$s, но размер файла %2$s</string>
+    <string name="download_error_name_is_not_correct">Правильное имя \"%1$s\"</string>
+    <string name="fetch_error_default_fmt">Ошибка: %1$s</string>
+    <string name="fetch_error_invalid_url">Неверный URL: %1$s</string>
     <string name="fetch_error_network_disconnected">сеть отключена</string>
-    <string name="fetch_error_http_response" formatted="false">Ошибка: сервер вернул код HTTP %1$d</string>
-    <string name="fetch_error_io" formatted="false">Ошибка ввода/вывода: %1$s</string>
+    <string name="fetch_error_http_response">Ошибка: сервер вернул код HTTP %1$d</string>
+    <string name="fetch_error_io">Ошибка ввода/вывода: %1$s</string>
     <string name="unable_to_open_folder">Невозможно открыть выбранную папку. Пожалуйста, попробуйте выбрать другую папку</string>
     <string name="unable_to_create_file">Невозможно создать файл. Пожалуйста, попробуйте выбрать другую папку</string>
     <string name="partial_download_not_supported">Эта загрузка не поддерживает паузу и загрузку по частям</string>
@@ -106,7 +106,7 @@
     <string name="download_description">Описание</string>
     <string name="select_folder_to_save">Выберите папку для сохранения</string>
     <string name="path">Путь</string>
-    <string name="storage_free_space" formatted="false">Свободно: %1$s</string>
+    <string name="storage_free_space">Свободно: %1$s</string>
     <string name="add_download_error_invalid_url">Невозможно добавить загрузку: неверный URL</string>
     <string name="checksum">Контрольная сумма</string>
     <string name="add_dialog_checksum_description">MD5, SHA-256</string>
@@ -152,11 +152,11 @@
     <!-- Download list item -->
 
     <!-- downloaded/total • ETA • speed -->
-    <string name="download_queued_progress_template" formatted="false">%1$s/%2$s \u2022 %3$s \u2022 %4$s/с</string>
+    <string name="download_queued_progress_template">%1$s/%2$s \u2022 %3$s \u2022 %4$s/с</string>
     <!-- downloaded/total • status -->
-    <string name="download_queued_template" formatted="false">%1$s/%2$s \u2022 %3$s</string>
+    <string name="download_queued_template">%1$s/%2$s \u2022 %3$s</string>
     <!-- hostname • total -->
-    <string name="download_finished_template" formatted="false">%1$s \u2022 %2$s</string>
+    <string name="download_finished_template">%1$s \u2022 %2$s</string>
     <string name="download_details">Подробности</string>
     <string name="deleting">Удаление</string>
     <string name="delete_selected_download">Удалить выбранную загрузку? Эта операция не может быть отменена</string>
@@ -185,7 +185,7 @@
     <!-- Details download dialog -->
     <string name="detail_downloaded">Загружено</string>
     <!-- downloaded/total (percent) -->
-    <string name="detail_downloaded_format" formatted="false">%1$s/%2$s (%3$d%%)</string>
+    <string name="detail_downloaded_format">%1$s/%2$s (%3$d%%)</string>
     <string name="detail_pieces">Частей</string>
     <string name="detail_date_added">Дата добавления</string>
     <string name="detail_user_agent">User agent</string>
@@ -238,9 +238,9 @@
     <string name="pref_battery_control_title">Контроль заряда аккумулятора</string>
     <string name="pref_custom_battery_control_title">Заданный процент аккумулятора</string>
     <string name="pref_custom_battery_control_value_title">Процент контроля аккумулятора</string>
-    <string name="pref_battery_control_summary" formatted="false">Загрузки будут приостановлены, если уровень заряда аккумулятора опуститься ниже %1$d%%. Ограничение не действует во время зарядки</string>
-    <string name="pref_custom_battery_control_summary" formatted="false">Устанавливает процент для приостановки загрузки, если заряд аккумулятора опустится ниже заданного порога. Включение этого параметра будет игнорировать порог по умолчанию %1$d%%</string>
-    <string name="pref_custom_battery_control_dialog_summary" formatted="false">Установка нестандартного уровня заряда аккумулятора для приложения будет отрицательно сказываться на времени автономной работы во время загрузки. Вы действительно хотите включить это?</string>
+    <string name="pref_battery_control_summary">Загрузки будут приостановлены, если уровень заряда аккумулятора опуститься ниже %1$d%%. Ограничение не действует во время зарядки</string>
+    <string name="pref_custom_battery_control_summary">Устанавливает процент для приостановки загрузки, если заряд аккумулятора опустится ниже заданного порога. Включение этого параметра будет игнорировать порог по умолчанию %1$d%%</string>
+    <string name="pref_custom_battery_control_dialog_summary">Установка нестандартного уровня заряда аккумулятора для приложения будет отрицательно сказываться на времени автономной работы во время загрузки. Вы действительно хотите включить это?</string>
     <string name="pref_enable_roaming_title">Включить роуминг</string>
     <string name="pref_enable_roaming_summary">Скачивать только если устройство не в роуминге</string>
     <string name="pref_max_active_downloads_title">Максимум активных загрузок</string>

@@ -57,7 +57,7 @@
     <string name="perm_denied_title">İzin reddedildi</string>
     <string name="perm_denied_warning">Bu izin olmadan uygulama, bazı cihazlarda ve Android sürümlerinde dosyaları belleğe kaydedemez. Uygulama düzgün çalışmayacak. Bu izni reddetmek istediğinden emin misin?</string>
     <!-- Download progress notification -->
-    <string name="download_ticker_notify" formatted="false">%1$s İndiriliyor</string>
+    <string name="download_ticker_notify">%1$s İndiriliyor</string>
     <!-- Foreground notification -->
     <string name="app_running_in_the_background">Download Navi arka planda çalışıyor</string>
     <string name="pause_all">Tümünü duraklat</string>
@@ -66,7 +66,7 @@
     <string name="download_finished_notify">İndirme tamamlandı</string>
     <string name="open_using">Kullanarak aç</string>
     <!-- Pending notification -->
-    <string name="download_in_queue_ticker_notify" formatted="false">sıradaki %1$s</string>
+    <string name="download_in_queue_ticker_notify">sıradaki %1$s</string>
     <string name="waiting_for_network">Bağlantı bekleniyor</string>
     <string name="waiting_for_retry">Yeniden deneme bekleniyor</string>
     <!-- Error notification -->
@@ -74,24 +74,24 @@
     <!-- Applying params notification -->
     <string name="applying_params_title">Parametreler uygulanıyor</string>
     <string name="applying_params_for_downloads">İndirmeler için uygulanan parametreler</string>
-    <string name="applying_params_error_title" formatted="false">%1$s için params hatası uygulama</string>
+    <string name="applying_params_error_title">%1$s için params hatası uygulama</string>
     <!-- Add download dialog -->
     <string name="add_download">İndirme ekle</string>
     <string name="download_link">Bağlantı</string>
     <string name="download_name">Adı</string>
-    <string name="download_size" formatted="false">Boyut: %1$s</string>
+    <string name="download_size">Boyut: %1$s</string>
     <string name="download_retry">Yeniden Dene</string>
     <string name="download_advanced">Gelişmiş</string>
     <string name="download_user_agent">Kullanıcı aracısı</string>
     <string name="download_error_empty_link">Lütfen bağlantı girin</string>
     <string name="download_error_empty_name">Lütfen adı girin</string>
-    <string name="download_error_no_enough_free_space" formatted="false">Yeterli boş alan yok: %1$s boş, ancak dosya boyutu %2$s</string>
-    <string name="download_error_name_is_not_correct" formatted="false">Doğru ad \"%1$s\" dır</string>
-    <string name="fetch_error_default_fmt" formatted="false">Hata: %1$s</string>
-    <string name="fetch_error_invalid_url" formatted="false">Geçersiz URL: %1$s</string>
+    <string name="download_error_no_enough_free_space">Yeterli boş alan yok: %1$s boş, ancak dosya boyutu %2$s</string>
+    <string name="download_error_name_is_not_correct">Doğru ad \"%1$s\" dır</string>
+    <string name="fetch_error_default_fmt">Hata: %1$s</string>
+    <string name="fetch_error_invalid_url">Geçersiz URL: %1$s</string>
     <string name="fetch_error_network_disconnected">ağ bağlantısı kesildi</string>
-    <string name="fetch_error_http_response" formatted="false">Hata: sunucu HTTP %1$d kodu döndürdü</string>
-    <string name="fetch_error_io" formatted="false">GÇ hatası: %1$s</string>
+    <string name="fetch_error_http_response">Hata: sunucu HTTP %1$d kodu döndürdü</string>
+    <string name="fetch_error_io">GÇ hatası: %1$s</string>
     <string name="unable_to_open_folder">Seçilen klasör açılamıyor. Lütfen başka bir klasör seçmeyi deneyin</string>
     <string name="unable_to_create_file">Dosya oluşturulamıyor. Lütfen başka bir klasör seçmeyi deneyin</string>
     <string name="partial_download_not_supported">Bu indirme işlemi duraklatma ve parça indirme işlemini desteklemiyor</string>
@@ -99,7 +99,7 @@
     <string name="download_description">Açıklama</string>
     <string name="select_folder_to_save">Kaydedilecek klasörü seçin</string>
     <string name="path">Yol</string>
-    <string name="storage_free_space" formatted="false">Boş alan: %1$s</string>
+    <string name="storage_free_space">Boş alan: %1$s</string>
     <string name="add_download_error_invalid_url">İndirme eklenemedi: geçersiz URL</string>
     <string name="checksum">Sağlama</string>
     <string name="add_dialog_checksum_description">MD5, SHA-256</string>
@@ -141,11 +141,11 @@
     <string name="drawer_sorting_no_sorting">Sıralama yok</string>
     <!-- Download list item -->
     <!-- downloaded/total • ETA • speed -->
-    <string name="download_queued_progress_template" formatted="false">%1$s/%2$s \u2022 %3$s \u2022 %4$s/sn</string>
+    <string name="download_queued_progress_template">%1$s/%2$s \u2022 %3$s \u2022 %4$s/sn</string>
     <!-- downloaded/total • status -->
-    <string name="download_queued_template" formatted="false">%1$s/%2$s \u2022 %3$s</string>
+    <string name="download_queued_template">%1$s/%2$s \u2022 %3$s</string>
     <!-- hostname • total -->
-    <string name="download_finished_template" formatted="false">%1$s \u2022 %2$s</string>
+    <string name="download_finished_template">%1$s \u2022 %2$s</string>
     <string name="download_details">Ayrıntılar</string>
     <string name="deleting">Siliniyor</string>
     <string name="delete_selected_download">Seçili indirme silinsin mi? Bu işlem geri alınamaz</string>
@@ -172,7 +172,7 @@
     <!-- Details download dialog -->
     <string name="detail_downloaded">İndirildi</string>
     <!-- downloaded/total (percent) -->
-    <string name="detail_downloaded_format" formatted="false">%1$s/%2$s (%3$d%%)</string>
+    <string name="detail_downloaded_format">%1$s/%2$s (%3$d%%)</string>
     <string name="detail_pieces">Parçalar</string>
     <string name="detail_date_added">Eklenme tarihi</string>
     <string name="detail_user_agent">Kullanıcı aracısı</string>
@@ -222,9 +222,9 @@
     <string name="pref_battery_control_title">Pil kontrolü</string>
     <string name="pref_custom_battery_control_title">Özel pil yüzdesi</string>
     <string name="pref_custom_battery_control_value_title">Akü kontrol yüzdesi</string>
-    <string name="pref_battery_control_summary" formatted="false">Pil seviyesi %1$d%% altına düşerse, tüm indirmeler duraklatılır. Limit, şarj sırasında geçerli değildir</string>
-    <string name="pref_custom_battery_control_summary" formatted="false">Pil seviyesi belirli bir eşiğin altındaysa, indirmeyi duraklatmak için özel bir yüzde belirleyin. Bu seçeneğin etkinleştirilmesi, varsayılan %1$d%% eşiğini yok sayar</string>
-    <string name="pref_custom_battery_control_dialog_summary" formatted="false">İndirme işlemi sırasında uygulama için özel bir pil yüzdesi ayarlamak, pil ömrünü olumsuz yönde etkiler. Etkinleştirmek istediğinize emin misin?</string>
+    <string name="pref_battery_control_summary">Pil seviyesi %1$d%% altına düşerse, tüm indirmeler duraklatılır. Limit, şarj sırasında geçerli değildir</string>
+    <string name="pref_custom_battery_control_summary">Pil seviyesi belirli bir eşiğin altındaysa, indirmeyi duraklatmak için özel bir yüzde belirleyin. Bu seçeneğin etkinleştirilmesi, varsayılan %1$d%% eşiğini yok sayar</string>
+    <string name="pref_custom_battery_control_dialog_summary">İndirme işlemi sırasında uygulama için özel bir pil yüzdesi ayarlamak, pil ömrünü olumsuz yönde etkiler. Etkinleştirmek istediğinize emin misin?</string>
     <string name="pref_enable_roaming_title">Dolaşımı etkinleştir</string>
     <string name="pref_enable_roaming_summary">Yalnızca cihaz dolaşımda değilse indir</string>
     <string name="pref_max_active_downloads_title">Maks. etkin indirme sayısı</string>

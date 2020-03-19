@@ -57,7 +57,7 @@
     <string name="perm_denied_title">अनुमति अस्वीकृत</string>
     <string name="perm_denied_warning">इस अनुमति एप्लिकेशन के बिना कुछ उपकरणों और Android के संस्करणों पर स्मृति में फ़ाइलों को नहीं बचा सकता । ऐप ठीक से काम नहीं करेगा । क्या आप निश्चयपूर्वक इस अनुमति को अस्वीकार करना चाहते हैं?</string>
     <!-- Download progress notification -->
-    <string name="download_ticker_notify" formatted="false">%1$s डाउनलोड हो रहा है</string>
+    <string name="download_ticker_notify">%1$s डाउनलोड हो रहा है</string>
     <!-- Foreground notification -->
     <string name="app_running_in_the_background">Download Navi पृष्ठभूमि में चल रहा है</string>
     <string name="pause_all">सभी रोकें</string>
@@ -66,7 +66,7 @@
     <string name="download_finished_notify">डाउनलोड समाप्त</string>
     <string name="open_using">का उपयोग कर खोलें</string>
     <!-- Pending notification -->
-    <string name="download_in_queue_ticker_notify" formatted="false">%1$s कतार में</string>
+    <string name="download_in_queue_ticker_notify">%1$s कतार में</string>
     <string name="waiting_for_network">नेटवर्क का इंतज़ार</string>
     <string name="waiting_for_retry">पुन: प्रयास का इंतजार</string>
     <!-- Error notification -->
@@ -74,24 +74,24 @@
     <!-- Applying params notification -->
     <string name="applying_params_title">मापदंड लागू हो रहा</string>
     <string name="applying_params_for_downloads">डाउनलोड के लिए मापदंड लागू हो रहा</string>
-    <string name="applying_params_error_title" formatted="false">%1$s के लिए मापदंड लागू हो रहा</string>
+    <string name="applying_params_error_title">%1$s के लिए मापदंड लागू हो रहा</string>
     <!-- Add download dialog -->
     <string name="add_download">डाउनलोड जोड़ें</string>
     <string name="download_link">लिंक</string>
     <string name="download_name">नाम</string>
-    <string name="download_size" formatted="false">आकार: %1$s</string>
+    <string name="download_size">आकार: %1$s</string>
     <string name="download_retry">पुन: प्रयास करें</string>
     <string name="download_advanced">उन्नत</string>
     <string name="download_user_agent">उपयोगकर्ता एजेंट</string>
     <string name="download_error_empty_link">कृपया लिंक दर्ज करें</string>
     <string name="download_error_empty_name">कृपया नाम दर्ज करें</string>
-    <string name="download_error_no_enough_free_space" formatted="false">पर्याप्त खाली स्थान नहीं: %1$s मुफ़्त, लेकिन फ़ाइल का आकार %2$s है</string>
-    <string name="download_error_name_is_not_correct" formatted="false">सही नाम \"%1$s\" है</string>
-    <string name="fetch_error_default_fmt" formatted="false">त्रुटि: %1$s</string>
-    <string name="fetch_error_invalid_url" formatted="false">अमान्य URL:%1$s</string>
+    <string name="download_error_no_enough_free_space">पर्याप्त खाली स्थान नहीं: %1$s मुफ़्त, लेकिन फ़ाइल का आकार %2$s है</string>
+    <string name="download_error_name_is_not_correct">सही नाम \"%1$s\" है</string>
+    <string name="fetch_error_default_fmt">त्रुटि: %1$s</string>
+    <string name="fetch_error_invalid_url">अमान्य URL:%1$s</string>
     <string name="fetch_error_network_disconnected">नेटवर्क कनेक्ट नहीं है।</string>
-    <string name="fetch_error_http_response" formatted="false">त्रुटि: सर्वर ने HTTP %1$d कोड लौटा दिया</string>
-    <string name="fetch_error_io" formatted="false">IO त्रुटि: %1$s</string>
+    <string name="fetch_error_http_response">त्रुटि: सर्वर ने HTTP %1$d कोड लौटा दिया</string>
+    <string name="fetch_error_io">IO त्रुटि: %1$s</string>
     <string name="unable_to_open_folder">चयनित फ़ोल्डर खोलने में असमर्थ। कृपया किसी अन्य फ़ोल्डर का चयन करने का प्रयास करें</string>
     <string name="unable_to_create_file">फ़ाइल बनाने में असमर्थ। कृपया किसी अन्य फ़ोल्डर का चयन करने का प्रयास करें</string>
     <string name="partial_download_not_supported">यह डाउनलोड टुकड़ों द्वारा विराम देने और डाउनलोड करने का समर्थन नहीं करता है</string>
@@ -99,7 +99,7 @@
     <string name="download_description">विवरण</string>
     <string name="select_folder_to_save">सहेजने के लिए फ़ोल्डर का चयन करें</string>
     <string name="path">पथ</string>
-    <string name="storage_free_space" formatted="false">मुक्त स्थान: %1$s</string>
+    <string name="storage_free_space">मुक्त स्थान: %1$s</string>
     <string name="add_download_error_invalid_url">डाउनलोड जोड़ने में असमर्थ: अमान्य URL</string>
     <string name="checksum">Checksum</string>
     <string name="add_dialog_checksum_description">MD5, SHA-256</string>
@@ -141,11 +141,11 @@
     <string name="drawer_sorting_no_sorting">कोई सॉर्टिंग नहीं</string>
     <!-- Download list item -->
     <!-- downloaded/total • ETA • speed -->
-    <string name="download_queued_progress_template" formatted="false">%1$s/%2$s \u2022 %3$s \u2022 %4$s/s</string>
+    <string name="download_queued_progress_template">%1$s/%2$s \u2022 %3$s \u2022 %4$s/s</string>
     <!-- downloaded/total • status -->
-    <string name="download_queued_template" formatted="false">%1$s/%2$s \u2022 %3$s</string>
+    <string name="download_queued_template">%1$s/%2$s \u2022 %3$s</string>
     <!-- hostname • total -->
-    <string name="download_finished_template" formatted="false">%1$s \u2022 %2$s</string>
+    <string name="download_finished_template">%1$s \u2022 %2$s</string>
     <string name="download_details">विवरण</string>
     <string name="deleting">हटाया जा रहा है</string>
     <string name="delete_selected_download">चयनित डाउनलोड हटाएं? यह कार्रवाई पूर्ववत् नहीं की जा सकती</string>
@@ -172,7 +172,7 @@
     <!-- Details download dialog -->
     <string name="detail_downloaded">डाउनलोड किए गए</string>
     <!-- downloaded/total (percent) -->
-    <string name="detail_downloaded_format" formatted="false">%1$s/%2$s (%3$d%%)</string>
+    <string name="detail_downloaded_format">%1$s/%2$s (%3$d%%)</string>
     <string name="detail_pieces">टुकड़े</string>
     <string name="detail_date_added">जोड़ने की तिथि</string>
     <string name="detail_user_agent">उपयोगकर्ता एजेंट</string>
@@ -222,9 +222,9 @@
     <string name="pref_battery_control_title">बैटरी नियंत्रण</string>
     <string name="pref_custom_battery_control_title">अनुकूल बैटरी प्रतिशत</string>
     <string name="pref_custom_battery_control_value_title">बैटरी नियंत्रण प्रतिशत</string>
-    <string name="pref_battery_control_summary" formatted="false">यदि बैटरी स्तर %1$d%% से नीचे चला जाता है, तो सभी डाउनलोड रोक दिए जाएंगे। चार्जिंग के समय सीमा लागू नहीं होती है</string>
-    <string name="pref_custom_battery_control_summary" formatted="false">अगर बैटरी दी गई सीमा से नीचे गिरती है, तो डाउनलोड को रोकने के लिए एक अनुकूल प्रतिशत सेट करें। इसे सक्षम करने पर डिफ़ॉल्ट %1$d%% सीमा की अनदेखी होगी</string>
-    <string name="pref_custom_battery_control_dialog_summary" formatted="false">एप्लिकेशन को देखने के लिए कस्टम बैटरी प्रतिशत सेट करने से बैटरी के जीवन पर नकारात्मक प्रभाव पड़ेगा जब डाउनलोड हो रहे हैं। क्या आप वाकई इसे सक्षम करना चाहते हैं?</string>
+    <string name="pref_battery_control_summary">यदि बैटरी स्तर %1$d%% से नीचे चला जाता है, तो सभी डाउनलोड रोक दिए जाएंगे। चार्जिंग के समय सीमा लागू नहीं होती है</string>
+    <string name="pref_custom_battery_control_summary">अगर बैटरी दी गई सीमा से नीचे गिरती है, तो डाउनलोड को रोकने के लिए एक अनुकूल प्रतिशत सेट करें। इसे सक्षम करने पर डिफ़ॉल्ट %1$d%% सीमा की अनदेखी होगी</string>
+    <string name="pref_custom_battery_control_dialog_summary">एप्लिकेशन को देखने के लिए कस्टम बैटरी प्रतिशत सेट करने से बैटरी के जीवन पर नकारात्मक प्रभाव पड़ेगा जब डाउनलोड हो रहे हैं। क्या आप वाकई इसे सक्षम करना चाहते हैं?</string>
     <string name="pref_enable_roaming_title">रोमिंग सक्षम करें</string>
     <string name="pref_enable_roaming_summary">तभी डाउनलोड करें जब डिवाइस रोमिंग में नहीं हो</string>
     <string name="pref_max_active_downloads_title">अधिकतम सक्रिय डाउनलोड</string>
