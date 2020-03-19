@@ -20,6 +20,7 @@
 
 package com.tachibana.downloader.ui.main;
 
+import android.annotation.SuppressLint;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
@@ -417,6 +418,7 @@ public abstract class DownloadsFragment extends Fragment
                 }));
     }
 
+    @SuppressLint("RestrictedApi")
     private void selectAllDownloads()
     {
         int n = adapter.getItemCount();
