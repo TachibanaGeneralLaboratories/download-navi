@@ -242,7 +242,7 @@ public class NormalizeUrl
             /* Ignore default ports */
             Integer port = DEFAULT_PORT_LIST.get(protocol);
             if (port != null)
-                host = host.replaceFirst(":" + port, "");
+                host = host.replaceFirst(":" + port + "$", "");
 
             if (options.removeWWW && host.matches("www\\.([a-z\\-\\d]{2,63})\\.([a-z.]{2,5})$")) {
                 /*

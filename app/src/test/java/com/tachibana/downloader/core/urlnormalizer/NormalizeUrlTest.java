@@ -172,6 +172,14 @@ public class NormalizeUrlTest
                 "http://example.org?foo1=http://example.org?foo2=bar2&foo=bar",
                 "http://example.org/?foo=bar&foo1=http://example.org?foo2=bar2",
                 null));
+        tests.add(new TestNormalize("port 8000",
+                "http://example.org:8000",
+                "http://example.org:8000",
+                null));
+        tests.add(new TestNormalize("port 8080",
+                "http://example.org:8080",
+                "http://example.org:8080",
+                null));
 
         execTests(tests);
     }
@@ -478,6 +486,14 @@ public class NormalizeUrlTest
         tests.add(new TestNormalize("double slashes and port",
                 "http://example.org:5000///foo",
                 "http://example.org:5000/foo",
+                null));
+        tests.add(new TestNormalize("double slashes and port 8000",
+                "http://example.org:8000///foo",
+                "http://example.org:8000/foo",
+                null));
+        tests.add(new TestNormalize("double slashes and port 8080",
+                "http://example.org:8080///foo",
+                "http://example.org:8080/foo",
                 null));
 
         execTests(tests);
