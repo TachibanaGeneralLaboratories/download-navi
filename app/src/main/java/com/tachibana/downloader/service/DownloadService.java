@@ -23,16 +23,17 @@ package com.tachibana.downloader.service;
 import android.app.Notification;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
+import android.app.Service;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Build;
+import android.os.IBinder;
 import android.os.PowerManager;
 import android.util.Log;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.core.app.NotificationCompat;
-import androidx.lifecycle.LifecycleService;
 
 import com.tachibana.downloader.R;
 import com.tachibana.downloader.core.DownloadNotifier;
@@ -52,7 +53,7 @@ import io.reactivex.disposables.CompositeDisposable;
  * Only for work that exceeds 10 minutes and and it's impossible to use WorkManager.
  */
 
-public class DownloadService extends LifecycleService
+public class DownloadService extends Service
 {
     @SuppressWarnings("unused")
     private static final String TAG = DownloadService.class.getSimpleName();
@@ -156,8 +157,15 @@ public class DownloadService extends LifecycleService
             engine.stopDownloads();
     }
 
+    @Nullable
     @Override
-    public int onStartCommand(@NonNull Intent intent, int flags, int startId)
+    public IBinder onBind(Intent intent)
+    {
+        return null;
+    }
+
+    @Override
+    public int onStartCommand(Intent intent, int flags, int startId)
     {
         super.onStartCommand(intent, flags, startId);
 
@@ -166,11 +174,11 @@ public class DownloadService extends LifecycleService
             isAlreadyRunning = true;
             init();
             /* Run by system */
-            if (intent.getAction() == null)
+            if (intent == null || intent.getAction() == null)
                 engine.restoreDownloads();
         }
 
-        if (intent.getAction() != null) {
+        if (intent != null && intent.getAction() != null) {
             UUID id;
             switch (intent.getAction()) {
                 case NotificationReceiver.NOTIFY_ACTION_SHUTDOWN_APP:
