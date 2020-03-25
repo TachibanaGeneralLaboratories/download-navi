@@ -330,7 +330,7 @@ public class AddDownloadViewModel extends AndroidViewModel
                     mimeType));
 
         /* Try to get MIME from filename extension */
-        if (mimeType == null) {
+        if (mimeType == null || mimeType.equals("application/octet-stream")) {
             String extension = fs.getExtension(params.getFileName());
             if (!TextUtils.isEmpty(extension))
                 mimeType = MimeTypeUtils.getMimeTypeFromExtension(extension);
