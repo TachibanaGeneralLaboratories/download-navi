@@ -53,6 +53,7 @@ import com.tachibana.downloader.core.system.SystemFacade;
 import com.tachibana.downloader.core.system.SystemFacadeHelper;
 import com.tachibana.downloader.core.urlnormalizer.NormalizeUrl;
 import com.tachibana.downloader.core.utils.DigestUtils;
+import com.tachibana.downloader.core.utils.MimeTypeUtils;
 import com.tachibana.downloader.core.utils.Utils;
 
 import java.io.FileNotFoundException;
@@ -320,14 +321,23 @@ public class AddDownloadViewModel extends AndroidViewModel
         String contentLocation = conn.getHeaderField("Content-Location");
 
         String mimeType = Intent.normalizeMimeType(conn.getContentType());
-        if (mimeType != null)
-            params.setMimeType(mimeType);
+
         if (TextUtils.isEmpty(params.getFileName()))
             params.setFileName(Utils.getHttpFileName(fs,
                     params.getUrl(),
                     contentDisposition,
                     contentLocation,
                     mimeType));
+
+        /* Try to get MIME from filename extension */
+        if (mimeType == null) {
+            String extension = fs.getExtension(params.getFileName());
+            if (!TextUtils.isEmpty(extension))
+                mimeType = MimeTypeUtils.getMimeTypeFromExtension(extension);
+        }
+        if (mimeType != null)
+            params.setMimeType(mimeType);
+
         params.setEtag(conn.getHeaderField("ETag"));
         final String transferEncoding = conn.getHeaderField("Transfer-Encoding");
         if (transferEncoding == null) {
