@@ -82,7 +82,7 @@ public class DownloadEngine
     private PowerReceiver powerReceiver = new PowerReceiver();
     private ConnectionReceiver connectionReceiver = new ConnectionReceiver();
 
-    private static DownloadEngine INSTANCE;
+    private static volatile DownloadEngine INSTANCE;
 
     public static DownloadEngine getInstance(@NonNull Context appContext)
     {

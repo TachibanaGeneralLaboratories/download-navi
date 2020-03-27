@@ -55,7 +55,7 @@ public abstract class AppDatabase extends RoomDatabase
 {
     private static final String DATABASE_NAME = "tachibana_downloader.db";
 
-    private static AppDatabase INSTANCE;
+    private static volatile AppDatabase INSTANCE;
 
     public abstract DownloadDao downloadDao();
 

@@ -86,7 +86,7 @@ public class DownloadNotifier
     /* The minimum amount of time that has to elapse before the progress bar gets updated, ms */
     private static final long MIN_PROGRESS_TIME = 2000;
 
-    private static DownloadNotifier INSTANCE;
+    private static volatile DownloadNotifier INSTANCE;
 
     private Context appContext;
     private NotificationManager notifyManager;
