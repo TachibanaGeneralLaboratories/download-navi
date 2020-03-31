@@ -569,22 +569,27 @@ public class Utils
     public static Intent createOpenFileIntent(@NonNull Context context, @NonNull DownloadInfo info)
     {
         FileSystemFacade fs = SystemFacadeHelper.getFileSystemFacade(context);
-        
+        Uri filePath = fs.getFileUri(info.dirPath, info.fileName);
+
+        return createOpenFileIntent(context, filePath, info.mimeType);
+    }
+
+    public static Intent createOpenFileIntent(@NonNull Context context, Uri filePath, String mimeType)
+    {
         Intent i = new Intent();
         i.setAction(Intent.ACTION_VIEW);
         i.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
-        
-        Uri filePath = fs.getFileUri(info.dirPath, info.fileName);
-        if (filePath == null)
+
+        if (filePath == null || mimeType == null)
             return i;
 
         if (Utils.isFileSystemPath(filePath))
             i.setDataAndType(FileProvider.getUriForFile(context,
                     context.getPackageName() + ".provider",
                     new File(filePath.getPath())),
-                    info.mimeType);
+                    mimeType);
         else
-            i.setDataAndType(filePath, info.mimeType);
+            i.setDataAndType(filePath, mimeType);
 
         return i;
     }

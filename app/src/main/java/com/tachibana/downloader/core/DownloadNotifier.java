@@ -43,6 +43,8 @@ import com.tachibana.downloader.core.model.data.entity.DownloadPiece;
 import com.tachibana.downloader.core.model.data.entity.InfoAndPieces;
 import com.tachibana.downloader.core.settings.SettingsRepository;
 import com.tachibana.downloader.core.storage.DataRepository;
+import com.tachibana.downloader.core.system.FileSystemFacade;
+import com.tachibana.downloader.core.system.SystemFacadeHelper;
 import com.tachibana.downloader.core.utils.DateUtils;
 import com.tachibana.downloader.core.utils.Utils;
 import com.tachibana.downloader.receiver.NotificationReceiver;
@@ -98,6 +100,7 @@ public class DownloadNotifier
     private DataRepository repo;
     private SettingsRepository pref;
     private CompositeDisposable disposables = new CompositeDisposable();
+    private FileSystemFacade fs;
 
     private class Notification
     {
@@ -130,6 +133,7 @@ public class DownloadNotifier
         notifyManager = (NotificationManager)appContext.getSystemService(NOTIFICATION_SERVICE);
         repo = RepositoryHelper.getDataRepository(appContext);
         pref = RepositoryHelper.getSettingsRepository(appContext);
+        fs = SystemFacadeHelper.getFileSystemFacade(appContext);
     }
 
     public void makeNotifyChans()
@@ -311,13 +315,16 @@ public class DownloadNotifier
                 break;
         }
 
+        /* Build a synthetic uri for intent identification purposes */
+        Uri uri = new Uri.Builder().scheme("active-dl").appendPath(tag).build();
+
         /* Build action intents */
         if (type == TYPE_ACTIVE || type == TYPE_PENDING) {
             if (type == TYPE_ACTIVE)
                 builder.setOngoing(true);
 
-            Intent pauseResumeButtonIntent = new Intent(appContext, NotificationReceiver.class);
-            pauseResumeButtonIntent.setAction(NotificationReceiver.NOTIFY_ACTION_PAUSE_RESUME);
+            Intent pauseResumeButtonIntent = new Intent(NotificationReceiver.NOTIFY_ACTION_PAUSE_RESUME,
+                    uri, appContext, NotificationReceiver.class);
             pauseResumeButtonIntent.putExtra(NotificationReceiver.TAG_ID, info.id);
             boolean isStopped = StatusCode.isStatusStoppedOrPaused(info.statusCode);
             int icon = (isStopped ? R.drawable.ic_play_arrow_white_24dp : R.drawable.ic_pause_white_24dp);
@@ -332,8 +339,8 @@ public class DownloadNotifier
             builder.addAction(new NotificationCompat.Action.Builder(
                     icon, text, pauseResumeButtonPendingIntent).build());
 
-            Intent stopButtonIntent = new Intent(appContext, NotificationReceiver.class);
-            stopButtonIntent.setAction(NotificationReceiver.NOTIFY_ACTION_CANCEL);
+            Intent stopButtonIntent = new Intent(NotificationReceiver.NOTIFY_ACTION_CANCEL,
+                    uri, appContext, NotificationReceiver.class);
             stopButtonIntent.putExtra(NotificationReceiver.TAG_ID, info.id);
             PendingIntent stopButtonPendingIntent =
                     PendingIntent.getBroadcast(
@@ -351,12 +358,17 @@ public class DownloadNotifier
         } else if (type == TYPE_COMPLETE) {
             builder.setAutoCancel(true);
             if (!isError) {
+                Uri filePath = fs.getFileUri(info.dirPath, info.fileName);
+                Intent openIntent = new Intent(NotificationReceiver.NOTIFY_ACTION_OPEN,
+                        uri, appContext, NotificationReceiver.class);
+                openIntent.putExtra(NotificationReceiver.TAG_FILE_PATH, filePath);
+                openIntent.putExtra(NotificationReceiver.TAG_MIME_TYPE, info.mimeType);
+
                 PendingIntent openPendingIntent =
-                        PendingIntent.getActivity(
+                        PendingIntent.getBroadcast(
                                 appContext,
                                 0,
-                                Intent.createChooser(Utils.createOpenFileIntent(appContext, info),
-                                        appContext.getString(R.string.open_using)),
+                                openIntent,
                                 PendingIntent.FLAG_UPDATE_CURRENT);
 
                 builder.setContentIntent(openPendingIntent);
