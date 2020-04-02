@@ -13,5 +13,18 @@ jobs:
       uses: actions/setup-java@v1
       with:
         java-version: 1.8
+    - name: Download Coverity Scan
+      run: |
+        curl -o /tmp/cov-analysis-linux64.tgz https://scan.coverity.com/download/linux64 \
+        --form project=${{ secrets.COVERITY_SCAN_PROJECT_NAME }} --form token=${{ secrets.COVERITY_SCAN_TOKEN }}
+    - name: Unpack Coverity Scan
+      run: tar xfz /tmp/cov-analysis-linux64.tgz
     - name: Build with Gradle
-      run: ./gradlew build
+      run: cov-analysis-linux64-*/bin/cov-build --dir cov-int ./gradlew assembleDebug
+    - name: Pack result
+      run: tar cfz cov-int.tar.gz cov-int
+    - name: Send
+      run: |
+        curl https://scan.coverity.com/builds?project=${{ secrets.COVERITY_SCAN_PROJECT_NAME }} \
+        --form token=${{ secrets.COVERITY_SCAN_TOKEN }} --form email=${{ secrets.COVERITY_SCAN_EMAIL }} \
+        --form file=@cov-int.tar.gz --form version="`git describe --tags`"
