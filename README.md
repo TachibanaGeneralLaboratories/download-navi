@@ -57,25 +57,25 @@ Translations
 
 You can help translate the app here: [https://crowdin.com/project/download-navi](https://crowdin.com/project/download-navi)
 
- - **English**
- - **Russian**
- - **Spanish** *(thanks c-sanchez)*
- - **Brazilian Portuguese** *(thanks lu.santi.oli)*
- - **Czech** *(thanks novas78)*
- - **Slovak** *(thanks kubalav)*
- - **German** *(thanks noc-jfcbs, soristre)*
- - **Japanese** *(thanks konnyaku2mc)*
- - **Turkish** *(thanks byzlo685, muhaaliss)*
  - **Arabic** *(thanks rex07)*
- - **Chinese Simplified** *(thanks OR120, dwughjsd)*
- - **Serbian** *(thanks Aimbot91)*
- - **Hindi** *(thanks imcmjha)*
- - **Chinese Traditional** *(thanks Fei1Yang)*
  - **Azerbaijani** *(thanks Khan27)*
- - **Indonesian** *(thanks bzntm)*
- - **Vietnamese** *(thanks pnhpnh)*
+ - **Brazilian Portuguese** *(thanks lu.santi.oli)*
+ - **Chinese Simplified** *(thanks OR120, dwughjsd)*
+ - **Chinese Traditional** *(thanks Fei1Yang)*
+ - **Czech** *(thanks novas78)*
+ - **English**
  - **French** *(thanks Ilith, KaKi87)*
+ - **German** *(thanks noc-jfcbs, soristre)*
+ - **Hindi** *(thanks imcmjha)*
+ - **Indonesian** *(thanks bzntm)*
  - **Italian** *(thanks alisseo)*
+ - **Japanese** *(thanks konnyaku2mc)*
+ - **Russian**
+ - **Serbian** *(thanks Aimbot91)*
+ - **Slovak** *(thanks kubalav)*
+ - **Spanish** *(thanks c-sanchez)*
+ - **Turkish** *(thanks byzlo685, muhaaliss)*
+ - **Vietnamese** *(thanks pnhpnh)*
 
 Contributors
 ---
