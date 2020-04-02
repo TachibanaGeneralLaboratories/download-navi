@@ -1,4 +1,4 @@
-name: Android CI
+name: Coverity Scan CI
 
 on: [push]
 
