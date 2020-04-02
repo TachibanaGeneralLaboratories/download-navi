@@ -417,7 +417,7 @@ public class AddDownloadViewModel extends AndroidViewModel
                 if (filePath != null)
                     fs.deleteFile(filePath);
 
-            } catch (FileNotFoundException e) {
+            } catch (FileNotFoundException | IllegalArgumentException e) {
                 /* Ignore */
             }
         } else {
