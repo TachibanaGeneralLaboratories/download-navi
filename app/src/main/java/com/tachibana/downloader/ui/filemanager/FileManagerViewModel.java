@@ -204,8 +204,6 @@ public class FileManagerViewModel extends ViewModel
         return new File(curDir.get(), fileName).exists();
     }
 
-
-
     public Uri createFile(String fileName) throws SecurityException
     {
         if (TextUtils.isEmpty(fileName))

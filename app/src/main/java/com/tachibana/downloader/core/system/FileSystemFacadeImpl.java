@@ -24,6 +24,7 @@ import android.net.Uri;
 import android.os.Environment;
 import android.text.TextUtils;
 import android.util.Log;
+import android.webkit.MimeTypeMap;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -245,9 +246,16 @@ class FileSystemFacadeImpl implements FileSystemFacade
     @Override
     public String appendExtension(@NonNull String fileName, @NonNull String mimeType)
     {
-        String extension = null;
-        if (TextUtils.isEmpty(getExtension(fileName)))
-            extension = MimeTypeUtils.getExtensionFromMimeType(mimeType);
+        MimeTypeMap mimeTypeMap = MimeTypeMap.getSingleton();
+        String extension = getExtension(fileName);
+
+        if (TextUtils.isEmpty(extension)) {
+            extension = mimeTypeMap.getExtensionFromMimeType(mimeType);
+        } else {
+            String m = mimeTypeMap.getMimeTypeFromExtension(extension);
+            if (m == null || !m.equals(mimeType))
+                extension = mimeTypeMap.getExtensionFromMimeType(mimeType);
+        }
 
         if (extension != null && !fileName.endsWith(extension))
             fileName += getExtensionSeparator() + extension;
