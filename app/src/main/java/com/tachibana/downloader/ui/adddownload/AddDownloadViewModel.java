@@ -66,6 +66,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import io.reactivex.Completable;
+import io.reactivex.disposables.CompositeDisposable;
+import io.reactivex.schedulers.Schedulers;
 
 public class AddDownloadViewModel extends AndroidViewModel
 {
@@ -82,6 +84,7 @@ public class AddDownloadViewModel extends AndroidViewModel
     public ObservableBoolean showClipboardButton = new ObservableBoolean(false);
     public SystemFacade systemFacade;
     public FileSystemFacade fs;
+    private CompositeDisposable disposables = new CompositeDisposable();
 
     public enum Status
     {
@@ -125,6 +128,7 @@ public class AddDownloadViewModel extends AndroidViewModel
     {
         super.onCleared();
 
+        disposables.clear();
         params.removeOnPropertyChangedCallback(paramsCallback);
     }
 
@@ -470,10 +474,15 @@ public class AddDownloadViewModel extends AndroidViewModel
         {
             if (propertyId == BR.dirPath) {
                 Uri dirPath = params.getDirPath();
-                if (dirPath != null) {
+                if (dirPath == null)
+                    return;
+
+                disposables.add(Completable.fromRunnable(() -> {
                     params.setStorageFreeSpace(fs.getDirAvailableBytes(dirPath));
                     params.setDirName(fs.getDirName(dirPath));
-                }
+                })
+                .subscribeOn(Schedulers.io())
+                .subscribe());
             }
         }
     };
