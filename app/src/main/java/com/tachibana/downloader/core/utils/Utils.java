@@ -93,14 +93,14 @@ public class Utils
     public static final String DEFAULT_DOWNLOAD_FILENAME = "downloadfile";
     private static final Pattern CONTENT_DISPOSITION_PATTERN =
             Pattern.compile("attachment;\\s*filename\\s*=\\s*(\"?)([^\"]*)\\1\\s*$",
-            Pattern.CASE_INSENSITIVE);
+                    Pattern.CASE_INSENSITIVE);
     private static final Pattern ACCEPTED_URI_SCHEMA = Pattern.compile(
             "(?i)" +  /* Switch on case insensitive matching */
-            "(" +  /* Begin group for schema */
-            "(?:http|https|file|chrome)://" +
-            "|(?:inline|data|about|javascript):" +
-            ")" +
-            "(.*)"
+                    "(" +  /* Begin group for schema */
+                    "(?:http|https|file|chrome)://" +
+                    "|(?:inline|data|about|javascript):" +
+                    ")" +
+                    "(.*)"
     );
 
     /*
@@ -840,8 +840,9 @@ public class Utils
         DrawerGroup sorting = new DrawerGroup(res.getInteger(R.integer.drawer_sorting_id),
                 res.getString(R.string.drawer_sorting),
                 localPref.getBoolean(res.getString(R.string.drawer_sorting_is_expanded), false));
+        final long DEFAULT_SORTING_ITEM = 1;
         sorting.selectItem(localPref.getLong(res.getString(R.string.drawer_sorting_selected_item),
-                                             DrawerGroup.DEFAULT_SELECTED_ID));
+                                             DEFAULT_SORTING_ITEM));
 
         category.items.add(new DrawerGroupItem(res.getInteger(R.integer.drawer_category_all_id),
                 R.drawable.ic_all_inclusive_grey600_24dp, res.getString(R.string.all)));

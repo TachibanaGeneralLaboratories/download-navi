@@ -1,6 +1,6 @@
 /*
- * Copyright (C) 2019 Tachibana General Laboratories, LLC
- * Copyright (C) 2019 Yaroslav Pronin <proninyaroslav@mail.ru>
+ * Copyright (C) 2019, 2020 Tachibana General Laboratories, LLC
+ * Copyright (C) 2019, 2020 Yaroslav Pronin <proninyaroslav@mail.ru>
  *
  * This file is part of Download Navi.
  *
@@ -51,9 +51,9 @@ public class DownloadSorting extends BaseSorting
                                Direction direction)
             {
                 if (direction == Direction.ASC)
-                    return Long.compare(item2.info.totalBytes, item1.info.totalBytes);
-                else
                     return Long.compare(item1.info.totalBytes, item2.info.totalBytes);
+                else
+                    return Long.compare(item2.info.totalBytes, item1.info.totalBytes);
             }
         },
         dateAdded {
@@ -62,9 +62,9 @@ public class DownloadSorting extends BaseSorting
                                Direction direction)
             {
                 if (direction == Direction.ASC)
-                    return Long.compare(item2.info.dateAdded, item1.info.dateAdded);
-                else
                     return Long.compare(item1.info.dateAdded, item2.info.dateAdded);
+                else
+                    return Long.compare(item2.info.dateAdded, item1.info.dateAdded);
             }
         },
         category {
@@ -79,17 +79,6 @@ public class DownloadSorting extends BaseSorting
             }
         };
 
-        public static String[] valuesToStringArray()
-        {
-            SortingColumns[] values = SortingColumns.class.getEnumConstants();
-            String[] arr = new String[values.length];
-
-            for (int i = 0; i < values.length; i++)
-                arr[i] = values[i].toString();
-
-            return arr;
-        }
-
         public static SortingColumns fromValue(String value)
         {
             for (SortingColumns column : SortingColumns.class.getEnumConstants())
@@ -103,10 +92,5 @@ public class DownloadSorting extends BaseSorting
     public DownloadSorting(SortingColumns columnName, Direction direction)
     {
         super(columnName.name(), direction);
-    }
-
-    public DownloadSorting()
-    {
-        this(SortingColumns.name , Direction.DESC);
     }
 }
