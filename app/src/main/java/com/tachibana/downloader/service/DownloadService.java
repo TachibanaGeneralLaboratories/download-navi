@@ -75,17 +75,25 @@ public class DownloadService extends Service
     private boolean downloadsApplyingParams;
     private CompositeDisposable disposables = new CompositeDisposable();
 
+    @Override
+    public void onCreate()
+    {
+        super.onCreate();
+
+        notifyManager = (NotificationManager)getSystemService(NOTIFICATION_SERVICE);
+        pref = RepositoryHelper.getSettingsRepository(getApplicationContext());
+        engine = DownloadEngine.getInstance(getApplicationContext());
+
+        makeForegroundNotify();
+    }
+
     private void init()
     {
         Log.i(TAG, "Start " + TAG);
-        notifyManager = (NotificationManager)getSystemService(NOTIFICATION_SERVICE);
 
-        pref = RepositoryHelper.getSettingsRepository(getApplicationContext());
         disposables.add(pref.observeSettingsChanged()
                 .subscribe(this::handleSettingsChanged));
-
         setKeepCpuAwake(pref.cpuDoNotSleep());
-        engine = DownloadEngine.getInstance(getApplicationContext());
         engine.addListener(listener);
 
         makeForegroundNotify();
@@ -132,8 +140,6 @@ public class DownloadService extends Service
         disposables.clear();
         engine.removeListener(listener);
         isAlreadyRunning = false;
-        engine = null;
-        pref = null;
         setKeepCpuAwake(false);
 
         stopForeground(true);
