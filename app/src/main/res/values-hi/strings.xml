@@ -185,11 +185,43 @@
     <!-- Send text to clipboard -->
     <string name="send_text_to_clipboard">प्रतिलिपि बनाएँ</string>
     <string name="text_copied_to_clipboard">टेक्स्ट क्लिपबोर्ड पर कॉपी किया गया</string>
+    <!-- Browser -->
+    <string name="browser">Browser</string>
+    <string name="browser_app">Navi Browser</string>
+    <string name="webview_is_required">WebView is required to work</string>
+    <string name="browser_forward_arrow">Forward</string>
+    <string name="browser_desktop_version">Desktop version</string>
+    <string name="browser_address_bar_hint">Enter address or query</string>
+    <string name="browser_back_pressed">Press again to close</string>
+    <string name="browser_secure_connection">Secure connection</string>
+    <!-- Browser bookmarks -->
+    <string name="browser_bookmarks">Bookmarks</string>
+    <string name="bookmarks_list_empty">No bookmarks</string>
+    <string name="browser_add_bookmark">Add bookmark</string>
+    <string name="browser_edit_bookmark">Edit bookmark</string>
+    <!-- Edit bookmark dialog -->
+    <string name="browser_bookmark_name">Name</string>
+    <string name="browser_bookmark_url">URL</string>
+    <string name="browser_bookmark_error_empty_url">Please enter URL</string>
+    <string name="browser_bookmark_error_empty_name">Please enter name</string>
+    <plurals name="browser_bookmark_deleted">
+        <item quantity="one">Bookmark deleted</item>
+        <item quantity="other">Bookmarks deleted</item>
+    </plurals>
+    <plurals name="browser_bookmark_delete_failed">
+        <item quantity="one">Failed to delete bookmark</item>
+        <item quantity="other">Failed to delete bookmarks</item>
+    </plurals>
+    <string name="browser_bookmark_change_failed">Failed to change bookmark</string>
+    <string name="browser_bookmark_added">Bookmark added</string>
+    <string name="browser_bookmark_add_failed">Failed to add bookmark</string>
+    <string name="browser_bookmark_edit_menu">Edit</string>
     <!-- Settings -->
     <!-- Headers -->
     <string name="pref_header_appearance">स्वरूप</string>
     <string name="pref_header_behavior">व्यवहार</string>
     <string name="pref_header_storage">संग्रहण</string>
+    <string name="pref_header_browser">Browser</string>
     <!-- Appearance settings -->
     <string name="pref_theme_category">विषयवस्तु सेटिंग्स</string>
     <string name="pref_theme_title">थीम</string>
@@ -243,6 +275,26 @@
     <string name="pref_delete_file_if_error_title">यदि कोई त्रुटि उत्पंन होती है तो फ़ाइल हटाएं</string>
     <string name="pref_preallocate_disk_space_title">फ़ाइल के लिए डिस्क स्थान पूर्व-आबंटित करें</string>
     <string name="pref_preallocate_disk_space_summary">एंड्रॉयड 5.0 लॉलीपॉप और ऊपर के लिए उपलब्ध</string>
+    <!-- Browser settings -->
+    <string name="pref_browser_bottom_address_bar_title">Address bar at the bottom</string>
+    <string name="pref_browser_bottom_address_bar_summary">The address bar will be located at the bottom of the screen</string>
+    <string name="pref_browser_start_page_title">Start page</string>
+    <string name="pref_browser_allow_java_script_title">Allow Java Script</string>
+    <string name="pref_browser_allow_popup_windows_title">Allow popup windows</string>
+    <string name="pref_browser_cache_category">Cache</string>
+    <string name="pref_browser_cookies_category">Cookies</string>
+    <string name="pref_browser_enable_caching_title">Enable caching</string>
+    <string name="pref_browser_enable_cookies_title">Enable cookies</string>
+    <string name="pref_browser_delete_cookies_title">Delete cookies</string>
+    <string name="pref_browser_delete_cookies_done">Deleted all the cookies</string>
+    <string name="pref_browser_clear_cache_title">Clear cache</string>
+    <string name="pref_browser_clear_cache_done">The cache is cleared</string>
+    <string name="pref_browser_do_not_track_title">Do Not Track</string>
+    <string name="pref_browser_do_not_track_summary">Send a “Do Not Track” request to websites you visit</string>
+    <string name="pref_browser_launcher_icon_title">Browser icon in the launcher</string>
+    <string name="pref_browser_disable_from_system_title">Disable browser from the system</string>
+    <string name="pref_browser_disable_from_system_summary">Browser will not be available for opening links</string>
+    <string name="pref_browser_search_engine_title">Search engine</string>
     <!-- About dialog -->
     <string name="about_title">Download Navi बारे में</string>
     <string name="about_description"><![CDATA[

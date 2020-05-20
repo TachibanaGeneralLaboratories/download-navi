@@ -185,11 +185,41 @@
     <!-- Send text to clipboard -->
     <string name="send_text_to_clipboard">复制</string>
     <string name="text_copied_to_clipboard">文本已复制到剪贴板</string>
+    <!-- Browser -->
+    <string name="browser">Browser</string>
+    <string name="browser_app">Navi Browser</string>
+    <string name="webview_is_required">WebView is required to work</string>
+    <string name="browser_forward_arrow">Forward</string>
+    <string name="browser_desktop_version">Desktop version</string>
+    <string name="browser_address_bar_hint">Enter address or query</string>
+    <string name="browser_back_pressed">Press again to close</string>
+    <string name="browser_secure_connection">Secure connection</string>
+    <!-- Browser bookmarks -->
+    <string name="browser_bookmarks">Bookmarks</string>
+    <string name="bookmarks_list_empty">No bookmarks</string>
+    <string name="browser_add_bookmark">Add bookmark</string>
+    <string name="browser_edit_bookmark">Edit bookmark</string>
+    <!-- Edit bookmark dialog -->
+    <string name="browser_bookmark_name">Name</string>
+    <string name="browser_bookmark_url">URL</string>
+    <string name="browser_bookmark_error_empty_url">Please enter URL</string>
+    <string name="browser_bookmark_error_empty_name">Please enter name</string>
+    <plurals name="browser_bookmark_deleted">
+        <item quantity="other">Bookmarks deleted</item>
+    </plurals>
+    <plurals name="browser_bookmark_delete_failed">
+        <item quantity="other">Failed to delete bookmarks</item>
+    </plurals>
+    <string name="browser_bookmark_change_failed">Failed to change bookmark</string>
+    <string name="browser_bookmark_added">Bookmark added</string>
+    <string name="browser_bookmark_add_failed">Failed to add bookmark</string>
+    <string name="browser_bookmark_edit_menu">Edit</string>
     <!-- Settings -->
     <!-- Headers -->
     <string name="pref_header_appearance">外观</string>
     <string name="pref_header_behavior">行为设置</string>
     <string name="pref_header_storage">存储</string>
+    <string name="pref_header_browser">Browser</string>
     <!-- Appearance settings -->
     <string name="pref_theme_category">主题设置</string>
     <string name="pref_theme_title">主题</string>
@@ -243,6 +273,26 @@
     <string name="pref_delete_file_if_error_title">发生错误后删除文件</string>
     <string name="pref_preallocate_disk_space_title">为下载的文件预分配磁盘空间</string>
     <string name="pref_preallocate_disk_space_summary">只在 Android 5.0 Lollipop 及以上版本可用</string>
+    <!-- Browser settings -->
+    <string name="pref_browser_bottom_address_bar_title">Address bar at the bottom</string>
+    <string name="pref_browser_bottom_address_bar_summary">The address bar will be located at the bottom of the screen</string>
+    <string name="pref_browser_start_page_title">Start page</string>
+    <string name="pref_browser_allow_java_script_title">Allow Java Script</string>
+    <string name="pref_browser_allow_popup_windows_title">Allow popup windows</string>
+    <string name="pref_browser_cache_category">Cache</string>
+    <string name="pref_browser_cookies_category">Cookies</string>
+    <string name="pref_browser_enable_caching_title">Enable caching</string>
+    <string name="pref_browser_enable_cookies_title">Enable cookies</string>
+    <string name="pref_browser_delete_cookies_title">Delete cookies</string>
+    <string name="pref_browser_delete_cookies_done">Deleted all the cookies</string>
+    <string name="pref_browser_clear_cache_title">Clear cache</string>
+    <string name="pref_browser_clear_cache_done">The cache is cleared</string>
+    <string name="pref_browser_do_not_track_title">Do Not Track</string>
+    <string name="pref_browser_do_not_track_summary">Send a “Do Not Track” request to websites you visit</string>
+    <string name="pref_browser_launcher_icon_title">Browser icon in the launcher</string>
+    <string name="pref_browser_disable_from_system_title">Disable browser from the system</string>
+    <string name="pref_browser_disable_from_system_summary">Browser will not be available for opening links</string>
+    <string name="pref_browser_search_engine_title">Search engine</string>
     <!-- About dialog -->
     <string name="about_title">关于 Download Navi</string>
     <string name="about_description"><![CDATA[    访问此网站获取更多信息或者帮助项目: <a href="https://github.com/TachibanaGeneralLaboratories/download-navi">https://github.com/TachibanaGeneralLaboratories/download-navi</a><br><br>
