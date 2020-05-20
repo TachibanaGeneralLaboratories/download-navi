@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2016, 2019 Yaroslav Pronin <proninyaroslav@mail.ru>
+ * Copyright (C) 2016, 2019, 2020 Yaroslav Pronin <proninyaroslav@mail.ru>
  *
  * This file is part of LibreTorrent.
  *
@@ -40,6 +40,7 @@ import com.tachibana.downloader.core.system.FileSystemFacade;
 import com.tachibana.downloader.core.system.SystemFacadeHelper;
 
 import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
 /*
@@ -53,6 +54,13 @@ public class FileManagerAdapter extends ListAdapter<FileManagerNode, FileManager
 
     private ViewHolder.ClickListener clickListener;
     private List<String> highlightFileTypes;
+
+    private static final Comparator<FileManagerNode> directoryFirstCmp = (n1, n2) -> {
+        int byName = n1.compareTo(n2);
+        int directoryFirst = Boolean.compare(n2.isDirectory(), n1.isDirectory());
+
+        return (directoryFirst == 0 ? byName : directoryFirst);
+    };
 
     public FileManagerAdapter(List<String> highlightFileTypes, ViewHolder.ClickListener clickListener)
     {
@@ -81,7 +89,7 @@ public class FileManagerAdapter extends ListAdapter<FileManagerNode, FileManager
     public void submitList(@Nullable List<FileManagerNode> list)
     {
         if (list != null)
-            Collections.sort(list);
+            Collections.sort(list, directoryFirstCmp);
 
         super.submitList(list);
     }
@@ -99,7 +107,7 @@ public class FileManagerAdapter extends ListAdapter<FileManagerNode, FileManager
         public boolean areItemsTheSame(@NonNull FileManagerNode oldItem,
                                        @NonNull FileManagerNode newItem)
         {
-            return  oldItem.equals(newItem);
+            return oldItem.equals(newItem);
         }
     };
 
@@ -147,11 +155,11 @@ public class FileManagerAdapter extends ListAdapter<FileManagerNode, FileManager
 
             fileName.setText(item.getName());
 
-            if (item.getType() == FileNode.Type.DIR) {
+            if (item.isDirectory()) {
                 fileIcon.setImageResource(R.drawable.ic_folder_grey600_24dp);
                 fileIcon.setContentDescription(context.getString(R.string.folder));
 
-            } else if (item.getType() == FileNode.Type.FILE) {
+            } else {
                 fileIcon.setImageResource(R.drawable.ic_file_grey600_24dp);
                 fileIcon.setContentDescription(context.getString(R.string.file));
             }
