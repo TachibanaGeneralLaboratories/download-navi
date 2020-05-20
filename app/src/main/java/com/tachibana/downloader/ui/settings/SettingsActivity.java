@@ -1,6 +1,6 @@
 /*
- * Copyright (C) 2019 Tachibana General Laboratories, LLC
- * Copyright (C) 2019 Yaroslav Pronin <proninyaroslav@mail.ru>
+ * Copyright (C) 2019, 2020 Tachibana General Laboratories, LLC
+ * Copyright (C) 2019, 2020 Yaroslav Pronin <proninyaroslav@mail.ru>
  *
  * This file is part of Download Navi.
  *
@@ -35,6 +35,13 @@ public class SettingsActivity extends AppCompatActivity
 {
     @SuppressWarnings("unused")
     private static final String TAG = SettingsActivity.class.getSimpleName();
+
+    public static final String TAG_OPEN_PREFERENCE = "open_preference";
+
+    public static final String AppearanceSettings = "AppearanceSettingsFragment";
+    public static final String BehaviorSettings = "BehaviorSettingsFragment";
+    public static final String StorageSettings = "StorageSettingsFragment";
+    public static final String BrowserSettings = "BrowserSettingsFragment";
 
     private Toolbar toolbar;
     private TextView detailTitle;

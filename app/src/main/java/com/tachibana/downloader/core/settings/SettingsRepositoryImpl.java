@@ -93,6 +93,17 @@ public class SettingsRepositoryImpl implements SettingsRepository
         }
         static final boolean deleteFileIfError = false;
         static final boolean preallocateDiskSpace = true;
+        /* Browser settings */
+        static final boolean browserAllowJavaScript = true;
+        static final boolean browserAllowPopupWindows = false;
+        static final boolean browserLauncherIcon = false;
+        static final boolean browserEnableCaching = true;
+        static final boolean browserEnableCookies = true;
+        static final boolean browserDisableFromSystem = false;
+        static final String browserStartPage = "https://duckduckgo.com";
+        static final boolean browserBottomAddressBar = true;
+        static final boolean browserDoNotTrack = true;
+        static final String browserSearchEngine = "https://duckduckgo.com/?q={searchTerms}";
     }
 
     public SettingsRepositoryImpl(@NonNull Context appContext)
@@ -539,6 +550,156 @@ public class SettingsRepositoryImpl implements SettingsRepository
     {
         pref.edit()
                 .putBoolean(appContext.getString(R.string.pref_key_preallocate_disk_space), val)
+                .apply();
+    }
+
+    @Override
+    public boolean browserAllowJavaScript()
+    {
+        return pref.getBoolean(appContext.getString(R.string.pref_key_browser_allow_java_script),
+                Default.browserAllowJavaScript);
+    }
+
+    @Override
+    public void browserAllowJavaScript(boolean val)
+    {
+        pref.edit()
+                .putBoolean(appContext.getString(R.string.pref_key_browser_allow_java_script), val)
+                .apply();
+    }
+
+    @Override
+    public boolean browserAllowPopupWindows()
+    {
+        return pref.getBoolean(appContext.getString(R.string.pref_key_browser_allow_popup_windows),
+                Default.browserAllowPopupWindows);
+    }
+
+    @Override
+    public void browserAllowPopupWindows(boolean val)
+    {
+        pref.edit()
+                .putBoolean(appContext.getString(R.string.pref_key_browser_allow_popup_windows), val)
+                .apply();
+    }
+
+    @Override
+    public boolean browserLauncherIcon()
+    {
+        return pref.getBoolean(appContext.getString(R.string.pref_key_browser_launcher_icon),
+                Default.browserLauncherIcon);
+    }
+
+    @Override
+    public void browserLauncherIcon(boolean val)
+    {
+        pref.edit()
+                .putBoolean(appContext.getString(R.string.pref_key_browser_launcher_icon), val)
+                .apply();
+    }
+
+    @Override
+    public boolean browserEnableCaching()
+    {
+        return pref.getBoolean(appContext.getString(R.string.pref_key_browser_enable_caching),
+                Default.browserEnableCaching);
+    }
+
+    @Override
+    public void browserEnableCaching(boolean val)
+    {
+        pref.edit()
+                .putBoolean(appContext.getString(R.string.pref_key_browser_enable_caching), val)
+                .apply();
+    }
+
+    @Override
+    public boolean browserEnableCookies()
+    {
+        return pref.getBoolean(appContext.getString(R.string.pref_key_browser_enable_cookies),
+                Default.browserEnableCookies);
+    }
+
+    @Override
+    public void browserEnableCookies(boolean val)
+    {
+        pref.edit()
+                .putBoolean(appContext.getString(R.string.pref_key_browser_enable_cookies), val)
+                .apply();
+    }
+
+    @Override
+    public boolean browserDisableFromSystem()
+    {
+        return pref.getBoolean(appContext.getString(R.string.pref_key_browser_disable_from_system),
+                Default.browserDisableFromSystem);
+    }
+
+    @Override
+    public void browserDisableFromSystem(boolean val)
+    {
+        pref.edit()
+                .putBoolean(appContext.getString(R.string.pref_key_browser_disable_from_system), val)
+                .apply();
+    }
+
+    @Override
+    public String browserStartPage()
+    {
+        return pref.getString(appContext.getString(R.string.pref_key_browser_start_page),
+                Default.browserStartPage);
+    }
+
+    @Override
+    public void browserStartPage(String val)
+    {
+        pref.edit()
+                .putString(appContext.getString(R.string.pref_key_browser_start_page), val)
+                .apply();
+    }
+
+    @Override
+    public boolean browserBottomAddressBar()
+    {
+        return pref.getBoolean(appContext.getString(R.string.pref_key_browser_bottom_address_bar),
+                Default.browserBottomAddressBar);
+    }
+
+    @Override
+    public void browserBottomAddressBar(boolean val)
+    {
+        pref.edit()
+                .putBoolean(appContext.getString(R.string.pref_key_browser_bottom_address_bar), val)
+                .apply();
+    }
+
+    @Override
+    public boolean browserDoNotTrack()
+    {
+        return pref.getBoolean(appContext.getString(R.string.pref_key_browser_do_not_track),
+                Default.browserDoNotTrack);
+    }
+
+    @Override
+    public void browserDoNotTrack(boolean val)
+    {
+        pref.edit()
+                .putBoolean(appContext.getString(R.string.pref_key_browser_do_not_track), val)
+                .apply();
+    }
+
+    @Override
+    public String browserSearchEngine()
+    {
+        return pref.getString(appContext.getString(R.string.pref_key_browser_search_engine),
+                Default.browserSearchEngine);
+    }
+
+    @Override
+    public void browserSearchEngine(String val)
+    {
+        pref.edit()
+                .putString(appContext.getString(R.string.pref_key_browser_search_engine), val)
                 .apply();
     }
 }

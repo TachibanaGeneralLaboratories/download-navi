@@ -1,6 +1,6 @@
 /*
- * Copyright (C) 2019 Tachibana General Laboratories, LLC
- * Copyright (C) 2019 Yaroslav Pronin <proninyaroslav@mail.ru>
+ * Copyright (C) 2019, 2020 Tachibana General Laboratories, LLC
+ * Copyright (C) 2019, 2020 Yaroslav Pronin <proninyaroslav@mail.ru>
  *
  * This file is part of Download Navi.
  *
@@ -27,6 +27,8 @@ import androidx.annotation.NonNull;
 import com.tachibana.downloader.core.settings.SettingsRepository;
 import com.tachibana.downloader.core.settings.SettingsRepositoryImpl;
 import com.tachibana.downloader.core.storage.AppDatabase;
+import com.tachibana.downloader.core.storage.BrowserRepository;
+import com.tachibana.downloader.core.storage.BrowserRepositoryImpl;
 import com.tachibana.downloader.core.storage.DataRepository;
 import com.tachibana.downloader.core.storage.DataRepositoryImpl;
 
@@ -34,6 +36,7 @@ public class RepositoryHelper
 {
     private static DataRepositoryImpl dataRepo;
     private static SettingsRepositoryImpl settingsRepo;
+    private static BrowserRepository browserRepository;
 
     public synchronized static DataRepository getDataRepository(@NonNull Context appContext)
     {
@@ -50,5 +53,13 @@ public class RepositoryHelper
             settingsRepo = new SettingsRepositoryImpl(appContext);
 
         return settingsRepo;
+    }
+
+    public synchronized static BrowserRepository getBrowserRepository(@NonNull Context appContext)
+    {
+        if (browserRepository == null)
+            browserRepository = new BrowserRepositoryImpl(AppDatabase.getInstance(appContext));
+
+        return browserRepository;
     }
 }

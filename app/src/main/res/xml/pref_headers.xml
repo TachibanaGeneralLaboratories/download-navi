@@ -15,4 +15,9 @@
         android:key="StorageSettingsFragment"
         android:title="@string/pref_header_storage"
         android:persistent="false" />
+
+    <Preference
+        android:key="BrowserSettingsFragment"
+        android:title="@string/pref_header_browser"
+        android:persistent="false" />
 </PreferenceScreen>

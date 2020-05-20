@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <item android:id="@+id/refresh_menu"
+        android:icon="@drawable/ic_refresh_menu_24dp"
+        android:title=""
+        app:showAsAction="always" />
+
+    <item android:id="@+id/stop_menu"
+        android:icon="@drawable/ic_close_menu_24dp"
+        android:title=""
+        app:showAsAction="always" />
+
+    <item android:id="@+id/forward_menu"
+        android:title="@string/browser_forward_arrow"
+        android:icon="@drawable/ic_arrow_forward_menu_24dp"
+        app:showAsAction="never" />
+
+    <item android:id="@+id/share_menu"
+        android:title="@string/share"
+        android:icon="@drawable/ic_share_menu_24dp"
+        app:showAsAction="never" />
+
+    <item android:id="@+id/add_bookmark_menu"
+        android:title="@string/browser_add_bookmark"
+        android:icon="@drawable/ic_add_bookmark_menu_24dp"
+        app:showAsAction="never" />
+
+    <item android:id="@+id/edit_bookmark_menu"
+        android:title="@string/browser_edit_bookmark"
+        android:icon="@drawable/ic_added_bookmark_menu_24dp"
+        app:showAsAction="never" />
+
+    <item android:id="@+id/bookmarks_menu"
+        android:title="@string/browser_bookmarks"
+        android:icon="@drawable/ic_bookmark_border_menu_24dp"
+        app:showAsAction="never" />
+
+    <item android:id="@+id/desktop_version_menu"
+        android:title="@string/browser_desktop_version"
+        android:icon="@drawable/ic_desktop_menu_24dp"
+        android:checkable="true"
+        app:showAsAction="never" />
+
+    <item android:id="@+id/settings_menu"
+        android:title="@string/settings"
+        android:icon="@drawable/ic_settings_menu_24dp"
+        app:showAsAction="never" />
+</menu>

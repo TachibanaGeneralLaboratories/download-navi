@@ -1125,6 +1125,47 @@
             </intent-filter>
         </activity>
 
+        <activity android:name=".ui.browser.BrowserActivity"
+            android:label="@string/browser"
+            android:launchMode="singleInstance">
+            <intent-filter>
+                <action android:name="android.intent.action.SEND" />
+                <category android:name="android.intent.category.DEFAULT" />
+                <data android:mimeType="*/*" />
+            </intent-filter>
+        </activity>
+        <activity-alias android:name=".ui.browser.BrowserIcon"
+            android:label="@string/browser_app"
+            android:enabled="false"
+            android:targetActivity=".ui.browser.BrowserActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+                <category android:name="android.intent.category.BROWSABLE" />
+                <category android:name="android.intent.category.APP_BROWSER" />
+            </intent-filter>
+        </activity-alias>
+        <activity-alias android:name=".ui.browser.Browser"
+            android:enabled="true"
+            android:targetActivity=".ui.browser.BrowserActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+                <data android:scheme="http" />
+                <data android:scheme="https" />
+            </intent-filter>
+        </activity-alias>
+
+        <activity
+            android:label="@string/browser_bookmarks"
+            android:name=".ui.browser.bookmarks.BrowserBookmarksActivity" />
+
+        <activity
+            android:label="@string/app_name"
+            android:name=".ui.browser.bookmarks.EditBookmarkActivity"
+            android:theme="@style/AppTheme.Translucent" />
+
         <service
             android:name=".service.DownloadService" />
 

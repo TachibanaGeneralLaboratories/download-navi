@@ -10,6 +10,27 @@
         <item>@string/pref_theme_dark_value</item>
         <item>@string/pref_theme_black_value</item>
     </string-array>
+    <!-- Browser settings -->
+    <string-array name="pref_browser_search_engine_entries" translatable="false">
+        <item>Baidu</item>
+        <item>Bing</item>
+        <item>DuckDuckGo</item>
+        <item>Google</item>
+        <item>Qwant</item>
+        <item>Swisscows</item>
+        <item>Yahoo</item>
+        <item>Yandex</item>
+    </string-array>
+    <string-array name="pref_browser_search_engine_entry_values" translatable="false">
+        <item>https://www.baidu.com/s?wd={searchTerms}</item>
+        <item>https://www.bing.com/search?q={searchTerms}</item>
+        <item>https://duckduckgo.com/?q={searchTerms}</item>
+        <item>https://google.com/search?ie=UTF-8&amp;source=android-browser&amp;q={searchTerms}</item>
+        <item>https://www.qwant.com/?q={searchTerms}</item>
+        <item>https://swisscows.ch/web?query={searchTerms}</item>
+        <item>https://search.yahoo.com/p={searchTerms}</item>
+        <item>https://yandex.com/?q={searchTerms}</item>
+    </string-array>
 
     <!-- About dialog -->
     <string name="about_changelog_link" translatable="false">https://github.com/TachibanaGeneralLaboratories/download-navi/blob/master/NEWS</string>
