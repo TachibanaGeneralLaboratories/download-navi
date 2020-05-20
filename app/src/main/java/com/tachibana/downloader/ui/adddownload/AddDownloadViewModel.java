@@ -325,6 +325,9 @@ public class AddDownloadViewModel extends AndroidViewModel
         String contentLocation = conn.getHeaderField("Content-Location");
 
         String mimeType = Intent.normalizeMimeType(conn.getContentType());
+        /* Try to determine the MIME type later by the filename extension */
+        if ("application/octet-stream".equals(mimeType))
+            mimeType = null;
 
         if (TextUtils.isEmpty(params.getFileName()))
             params.setFileName(Utils.getHttpFileName(fs,
@@ -334,7 +337,7 @@ public class AddDownloadViewModel extends AndroidViewModel
                     mimeType));
 
         /* Try to get MIME from filename extension */
-        if (mimeType == null || mimeType.equals("application/octet-stream")) {
+        if (mimeType == null) {
             String extension = fs.getExtension(params.getFileName());
             if (!TextUtils.isEmpty(extension))
                 mimeType = MimeTypeUtils.getMimeTypeFromExtension(extension);
