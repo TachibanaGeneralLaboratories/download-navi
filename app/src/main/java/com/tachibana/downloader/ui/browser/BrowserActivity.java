@@ -30,9 +30,11 @@ import android.text.Editable;
 import android.text.TextUtils;
 import android.text.TextWatcher;
 import android.util.Log;
+import android.view.ContextMenu;
 import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.webkit.WebView;
 import android.widget.Toast;
@@ -54,6 +56,10 @@ import com.tachibana.downloader.core.model.data.entity.BrowserBookmark;
 import com.tachibana.downloader.core.utils.Utils;
 import com.tachibana.downloader.databinding.ActivityBrowserBottomAppBarBinding;
 import com.tachibana.downloader.databinding.ActivityBrowserTopAppBarBinding;
+import com.tachibana.downloader.ui.FragmentCallback;
+import com.tachibana.downloader.ui.SendTextToClipboard;
+import com.tachibana.downloader.ui.adddownload.AddDownloadActivity;
+import com.tachibana.downloader.ui.adddownload.AddInitParams;
 import com.tachibana.downloader.ui.browser.bookmarks.BrowserBookmarksActivity;
 import com.tachibana.downloader.ui.browser.bookmarks.EditBookmarkActivity;
 import com.tachibana.downloader.ui.settings.SettingsActivity;
@@ -69,15 +75,19 @@ import io.reactivex.schedulers.Schedulers;
  */
 
 public class BrowserActivity extends AppCompatActivity
+    implements FragmentCallback
 {
     @SuppressWarnings("unused")
     private static final String TAG = BrowserActivity.class.getSimpleName();
 
     private static final String TAG_DOUBLE_BACK_PRESSED = "double_back_pressed";
     private static final String TAG_IS_CURRENT_PAGE_BOOKMARKED = "is_current_page_bookmarked";
+    private static final String TAG_CONTEXT_MENU_DIALOG = "context_menu_dialog";
     private static final int REQUEST_CODE_SETTINGS = 1;
     private static final int REQUEST_CODE_BOOKMARKS = 2;
     private static final int REQUEST_CODE_EDIT_BOOKMARK = 3;
+    private static final int REQUEST_CODE_ADD_DOWNLOAD = 4;
+    private static final int REQUEST_CODE_COPY_TO_CLIPBOARD = 5;
 
     private BrowserViewModel viewModel;
     private WebView webView;
@@ -105,11 +115,18 @@ public class BrowserActivity extends AppCompatActivity
 
         viewModel = new ViewModelProvider(this).get(BrowserViewModel.class);
         viewModel.observeUrlFetchState().observe(this, this::handleUrlFetchState);
+
         initView();
+        ActionBar actionBar = getSupportActionBar();
+        if (actionBar != null)
+            actionBar.setDisplayShowTitleEnabled(false);
+        initAddressBar();
+        initWebView();
 
         if (savedInstanceState != null) {
             doubleBackPressed = savedInstanceState.getBoolean(TAG_DOUBLE_BACK_PRESSED);
             isCurrentPageBookmarked = savedInstanceState.getBoolean(TAG_IS_CURRENT_PAGE_BOOKMARKED);
+            webView.restoreState(savedInstanceState);
         } else {
             String url = getUrlFromIntent();
             if (url != null) {
@@ -119,13 +136,6 @@ public class BrowserActivity extends AppCompatActivity
                 viewModel.loadStartPage(webView);
             }
         }
-
-        ActionBar actionBar = getSupportActionBar();
-        if (actionBar != null)
-            actionBar.setDisplayShowTitleEnabled(false);
-
-        initAddressBar();
-        initWebView();
     }
 
     @Override
@@ -134,6 +144,37 @@ public class BrowserActivity extends AppCompatActivity
         super.onStop();
 
         disposables.clear();
+    }
+
+    @Override
+    protected void onStart()
+    {
+        super.onStart();
+
+        observeDownloadRequests();
+    }
+
+    private void observeDownloadRequests()
+    {
+        disposables.add(viewModel.observeDownloadRequests()
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe((request) -> {
+                    viewModel.stopLoading(webView);
+                    showAddDownloadDialog(request.getUrl());
+                }));
+    }
+
+    private void showAddDownloadDialog(String url)
+    {
+        if (url == null)
+            return;
+
+        AddInitParams initParams = new AddInitParams();
+        initParams.url = url;
+
+        Intent i = new Intent(this, AddDownloadActivity.class);
+        i.putExtra(AddDownloadActivity.TAG_INIT_PARAMS, initParams);
+        startActivityForResult(i, REQUEST_CODE_ADD_DOWNLOAD);
     }
 
     private void handleUrlFetchState(BrowserViewModel.UrlFetchState fetchState)
@@ -210,14 +251,6 @@ public class BrowserActivity extends AppCompatActivity
         super.onSaveInstanceState(outState);
     }
 
-    @Override
-    protected void onRestoreInstanceState(Bundle savedInstanceState)
-    {
-        super.onRestoreInstanceState(savedInstanceState);
-
-        webView.restoreState(savedInstanceState);
-    }
-
     private void initWebView()
     {
         if (Build.VERSION.SDK_INT <= Build.VERSION_CODES.LOLLIPOP_MR1) {
@@ -225,6 +258,21 @@ public class BrowserActivity extends AppCompatActivity
             webView.setAlwaysDrawnWithCacheEnabled(false);
         }
         webView.setBackgroundColor(Color.TRANSPARENT);
+        webView.setLongClickable(true);
+        webView.setOnLongClickListener((v) -> {
+            WebView.HitTestResult result = webView.getHitTestResult();
+            switch (result.getType()) {
+                case WebView.HitTestResult.SRC_ANCHOR_TYPE:
+                case WebView.HitTestResult.SRC_IMAGE_ANCHOR_TYPE:
+                case WebView.HitTestResult.IMAGE_TYPE:
+                    String url = result.getExtra();
+                    if (url != null)
+                        showContextMenu(url);
+                    return true;
+                default:
+                    return false;
+            }
+        });
         viewModel.initWebView(webView);
     }
 
@@ -286,6 +334,36 @@ public class BrowserActivity extends AppCompatActivity
         imm.hideSoftInputFromWindow(addressInput.getWindowToken(), 0);
     }
 
+    private void showContextMenu(String url)
+    {
+        BrowserContextMenuDialog dialog = BrowserContextMenuDialog.newInstance(url);
+        dialog.show(getSupportFragmentManager(), TAG_CONTEXT_MENU_DIALOG);
+    }
+
+    @Override
+    public void fragmentFinished(Intent intent, ResultCode code)
+    {
+        if (code != ResultCode.OK)
+            return;
+
+        String action = intent.getAction();
+        if (action == null)
+            return;
+
+        String url = intent.getStringExtra(BrowserContextMenuDialog.TAG_URL);
+        switch (action) {
+            case BrowserContextMenuDialog.TAG_ACTION_SHARE:
+                makeShareDialog(url);
+                break;
+            case BrowserContextMenuDialog.TAG_ACTION_DOWNLOAD:
+                showAddDownloadDialog(url);
+                break;
+            case BrowserContextMenuDialog.TAG_ACTION_COPY:
+                showCopyToClipboardDialog(url);
+                break;
+        }
+    }
+
     @SuppressLint("RestrictedApi")
     @Override
     public boolean onCreateOptionsMenu(Menu menu)
@@ -343,7 +421,7 @@ public class BrowserActivity extends AppCompatActivity
                 webView.reload();
                 break;
             case R.id.share_menu:
-                makeShareDialog();
+                makeShareDialog(viewModel.url.get());
                 break;
             case R.id.settings_menu:
                 showSettings();
@@ -372,15 +450,24 @@ public class BrowserActivity extends AppCompatActivity
         return true;
     }
 
-    private void makeShareDialog()
+    private void makeShareDialog(String url)
     {
-        String url = viewModel.url.get();
         if (url == null)
             return;
 
         startActivity(Intent.createChooser(
                 Utils.makeShareUrlIntent(url),
                 getString(R.string.share_via)));
+    }
+
+    private void showCopyToClipboardDialog(String url)
+    {
+        if (url == null)
+            return;
+
+        Intent i = new Intent(this, SendTextToClipboard.class);
+        i.putExtra(Intent.EXTRA_TEXT, url);
+        startActivityForResult(i, REQUEST_CODE_COPY_TO_CLIPBOARD);
     }
 
     private void showSettings()

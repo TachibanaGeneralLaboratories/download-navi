@@ -27,6 +27,7 @@ import android.os.Build;
 import android.text.TextUtils;
 import android.util.Log;
 import android.webkit.CookieManager;
+import android.webkit.DownloadListener;
 import android.webkit.WebChromeClient;
 import android.webkit.WebResourceRequest;
 import android.webkit.WebSettings;
@@ -52,7 +53,9 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import io.reactivex.Maybe;
+import io.reactivex.Observable;
 import io.reactivex.Single;
+import io.reactivex.subjects.PublishSubject;
 
 public class BrowserViewModel extends AndroidViewModel
 {
@@ -71,6 +74,7 @@ public class BrowserViewModel extends AndroidViewModel
     public ObservableField<String> url = new ObservableField<>();
     public ObservableField<String> title = new ObservableField<>();
     public ObservableBoolean isSecureConnection = new ObservableBoolean(false);
+    public PublishSubject<DownloadRequest> downloadRequestEvent = PublishSubject.create();
     private boolean requestStop = false;
     private String mobileUserAgent;
     private String desktopUserAgent;
@@ -112,6 +116,7 @@ public class BrowserViewModel extends AndroidViewModel
     {
         webView.setWebViewClient(webViewClient);
         webView.setWebChromeClient(webChromeClient);
+        webView.setDownloadListener(downloadListener);
 
         WebSettings settings = webView.getSettings();
 
@@ -155,7 +160,7 @@ public class BrowserViewModel extends AndroidViewModel
         }
     }
 
-    public void applyPrefs(@NonNull WebView webView)
+    void applyPrefs(@NonNull WebView webView)
     {
         if (pref.browserDoNotTrack())
             requestHeaders.put(HEADER_DNT, "1");
@@ -295,6 +300,11 @@ public class BrowserViewModel extends AndroidViewModel
                 .map((bookmark) -> bookmark != null);
     }
 
+    Observable<DownloadRequest> observeDownloadRequests()
+    {
+        return downloadRequestEvent;
+    }
+
     private final WebViewClient webViewClient = new WebViewClient() {
         @TargetApi(Build.VERSION_CODES.N)
         @Override
@@ -350,4 +360,32 @@ public class BrowserViewModel extends AndroidViewModel
                 urlFetchState.postValue(UrlFetchState.FETCHING.progress(newProgress));
         }
     };
+
+    private final DownloadListener downloadListener = new DownloadListener() {
+        @Override
+        public void onDownloadStart(String url,
+                                    String userAgent,
+                                    String contentDisposition,
+                                    String mimeType,
+                                    long contentLength)
+        {
+            downloadRequestEvent.onNext(new DownloadRequest(url));
+        }
+    };
+
+    public static class DownloadRequest
+    {
+        private String url;
+
+        private DownloadRequest(@NonNull String url)
+        {
+            this.url = url;
+        }
+
+        @NonNull
+        public String getUrl()
+        {
+            return url;
+        }
+    }
 }

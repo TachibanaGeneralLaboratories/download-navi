@@ -1127,6 +1127,7 @@
 
         <activity android:name=".ui.browser.BrowserActivity"
             android:label="@string/browser"
+            android:configChanges="keyboard|keyboardHidden|orientation|screenLayout|screenSize"
             android:launchMode="singleInstance">
             <intent-filter>
                 <action android:name="android.intent.action.SEND" />

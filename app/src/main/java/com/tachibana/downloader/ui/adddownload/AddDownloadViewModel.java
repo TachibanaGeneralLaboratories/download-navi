@@ -56,6 +56,7 @@ import com.tachibana.downloader.core.utils.DigestUtils;
 import com.tachibana.downloader.core.utils.MimeTypeUtils;
 import com.tachibana.downloader.core.utils.Utils;
 
+import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.lang.ref.WeakReference;
@@ -152,7 +153,7 @@ public class AddDownloadViewModel extends AndroidViewModel
                 getPrefUserAgent().userAgent :
                 initParams.userAgent);
         params.setDirPath(initParams.dirPath == null ?
-                Uri.parse(fs.getDefaultDownloadPath()) :
+                Uri.fromFile(new File(fs.getDefaultDownloadPath())) :
                 initParams.dirPath);
         params.setUnmeteredConnectionsOnly(initParams.unmeteredConnectionsOnly);
         params.setRetry(initParams.retry);

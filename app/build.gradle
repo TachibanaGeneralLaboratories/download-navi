@@ -73,7 +73,7 @@ dependencies {
     testAnnotationProcessor "com.google.auto.service:auto-service:1.0-rc6"
 
     /* AndroidX libraries */
-    implementation "androidx.appcompat:appcompat:1.1.0"
+    implementation "androidx.appcompat:appcompat:1.2.0-rc01"
     implementation "androidx.constraintlayout:constraintlayout:2.0.0-beta6"
     implementation "androidx.recyclerview:recyclerview:1.1.0"
     implementation "androidx.recyclerview:recyclerview-selection:1.1.0-rc01"
