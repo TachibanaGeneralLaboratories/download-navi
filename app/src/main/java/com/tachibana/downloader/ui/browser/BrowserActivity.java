@@ -287,6 +287,9 @@ public class BrowserActivity extends AppCompatActivity
         toggleClearButton(false);
 
         addressInput.setOnFocusChangeListener((v, hasFocus) -> {
+            /* Move to the beginning of the address bar after keyboard hiding */
+            if (!hasFocus)
+                addressInput.setSelection(0);
             toggleMenuButtons(hasFocus);
             toggleClearButton(hasFocus && !TextUtils.isEmpty(viewModel.url.get()));
         });
