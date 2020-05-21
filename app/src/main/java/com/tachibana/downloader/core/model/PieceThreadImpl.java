@@ -357,8 +357,9 @@ class PieceThreadImpl extends Thread implements PieceThread
         if (!(hasLength || isConnectionClose || isEncodingChunked)) {
             /* Try to get content length */
             try {
-                piece.size = Long.parseLong(conn.getHeaderField("Content-Length"));
-                if (piece.size != -1) {
+                long contentLength = Long.parseLong(conn.getHeaderField("Content-Length"));
+                if (contentLength != -1 && pieceIndex == 0) {
+                    piece.size = contentLength;
                     writeToDatabase();
                 } else {
                     return new StopRequest(STATUS_CANNOT_RESUME,
