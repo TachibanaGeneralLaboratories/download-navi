@@ -16,6 +16,8 @@
         <item>Bing</item>
         <item>DuckDuckGo</item>
         <item>Google</item>
+        <item>MetaGer</item>
+        <item>Oscobo</item>
         <item>Qwant</item>
         <item>Swisscows</item>
         <item>Yahoo</item>
@@ -26,6 +28,8 @@
         <item>https://www.bing.com/search?q={searchTerms}</item>
         <item>https://duckduckgo.com/?q={searchTerms}</item>
         <item>https://google.com/search?ie=UTF-8&amp;source=android-browser&amp;q={searchTerms}</item>
+        <item>https://metager.org/meta/meta.ger3?submit-query=&amp;focus=web&amp;eingabe={searchTerms}</item>
+        <item>https://www.oscobo.com/search.php?q={searchTerms}</item>
         <item>https://www.qwant.com/?q={searchTerms}</item>
         <item>https://swisscows.ch/web?query={searchTerms}</item>
         <item>https://search.yahoo.com/p={searchTerms}</item>
