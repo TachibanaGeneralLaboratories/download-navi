@@ -20,8 +20,10 @@
 
 package com.tachibana.downloader.core.model;
 
+import android.content.Intent;
 import android.net.NetworkInfo;
 import android.net.Uri;
+import android.text.TextUtils;
 import android.util.Log;
 
 import androidx.annotation.NonNull;
@@ -503,7 +505,25 @@ class DownloadThreadImpl implements DownloadThread
 
     private StopRequest parseOkHeaders(HttpURLConnection conn)
     {
-        String mimeType = MimeTypeUtils.normalizeMimeType(conn.getContentType());
+        String mimeType = Intent.normalizeMimeType(conn.getContentType());
+        /* Try to determine the MIME type by the filename extension */
+        if (mimeType == null || mimeType.equals("application/octet-stream")) {
+            String contentDisposition = conn.getHeaderField("Content-Disposition");
+            String contentLocation = conn.getHeaderField("Content-Location");
+            String tmpUrl = conn.getURL().toString();
+
+            String fileName = Utils.getHttpFileName(fs,
+                    tmpUrl,
+                    contentDisposition,
+                    contentLocation,
+                    null);
+
+            /* Try to get MIME from filename extension */
+            String extension = fs.getExtension(fileName);
+            if (!TextUtils.isEmpty(extension))
+                mimeType = MimeTypeUtils.getMimeTypeFromExtension(extension);
+        }
+
         if (mimeType != null && !mimeType.equals(info.mimeType))
             info.mimeType = mimeType;
 
