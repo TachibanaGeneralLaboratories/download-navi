@@ -324,6 +324,7 @@ public class AddDownloadViewModel extends AndroidViewModel
     {
         String contentDisposition = conn.getHeaderField("Content-Disposition");
         String contentLocation = conn.getHeaderField("Content-Location");
+        String tmpUrl = conn.getURL().toString();
 
         String mimeType = Intent.normalizeMimeType(conn.getContentType());
         /* Try to determine the MIME type later by the filename extension */
@@ -332,7 +333,7 @@ public class AddDownloadViewModel extends AndroidViewModel
 
         if (TextUtils.isEmpty(params.getFileName()))
             params.setFileName(Utils.getHttpFileName(fs,
-                    params.getUrl(),
+                    tmpUrl,
                     contentDisposition,
                     contentLocation,
                     mimeType));
