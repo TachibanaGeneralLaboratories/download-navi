@@ -1,5 +1,3 @@
-Download Navi là trình quản lí tải xuống tự do mã nguồn mở dành cho Android 4.4+.
-
 # Tính năng
 
 * Là phần mềm tự do mã nguồn mở (FOSS)

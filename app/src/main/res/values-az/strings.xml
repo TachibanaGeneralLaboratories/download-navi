@@ -51,8 +51,8 @@
     <string name="apply">Tətbiq et</string>
     <string name="report">Xəbər ver</string>
     <string name="more_details">Daha çox təfsilat</string>
-    <string name="clipboard">Clipboard</string>
-    <string name="verify">Verify</string>
+    <string name="clipboard">Lövhə</string>
+    <string name="verify">Təsdiqlə</string>
     <!-- Permission dialog -->
     <string name="perm_denied_title">İcazə verilmədi</string>
     <string name="perm_denied_warning">Bu icazə olmasa tətbiq Android versiyasında və bəzi cihazlarda faylları yaddaşda saxlaya bilməz. Tətbiq düzgün işləməz. Bu icazəni rədd etmək istədiyinizə əminsiniz?</string>
@@ -101,9 +101,9 @@
     <string name="path">Yol</string>
     <string name="storage_free_space">Boş yer: %1$s</string>
     <string name="add_download_error_invalid_url">Endirmə əlavə edilə bilmədi: etibarsız URL</string>
-    <string name="checksum">Checksum</string>
+    <string name="checksum">Yoxlama cəmi</string>
     <string name="add_dialog_checksum_description">MD5, SHA-256</string>
-    <string name="error_invalid_checksum">Invalid checksum</string>
+    <string name="error_invalid_checksum">Etibarsız yoxlama cəmi</string>
     <!-- Add user agent dialog -->
     <string name="dialog_add_user_agent_title">İstifadəçi agenti əlavə et</string>
     <!-- Main activity -->
@@ -151,7 +151,7 @@
     <string name="delete_selected_download">Seçilmiş endirmə silinsin? Bu əməliyyatın geri dönüşü yoxdur</string>
     <string name="delete_selected_downloads">Seçilmiş endirmələr silinsin? Bu əməliyyatın geri dönüşü yoxdur</string>
     <string name="delete_with_downloaded_file">Endirilmiş faylı da sil</string>
-    <string name="error_verify_checksum">Invalid file checksum</string>
+    <string name="error_verify_checksum">Etibarsız fayl yoxlama cəmi</string>
     <!-- Filemanager dialog -->
     <string name="dir_chooser_title">Qovluq seçimi</string>
     <string name="file_chooser_title">Fayl seçimi</string>

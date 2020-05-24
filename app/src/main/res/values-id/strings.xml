@@ -186,42 +186,42 @@
     <string name="send_text_to_clipboard">Salin</string>
     <string name="text_copied_to_clipboard">Teks disalin ke papan klip</string>
     <!-- Browser -->
-    <string name="browser">Browser</string>
+    <string name="browser">Peramban</string>
     <string name="browser_app">Navi Browser</string>
-    <string name="webview_is_required">WebView is required to work</string>
-    <string name="browser_forward_arrow">Forward</string>
-    <string name="browser_desktop_version">Desktop version</string>
-    <string name="browser_address_bar_hint">Enter address or query</string>
-    <string name="browser_back_pressed">Press again to close</string>
-    <string name="browser_secure_connection">Secure connection</string>
-    <string name="browser_download_from_link">Download</string>
-    <string name="browser_copy_link">Copy link</string>
+    <string name="webview_is_required">Membutuhkan WebView untuk bisa bekerja</string>
+    <string name="browser_forward_arrow">Maju</string>
+    <string name="browser_desktop_version">Versi desktop</string>
+    <string name="browser_address_bar_hint">Masukkan alamat atau kueri</string>
+    <string name="browser_back_pressed">Tekan lagi untuk menutup</string>
+    <string name="browser_secure_connection">Koneksi aman</string>
+    <string name="browser_download_from_link">Unduh</string>
+    <string name="browser_copy_link">Salin tautan</string>
     <!-- Browser bookmarks -->
-    <string name="browser_bookmarks">Bookmarks</string>
-    <string name="bookmarks_list_empty">No bookmarks</string>
-    <string name="browser_add_bookmark">Add bookmark</string>
-    <string name="browser_edit_bookmark">Edit bookmark</string>
+    <string name="browser_bookmarks">Markah</string>
+    <string name="bookmarks_list_empty">Tidak ada markah</string>
+    <string name="browser_add_bookmark">Tambah markah</string>
+    <string name="browser_edit_bookmark">Sunting markah</string>
     <!-- Edit bookmark dialog -->
-    <string name="browser_bookmark_name">Name</string>
+    <string name="browser_bookmark_name">Nama</string>
     <string name="browser_bookmark_url">URL</string>
-    <string name="browser_bookmark_error_empty_url">Please enter URL</string>
-    <string name="browser_bookmark_error_empty_name">Please enter name</string>
+    <string name="browser_bookmark_error_empty_url">Silakan masukkan URL</string>
+    <string name="browser_bookmark_error_empty_name">Silakan masukkan nama</string>
     <plurals name="browser_bookmark_deleted">
-        <item quantity="other">Bookmarks deleted</item>
+        <item quantity="other">Markah dihapus</item>
     </plurals>
     <plurals name="browser_bookmark_delete_failed">
-        <item quantity="other">Failed to delete bookmarks</item>
+        <item quantity="other">Gagal menghapus markah</item>
     </plurals>
-    <string name="browser_bookmark_change_failed">Failed to change bookmark</string>
-    <string name="browser_bookmark_added">Bookmark added</string>
-    <string name="browser_bookmark_add_failed">Failed to add bookmark</string>
-    <string name="browser_bookmark_edit_menu">Edit</string>
+    <string name="browser_bookmark_change_failed">Gagal mengubah markah</string>
+    <string name="browser_bookmark_added">Markah ditambahkan</string>
+    <string name="browser_bookmark_add_failed">Gagal menambahkan markah</string>
+    <string name="browser_bookmark_edit_menu">Sunting</string>
     <!-- Settings -->
     <!-- Headers -->
     <string name="pref_header_appearance">Tampilan</string>
     <string name="pref_header_behavior">Perilaku</string>
     <string name="pref_header_storage">Penyimpanan</string>
-    <string name="pref_header_browser">Browser</string>
+    <string name="pref_header_browser">Peramban</string>
     <!-- Appearance settings -->
     <string name="pref_theme_category">Pengaturan tema</string>
     <string name="pref_theme_title">Tema</string>
@@ -276,25 +276,25 @@
     <string name="pref_preallocate_disk_space_title">Pra-alokasi ruang diska untuk berkas</string>
     <string name="pref_preallocate_disk_space_summary">Tersedia untuk Android 5.0 Lollipop dan versi selanjutnya</string>
     <!-- Browser settings -->
-    <string name="pref_browser_bottom_address_bar_title">Address bar at the bottom</string>
-    <string name="pref_browser_bottom_address_bar_summary">The address bar will be located at the bottom of the screen</string>
-    <string name="pref_browser_start_page_title">Start page</string>
-    <string name="pref_browser_allow_java_script_title">Allow Java Script</string>
-    <string name="pref_browser_allow_popup_windows_title">Allow popup windows</string>
-    <string name="pref_browser_cache_category">Cache</string>
-    <string name="pref_browser_cookies_category">Cookies</string>
-    <string name="pref_browser_enable_caching_title">Enable caching</string>
-    <string name="pref_browser_enable_cookies_title">Enable cookies</string>
-    <string name="pref_browser_delete_cookies_title">Delete cookies</string>
-    <string name="pref_browser_delete_cookies_done">Deleted all the cookies</string>
-    <string name="pref_browser_clear_cache_title">Clear cache</string>
-    <string name="pref_browser_clear_cache_done">The cache is cleared</string>
-    <string name="pref_browser_do_not_track_title">Do Not Track</string>
-    <string name="pref_browser_do_not_track_summary">Send a “Do Not Track” request to websites you visit</string>
-    <string name="pref_browser_launcher_icon_title">Browser icon in the launcher</string>
-    <string name="pref_browser_disable_from_system_title">Disable browser from the system</string>
-    <string name="pref_browser_disable_from_system_summary">Browser will not be available for opening links</string>
-    <string name="pref_browser_search_engine_title">Search engine</string>
+    <string name="pref_browser_bottom_address_bar_title">Bilah alamat di bawah</string>
+    <string name="pref_browser_bottom_address_bar_summary">Bilah alamat akan ditempatkan di bawah layar</string>
+    <string name="pref_browser_start_page_title">Halaman mulai</string>
+    <string name="pref_browser_allow_java_script_title">Izinkan Java Script</string>
+    <string name="pref_browser_allow_popup_windows_title">Izinkan jendela popup</string>
+    <string name="pref_browser_cache_category">Tembolok</string>
+    <string name="pref_browser_cookies_category">Kuki</string>
+    <string name="pref_browser_enable_caching_title">Aktifkan tembolok</string>
+    <string name="pref_browser_enable_cookies_title">Aktifkan kuki</string>
+    <string name="pref_browser_delete_cookies_title">Hapus kuki</string>
+    <string name="pref_browser_delete_cookies_done">Hapus semua kuki</string>
+    <string name="pref_browser_clear_cache_title">Hapus tembolok</string>
+    <string name="pref_browser_clear_cache_done">Tembolok dihapus</string>
+    <string name="pref_browser_do_not_track_title">Jangan Lacak</string>
+    <string name="pref_browser_do_not_track_summary">Kirim permintaan \"Jangan Lacak\" ke situs web yang anda kunjungi</string>
+    <string name="pref_browser_launcher_icon_title">Ikon peramban di dalam peluncur</string>
+    <string name="pref_browser_disable_from_system_title">Nonaktifkan peramban dari pengaturan sistem</string>
+    <string name="pref_browser_disable_from_system_summary">Peramban tidak akan tersedia saat membuka tautan</string>
+    <string name="pref_browser_search_engine_title">Mesin pencari</string>
     <!-- About dialog -->
     <string name="about_title">Tentang Download Navi</string>
     <string name="about_description"><![CDATA[    Informasi dan ikut dukung proyek ini: <a href="https://github.com/TachibanaGeneralLaboratories/download-navi">https://github.com/TachibanaGeneralLaboratories/download-navi</a><br><br>

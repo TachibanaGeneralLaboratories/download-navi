@@ -51,8 +51,8 @@
     <string name="apply">Áp dụng thay đổi</string>
     <string name="report">Báo cáo</string>
     <string name="more_details">Thêm thông tin</string>
-    <string name="clipboard">Clipboard</string>
-    <string name="verify">Verify</string>
+    <string name="clipboard">Bảng nhớ tạm</string>
+    <string name="verify">Kiểm tra</string>
     <!-- Permission dialog -->
     <string name="perm_denied_title">Quyền truy cập bị từ chối</string>
     <string name="perm_denied_warning">Nếu không có quyền này, ứng dụng không thể lưu dữ liệu trên một số máy và một số phiên bản Android nên không thể hoạt động bình thường được. Bạn có chắc chắn muốn từ chối quyền này không?</string>
@@ -101,9 +101,9 @@
     <string name="path">Đường dẫn</string>
     <string name="storage_free_space">Bộ nhớ còn trống: %1$s</string>
     <string name="add_download_error_invalid_url">Không thêm được mục tải: URL không hợp lệ</string>
-    <string name="checksum">Checksum</string>
+    <string name="checksum">Mã kiểm tra</string>
     <string name="add_dialog_checksum_description">MD5, SHA-256</string>
-    <string name="error_invalid_checksum">Invalid checksum</string>
+    <string name="error_invalid_checksum">Mã kiểm tra không hợp lệ</string>
     <!-- Add user agent dialog -->
     <string name="dialog_add_user_agent_title">Thêm tác nhân người dùng (user agent)</string>
     <!-- Main activity -->
@@ -151,7 +151,7 @@
     <string name="delete_selected_download">Xoá mục đã chọn? Thao tác này không thể khôi phục</string>
     <string name="delete_selected_downloads">Xoá các mục đã chọn? Thao tác này không thể khôi phục</string>
     <string name="delete_with_downloaded_file">Xoá kèm tập tin tải xuống</string>
-    <string name="error_verify_checksum">Invalid file checksum</string>
+    <string name="error_verify_checksum">Mã kiểm tra của tập tin không hợp lệ</string>
     <!-- Filemanager dialog -->
     <string name="dir_chooser_title">Chọn thư mục</string>
     <string name="file_chooser_title">Chọn tập tin</string>
@@ -266,8 +266,8 @@
     <string name="pref_replace_duplicate_downloads_summary">Thay thế các mục tải xuống trùng nhau (cùng URL) khi thêm vào danh sách</string>
     <string name="pref_auto_connect_title">Tự động kết nối</string>
     <string name="pref_auto_connect_summary">Tự động kết nối khi mở hộp thoại thêm tải xuống</string>
-    <string name="pref_timeout_title">Timeout</string>
-    <string name="pref_timeout_summary">The number of milliseconds to wait before the connection timed out. Zero is interpreted as an infinite timeout</string>
+    <string name="pref_timeout_title">Giới hạn thời gian</string>
+    <string name="pref_timeout_summary">Khoảng thời gian tính theo mili-giây nếu không kết nối được sẽ huỷ kết nối. Giá trị 0 được coi như khoảng thời gian vô hạn</string>
     <!-- Storage settings -->
     <string name="pref_save_downloads_in_title">Lưu tập tin tải xuống vào</string>
     <string name="pref_move_after_download_title">Di chuyển tập tin sau khi tải</string>

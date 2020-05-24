@@ -186,46 +186,48 @@
     <string name="send_text_to_clipboard">Kopírovať</string>
     <string name="text_copied_to_clipboard">Text sa skopíroval do schránky</string>
     <!-- Browser -->
-    <string name="browser">Browser</string>
+    <string name="browser">Prehliadač</string>
     <string name="browser_app">Navi Browser</string>
-    <string name="webview_is_required">WebView is required to work</string>
-    <string name="browser_forward_arrow">Forward</string>
-    <string name="browser_desktop_version">Desktop version</string>
-    <string name="browser_address_bar_hint">Enter address or query</string>
-    <string name="browser_back_pressed">Press again to close</string>
-    <string name="browser_secure_connection">Secure connection</string>
-    <string name="browser_download_from_link">Download</string>
-    <string name="browser_copy_link">Copy link</string>
+    <string name="webview_is_required">Pre fungovanie je potrebný WebView</string>
+    <string name="browser_forward_arrow">Dopredu</string>
+    <string name="browser_desktop_version">Web pre počítače</string>
+    <string name="browser_address_bar_hint">Zadajte adresu alebo dopyt</string>
+    <string name="browser_back_pressed">Pre ukončenie stlačte znova</string>
+    <string name="browser_secure_connection">Zabezpečené pripojenie</string>
+    <string name="browser_download_from_link">Stiahnuť</string>
+    <string name="browser_copy_link">Skopírovať odkaz</string>
     <!-- Browser bookmarks -->
-    <string name="browser_bookmarks">Bookmarks</string>
-    <string name="bookmarks_list_empty">No bookmarks</string>
-    <string name="browser_add_bookmark">Add bookmark</string>
-    <string name="browser_edit_bookmark">Edit bookmark</string>
+    <string name="browser_bookmarks">Záložky</string>
+    <string name="bookmarks_list_empty">Žiadne záložky</string>
+    <string name="browser_add_bookmark">Pridať záložku</string>
+    <string name="browser_edit_bookmark">Upraviť záložku</string>
     <!-- Edit bookmark dialog -->
-    <string name="browser_bookmark_name">Name</string>
-    <string name="browser_bookmark_url">URL</string>
-    <string name="browser_bookmark_error_empty_url">Please enter URL</string>
-    <string name="browser_bookmark_error_empty_name">Please enter name</string>
+    <string name="browser_bookmark_name">Názov</string>
+    <string name="browser_bookmark_url">Adresa URL</string>
+    <string name="browser_bookmark_error_empty_url">Zadajte adresu URL</string>
+    <string name="browser_bookmark_error_empty_name">Zadajte názov</string>
     <plurals name="browser_bookmark_deleted">
-        <item quantity="one">Bookmark deleted</item>
-        <item quantity="few">Bookmarks deleted</item>
-        <item quantity="other">Bookmarks deleted</item>
+        <item quantity="one">Záložka odstránená</item>
+        <item quantity="few">Záložky odstránené</item>
+        <item quantity="many">Bookmarks deleted</item>
+        <item quantity="other">Záložiek odstránených</item>
     </plurals>
     <plurals name="browser_bookmark_delete_failed">
-        <item quantity="one">Failed to delete bookmark</item>
-        <item quantity="few">Failed to delete bookmarks</item>
-        <item quantity="other">Failed to delete bookmarks</item>
+        <item quantity="one">Nepodarilo sa odstrániť záložku</item>
+        <item quantity="few">Nepodarilo sa odstrániť záložky</item>
+        <item quantity="many">Failed to delete bookmarks</item>
+        <item quantity="other">Nepodarilo sa odstrániť záložiek</item>
     </plurals>
-    <string name="browser_bookmark_change_failed">Failed to change bookmark</string>
-    <string name="browser_bookmark_added">Bookmark added</string>
-    <string name="browser_bookmark_add_failed">Failed to add bookmark</string>
-    <string name="browser_bookmark_edit_menu">Edit</string>
+    <string name="browser_bookmark_change_failed">Nepodarilo sa zmeniť záložku</string>
+    <string name="browser_bookmark_added">Záložka pridaná</string>
+    <string name="browser_bookmark_add_failed">Nepodarilo sa pridať záložku</string>
+    <string name="browser_bookmark_edit_menu">Upraviť</string>
     <!-- Settings -->
     <!-- Headers -->
     <string name="pref_header_appearance">Vzhľad</string>
     <string name="pref_header_behavior">Správanie</string>
     <string name="pref_header_storage">Úložisko</string>
-    <string name="pref_header_browser">Browser</string>
+    <string name="pref_header_browser">Prehliadač</string>
     <!-- Appearance settings -->
     <string name="pref_theme_category">Nastavenie motívu</string>
     <string name="pref_theme_title">Motív</string>
@@ -280,25 +282,25 @@
     <string name="pref_preallocate_disk_space_title">Vopred vyhradiť miesto na disku pre súbor</string>
     <string name="pref_preallocate_disk_space_summary">K dispozícii pre Android 5.0 Lollipop a vyššie</string>
     <!-- Browser settings -->
-    <string name="pref_browser_bottom_address_bar_title">Address bar at the bottom</string>
-    <string name="pref_browser_bottom_address_bar_summary">The address bar will be located at the bottom of the screen</string>
-    <string name="pref_browser_start_page_title">Start page</string>
-    <string name="pref_browser_allow_java_script_title">Allow Java Script</string>
-    <string name="pref_browser_allow_popup_windows_title">Allow popup windows</string>
-    <string name="pref_browser_cache_category">Cache</string>
+    <string name="pref_browser_bottom_address_bar_title">Adresný riadok naspodku</string>
+    <string name="pref_browser_bottom_address_bar_summary">Adresný riadok bude umiestnený na spodu obrazovky</string>
+    <string name="pref_browser_start_page_title">Úvodná stránka</string>
+    <string name="pref_browser_allow_java_script_title">Povoliť Java Script</string>
+    <string name="pref_browser_allow_popup_windows_title">Povoliť vyskakovacie okná</string>
+    <string name="pref_browser_cache_category">Vyrovnávacia pamäť</string>
     <string name="pref_browser_cookies_category">Cookies</string>
-    <string name="pref_browser_enable_caching_title">Enable caching</string>
-    <string name="pref_browser_enable_cookies_title">Enable cookies</string>
-    <string name="pref_browser_delete_cookies_title">Delete cookies</string>
-    <string name="pref_browser_delete_cookies_done">Deleted all the cookies</string>
-    <string name="pref_browser_clear_cache_title">Clear cache</string>
-    <string name="pref_browser_clear_cache_done">The cache is cleared</string>
-    <string name="pref_browser_do_not_track_title">Do Not Track</string>
-    <string name="pref_browser_do_not_track_summary">Send a “Do Not Track” request to websites you visit</string>
-    <string name="pref_browser_launcher_icon_title">Browser icon in the launcher</string>
-    <string name="pref_browser_disable_from_system_title">Disable browser from the system</string>
-    <string name="pref_browser_disable_from_system_summary">Browser will not be available for opening links</string>
-    <string name="pref_browser_search_engine_title">Search engine</string>
+    <string name="pref_browser_enable_caching_title">Povoliť cachovanie</string>
+    <string name="pref_browser_enable_cookies_title">Povoliť cookies</string>
+    <string name="pref_browser_delete_cookies_title">Vymazať súbory cookie</string>
+    <string name="pref_browser_delete_cookies_done">Odstrániť všetky súbory cookies</string>
+    <string name="pref_browser_clear_cache_title">Vyčistiť vyrovnávaciu pamäť</string>
+    <string name="pref_browser_clear_cache_done">Vyrovnávacia pamäť je vyčistená</string>
+    <string name="pref_browser_do_not_track_title">Funkcia Nesledovať</string>
+    <string name="pref_browser_do_not_track_summary">Odošle webovým stránkam požiadavku, aby vás nesledovali</string>
+    <string name="pref_browser_launcher_icon_title">Ikona prehliadača v spúšťači</string>
+    <string name="pref_browser_disable_from_system_title">Zakázať prehlliadač v systéme</string>
+    <string name="pref_browser_disable_from_system_summary">Prehliadač nebude dostupný pre otváranie odkazov</string>
+    <string name="pref_browser_search_engine_title">Vyhľadávač</string>
     <!-- About dialog -->
     <string name="about_title">O Download Navi</string>
     <string name="about_description"><![CDATA[    Viac informácií a tiež pomoc s projektom: <a href="https://github.com/TachibanaGeneralLaboratories/download-navi">https://github.com/TachibanaGeneralLaboratories/download-navi</a><br><br>

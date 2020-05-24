@@ -52,7 +52,7 @@
     <string name="report">إبلاغ</string>
     <string name="more_details">المزيد من التفاصيل</string>
     <string name="clipboard">الحافظة</string>
-    <string name="verify">Verify</string>
+    <string name="verify">تحقق</string>
     <!-- Permission dialog -->
     <string name="perm_denied_title">الإذن مرفوض</string>
     <string name="perm_denied_warning">التطبيق بدون هذا الإذن لا يمكنه حفظ الملفات في الذاكرة في بعض الأجهزة وإصدارات الاندرويد. ولن يعمل التطبيق بالشكل المطلوب. هل أنت متأكد من أنك تريد رفض هذا الإذن؟</string>
@@ -103,7 +103,7 @@
     <string name="add_download_error_invalid_url">لايمكن اضافة التحميل: الرابط غير صحيح</string>
     <string name="checksum">Checksum</string>
     <string name="add_dialog_checksum_description">MD5, SHA-256</string>
-    <string name="error_invalid_checksum">Invalid checksum</string>
+    <string name="error_invalid_checksum">المجموع الاختباري غير صالح</string>
     <!-- Add user agent dialog -->
     <string name="dialog_add_user_agent_title">إضافة وكيل المستخدم</string>
     <!-- Main activity -->
@@ -151,7 +151,7 @@
     <string name="delete_selected_download">حذف التنزيل المحدد؟ لا يمكن التراجع عن هذه العملية</string>
     <string name="delete_selected_downloads">حذف ملف التنزيل المحدد؟ لا يمكن التراجع عن هذه العملية</string>
     <string name="delete_with_downloaded_file">حذف التحميل مع الملف الذي تم تنزيله</string>
-    <string name="error_verify_checksum">Invalid file checksum</string>
+    <string name="error_verify_checksum">المجموع الاختباري للملف غير صالح</string>
     <!-- Filemanager dialog -->
     <string name="dir_chooser_title">اختيار مجلد</string>
     <string name="file_chooser_title">اختيار ملف</string>
@@ -186,52 +186,52 @@
     <string name="send_text_to_clipboard">نسخ</string>
     <string name="text_copied_to_clipboard">تم نسخ النص إلى الحافظة</string>
     <!-- Browser -->
-    <string name="browser">Browser</string>
-    <string name="browser_app">Navi Browser</string>
-    <string name="webview_is_required">WebView is required to work</string>
-    <string name="browser_forward_arrow">Forward</string>
-    <string name="browser_desktop_version">Desktop version</string>
-    <string name="browser_address_bar_hint">Enter address or query</string>
-    <string name="browser_back_pressed">Press again to close</string>
-    <string name="browser_secure_connection">Secure connection</string>
-    <string name="browser_download_from_link">Download</string>
-    <string name="browser_copy_link">Copy link</string>
+    <string name="browser">المتصفح</string>
+    <string name="browser_app">متصفح Navi</string>
+    <string name="webview_is_required">يتطلب تطبيق WebView لتعمل الميزة بالشكل المطلوب</string>
+    <string name="browser_forward_arrow">إلى الأمام</string>
+    <string name="browser_desktop_version">إصدار سطح المكتب</string>
+    <string name="browser_address_bar_hint">أدخل عنوانًا أو ابحث</string>
+    <string name="browser_back_pressed">اضغط على الزر مرة أخرى للخروج</string>
+    <string name="browser_secure_connection">اتصال آمن</string>
+    <string name="browser_download_from_link">تنزيل</string>
+    <string name="browser_copy_link">نسخ الرابط</string>
     <!-- Browser bookmarks -->
-    <string name="browser_bookmarks">Bookmarks</string>
-    <string name="bookmarks_list_empty">No bookmarks</string>
-    <string name="browser_add_bookmark">Add bookmark</string>
-    <string name="browser_edit_bookmark">Edit bookmark</string>
+    <string name="browser_bookmarks">الإشارات المرجعيّة</string>
+    <string name="bookmarks_list_empty">لا توجد إشارات مرجعية</string>
+    <string name="browser_add_bookmark">إضافة إشارة مرجعية</string>
+    <string name="browser_edit_bookmark">تعديل الإشارة المرجعية</string>
     <!-- Edit bookmark dialog -->
-    <string name="browser_bookmark_name">Name</string>
-    <string name="browser_bookmark_url">URL</string>
-    <string name="browser_bookmark_error_empty_url">Please enter URL</string>
-    <string name="browser_bookmark_error_empty_name">Please enter name</string>
+    <string name="browser_bookmark_name">الاسم</string>
+    <string name="browser_bookmark_url">عنوان URL</string>
+    <string name="browser_bookmark_error_empty_url">الرجاء إدخال عنوان الرابط</string>
+    <string name="browser_bookmark_error_empty_name">الرجاء إدخال الأسم</string>
     <plurals name="browser_bookmark_deleted">
-        <item quantity="one">Bookmark deleted</item>
-        <item quantity="two">Bookmarks deleted</item>
-        <item quantity="few">Bookmarks deleted</item>
-        <item quantity="many">Bookmarks deleted</item>
-        <item quantity="zero">Bookmarks deleted</item>
-        <item quantity="other">Bookmarks deleted</item>
+        <item quantity="zero">لم يتم حذف أي إشارة مرجعية</item>
+        <item quantity="one">تم حذف إشارة المرجعية واحدة</item>
+        <item quantity="two">تم حذف إشاراتان مرجعية</item>
+        <item quantity="few">تم حذف الإشارات المرجعية</item>
+        <item quantity="many">تم حذف العديد من الإشارات الرجعية</item>
+        <item quantity="other">تم حذف الإشارة المرجعية</item>
     </plurals>
     <plurals name="browser_bookmark_delete_failed">
-        <item quantity="one">Failed to delete bookmark</item>
-        <item quantity="two">Failed to delete bookmarks</item>
-        <item quantity="few">Failed to delete bookmarks</item>
-        <item quantity="many">Failed to delete bookmarks</item>
-        <item quantity="zero">Failed to delete bookmarks</item>
-        <item quantity="other">Failed to delete bookmarks</item>
+        <item quantity="zero">فشل في حذف الإشارات المرجعية</item>
+        <item quantity="one">فشل في حذف إشارة مرجعية واحدة</item>
+        <item quantity="two">فشل في حذف الإشارات المرجعية</item>
+        <item quantity="few">فشل في حذف الإشارات المرجعية</item>
+        <item quantity="many">فشل في حذف الإشارات المرجعية</item>
+        <item quantity="other">فشل في حذف الإشارات المرجعية</item>
     </plurals>
-    <string name="browser_bookmark_change_failed">Failed to change bookmark</string>
-    <string name="browser_bookmark_added">Bookmark added</string>
-    <string name="browser_bookmark_add_failed">Failed to add bookmark</string>
-    <string name="browser_bookmark_edit_menu">Edit</string>
+    <string name="browser_bookmark_change_failed">فشل في تغيير الإشارة المرجعية</string>
+    <string name="browser_bookmark_added">تمت إضافة إشارة مرجعية</string>
+    <string name="browser_bookmark_add_failed">فشل في إضافة إشارة مرجعية</string>
+    <string name="browser_bookmark_edit_menu">تحرير</string>
     <!-- Settings -->
     <!-- Headers -->
     <string name="pref_header_appearance">المظهر</string>
     <string name="pref_header_behavior">السلوك</string>
     <string name="pref_header_storage">التخزين</string>
-    <string name="pref_header_browser">Browser</string>
+    <string name="pref_header_browser">المتصفح</string>
     <!-- Appearance settings -->
     <string name="pref_theme_category">إعدادات الثيم</string>
     <string name="pref_theme_title">الثيم</string>
@@ -286,25 +286,25 @@
     <string name="pref_preallocate_disk_space_title">تخصيص مسبق للملف من مساحة القرص</string>
     <string name="pref_preallocate_disk_space_summary">متاح لإصدارات أندرويد 5.0 وما فوق</string>
     <!-- Browser settings -->
-    <string name="pref_browser_bottom_address_bar_title">Address bar at the bottom</string>
-    <string name="pref_browser_bottom_address_bar_summary">The address bar will be located at the bottom of the screen</string>
-    <string name="pref_browser_start_page_title">Start page</string>
-    <string name="pref_browser_allow_java_script_title">Allow Java Script</string>
-    <string name="pref_browser_allow_popup_windows_title">Allow popup windows</string>
-    <string name="pref_browser_cache_category">Cache</string>
-    <string name="pref_browser_cookies_category">Cookies</string>
-    <string name="pref_browser_enable_caching_title">Enable caching</string>
-    <string name="pref_browser_enable_cookies_title">Enable cookies</string>
-    <string name="pref_browser_delete_cookies_title">Delete cookies</string>
-    <string name="pref_browser_delete_cookies_done">Deleted all the cookies</string>
-    <string name="pref_browser_clear_cache_title">Clear cache</string>
-    <string name="pref_browser_clear_cache_done">The cache is cleared</string>
-    <string name="pref_browser_do_not_track_title">Do Not Track</string>
-    <string name="pref_browser_do_not_track_summary">Send a “Do Not Track” request to websites you visit</string>
-    <string name="pref_browser_launcher_icon_title">Browser icon in the launcher</string>
-    <string name="pref_browser_disable_from_system_title">Disable browser from the system</string>
-    <string name="pref_browser_disable_from_system_summary">Browser will not be available for opening links</string>
-    <string name="pref_browser_search_engine_title">Search engine</string>
+    <string name="pref_browser_bottom_address_bar_title">شريط العنوان في الأسفل</string>
+    <string name="pref_browser_bottom_address_bar_summary">سيتم وضع شريط العنوان في الجزء السفلي من الشاشة</string>
+    <string name="pref_browser_start_page_title">صفحة البداية</string>
+    <string name="pref_browser_allow_java_script_title">السماح بجافا بسكريبت</string>
+    <string name="pref_browser_allow_popup_windows_title">السماح بالنوافذ المنبثقة</string>
+    <string name="pref_browser_cache_category">التخزين مؤقت</string>
+    <string name="pref_browser_cookies_category">ملفات تعريف الارتباط</string>
+    <string name="pref_browser_enable_caching_title">تمكين التخزين المؤقت</string>
+    <string name="pref_browser_enable_cookies_title">تمكين ملفات تعريف الارتباط</string>
+    <string name="pref_browser_delete_cookies_title">حذف ملفات تعريف الارتباط</string>
+    <string name="pref_browser_delete_cookies_done">حذف جميع ملفات تعريف الارتباط</string>
+    <string name="pref_browser_clear_cache_title">مسح ذاكرة التخزين المؤقت</string>
+    <string name="pref_browser_clear_cache_done">تم مسح ذاكرة التخزين المؤقت</string>
+    <string name="pref_browser_do_not_track_title">لا تقم بتتبعي</string>
+    <string name="pref_browser_do_not_track_summary">إرسال طلب \"لا تتبع\" إلى مواقع الويب التي تزورها</string>
+    <string name="pref_browser_launcher_icon_title">إظهار أيقونة المتصفح في قائمة البرامج</string>
+    <string name="pref_browser_disable_from_system_title">تعطيل المتصفح من النظام</string>
+    <string name="pref_browser_disable_from_system_summary">المتصفح لن يكون متاحا لفتح الروابط</string>
+    <string name="pref_browser_search_engine_title">محرك البحث</string>
     <!-- About dialog -->
     <string name="about_title">حول Download Navi</string>
     <string name="about_description"><![CDATA[    <br><br>لمزيد من المعلومات و للمساعدة في المشروع: <a href="https://github.com/TachibanaGeneralLaboratories/download-navi">https://github.com/TachibanaGeneralLaboratories/download-navi</a>

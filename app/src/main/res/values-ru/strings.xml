@@ -1,3 +1,4 @@
+<?xml version="1.0" encoding="utf-8"?>
 <resources>
     <!-- Global string -->
     <string name="app_name">Download Navi</string>
@@ -52,36 +53,28 @@
     <string name="more_details">Подробнее</string>
     <string name="clipboard">Буфер обмена</string>
     <string name="verify">Проверить</string>
-
     <!-- Permission dialog -->
     <string name="perm_denied_title">Разрешение отклонено</string>
     <string name="perm_denied_warning">Без этого разрешения приложение не может сохранять файлы в памяти на некоторых устройствах и версиях Android. Приложение не будет работать должным образом. Вы уверены, что хотите запретить это разрешение?</string>
-
     <!-- Download progress notification -->
     <string name="download_ticker_notify">Загрузка %1$s</string>
-
     <!-- Foreground notification -->
     <string name="app_running_in_the_background">Download Navi запущен в фоне</string>
     <string name="pause_all">Приостановить все</string>
     <string name="resume_all">Возобновить все</string>
-
     <!-- Finish notification -->
     <string name="download_finished_notify">Загрузка завершена</string>
     <string name="open_using">Открыть с помощью</string>
-
     <!-- Pending notification -->
     <string name="download_in_queue_ticker_notify">%1$s в очереди</string>
     <string name="waiting_for_network">Ожидание сети</string>
     <string name="waiting_for_retry">Ожидание повторной попытки</string>
-
     <!-- Error notification -->
     <string name="download_error_notify_title">Ошибка загрузки</string>
-
     <!-- Applying params notification -->
     <string name="applying_params_title">Применение параметров</string>
     <string name="applying_params_for_downloads">Применение параметров для загрузок</string>
     <string name="applying_params_error_title">Ошибка применения параметров для %1$s</string>
-
     <!-- Add download dialog -->
     <string name="add_download">Добавить загрузку</string>
     <string name="download_link">Ссылка</string>
@@ -111,10 +104,8 @@
     <string name="checksum">Контрольная сумма</string>
     <string name="add_dialog_checksum_description">MD5, SHA-256</string>
     <string name="error_invalid_checksum">Неверная контрольная сумма</string>
-
     <!-- Add user agent dialog -->
     <string name="dialog_add_user_agent_title">Добавить user agent</string>
-
     <!-- Main activity -->
     <string name="fragment_title_queued">В очереди</string>
     <string name="fragment_title_completed">Завершённые</string>
@@ -148,9 +139,7 @@
     <string name="drawer_sorting_size">Размер</string>
     <string name="drawer_sorting_category">Категория</string>
     <string name="drawer_sorting_no_sorting">Нет сортировки</string>
-
     <!-- Download list item -->
-
     <!-- downloaded/total • ETA • speed -->
     <string name="download_queued_progress_template">%1$s/%2$s \u2022 %3$s \u2022 %4$s/с</string>
     <!-- downloaded/total • status -->
@@ -163,7 +152,6 @@
     <string name="delete_selected_downloads">Удалить выбранные загрузки? Эта операция не может быть отменена</string>
     <string name="delete_with_downloaded_file">Удалить вместе с загруженным файлом</string>
     <string name="error_verify_checksum">Неверная контрольная сумма файла</string>
-
     <!-- Filemanager dialog -->
     <string name="dir_chooser_title">Выбор папки</string>
     <string name="file_chooser_title">Выбор файла</string>
@@ -181,7 +169,6 @@
     <string name="device_does_not_support_this_feature">Ваше устройство не поддерживает данную функцию</string>
     <string name="system_file_manager_not_found">Системный файловый менеджер не найден</string>
     <string name="replace_file">Заменить файл</string>
-
     <!-- Details download dialog -->
     <string name="detail_downloaded">Загружено</string>
     <!-- downloaded/total (percent) -->
@@ -192,59 +179,55 @@
     <string name="detail_md5_hash_sum">MD5</string>
     <string name="detail_sha256_hash_sum">SHA-256</string>
     <string name="calculate">Вычислить</string>
-
     <!-- Error report -->
     <string name="app_error_occurred">В приложении произошла ошибка. Вы можете отправить отчёт разработчикам</string>
     <string name="error_comment_prompt">Вы можете добавить дополнительную информацию и комментарии:</string>
-
     <!-- Send text to clipboard -->
     <string name="send_text_to_clipboard">Копировать</string>
     <string name="text_copied_to_clipboard">Текст скопирован в буфер обмена</string>
-
     <!-- Browser -->
-    <string name="browser">Browser</string>
-    <string name="browser_app">Navi Browser</string>
-    <string name="webview_is_required">WebView is required to work</string>
-    <string name="browser_forward_arrow">Forward</string>
-    <string name="browser_desktop_version">Desktop version</string>
-    <string name="browser_address_bar_hint">Enter address or query</string>
-    <string name="browser_back_pressed">Press again to close</string>
-    <string name="browser_secure_connection">Secure connection</string>
-    <string name="browser_download_from_link">Download</string>
-    <string name="browser_copy_link">Copy link</string>
+    <string name="browser">Браузер</string>
+    <string name="browser_app">Navi Браузер</string>
+    <string name="webview_is_required">Для работы требуется WebView</string>
+    <string name="browser_forward_arrow">Вперёд</string>
+    <string name="browser_desktop_version">Версия для ПК</string>
+    <string name="browser_address_bar_hint">Введите адрес или запрос</string>
+    <string name="browser_back_pressed">Нажмите ещё раз, чтобы закрыть</string>
+    <string name="browser_secure_connection">Защищённое соединение</string>
+    <string name="browser_download_from_link">Скачать</string>
+    <string name="browser_copy_link">Скопировать ссылку</string>
     <!-- Browser bookmarks -->
-    <string name="browser_bookmarks">Bookmarks</string>
-    <string name="bookmarks_list_empty">No bookmarks</string>
-    <string name="browser_add_bookmark">Add bookmark</string>
-    <string name="browser_edit_bookmark">Edit bookmark</string>
+    <string name="browser_bookmarks">Закладки</string>
+    <string name="bookmarks_list_empty">Нет закладок</string>
+    <string name="browser_add_bookmark">Добавить закладку</string>
+    <string name="browser_edit_bookmark">Редактировать закладку</string>
     <!-- Edit bookmark dialog -->
-    <string name="browser_bookmark_name">Name</string>
+    <string name="browser_bookmark_name">Имя</string>
     <string name="browser_bookmark_url">URL</string>
-    <string name="browser_bookmark_error_empty_url">Please enter URL</string>
-    <string name="browser_bookmark_error_empty_name">Please enter name</string>
+    <string name="browser_bookmark_error_empty_url">Пожалуйста, введите URL</string>
+    <string name="browser_bookmark_error_empty_name">Пожалуйста, введите имя</string>
     <plurals name="browser_bookmark_deleted">
-        <item quantity="one">Bookmark deleted</item>
-        <item quantity="few">Bookmarks deleted</item>
-        <item quantity="many">Bookmarks deleted</item>
-        <item quantity="other">Bookmarks deleted</item>
+        <item quantity="one">Закладка удалена</item>
+        <item quantity="few">Закладки удалены</item>
+        <item quantity="many">Закладки удалены</item>
+        <item quantity="other">Закладки удалены</item>
     </plurals>
     <plurals name="browser_bookmark_delete_failed">
-        <item quantity="one">Failed to delete bookmark</item>
-        <item quantity="few">Failed to delete bookmarks</item>
-        <item quantity="many">Failed to delete bookmarks</item>
-        <item quantity="other">Failed to delete bookmarks</item>
+        <item quantity="one">Не удалось удалить закладку</item>
+        <item quantity="few">Не удалось удалить закладки</item>
+        <item quantity="many">Не удалось удалить закладки</item>
+        <item quantity="other">Не удалось удалить закладки</item>
     </plurals>
-    <string name="browser_bookmark_change_failed">Failed to change bookmark</string>
-    <string name="browser_bookmark_added">Bookmark added</string>
-    <string name="browser_bookmark_add_failed">Failed to add bookmark</string>
-    <string name="browser_bookmark_edit_menu">Edit</string>
-
+    <string name="browser_bookmark_change_failed">Не удалось изменить закладку</string>
+    <string name="browser_bookmark_added">Закладка добавлена</string>
+    <string name="browser_bookmark_add_failed">Не удалось добавить закладку</string>
+    <string name="browser_bookmark_edit_menu">Редактировать</string>
     <!-- Settings -->
     <!-- Headers -->
     <string name="pref_header_appearance">Внешний вид</string>
     <string name="pref_header_behavior">Поведение</string>
     <string name="pref_header_storage">Хранилище</string>
-    <string name="pref_header_browser">Browser</string>
+    <string name="pref_header_browser">Браузер</string>
     <!-- Appearance settings -->
     <string name="pref_theme_category">Настройки темы</string>
     <string name="pref_theme_title">Тема</string>
@@ -299,30 +282,28 @@
     <string name="pref_preallocate_disk_space_title">Предварительно выделить место на диске для файла</string>
     <string name="pref_preallocate_disk_space_summary">Доступно для Android 5.0 Lollipop и выше</string>
     <!-- Browser settings -->
-    <string name="pref_browser_bottom_address_bar_title">Address bar at the bottom</string>
-    <string name="pref_browser_bottom_address_bar_summary">The address bar will be located at the bottom of the screen</string>
-    <string name="pref_browser_start_page_title">Start page</string>
-    <string name="pref_browser_allow_java_script_title">Allow Java Script</string>
-    <string name="pref_browser_allow_popup_windows_title">Allow popup windows</string>
-    <string name="pref_browser_cache_category">Cache</string>
-    <string name="pref_browser_cookies_category">Cookies</string>
-    <string name="pref_browser_enable_caching_title">Enable caching</string>
-    <string name="pref_browser_enable_cookies_title">Enable cookies</string>
-    <string name="pref_browser_delete_cookies_title">Delete cookies</string>
-    <string name="pref_browser_delete_cookies_done">Deleted all the cookies</string>
-    <string name="pref_browser_clear_cache_title">Clear cache</string>
-    <string name="pref_browser_clear_cache_done">The cache is cleared</string>
-    <string name="pref_browser_do_not_track_title">Do Not Track</string>
-    <string name="pref_browser_do_not_track_summary">Send a “Do Not Track” request to websites you visit</string>
-    <string name="pref_browser_launcher_icon_title">Browser icon in the launcher</string>
-    <string name="pref_browser_disable_from_system_title">Disable browser from the system</string>
-    <string name="pref_browser_disable_from_system_summary">Browser will not be available for opening links</string>
-    <string name="pref_browser_search_engine_title">Search engine</string>
-
+    <string name="pref_browser_bottom_address_bar_title">Адресная строка внизу</string>
+    <string name="pref_browser_bottom_address_bar_summary">Адресная строка будет расположена внизу экрана</string>
+    <string name="pref_browser_start_page_title">Домашняя страница</string>
+    <string name="pref_browser_allow_java_script_title">Разрешить Java Script</string>
+    <string name="pref_browser_allow_popup_windows_title">Разрешить всплывающие окна</string>
+    <string name="pref_browser_cache_category">Кеш</string>
+    <string name="pref_browser_cookies_category">Файлы cookies</string>
+    <string name="pref_browser_enable_caching_title">Включить кеширование</string>
+    <string name="pref_browser_enable_cookies_title">Включить cookies</string>
+    <string name="pref_browser_delete_cookies_title">Удалить cookies</string>
+    <string name="pref_browser_delete_cookies_done">Удалены все файлы cookie</string>
+    <string name="pref_browser_clear_cache_title">Очистить кеш</string>
+    <string name="pref_browser_clear_cache_done">Кеш очищен</string>
+    <string name="pref_browser_do_not_track_title">Не отслеживать</string>
+    <string name="pref_browser_do_not_track_summary">Отправлять запросы “Не отслеживать” на веб-сайты, которые вы посещаете</string>
+    <string name="pref_browser_launcher_icon_title">Иконка браузера в лаунчере</string>
+    <string name="pref_browser_disable_from_system_title">Отключить браузер из системы</string>
+    <string name="pref_browser_disable_from_system_summary">Браузер не будет доступен для открытия ссылок</string>
+    <string name="pref_browser_search_engine_title">Поисковая система</string>
     <!-- About dialog -->
     <string name="about_title">О Download Navi</string>
-    <string name="about_description"><![CDATA[
-    Больше информации, а также помочь проекту: <a href="https://github.com/TachibanaGeneralLaboratories/download-navi">https://github.com/TachibanaGeneralLaboratories/download-navi</a><br><br>
+    <string name="about_description"><![CDATA[    Больше информации, а также помочь проекту: <a href="https://github.com/TachibanaGeneralLaboratories/download-navi">https://github.com/TachibanaGeneralLaboratories/download-navi</a><br><br>
     Download Navi - свободный и Open Source менеджер загрузок для Android 4.4+<br><br>
     Download Navi является свободным программным обеспечением, выпущенным в соответствии с условиями лицензииe <a href="http://www.gnu.org/copyleft/gpl.html">GNU General Public License v3 (GPLv3)</a><br><br>
     <a href="https://github.com/TachibanaGeneralLaboratories/download-navi/blob/HEAD/Privacy.md">Политика конфидециальности</a>]]></string>

@@ -59,6 +59,7 @@ You can help translate the app here: [https://crowdin.com/project/download-navi]
 
  - **Arabic** *(thanks rex07)*
  - **Azerbaijani** *(thanks Khan27)*
+ - **Bengali** *(thanks Oymate)*
  - **Brazilian Portuguese** *(thanks lu.santi.oli)*
  - **Chinese Simplified** *(thanks OR120, dwughjsd)*
  - **Chinese Traditional** *(thanks Fei1Yang)*

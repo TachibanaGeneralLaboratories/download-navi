@@ -1,5 +1,3 @@
-Download Navi je bezplatný správce stahování s otevřeným zdrojovým kódem pro Android 4.4+.
-
 # Funkce
 
 * Bezplatný software s otevřeným zdrojovým kódem (FOSS)

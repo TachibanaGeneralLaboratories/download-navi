@@ -1,5 +1,3 @@
-Download Navi is a free and Open Source download manager for Android 4.4+.
-
 # Features
 
 * Free and Open Source software (FOSS)
