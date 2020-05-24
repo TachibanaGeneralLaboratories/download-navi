@@ -299,7 +299,7 @@
     <string name="pref_browser_search_engine_title">Search engine</string>
     <!-- About dialog -->
     <string name="about_title">À propos du gestionnaire de Download Navi</string>
-    <string name="about_description"><![CDATA[Plus d'informations et aussi pour aider le projet: <a href="https://github.com/TachibanaGeneralLaboratories/download-navi">https://github.com/TachibanaGeneralLaboratories/download-navi</a><br><br>
+    <string name="about_description"><![CDATA[Plus d\'informations et aussi pour aider le projet: <a href="https://github.com/TachibanaGeneralLaboratories/download-navi">https://github.com/TachibanaGeneralLaboratories/download-navi</a><br><br>
     Download Navi est un gestionnaire de téléchargement gratuit et Open Source pour Android 4.4+<br><br>
     Download Navi est un logiciel gratuit, publié selon les termes de la <a href="http://www.gnu.org/copyleft/gpl.html">GNU General Public License v3 (GPLv3)</a><br><br>
     <a href="https://github.com/TachibanaGeneralLaboratories/download-navi/blob/HEAD/Privacy.md">Politique de confidentialité</a>]]></string>
