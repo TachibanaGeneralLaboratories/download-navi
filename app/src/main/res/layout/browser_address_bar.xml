@@ -39,7 +39,7 @@
                 android:hint="@string/browser_address_bar_hint"
                 android:background="@null"
                 android:inputType="text|textNoSuggestions"
-                android:imeOptions="actionGo"
+                android:imeOptions="actionSearch"
                 android:selectAllOnFocus="true"
                 android:text="@={viewModel.url}" />
         </com.google.android.material.textfield.TextInputLayout>
