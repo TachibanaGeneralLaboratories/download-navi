@@ -30,6 +30,7 @@ Features
  - Chrome OS support
  - Pause and resume downloads
  - Browsers support
+ - Built-in browser
  - Simultaneous downloads (default 3)
  - Multi part downloading (max 16)
  - Download files in background
