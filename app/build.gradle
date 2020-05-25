@@ -69,8 +69,8 @@ dependencies {
     androidTestImplementation "androidx.test.ext:junit:1.1.1"
     androidTestImplementation "androidx.test.espresso:espresso-core:3.2.0"
     androidTestImplementation "androidx.test:rules:1.2.0"
-    androidTestImplementation "androidx.room:room-testing:2.2.5"
-    testAnnotationProcessor "com.google.auto.service:auto-service:1.0-rc6"
+    androidTestImplementation "androidx.room:room-testing:$ROOM_VERSION"
+    testAnnotationProcessor 'com.google.auto.service:auto-service:1.0-rc7'
 
     /* AndroidX libraries */
     implementation "androidx.appcompat:appcompat:1.2.0-rc01"
