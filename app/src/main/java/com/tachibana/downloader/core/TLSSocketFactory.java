@@ -27,6 +27,7 @@ import java.security.KeyManagementException;
 import java.security.NoSuchAlgorithmException;
 
 import javax.net.ssl.SSLContext;
+import javax.net.ssl.SSLSessionContext;
 import javax.net.ssl.SSLSocket;
 import javax.net.ssl.SSLSocketFactory;
 
@@ -37,11 +38,16 @@ import javax.net.ssl.SSLSocketFactory;
 public class TLSSocketFactory extends SSLSocketFactory
 {
     private SSLSocketFactory delegate;
-
+    
     public TLSSocketFactory() throws KeyManagementException, NoSuchAlgorithmException
     {
         SSLContext context = SSLContext.getInstance("TLS");
         context.init(null, null, null);
+        SSLSessionContext sslSessionContext = context.getServerSessionContext();
+        int sessionCacheSize = sslSessionContext.getSessionCacheSize();
+        if (sessionCacheSize > 0) {
+            sslSessionContext.setSessionCacheSize(0);
+        }
         delegate = context.getSocketFactory();
     }
 
