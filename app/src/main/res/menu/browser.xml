@@ -37,6 +37,11 @@
         android:icon="@drawable/ic_bookmark_border_menu_24dp"
         app:showAsAction="never" />
 
+     <item android:id="@+id/save_page_menu"
+        android:title="@string/browser_save_page"
+        android:icon="@drawable/ic_page_file_24dp"
+        app:showAsAction="never" />    
+
     <item android:id="@+id/desktop_version_menu"
         android:title="@string/browser_desktop_version"
         android:icon="@drawable/ic_desktop_menu_24dp"
