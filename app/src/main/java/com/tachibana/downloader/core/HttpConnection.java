@@ -101,7 +101,7 @@ public class HttpConnection implements Runnable
                 // Only add the cookies if they are not null.
                 if (cookiesString != null) {
                     // Add the cookies to the header property.
-                    httpUrlConnection.setRequestProperty("Cookie", cookiesString);
+                    conn.setRequestProperty("Cookie", cookiesString);
                 }
 
 
