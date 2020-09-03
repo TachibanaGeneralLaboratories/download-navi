@@ -94,6 +94,16 @@ public class HttpConnection implements Runnable
                 conn.setConnectTimeout(timeout);
                 conn.setReadTimeout(timeout);
 
+                // Get the cookies for the current domain.
+                String cookiesString = CookieManager.getInstance().getCookie(url.toString());
+
+                // Only add the cookies if they are not null.
+                if (cookiesString != null) {
+                    // Add the cookies to the header property.
+                    httpUrlConnection.setRequestProperty("Cookie", cookiesString);
+                }
+
+
                 if (conn instanceof HttpsURLConnection)
                     ((HttpsURLConnection) conn).setSSLSocketFactory(socketFactory);
 
