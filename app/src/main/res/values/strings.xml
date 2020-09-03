@@ -212,8 +212,6 @@
     <string name="browser_secure_connection">Secure connection</string>
     <string name="browser_download_from_link">Download</string>
     <string name="browser_copy_link">Copy link</string>
-    <!-- Browser save page -->
-    <string name="browser_save_page" translatable="false">Save Page</string>
     <!-- Browser bookmarks -->
     <string name="browser_bookmarks">Bookmarks</string>
     <string name="bookmarks_list_empty">No bookmarks</string>

@@ -434,13 +434,6 @@ public class BrowserActivity extends AppCompatActivity
                 viewModel.enableDesktopMode(webView, item.isChecked());
                 webView.reload();
                 break;
-            case R.id.save_page_menu:
-                createFolderSub();
-                File root = Environment.getExternalStorageDirectory();
-                File file = new File(root.getAbsolutePath() + "/"+Environment.DIRECTORY_DOWNLOADS + "/offline" + "/"+webView.getTitle());
-                webView.saveWebArchive(file + ".mht");
-                Toast.makeText(BrowserActivity.this, "Page saved!", Toast.LENGTH_SHORT).show();
-                break;    
             case R.id.bookmarks_menu:
                 showBookmarks();
                 break;
@@ -458,18 +451,6 @@ public class BrowserActivity extends AppCompatActivity
         }
 
         return true;
-    }
-
-       public void createFolderSub(){
-        String state;
-        state = Environment.getExternalStorageState();
-        if ((Environment.MEDIA_MOUNTED).equals(state)) {
-            File root = Environment.getExternalStorageDirectory();
-            File Dir = new File(root.getAbsolutePath() + "/"+Environment.DIRECTORY_DOWNLOADS + "/offline" );
-            if (!Dir.exists()) {
-                Dir.mkdir();
-            }
-        }
     }
 
     private void makeShareDialog(String url)
