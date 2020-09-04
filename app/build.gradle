@@ -34,8 +34,8 @@ android {
         targetCompatibility JavaVersion.VERSION_1_8
     }
 
-    dataBinding {
-        enabled = true
+    buildFeatures {
+        dataBinding true
     }
 
     testOptions.unitTests.includeAndroidResources = true
@@ -65,25 +65,25 @@ dependencies {
 
     /* Testing */
     testImplementation "junit:junit:4.13"
-    testImplementation "org.robolectric:robolectric:4.3.1"
-    androidTestImplementation "androidx.test.ext:junit:1.1.1"
-    androidTestImplementation "androidx.test.espresso:espresso-core:3.2.0"
-    androidTestImplementation "androidx.test:rules:1.2.0"
+    testImplementation 'org.robolectric:robolectric:4.4'
+    androidTestImplementation 'androidx.test.ext:junit:1.1.2'
+    androidTestImplementation 'androidx.test.espresso:espresso-core:3.3.0'
+    androidTestImplementation 'androidx.test:rules:1.3.0'
     androidTestImplementation "androidx.room:room-testing:$ROOM_VERSION"
     testAnnotationProcessor 'com.google.auto.service:auto-service:1.0-rc7'
 
     /* AndroidX libraries */
-    implementation "androidx.appcompat:appcompat:1.2.0-rc01"
-    implementation "androidx.constraintlayout:constraintlayout:2.0.0-beta6"
+    implementation 'androidx.appcompat:appcompat:1.3.0-alpha02'
+    implementation 'androidx.constraintlayout:constraintlayout:2.0.1'
     implementation "androidx.recyclerview:recyclerview:1.1.0"
-    implementation "androidx.recyclerview:recyclerview-selection:1.1.0-rc01"
-    implementation "com.google.android.material:material:1.2.0-alpha06"
-    implementation "androidx.swiperefreshlayout:swiperefreshlayout:1.1.0-rc01"
+    implementation 'androidx.recyclerview:recyclerview-selection:1.1.0-rc02'
+    implementation 'com.google.android.material:material:1.3.0-alpha02'
+    implementation 'androidx.swiperefreshlayout:swiperefreshlayout:1.2.0-alpha01'
     implementation "androidx.lifecycle:lifecycle-extensions:2.2.0"
     implementation "androidx.room:room-runtime:$ROOM_VERSION"
     implementation "androidx.room:room-rxjava2:$ROOM_VERSION"
     annotationProcessor "androidx.room:room-compiler:$ROOM_VERSION" /* For schemas import */
-    implementation "androidx.work:work-runtime:2.3.4"
+    implementation 'androidx.work:work-runtime:2.4.0'
 
     /* ReactiveX */
     implementation "io.reactivex.rxjava2:rxjava:2.2.9"
