@@ -22,9 +22,11 @@ package com.tachibana.downloader.core.utils;
 
 import org.junit.Test;
 
-import java.nio.charset.Charset;
+import java.nio.charset.StandardCharsets;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
 
 public class DigestUtilsTest
 {
@@ -43,7 +45,7 @@ public class DigestUtilsTest
     public void testMakeSha256Hash()
     {
         assertEquals(sha256HashUnicode, DigestUtils.makeSha256Hash(
-                unicodeStr.getBytes(Charset.forName("UTF-8"))));
+                unicodeStr.getBytes(StandardCharsets.UTF_8)));
         assertEquals(sha256HashBinary, DigestUtils.makeSha256Hash(binary));
     }
 
@@ -51,7 +53,7 @@ public class DigestUtilsTest
     public void testMakeMd5Hash()
     {
         assertEquals(md5HashUnicode, DigestUtils.makeMd5Hash(
-                unicodeStr.getBytes(Charset.forName("UTF-8"))));
+                unicodeStr.getBytes(StandardCharsets.UTF_8)));
         assertEquals(md5HashBinary, DigestUtils.makeMd5Hash(binary));
     }
 

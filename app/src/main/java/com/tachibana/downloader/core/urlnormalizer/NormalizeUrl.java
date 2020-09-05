@@ -16,16 +16,11 @@
 
 package com.tachibana.downloader.core.urlnormalizer;
 
-import android.util.Log;
-
 import com.anthonynsimon.url.URL;
 import com.anthonynsimon.url.exceptions.MalformedURLException;
 import com.tachibana.downloader.core.exception.NormalizeUrlException;
 
-import java.io.UnsupportedEncodingException;
 import java.net.IDN;
-import java.net.URLEncoder;
-import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;

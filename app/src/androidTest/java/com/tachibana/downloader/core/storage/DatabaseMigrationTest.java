@@ -35,8 +35,8 @@ import androidx.test.platform.app.InstrumentationRegistry;
 import com.tachibana.downloader.core.model.data.StatusCode;
 import com.tachibana.downloader.core.model.data.entity.DownloadInfo;
 import com.tachibana.downloader.core.model.data.entity.DownloadPiece;
-import com.tachibana.downloader.core.system.SystemFacadeHelper;
 import com.tachibana.downloader.core.system.FileSystemFacade;
+import com.tachibana.downloader.core.system.SystemFacadeHelper;
 
 import org.junit.Before;
 import org.junit.Rule;
