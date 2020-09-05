@@ -106,15 +106,19 @@ public class NormalizeUrlTest
                 "http://example.org/%7Efoo/",
                 "http://example.org/~foo",
                 null));
-        tests.add(new TestNormalize("decode uri octets 2",
-                "http://example.org/?foo=bar*%7C%3C%3E%3A%22",
+        tests.add(new TestNormalize("encode query octets",
                 "http://example.org/?foo=bar*|<>:\"",
+                "http://example.org/?foo=bar*|<>:\"",
+                null));
+        tests.add(new TestNormalize("encode query octets 2",
+                "http://example.org/?foo=bar*%7C%3C%3E%3A%22",
+                "http://example.org/?foo=bar*%7C%3C%3E%3A%22",
                 null));
         options = new NormalizeUrl.Options();
         options.decode = false;
         tests.add(new TestNormalize("do not encode uri octets",
-                "http://example.org/?foo=bar*%7C%3C%3E%3A%22",
-                "http://example.org/?foo=bar*%7C%3C%3E%3A%22",
+                "http://example.org/%7Efoo/",
+                "http://example.org/%7Efoo",
                 options));
         tests.add(new TestNormalize("remove empty query",
                 "http://example.org/?",

@@ -16,11 +16,16 @@
 
 package com.tachibana.downloader.core.urlnormalizer;
 
+import android.util.Log;
+
 import com.anthonynsimon.url.URL;
 import com.anthonynsimon.url.exceptions.MalformedURLException;
 import com.tachibana.downloader.core.exception.NormalizeUrlException;
 
+import java.io.UnsupportedEncodingException;
 import java.net.IDN;
+import java.net.URLEncoder;
+import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
@@ -212,12 +217,11 @@ public class NormalizeUrl
         hash = urlObj.getFragment();
         user = urlObj.getUsername();
         password = urlObj.getPassword();
+        queryStr = urlObj.getQuery();
         if (options.decode) {
-            queryStr = (urlObj.getQuery() == null ? null : PercentEncoder.decode(urlObj.getQuery()));
             path = urlObj.getPath();
             host = IDN.toUnicode(urlObj.getHost());
         } else {
-            queryStr = urlObj.getQuery();
             path = urlObj.getRawPath();
             host = urlObj.getHost();
         }
