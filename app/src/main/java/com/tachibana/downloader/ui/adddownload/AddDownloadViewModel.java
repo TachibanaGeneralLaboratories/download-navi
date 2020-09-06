@@ -1,6 +1,7 @@
 /*
  * Copyright (C) 2019 Tachibana General Laboratories, LLC
  * Copyright (C) 2019 Yaroslav Pronin <proninyaroslav@mail.ru>
+ * Copyright (C) 2020 8176135 <elsecaller@8176135.xyz>
  *
  * This file is part of Download Navi.
  *
@@ -209,7 +210,7 @@ public class AddDownloadViewModel extends AndroidViewModel
         }
 
         fetchTask = new FetchLinkTask(this);
-        fetchTask.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, params.getUrl());
+        fetchTask.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, params.getUrl(), params.getReferer());
     }
 
     private static class FetchLinkTask extends AsyncTask<String, Void, Throwable>
@@ -249,7 +250,8 @@ public class AddDownloadViewModel extends AndroidViewModel
                 return e;
             }
             connection.setTimeout(viewModel.get().pref.timeout());
-
+            connection.setReferer(params[1]);
+            
             NetworkInfo netInfo = viewModel.get().systemFacade.getActiveNetworkInfo();
             if (netInfo == null || !netInfo.isConnected())
                 return new ConnectException("Network is disconnected");
@@ -387,6 +389,9 @@ public class AddDownloadViewModel extends AndroidViewModel
 
         ArrayList<Header> headers = new ArrayList<>();
         headers.add(new Header(info.id, "ETag", params.getEtag()));
+        if (params.getReferer() != null && !params.getReferer().isEmpty()) {
+            headers.add(new Header(info.id, "Referer", params.getReferer()));
+        }
 
         /* TODO: rewrite to WorkManager */
         /* Sync wait inserting */

@@ -314,4 +314,6 @@ href="http://www.gnu.org/copyleft/gpl.html">
 جنو العمومية الإصدارv3 (GPLv3)</a><br><br>
    <a href="https://github.com/TachibanaGeneralLaboratories/download-navi/blob/HEAD/Privacy.md">سياسة الخصوصية</a>]]></string>
     <string name="about_changelog">سِجل التغييرات</string>
+    <string name="referer">Referer</string>
+    <string name="referer_description">Referer Header</string>
 </resources>
