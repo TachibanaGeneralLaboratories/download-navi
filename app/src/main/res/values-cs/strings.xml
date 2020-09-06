@@ -308,6 +308,5 @@
     Download Navi je volný software, vydaný za podmínek <a href="http://www.gnu.org/copyleft/gpl.html">GNU General Public License v3 (GPLv3)</a><br><br>
     <a href="https://github.com/TachibanaGeneralLaboratories/download-navi/blob/HEAD/Privacy.md">Zásady ochrany osobních údajů</a>]]></string>
     <string name="about_changelog">Seznam změn</string>
-    <string name="referer">Referer</string>
-    <string name="referer_description">Referer Header</string>
+    <string name="referer_description">%1$s header</string>
 </resources>

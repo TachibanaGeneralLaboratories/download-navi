@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <string name="referer" translatable="false">HTTP Referer</string>
     <!-- Settings -->
     <!-- Appearance settings -->
     <string name="pref_theme_light_value" translatable="false">0</string>

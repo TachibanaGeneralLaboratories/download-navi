@@ -110,8 +110,7 @@
     <string name="add_download_error_invalid_url">Unable to add download: invalid URL</string>
     <string name="checksum">Checksum</string>
     <string name="add_dialog_checksum_description">MD5, SHA-256</string>
-    <string name="referer">Referer</string>
-    <string name="referer_description">Referer Header</string>
+    <string name="referer_description">%1$s header</string>
     <string name="error_invalid_checksum">Invalid checksum</string>
 
     <!-- Add user agent dialog -->

@@ -302,6 +302,5 @@
     Download Navi 是一款自由软件，遵循许可 <a href="http://www.gnu.org/copyleft/gpl.html">GNU General Public License v3 (GPLv3)</a> 的条款发布<br><br>
     <a href="https://github.com/TachibanaGeneralLaboratories/download-navi/blob/HEAD/Privacy.md">隐私政策</a>]]></string>
     <string name="about_changelog">更新日志</string>
-    <string name="referer">Referer</string>
-    <string name="referer_description">Referer Header</string>
+    <string name="referer_description">%1$s header</string>
 </resources>

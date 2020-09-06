@@ -302,6 +302,5 @@
     Download Navi は <a href="http://www.gnu.org/copyleft/gpl.html">GNU General Public License v3 (GPLv3)</a> の条件の下でリリースされたフリーソフトウェアです<br><br>
     <a href="https://github.com/TachibanaGeneralLaboratories/download-navi/blob/HEAD/Privacy.md">個人情報保護方針</a>]]></string>
     <string name="about_changelog">更新履歴</string>
-    <string name="referer">Referer</string>
-    <string name="referer_description">Referer Header</string>
+    <string name="referer_description">%1$s header</string>
 </resources>
