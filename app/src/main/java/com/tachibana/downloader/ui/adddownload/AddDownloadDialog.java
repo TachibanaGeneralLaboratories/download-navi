@@ -87,6 +87,7 @@ public class AddDownloadDialog extends DialogFragment {
     private static final String TAG_OPEN_DIR_ERROR_DIALOG = "open_dir_error_dialog";
     private static final String TAG_URL_CLIPBOARD_DIALOG = "url_clipboard_dialog";
     private static final String TAG_CHECKSUM_CLIPBOARD_DIALOG = "checksum_clipboard_dialog";
+    private static final String TAG_REFERER_CLIPBOARD_DIALOG = "referer_clipboard_dialog";
     private static final String TAG_CUR_CLIPBOARD_TAG = "cur_clipboard_tag";
 
     private AlertDialog alert;
@@ -172,6 +173,8 @@ public class AddDownloadDialog extends DialogFragment {
                 case TAG_CHECKSUM_CLIPBOARD_DIALOG:
                     handleChecksumClipItem(item.str);
                     break;
+                case TAG_REFERER_CLIPBOARD_DIALOG:
+                    handleRefererClipItem(item.str);
             }
         });
         disposables.add(d);
@@ -237,6 +240,14 @@ public class AddDownloadDialog extends DialogFragment {
             return;
 
         viewModel.params.setChecksum(item);
+    }
+
+    private void handleRefererClipItem(String item)
+    {
+        if (TextUtils.isEmpty(item))
+            return;
+
+        viewModel.params.setReferer(item);
     }
 
     @Override
@@ -399,6 +410,8 @@ public class AddDownloadDialog extends DialogFragment {
                 showClipboardDialog(TAG_URL_CLIPBOARD_DIALOG));
         binding.checksumClipboardButton.setOnClickListener((v) ->
                 showClipboardDialog(TAG_CHECKSUM_CLIPBOARD_DIALOG));
+        binding.refererClipboardButton.setOnClickListener((v) ->
+                showClipboardDialog(TAG_REFERER_CLIPBOARD_DIALOG));
 
         userAgentAdapter = new UserAgentAdapter(activity, (userAgent) -> {
             disposables.add(viewModel.deleteUserAgent(userAgent)

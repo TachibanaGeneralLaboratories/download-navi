@@ -143,6 +143,7 @@ public class AddDownloadParams extends BaseObservable
         this.etag = etag;
     }
 
+    @Bindable
     public String getReferer()
     {
         return referer;
@@ -151,6 +152,7 @@ public class AddDownloadParams extends BaseObservable
     public void setReferer(String referer)
     {
         this.referer = referer;
+        notifyPropertyChanged(BR.referer);
     }
 
     public String getUserAgent()
