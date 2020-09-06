@@ -142,7 +142,7 @@
     <string name="drawer_sorting_no_sorting">সারিবদ্ধহীন</string>
     <!-- Download list item -->
     <!-- downloaded/total • ETA • speed -->
-    <string name="download_queued_progress_template">%1$s/%2$s \u2022 %3$s \u2022 %4$/সে.</string>
+    <string name="download_queued_progress_template">%1$s/%2$s \u2022 %3$s \u2022 %4$s/সে.</string>
     <!-- downloaded/total • status -->
     <string name="download_queued_template">%1$s/%2$s \u2022 %3$s</string>
     <!-- hostname • total -->
