@@ -1,6 +1,6 @@
 /*
- * Copyright (C) 2019 Tachibana General Laboratories, LLC
- * Copyright (C) 2019 Yaroslav Pronin <proninyaroslav@mail.ru>
+ * Copyright (C) 2019, 2020 Tachibana General Laboratories, LLC
+ * Copyright (C) 2019, 2020 Yaroslav Pronin <proninyaroslav@mail.ru>
  *
  * This file is part of Download Navi.
  *
@@ -26,6 +26,8 @@ import android.os.Parcelable;
 
 import androidx.annotation.NonNull;
 
+import com.tachibana.downloader.core.model.data.entity.DownloadInfo;
+
 public class AddInitParams implements Parcelable
 {
     public String url;
@@ -36,6 +38,7 @@ public class AddInitParams implements Parcelable
     public boolean unmeteredConnectionsOnly = false;
     public boolean retry = true;
     public boolean replaceFile = false;
+    public int numPieces = DownloadInfo.MIN_PIECES;
 
     public AddInitParams() {}
 
@@ -49,6 +52,7 @@ public class AddInitParams implements Parcelable
         unmeteredConnectionsOnly = source.readByte() > 0;
         retry = source.readByte() > 0;
         replaceFile = source.readByte() > 0;
+        numPieces = source.readInt();
     }
 
     @Override
@@ -68,6 +72,7 @@ public class AddInitParams implements Parcelable
         dest.writeByte((byte)(unmeteredConnectionsOnly ? 1 : 0));
         dest.writeByte((byte)(retry ? 1 : 0));
         dest.writeByte((byte)(replaceFile ? 1 : 0));
+        dest.writeInt(numPieces);
     }
 
     public static final Parcelable.Creator<AddInitParams> CREATOR =
@@ -98,6 +103,7 @@ public class AddInitParams implements Parcelable
                 ", unmeteredConnectionsOnly=" + unmeteredConnectionsOnly +
                 ", retry=" + retry +
                 ", replaceFile=" + replaceFile +
+                ", numPieces=" + numPieces +
                 '}';
     }
 }

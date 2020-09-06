@@ -44,7 +44,6 @@ import com.tachibana.downloader.core.system.FileDescriptorWrapper;
 import com.tachibana.downloader.core.system.FileSystemFacade;
 import com.tachibana.downloader.core.system.SystemFacadeHelper;
 import com.tachibana.downloader.core.utils.DigestUtils;
-import com.tachibana.downloader.ui.adddownload.AddDownloadDialog;
 
 import java.io.FileDescriptor;
 import java.io.FileInputStream;
@@ -60,7 +59,7 @@ import io.reactivex.schedulers.Schedulers;
 public class DownloadDetailsViewModel extends AndroidViewModel
 {
     @SuppressWarnings("unused")
-    private static final String TAG = AddDownloadDialog.class.getSimpleName();
+    private static final String TAG = DownloadDetailsViewModel.class.getSimpleName();
 
     private DataRepository repo;
     private DownloadEngine engine;

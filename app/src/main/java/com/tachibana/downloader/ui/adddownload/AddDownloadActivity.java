@@ -21,13 +21,16 @@
 package com.tachibana.downloader.ui.adddownload;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.FragmentManager;
 
+import com.tachibana.downloader.R;
 import com.tachibana.downloader.core.RepositoryHelper;
 import com.tachibana.downloader.core.settings.SettingsRepository;
 import com.tachibana.downloader.core.utils.Utils;
@@ -66,10 +69,27 @@ public class AddDownloadActivity extends AppCompatActivity
     private AddInitParams makeInitParams()
     {
         SettingsRepository pref = RepositoryHelper.getSettingsRepository(getApplicationContext());
+        SharedPreferences localPref = PreferenceManager.getDefaultSharedPreferences(this);
 
         AddInitParams initParams = new AddInitParams();
         initParams.url = getUrlFromIntent();
         initParams.dirPath = Uri.parse(pref.saveDownloadsIn());
+        initParams.retry = localPref.getBoolean(
+                getString(R.string.add_download_retry_flag),
+                initParams.retry
+        );
+        initParams.replaceFile = localPref.getBoolean(
+                getString(R.string.add_download_replace_file_flag),
+                initParams.replaceFile
+        );
+        initParams.unmeteredConnectionsOnly = localPref.getBoolean(
+                getString(R.string.add_download_unmetered_only_flag),
+                initParams.unmeteredConnectionsOnly
+        );
+        initParams.numPieces = localPref.getInt(
+                getString(R.string.add_download_num_pieces),
+                initParams.numPieces
+        );
 
         return initParams;
     }

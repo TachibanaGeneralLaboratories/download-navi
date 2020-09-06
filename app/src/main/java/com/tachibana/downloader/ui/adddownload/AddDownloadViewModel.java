@@ -74,7 +74,7 @@ import io.reactivex.schedulers.Schedulers;
 public class AddDownloadViewModel extends AndroidViewModel
 {
     @SuppressWarnings("unused")
-    private static final String TAG = AddDownloadDialog.class.getSimpleName();
+    private static final String TAG = AddDownloadViewModel.class.getSimpleName();
 
     private FetchLinkTask fetchTask;
     private DataRepository repo;
@@ -159,6 +159,7 @@ public class AddDownloadViewModel extends AndroidViewModel
         params.setUnmeteredConnectionsOnly(initParams.unmeteredConnectionsOnly);
         params.setRetry(initParams.retry);
         params.setReplaceFile(initParams.replaceFile);
+        params.setNumPieces(initParams.numPieces);
     }
 
     public LiveData<List<UserAgent>> observeUserAgents()

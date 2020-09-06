@@ -14,6 +14,12 @@
     <string name="drawer_sorting_is_expanded" translatable="false">drawer_sorting_is_expanded</string>
     <string name="drawer_sorting_selected_item" translatable="false">drawer_sorting_selected_item</string>
 
+    <!-- Add download activity local preferences -->
+    <string name="add_download_retry_flag" translatable="false">add_download_retry_flag</string>
+    <string name="add_download_replace_file_flag" translatable="false">add_download_replace_file_flag</string>
+    <string name="add_download_unmetered_only_flag" translatable="false">add_download_unmetered_only_flag</string>
+    <string name="add_download_num_pieces" translatable="false">add_download_num_pieces</string>
+
     <!-- Appearance settings -->
     <string name="pref_key_theme" translatable="false">pref_key_theme</string>
     <string name="pref_key_progress_notify" translatable="false">pref_key_progress_notify</string>

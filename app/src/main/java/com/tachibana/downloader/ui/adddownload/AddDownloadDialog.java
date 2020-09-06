@@ -1,6 +1,6 @@
 /*
- * Copyright (C) 2018, 2019 Tachibana General Laboratories, LLC
- * Copyright (C) 2018, 2019 Yaroslav Pronin <proninyaroslav@mail.ru>
+ * Copyright (C) 2018-2020 Tachibana General Laboratories, LLC
+ * Copyright (C) 2018-2020 Yaroslav Pronin <proninyaroslav@mail.ru>
  *
  * This file is part of Download Navi.
  *
@@ -27,8 +27,10 @@ import android.content.ClipboardManager;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.text.Editable;
 import android.text.TextUtils;
 import android.text.TextWatcher;
@@ -48,6 +50,8 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.databinding.DataBindingUtil;
+import androidx.databinding.Observable;
+import androidx.databinding.library.baseAdapters.BR;
 import androidx.fragment.app.DialogFragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.lifecycle.ViewModelProvider;
@@ -102,6 +106,7 @@ public class AddDownloadDialog extends DialogFragment {
     private ClipboardDialog clipboardDialog;
     private ClipboardDialog.SharedViewModel clipboardViewModel;
     private String curClipboardTag;
+    private SharedPreferences localPref;
 
     public static AddDownloadDialog newInstance(@NonNull AddInitParams initParams)
     {
@@ -149,6 +154,7 @@ public class AddDownloadDialog extends DialogFragment {
         super.onStop();
 
         unsubscribeClipboardManager();
+        unsubscribeParamsChanged();
         disposables.clear();
     }
 
@@ -157,6 +163,7 @@ public class AddDownloadDialog extends DialogFragment {
     {
         super.onStart();
 
+        subscribeParamsChanged();
         subscribeAlertDialog();
         subscribeClipboardManager();
     }
@@ -250,6 +257,46 @@ public class AddDownloadDialog extends DialogFragment {
         viewModel.params.setReferer(item);
     }
 
+    private void subscribeParamsChanged() {
+        viewModel.params.addOnPropertyChangedCallback(onParamsChanged);
+    }
+
+    private void unsubscribeParamsChanged() {
+        viewModel.params.removeOnPropertyChangedCallback(onParamsChanged);
+    }
+
+    private final Observable.OnPropertyChangedCallback onParamsChanged = new Observable.OnPropertyChangedCallback() {
+        @Override
+        public void onPropertyChanged(Observable sender, int propertyId) {
+            switch (propertyId) {
+                case BR.retry:
+                    localPref.edit()
+                            .putBoolean(getString(R.string.add_download_retry_flag),
+                                    viewModel.params.isRetry())
+                            .apply();
+                    break;
+                case BR.replaceFile:
+                    localPref.edit()
+                            .putBoolean(getString(R.string.add_download_replace_file_flag),
+                                    viewModel.params.isReplaceFile())
+                            .apply();
+                    break;
+                case BR.unmeteredConnectionsOnly:
+                    localPref.edit()
+                            .putBoolean(getString(R.string.add_download_unmetered_only_flag),
+                                    viewModel.params.isUnmeteredConnectionsOnly())
+                            .apply();
+                    break;
+                case BR.numPieces:
+                    localPref.edit()
+                            .putInt(getString(R.string.add_download_num_pieces),
+                                    viewModel.params.getNumPieces())
+                            .apply();
+                    break;
+            }
+        }
+    };
+
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState)
     {
@@ -259,6 +306,7 @@ public class AddDownloadDialog extends DialogFragment {
         viewModel = provider.get(AddDownloadViewModel.class);
         dialogViewModel = provider.get(BaseAlertDialog.SharedViewModel.class);
         clipboardViewModel = provider.get(ClipboardDialog.SharedViewModel.class);
+        localPref = PreferenceManager.getDefaultSharedPreferences(activity);
 
         AddInitParams initParams = getArguments().getParcelable(TAG_INIT_PARAMS);
         /* Clear init params */
