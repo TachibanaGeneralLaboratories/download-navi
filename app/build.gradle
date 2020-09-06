@@ -57,7 +57,7 @@ tasks.withType(Test) {
     }
 }
 
-def ACRA_VERSION = "5.5.0"
+def ACRA_VERSION = "5.7.0"
 def ROOM_VERSION = "2.2.5"
 
 dependencies {
@@ -86,7 +86,7 @@ dependencies {
     implementation 'androidx.work:work-runtime:2.4.0'
 
     /* ReactiveX */
-    implementation "io.reactivex.rxjava2:rxjava:2.2.9"
+    implementation "io.reactivex.rxjava2:rxjava:2.2.19"
     implementation "io.reactivex.rxjava2:rxandroid:2.1.1"
 
     /* ACRA */
