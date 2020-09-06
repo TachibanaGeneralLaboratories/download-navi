@@ -320,13 +320,16 @@ public class DownloadNotifier
 
         /* Build action intents */
         if (type == TYPE_ACTIVE || type == TYPE_PENDING) {
-            if (type == TYPE_ACTIVE)
+            boolean isStopped = StatusCode.isStatusStoppedOrPaused(info.statusCode);
+            if (isStopped) {
+                builder.setOngoing(false);
+            } else if (type == TYPE_ACTIVE) {
                 builder.setOngoing(true);
+            }
 
             Intent pauseResumeButtonIntent = new Intent(NotificationReceiver.NOTIFY_ACTION_PAUSE_RESUME,
                     uri, appContext, NotificationReceiver.class);
             pauseResumeButtonIntent.putExtra(NotificationReceiver.TAG_ID, info.id);
-            boolean isStopped = StatusCode.isStatusStoppedOrPaused(info.statusCode);
             int icon = (isStopped ? R.drawable.ic_play_arrow_white_24dp : R.drawable.ic_pause_white_24dp);
             String text = (isStopped ? appContext.getString(R.string.resume) : appContext.getString(R.string.pause));
             PendingIntent pauseResumeButtonPendingIntent =
