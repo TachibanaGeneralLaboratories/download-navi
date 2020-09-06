@@ -302,4 +302,6 @@
     Download Navi adalah perangkat lunak bebas, dirilis dibawah perlindungan <a href="http://www.gnu.org/copyleft/gpl.html">Lisensi Publik Umum GNU v3 (GPLv3)</a><br><br>
     <a href="https://github.com/TachibanaGeneralLaboratories/download-navi/blob/HEAD/Privacy.md">Kebijakan Privasi</a>]]></string>
     <string name="about_changelog">Catatan perubahan</string>
+    <string name="referer">Referer</string>
+    <string name="referer_description">Referer Header</string>
 </resources>

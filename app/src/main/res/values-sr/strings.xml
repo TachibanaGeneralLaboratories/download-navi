@@ -306,4 +306,6 @@
     Download Navi је бесплатан софтвер, објављен под условима <a href="http://www.gnu.org/copyleft/gpl.html">GNU General Public License v3 (GPLv3)</a><br><br>
     <a href="https://github.com/TachibanaGeneralLaboratories/download-navi/blob/HEAD/Privacy.md">Полиса приватности</a>]]></string>
     <string name="about_changelog">Евиденција измена</string>
+    <string name="referer">Referer</string>
+    <string name="referer_description">Referer Header</string>
 </resources>
