@@ -48,6 +48,7 @@ import com.tachibana.downloader.core.system.SystemFacadeHelper;
 import com.tachibana.downloader.core.utils.DateUtils;
 import com.tachibana.downloader.core.utils.Utils;
 import com.tachibana.downloader.receiver.NotificationReceiver;
+import com.tachibana.downloader.ui.main.MainActivity;
 
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -357,6 +358,20 @@ public class DownloadNotifier
                     appContext.getString(R.string.stop),
                     stopButtonPendingIntent)
                     .build());
+
+            /* For starting main activity */
+            Intent startupIntent = new Intent(appContext, MainActivity.class);
+            startupIntent.setAction(Intent.ACTION_MAIN);
+            startupIntent.addCategory(Intent.CATEGORY_LAUNCHER);
+            startupIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP);
+
+            PendingIntent startupPendingIntent =
+                    PendingIntent.getActivity(appContext,
+                            0,
+                            startupIntent,
+                            PendingIntent.FLAG_UPDATE_CURRENT);
+
+            builder.setContentIntent(startupPendingIntent);
 
         } else if (type == TYPE_COMPLETE) {
             builder.setAutoCancel(true);
