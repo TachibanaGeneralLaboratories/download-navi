@@ -40,6 +40,7 @@ public class AddDownloadParams extends BaseObservable
     private String description;
     private String mimeType = "application/octet-stream";
     private String etag;
+    private String referer;
     private String userAgent;
     private int numPieces = DownloadInfo.MIN_PIECES;
     private long totalBytes = -1;
@@ -139,6 +140,16 @@ public class AddDownloadParams extends BaseObservable
     public void setEtag(String etag)
     {
         this.etag = etag;
+    }
+
+    public String getReferer()
+    {
+        return referer;
+    }
+
+    public void setReferer(String referer)
+    {
+        this.referer = referer;
     }
 
     public String getUserAgent()

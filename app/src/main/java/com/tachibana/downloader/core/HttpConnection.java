@@ -49,6 +49,7 @@ public class HttpConnection implements Runnable
     private TLSSocketFactory socketFactory;
     private Listener listener;
     private int timeout = DEFAULT_TIMEOUT;
+    private String referer;
 
     public interface Listener
     {
@@ -69,6 +70,7 @@ public class HttpConnection implements Runnable
         this.socketFactory = new TLSSocketFactory();
     }
 
+    public void setReferer(String referer) { this.referer = referer; }
     public void setListener(Listener listener)
     {
         this.listener = listener;
@@ -105,6 +107,9 @@ public class HttpConnection implements Runnable
                     conn.setRequestProperty("Cookie", cookiesString);
                 }
 
+                if (referer != null && !referer.isEmpty()) {
+                    conn.setRequestProperty("Referer", referer);
+                }
 
                 if (conn instanceof HttpsURLConnection)
                     ((HttpsURLConnection) conn).setSSLSocketFactory(socketFactory);
