@@ -1,6 +1,7 @@
 /*
  * Copyright (C) 2019 Tachibana General Laboratories, LLC
  * Copyright (C) 2019 Yaroslav Pronin <proninyaroslav@mail.ru>
+ * Copyright (C) 2020 8176135 <elsecaller@8176135.xyz>
  *
  * This file is part of Download Navi.
  *
