@@ -1,12 +1,13 @@
 Funktionalitäten
 
 Freie Open-Source-Software (FOSS)
-• Material-Design
+* Material-Design
 * Mehrere Motive (hell, dunkel, schwarz)
 * Unterstützung für Android TV
 * Unterstützung für Chrome OS
 * Downloads pausieren und fortsetzen
 Browserunterstützung
+* Integrierter Browser
 * Parallele Downloads (Voreinstellung: 3)
 * Download in Segmenten (max. 16)
 * Download von Dateien im Hintergrund

@@ -72,11 +72,13 @@ You can help translate the app here: [https://crowdin.com/project/download-navi]
  - **Indonesian** *(thanks bzntm)*
  - **Italian** *(thanks alisseo)*
  - **Japanese** *(thanks konnyaku2mc)*
+ - **Persian** *(thanks Reg3xp)*
  - **Russian**
  - **Serbian** *(thanks Aimbot91)*
  - **Slovak** *(thanks kubalav)*
  - **Spanish** *(thanks c-sanchez)*
  - **Turkish** *(thanks byzlo685, muhaaliss)*
+ - **Ukrainian** *(thanks Sensetivity)*
  - **Vietnamese** *(thanks pnhpnh)*
 
 Contributors

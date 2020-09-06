@@ -103,6 +103,7 @@
     <string name="add_download_error_invalid_url">Невозможно добавить загрузку: неверный URL</string>
     <string name="checksum">Контрольная сумма</string>
     <string name="add_dialog_checksum_description">MD5, SHA-256</string>
+    <string name="referer_description">%1$s заголовок</string>
     <string name="error_invalid_checksum">Неверная контрольная сумма</string>
     <!-- Add user agent dialog -->
     <string name="dialog_add_user_agent_title">Добавить user agent</string>
@@ -200,7 +201,7 @@
     <string name="browser_bookmarks">Закладки</string>
     <string name="bookmarks_list_empty">Нет закладок</string>
     <string name="browser_add_bookmark">Добавить закладку</string>
-    <string name="browser_edit_bookmark">Редактировать закладку</string>
+    <string name="browser_edit_bookmark">Изменить закладку</string>
     <!-- Edit bookmark dialog -->
     <string name="browser_bookmark_name">Имя</string>
     <string name="browser_bookmark_url">URL</string>
@@ -221,7 +222,7 @@
     <string name="browser_bookmark_change_failed">Не удалось изменить закладку</string>
     <string name="browser_bookmark_added">Закладка добавлена</string>
     <string name="browser_bookmark_add_failed">Не удалось добавить закладку</string>
-    <string name="browser_bookmark_edit_menu">Редактировать</string>
+    <string name="browser_bookmark_edit_menu">Изменить</string>
     <!-- Settings -->
     <!-- Headers -->
     <string name="pref_header_appearance">Внешний вид</string>
@@ -308,5 +309,4 @@
     Download Navi является свободным программным обеспечением, выпущенным в соответствии с условиями лицензииe <a href="http://www.gnu.org/copyleft/gpl.html">GNU General Public License v3 (GPLv3)</a><br><br>
     <a href="https://github.com/TachibanaGeneralLaboratories/download-navi/blob/HEAD/Privacy.md">Политика конфидециальности</a>]]></string>
     <string name="about_changelog">Изменения</string>
-    <string name="referer_description">%1$s header</string>
 </resources>

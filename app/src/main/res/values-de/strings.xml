@@ -103,6 +103,7 @@
     <string name="add_download_error_invalid_url">Download konnte nicht hinzugefügt werden: ungültige URL</string>
     <string name="checksum">Prüfsumme</string>
     <string name="add_dialog_checksum_description">MD5, SHA-256</string>
+    <string name="referer_description">%1$s header</string>
     <string name="error_invalid_checksum">Ungültige Prüfsumme</string>
     <!-- Add user agent dialog -->
     <string name="dialog_add_user_agent_title">User-Agent hinzufügen</string>
@@ -187,7 +188,7 @@
     <string name="text_copied_to_clipboard">Text wurde in die Zwischenablage kopiert</string>
     <!-- Browser -->
     <string name="browser">Browser</string>
-    <string name="browser_app">Navi Browser</string>
+    <string name="browser_app">Browser in Download Navi</string>
     <string name="webview_is_required">WebView wird zum Funktionieren benötigt</string>
     <string name="browser_forward_arrow">Vor</string>
     <string name="browser_desktop_version">Desktop-Version</string>
@@ -294,7 +295,7 @@
     <string name="pref_browser_do_not_track_title">Nicht nachverfolgen</string>
     <string name="pref_browser_do_not_track_summary">Besuchte Websites bitten, Aktivitäten nicht zu verfolgen</string>
     <string name="pref_browser_launcher_icon_title">Browsersymbol im Launcher</string>
-    <string name="pref_browser_disable_from_system_title">Disable browser from the system</string>
+    <string name="pref_browser_disable_from_system_title">Browser deaktivieren</string>
     <string name="pref_browser_disable_from_system_summary">Browser wird für das Öffnen von Verknüpfungen nicht verfügbar sein</string>
     <string name="pref_browser_search_engine_title">Suchmaschine</string>
     <!-- About dialog -->
@@ -304,5 +305,4 @@
     Download Navi ist freie Software, veröffentlicht unter den Bedingungen der <a href="http://www.gnu.org/copyleft/gpl.html">GNU General Public License v3 (GPLv3)</a><br><br>
     <a href="https://github.com/TachibanaGeneralLaboratories/download-navi/blob/HEAD/Privacy.md">Datenschutz-Bestimmungen</a>]]></string>
     <string name="about_changelog">Änderungsprotokoll</string>
-    <string name="referer_description">%1$s header</string>
 </resources>

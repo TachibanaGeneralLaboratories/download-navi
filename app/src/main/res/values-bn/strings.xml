@@ -92,17 +92,18 @@
     <string name="fetch_error_network_disconnected">নেটওয়ার্ক সংযোগ বিচ্ছিন্ন।</string>
     <string name="fetch_error_http_response">ত্রুটি: সার্ভারটি HTTP %1$d কোডটি ফেরত দিয়েছে</string>
     <string name="fetch_error_io">IO ত্রুটি: %1$s</string>
-    <string name="unable_to_open_folder">Unable to open selected folder. Please try to select another folder</string>
-    <string name="unable_to_create_file">Unable to create file. Please try to select another folder</string>
-    <string name="partial_download_not_supported">This download doesn\'t support pause and downloading by pieces</string>
-    <string name="download_pieces_number_title">Number of pieces</string>
+    <string name="unable_to_open_folder">নির্দিষ্ট ফোল্ডার খুলতে ব্যর্থ। দয়া করে অন্য ফোল্ডার নির্দেশ করো।</string>
+    <string name="unable_to_create_file">ফাইল খুলতে ব্যর্থ। দয়া করে অন্য ফোল্ডার নির্দেশ করো</string>
+    <string name="partial_download_not_supported">এই ডাউনলোড থামানো ও টুকরা টুকরা করে ডাউনলোড করতে পারে না</string>
+    <string name="download_pieces_number_title">টুকরার সংখ্যা</string>
     <string name="download_description">বিস্তারিত</string>
     <string name="select_folder_to_save">সংরক্ষণ করার ফোল্ডার নির্বাচন করুন</string>
     <string name="path">পাথ</string>
     <string name="storage_free_space">জায়গা প্রয়োজন: %1$s</string>
-    <string name="add_download_error_invalid_url">Unable to add download: invalid URL</string>
+    <string name="add_download_error_invalid_url">ডাউনলোড যুক্ত করতে ব্যর্থ: অবৈধ ইউআরএল</string>
     <string name="checksum">চেকসাম</string>
     <string name="add_dialog_checksum_description">এমডি৫, শা-২৫৬</string>
+    <string name="referer_description">%1$s header</string>
     <string name="error_invalid_checksum">অবৈধ চেকসাম মান</string>
     <!-- Add user agent dialog -->
     <string name="dialog_add_user_agent_title">ব্যবহারকারীর এজেন্ট যোগ করুন</string>
@@ -115,22 +116,22 @@
     <!-- Category -->
     <string name="drawer_category">বিভাগ</string>
     <string name="drawer_category_others">অন্যান্য</string>
-    <string name="drawer_category_documents">Documents</string>
-    <string name="drawer_category_images">Images</string>
-    <string name="drawer_category_video">Video</string>
-    <string name="drawer_category_apk">APK</string>
-    <string name="drawer_category_audio">Audio</string>
-    <string name="drawer_category_archives">Archives</string>
+    <string name="drawer_category_documents">নথি</string>
+    <string name="drawer_category_images">ছবি</string>
+    <string name="drawer_category_video">ভিডিও</string>
+    <string name="drawer_category_apk">এপিকে</string>
+    <string name="drawer_category_audio">শব্দ</string>
+    <string name="drawer_category_archives">সংগ্রহ</string>
     <!-- Status -->
-    <string name="drawer_status">Status</string>
-    <string name="drawer_status_running">Running</string>
-    <string name="drawer_status_stopped">Stopped</string>
+    <string name="drawer_status">অবস্থা</string>
+    <string name="drawer_status_running">চলমান</string>
+    <string name="drawer_status_stopped">বন্ধ হয়েছে</string>
     <!-- Date added -->
-    <string name="drawer_date_added">Date added</string>
-    <string name="drawer_date_added_today">Today</string>
-    <string name="drawer_date_added_yesterday">Yesterday</string>
-    <string name="drawer_date_added_week">Week</string>
-    <string name="drawer_date_added_month">Month</string>
+    <string name="drawer_date_added">যুক্ত করার তারিখ</string>
+    <string name="drawer_date_added_today">আজকে</string>
+    <string name="drawer_date_added_yesterday">গতকাল</string>
+    <string name="drawer_date_added_week">সপ্তাহে</string>
+    <string name="drawer_date_added_month">মাসে</string>
     <string name="drawer_date_added_year">বছর</string>
     <!-- Sorting -->
     <string name="drawer_sorting">সারিবদ্ধ করা</string>
@@ -180,88 +181,88 @@
     <string name="detail_sha256_hash_sum">শা-২৫৬</string>
     <string name="calculate">গণনা কর</string>
     <!-- Error report -->
-    <string name="app_error_occurred">The app error occurred. You can send the report to developers</string>
-    <string name="error_comment_prompt">You can add extra information and comments here:</string>
+    <string name="app_error_occurred">অ্যাপে ত্রুটি হয়েছে। তুমি ডেভেলপারদের কাছে রিপোর্ট বা প্রতিবেদন পাঠাতে পারো</string>
+    <string name="error_comment_prompt">তুমি এখানে অতিরিক্ত তথ্য ও মন্তব্য যোগ করতে পারো:</string>
     <!-- Send text to clipboard -->
-    <string name="send_text_to_clipboard">Copy</string>
-    <string name="text_copied_to_clipboard">Text copied to clipboard</string>
+    <string name="send_text_to_clipboard">অনুলিপি</string>
+    <string name="text_copied_to_clipboard">লেখা ক্লিপবোর্ডে অনুলিপিত হয়েছে</string>
     <!-- Browser -->
-    <string name="browser">Browser</string>
-    <string name="browser_app">Navi Browser</string>
-    <string name="webview_is_required">WebView is required to work</string>
-    <string name="browser_forward_arrow">Forward</string>
-    <string name="browser_desktop_version">Desktop version</string>
-    <string name="browser_address_bar_hint">Enter address or query</string>
-    <string name="browser_back_pressed">Press again to close</string>
-    <string name="browser_secure_connection">Secure connection</string>
-    <string name="browser_download_from_link">Download</string>
-    <string name="browser_copy_link">Copy link</string>
+    <string name="browser">ব্রাউজার</string>
+    <string name="browser_app">নাবিক ব্রাউজার</string>
+    <string name="webview_is_required">কাজ করার জন্য ওয়েবভিউ দরকার</string>
+    <string name="browser_forward_arrow">আগাও</string>
+    <string name="browser_desktop_version">ডেস্কটপ সংস্করণ</string>
+    <string name="browser_address_bar_hint">ঠিকানা বা কুয়েরি যোগ করো</string>
+    <string name="browser_back_pressed">বন্ধ করতে আবার টিপ দাও</string>
+    <string name="browser_secure_connection">নিরাপদ সংযোগ</string>
+    <string name="browser_download_from_link">ডাউনলোড</string>
+    <string name="browser_copy_link">লিঙ্ক অনুলিপি করো</string>
     <!-- Browser bookmarks -->
-    <string name="browser_bookmarks">Bookmarks</string>
-    <string name="bookmarks_list_empty">No bookmarks</string>
-    <string name="browser_add_bookmark">Add bookmark</string>
-    <string name="browser_edit_bookmark">Edit bookmark</string>
+    <string name="browser_bookmarks">বুকমার্ক</string>
+    <string name="bookmarks_list_empty">বুকমার্ক নেই</string>
+    <string name="browser_add_bookmark">বুকমার্ক যোগ করো</string>
+    <string name="browser_edit_bookmark">বুকমার্ক সম্পাদনা করো</string>
     <!-- Edit bookmark dialog -->
-    <string name="browser_bookmark_name">Name</string>
-    <string name="browser_bookmark_url">URL</string>
-    <string name="browser_bookmark_error_empty_url">Please enter URL</string>
-    <string name="browser_bookmark_error_empty_name">Please enter name</string>
+    <string name="browser_bookmark_name">নাম</string>
+    <string name="browser_bookmark_url">ইউআরএল</string>
+    <string name="browser_bookmark_error_empty_url">অনুগ্রহ করে ইউআরএল দাও</string>
+    <string name="browser_bookmark_error_empty_name">অনুগ্রহ করে নাম লিখ</string>
     <plurals name="browser_bookmark_deleted">
-        <item quantity="one">Bookmark deleted</item>
-        <item quantity="other">Bookmarks deleted</item>
+        <item quantity="one">বুকমার্ক অপসারিত</item>
+        <item quantity="other">বুকমার্কগুলো অপসারিত</item>
     </plurals>
     <plurals name="browser_bookmark_delete_failed">
-        <item quantity="one">Failed to delete bookmark</item>
-        <item quantity="other">Failed to delete bookmarks</item>
+        <item quantity="one">বুকমার্ক মুছতে ব্যর্থ</item>
+        <item quantity="other">বুকমার্কগুলো মুছতে ব্যর্থ</item>
     </plurals>
-    <string name="browser_bookmark_change_failed">Failed to change bookmark</string>
-    <string name="browser_bookmark_added">Bookmark added</string>
-    <string name="browser_bookmark_add_failed">Failed to add bookmark</string>
-    <string name="browser_bookmark_edit_menu">Edit</string>
+    <string name="browser_bookmark_change_failed">বুকমার্ক পাল্টাতে ব্যর্থ</string>
+    <string name="browser_bookmark_added">বুকমার্ক যোগ করা হয়েছে</string>
+    <string name="browser_bookmark_add_failed">বুকমার্ক যোগ করতে ব্যর্থ</string>
+    <string name="browser_bookmark_edit_menu">সম্পাদনা</string>
     <!-- Settings -->
     <!-- Headers -->
-    <string name="pref_header_appearance">Appearance</string>
-    <string name="pref_header_behavior">Behavior</string>
-    <string name="pref_header_storage">Storage</string>
-    <string name="pref_header_browser">Browser</string>
+    <string name="pref_header_appearance">বাহ্যরূপ</string>
+    <string name="pref_header_behavior">আচরণ</string>
+    <string name="pref_header_storage">স্টোরেজ</string>
+    <string name="pref_header_browser">ব্রাউজার</string>
     <!-- Appearance settings -->
-    <string name="pref_theme_category">Theme settings</string>
-    <string name="pref_theme_title">Theme</string>
+    <string name="pref_theme_category">থিম সেটিংস</string>
+    <string name="pref_theme_title">থিম</string>
     <string-array name="pref_theme_entries">
-        <item>Light</item>
-        <item>Dark</item>
-        <item>Black</item>
+        <item>হালকা</item>
+        <item>অন্ধকার</item>
+        <item>কালো</item>
     </string-array>
-    <string name="pref_notification_category">Notification settings</string>
-    <string name="pref_progress_notify_title">Progress notification</string>
-    <string name="pref_finish_notify_title">Finish notification</string>
-    <string name="pref_pending_notify_title">Pending notification</string>
-    <string name="pref_play_sound_notify_title">Play sound</string>
-    <string name="pref_notify_sound_title">Notification sound</string>
-    <string name="pref_led_indicator_notify_title">LED indicator</string>
-    <string name="pref_led_indicator_color_notify_title">LED indicator color</string>
-    <string name="pref_vibration_notify_title">Vibration</string>
-    <string name="theme_settings_apply_after_reboot">Theme settings will be applied after restarting the app</string>
+    <string name="pref_notification_category">বিজ্ঞপ্তির সেটিংস</string>
+    <string name="pref_progress_notify_title">অগ্রগতির বিজ্ঞপ্তি</string>
+    <string name="pref_finish_notify_title">বিজ্ঞপ্তি শেষ</string>
+    <string name="pref_pending_notify_title">বিজ্ঞপ্তি প্রক্রিয়ারত</string>
+    <string name="pref_play_sound_notify_title">শব্দ বাজাও</string>
+    <string name="pref_notify_sound_title">বিজ্ঞপ্তির শব্দ</string>
+    <string name="pref_led_indicator_notify_title">এলইডি সংকেত</string>
+    <string name="pref_led_indicator_color_notify_title">এলইডি সংকেতের রং</string>
+    <string name="pref_vibration_notify_title">কম্পন</string>
+    <string name="theme_settings_apply_after_reboot">থিম সেটিংস অ্যাপ আবার চালু হবার পরে প্রয়োগ হবে</string>
     <!-- Behavior settings -->
-    <string name="pref_autostart_title">Autostart</string>
+    <string name="pref_autostart_title">আপনাআপনি শুরু</string>
     <string name="pref_autostart_summary">Run the app after start device and start downloads, if they weren\'t manually paused</string>
     <!-- A synonym for word "unmetered" - unlimited-->
     <string name="pref_umnetered_connections_only_title">Unmetered connections only</string>
     <string name="pref_umnetered_connections_only_summary">Download only over unmetered connections (for example, Wi-Fi or Ethernet)</string>
     <string name="pref_power_management_category">Power management</string>
-    <string name="pref_cpu_do_not_sleep_title">Keep CPU awake</string>
+    <string name="pref_cpu_do_not_sleep_title">সিপিইউ সজাগ রয়েছে</string>
     <string name="pref_cpu_do_not_sleep_summary">Enabling this will increase the battery usage. Use this option if the download speed reduces when screen turns off</string>
     <string name="pref_download_only_when_charging_title">Download only when charging</string>
     <string name="pref_download_only_when_charging_summary">If enabled, downloading will occur only during charging. All downloads will pause when not connected to charger</string>
-    <string name="pref_battery_control_title">Battery control</string>
-    <string name="pref_custom_battery_control_title">Custom battery percentage</string>
-    <string name="pref_custom_battery_control_value_title">Battery control percentage</string>
+    <string name="pref_battery_control_title">ব্যাটারি নিয়ন্ত্রণ</string>
+    <string name="pref_custom_battery_control_title">ব্যাটারির হার পাল্টাও</string>
+    <string name="pref_custom_battery_control_value_title">ব্যাটারি নিয়ন্ত্রণ হার</string>
     <string name="pref_battery_control_summary">All downloads will be paused if the battery level goes below %1$d%%. Limit doesn\'t apply at the time of charging</string>
     <string name="pref_custom_battery_control_summary">Set a custom percentage to pause downloads at if the battery drops below the given threshold. Enabling this will ignore the default %1$d%% threshold</string>
     <string name="pref_custom_battery_control_dialog_summary">Setting a custom battery percentage for the application to watch for will have a negative impact on battery life while downloads are occurring. Are you sure you want to enable this?</string>
-    <string name="pref_enable_roaming_title">Enable roaming</string>
-    <string name="pref_enable_roaming_summary">Download only if the device isn\'t roaming</string>
-    <string name="pref_max_active_downloads_title">Maximum active downloads</string>
+    <string name="pref_enable_roaming_title">রোমিং চালু করো</string>
+    <string name="pref_enable_roaming_summary">রোমিং না করলেই কেবল ডাউনলোড করো</string>
+    <string name="pref_max_active_downloads_title">সর্বোচ্চ চলমান ডাউনলোড</string>
     <string name="pref_max_download_retries_title">Maximum number of download retries</string>
     <string name="pref_max_download_retries_dialog_msg">0 - without retries</string>
     <string name="pref_replace_duplicate_downloads_title">Replace duplicate downloads</string>
@@ -283,8 +284,8 @@
     <string name="pref_browser_start_page_title">Start page</string>
     <string name="pref_browser_allow_java_script_title">Allow Java Script</string>
     <string name="pref_browser_allow_popup_windows_title">Allow popup windows</string>
-    <string name="pref_browser_cache_category">Cache</string>
-    <string name="pref_browser_cookies_category">Cookies</string>
+    <string name="pref_browser_cache_category">ক্যাশ</string>
+    <string name="pref_browser_cookies_category">কুকিস</string>
     <string name="pref_browser_enable_caching_title">Enable caching</string>
     <string name="pref_browser_enable_cookies_title">Enable cookies</string>
     <string name="pref_browser_delete_cookies_title">Delete cookies</string>
@@ -296,13 +297,12 @@
     <string name="pref_browser_launcher_icon_title">Browser icon in the launcher</string>
     <string name="pref_browser_disable_from_system_title">Disable browser from the system</string>
     <string name="pref_browser_disable_from_system_summary">Browser will not be available for opening links</string>
-    <string name="pref_browser_search_engine_title">Search engine</string>
+    <string name="pref_browser_search_engine_title">সার্চ ইঞ্জিন</string>
     <!-- About dialog -->
-    <string name="about_title">About Download Navi</string>
+    <string name="about_title">ডাউনলোড নাবিক সম্পর্কিত</string>
     <string name="about_description"><![CDATA[    More information and also to help the project: <a href="https://github.com/TachibanaGeneralLaboratories/download-navi">https://github.com/TachibanaGeneralLaboratories/download-navi</a><br><br>
     Download Navi is a free and Open Source download manager for Android 4.4+<br><br>
     Download Navi is free software, released under the terms of the <a href="http://www.gnu.org/copyleft/gpl.html">GNU General Public License v3 (GPLv3)</a><br><br>
     <a href="https://github.com/TachibanaGeneralLaboratories/download-navi/blob/HEAD/Privacy.md">Privacy Policy</a>]]></string>
     <string name="about_changelog">Changelog</string>
-    <string name="referer_description">%1$s header</string>
 </resources>

@@ -7,6 +7,7 @@
 * Podpora Chrome OS
 * Pozastavenie a pokračovanie sťahovania
 * Podpora prehliadačov
+* Vstavaný prehliadač
 * Simultánne sťahovanie (predvolené 3)
 * Sťahovanie viacerých častí naraz (max. 16)
 * Sťahovanie súborov na pozadí

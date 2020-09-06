@@ -7,6 +7,7 @@
 * Supporto per Chrome OS
 * Pausa e riprendi download
 * Supporto Browser
+* Browser incorporato
 * Download simultanei (predefinito 3)
 * Download multi parti (max 16)
 * Scarica in background

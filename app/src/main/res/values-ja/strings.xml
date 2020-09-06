@@ -2,7 +2,7 @@
 <resources>
     <!-- Global string -->
     <string name="app_name">Download Navi</string>
-    <string name="foreground_notification">前面通知</string>
+    <string name="foreground_notification">フォアグラウンド通知</string>
     <string name="download_running">進行中</string>
     <string name="finished">完了</string>
     <string name="shutdown">シャット ダウン</string>
@@ -103,6 +103,7 @@
     <string name="add_download_error_invalid_url">ダウンロードを追加できません: 無効な URL</string>
     <string name="checksum">チェックサム</string>
     <string name="add_dialog_checksum_description">MD5, SHA-256</string>
+    <string name="referer_description">%1$s ヘッダー</string>
     <string name="error_invalid_checksum">無効なチェックサム</string>
     <!-- Add user agent dialog -->
     <string name="dialog_add_user_agent_title">ユーザーエージェントを追加</string>
@@ -302,5 +303,4 @@
     Download Navi は <a href="http://www.gnu.org/copyleft/gpl.html">GNU General Public License v3 (GPLv3)</a> の条件の下でリリースされたフリーソフトウェアです<br><br>
     <a href="https://github.com/TachibanaGeneralLaboratories/download-navi/blob/HEAD/Privacy.md">個人情報保護方針</a>]]></string>
     <string name="about_changelog">更新履歴</string>
-    <string name="referer_description">%1$s header</string>
 </resources>

@@ -103,6 +103,7 @@
     <string name="add_download_error_invalid_url">无法添加下载：网址无效</string>
     <string name="checksum">校验和</string>
     <string name="add_dialog_checksum_description">MD5 和 SHA 256</string>
+    <string name="referer_description">%1$s 标头</string>
     <string name="error_invalid_checksum">无效校验和</string>
     <!-- Add user agent dialog -->
     <string name="dialog_add_user_agent_title">添加用户代理</string>
@@ -302,5 +303,4 @@
     Download Navi 是一款自由软件，遵循许可 <a href="http://www.gnu.org/copyleft/gpl.html">GNU General Public License v3 (GPLv3)</a> 的条款发布<br><br>
     <a href="https://github.com/TachibanaGeneralLaboratories/download-navi/blob/HEAD/Privacy.md">隐私政策</a>]]></string>
     <string name="about_changelog">更新日志</string>
-    <string name="referer_description">%1$s header</string>
 </resources>

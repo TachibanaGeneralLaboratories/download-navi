@@ -103,6 +103,7 @@
     <string name="add_download_error_invalid_url">Nelze přidat stahování: neplatná URL</string>
     <string name="checksum">Kontrolní součet</string>
     <string name="add_dialog_checksum_description">MD5, SHA-256</string>
+    <string name="referer_description">Záhlaví %1$s</string>
     <string name="error_invalid_checksum">Neplatný kontrolní součet</string>
     <!-- Add user agent dialog -->
     <string name="dialog_add_user_agent_title">Přidat uživatelského agenta</string>
@@ -308,5 +309,4 @@
     Download Navi je volný software, vydaný za podmínek <a href="http://www.gnu.org/copyleft/gpl.html">GNU General Public License v3 (GPLv3)</a><br><br>
     <a href="https://github.com/TachibanaGeneralLaboratories/download-navi/blob/HEAD/Privacy.md">Zásady ochrany osobních údajů</a>]]></string>
     <string name="about_changelog">Seznam změn</string>
-    <string name="referer_description">%1$s header</string>
 </resources>

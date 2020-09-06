@@ -103,6 +103,7 @@
     <string name="add_download_error_invalid_url">無法新增下載：連接無效</string>
     <string name="checksum">核對和</string>
     <string name="add_dialog_checksum_description">MD5, SHA-256</string>
+    <string name="referer_description">%1$s header</string>
     <string name="error_invalid_checksum">核對和無效</string>
     <!-- Add user agent dialog -->
     <string name="dialog_add_user_agent_title">新增使用者代理</string>
@@ -186,42 +187,42 @@
     <string name="send_text_to_clipboard">複製</string>
     <string name="text_copied_to_clipboard">文字已複製至剪貼簿</string>
     <!-- Browser -->
-    <string name="browser">Browser</string>
-    <string name="browser_app">Navi Browser</string>
-    <string name="webview_is_required">WebView is required to work</string>
-    <string name="browser_forward_arrow">Forward</string>
-    <string name="browser_desktop_version">Desktop version</string>
-    <string name="browser_address_bar_hint">Enter address or query</string>
-    <string name="browser_back_pressed">Press again to close</string>
-    <string name="browser_secure_connection">Secure connection</string>
-    <string name="browser_download_from_link">Download</string>
-    <string name="browser_copy_link">Copy link</string>
+    <string name="browser">瀏覽器</string>
+    <string name="browser_app">Navi 瀏覽器</string>
+    <string name="webview_is_required">需要 WebView 以正常工作</string>
+    <string name="browser_forward_arrow">下一頁</string>
+    <string name="browser_desktop_version">桌面版本</string>
+    <string name="browser_address_bar_hint">輸入網址或關鍵字</string>
+    <string name="browser_back_pressed">再按一次以退出</string>
+    <string name="browser_secure_connection">安全連線</string>
+    <string name="browser_download_from_link">下載</string>
+    <string name="browser_copy_link">複製連接</string>
     <!-- Browser bookmarks -->
-    <string name="browser_bookmarks">Bookmarks</string>
-    <string name="bookmarks_list_empty">No bookmarks</string>
-    <string name="browser_add_bookmark">Add bookmark</string>
-    <string name="browser_edit_bookmark">Edit bookmark</string>
+    <string name="browser_bookmarks">書籤</string>
+    <string name="bookmarks_list_empty">沒有書籤</string>
+    <string name="browser_add_bookmark">新增書籤</string>
+    <string name="browser_edit_bookmark">修改書籤</string>
     <!-- Edit bookmark dialog -->
-    <string name="browser_bookmark_name">Name</string>
-    <string name="browser_bookmark_url">URL</string>
-    <string name="browser_bookmark_error_empty_url">Please enter URL</string>
-    <string name="browser_bookmark_error_empty_name">Please enter name</string>
+    <string name="browser_bookmark_name">名稱</string>
+    <string name="browser_bookmark_url">網址</string>
+    <string name="browser_bookmark_error_empty_url">請輸入網址</string>
+    <string name="browser_bookmark_error_empty_name">請輸入名稱</string>
     <plurals name="browser_bookmark_deleted">
-        <item quantity="other">Bookmarks deleted</item>
+        <item quantity="other">已刪除書籤</item>
     </plurals>
     <plurals name="browser_bookmark_delete_failed">
-        <item quantity="other">Failed to delete bookmarks</item>
+        <item quantity="other">刪除書籤失敗</item>
     </plurals>
-    <string name="browser_bookmark_change_failed">Failed to change bookmark</string>
-    <string name="browser_bookmark_added">Bookmark added</string>
-    <string name="browser_bookmark_add_failed">Failed to add bookmark</string>
-    <string name="browser_bookmark_edit_menu">Edit</string>
+    <string name="browser_bookmark_change_failed">修改書籤失敗</string>
+    <string name="browser_bookmark_added">已新增書籤</string>
+    <string name="browser_bookmark_add_failed">新增書籤失敗</string>
+    <string name="browser_bookmark_edit_menu">編輯</string>
     <!-- Settings -->
     <!-- Headers -->
     <string name="pref_header_appearance">外觀</string>
     <string name="pref_header_behavior">行爲</string>
     <string name="pref_header_storage">存儲</string>
-    <string name="pref_header_browser">Browser</string>
+    <string name="pref_header_browser">瀏覽器</string>
     <!-- Appearance settings -->
     <string name="pref_theme_category">主題設定</string>
     <string name="pref_theme_title">佈景主題</string>
@@ -276,25 +277,25 @@
     <string name="pref_preallocate_disk_space_title">爲下載檔案預分配儲存空間</string>
     <string name="pref_preallocate_disk_space_summary">僅在 Android 5.0 Lollipop 及以上版本可用</string>
     <!-- Browser settings -->
-    <string name="pref_browser_bottom_address_bar_title">Address bar at the bottom</string>
-    <string name="pref_browser_bottom_address_bar_summary">The address bar will be located at the bottom of the screen</string>
-    <string name="pref_browser_start_page_title">Start page</string>
-    <string name="pref_browser_allow_java_script_title">Allow Java Script</string>
-    <string name="pref_browser_allow_popup_windows_title">Allow popup windows</string>
-    <string name="pref_browser_cache_category">Cache</string>
+    <string name="pref_browser_bottom_address_bar_title">底部地址列</string>
+    <string name="pref_browser_bottom_address_bar_summary">地址列將被置於熒幕底部</string>
+    <string name="pref_browser_start_page_title">開始頁面</string>
+    <string name="pref_browser_allow_java_script_title">允許 JavaScript</string>
+    <string name="pref_browser_allow_popup_windows_title">允許彈出式視窗</string>
+    <string name="pref_browser_cache_category">快取</string>
     <string name="pref_browser_cookies_category">Cookies</string>
-    <string name="pref_browser_enable_caching_title">Enable caching</string>
-    <string name="pref_browser_enable_cookies_title">Enable cookies</string>
-    <string name="pref_browser_delete_cookies_title">Delete cookies</string>
-    <string name="pref_browser_delete_cookies_done">Deleted all the cookies</string>
-    <string name="pref_browser_clear_cache_title">Clear cache</string>
-    <string name="pref_browser_clear_cache_done">The cache is cleared</string>
-    <string name="pref_browser_do_not_track_title">Do Not Track</string>
-    <string name="pref_browser_do_not_track_summary">Send a “Do Not Track” request to websites you visit</string>
-    <string name="pref_browser_launcher_icon_title">Browser icon in the launcher</string>
-    <string name="pref_browser_disable_from_system_title">Disable browser from the system</string>
-    <string name="pref_browser_disable_from_system_summary">Browser will not be available for opening links</string>
-    <string name="pref_browser_search_engine_title">Search engine</string>
+    <string name="pref_browser_enable_caching_title">啓用快取</string>
+    <string name="pref_browser_enable_cookies_title">啓用 cookies</string>
+    <string name="pref_browser_delete_cookies_title">刪除 cookies</string>
+    <string name="pref_browser_delete_cookies_done">刪除所有 cookies</string>
+    <string name="pref_browser_clear_cache_title">清除快取</string>
+    <string name="pref_browser_clear_cache_done">已清除快取</string>
+    <string name="pref_browser_do_not_track_title">不要追蹤</string>
+    <string name="pref_browser_do_not_track_summary">在您訪問網頁時傳送「不要追蹤」標頭</string>
+    <string name="pref_browser_launcher_icon_title">啓動器中的瀏覽器圖示</string>
+    <string name="pref_browser_disable_from_system_title">在系統中停用瀏覽器</string>
+    <string name="pref_browser_disable_from_system_summary">瀏覽器將不會在打開連接時顯示</string>
+    <string name="pref_browser_search_engine_title">搜尋引擎</string>
     <!-- About dialog -->
     <string name="about_title">關於 Download Navi</string>
     <string name="about_description"><![CDATA[    訪問此網站以獲取更多資訊或取得幫助：<a href="https://github.com/TachibanaGeneralLaboratories/download-navi">https://github.com/TachibanaGeneralLaboratories/download-navi</a><br><br>
@@ -302,5 +303,4 @@
     Download Navi 是一款自由軟體，遵循 <a href="http://www.gnu.org/copyleft/gpl.html">GNU General Public License v3 (GPLv3)</a> 的許可條款發佈<br><br>
     <a href="https://github.com/TachibanaGeneralLaboratories/download-navi/blob/HEAD/Privacy.md">隱私政策</a>]]></string>
     <string name="about_changelog">更新日誌</string>
-    <string name="referer_description">%1$s header</string>
 </resources>

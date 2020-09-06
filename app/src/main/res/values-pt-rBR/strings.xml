@@ -103,6 +103,7 @@
     <string name="add_download_error_invalid_url">Não foi possível adicionar o download: URL inválida</string>
     <string name="checksum">Checksum</string>
     <string name="add_dialog_checksum_description">MD5, SHA-256</string>
+    <string name="referer_description">%1$s header</string>
     <string name="error_invalid_checksum">Checksum inválido</string>
     <!-- Add user agent dialog -->
     <string name="dialog_add_user_agent_title">Adicionar agente de usuário</string>
@@ -186,44 +187,44 @@
     <string name="send_text_to_clipboard">Copiar</string>
     <string name="text_copied_to_clipboard">Texto copiado para a área de transferência</string>
     <!-- Browser -->
-    <string name="browser">Browser</string>
-    <string name="browser_app">Navi Browser</string>
-    <string name="webview_is_required">WebView is required to work</string>
-    <string name="browser_forward_arrow">Forward</string>
-    <string name="browser_desktop_version">Desktop version</string>
-    <string name="browser_address_bar_hint">Enter address or query</string>
-    <string name="browser_back_pressed">Press again to close</string>
-    <string name="browser_secure_connection">Secure connection</string>
-    <string name="browser_download_from_link">Download</string>
-    <string name="browser_copy_link">Copy link</string>
+    <string name="browser">Navegador</string>
+    <string name="browser_app">Navegador Navi</string>
+    <string name="webview_is_required">WebView é necessário para funcionar</string>
+    <string name="browser_forward_arrow">Avançar</string>
+    <string name="browser_desktop_version">Versão desktop</string>
+    <string name="browser_address_bar_hint">Digite o endereço ou consulte</string>
+    <string name="browser_back_pressed">Pressione novamente para fechar</string>
+    <string name="browser_secure_connection">Conexão segura</string>
+    <string name="browser_download_from_link">Baixar</string>
+    <string name="browser_copy_link">Copiar link</string>
     <!-- Browser bookmarks -->
-    <string name="browser_bookmarks">Bookmarks</string>
-    <string name="bookmarks_list_empty">No bookmarks</string>
-    <string name="browser_add_bookmark">Add bookmark</string>
-    <string name="browser_edit_bookmark">Edit bookmark</string>
+    <string name="browser_bookmarks">Marcadores</string>
+    <string name="bookmarks_list_empty">Sem marcadores</string>
+    <string name="browser_add_bookmark">Adicionar marcador</string>
+    <string name="browser_edit_bookmark">Editar marcador</string>
     <!-- Edit bookmark dialog -->
-    <string name="browser_bookmark_name">Name</string>
+    <string name="browser_bookmark_name">Nome</string>
     <string name="browser_bookmark_url">URL</string>
-    <string name="browser_bookmark_error_empty_url">Please enter URL</string>
-    <string name="browser_bookmark_error_empty_name">Please enter name</string>
+    <string name="browser_bookmark_error_empty_url">Por favor, digite a URL</string>
+    <string name="browser_bookmark_error_empty_name">Por favor, insira o nome</string>
     <plurals name="browser_bookmark_deleted">
-        <item quantity="one">Bookmark deleted</item>
-        <item quantity="other">Bookmarks deleted</item>
+        <item quantity="one">Marcador apagado</item>
+        <item quantity="other">Marcadores apagados</item>
     </plurals>
     <plurals name="browser_bookmark_delete_failed">
-        <item quantity="one">Failed to delete bookmark</item>
-        <item quantity="other">Failed to delete bookmarks</item>
+        <item quantity="one">Falha em excluir marcador</item>
+        <item quantity="other">Falha em excluir marcadores</item>
     </plurals>
-    <string name="browser_bookmark_change_failed">Failed to change bookmark</string>
-    <string name="browser_bookmark_added">Bookmark added</string>
-    <string name="browser_bookmark_add_failed">Failed to add bookmark</string>
-    <string name="browser_bookmark_edit_menu">Edit</string>
+    <string name="browser_bookmark_change_failed">Falha ao alterar marcador</string>
+    <string name="browser_bookmark_added">Marcador adicionado</string>
+    <string name="browser_bookmark_add_failed">Falha ao adicionar favorito</string>
+    <string name="browser_bookmark_edit_menu">Editar</string>
     <!-- Settings -->
     <!-- Headers -->
     <string name="pref_header_appearance">Aparência</string>
     <string name="pref_header_behavior">Comportamento</string>
     <string name="pref_header_storage">Armazenamento</string>
-    <string name="pref_header_browser">Browser</string>
+    <string name="pref_header_browser">Navegador</string>
     <!-- Appearance settings -->
     <string name="pref_theme_category">Configurações de tema</string>
     <string name="pref_theme_title">Tema</string>
@@ -278,25 +279,25 @@
     <string name="pref_preallocate_disk_space_title">Pré-alocar espaço em disco para o arquivo</string>
     <string name="pref_preallocate_disk_space_summary">Disponível para Android 5.0 Lollipop ou superior</string>
     <!-- Browser settings -->
-    <string name="pref_browser_bottom_address_bar_title">Address bar at the bottom</string>
-    <string name="pref_browser_bottom_address_bar_summary">The address bar will be located at the bottom of the screen</string>
-    <string name="pref_browser_start_page_title">Start page</string>
-    <string name="pref_browser_allow_java_script_title">Allow Java Script</string>
-    <string name="pref_browser_allow_popup_windows_title">Allow popup windows</string>
+    <string name="pref_browser_bottom_address_bar_title">Barra de endereço na parte inferior</string>
+    <string name="pref_browser_bottom_address_bar_summary">A barra de endereço estará localizada na parte inferior da tela</string>
+    <string name="pref_browser_start_page_title">Página inicial</string>
+    <string name="pref_browser_allow_java_script_title">Permitir Java Script</string>
+    <string name="pref_browser_allow_popup_windows_title">Permitir janelas popup</string>
     <string name="pref_browser_cache_category">Cache</string>
     <string name="pref_browser_cookies_category">Cookies</string>
-    <string name="pref_browser_enable_caching_title">Enable caching</string>
-    <string name="pref_browser_enable_cookies_title">Enable cookies</string>
-    <string name="pref_browser_delete_cookies_title">Delete cookies</string>
-    <string name="pref_browser_delete_cookies_done">Deleted all the cookies</string>
-    <string name="pref_browser_clear_cache_title">Clear cache</string>
-    <string name="pref_browser_clear_cache_done">The cache is cleared</string>
-    <string name="pref_browser_do_not_track_title">Do Not Track</string>
-    <string name="pref_browser_do_not_track_summary">Send a “Do Not Track” request to websites you visit</string>
-    <string name="pref_browser_launcher_icon_title">Browser icon in the launcher</string>
-    <string name="pref_browser_disable_from_system_title">Disable browser from the system</string>
-    <string name="pref_browser_disable_from_system_summary">Browser will not be available for opening links</string>
-    <string name="pref_browser_search_engine_title">Search engine</string>
+    <string name="pref_browser_enable_caching_title">Habilitar caching</string>
+    <string name="pref_browser_enable_cookies_title">Ativar cookies</string>
+    <string name="pref_browser_delete_cookies_title">Apagar cookies</string>
+    <string name="pref_browser_delete_cookies_done">Apagado todos os cookies</string>
+    <string name="pref_browser_clear_cache_title">Limpar cache</string>
+    <string name="pref_browser_clear_cache_done">O cache está limpo</string>
+    <string name="pref_browser_do_not_track_title">Não Rastrear</string>
+    <string name="pref_browser_do_not_track_summary">Enviar um pedido \"Não Rastrear\" para os sites que você visitar</string>
+    <string name="pref_browser_launcher_icon_title">Ícone do navegador no launcher</string>
+    <string name="pref_browser_disable_from_system_title">Desativar o navegador do sistema</string>
+    <string name="pref_browser_disable_from_system_summary">Navegador não estará disponível para abrir links</string>
+    <string name="pref_browser_search_engine_title">Mecanismo de pesquisa</string>
     <!-- About dialog -->
     <string name="about_title">Sobre Download Navi</string>
     <string name="about_description"><![CDATA[    Mais informações e também para ajudar o projeto: <a href="https://github.com/TachibanaGeneralLaboratories/download-navi">https://github.com/TachibanaGeneralLaboratories/download-navi</a><br><br>
@@ -304,5 +305,4 @@
     Download Navi é um software livre, lançado sob os termos da licença <a href="http://www.gnu.org/copyleft/gpl.html">GNU General Public License v3 (GPLv3)</a><br><br>
     <a href="https://github.com/TachibanaGeneralLaboratories/download-navi/blob/HEAD/Privacy.md">Política de Privacidade</a>]]></string>
     <string name="about_changelog">Alterações</string>
-    <string name="referer_description">%1$s header</string>
 </resources>

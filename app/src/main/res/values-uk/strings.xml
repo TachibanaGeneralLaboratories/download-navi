@@ -1,0 +1,312 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Global string -->
+    <string name="app_name">Download Navi</string>
+    <string name="foreground_notification">Foreground notification</string>
+    <string name="download_running">Завантажується</string>
+    <string name="finished">Завантажений</string>
+    <string name="shutdown">Вийти</string>
+    <!-- 1 d. 1 h. 1 m -->
+    <string name="elapsed_time_format_d_h_mm">%1$d дн. %2$d год. %3$d хв</string>
+    <!-- 1 h. 1 m. 1 s -->
+    <string name="elapsed_time_format_h_mm_ss">%1$d год. %2$d хв. %3$d сек</string>
+    <!-- 1 m. 1 s -->
+    <string name="elapsed_time_format_mm_ss">%1$d хв. %2$d сек</string>
+    <!-- 1 s -->
+    <string name="elapsed_time_format_ss">%1$d сек</string>
+    <string name="ok">OK</string>
+    <string name="cancel">Скасувати</string>
+    <!-- A synonym for word "unmetered" - unlimited-->
+    <string name="unmetered_connections_only">Тільки безлімітні з\'єднання</string>
+    <string name="connect">Підключитись</string>
+    <string name="add">Додати</string>
+    <string name="not_available">Н/Д</string>
+    <string name="open_navigation_drawer">Відкрити панель навігації</string>
+    <string name="close_navigation_drawer">Закрити панель навігації</string>
+    <string name="error_template">Помилка: %1$s</string>
+    <string name="pause">Пауза</string>
+    <string name="resume">Відновити</string>
+    <string name="stop">Зупинити</string>
+    <string name="stopped">Зупинено</string>
+    <string name="pending">В очікуванні</string>
+    <string name="delete">Видалити</string>
+    <string name="share">Поділитися</string>
+    <string name="menu">Меню</string>
+    <string name="select_all">Вибрати все</string>
+    <string name="share_via">Поділитися через</string>
+    <string name="no">Ні</string>
+    <string name="yes">Так</string>
+    <string name="error">Помилка</string>
+    <string name="file">Файл</string>
+    <string name="folder">Тека</string>
+    <string name="downloading_metadata">Завантаження метаданих</string>
+    <string name="all">Усі</string>
+    <string name="search">Пошук</string>
+    <string name="settings">Налаштування</string>
+    <string name="about">Про програму</string>
+    <string name="close">Закрити</string>
+    <string name="redownload">Завантажити заново</string>
+    <string name="Default">Типово</string>
+    <string name="warning">Попередження</string>
+    <string name="apply">Застосувати</string>
+    <string name="report">Відгук</string>
+    <string name="more_details">Детальніше</string>
+    <string name="clipboard">Буфер обміну</string>
+    <string name="verify">Перевірити</string>
+    <!-- Permission dialog -->
+    <string name="perm_denied_title">Доступ заборонено</string>
+    <string name="perm_denied_warning">Без цього дозволу, програма не зможе зберігати файли в пам\'яті на деяких пристроях та версіях Android. Застосунок не працюватиме належним чином. Ви впевнені, що хочете заборонити цей дозвіл?</string>
+    <!-- Download progress notification -->
+    <string name="download_ticker_notify">Завантаження %1$s</string>
+    <!-- Foreground notification -->
+    <string name="app_running_in_the_background">Download Navi запущений у фоні</string>
+    <string name="pause_all">Призупинити всі</string>
+    <string name="resume_all">Відновити всі</string>
+    <!-- Finish notification -->
+    <string name="download_finished_notify">Завантаження завершено</string>
+    <string name="open_using">Відкрити за допомогою</string>
+    <!-- Pending notification -->
+    <string name="download_in_queue_ticker_notify">%1$s у черзі</string>
+    <string name="waiting_for_network">Очікування мережі</string>
+    <string name="waiting_for_retry">Очікує повторної спроби</string>
+    <!-- Error notification -->
+    <string name="download_error_notify_title">Помилка завантаження</string>
+    <!-- Applying params notification -->
+    <string name="applying_params_title">Застосування параметрів</string>
+    <string name="applying_params_for_downloads">Застосування параметрів для завантажень</string>
+    <string name="applying_params_error_title">Помилка застосування параметрів для %1$s</string>
+    <!-- Add download dialog -->
+    <string name="add_download">Додати завантаження</string>
+    <string name="download_link">Посилання</string>
+    <string name="download_name">Ім\'я</string>
+    <string name="download_size">Розмір: %1$s</string>
+    <string name="download_retry">Повторити</string>
+    <string name="download_advanced">Додаткові налаштування</string>
+    <string name="download_user_agent">User agent</string>
+    <string name="download_error_empty_link">Введіть посилання</string>
+    <string name="download_error_empty_name">Будь ласка, введіть ім\'я</string>
+    <string name="download_error_no_enough_free_space">Недостатньо вільного місця. Вільно %1$s, а потрібно %2$s</string>
+    <string name="download_error_name_is_not_correct">Правильне ім\'я \"%1$s\"</string>
+    <string name="fetch_error_default_fmt">Помилка: %1$s</string>
+    <string name="fetch_error_invalid_url">Невірна URL-адреса: %1$s</string>
+    <string name="fetch_error_network_disconnected">мережа відімкнена</string>
+    <string name="fetch_error_http_response">Помилка: сервер повернув HTTP-код %1$d</string>
+    <string name="fetch_error_io">Помилка введення/виведення: %1$s</string>
+    <string name="unable_to_open_folder">Unable to open selected folder. Please try to select another folder</string>
+    <string name="unable_to_create_file">Unable to create file. Please try to select another folder</string>
+    <string name="partial_download_not_supported">This download doesn\'t support pause and downloading by pieces</string>
+    <string name="download_pieces_number_title">Number of pieces</string>
+    <string name="download_description">Description</string>
+    <string name="select_folder_to_save">Select the folder to save</string>
+    <string name="path">Path</string>
+    <string name="storage_free_space">Free space: %1$s</string>
+    <string name="add_download_error_invalid_url">Unable to add download: invalid URL</string>
+    <string name="checksum">Checksum</string>
+    <string name="add_dialog_checksum_description">MD5, SHA-256</string>
+    <string name="referer_description">%1$s header</string>
+    <string name="error_invalid_checksum">Invalid checksum</string>
+    <!-- Add user agent dialog -->
+    <string name="dialog_add_user_agent_title">Add user agent</string>
+    <!-- Main activity -->
+    <string name="fragment_title_queued">Queued</string>
+    <string name="fragment_title_completed">Completed</string>
+    <string name="download_list_empty">No downloads</string>
+    <string name="share_url">Share URL</string>
+    <!-- Navigation drawer -->
+    <!-- Category -->
+    <string name="drawer_category">Category</string>
+    <string name="drawer_category_others">Інші</string>
+    <string name="drawer_category_documents">Документи</string>
+    <string name="drawer_category_images">Зображення</string>
+    <string name="drawer_category_video">Відео</string>
+    <string name="drawer_category_apk">APK</string>
+    <string name="drawer_category_audio">Аудіо</string>
+    <string name="drawer_category_archives">Архіви</string>
+    <!-- Status -->
+    <string name="drawer_status">Статус</string>
+    <string name="drawer_status_running">Запущений</string>
+    <string name="drawer_status_stopped">Зупинено</string>
+    <!-- Date added -->
+    <string name="drawer_date_added">Дата додавання</string>
+    <string name="drawer_date_added_today">Сьогодні</string>
+    <string name="drawer_date_added_yesterday">Учора</string>
+    <string name="drawer_date_added_week">Тиждень</string>
+    <string name="drawer_date_added_month">Місяць</string>
+    <string name="drawer_date_added_year">Рік</string>
+    <!-- Sorting -->
+    <string name="drawer_sorting">Сортування</string>
+    <string name="drawer_sorting_date_added">Дата додавання</string>
+    <string name="drawer_sorting_name">Ім\'я</string>
+    <string name="drawer_sorting_size">Розмір</string>
+    <string name="drawer_sorting_category">Категорія</string>
+    <string name="drawer_sorting_no_sorting">Без сортування</string>
+    <!-- Download list item -->
+    <!-- downloaded/total • ETA • speed -->
+    <string name="download_queued_progress_template">%1$s/%2$s \u2022 %3$s \u2022 %4$s/s</string>
+    <!-- downloaded/total • status -->
+    <string name="download_queued_template">%1$s/%2$s \u2022 %3$s</string>
+    <!-- hostname • total -->
+    <string name="download_finished_template">%1$s \u2022 %2$s</string>
+    <string name="download_details">Подробиці</string>
+    <string name="deleting">Видалення</string>
+    <string name="delete_selected_download">Видалити обране завантаження? Цю операцію неможливо скасувати</string>
+    <string name="delete_selected_downloads">Видалити обрані завантаження? Цю операцію неможливо скасувати</string>
+    <string name="delete_with_downloaded_file">Видалити разом з завантаженим файлом</string>
+    <string name="error_verify_checksum">Некоректна контрольна сума файлу</string>
+    <!-- Filemanager dialog -->
+    <string name="dir_chooser_title">Вибір теки</string>
+    <string name="file_chooser_title">File selection</string>
+    <string name="dialog_new_folder_title">New folder</string>
+    <string name="error_dialog_new_folder">Unable to create a new folder</string>
+    <string name="error_open_dir">Unable to open the folder</string>
+    <string name="home_directory">Home</string>
+    <!-- name (size) -->
+    <string name="permission_denied">Permission denied</string>
+    <string name="save_file">Save file</string>
+    <string name="file_name">File name</string>
+    <string name="error_file_exists">File already exists. Replace it?</string>
+    <string name="file_name_is_empty">File name cannot be empty</string>
+    <string name="system_manager">System manager</string>
+    <string name="device_does_not_support_this_feature">Your device doesn\'t support this feature</string>
+    <string name="system_file_manager_not_found">System file manager not found</string>
+    <string name="replace_file">Replace file</string>
+    <!-- Details download dialog -->
+    <string name="detail_downloaded">Downloaded</string>
+    <!-- downloaded/total (percent) -->
+    <string name="detail_downloaded_format">%1$s/%2$s (%3$d%%)</string>
+    <string name="detail_pieces">Pieces</string>
+    <string name="detail_date_added">Date added</string>
+    <string name="detail_user_agent">User agent</string>
+    <string name="detail_md5_hash_sum">MD5</string>
+    <string name="detail_sha256_hash_sum">SHA-256</string>
+    <string name="calculate">Calculate</string>
+    <!-- Error report -->
+    <string name="app_error_occurred">The app error occurred. You can send the report to developers</string>
+    <string name="error_comment_prompt">You can add extra information and comments here:</string>
+    <!-- Send text to clipboard -->
+    <string name="send_text_to_clipboard">Copy</string>
+    <string name="text_copied_to_clipboard">Text copied to clipboard</string>
+    <!-- Browser -->
+    <string name="browser">Browser</string>
+    <string name="browser_app">Navi Browser</string>
+    <string name="webview_is_required">WebView is required to work</string>
+    <string name="browser_forward_arrow">Forward</string>
+    <string name="browser_desktop_version">Desktop version</string>
+    <string name="browser_address_bar_hint">Enter address or query</string>
+    <string name="browser_back_pressed">Press again to close</string>
+    <string name="browser_secure_connection">Secure connection</string>
+    <string name="browser_download_from_link">Download</string>
+    <string name="browser_copy_link">Copy link</string>
+    <!-- Browser bookmarks -->
+    <string name="browser_bookmarks">Bookmarks</string>
+    <string name="bookmarks_list_empty">No bookmarks</string>
+    <string name="browser_add_bookmark">Add bookmark</string>
+    <string name="browser_edit_bookmark">Edit bookmark</string>
+    <!-- Edit bookmark dialog -->
+    <string name="browser_bookmark_name">Name</string>
+    <string name="browser_bookmark_url">URL</string>
+    <string name="browser_bookmark_error_empty_url">Please enter URL</string>
+    <string name="browser_bookmark_error_empty_name">Please enter name</string>
+    <plurals name="browser_bookmark_deleted">
+        <item quantity="one">Bookmark deleted</item>
+        <item quantity="few">Bookmarks deleted</item>
+        <item quantity="many">Bookmarks deleted</item>
+        <item quantity="other">Bookmarks deleted</item>
+    </plurals>
+    <plurals name="browser_bookmark_delete_failed">
+        <item quantity="one">Failed to delete bookmark</item>
+        <item quantity="few">Failed to delete bookmarks</item>
+        <item quantity="many">Failed to delete bookmarks</item>
+        <item quantity="other">Failed to delete bookmarks</item>
+    </plurals>
+    <string name="browser_bookmark_change_failed">Failed to change bookmark</string>
+    <string name="browser_bookmark_added">Bookmark added</string>
+    <string name="browser_bookmark_add_failed">Failed to add bookmark</string>
+    <string name="browser_bookmark_edit_menu">Edit</string>
+    <!-- Settings -->
+    <!-- Headers -->
+    <string name="pref_header_appearance">Appearance</string>
+    <string name="pref_header_behavior">Behavior</string>
+    <string name="pref_header_storage">Storage</string>
+    <string name="pref_header_browser">Browser</string>
+    <!-- Appearance settings -->
+    <string name="pref_theme_category">Theme settings</string>
+    <string name="pref_theme_title">Theme</string>
+    <string-array name="pref_theme_entries">
+        <item>Light</item>
+        <item>Dark</item>
+        <item>Black</item>
+    </string-array>
+    <string name="pref_notification_category">Notification settings</string>
+    <string name="pref_progress_notify_title">Progress notification</string>
+    <string name="pref_finish_notify_title">Finish notification</string>
+    <string name="pref_pending_notify_title">Pending notification</string>
+    <string name="pref_play_sound_notify_title">Play sound</string>
+    <string name="pref_notify_sound_title">Notification sound</string>
+    <string name="pref_led_indicator_notify_title">LED indicator</string>
+    <string name="pref_led_indicator_color_notify_title">LED indicator color</string>
+    <string name="pref_vibration_notify_title">Vibration</string>
+    <string name="theme_settings_apply_after_reboot">Theme settings will be applied after restarting the app</string>
+    <!-- Behavior settings -->
+    <string name="pref_autostart_title">Autostart</string>
+    <string name="pref_autostart_summary">Run the app after start device and start downloads, if they weren\'t manually paused</string>
+    <!-- A synonym for word "unmetered" - unlimited-->
+    <string name="pref_umnetered_connections_only_title">Unmetered connections only</string>
+    <string name="pref_umnetered_connections_only_summary">Download only over unmetered connections (for example, Wi-Fi or Ethernet)</string>
+    <string name="pref_power_management_category">Power management</string>
+    <string name="pref_cpu_do_not_sleep_title">Keep CPU awake</string>
+    <string name="pref_cpu_do_not_sleep_summary">Enabling this will increase the battery usage. Use this option if the download speed reduces when screen turns off</string>
+    <string name="pref_download_only_when_charging_title">Download only when charging</string>
+    <string name="pref_download_only_when_charging_summary">If enabled, downloading will occur only during charging. All downloads will pause when not connected to charger</string>
+    <string name="pref_battery_control_title">Battery control</string>
+    <string name="pref_custom_battery_control_title">Custom battery percentage</string>
+    <string name="pref_custom_battery_control_value_title">Battery control percentage</string>
+    <string name="pref_battery_control_summary">All downloads will be paused if the battery level goes below %1$d%%. Limit doesn\'t apply at the time of charging</string>
+    <string name="pref_custom_battery_control_summary">Set a custom percentage to pause downloads at if the battery drops below the given threshold. Enabling this will ignore the default %1$d%% threshold</string>
+    <string name="pref_custom_battery_control_dialog_summary">Setting a custom battery percentage for the application to watch for will have a negative impact on battery life while downloads are occurring. Are you sure you want to enable this?</string>
+    <string name="pref_enable_roaming_title">Enable roaming</string>
+    <string name="pref_enable_roaming_summary">Download only if the device isn\'t roaming</string>
+    <string name="pref_max_active_downloads_title">Maximum active downloads</string>
+    <string name="pref_max_download_retries_title">Maximum number of download retries</string>
+    <string name="pref_max_download_retries_dialog_msg">0 - without retries</string>
+    <string name="pref_replace_duplicate_downloads_title">Replace duplicate downloads</string>
+    <string name="pref_replace_duplicate_downloads_summary">Replace duplicate downloads (with the same URL) when added that are already in the list</string>
+    <string name="pref_auto_connect_title">Auto connect</string>
+    <string name="pref_auto_connect_summary">Auto connect when opening the add dialog</string>
+    <string name="pref_timeout_title">Timeout</string>
+    <string name="pref_timeout_summary">The number of milliseconds to wait before the connection timed out. Zero is interpreted as an infinite timeout</string>
+    <!-- Storage settings -->
+    <string name="pref_save_downloads_in_title">Save downloads in</string>
+    <string name="pref_move_after_download_title">Move after download</string>
+    <string name="pref_move_after_download_in_title">Move after download in</string>
+    <string name="pref_delete_file_if_error_title">Delete file if an error occurs</string>
+    <string name="pref_preallocate_disk_space_title">Pre-allocate disk space for the file</string>
+    <string name="pref_preallocate_disk_space_summary">Available for Android 5.0 Lollipop and above</string>
+    <!-- Browser settings -->
+    <string name="pref_browser_bottom_address_bar_title">Address bar at the bottom</string>
+    <string name="pref_browser_bottom_address_bar_summary">The address bar will be located at the bottom of the screen</string>
+    <string name="pref_browser_start_page_title">Start page</string>
+    <string name="pref_browser_allow_java_script_title">Allow Java Script</string>
+    <string name="pref_browser_allow_popup_windows_title">Allow popup windows</string>
+    <string name="pref_browser_cache_category">Cache</string>
+    <string name="pref_browser_cookies_category">Cookies</string>
+    <string name="pref_browser_enable_caching_title">Enable caching</string>
+    <string name="pref_browser_enable_cookies_title">Enable cookies</string>
+    <string name="pref_browser_delete_cookies_title">Delete cookies</string>
+    <string name="pref_browser_delete_cookies_done">Deleted all the cookies</string>
+    <string name="pref_browser_clear_cache_title">Clear cache</string>
+    <string name="pref_browser_clear_cache_done">The cache is cleared</string>
+    <string name="pref_browser_do_not_track_title">Do Not Track</string>
+    <string name="pref_browser_do_not_track_summary">Send a “Do Not Track” request to websites you visit</string>
+    <string name="pref_browser_launcher_icon_title">Browser icon in the launcher</string>
+    <string name="pref_browser_disable_from_system_title">Disable browser from the system</string>
+    <string name="pref_browser_disable_from_system_summary">Browser will not be available for opening links</string>
+    <string name="pref_browser_search_engine_title">Search engine</string>
+    <!-- About dialog -->
+    <string name="about_title">About Download Navi</string>
+    <string name="about_description"><![CDATA[    More information and also to help the project: <a href="https://github.com/TachibanaGeneralLaboratories/download-navi">https://github.com/TachibanaGeneralLaboratories/download-navi</a><br><br>
+    Download Navi is a free and Open Source download manager for Android 4.4+<br><br>
+    Download Navi is free software, released under the terms of the <a href="http://www.gnu.org/copyleft/gpl.html">GNU General Public License v3 (GPLv3)</a><br><br>
+    <a href="https://github.com/TachibanaGeneralLaboratories/download-navi/blob/HEAD/Privacy.md">Privacy Policy</a>]]></string>
+    <string name="about_changelog">Changelog</string>
+</resources>

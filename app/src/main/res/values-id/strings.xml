@@ -103,6 +103,7 @@
     <string name="add_download_error_invalid_url">Tidak bisa menambahkan unduhan: URL tidak valid</string>
     <string name="checksum">Checksum</string>
     <string name="add_dialog_checksum_description">MD5, SHA-256</string>
+    <string name="referer_description">%1$s header</string>
     <string name="error_invalid_checksum">Checksum tidak valid</string>
     <!-- Add user agent dialog -->
     <string name="dialog_add_user_agent_title">Tambah agen pengguna</string>
@@ -302,5 +303,4 @@
     Download Navi adalah perangkat lunak bebas, dirilis dibawah perlindungan <a href="http://www.gnu.org/copyleft/gpl.html">Lisensi Publik Umum GNU v3 (GPLv3)</a><br><br>
     <a href="https://github.com/TachibanaGeneralLaboratories/download-navi/blob/HEAD/Privacy.md">Kebijakan Privasi</a>]]></string>
     <string name="about_changelog">Catatan perubahan</string>
-    <string name="referer_description">%1$s header</string>
 </resources>

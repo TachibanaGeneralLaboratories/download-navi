@@ -7,6 +7,7 @@
 * Supporte Chrome OS
 * Pause et reprise des téléchargements
 Navigateurs supportés
+* Navigateur intégré
 * Téléchargements simultanés (par défaut 3)
 * Téléchargement multi parties (max 16)
 Téléchargement en arrière plan
