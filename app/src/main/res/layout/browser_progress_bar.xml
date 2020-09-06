@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+        <import type="android.view.View" />
+        <import type="com.tachibana.downloader.ui.browser.BrowserViewModel.UrlFetchState" />
+        <variable
+            name="viewModel"
+            type="com.tachibana.downloader.ui.browser.BrowserViewModel" />
+    </data>
+
+    <ProgressBar
+        android:id="@+id/progress"
+        style="@style/Widget.AppCompat.ProgressBar.Horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="-6dp"
+        android:layout_marginTop="-6dp"
+        app:layout_anchor="@id/address_layout"
+        android:max="100"
+        android:progress="@{viewModel.observeUrlFetchState.progress}"
+        android:visibility="@{viewModel.observeUrlFetchState == UrlFetchState.FETCHING ? View.VISIBLE : View.GONE}" />
+</layout>

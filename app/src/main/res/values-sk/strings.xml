@@ -103,6 +103,7 @@
     <string name="add_download_error_invalid_url">Nepodarilo sa pridať sťahovanie: Neplatná adresa URL</string>
     <string name="checksum">Kontrolný súčet</string>
     <string name="add_dialog_checksum_description">MD5, SHA-256</string>
+    <string name="referer_description">Hlavička %1$s</string>
     <string name="error_invalid_checksum">Neplatný kontrolný súčet</string>
     <!-- Add user agent dialog -->
     <string name="dialog_add_user_agent_title">Pridať používateľského agenta</string>
@@ -185,11 +186,49 @@
     <!-- Send text to clipboard -->
     <string name="send_text_to_clipboard">Kopírovať</string>
     <string name="text_copied_to_clipboard">Text sa skopíroval do schránky</string>
+    <!-- Browser -->
+    <string name="browser">Prehliadač</string>
+    <string name="browser_app">Navi Browser</string>
+    <string name="webview_is_required">Pre fungovanie je potrebný WebView</string>
+    <string name="browser_forward_arrow">Dopredu</string>
+    <string name="browser_desktop_version">Web pre počítače</string>
+    <string name="browser_address_bar_hint">Zadajte adresu alebo dopyt</string>
+    <string name="browser_back_pressed">Pre ukončenie stlačte znova</string>
+    <string name="browser_secure_connection">Zabezpečené pripojenie</string>
+    <string name="browser_download_from_link">Stiahnuť</string>
+    <string name="browser_copy_link">Skopírovať odkaz</string>
+    <!-- Browser bookmarks -->
+    <string name="browser_bookmarks">Záložky</string>
+    <string name="bookmarks_list_empty">Žiadne záložky</string>
+    <string name="browser_add_bookmark">Pridať záložku</string>
+    <string name="browser_edit_bookmark">Upraviť záložku</string>
+    <!-- Edit bookmark dialog -->
+    <string name="browser_bookmark_name">Názov</string>
+    <string name="browser_bookmark_url">Adresa URL</string>
+    <string name="browser_bookmark_error_empty_url">Zadajte adresu URL</string>
+    <string name="browser_bookmark_error_empty_name">Zadajte názov</string>
+    <plurals name="browser_bookmark_deleted">
+        <item quantity="one">Záložka odstránená</item>
+        <item quantity="few">Záložky odstránené</item>
+        <item quantity="many">Záložiek odstránených</item>
+        <item quantity="other">Záložiek odstránených</item>
+    </plurals>
+    <plurals name="browser_bookmark_delete_failed">
+        <item quantity="one">Nepodarilo sa odstrániť záložku</item>
+        <item quantity="few">Nepodarilo sa odstrániť záložky</item>
+        <item quantity="many">Nepodarilo sa odstrániť záložiek</item>
+        <item quantity="other">Nepodarilo sa odstrániť záložiek</item>
+    </plurals>
+    <string name="browser_bookmark_change_failed">Nepodarilo sa zmeniť záložku</string>
+    <string name="browser_bookmark_added">Záložka pridaná</string>
+    <string name="browser_bookmark_add_failed">Nepodarilo sa pridať záložku</string>
+    <string name="browser_bookmark_edit_menu">Upraviť</string>
     <!-- Settings -->
     <!-- Headers -->
     <string name="pref_header_appearance">Vzhľad</string>
     <string name="pref_header_behavior">Správanie</string>
     <string name="pref_header_storage">Úložisko</string>
+    <string name="pref_header_browser">Prehliadač</string>
     <!-- Appearance settings -->
     <string name="pref_theme_category">Nastavenie motívu</string>
     <string name="pref_theme_title">Motív</string>
@@ -243,6 +282,26 @@
     <string name="pref_delete_file_if_error_title">Odstrániť súbor, ak sa vyskytne chyba</string>
     <string name="pref_preallocate_disk_space_title">Vopred vyhradiť miesto na disku pre súbor</string>
     <string name="pref_preallocate_disk_space_summary">K dispozícii pre Android 5.0 Lollipop a vyššie</string>
+    <!-- Browser settings -->
+    <string name="pref_browser_bottom_address_bar_title">Adresný riadok naspodku</string>
+    <string name="pref_browser_bottom_address_bar_summary">Adresný riadok bude umiestnený na spodu obrazovky</string>
+    <string name="pref_browser_start_page_title">Úvodná stránka</string>
+    <string name="pref_browser_allow_java_script_title">Povoliť Java Script</string>
+    <string name="pref_browser_allow_popup_windows_title">Povoliť vyskakovacie okná</string>
+    <string name="pref_browser_cache_category">Vyrovnávacia pamäť</string>
+    <string name="pref_browser_cookies_category">Cookies</string>
+    <string name="pref_browser_enable_caching_title">Povoliť cachovanie</string>
+    <string name="pref_browser_enable_cookies_title">Povoliť cookies</string>
+    <string name="pref_browser_delete_cookies_title">Vymazať súbory cookie</string>
+    <string name="pref_browser_delete_cookies_done">Odstrániť všetky súbory cookies</string>
+    <string name="pref_browser_clear_cache_title">Vyčistiť vyrovnávaciu pamäť</string>
+    <string name="pref_browser_clear_cache_done">Vyrovnávacia pamäť je vyčistená</string>
+    <string name="pref_browser_do_not_track_title">Funkcia Nesledovať</string>
+    <string name="pref_browser_do_not_track_summary">Odošle webovým stránkam požiadavku, aby vás nesledovali</string>
+    <string name="pref_browser_launcher_icon_title">Ikona prehliadača v spúšťači</string>
+    <string name="pref_browser_disable_from_system_title">Zakázať prehlliadač v systéme</string>
+    <string name="pref_browser_disable_from_system_summary">Prehliadač nebude dostupný pre otváranie odkazov</string>
+    <string name="pref_browser_search_engine_title">Vyhľadávač</string>
     <!-- About dialog -->
     <string name="about_title">O Download Navi</string>
     <string name="about_description"><![CDATA[    Viac informácií a tiež pomoc s projektom: <a href="https://github.com/TachibanaGeneralLaboratories/download-navi">https://github.com/TachibanaGeneralLaboratories/download-navi</a><br><br>

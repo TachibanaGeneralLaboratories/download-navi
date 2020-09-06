@@ -2,7 +2,7 @@
 <resources>
     <!-- Global string -->
     <string name="app_name">Download Navi</string>
-    <string name="foreground_notification">前面通知</string>
+    <string name="foreground_notification">フォアグラウンド通知</string>
     <string name="download_running">進行中</string>
     <string name="finished">完了</string>
     <string name="shutdown">シャット ダウン</string>
@@ -103,6 +103,7 @@
     <string name="add_download_error_invalid_url">ダウンロードを追加できません: 無効な URL</string>
     <string name="checksum">チェックサム</string>
     <string name="add_dialog_checksum_description">MD5, SHA-256</string>
+    <string name="referer_description">%1$s ヘッダー</string>
     <string name="error_invalid_checksum">無効なチェックサム</string>
     <!-- Add user agent dialog -->
     <string name="dialog_add_user_agent_title">ユーザーエージェントを追加</string>
@@ -185,11 +186,43 @@
     <!-- Send text to clipboard -->
     <string name="send_text_to_clipboard">コピー</string>
     <string name="text_copied_to_clipboard">テキストをクリップボードにコピーしました</string>
+    <!-- Browser -->
+    <string name="browser">ブラウザ</string>
+    <string name="browser_app">ナビブラウザ</string>
+    <string name="webview_is_required">作業には WebView が必要です</string>
+    <string name="browser_forward_arrow">進む</string>
+    <string name="browser_desktop_version">デスクトップ版</string>
+    <string name="browser_address_bar_hint">アドレスまたはクエリを入力してください</string>
+    <string name="browser_back_pressed">もう一度押して閉じる</string>
+    <string name="browser_secure_connection">セキュア接続</string>
+    <string name="browser_download_from_link">ダウンロード</string>
+    <string name="browser_copy_link">リンクをコピー</string>
+    <!-- Browser bookmarks -->
+    <string name="browser_bookmarks">ブックマーク</string>
+    <string name="bookmarks_list_empty">ブックマークがありません</string>
+    <string name="browser_add_bookmark">ブックマークに追加</string>
+    <string name="browser_edit_bookmark">ブックマークを編集</string>
+    <!-- Edit bookmark dialog -->
+    <string name="browser_bookmark_name">名前</string>
+    <string name="browser_bookmark_url">URL</string>
+    <string name="browser_bookmark_error_empty_url">URL を入力してください</string>
+    <string name="browser_bookmark_error_empty_name">名前を入力して下さい</string>
+    <plurals name="browser_bookmark_deleted">
+        <item quantity="other">ブックマークが削除されました</item>
+    </plurals>
+    <plurals name="browser_bookmark_delete_failed">
+        <item quantity="other">ブックマークの削除に失敗しました</item>
+    </plurals>
+    <string name="browser_bookmark_change_failed">ブックマークの変更に失敗しました</string>
+    <string name="browser_bookmark_added">ブックマークが追加されました</string>
+    <string name="browser_bookmark_add_failed">ブックマークの追加に失敗しました</string>
+    <string name="browser_bookmark_edit_menu">編集</string>
     <!-- Settings -->
     <!-- Headers -->
     <string name="pref_header_appearance">外観</string>
     <string name="pref_header_behavior">動作</string>
     <string name="pref_header_storage">ストレージ</string>
+    <string name="pref_header_browser">ブラウザ</string>
     <!-- Appearance settings -->
     <string name="pref_theme_category">テーマの設定</string>
     <string name="pref_theme_title">テーマ</string>
@@ -243,6 +276,26 @@
     <string name="pref_delete_file_if_error_title">エラー発生時のファイル削除</string>
     <string name="pref_preallocate_disk_space_title">ファイル用のディスク容量を事前に割り当てる</string>
     <string name="pref_preallocate_disk_space_summary">Android 5.0 Lollipop 以上で有効です</string>
+    <!-- Browser settings -->
+    <string name="pref_browser_bottom_address_bar_title">下部のアドレスバー</string>
+    <string name="pref_browser_bottom_address_bar_summary">アドレスバーは画面下部に配置されます</string>
+    <string name="pref_browser_start_page_title">スタートページ</string>
+    <string name="pref_browser_allow_java_script_title">Java スクリプトを許可</string>
+    <string name="pref_browser_allow_popup_windows_title">ポップアップウィンドウを許可</string>
+    <string name="pref_browser_cache_category">キャッシュ</string>
+    <string name="pref_browser_cookies_category">Cookies</string>
+    <string name="pref_browser_enable_caching_title">キャッシュを有効化</string>
+    <string name="pref_browser_enable_cookies_title">Cookies を有効化</string>
+    <string name="pref_browser_delete_cookies_title">Cookie を消去</string>
+    <string name="pref_browser_delete_cookies_done">すべての Cookie を消去しました</string>
+    <string name="pref_browser_clear_cache_title">キャッシュを削除</string>
+    <string name="pref_browser_clear_cache_done">キャッシュが消去されました</string>
+    <string name="pref_browser_do_not_track_title">追跡しない (Do Not Track)</string>
+    <string name="pref_browser_do_not_track_summary">ウェブサイトに Do Not Track 要求を送信する</string>
+    <string name="pref_browser_launcher_icon_title">ランチャーでのブラウザアイコン</string>
+    <string name="pref_browser_disable_from_system_title">システムからブラウザを無効化</string>
+    <string name="pref_browser_disable_from_system_summary">ブラウザはリンクを開くのに利用できません</string>
+    <string name="pref_browser_search_engine_title">検索エンジン</string>
     <!-- About dialog -->
     <string name="about_title">Download Navi について</string>
     <string name="about_description"><![CDATA[    詳細情報とプロジェクトの支援: <a href="https://github.com/TachibanaGeneralLaboratories/download-navi">https://github.com/TachibanaGeneralLaboratories/download-navi</a><br><br>

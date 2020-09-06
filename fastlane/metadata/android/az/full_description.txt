@@ -1,5 +1,3 @@
-Download Navi, Android 4.4+ üçün ödənişsiz və Açıq Mənbəli endirmə idarəçisidir.
-
 # Xüsusiyyətlər
 
 * Ödənişsiz və Açıq Mənbə proqram təminatı (FOSS)

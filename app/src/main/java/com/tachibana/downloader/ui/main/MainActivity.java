@@ -56,13 +56,16 @@ import com.h6ah4i.android.widget.advrecyclerview.animator.GeneralItemAnimator;
 import com.h6ah4i.android.widget.advrecyclerview.animator.RefactoredDefaultItemAnimator;
 import com.h6ah4i.android.widget.advrecyclerview.expandable.RecyclerViewExpandableItemManager;
 import com.tachibana.downloader.R;
+import com.tachibana.downloader.core.RepositoryHelper;
 import com.tachibana.downloader.core.model.DownloadEngine;
+import com.tachibana.downloader.core.settings.SettingsRepository;
 import com.tachibana.downloader.core.utils.Utils;
 import com.tachibana.downloader.receiver.NotificationReceiver;
 import com.tachibana.downloader.service.DownloadService;
 import com.tachibana.downloader.ui.BaseAlertDialog;
 import com.tachibana.downloader.ui.RequestPermissions;
 import com.tachibana.downloader.ui.adddownload.AddDownloadActivity;
+import com.tachibana.downloader.ui.browser.BrowserActivity;
 import com.tachibana.downloader.ui.main.drawer.DrawerExpandableAdapter;
 import com.tachibana.downloader.ui.main.drawer.DrawerGroup;
 import com.tachibana.downloader.ui.main.drawer.DrawerGroupItem;
@@ -102,6 +105,7 @@ public class MainActivity extends AppCompatActivity
     private SearchView searchView;
     private boolean permDialogIsShow = false;
     private DownloadEngine engine;
+    private SettingsRepository pref;
     protected CompositeDisposable disposables = new CompositeDisposable();
     private BaseAlertDialog.SharedViewModel dialogViewModel;
     private BaseAlertDialog aboutDialog;
@@ -132,6 +136,10 @@ public class MainActivity extends AppCompatActivity
         }
 
         setContentView(R.layout.activity_main);
+
+        pref = RepositoryHelper.getSettingsRepository(getApplicationContext());
+        Utils.disableBrowserFromSystem(getApplicationContext(), pref.browserDisableFromSystem());
+        Utils.enableBrowserLauncherIcon(getApplicationContext(), pref.browserLauncherIcon());
 
         engine = DownloadEngine.getInstance(getApplicationContext());
 
@@ -426,6 +434,9 @@ public class MainActivity extends AppCompatActivity
             case R.id.shutdown_app_menu:
                 closeOptionsMenu();
                 shutdown();
+                break;
+            case R.id.browser_menu:
+                startActivity(new Intent(this, BrowserActivity.class));
                 break;
         }
 

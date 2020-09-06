@@ -46,6 +46,17 @@
     <string name="pref_key_preallocate_disk_space" translatable="false">pref_key_preallocate_disk_space</string>
     <!-- Network settings -->
     <string name="pref_key_user_agent" translatable="false">pref_key_user_agent</string>
+    <!-- Browser settings -->
+    <string name="pref_key_browser_allow_java_script" translatable="false">pref_key_browser_allow_java_script</string>
+    <string name="pref_key_browser_allow_popup_windows" translatable="false">pref_key_browser_allow_popup_windows</string>
+    <string name="pref_key_browser_launcher_icon" translatable="false">pref_key_browser_launcher_icon</string>
+    <string name="pref_key_browser_enable_caching" translatable="false">pref_key_browser_enable_caching</string>
+    <string name="pref_key_browser_enable_cookies" translatable="false">pref_key_browser_enable_cookies</string>
+    <string name="pref_key_browser_disable_from_system" translatable="false">pref_key_browser_disable_from_system</string>
+    <string name="pref_key_browser_start_page" translatable="false">pref_key_browser_start_page</string>
+    <string name="pref_key_browser_bottom_address_bar" translatable="false">pref_key_browser_bottom_address_bar</string>
+    <string name="pref_key_browser_do_not_track" translatable="false">pref_key_browser_do_not_track</string>
+    <string name="pref_key_browser_search_engine" translatable="false">pref_key_browser_search_engine</string>
 
     <!-- Filemanager settings -->
     <string name="pref_key_filemanager_last_dir" translatable="false">pref_key_filemanager_last_dir</string>

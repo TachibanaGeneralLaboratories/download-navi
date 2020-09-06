@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+        <variable
+            name="viewModel"
+            type="com.tachibana.downloader.ui.browser.BrowserViewModel" />
+    </data>
+
+    <androidx.coordinatorlayout.widget.CoordinatorLayout
+        android:id="@+id/coordinator_layout"
+        android:layout_height="match_parent"
+        android:layout_width="match_parent"
+        tools:context=".ui.browser.BrowserActivity">
+
+        <WebView
+            android:id="@+id/web_view"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginBottom="?attr/actionBarSize"
+            android:focusable="true"
+            android:focusableInTouchMode="true" />
+
+        <com.google.android.material.bottomappbar.BottomAppBar
+            android:id="@+id/bottom_bar"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            android:layout_gravity="bottom"
+            android:background="?attr/toolbarColor"
+            android:transitionName="actionBar"
+            app:popupTheme="?attr/popupTheme"
+            android:theme="@style/ThemeOverlay.MaterialComponents.ActionBar"
+            android:focusable="true">
+
+            <include
+                android:id="@+id/address_bar"
+                layout="@layout/browser_address_bar"
+                app:viewModel="@{viewModel}" />
+        </com.google.android.material.bottomappbar.BottomAppBar>
+
+        <include
+            android:id="@+id/progress"
+            layout="@layout/browser_progress_bar"
+            app:viewModel="@{viewModel}" />
+    </androidx.coordinatorlayout.widget.CoordinatorLayout>
+</layout>

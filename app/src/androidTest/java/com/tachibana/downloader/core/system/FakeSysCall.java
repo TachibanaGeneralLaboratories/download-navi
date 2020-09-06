@@ -23,7 +23,6 @@ package com.tachibana.downloader.core.system;
 import androidx.annotation.NonNull;
 
 import java.io.FileDescriptor;
-import java.io.IOException;
 
 public class FakeSysCall implements SysCall
 {

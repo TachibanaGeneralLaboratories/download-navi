@@ -37,6 +37,7 @@ import android.util.Log;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewTreeObserver;
 import android.widget.Button;
 import android.widget.Toast;
 
@@ -205,6 +206,9 @@ public class DownloadDetailsDialog extends DialogFragment
         viewModel.showClipboardButton.set(clip != null);
     }
 
+    private final ViewTreeObserver.OnWindowFocusChangeListener onFocusChanged =
+            (__) -> switchClipboardButton();
+
     private void handleAlertDialogEvent(BaseAlertDialog.Event event)
     {
         if (event.dialogTag == null || !event.dialogTag.equals(TAG_REPLACE_FILE_DIALOG))
@@ -260,7 +264,17 @@ public class DownloadDetailsDialog extends DialogFragment
 
         initLayoutView();
 
+        binding.getRoot().getViewTreeObserver().addOnWindowFocusChangeListener(onFocusChanged);
+
         return alert;
+    }
+
+    @Override
+    public void onDestroyView()
+    {
+        binding.getRoot().getViewTreeObserver().removeOnWindowFocusChangeListener(onFocusChanged);
+
+        super.onDestroyView();
     }
 
     private void initLayoutView()

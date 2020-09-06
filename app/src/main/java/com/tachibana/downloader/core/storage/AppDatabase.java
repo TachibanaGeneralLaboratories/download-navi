@@ -31,11 +31,13 @@ import androidx.room.RoomDatabase;
 import androidx.room.TypeConverters;
 import androidx.sqlite.db.SupportSQLiteDatabase;
 
+import com.tachibana.downloader.core.model.data.entity.BrowserBookmark;
 import com.tachibana.downloader.core.model.data.entity.DownloadInfo;
 import com.tachibana.downloader.core.model.data.entity.DownloadPiece;
 import com.tachibana.downloader.core.model.data.entity.Header;
 import com.tachibana.downloader.core.model.data.entity.UserAgent;
 import com.tachibana.downloader.core.storage.converter.UUIDConverter;
+import com.tachibana.downloader.core.storage.dao.BrowserBookmarksDao;
 import com.tachibana.downloader.core.storage.dao.DownloadDao;
 import com.tachibana.downloader.core.storage.dao.UserAgentDao;
 import com.tachibana.downloader.core.system.SystemFacade;
@@ -48,8 +50,9 @@ import io.reactivex.schedulers.Schedulers;
 @Database(entities = {DownloadInfo.class,
         DownloadPiece.class,
         Header.class,
-        UserAgent.class},
-        version = 4)
+        UserAgent.class,
+        BrowserBookmark.class},
+        version = 5)
 @TypeConverters({UUIDConverter.class})
 public abstract class AppDatabase extends RoomDatabase
 {
@@ -60,6 +63,8 @@ public abstract class AppDatabase extends RoomDatabase
     public abstract DownloadDao downloadDao();
 
     public abstract UserAgentDao userAgentDao();
+
+    public abstract BrowserBookmarksDao browserBookmarksDao();
 
     private final MutableLiveData<Boolean> isDatabaseCreated = new MutableLiveData<>();
 

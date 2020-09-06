@@ -103,6 +103,7 @@
     <string name="add_download_error_invalid_url">Download konnte nicht hinzugefügt werden: ungültige URL</string>
     <string name="checksum">Prüfsumme</string>
     <string name="add_dialog_checksum_description">MD5, SHA-256</string>
+    <string name="referer_description">%1$s header</string>
     <string name="error_invalid_checksum">Ungültige Prüfsumme</string>
     <!-- Add user agent dialog -->
     <string name="dialog_add_user_agent_title">User-Agent hinzufügen</string>
@@ -185,11 +186,45 @@
     <!-- Send text to clipboard -->
     <string name="send_text_to_clipboard">Kopieren</string>
     <string name="text_copied_to_clipboard">Text wurde in die Zwischenablage kopiert</string>
+    <!-- Browser -->
+    <string name="browser">Browser</string>
+    <string name="browser_app">Browser in Download Navi</string>
+    <string name="webview_is_required">WebView wird zum Funktionieren benötigt</string>
+    <string name="browser_forward_arrow">Vor</string>
+    <string name="browser_desktop_version">Desktop-Version</string>
+    <string name="browser_address_bar_hint">Adresse eingeben oder suchen</string>
+    <string name="browser_back_pressed">Zum Schließen erneut drücken</string>
+    <string name="browser_secure_connection">Sichere Verbindung</string>
+    <string name="browser_download_from_link">Download</string>
+    <string name="browser_copy_link">Verknüpfung kopieren</string>
+    <!-- Browser bookmarks -->
+    <string name="browser_bookmarks">Lesezeichen</string>
+    <string name="bookmarks_list_empty">Keine Lesezeichen</string>
+    <string name="browser_add_bookmark">Lesezeichen hinzufügen</string>
+    <string name="browser_edit_bookmark">Lesezeichen bearbeiten</string>
+    <!-- Edit bookmark dialog -->
+    <string name="browser_bookmark_name">Name</string>
+    <string name="browser_bookmark_url">URL</string>
+    <string name="browser_bookmark_error_empty_url">Bitte URL eingeben</string>
+    <string name="browser_bookmark_error_empty_name">Bitte Namen eingeben</string>
+    <plurals name="browser_bookmark_deleted">
+        <item quantity="one">Lesezeichen gelöscht</item>
+        <item quantity="other">Lesezeichen gelöscht</item>
+    </plurals>
+    <plurals name="browser_bookmark_delete_failed">
+        <item quantity="one">Löschen des Lesezeichens fehlgeschlagen</item>
+        <item quantity="other">Löschen der Lesezeichen fehlgeschlagen</item>
+    </plurals>
+    <string name="browser_bookmark_change_failed">Änderung des Lesezeichens fehlgeschlagen</string>
+    <string name="browser_bookmark_added">Lesezeichen hinzugefügt</string>
+    <string name="browser_bookmark_add_failed">Hinzufügen des Lesezeichens fehlgeschlagen</string>
+    <string name="browser_bookmark_edit_menu">Bearbeiten</string>
     <!-- Settings -->
     <!-- Headers -->
     <string name="pref_header_appearance">Erscheinungsbild</string>
     <string name="pref_header_behavior">Verhalten</string>
     <string name="pref_header_storage">Speicher</string>
+    <string name="pref_header_browser">Browser</string>
     <!-- Appearance settings -->
     <string name="pref_theme_category">Theme-Einstellungen</string>
     <string name="pref_theme_title">Theme</string>
@@ -243,6 +278,26 @@
     <string name="pref_delete_file_if_error_title">Datei löschen, falls ein Fehler auftritt</string>
     <string name="pref_preallocate_disk_space_title">Speicherplatz für die Datei vorbelegen</string>
     <string name="pref_preallocate_disk_space_summary">Verfügbar für Android 5.0 Lollipop und höher</string>
+    <!-- Browser settings -->
+    <string name="pref_browser_bottom_address_bar_title">Adressleiste unten</string>
+    <string name="pref_browser_bottom_address_bar_summary">Die Adressleiste wird am unteren Bildschirmrand plaziert</string>
+    <string name="pref_browser_start_page_title">Startseite</string>
+    <string name="pref_browser_allow_java_script_title">Java-Skript erlauben</string>
+    <string name="pref_browser_allow_popup_windows_title">Popup-Fenster erlauben</string>
+    <string name="pref_browser_cache_category">Zwischenspeicher</string>
+    <string name="pref_browser_cookies_category">Cookies</string>
+    <string name="pref_browser_enable_caching_title">Zwischenspeicherung aktivieren</string>
+    <string name="pref_browser_enable_cookies_title">Cookies aktivieren</string>
+    <string name="pref_browser_delete_cookies_title">Cookies löschen</string>
+    <string name="pref_browser_delete_cookies_done">Alle Cookies gelöscht</string>
+    <string name="pref_browser_clear_cache_title">Zwischenspeicher leeren</string>
+    <string name="pref_browser_clear_cache_done">Der Zwischenspeicher ist geleert</string>
+    <string name="pref_browser_do_not_track_title">Nicht nachverfolgen</string>
+    <string name="pref_browser_do_not_track_summary">Besuchte Websites bitten, Aktivitäten nicht zu verfolgen</string>
+    <string name="pref_browser_launcher_icon_title">Browsersymbol im Launcher</string>
+    <string name="pref_browser_disable_from_system_title">Browser deaktivieren</string>
+    <string name="pref_browser_disable_from_system_summary">Browser wird für das Öffnen von Verknüpfungen nicht verfügbar sein</string>
+    <string name="pref_browser_search_engine_title">Suchmaschine</string>
     <!-- About dialog -->
     <string name="about_title">Über Download Navi</string>
     <string name="about_description"><![CDATA[    Weitere Informationen und auch um das Projekt zu unterstützen: <a href="https://github.com/TachibanaGeneralLaboratories/download-navi">https://github.com/TachibanaGeneralLaboratories/download-navi</a><br><br>

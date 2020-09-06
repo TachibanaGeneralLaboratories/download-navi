@@ -51,8 +51,8 @@
     <string name="apply">套用</string>
     <string name="report">回報</string>
     <string name="more_details">更多細節</string>
-    <string name="clipboard">Clipboard</string>
-    <string name="verify">Verify</string>
+    <string name="clipboard">剪貼簿</string>
+    <string name="verify">校驗</string>
     <!-- Permission dialog -->
     <string name="perm_denied_title">權限被拒絕</string>
     <string name="perm_denied_warning">如果拒絕此權限，應用程式將無法在某些裝置和 Android 版本的記憶體中保存文件。此應用程式將無法正常工作。您確定要拒絕此權限嗎？</string>
@@ -101,9 +101,10 @@
     <string name="path">路徑</string>
     <string name="storage_free_space">可用空間：%1$s</string>
     <string name="add_download_error_invalid_url">無法新增下載：連接無效</string>
-    <string name="checksum">Checksum</string>
+    <string name="checksum">核對和</string>
     <string name="add_dialog_checksum_description">MD5, SHA-256</string>
-    <string name="error_invalid_checksum">Invalid checksum</string>
+    <string name="referer_description">%1$s header</string>
+    <string name="error_invalid_checksum">核對和無效</string>
     <!-- Add user agent dialog -->
     <string name="dialog_add_user_agent_title">新增使用者代理</string>
     <!-- Main activity -->
@@ -151,7 +152,7 @@
     <string name="delete_selected_download">您要刪除選中的下載嗎？此操作無法撤消</string>
     <string name="delete_selected_downloads">您要刪除選中的下載嗎？此操作無法撤消</string>
     <string name="delete_with_downloaded_file">同時刪除已下載檔案</string>
-    <string name="error_verify_checksum">Invalid file checksum</string>
+    <string name="error_verify_checksum">檔案的核對和無效</string>
     <!-- Filemanager dialog -->
     <string name="dir_chooser_title">資料夾選擇</string>
     <string name="file_chooser_title">檔案選中</string>
@@ -185,11 +186,43 @@
     <!-- Send text to clipboard -->
     <string name="send_text_to_clipboard">複製</string>
     <string name="text_copied_to_clipboard">文字已複製至剪貼簿</string>
+    <!-- Browser -->
+    <string name="browser">瀏覽器</string>
+    <string name="browser_app">Navi 瀏覽器</string>
+    <string name="webview_is_required">需要 WebView 以正常工作</string>
+    <string name="browser_forward_arrow">下一頁</string>
+    <string name="browser_desktop_version">桌面版本</string>
+    <string name="browser_address_bar_hint">輸入網址或關鍵字</string>
+    <string name="browser_back_pressed">再按一次以退出</string>
+    <string name="browser_secure_connection">安全連線</string>
+    <string name="browser_download_from_link">下載</string>
+    <string name="browser_copy_link">複製連接</string>
+    <!-- Browser bookmarks -->
+    <string name="browser_bookmarks">書籤</string>
+    <string name="bookmarks_list_empty">沒有書籤</string>
+    <string name="browser_add_bookmark">新增書籤</string>
+    <string name="browser_edit_bookmark">修改書籤</string>
+    <!-- Edit bookmark dialog -->
+    <string name="browser_bookmark_name">名稱</string>
+    <string name="browser_bookmark_url">網址</string>
+    <string name="browser_bookmark_error_empty_url">請輸入網址</string>
+    <string name="browser_bookmark_error_empty_name">請輸入名稱</string>
+    <plurals name="browser_bookmark_deleted">
+        <item quantity="other">已刪除書籤</item>
+    </plurals>
+    <plurals name="browser_bookmark_delete_failed">
+        <item quantity="other">刪除書籤失敗</item>
+    </plurals>
+    <string name="browser_bookmark_change_failed">修改書籤失敗</string>
+    <string name="browser_bookmark_added">已新增書籤</string>
+    <string name="browser_bookmark_add_failed">新增書籤失敗</string>
+    <string name="browser_bookmark_edit_menu">編輯</string>
     <!-- Settings -->
     <!-- Headers -->
     <string name="pref_header_appearance">外觀</string>
     <string name="pref_header_behavior">行爲</string>
     <string name="pref_header_storage">存儲</string>
+    <string name="pref_header_browser">瀏覽器</string>
     <!-- Appearance settings -->
     <string name="pref_theme_category">主題設定</string>
     <string name="pref_theme_title">佈景主題</string>
@@ -243,6 +276,26 @@
     <string name="pref_delete_file_if_error_title">發生錯誤後刪除檔案</string>
     <string name="pref_preallocate_disk_space_title">爲下載檔案預分配儲存空間</string>
     <string name="pref_preallocate_disk_space_summary">僅在 Android 5.0 Lollipop 及以上版本可用</string>
+    <!-- Browser settings -->
+    <string name="pref_browser_bottom_address_bar_title">底部地址列</string>
+    <string name="pref_browser_bottom_address_bar_summary">地址列將被置於熒幕底部</string>
+    <string name="pref_browser_start_page_title">開始頁面</string>
+    <string name="pref_browser_allow_java_script_title">允許 JavaScript</string>
+    <string name="pref_browser_allow_popup_windows_title">允許彈出式視窗</string>
+    <string name="pref_browser_cache_category">快取</string>
+    <string name="pref_browser_cookies_category">Cookies</string>
+    <string name="pref_browser_enable_caching_title">啓用快取</string>
+    <string name="pref_browser_enable_cookies_title">啓用 cookies</string>
+    <string name="pref_browser_delete_cookies_title">刪除 cookies</string>
+    <string name="pref_browser_delete_cookies_done">刪除所有 cookies</string>
+    <string name="pref_browser_clear_cache_title">清除快取</string>
+    <string name="pref_browser_clear_cache_done">已清除快取</string>
+    <string name="pref_browser_do_not_track_title">不要追蹤</string>
+    <string name="pref_browser_do_not_track_summary">在您訪問網頁時傳送「不要追蹤」標頭</string>
+    <string name="pref_browser_launcher_icon_title">啓動器中的瀏覽器圖示</string>
+    <string name="pref_browser_disable_from_system_title">在系統中停用瀏覽器</string>
+    <string name="pref_browser_disable_from_system_summary">瀏覽器將不會在打開連接時顯示</string>
+    <string name="pref_browser_search_engine_title">搜尋引擎</string>
     <!-- About dialog -->
     <string name="about_title">關於 Download Navi</string>
     <string name="about_description"><![CDATA[    訪問此網站以獲取更多資訊或取得幫助：<a href="https://github.com/TachibanaGeneralLaboratories/download-navi">https://github.com/TachibanaGeneralLaboratories/download-navi</a><br><br>

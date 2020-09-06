@@ -24,12 +24,12 @@ import android.net.Uri;
 import android.os.Environment;
 import android.text.TextUtils;
 import android.util.Log;
+import android.webkit.MimeTypeMap;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
 import com.tachibana.downloader.core.exception.FileAlreadyExistsException;
-import com.tachibana.downloader.core.utils.MimeTypeUtils;
 
 import java.io.Closeable;
 import java.io.File;
@@ -39,7 +39,7 @@ import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.nio.channels.FileChannel;
-import java.nio.charset.Charset;
+import java.nio.charset.StandardCharsets;
 
 class FileSystemFacadeImpl implements FileSystemFacade
 {
@@ -245,9 +245,16 @@ class FileSystemFacadeImpl implements FileSystemFacade
     @Override
     public String appendExtension(@NonNull String fileName, @NonNull String mimeType)
     {
-        String extension = null;
-        if (TextUtils.isEmpty(getExtension(fileName)))
-            extension = MimeTypeUtils.getExtensionFromMimeType(mimeType);
+        MimeTypeMap mimeTypeMap = MimeTypeMap.getSingleton();
+        String extension = getExtension(fileName);
+
+        if (TextUtils.isEmpty(extension)) {
+            extension = mimeTypeMap.getExtensionFromMimeType(mimeType);
+        } else {
+            String m = mimeTypeMap.getMimeTypeFromExtension(extension);
+            if (m == null || !m.equals(mimeType))
+                extension = mimeTypeMap.getExtensionFromMimeType(mimeType);
+        }
 
         if (extension != null && !fileName.endsWith(extension))
             fileName += getExtensionSeparator() + extension;
@@ -460,12 +467,12 @@ class FileSystemFacadeImpl implements FileSystemFacade
 
     private void trimFilename(StringBuilder res, int maxBytes)
     {
-        byte[] raw = res.toString().getBytes(Charset.forName("UTF-8"));
+        byte[] raw = res.toString().getBytes(StandardCharsets.UTF_8);
         if (raw.length > maxBytes) {
             maxBytes -= 3;
             while (raw.length > maxBytes) {
                 res.deleteCharAt(res.length() / 2);
-                raw = res.toString().getBytes(Charset.forName("UTF-8"));
+                raw = res.toString().getBytes(StandardCharsets.UTF_8);
             }
             res.insert(res.length() / 2, "...");
         }

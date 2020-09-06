@@ -1,6 +1,7 @@
 /*
  * Copyright (C) 2019 Tachibana General Laboratories, LLC
  * Copyright (C) 2019 Yaroslav Pronin <proninyaroslav@mail.ru>
+ * Copyright (C) 2020 8176135 <elsecaller@8176135.xyz>
  *
  * This file is part of Download Navi.
  *
@@ -56,6 +57,7 @@ import com.tachibana.downloader.core.utils.DigestUtils;
 import com.tachibana.downloader.core.utils.MimeTypeUtils;
 import com.tachibana.downloader.core.utils.Utils;
 
+import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.lang.ref.WeakReference;
@@ -66,6 +68,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import io.reactivex.Completable;
+import io.reactivex.disposables.CompositeDisposable;
+import io.reactivex.schedulers.Schedulers;
 
 public class AddDownloadViewModel extends AndroidViewModel
 {
@@ -82,6 +86,7 @@ public class AddDownloadViewModel extends AndroidViewModel
     public ObservableBoolean showClipboardButton = new ObservableBoolean(false);
     public SystemFacade systemFacade;
     public FileSystemFacade fs;
+    private CompositeDisposable disposables = new CompositeDisposable();
 
     public enum Status
     {
@@ -125,6 +130,7 @@ public class AddDownloadViewModel extends AndroidViewModel
     {
         super.onCleared();
 
+        disposables.clear();
         params.removeOnPropertyChangedCallback(paramsCallback);
     }
 
@@ -148,7 +154,7 @@ public class AddDownloadViewModel extends AndroidViewModel
                 getPrefUserAgent().userAgent :
                 initParams.userAgent);
         params.setDirPath(initParams.dirPath == null ?
-                Uri.parse(fs.getDefaultDownloadPath()) :
+                Uri.fromFile(new File(fs.getDefaultDownloadPath())) :
                 initParams.dirPath);
         params.setUnmeteredConnectionsOnly(initParams.unmeteredConnectionsOnly);
         params.setRetry(initParams.retry);
@@ -204,7 +210,7 @@ public class AddDownloadViewModel extends AndroidViewModel
         }
 
         fetchTask = new FetchLinkTask(this);
-        fetchTask.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, params.getUrl());
+        fetchTask.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, params.getUrl(), params.getReferer());
     }
 
     private static class FetchLinkTask extends AsyncTask<String, Void, Throwable>
@@ -244,7 +250,8 @@ public class AddDownloadViewModel extends AndroidViewModel
                 return e;
             }
             connection.setTimeout(viewModel.get().pref.timeout());
-
+            connection.setReferer(params[1]);
+            
             NetworkInfo netInfo = viewModel.get().systemFacade.getActiveNetworkInfo();
             if (netInfo == null || !netInfo.isConnected())
                 return new ConnectException("Network is disconnected");
@@ -319,18 +326,22 @@ public class AddDownloadViewModel extends AndroidViewModel
     {
         String contentDisposition = conn.getHeaderField("Content-Disposition");
         String contentLocation = conn.getHeaderField("Content-Location");
+        String tmpUrl = conn.getURL().toString();
 
         String mimeType = Intent.normalizeMimeType(conn.getContentType());
+        /* Try to determine the MIME type later by the filename extension */
+        if ("application/octet-stream".equals(mimeType))
+            mimeType = null;
 
         if (TextUtils.isEmpty(params.getFileName()))
             params.setFileName(Utils.getHttpFileName(fs,
-                    params.getUrl(),
+                    tmpUrl,
                     contentDisposition,
                     contentLocation,
                     mimeType));
 
         /* Try to get MIME from filename extension */
-        if (mimeType == null || mimeType.equals("application/octet-stream")) {
+        if (mimeType == null) {
             String extension = fs.getExtension(params.getFileName());
             if (!TextUtils.isEmpty(extension))
                 mimeType = MimeTypeUtils.getMimeTypeFromExtension(extension);
@@ -378,6 +389,9 @@ public class AddDownloadViewModel extends AndroidViewModel
 
         ArrayList<Header> headers = new ArrayList<>();
         headers.add(new Header(info.id, "ETag", params.getEtag()));
+        if (params.getReferer() != null && !params.getReferer().isEmpty()) {
+            headers.add(new Header(info.id, "Referer", params.getReferer()));
+        }
 
         /* TODO: rewrite to WorkManager */
         /* Sync wait inserting */
@@ -417,7 +431,7 @@ public class AddDownloadViewModel extends AndroidViewModel
                 if (filePath != null)
                     fs.deleteFile(filePath);
 
-            } catch (FileNotFoundException e) {
+            } catch (FileNotFoundException | IllegalArgumentException e) {
                 /* Ignore */
             }
         } else {
@@ -470,10 +484,15 @@ public class AddDownloadViewModel extends AndroidViewModel
         {
             if (propertyId == BR.dirPath) {
                 Uri dirPath = params.getDirPath();
-                if (dirPath != null) {
+                if (dirPath == null)
+                    return;
+
+                disposables.add(Completable.fromRunnable(() -> {
                     params.setStorageFreeSpace(fs.getDirAvailableBytes(dirPath));
                     params.setDirName(fs.getDirName(dirPath));
-                }
+                })
+                .subscribeOn(Schedulers.io())
+                .subscribe());
             }
         }
     };

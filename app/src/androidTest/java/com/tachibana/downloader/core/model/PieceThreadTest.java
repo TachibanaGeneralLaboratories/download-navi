@@ -27,8 +27,6 @@ import androidx.test.ext.junit.runners.AndroidJUnit4;
 import androidx.test.filters.MediumTest;
 
 import com.tachibana.downloader.AbstractTest;
-import com.tachibana.downloader.core.model.PieceThread;
-import com.tachibana.downloader.core.model.PieceThreadImpl;
 import com.tachibana.downloader.core.model.data.PieceResult;
 import com.tachibana.downloader.core.model.data.StatusCode;
 import com.tachibana.downloader.core.model.data.entity.DownloadInfo;

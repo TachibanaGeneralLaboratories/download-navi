@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <SwitchPreferenceCompat
+        android:key="@string/pref_key_browser_bottom_address_bar"
+        android:title="@string/pref_browser_bottom_address_bar_title"
+        android:summary="@string/pref_browser_bottom_address_bar_summary"
+        android:persistent="false" />
+
+    <ListPreference
+        android:key="@string/pref_key_browser_search_engine"
+        android:title="@string/pref_browser_search_engine_title"
+        android:summary="%s"
+        android:entries="@array/pref_browser_search_engine_entries"
+        android:entryValues="@array/pref_browser_search_engine_entry_values" />
+
+    <EditTextPreference
+        android:key="@string/pref_key_browser_start_page"
+        android:title="@string/pref_browser_start_page_title"
+        android:persistent="false" />
+
+    <PreferenceCategory>
+        <SwitchPreferenceCompat
+            android:key="@string/pref_key_browser_allow_java_script"
+            android:title="@string/pref_browser_allow_java_script_title"
+            android:persistent="false" />
+
+        <SwitchPreferenceCompat
+            android:key="@string/pref_key_browser_do_not_track"
+            android:title="@string/pref_browser_do_not_track_title"
+            android:summary="@string/pref_browser_do_not_track_summary"
+            android:persistent="false" />
+
+        <SwitchPreferenceCompat
+            android:key="@string/pref_key_browser_allow_popup_windows"
+            android:title="@string/pref_browser_allow_popup_windows_title"
+            android:persistent="false" />
+
+        <PreferenceCategory
+            android:title="@string/pref_browser_cookies_category">
+
+            <SwitchPreferenceCompat
+                android:key="@string/pref_key_browser_enable_cookies"
+                android:title="@string/pref_browser_enable_cookies_title"
+                android:persistent="false" />
+
+            <Preference
+                android:key="delete_cookies"
+                android:title="@string/pref_browser_delete_cookies_title"
+                android:persistent="false" />
+        </PreferenceCategory>
+
+        <PreferenceCategory
+            android:title="@string/pref_browser_cache_category">
+
+            <SwitchPreferenceCompat
+                android:key="@string/pref_key_browser_enable_caching"
+                android:title="@string/pref_browser_enable_caching_title"
+                android:persistent="false" />
+
+            <Preference
+                android:key="clear_cache"
+                android:title="@string/pref_browser_clear_cache_title"
+                android:persistent="false" />
+        </PreferenceCategory>
+
+        <PreferenceCategory>
+            <SwitchPreferenceCompat
+                android:key="@string/pref_key_browser_launcher_icon"
+                android:title="@string/pref_browser_launcher_icon_title"
+                android:persistent="false" />
+
+            <SwitchPreferenceCompat
+                android:key="@string/pref_key_browser_disable_from_system"
+                android:title="@string/pref_browser_disable_from_system_title"
+                android:summary="@string/pref_browser_disable_from_system_summary"
+                android:persistent="false" />
+        </PreferenceCategory>
+    </PreferenceCategory>
+</PreferenceScreen>

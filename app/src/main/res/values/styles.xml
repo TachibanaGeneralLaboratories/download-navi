@@ -261,4 +261,13 @@
 
         <item name="statusBarColor">@color/primary_dark</item>
     </style>
+
+    <style name="BrowserContextMenuItem" parent="@style/TextAppearance.MaterialComponents.Body1">
+        <item name="android:drawablePadding">24dp</item>
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:padding">16dp</item>
+        <item name="android:clickable">true</item>
+        <item name="android:background">?attr/transparentRectRipple</item>
+    </style>
 </resources>

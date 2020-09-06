@@ -212,12 +212,11 @@ public class NormalizeUrl
         hash = urlObj.getFragment();
         user = urlObj.getUsername();
         password = urlObj.getPassword();
+        queryStr = urlObj.getQuery();
         if (options.decode) {
-            queryStr = (urlObj.getQuery() == null ? null : PercentEncoder.decode(urlObj.getQuery()));
             path = urlObj.getPath();
             host = IDN.toUnicode(urlObj.getHost());
         } else {
-            queryStr = urlObj.getQuery();
             path = urlObj.getRawPath();
             host = urlObj.getHost();
         }

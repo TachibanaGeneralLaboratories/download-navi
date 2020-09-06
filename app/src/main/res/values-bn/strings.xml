@@ -1,0 +1,308 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Global string -->
+    <string name="app_name">Download Navi</string>
+    <string name="foreground_notification">অগ্রগামী নোটিফিকেশন</string>
+    <string name="download_running">চলমান</string>
+    <string name="finished">সমাপ্ত</string>
+    <string name="shutdown">বন্ধ</string>
+    <!-- 1 d. 1 h. 1 m -->
+    <string name="elapsed_time_format_d_h_mm">%1$d দিন %2$d ঘণ্টা %3$d মিনিট</string>
+    <!-- 1 h. 1 m. 1 s -->
+    <string name="elapsed_time_format_h_mm_ss">%1$d ঘণ্টা %2$d মিনিট %3$d সেকেন্ড</string>
+    <!-- 1 m. 1 s -->
+    <string name="elapsed_time_format_mm_ss">%1$d মিনিট %2$d সেকেন্ড</string>
+    <!-- 1 s -->
+    <string name="elapsed_time_format_ss">%1$d সেকেন্ড</string>
+    <string name="ok">আচ্ছা</string>
+    <string name="cancel">বাতিল করুন</string>
+    <!-- A synonym for word "unmetered" - unlimited-->
+    <string name="unmetered_connections_only">* অতিরিক্ত টাকা কাটা হয় না শুধু এমন কানেকশন</string>
+    <string name="connect">যুক্ত করুন</string>
+    <string name="add">যোগ করুন</string>
+    <string name="not_available">অপ্রযোজ্য</string>
+    <string name="open_navigation_drawer">ন্যাভিগেশন ড্রয়ার খুলুন</string>
+    <string name="close_navigation_drawer">ন্যাভিগেশন ড্রয়ার বন্ধ করুন</string>
+    <string name="error_template">ত্রুটি: %1$s</string>
+    <string name="pause">বিরতি</string>
+    <string name="resume">আবার শুরু কর</string>
+    <string name="stop">থামুন</string>
+    <string name="stopped">বন্ধ হয়েছে</string>
+    <string name="pending">নিষ্পন্ন হচ্ছে</string>
+    <string name="delete">মুছে ফেলুন</string>
+    <string name="share">শেয়ার করুন</string>
+    <string name="menu">তালিকা</string>
+    <string name="select_all">সব নির্বাচন করুন</string>
+    <string name="share_via">শেয়ার করুন</string>
+    <string name="no">না</string>
+    <string name="yes">হ্যাঁ</string>
+    <string name="error">ত্রুটি</string>
+    <string name="file">ফাইল</string>
+    <string name="folder">ফোল্ডার</string>
+    <string name="downloading_metadata">মেটাডাটা ডাউনলোড হচ্ছে</string>
+    <string name="all">সব</string>
+    <string name="search">অনুসন্ধান</string>
+    <string name="settings">সেটিংস</string>
+    <string name="about">সম্পর্কে</string>
+    <string name="close">বন্ধ করুন</string>
+    <string name="redownload">আবার ডাউনলোড করুন</string>
+    <string name="Default">পূর্ব-নির্ধারিত</string>
+    <string name="warning">সতর্কতা</string>
+    <string name="apply">প্রয়োগ করুন</string>
+    <string name="report">প্রতিবেদন করুন</string>
+    <string name="more_details">আরও বিস্তারিত</string>
+    <string name="clipboard">ক্লিপবোর্ড</string>
+    <string name="verify">যাচাইকরণ</string>
+    <!-- Permission dialog -->
+    <string name="perm_denied_title">অনুমতি দেওয়া হয়নি</string>
+    <string name="perm_denied_warning">এই অনুমতি ব্যতীত অ্যাপটি অ্যান্ড্রয়েডের কিছু ডিভাইস এবং সংস্করণগুলির মেমরিতে ফাইলগুলি সংরক্ষণ করতে পারবে না। অ্যাপটি সঠিকভাবে কাজ করবে না। আপনি কি এই অনুমতিটি অস্বীকার করার বিষয়ে নিশ্চিত?</string>
+    <!-- Download progress notification -->
+    <string name="download_ticker_notify">%1$s ডাউনলোড করা হচ্ছে</string>
+    <!-- Foreground notification -->
+    <string name="app_running_in_the_background">ব্যাকগ্রাউন্ডে ডাউনলোড নাবিক চলছে</string>
+    <string name="pause_all">সব বিরতি দিন</string>
+    <string name="resume_all">সব শুরু করুন</string>
+    <!-- Finish notification -->
+    <string name="download_finished_notify">ডাউনলোড শেষ</string>
+    <string name="open_using">খুলুন ব্যবহার করে</string>
+    <!-- Pending notification -->
+    <string name="download_in_queue_ticker_notify">সারিতে %1$s তম</string>
+    <string name="waiting_for_network">নেটওয়ার্কের জন্য অপেক্ষা করছি</string>
+    <string name="waiting_for_retry">পুনরায় চেষ্টার অপেক্ষায়</string>
+    <!-- Error notification -->
+    <string name="download_error_notify_title">ডাউনলোডে ত্রুটি হয়েছে</string>
+    <!-- Applying params notification -->
+    <string name="applying_params_title">প্যারামস প্রয়োগ করা হচ্ছে</string>
+    <string name="applying_params_for_downloads">ডাউনলোডের জন্য প্যারামস প্রয়োগ করা হচ্ছে</string>
+    <string name="applying_params_error_title">ডাউনলোডের জন্য প্যারাম ত্রুটি প্রয়োগ করা হচ্ছে %1$s</string>
+    <!-- Add download dialog -->
+    <string name="add_download">ডাউনলোড যুক্ত করুন</string>
+    <string name="download_link">সংযোগ</string>
+    <string name="download_name">নাম</string>
+    <string name="download_size">আকার: %1$s</string>
+    <string name="download_retry">পুনরায় চেষ্টা করুন</string>
+    <string name="download_advanced">উন্নত</string>
+    <string name="download_user_agent">ব্যবহারকারীর এজেন্ট</string>
+    <string name="download_error_empty_link">অনুগ্রহ করে একটি লিঙ্ক লিখুন</string>
+    <string name="download_error_empty_name">অনুগ্রহ করে আপনার নাম লিখুন।</string>
+    <string name="download_error_no_enough_free_space">পর্যাপ্ত ফাঁকা জায়গা নেই: %1$s ফাঁকা, তবে ফাইলের আকার %2$s</string>
+    <string name="download_error_name_is_not_correct">সঠিক নাম \"%1$s \"</string>
+    <string name="fetch_error_default_fmt">ত্রুটি: %1$s</string>
+    <string name="fetch_error_invalid_url">অবৈধ ইউআরএল: %1$s</string>
+    <string name="fetch_error_network_disconnected">নেটওয়ার্ক সংযোগ বিচ্ছিন্ন।</string>
+    <string name="fetch_error_http_response">ত্রুটি: সার্ভারটি HTTP %1$d কোডটি ফেরত দিয়েছে</string>
+    <string name="fetch_error_io">IO ত্রুটি: %1$s</string>
+    <string name="unable_to_open_folder">নির্দিষ্ট ফোল্ডার খুলতে ব্যর্থ। দয়া করে অন্য ফোল্ডার নির্দেশ করো।</string>
+    <string name="unable_to_create_file">ফাইল খুলতে ব্যর্থ। দয়া করে অন্য ফোল্ডার নির্দেশ করো</string>
+    <string name="partial_download_not_supported">এই ডাউনলোড থামানো ও টুকরা টুকরা করে ডাউনলোড করতে পারে না</string>
+    <string name="download_pieces_number_title">টুকরার সংখ্যা</string>
+    <string name="download_description">বিস্তারিত</string>
+    <string name="select_folder_to_save">সংরক্ষণ করার ফোল্ডার নির্বাচন করুন</string>
+    <string name="path">পাথ</string>
+    <string name="storage_free_space">জায়গা প্রয়োজন: %1$s</string>
+    <string name="add_download_error_invalid_url">ডাউনলোড যুক্ত করতে ব্যর্থ: অবৈধ ইউআরএল</string>
+    <string name="checksum">চেকসাম</string>
+    <string name="add_dialog_checksum_description">এমডি৫, শা-২৫৬</string>
+    <string name="referer_description">%1$s header</string>
+    <string name="error_invalid_checksum">অবৈধ চেকসাম মান</string>
+    <!-- Add user agent dialog -->
+    <string name="dialog_add_user_agent_title">ব্যবহারকারীর এজেন্ট যোগ করুন</string>
+    <!-- Main activity -->
+    <string name="fragment_title_queued">সারিবদ্ধ</string>
+    <string name="fragment_title_completed">সম্পন্ন</string>
+    <string name="download_list_empty">ডাউনলোড নেই</string>
+    <string name="share_url">URL শেয়ার করুন</string>
+    <!-- Navigation drawer -->
+    <!-- Category -->
+    <string name="drawer_category">বিভাগ</string>
+    <string name="drawer_category_others">অন্যান্য</string>
+    <string name="drawer_category_documents">নথি</string>
+    <string name="drawer_category_images">ছবি</string>
+    <string name="drawer_category_video">ভিডিও</string>
+    <string name="drawer_category_apk">এপিকে</string>
+    <string name="drawer_category_audio">শব্দ</string>
+    <string name="drawer_category_archives">সংগ্রহ</string>
+    <!-- Status -->
+    <string name="drawer_status">অবস্থা</string>
+    <string name="drawer_status_running">চলমান</string>
+    <string name="drawer_status_stopped">বন্ধ হয়েছে</string>
+    <!-- Date added -->
+    <string name="drawer_date_added">যুক্ত করার তারিখ</string>
+    <string name="drawer_date_added_today">আজকে</string>
+    <string name="drawer_date_added_yesterday">গতকাল</string>
+    <string name="drawer_date_added_week">সপ্তাহে</string>
+    <string name="drawer_date_added_month">মাসে</string>
+    <string name="drawer_date_added_year">বছর</string>
+    <!-- Sorting -->
+    <string name="drawer_sorting">সারিবদ্ধ করা</string>
+    <string name="drawer_sorting_date_added">তারিখে যুক্ত করা হয়েছে</string>
+    <string name="drawer_sorting_name">নাম</string>
+    <string name="drawer_sorting_size">আকার</string>
+    <string name="drawer_sorting_category">বিভাগ</string>
+    <string name="drawer_sorting_no_sorting">সারিবদ্ধহীন</string>
+    <!-- Download list item -->
+    <!-- downloaded/total • ETA • speed -->
+    <string name="download_queued_progress_template">%1$s/%2$s \u2022 %3$s \u2022 %4$/সে.</string>
+    <!-- downloaded/total • status -->
+    <string name="download_queued_template">%1$s/%2$s \u2022 %3$s</string>
+    <!-- hostname • total -->
+    <string name="download_finished_template">%1$s \u2022 %2$s</string>
+    <string name="download_details">বিস্তারিত</string>
+    <string name="deleting">মুছে ফেলা হচ্ছে</string>
+    <string name="delete_selected_download">নির্বাচিত ফাইলটি মুছে ফেলা হবে, এই কাজ পূর্বাবস্থায় ফেরানো যাবে না</string>
+    <string name="delete_selected_downloads">নির্বাচিত ফাইলগুলো মুছে ফেলা হবে, এই কাজ পূর্বাবস্থায় ফেরানো যাবে না</string>
+    <string name="delete_with_downloaded_file">ডাউনলোড করা ফাইলসহ মুছুন</string>
+    <string name="error_verify_checksum">অবৈধ চেকসাম মান</string>
+    <!-- Filemanager dialog -->
+    <string name="dir_chooser_title">ফোন্ডার নির্বাচন</string>
+    <string name="file_chooser_title">ফাইল নির্বাচন</string>
+    <string name="dialog_new_folder_title">নতুন ফোল্ডার</string>
+    <string name="error_dialog_new_folder">একটি নতুন ফোল্ডার তৈরি করতে ব্যর্থ</string>
+    <string name="error_open_dir">একটি নতুন ফোল্ডার খুলতে ব্যর্থ</string>
+    <string name="home_directory">মূল পাতা</string>
+    <!-- name (size) -->
+    <string name="permission_denied">অনুমতি দেওয়া হয়নি</string>
+    <string name="save_file">ফাইল সংরক্ষণ করুন</string>
+    <string name="file_name">ফাইলের নাম</string>
+    <string name="error_file_exists">এই ফাইলটি আগে থেকেই আছে, প্রতিস্থাপন করতে চান?</string>
+    <string name="file_name_is_empty">ফাইলের নাম খালি রাখা যাবে না</string>
+    <string name="system_manager">সিস্টেম ব্যবস্থাপক</string>
+    <string name="device_does_not_support_this_feature">আপনার ডিভাইস এই বৈশিষ্ট্য সাপোর্ট করেনা</string>
+    <string name="system_file_manager_not_found">সিস্টেম ফাইল ব্যবস্থাপক পাওয়া যায় নি</string>
+    <string name="replace_file">ফাইল বদলান</string>
+    <!-- Details download dialog -->
+    <string name="detail_downloaded">ডাউনলোড করা হয়েছে</string>
+    <!-- downloaded/total (percent) -->
+    <string name="detail_downloaded_format">%1$s/%2$s (%3$d%%)</string>
+    <string name="detail_pieces">টুকরা সংখ্যা</string>
+    <string name="detail_date_added">যুক্ত করার তারিখ</string>
+    <string name="detail_user_agent">ব্যবহারকারীর এজেন্ট</string>
+    <string name="detail_md5_hash_sum">এমডি৫</string>
+    <string name="detail_sha256_hash_sum">শা-২৫৬</string>
+    <string name="calculate">গণনা কর</string>
+    <!-- Error report -->
+    <string name="app_error_occurred">অ্যাপে ত্রুটি হয়েছে। তুমি ডেভেলপারদের কাছে রিপোর্ট বা প্রতিবেদন পাঠাতে পারো</string>
+    <string name="error_comment_prompt">তুমি এখানে অতিরিক্ত তথ্য ও মন্তব্য যোগ করতে পারো:</string>
+    <!-- Send text to clipboard -->
+    <string name="send_text_to_clipboard">অনুলিপি</string>
+    <string name="text_copied_to_clipboard">লেখা ক্লিপবোর্ডে অনুলিপিত হয়েছে</string>
+    <!-- Browser -->
+    <string name="browser">ব্রাউজার</string>
+    <string name="browser_app">নাবিক ব্রাউজার</string>
+    <string name="webview_is_required">কাজ করার জন্য ওয়েবভিউ দরকার</string>
+    <string name="browser_forward_arrow">আগাও</string>
+    <string name="browser_desktop_version">ডেস্কটপ সংস্করণ</string>
+    <string name="browser_address_bar_hint">ঠিকানা বা কুয়েরি যোগ করো</string>
+    <string name="browser_back_pressed">বন্ধ করতে আবার টিপ দাও</string>
+    <string name="browser_secure_connection">নিরাপদ সংযোগ</string>
+    <string name="browser_download_from_link">ডাউনলোড</string>
+    <string name="browser_copy_link">লিঙ্ক অনুলিপি করো</string>
+    <!-- Browser bookmarks -->
+    <string name="browser_bookmarks">বুকমার্ক</string>
+    <string name="bookmarks_list_empty">বুকমার্ক নেই</string>
+    <string name="browser_add_bookmark">বুকমার্ক যোগ করো</string>
+    <string name="browser_edit_bookmark">বুকমার্ক সম্পাদনা করো</string>
+    <!-- Edit bookmark dialog -->
+    <string name="browser_bookmark_name">নাম</string>
+    <string name="browser_bookmark_url">ইউআরএল</string>
+    <string name="browser_bookmark_error_empty_url">অনুগ্রহ করে ইউআরএল দাও</string>
+    <string name="browser_bookmark_error_empty_name">অনুগ্রহ করে নাম লিখ</string>
+    <plurals name="browser_bookmark_deleted">
+        <item quantity="one">বুকমার্ক অপসারিত</item>
+        <item quantity="other">বুকমার্কগুলো অপসারিত</item>
+    </plurals>
+    <plurals name="browser_bookmark_delete_failed">
+        <item quantity="one">বুকমার্ক মুছতে ব্যর্থ</item>
+        <item quantity="other">বুকমার্কগুলো মুছতে ব্যর্থ</item>
+    </plurals>
+    <string name="browser_bookmark_change_failed">বুকমার্ক পাল্টাতে ব্যর্থ</string>
+    <string name="browser_bookmark_added">বুকমার্ক যোগ করা হয়েছে</string>
+    <string name="browser_bookmark_add_failed">বুকমার্ক যোগ করতে ব্যর্থ</string>
+    <string name="browser_bookmark_edit_menu">সম্পাদনা</string>
+    <!-- Settings -->
+    <!-- Headers -->
+    <string name="pref_header_appearance">বাহ্যরূপ</string>
+    <string name="pref_header_behavior">আচরণ</string>
+    <string name="pref_header_storage">স্টোরেজ</string>
+    <string name="pref_header_browser">ব্রাউজার</string>
+    <!-- Appearance settings -->
+    <string name="pref_theme_category">থিম সেটিংস</string>
+    <string name="pref_theme_title">থিম</string>
+    <string-array name="pref_theme_entries">
+        <item>হালকা</item>
+        <item>অন্ধকার</item>
+        <item>কালো</item>
+    </string-array>
+    <string name="pref_notification_category">বিজ্ঞপ্তির সেটিংস</string>
+    <string name="pref_progress_notify_title">অগ্রগতির বিজ্ঞপ্তি</string>
+    <string name="pref_finish_notify_title">বিজ্ঞপ্তি শেষ</string>
+    <string name="pref_pending_notify_title">বিজ্ঞপ্তি প্রক্রিয়ারত</string>
+    <string name="pref_play_sound_notify_title">শব্দ বাজাও</string>
+    <string name="pref_notify_sound_title">বিজ্ঞপ্তির শব্দ</string>
+    <string name="pref_led_indicator_notify_title">এলইডি সংকেত</string>
+    <string name="pref_led_indicator_color_notify_title">এলইডি সংকেতের রং</string>
+    <string name="pref_vibration_notify_title">কম্পন</string>
+    <string name="theme_settings_apply_after_reboot">থিম সেটিংস অ্যাপ আবার চালু হবার পরে প্রয়োগ হবে</string>
+    <!-- Behavior settings -->
+    <string name="pref_autostart_title">আপনাআপনি শুরু</string>
+    <string name="pref_autostart_summary">Run the app after start device and start downloads, if they weren\'t manually paused</string>
+    <!-- A synonym for word "unmetered" - unlimited-->
+    <string name="pref_umnetered_connections_only_title">Unmetered connections only</string>
+    <string name="pref_umnetered_connections_only_summary">Download only over unmetered connections (for example, Wi-Fi or Ethernet)</string>
+    <string name="pref_power_management_category">Power management</string>
+    <string name="pref_cpu_do_not_sleep_title">সিপিইউ সজাগ রয়েছে</string>
+    <string name="pref_cpu_do_not_sleep_summary">Enabling this will increase the battery usage. Use this option if the download speed reduces when screen turns off</string>
+    <string name="pref_download_only_when_charging_title">Download only when charging</string>
+    <string name="pref_download_only_when_charging_summary">If enabled, downloading will occur only during charging. All downloads will pause when not connected to charger</string>
+    <string name="pref_battery_control_title">ব্যাটারি নিয়ন্ত্রণ</string>
+    <string name="pref_custom_battery_control_title">ব্যাটারির হার পাল্টাও</string>
+    <string name="pref_custom_battery_control_value_title">ব্যাটারি নিয়ন্ত্রণ হার</string>
+    <string name="pref_battery_control_summary">All downloads will be paused if the battery level goes below %1$d%%. Limit doesn\'t apply at the time of charging</string>
+    <string name="pref_custom_battery_control_summary">Set a custom percentage to pause downloads at if the battery drops below the given threshold. Enabling this will ignore the default %1$d%% threshold</string>
+    <string name="pref_custom_battery_control_dialog_summary">Setting a custom battery percentage for the application to watch for will have a negative impact on battery life while downloads are occurring. Are you sure you want to enable this?</string>
+    <string name="pref_enable_roaming_title">রোমিং চালু করো</string>
+    <string name="pref_enable_roaming_summary">রোমিং না করলেই কেবল ডাউনলোড করো</string>
+    <string name="pref_max_active_downloads_title">সর্বোচ্চ চলমান ডাউনলোড</string>
+    <string name="pref_max_download_retries_title">Maximum number of download retries</string>
+    <string name="pref_max_download_retries_dialog_msg">0 - without retries</string>
+    <string name="pref_replace_duplicate_downloads_title">Replace duplicate downloads</string>
+    <string name="pref_replace_duplicate_downloads_summary">Replace duplicate downloads (with the same URL) when added that are already in the list</string>
+    <string name="pref_auto_connect_title">Auto connect</string>
+    <string name="pref_auto_connect_summary">Auto connect when opening the add dialog</string>
+    <string name="pref_timeout_title">Timeout</string>
+    <string name="pref_timeout_summary">The number of milliseconds to wait before the connection timed out. Zero is interpreted as an infinite timeout</string>
+    <!-- Storage settings -->
+    <string name="pref_save_downloads_in_title">Save downloads in</string>
+    <string name="pref_move_after_download_title">Move after download</string>
+    <string name="pref_move_after_download_in_title">Move after download in</string>
+    <string name="pref_delete_file_if_error_title">Delete file if an error occurs</string>
+    <string name="pref_preallocate_disk_space_title">Pre-allocate disk space for the file</string>
+    <string name="pref_preallocate_disk_space_summary">Available for Android 5.0 Lollipop and above</string>
+    <!-- Browser settings -->
+    <string name="pref_browser_bottom_address_bar_title">Address bar at the bottom</string>
+    <string name="pref_browser_bottom_address_bar_summary">The address bar will be located at the bottom of the screen</string>
+    <string name="pref_browser_start_page_title">Start page</string>
+    <string name="pref_browser_allow_java_script_title">Allow Java Script</string>
+    <string name="pref_browser_allow_popup_windows_title">Allow popup windows</string>
+    <string name="pref_browser_cache_category">ক্যাশ</string>
+    <string name="pref_browser_cookies_category">কুকিস</string>
+    <string name="pref_browser_enable_caching_title">Enable caching</string>
+    <string name="pref_browser_enable_cookies_title">Enable cookies</string>
+    <string name="pref_browser_delete_cookies_title">Delete cookies</string>
+    <string name="pref_browser_delete_cookies_done">Deleted all the cookies</string>
+    <string name="pref_browser_clear_cache_title">Clear cache</string>
+    <string name="pref_browser_clear_cache_done">The cache is cleared</string>
+    <string name="pref_browser_do_not_track_title">Do Not Track</string>
+    <string name="pref_browser_do_not_track_summary">Send a “Do Not Track” request to websites you visit</string>
+    <string name="pref_browser_launcher_icon_title">Browser icon in the launcher</string>
+    <string name="pref_browser_disable_from_system_title">Disable browser from the system</string>
+    <string name="pref_browser_disable_from_system_summary">Browser will not be available for opening links</string>
+    <string name="pref_browser_search_engine_title">সার্চ ইঞ্জিন</string>
+    <!-- About dialog -->
+    <string name="about_title">ডাউনলোড নাবিক সম্পর্কিত</string>
+    <string name="about_description"><![CDATA[    More information and also to help the project: <a href="https://github.com/TachibanaGeneralLaboratories/download-navi">https://github.com/TachibanaGeneralLaboratories/download-navi</a><br><br>
+    Download Navi is a free and Open Source download manager for Android 4.4+<br><br>
+    Download Navi is free software, released under the terms of the <a href="http://www.gnu.org/copyleft/gpl.html">GNU General Public License v3 (GPLv3)</a><br><br>
+    <a href="https://github.com/TachibanaGeneralLaboratories/download-navi/blob/HEAD/Privacy.md">Privacy Policy</a>]]></string>
+    <string name="about_changelog">Changelog</string>
+</resources>

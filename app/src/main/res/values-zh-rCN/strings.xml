@@ -103,6 +103,7 @@
     <string name="add_download_error_invalid_url">无法添加下载：网址无效</string>
     <string name="checksum">校验和</string>
     <string name="add_dialog_checksum_description">MD5 和 SHA 256</string>
+    <string name="referer_description">%1$s 标头</string>
     <string name="error_invalid_checksum">无效校验和</string>
     <!-- Add user agent dialog -->
     <string name="dialog_add_user_agent_title">添加用户代理</string>
@@ -185,11 +186,43 @@
     <!-- Send text to clipboard -->
     <string name="send_text_to_clipboard">复制</string>
     <string name="text_copied_to_clipboard">文本已复制到剪贴板</string>
+    <!-- Browser -->
+    <string name="browser">浏览器</string>
+    <string name="browser_app">Navi 浏览器</string>
+    <string name="webview_is_required">需要WebView才能工作</string>
+    <string name="browser_forward_arrow">前进</string>
+    <string name="browser_desktop_version">桌面版本</string>
+    <string name="browser_address_bar_hint">输入网站地址或搜索词</string>
+    <string name="browser_back_pressed">再按一次退出</string>
+    <string name="browser_secure_connection">安全连接</string>
+    <string name="browser_download_from_link">下载</string>
+    <string name="browser_copy_link">复制链接</string>
+    <!-- Browser bookmarks -->
+    <string name="browser_bookmarks">书签</string>
+    <string name="bookmarks_list_empty">没有书签</string>
+    <string name="browser_add_bookmark">添加书签</string>
+    <string name="browser_edit_bookmark">编辑书签</string>
+    <!-- Edit bookmark dialog -->
+    <string name="browser_bookmark_name">名称</string>
+    <string name="browser_bookmark_url">URL</string>
+    <string name="browser_bookmark_error_empty_url">请输入URL</string>
+    <string name="browser_bookmark_error_empty_name">请输入名称</string>
+    <plurals name="browser_bookmark_deleted">
+        <item quantity="other">书签已删除</item>
+    </plurals>
+    <plurals name="browser_bookmark_delete_failed">
+        <item quantity="other">删除书签失败</item>
+    </plurals>
+    <string name="browser_bookmark_change_failed">修改书签失败</string>
+    <string name="browser_bookmark_added">已添加书签</string>
+    <string name="browser_bookmark_add_failed">添加书签失败</string>
+    <string name="browser_bookmark_edit_menu">编辑</string>
     <!-- Settings -->
     <!-- Headers -->
     <string name="pref_header_appearance">外观</string>
     <string name="pref_header_behavior">行为设置</string>
     <string name="pref_header_storage">存储</string>
+    <string name="pref_header_browser">浏览器</string>
     <!-- Appearance settings -->
     <string name="pref_theme_category">主题设置</string>
     <string name="pref_theme_title">主题</string>
@@ -243,6 +276,26 @@
     <string name="pref_delete_file_if_error_title">发生错误后删除文件</string>
     <string name="pref_preallocate_disk_space_title">为下载的文件预分配磁盘空间</string>
     <string name="pref_preallocate_disk_space_summary">只在 Android 5.0 Lollipop 及以上版本可用</string>
+    <!-- Browser settings -->
+    <string name="pref_browser_bottom_address_bar_title">地址栏在底部</string>
+    <string name="pref_browser_bottom_address_bar_summary">地址栏将位于屏幕底部</string>
+    <string name="pref_browser_start_page_title">起始页</string>
+    <string name="pref_browser_allow_java_script_title">允许Java Script</string>
+    <string name="pref_browser_allow_popup_windows_title">允许弹出窗口</string>
+    <string name="pref_browser_cache_category">缓存</string>
+    <string name="pref_browser_cookies_category">Cookies</string>
+    <string name="pref_browser_enable_caching_title">启用缓存</string>
+    <string name="pref_browser_enable_cookies_title">启用 Cookies</string>
+    <string name="pref_browser_delete_cookies_title">删除 cookies</string>
+    <string name="pref_browser_delete_cookies_done">删除所有 cookies</string>
+    <string name="pref_browser_clear_cache_title">清除缓存</string>
+    <string name="pref_browser_clear_cache_done">缓存已清除</string>
+    <string name="pref_browser_do_not_track_title">不要跟踪</string>
+    <string name="pref_browser_do_not_track_summary">向您访问的网站发送“不要跟踪”请求</string>
+    <string name="pref_browser_launcher_icon_title">启动器中的浏览器图标</string>
+    <string name="pref_browser_disable_from_system_title">从系统中禁用浏览器</string>
+    <string name="pref_browser_disable_from_system_summary">将无法使用Navi浏览器打开链接</string>
+    <string name="pref_browser_search_engine_title">搜索引擎</string>
     <!-- About dialog -->
     <string name="about_title">关于 Download Navi</string>
     <string name="about_description"><![CDATA[    访问此网站获取更多信息或者帮助项目: <a href="https://github.com/TachibanaGeneralLaboratories/download-navi">https://github.com/TachibanaGeneralLaboratories/download-navi</a><br><br>

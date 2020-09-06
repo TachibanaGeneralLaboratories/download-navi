@@ -31,7 +31,8 @@ class DatabaseMigration
         return new Migration[] {
                 MIGRATION_1_2,
                 MIGRATION_2_3,
-                MIGRATION_3_4
+                MIGRATION_3_4,
+                MIGRATION_4_5,
         };
     }
 
@@ -68,6 +69,14 @@ class DatabaseMigration
         public void migrate(@NonNull SupportSQLiteDatabase database)
         {
             database.execSQL("ALTER TABLE `DownloadInfo` ADD COLUMN `checksum` TEXT");
+        }
+    };
+
+    static final Migration MIGRATION_4_5 = new Migration(4, 5) {
+        @Override
+        public void migrate(@NonNull SupportSQLiteDatabase database)
+        {
+            database.execSQL("CREATE TABLE IF NOT EXISTS `BrowserBookmark` (`url` TEXT NOT NULL, `name` TEXT NOT NULL, `dateAdded` INTEGER NOT NULL, PRIMARY KEY(`url`))");
         }
     };
 }

@@ -1,5 +1,3 @@
-Download Navi adalah pengelola unduhan yang bebas dan bersumber terbuka untuk Android 4.4+.
-
 # Fitur
 
 * Aplikasi Bebas dan Bersumber Terbuka (FOSS)

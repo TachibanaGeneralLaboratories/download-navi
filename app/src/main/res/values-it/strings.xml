@@ -51,8 +51,8 @@
     <string name="apply">Applica</string>
     <string name="report">Riporta</string>
     <string name="more_details">Mostra dettagli</string>
-    <string name="clipboard">Clipboard</string>
-    <string name="verify">Verify</string>
+    <string name="clipboard">Appunti</string>
+    <string name="verify">Verifica</string>
     <!-- Permission dialog -->
     <string name="perm_denied_title">Permesso negato</string>
     <string name="perm_denied_warning">Senza questa autorizzazione l\'app non può salvare file in memoria su alcuni dispositivi e versioni di Android. L\'app non funzionerà correttamente. Sei sicuro di voler negare questa autorizzazione?</string>
@@ -103,6 +103,7 @@
     <string name="add_download_error_invalid_url">Impossibile aggiungere il download: URL non valido</string>
     <string name="checksum">Checksum</string>
     <string name="add_dialog_checksum_description">MD5, SHA-256</string>
+    <string name="referer_description">%1$s header</string>
     <string name="error_invalid_checksum">Invalid checksum</string>
     <!-- Add user agent dialog -->
     <string name="dialog_add_user_agent_title">Aggiungi user agent</string>
@@ -185,11 +186,45 @@
     <!-- Send text to clipboard -->
     <string name="send_text_to_clipboard">Copia</string>
     <string name="text_copied_to_clipboard">Testo copiato negli appunti</string>
+    <!-- Browser -->
+    <string name="browser">Browser</string>
+    <string name="browser_app">Navi Browser</string>
+    <string name="webview_is_required">WebView è necessario per funzionare</string>
+    <string name="browser_forward_arrow">Forward</string>
+    <string name="browser_desktop_version">Versione desktop</string>
+    <string name="browser_address_bar_hint">Enter address or query</string>
+    <string name="browser_back_pressed">Premi di nuovo per chiudere</string>
+    <string name="browser_secure_connection">Connessione sicura</string>
+    <string name="browser_download_from_link">Scarica</string>
+    <string name="browser_copy_link">Copia collegamento</string>
+    <!-- Browser bookmarks -->
+    <string name="browser_bookmarks">Segnalibri</string>
+    <string name="bookmarks_list_empty">Nessun segnalibro</string>
+    <string name="browser_add_bookmark">Aggiungi segnalibro</string>
+    <string name="browser_edit_bookmark">Modifica segnalibro</string>
+    <!-- Edit bookmark dialog -->
+    <string name="browser_bookmark_name">Nome</string>
+    <string name="browser_bookmark_url">URL</string>
+    <string name="browser_bookmark_error_empty_url">Inserisci l\'URL</string>
+    <string name="browser_bookmark_error_empty_name">Inserisci il nome</string>
+    <plurals name="browser_bookmark_deleted">
+        <item quantity="one">Segnalibro eliminato</item>
+        <item quantity="other">Segnalibri eliminati</item>
+    </plurals>
+    <plurals name="browser_bookmark_delete_failed">
+        <item quantity="one">Impossibile eliminare il segnalibro</item>
+        <item quantity="other">Impossibile eliminare i segnalibri</item>
+    </plurals>
+    <string name="browser_bookmark_change_failed">Modifica del segnalibro non riuscita</string>
+    <string name="browser_bookmark_added">Segnalibro aggiunto</string>
+    <string name="browser_bookmark_add_failed">Impossibile aggiungere il segnalibro</string>
+    <string name="browser_bookmark_edit_menu">Modifica</string>
     <!-- Settings -->
     <!-- Headers -->
     <string name="pref_header_appearance">Aspetto</string>
     <string name="pref_header_behavior">Funzionalità</string>
     <string name="pref_header_storage">Memoria</string>
+    <string name="pref_header_browser">Browser</string>
     <!-- Appearance settings -->
     <string name="pref_theme_category">Impostazioni tema</string>
     <string name="pref_theme_title">Tema</string>
@@ -235,7 +270,7 @@
     <string name="pref_auto_connect_title">Connessione Automatica</string>
     <string name="pref_auto_connect_summary">Connetti automaticamente quando si apre la finestra di aggiunta</string>
     <string name="pref_timeout_title">Timeout</string>
-    <string name="pref_timeout_summary">The number of milliseconds to wait before the connection timed out. Zero is interpreted as an infinite timeout</string>
+    <string name="pref_timeout_summary">Il numero di millisecondi da attendere prima che la connessione sia scaduta. Lo zero viene interpretato come un timeout infinito</string>
     <!-- Storage settings -->
     <string name="pref_save_downloads_in_title">Salva download in</string>
     <string name="pref_move_after_download_title">Sposta dopo il download</string>
@@ -243,6 +278,26 @@
     <string name="pref_delete_file_if_error_title">Elimina il file se si verifica un errore</string>
     <string name="pref_preallocate_disk_space_title">Pre-allocare lo spazio su disco per il file</string>
     <string name="pref_preallocate_disk_space_summary">Disponibile per Android 5.0 Lollipop e superiore</string>
+    <!-- Browser settings -->
+    <string name="pref_browser_bottom_address_bar_title">Address bar at the bottom</string>
+    <string name="pref_browser_bottom_address_bar_summary">The address bar will be located at the bottom of the screen</string>
+    <string name="pref_browser_start_page_title">Pagina iniziale</string>
+    <string name="pref_browser_allow_java_script_title">Permetti Script Java</string>
+    <string name="pref_browser_allow_popup_windows_title">Allow popup windows</string>
+    <string name="pref_browser_cache_category">Cache</string>
+    <string name="pref_browser_cookies_category">Cookie</string>
+    <string name="pref_browser_enable_caching_title">Enable caching</string>
+    <string name="pref_browser_enable_cookies_title">Enable cookies</string>
+    <string name="pref_browser_delete_cookies_title">Delete cookies</string>
+    <string name="pref_browser_delete_cookies_done">Deleted all the cookies</string>
+    <string name="pref_browser_clear_cache_title">Clear cache</string>
+    <string name="pref_browser_clear_cache_done">The cache is cleared</string>
+    <string name="pref_browser_do_not_track_title">Non tracciare</string>
+    <string name="pref_browser_do_not_track_summary">Invia una richiesta «Non tracciare» ai siti web visitati</string>
+    <string name="pref_browser_launcher_icon_title">Browser icon in the launcher</string>
+    <string name="pref_browser_disable_from_system_title">Disable browser from the system</string>
+    <string name="pref_browser_disable_from_system_summary">Browser will not be available for opening links</string>
+    <string name="pref_browser_search_engine_title">Search engine</string>
     <!-- About dialog -->
     <string name="about_title">Info su Download Navi</string>
     <string name="about_description"><![CDATA[Maggiori informazioni ed anche per contribuire al progetto: <a href="https://github.com/TachibanaGeneralLaboratories/download-navi">https://github.com/TachibanaGeneralLaboratories/download-navi</a><br><br>

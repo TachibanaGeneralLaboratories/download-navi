@@ -321,7 +321,8 @@
 
                     <RelativeLayout
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content">
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="16dp">
 
                         <com.google.android.material.textfield.TextInputLayout
                             android:id="@+id/layout_checksum"
@@ -353,6 +354,49 @@
                             android:src="@drawable/ic_content_copy_grey600_48dp"
                             android:visibility="@{viewModel.showClipboardButton ? View.VISIBLE : View.GONE}" />
                     </RelativeLayout>
+
+                    <TextView
+                        android:id="@+id/referer_title"
+                        style="@style/TitleText"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="@string/referer" />
+
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+
+                        <com.google.android.material.textfield.TextInputLayout
+                            android:id="@+id/layout_referer"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_toStartOf="@+id/referer_clipboard_button"
+                            app:hintEnabled="false">
+
+                            <com.google.android.material.textfield.TextInputEditText
+                                android:id="@+id/referer"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:hint="@{@string/referer_description(@string/referer)}"
+                                android:inputType="text|textNoSuggestions"
+                                android:text="@={viewModel.params.referer}" />
+                        </com.google.android.material.textfield.TextInputLayout>
+
+                        <ImageButton
+                            android:id="@+id/referer_clipboard_button"
+                            android:layout_width="40dp"
+                            android:layout_height="40dp"
+                            android:layout_alignParentEnd="true"
+                            android:layout_marginStart="8dp"
+                            android:layout_marginTop="9dp"
+                            android:background="?attr/dialogRoundRipple"
+                            android:contentDescription="@string/clipboard"
+                            android:padding="8dp"
+                            android:scaleType="fitCenter"
+                            android:src="@drawable/ic_content_copy_grey600_48dp"
+                            android:visibility="@{viewModel.showClipboardButton ? View.VISIBLE : View.GONE}" />
+                    </RelativeLayout>
+
                 </LinearLayout>
             </net.cachapa.expandablelayout.ExpandableLayout>
         </LinearLayout>

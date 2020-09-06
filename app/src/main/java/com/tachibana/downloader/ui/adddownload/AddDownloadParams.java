@@ -1,6 +1,7 @@
 /*
  * Copyright (C) 2018, 2019 Tachibana General Laboratories, LLC
  * Copyright (C) 2018, 2019 Yaroslav Pronin <proninyaroslav@mail.ru>
+ * Copyright (C) 2020, 8176135 <elsecaller@8176135.xyz>
  *
  * This file is part of Download Navi.
  *
@@ -40,6 +41,7 @@ public class AddDownloadParams extends BaseObservable
     private String description;
     private String mimeType = "application/octet-stream";
     private String etag;
+    private String referer;
     private String userAgent;
     private int numPieces = DownloadInfo.MIN_PIECES;
     private long totalBytes = -1;
@@ -139,6 +141,18 @@ public class AddDownloadParams extends BaseObservable
     public void setEtag(String etag)
     {
         this.etag = etag;
+    }
+
+    @Bindable
+    public String getReferer()
+    {
+        return referer;
+    }
+
+    public void setReferer(String referer)
+    {
+        this.referer = referer;
+        notifyPropertyChanged(BR.referer);
     }
 
     public String getUserAgent()

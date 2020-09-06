@@ -51,6 +51,7 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.util.UUID;
 
+import io.reactivex.Completable;
 import io.reactivex.Flowable;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.CompositeDisposable;
@@ -129,10 +130,15 @@ public class DownloadDetailsViewModel extends AndroidViewModel
         {
             if (propertyId == BR.dirPath) {
                 Uri dirPath = mutableParams.getDirPath();
-                if (dirPath != null) {
+                if (dirPath == null)
+                    return;
+
+                disposables.add(Completable.fromRunnable(() -> {
                     info.setStorageFreeSpace(fs.getDirAvailableBytes(dirPath));
                     info.setDirName(fs.getDirName(dirPath));
-                }
+                })
+                .subscribeOn(Schedulers.io())
+                .subscribe());
             }
         }
     };

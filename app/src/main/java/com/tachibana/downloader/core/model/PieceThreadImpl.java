@@ -354,9 +354,23 @@ class PieceThreadImpl extends Thread implements PieceThread
         boolean isConnectionClose = "close".equalsIgnoreCase(conn.getHeaderField("Connection"));
         boolean isEncodingChunked = "chunked".equalsIgnoreCase(conn.getHeaderField("Transfer-Encoding"));
 
-        if (!(hasLength || isConnectionClose || isEncodingChunked))
-            return new StopRequest(STATUS_CANNOT_RESUME,
-                    "Can't know size of download, giving up");
+        if (!(hasLength || isConnectionClose || isEncodingChunked)) {
+            /* Try to get content length */
+            try {
+                long contentLength = Long.parseLong(conn.getHeaderField("Content-Length"));
+                if (contentLength != -1 && pieceIndex == 0) {
+                    piece.size = contentLength;
+                    writeToDatabase();
+                } else {
+                    return new StopRequest(STATUS_CANNOT_RESUME,
+                            "Can't know size of download, giving up");
+                }
+
+            } catch (NumberFormatException e) {
+                return new StopRequest(STATUS_CANNOT_RESUME,
+                        "Can't know size of download, giving up");
+            }
+        }
 
         try {
             try {

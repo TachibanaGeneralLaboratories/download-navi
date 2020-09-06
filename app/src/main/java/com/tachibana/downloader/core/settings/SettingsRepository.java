@@ -153,4 +153,48 @@ public interface SettingsRepository
     boolean preallocateDiskSpace();
 
     void preallocateDiskSpace(boolean val);
+
+    /*
+     * Browser settings
+     */
+
+    boolean browserAllowJavaScript();
+
+    void browserAllowJavaScript(boolean val);
+
+    boolean browserAllowPopupWindows();
+
+    void browserAllowPopupWindows(boolean val);
+
+    boolean browserLauncherIcon();
+
+    void browserLauncherIcon(boolean val);
+
+    boolean browserEnableCaching();
+
+    void browserEnableCaching(boolean val);
+
+    boolean browserEnableCookies();
+
+    void browserEnableCookies(boolean val);
+
+    boolean browserDisableFromSystem();
+
+    void browserDisableFromSystem(boolean val);
+
+    String browserStartPage();
+
+    void browserStartPage(String val);
+
+    boolean browserBottomAddressBar();
+
+    void browserBottomAddressBar(boolean val);
+
+    boolean browserDoNotTrack();
+
+    void browserDoNotTrack(boolean val);
+
+    String browserSearchEngine();
+
+    void browserSearchEngine(String val);
 }

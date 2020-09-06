@@ -4,7 +4,7 @@
     <string name="app_name">Download Navi</string>
     <string name="foreground_notification">अग्रभूमि अधिसूचना</string>
     <string name="download_running">प्रगति में</string>
-    <string name="finished">समाप्त</string>
+    <string name="finished">पूरा हुआ</string>
     <string name="shutdown">शटडाउन</string>
     <!-- 1 d. 1 h. 1 m -->
     <string name="elapsed_time_format_d_h_mm">%1$d दि. %2$d घं. %3$d मि</string>
@@ -51,8 +51,8 @@
     <string name="apply">लागू करें</string>
     <string name="report">रिपोर्ट करें</string>
     <string name="more_details">अधिक जानकारी</string>
-    <string name="clipboard">Clipboard</string>
-    <string name="verify">Verify</string>
+    <string name="clipboard">क्लिपबोर्ड</string>
+    <string name="verify">सत्यापित करें</string>
     <!-- Permission dialog -->
     <string name="perm_denied_title">अनुमति अस्वीकृत</string>
     <string name="perm_denied_warning">इस अनुमति एप्लिकेशन के बिना कुछ उपकरणों और Android के संस्करणों पर स्मृति में फ़ाइलों को नहीं बचा सकता । ऐप ठीक से काम नहीं करेगा । क्या आप निश्चयपूर्वक इस अनुमति को अस्वीकार करना चाहते हैं?</string>
@@ -101,9 +101,10 @@
     <string name="path">पथ</string>
     <string name="storage_free_space">मुक्त स्थान: %1$s</string>
     <string name="add_download_error_invalid_url">डाउनलोड जोड़ने में असमर्थ: अमान्य URL</string>
-    <string name="checksum">Checksum</string>
-    <string name="add_dialog_checksum_description">MD5, SHA-256</string>
-    <string name="error_invalid_checksum">Invalid checksum</string>
+    <string name="checksum">चेकसम</string>
+    <string name="add_dialog_checksum_description">एमडी 5, एस एच ए -256</string>
+    <string name="referer_description">%1$s header</string>
+    <string name="error_invalid_checksum">अमान्य चेकसम</string>
     <!-- Add user agent dialog -->
     <string name="dialog_add_user_agent_title">यूजर एजेंट जोड़ें</string>
     <!-- Main activity -->
@@ -151,7 +152,7 @@
     <string name="delete_selected_download">चयनित डाउनलोड हटाएं? यह कार्रवाई पूर्ववत् नहीं की जा सकती</string>
     <string name="delete_selected_downloads">चयनित डाउनलोड हटाएं? यह कार्रवाई पूर्ववत् नहीं की जा सकती</string>
     <string name="delete_with_downloaded_file">डाउनलोड की गई फ़ाइल हटाएं</string>
-    <string name="error_verify_checksum">Invalid file checksum</string>
+    <string name="error_verify_checksum">अमान्य फ़ाइल चेकसम</string>
     <!-- Filemanager dialog -->
     <string name="dir_chooser_title">फ़ोल्डर्स चयन</string>
     <string name="file_chooser_title">फ़ाइल चयन</string>
@@ -185,11 +186,45 @@
     <!-- Send text to clipboard -->
     <string name="send_text_to_clipboard">प्रतिलिपि बनाएँ</string>
     <string name="text_copied_to_clipboard">टेक्स्ट क्लिपबोर्ड पर कॉपी किया गया</string>
+    <!-- Browser -->
+    <string name="browser">ब्राउज़र</string>
+    <string name="browser_app">नवी ब्राउज़र</string>
+    <string name="webview_is_required">काम करने के लिए वेबव्यू आवश्यक है</string>
+    <string name="browser_forward_arrow">आगे</string>
+    <string name="browser_desktop_version">डेस्कटॉप संस्करण</string>
+    <string name="browser_address_bar_hint">पता या सवाल दर्ज करें</string>
+    <string name="browser_back_pressed">बंद करने के लिए फिर से दबाएं</string>
+    <string name="browser_secure_connection">सुरक्षित कनेक्शन</string>
+    <string name="browser_download_from_link">डाउनलोड</string>
+    <string name="browser_copy_link">लिंक कॉपी करें</string>
+    <!-- Browser bookmarks -->
+    <string name="browser_bookmarks">पृष्टस्मृतियाँ</string>
+    <string name="bookmarks_list_empty">कोई पृष्टस्मृति नही</string>
+    <string name="browser_add_bookmark">पृष्टस्मृति जोड़ें</string>
+    <string name="browser_edit_bookmark">पृष्टस्मृति सम्पादित करें</string>
+    <!-- Edit bookmark dialog -->
+    <string name="browser_bookmark_name">नाम</string>
+    <string name="browser_bookmark_url">यूआरएल</string>
+    <string name="browser_bookmark_error_empty_url">कृपया यूआरएल दर्ज करें</string>
+    <string name="browser_bookmark_error_empty_name">कृपया नाम दर्ज करें</string>
+    <plurals name="browser_bookmark_deleted">
+        <item quantity="one">पृष्टस्मृति हटा दिया गया</item>
+        <item quantity="other">पृष्टस्मृतियाँ हटा दिया गया</item>
+    </plurals>
+    <plurals name="browser_bookmark_delete_failed">
+        <item quantity="one">पृष्टस्मृति हटाने में विफल</item>
+        <item quantity="other">पृष्टस्मृतियाँ हटाने में विफल</item>
+    </plurals>
+    <string name="browser_bookmark_change_failed">पृष्टस्मृतियाँ बदलने में विफल</string>
+    <string name="browser_bookmark_added">पृष्टस्मृति जोड़ा गया</string>
+    <string name="browser_bookmark_add_failed">पृष्टस्मृति जोड़ने में विफल</string>
+    <string name="browser_bookmark_edit_menu">संपादित करें</string>
     <!-- Settings -->
     <!-- Headers -->
     <string name="pref_header_appearance">स्वरूप</string>
     <string name="pref_header_behavior">व्यवहार</string>
     <string name="pref_header_storage">संग्रहण</string>
+    <string name="pref_header_browser">ब्राउज़र</string>
     <!-- Appearance settings -->
     <string name="pref_theme_category">विषयवस्तु सेटिंग्स</string>
     <string name="pref_theme_title">थीम</string>
@@ -234,8 +269,8 @@
     <string name="pref_replace_duplicate_downloads_summary">प्रतिलिपि डाउनलोड (एक ही URL के साथ) को प्रतिस्थापित करें जब जोड़ा जो पहले से ही सूची में है</string>
     <string name="pref_auto_connect_title">स्वतः जुड़ना</string>
     <string name="pref_auto_connect_summary">जोड़ें संवाद खोलते समय स्वत: कनेक्ट करें</string>
-    <string name="pref_timeout_title">Timeout</string>
-    <string name="pref_timeout_summary">The number of milliseconds to wait before the connection timed out. Zero is interpreted as an infinite timeout</string>
+    <string name="pref_timeout_title">समय ख़त्म</string>
+    <string name="pref_timeout_summary">कनेक्शन से पहले प्रतीक्षा करने के लिए मिलीसेकंड की संख्या। शून्य की व्याख्या अनंत समय के रूप में की जाती है</string>
     <!-- Storage settings -->
     <string name="pref_save_downloads_in_title">में डाउनलोड सहेजें</string>
     <string name="pref_move_after_download_title">डाउनलोड करने के बाद ले जाएं</string>
@@ -243,10 +278,29 @@
     <string name="pref_delete_file_if_error_title">यदि कोई त्रुटि उत्पंन होती है तो फ़ाइल हटाएं</string>
     <string name="pref_preallocate_disk_space_title">फ़ाइल के लिए डिस्क स्थान पूर्व-आबंटित करें</string>
     <string name="pref_preallocate_disk_space_summary">एंड्रॉयड 5.0 लॉलीपॉप और ऊपर के लिए उपलब्ध</string>
+    <!-- Browser settings -->
+    <string name="pref_browser_bottom_address_bar_title">एड्रेसबार को नीचे ले जाएं</string>
+    <string name="pref_browser_bottom_address_bar_summary">एड्रेसबार स्क्रीन के नीचे स्थित होगा</string>
+    <string name="pref_browser_start_page_title">प्रथम पृष्ठ</string>
+    <string name="pref_browser_allow_java_script_title">जावा स्क्रिप्ट की अनुमति दें</string>
+    <string name="pref_browser_allow_popup_windows_title">पॉपअप विंडो की अनुमति दें</string>
+    <string name="pref_browser_cache_category">कैश</string>
+    <string name="pref_browser_cookies_category">कुकीज</string>
+    <string name="pref_browser_enable_caching_title">कैश सक्षम करें</string>
+    <string name="pref_browser_enable_cookies_title">कुकीज़ सक्षम करें</string>
+    <string name="pref_browser_delete_cookies_title">कुकी हटाएं</string>
+    <string name="pref_browser_delete_cookies_done">सभी कुकीज़ हटाएं</string>
+    <string name="pref_browser_clear_cache_title">कैशे साफ़ करें</string>
+    <string name="pref_browser_clear_cache_done">कैश साफ किया गया</string>
+    <string name="pref_browser_do_not_track_title">ट्रैक न करें</string>
+    <string name="pref_browser_do_not_track_summary">आपके द्वारा देखी जाने वाली वेबसाइटों के लिए \"ट्रैक न करें\" अनुरोध भेजें</string>
+    <string name="pref_browser_launcher_icon_title">लांचर में ब्राउज़र आइकन</string>
+    <string name="pref_browser_disable_from_system_title">सिस्टम से ब्राउज़र को अक्षम करें</string>
+    <string name="pref_browser_disable_from_system_summary">लिंक खोलने के लिए ब्राउज़र उपलब्ध नहीं होगा</string>
+    <string name="pref_browser_search_engine_title">खोज इंजन</string>
     <!-- About dialog -->
     <string name="about_title">Download Navi बारे में</string>
-    <string name="about_description"><![CDATA[
-    अधिक जानकारी और भी परियोजना में मदद करने के लिए: <a href="https://github.com/TachibanaGeneralLaboratories/download-navi">https://github.com/TachibanaGeneralLaboratories/download-navi</a><br><br>
+    <string name="about_description"><![CDATA[    अधिक जानकारी और भी परियोजना में मदद करने के लिए: <a href="https://github.com/TachibanaGeneralLaboratories/download-navi">https://github.com/TachibanaGeneralLaboratories/download-navi</a><br><br>
     Download Navi एंड्रॉयड 4.4 + के लिए एक स्वतंत्र और खुला स्रोत डाउनलोड प्रबंधक है<br><br>
     Download Navi मुफ्त सॉफ्टवेयर है, की शर्तों के तहत जारी <a href="http://www.gnu.org/copyleft/gpl.html">GNU General Public License v3 (GPLv3)</a><br><br>
     <a href="https://github.com/TachibanaGeneralLaboratories/download-navi/blob/HEAD/Privacy.md">गोपनीयता नीति</a>]]></string>

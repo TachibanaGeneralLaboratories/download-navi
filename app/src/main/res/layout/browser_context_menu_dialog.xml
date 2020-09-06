@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:paddingBottom="8dp"
+        android:paddingTop="8dp">
+
+        <TextView
+            android:id="@+id/title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="16dp"
+            android:maxLines="2"
+            android:ellipsize="end"
+            style="@style/TextAppearance.MaterialComponents.Subtitle2" />
+
+        <TextView
+            android:id="@+id/share"
+            android:text="@string/share"
+            android:drawableStart="@drawable/ic_share_menu_24dp"
+            style="@style/BrowserContextMenuItem" />
+
+        <TextView
+            android:id="@+id/download_from_link"
+            android:text="@string/browser_download_from_link"
+            android:drawableStart="@drawable/ic_file_download_menu_24dp"
+            style="@style/BrowserContextMenuItem" />
+
+        <TextView
+            android:id="@+id/copy_link"
+            android:text="@string/browser_copy_link"
+            android:drawableStart="@drawable/ic_content_copy_menu_24dp"
+            style="@style/BrowserContextMenuItem" />
+    </LinearLayout>
+</layout>

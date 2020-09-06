@@ -1,6 +1,6 @@
 /*
- * Copyright (C) 2019 Tachibana General Laboratories, LLC
- * Copyright (C) 2019 Yaroslav Pronin <proninyaroslav@mail.ru>
+ * Copyright (C) 2019, 2020 Tachibana General Laboratories, LLC
+ * Copyright (C) 2019, 2020 Yaroslav Pronin <proninyaroslav@mail.ru>
  *
  * This file is part of Download Navi.
  *
@@ -35,17 +35,19 @@ import com.tachibana.downloader.R;
 import com.tachibana.downloader.core.utils.Utils;
 import com.tachibana.downloader.ui.settings.sections.AppearanceSettingsFragment;
 import com.tachibana.downloader.ui.settings.sections.BehaviorSettingsFragment;
+import com.tachibana.downloader.ui.settings.sections.BrowserSettingsFragment;
 import com.tachibana.downloader.ui.settings.sections.StorageSettingsFragment;
 import com.takisoft.preferencex.PreferenceFragmentCompat;
+
+import static com.tachibana.downloader.ui.settings.SettingsActivity.AppearanceSettings;
+import static com.tachibana.downloader.ui.settings.SettingsActivity.BehaviorSettings;
+import static com.tachibana.downloader.ui.settings.SettingsActivity.BrowserSettings;
+import static com.tachibana.downloader.ui.settings.SettingsActivity.StorageSettings;
 
 public class SettingsFragment extends PreferenceFragmentCompat
 {
     @SuppressWarnings("unused")
     private static final String TAG = SettingsFragment.class.getSimpleName();
-
-    private static final String AppearanceSettings = "AppearanceSettingsFragment";
-    private static final String BehaviorSettings = "BehaviorSettingsFragment";
-    private static final String StorageSettings = "StorageSettingsFragment";
 
     private AppCompatActivity activity;
     private SettingsViewModel viewModel;
@@ -78,7 +80,13 @@ public class SettingsFragment extends PreferenceFragmentCompat
 
         viewModel = new ViewModelProvider(activity).get(SettingsViewModel.class);
 
-        if (Utils.isTwoPane(activity)) {
+        String preference = activity.getIntent().getStringExtra(SettingsActivity.TAG_OPEN_PREFERENCE);
+        if (preference != null) {
+            openPreference(preference);
+            if (!Utils.isLargeScreenDevice(activity))
+                activity.finish();
+
+        } else if (Utils.isTwoPane(activity)) {
             Fragment f = activity.getSupportFragmentManager()
                     .findFragmentById(R.id.detail_fragment_container);
             if (f == null)
@@ -94,6 +102,9 @@ public class SettingsFragment extends PreferenceFragmentCompat
 
         Preference storage = findPreference(StorageSettingsFragment.class.getSimpleName());
         storage.setOnPreferenceClickListener(prefClickListener);
+
+        Preference browser = findPreference(BrowserSettingsFragment.class.getSimpleName());
+        browser.setOnPreferenceClickListener(prefClickListener);
     }
 
     private Preference.OnPreferenceClickListener prefClickListener = (preference) -> {
@@ -129,6 +140,15 @@ public class SettingsFragment extends PreferenceFragmentCompat
                 } else {
                     startActivity(StorageSettingsFragment.class,
                             getString(R.string.pref_header_storage));
+                }
+                break;
+            case BrowserSettings:
+                if (Utils.isLargeScreenDevice(activity)) {
+                    setFragment(BrowserSettingsFragment.newInstance(),
+                            getString(R.string.pref_header_browser));
+                } else {
+                    startActivity(BrowserSettingsFragment.class,
+                            getString(R.string.pref_header_browser));
                 }
                 break;
         }

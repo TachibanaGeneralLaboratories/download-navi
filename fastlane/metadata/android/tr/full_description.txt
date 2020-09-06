@@ -1,5 +1,3 @@
-Download Navi, Android 4.4+ için özgür ve açık kaynak bir indirme yöneticisi.
-
 # Özellikler
 
 * Özgür ve Açık Kaynak (FOSS)

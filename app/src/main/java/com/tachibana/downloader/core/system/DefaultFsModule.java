@@ -22,7 +22,6 @@ package com.tachibana.downloader.core.system;
 
 import android.content.Context;
 import android.net.Uri;
-import android.os.Build;
 import android.os.StatFs;
 
 import androidx.annotation.NonNull;

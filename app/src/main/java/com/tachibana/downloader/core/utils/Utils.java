@@ -1,6 +1,6 @@
 /*
- * Copyright (C) 2018, 2019 Tachibana General Laboratories, LLC
- * Copyright (C) 2018, 2019 Yaroslav Pronin <proninyaroslav@mail.ru>
+ * Copyright (C) 2018-2020 Tachibana General Laboratories, LLC
+ * Copyright (C) 2018-2020 Yaroslav Pronin <proninyaroslav@mail.ru>
  *
  * This file is part of Download Navi.
  *
@@ -39,7 +39,10 @@ import android.net.Uri;
 import android.os.BatteryManager;
 import android.os.Build;
 import android.text.TextUtils;
+import android.util.Patterns;
 import android.util.TypedValue;
+import android.webkit.CookieManager;
+import android.webkit.URLUtil;
 import android.widget.ProgressBar;
 
 import androidx.annotation.NonNull;
@@ -90,7 +93,15 @@ public class Utils
     public static final String DEFAULT_DOWNLOAD_FILENAME = "downloadfile";
     private static final Pattern CONTENT_DISPOSITION_PATTERN =
             Pattern.compile("attachment;\\s*filename\\s*=\\s*(\"?)([^\"]*)\\1\\s*$",
-            Pattern.CASE_INSENSITIVE);
+                    Pattern.CASE_INSENSITIVE);
+    private static final Pattern ACCEPTED_URI_SCHEMA = Pattern.compile(
+            "(?i)" +  /* Switch on case insensitive matching */
+                    "(" +  /* Begin group for schema */
+                    "(?:http|https|file|chrome)://" +
+                    "|(?:inline|data|about|javascript):" +
+                    ")" +
+                    "(.*)"
+    );
 
     /*
      * Workaround for start service in Android 8+ if app no started.
@@ -726,6 +737,81 @@ public class Utils
         }
     }
 
+    public static boolean isWebViewAvailable(@NonNull Context context)
+    {
+        return context.getPackageManager().hasSystemFeature("android.software.webview");
+    }
+
+    public static void enableBrowserLauncherIcon(@NonNull Context context, boolean enable)
+    {
+        PackageManager pm = context.getPackageManager();
+        int flag = (enable ?
+                PackageManager.COMPONENT_ENABLED_STATE_ENABLED :
+                PackageManager.COMPONENT_ENABLED_STATE_DISABLED);
+        pm.setComponentEnabledSetting(
+                new ComponentName(context, "com.tachibana.downloader.ui.browser.BrowserIcon"),
+                flag, PackageManager.DONT_KILL_APP);
+    }
+
+    public static void disableBrowserFromSystem(@NonNull Context context, boolean disable)
+    {
+        PackageManager pm = context.getPackageManager();
+        int flag = (disable ?
+                PackageManager.COMPONENT_ENABLED_STATE_DISABLED :
+                PackageManager.COMPONENT_ENABLED_STATE_ENABLED);
+        pm.setComponentEnabledSetting(
+                new ComponentName(context, "com.tachibana.downloader.ui.browser.Browser"),
+                flag, PackageManager.DONT_KILL_APP);
+    }
+
+    public static void deleteCookies()
+    {
+        CookieManager cookieManager = CookieManager.getInstance();
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            cookieManager.removeAllCookies(null);
+            cookieManager.flush();
+        } else {
+            cookieManager.removeAllCookie();
+        }
+    }
+
+    /*
+     * Formats a launch-able uri out of the template uri by
+     * replacing the template parameters with actual values
+     */
+    public static String getFormattedSearchUrl(String templateUrl, String query)
+    {
+        return URLUtil.composeSearchUrl(query, templateUrl, "{searchTerms}");
+    }
+
+    /*
+     * Attempts to determine whether user input is a URL or search
+     * terms. Anything with a space is passed to search if canBeSearch is true.
+     * Converts to lowercase any mistakenly uppercased schema (i.e.,
+     * "Http://" converts to "http://"
+     */
+    public static String smartUrlFilter(@NonNull String url)
+    {
+        String inUrl = url.trim();
+        boolean hasSpace = inUrl.indexOf(' ') != -1;
+        Matcher matcher = ACCEPTED_URI_SCHEMA.matcher(inUrl);
+        if (matcher.matches()) {
+            /* Force scheme to lowercase */
+            String scheme = matcher.group(1);
+            String lcScheme = scheme.toLowerCase(Locale.getDefault());
+            if (!lcScheme.equals(scheme))
+                inUrl = lcScheme + matcher.group(2);
+            if (hasSpace && Patterns.WEB_URL.matcher(inUrl).matches())
+                inUrl = inUrl.replace(" ", "%20");
+
+            return inUrl;
+        }
+
+        return (!hasSpace && Patterns.WEB_URL.matcher(inUrl).matches() ?
+                URLUtil.guessUrl(inUrl) :
+                null);
+    }
+
     public static List<DrawerGroup> getNavigationDrawerItems(@NonNull Context context,
                                                              @NonNull SharedPreferences localPref)
     {
@@ -754,8 +840,9 @@ public class Utils
         DrawerGroup sorting = new DrawerGroup(res.getInteger(R.integer.drawer_sorting_id),
                 res.getString(R.string.drawer_sorting),
                 localPref.getBoolean(res.getString(R.string.drawer_sorting_is_expanded), false));
+        final long DEFAULT_SORTING_ITEM = 1;
         sorting.selectItem(localPref.getLong(res.getString(R.string.drawer_sorting_selected_item),
-                                             DrawerGroup.DEFAULT_SELECTED_ID));
+                                             DEFAULT_SORTING_ITEM));
 
         category.items.add(new DrawerGroupItem(res.getInteger(R.integer.drawer_category_all_id),
                 R.drawable.ic_all_inclusive_grey600_24dp, res.getString(R.string.all)));

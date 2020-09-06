@@ -51,8 +51,8 @@
     <string name="apply">Tətbiq et</string>
     <string name="report">Xəbər ver</string>
     <string name="more_details">Daha çox təfsilat</string>
-    <string name="clipboard">Clipboard</string>
-    <string name="verify">Verify</string>
+    <string name="clipboard">Lövhə</string>
+    <string name="verify">Təsdiqlə</string>
     <!-- Permission dialog -->
     <string name="perm_denied_title">İcazə verilmədi</string>
     <string name="perm_denied_warning">Bu icazə olmasa tətbiq Android versiyasında və bəzi cihazlarda faylları yaddaşda saxlaya bilməz. Tətbiq düzgün işləməz. Bu icazəni rədd etmək istədiyinizə əminsiniz?</string>
@@ -101,9 +101,9 @@
     <string name="path">Yol</string>
     <string name="storage_free_space">Boş yer: %1$s</string>
     <string name="add_download_error_invalid_url">Endirmə əlavə edilə bilmədi: etibarsız URL</string>
-    <string name="checksum">Checksum</string>
+    <string name="checksum">Yoxlama cəmi</string>
     <string name="add_dialog_checksum_description">MD5, SHA-256</string>
-    <string name="error_invalid_checksum">Invalid checksum</string>
+    <string name="error_invalid_checksum">Etibarsız yoxlama cəmi</string>
     <!-- Add user agent dialog -->
     <string name="dialog_add_user_agent_title">İstifadəçi agenti əlavə et</string>
     <!-- Main activity -->
@@ -151,7 +151,7 @@
     <string name="delete_selected_download">Seçilmiş endirmə silinsin? Bu əməliyyatın geri dönüşü yoxdur</string>
     <string name="delete_selected_downloads">Seçilmiş endirmələr silinsin? Bu əməliyyatın geri dönüşü yoxdur</string>
     <string name="delete_with_downloaded_file">Endirilmiş faylı da sil</string>
-    <string name="error_verify_checksum">Invalid file checksum</string>
+    <string name="error_verify_checksum">Etibarsız fayl yoxlama cəmi</string>
     <!-- Filemanager dialog -->
     <string name="dir_chooser_title">Qovluq seçimi</string>
     <string name="file_chooser_title">Fayl seçimi</string>
@@ -185,11 +185,45 @@
     <!-- Send text to clipboard -->
     <string name="send_text_to_clipboard">Kopyala</string>
     <string name="text_copied_to_clipboard">Mətn lövhəyə kopyalandı</string>
+    <!-- Browser -->
+    <string name="browser">Səyyah</string>
+    <string name="browser_app">Navi Səyyahı</string>
+    <string name="webview_is_required">İşləməsi üçün WebView lazımdır</string>
+    <string name="browser_forward_arrow">Yönləndir</string>
+    <string name="browser_desktop_version">Masaüstü versiyası</string>
+    <string name="browser_address_bar_hint">Ünvanı və ya sorğunu daxil edin</string>
+    <string name="browser_back_pressed">Bağlamaq üçün yenidən basın</string>
+    <string name="browser_secure_connection">Təhlükəsiz bağlantı</string>
+    <string name="browser_download_from_link">Endir</string>
+    <string name="browser_copy_link">Bağlantını kopyala</string>
+    <!-- Browser bookmarks -->
+    <string name="browser_bookmarks">Əlfəcinlər</string>
+    <string name="bookmarks_list_empty">Əlfəcin yoxdur</string>
+    <string name="browser_add_bookmark">Əlfəcin əlavə et</string>
+    <string name="browser_edit_bookmark">Əlfəcinə düzəliş et</string>
+    <!-- Edit bookmark dialog -->
+    <string name="browser_bookmark_name">Ad</string>
+    <string name="browser_bookmark_url">URL</string>
+    <string name="browser_bookmark_error_empty_url">Zəhmət olmasa URL-ni daxil edin</string>
+    <string name="browser_bookmark_error_empty_name">Zəhmət olmasa adı daxil edin</string>
+    <plurals name="browser_bookmark_deleted">
+        <item quantity="one">Əlfəcin silindi</item>
+        <item quantity="other">Əlfəcinlər silindi</item>
+    </plurals>
+    <plurals name="browser_bookmark_delete_failed">
+        <item quantity="one">Əlfəcin silinmədi</item>
+        <item quantity="other">Əlfəcinlər silinmədi</item>
+    </plurals>
+    <string name="browser_bookmark_change_failed">Əlfəcin dəyişdirilmədi</string>
+    <string name="browser_bookmark_added">Əlfəcin əlavə edildi</string>
+    <string name="browser_bookmark_add_failed">Əlfəcin əlavə edilmədi</string>
+    <string name="browser_bookmark_edit_menu">Düzəliş et</string>
     <!-- Settings -->
     <!-- Headers -->
     <string name="pref_header_appearance">Görünüş</string>
     <string name="pref_header_behavior">Davranış</string>
     <string name="pref_header_storage">Anbar</string>
+    <string name="pref_header_browser">Səyyah</string>
     <!-- Appearance settings -->
     <string name="pref_theme_category">Tema tənzimləmələri</string>
     <string name="pref_theme_title">Tema</string>
@@ -243,6 +277,26 @@
     <string name="pref_delete_file_if_error_title">Bir xəta baş versə faylı sil</string>
     <string name="pref_preallocate_disk_space_title">Fayl üçün əvvəlcədən ayrılmış disk sahəsi</string>
     <string name="pref_preallocate_disk_space_summary">Android 5.0 və sonrakılar üçün əlçatandır</string>
+    <!-- Browser settings -->
+    <string name="pref_browser_bottom_address_bar_title">Ünvan sətri yuxarıda</string>
+    <string name="pref_browser_bottom_address_bar_summary">Ünvan sətri ekranın üst hissəsinə yerləşdirilər</string>
+    <string name="pref_browser_start_page_title">Açılış səhifəsi</string>
+    <string name="pref_browser_allow_java_script_title">Java Script-ə icazə ver</string>
+    <string name="pref_browser_allow_popup_windows_title">Açılan pəncərələrə icazə ver</string>
+    <string name="pref_browser_cache_category">Keş</string>
+    <string name="pref_browser_cookies_category">Çərəzlər</string>
+    <string name="pref_browser_enable_caching_title">Keşdə saxlamağı fəallaşdır</string>
+    <string name="pref_browser_enable_cookies_title">Çərəzləri fəallaşdır</string>
+    <string name="pref_browser_delete_cookies_title">Çərəzləri sil</string>
+    <string name="pref_browser_delete_cookies_done">Bütün çərəzləri sil</string>
+    <string name="pref_browser_clear_cache_title">Keşi təmizlə</string>
+    <string name="pref_browser_clear_cache_done">Keş təmizləndi</string>
+    <string name="pref_browser_do_not_track_title">İzləmə</string>
+    <string name="pref_browser_do_not_track_summary">Ziyarət etdiyiniz veb saytlara \"İzləmə\" sorğusu göndər</string>
+    <string name="pref_browser_launcher_icon_title">Başladıcıda səyyah nişanı</string>
+    <string name="pref_browser_disable_from_system_title">Sistemdə səyyahı sıradan çıxart</string>
+    <string name="pref_browser_disable_from_system_summary">Səyyah, açılan bağlantılar üçün əlçatmaz olacaq</string>
+    <string name="pref_browser_search_engine_title">Axtarış motoru</string>
     <!-- About dialog -->
     <string name="about_title">Download Navi Haqqında</string>
     <string name="about_description"><![CDATA[    Layihəyə kömək etmək üçün ətraflı məlumat: <a href="https://github.com/TachibanaGeneralLaboratories/download-navi">https://github.com/TachibanaGeneralLaboratories/download-navi</a><br><br>
@@ -250,4 +304,5 @@
     Download Navi ödənişsiz proqram təminatıdır,<a href="http://www.gnu.org/copyleft/gpl.html">GNU Ümumi İctimai Lisenziyası v3 (GPLv3)</a><br><br>
     <a href="https://github.com/TachibanaGeneralLaboratories/download-navi/blob/HEAD/Privacy.md">Gizlilik siyasəti</a> şərtləri altında buraxılıb]]></string>
     <string name="about_changelog">Dəyişiklik jurnalı</string>
+    <string name="referer_description">%1$s header</string>
 </resources>

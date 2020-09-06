@@ -8,6 +8,11 @@
         android:title="@string/search"
         app:actionViewClass="androidx.appcompat.widget.SearchView"/>
 
+    <item android:id="@+id/browser_menu"
+        app:showAsAction="ifRoom"
+        android:icon="@drawable/ic_earth_menu_24dp"
+        android:title="@string/browser" />
+
     <item android:id="@+id/pause_all_menu"
         android:title="@string/pause_all" />
 
@@ -15,7 +20,8 @@
         android:title="@string/resume_all" />
 
     <item android:id="@+id/settings_menu"
-        android:title="@string/settings" />
+        android:title="@string/settings"
+        android:icon="@drawable/ic_settings_menu_24dp" />
 
     <item android:id="@+id/about_menu"
         android:title="@string/about" />

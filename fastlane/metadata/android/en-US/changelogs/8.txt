@@ -1,0 +1,13 @@
+* Added simple built-in browser (WebView is required)
+* Improved MIME-type detection and filename extraction
+* Bugfixing:
+     - Crash if the "Replace file" option is selected during download adding
+     - Some ANR's
+     - Stuck notifications
+     - Displaying Indonesian language
+     - Navbar color in a dark theme for some devices
+     - Small fixes
+* New translations:
+     - Bengali
+     - French
+     - Italian

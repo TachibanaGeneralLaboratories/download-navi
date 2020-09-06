@@ -51,8 +51,8 @@
     <string name="apply">Áp dụng thay đổi</string>
     <string name="report">Báo cáo</string>
     <string name="more_details">Thêm thông tin</string>
-    <string name="clipboard">Clipboard</string>
-    <string name="verify">Verify</string>
+    <string name="clipboard">Bảng nhớ tạm</string>
+    <string name="verify">Kiểm tra</string>
     <!-- Permission dialog -->
     <string name="perm_denied_title">Quyền truy cập bị từ chối</string>
     <string name="perm_denied_warning">Nếu không có quyền này, ứng dụng không thể lưu dữ liệu trên một số máy và một số phiên bản Android nên không thể hoạt động bình thường được. Bạn có chắc chắn muốn từ chối quyền này không?</string>
@@ -101,9 +101,9 @@
     <string name="path">Đường dẫn</string>
     <string name="storage_free_space">Bộ nhớ còn trống: %1$s</string>
     <string name="add_download_error_invalid_url">Không thêm được mục tải: URL không hợp lệ</string>
-    <string name="checksum">Checksum</string>
+    <string name="checksum">Mã kiểm tra</string>
     <string name="add_dialog_checksum_description">MD5, SHA-256</string>
-    <string name="error_invalid_checksum">Invalid checksum</string>
+    <string name="error_invalid_checksum">Mã kiểm tra không hợp lệ</string>
     <!-- Add user agent dialog -->
     <string name="dialog_add_user_agent_title">Thêm tác nhân người dùng (user agent)</string>
     <!-- Main activity -->
@@ -151,7 +151,7 @@
     <string name="delete_selected_download">Xoá mục đã chọn? Thao tác này không thể khôi phục</string>
     <string name="delete_selected_downloads">Xoá các mục đã chọn? Thao tác này không thể khôi phục</string>
     <string name="delete_with_downloaded_file">Xoá kèm tập tin tải xuống</string>
-    <string name="error_verify_checksum">Invalid file checksum</string>
+    <string name="error_verify_checksum">Mã kiểm tra của tập tin không hợp lệ</string>
     <!-- Filemanager dialog -->
     <string name="dir_chooser_title">Chọn thư mục</string>
     <string name="file_chooser_title">Chọn tập tin</string>
@@ -185,11 +185,43 @@
     <!-- Send text to clipboard -->
     <string name="send_text_to_clipboard">Sao chép</string>
     <string name="text_copied_to_clipboard">Đã sao chép thông tin vào bảng nhớ tạm</string>
+    <!-- Browser -->
+    <string name="browser">Browser</string>
+    <string name="browser_app">Navi Browser</string>
+    <string name="webview_is_required">WebView is required to work</string>
+    <string name="browser_forward_arrow">Forward</string>
+    <string name="browser_desktop_version">Desktop version</string>
+    <string name="browser_address_bar_hint">Enter address or query</string>
+    <string name="browser_back_pressed">Press again to close</string>
+    <string name="browser_secure_connection">Secure connection</string>
+    <string name="browser_download_from_link">Download</string>
+    <string name="browser_copy_link">Copy link</string>
+    <!-- Browser bookmarks -->
+    <string name="browser_bookmarks">Bookmarks</string>
+    <string name="bookmarks_list_empty">No bookmarks</string>
+    <string name="browser_add_bookmark">Add bookmark</string>
+    <string name="browser_edit_bookmark">Edit bookmark</string>
+    <!-- Edit bookmark dialog -->
+    <string name="browser_bookmark_name">Name</string>
+    <string name="browser_bookmark_url">URL</string>
+    <string name="browser_bookmark_error_empty_url">Please enter URL</string>
+    <string name="browser_bookmark_error_empty_name">Please enter name</string>
+    <plurals name="browser_bookmark_deleted">
+        <item quantity="other">Bookmarks deleted</item>
+    </plurals>
+    <plurals name="browser_bookmark_delete_failed">
+        <item quantity="other">Failed to delete bookmarks</item>
+    </plurals>
+    <string name="browser_bookmark_change_failed">Failed to change bookmark</string>
+    <string name="browser_bookmark_added">Bookmark added</string>
+    <string name="browser_bookmark_add_failed">Failed to add bookmark</string>
+    <string name="browser_bookmark_edit_menu">Edit</string>
     <!-- Settings -->
     <!-- Headers -->
     <string name="pref_header_appearance">Giao diện</string>
     <string name="pref_header_behavior">Hoạt động</string>
     <string name="pref_header_storage">Lưu trữ</string>
+    <string name="pref_header_browser">Browser</string>
     <!-- Appearance settings -->
     <string name="pref_theme_category">Thiết lập chủ đề</string>
     <string name="pref_theme_title">Giao diện</string>
@@ -234,8 +266,8 @@
     <string name="pref_replace_duplicate_downloads_summary">Thay thế các mục tải xuống trùng nhau (cùng URL) khi thêm vào danh sách</string>
     <string name="pref_auto_connect_title">Tự động kết nối</string>
     <string name="pref_auto_connect_summary">Tự động kết nối khi mở hộp thoại thêm tải xuống</string>
-    <string name="pref_timeout_title">Timeout</string>
-    <string name="pref_timeout_summary">The number of milliseconds to wait before the connection timed out. Zero is interpreted as an infinite timeout</string>
+    <string name="pref_timeout_title">Giới hạn thời gian</string>
+    <string name="pref_timeout_summary">Khoảng thời gian tính theo mili-giây nếu không kết nối được sẽ huỷ kết nối. Giá trị 0 được coi như khoảng thời gian vô hạn</string>
     <!-- Storage settings -->
     <string name="pref_save_downloads_in_title">Lưu tập tin tải xuống vào</string>
     <string name="pref_move_after_download_title">Di chuyển tập tin sau khi tải</string>
@@ -243,6 +275,26 @@
     <string name="pref_delete_file_if_error_title">Xoá tập tin nếu xảy ra lỗi</string>
     <string name="pref_preallocate_disk_space_title">Dành khoảng trống trên đĩa để tải tập tin</string>
     <string name="pref_preallocate_disk_space_summary">Dùng được cho Android 5.0 trở lên</string>
+    <!-- Browser settings -->
+    <string name="pref_browser_bottom_address_bar_title">Address bar at the bottom</string>
+    <string name="pref_browser_bottom_address_bar_summary">The address bar will be located at the bottom of the screen</string>
+    <string name="pref_browser_start_page_title">Start page</string>
+    <string name="pref_browser_allow_java_script_title">Allow Java Script</string>
+    <string name="pref_browser_allow_popup_windows_title">Allow popup windows</string>
+    <string name="pref_browser_cache_category">Cache</string>
+    <string name="pref_browser_cookies_category">Cookies</string>
+    <string name="pref_browser_enable_caching_title">Enable caching</string>
+    <string name="pref_browser_enable_cookies_title">Enable cookies</string>
+    <string name="pref_browser_delete_cookies_title">Delete cookies</string>
+    <string name="pref_browser_delete_cookies_done">Deleted all the cookies</string>
+    <string name="pref_browser_clear_cache_title">Clear cache</string>
+    <string name="pref_browser_clear_cache_done">The cache is cleared</string>
+    <string name="pref_browser_do_not_track_title">Do Not Track</string>
+    <string name="pref_browser_do_not_track_summary">Send a “Do Not Track” request to websites you visit</string>
+    <string name="pref_browser_launcher_icon_title">Browser icon in the launcher</string>
+    <string name="pref_browser_disable_from_system_title">Disable browser from the system</string>
+    <string name="pref_browser_disable_from_system_summary">Browser will not be available for opening links</string>
+    <string name="pref_browser_search_engine_title">Search engine</string>
     <!-- About dialog -->
     <string name="about_title">Giới thiệu về Download Navi</string>
     <string name="about_description"><![CDATA[    Thông tin thêm về dự án và cách đóng góp cho dự án: <a href="https://github.com/TachibanaGeneralLaboratories/download-navi">https://github.com/TachibanaGeneralLaboratories/download-navi</a><br><br>
@@ -250,4 +302,5 @@
     Download Navi là phần mềm tự do, được phân phối theo <a href="http://www.gnu.org/copyleft/gpl.html">Giấy phép công cộng GNU phiên bản 3 (GPLv3)</a><br><br>
     <a href="https://github.com/TachibanaGeneralLaboratories/download-navi/blob/HEAD/Privacy.md">Chính sách quyền riêng tư</a>]]></string>
     <string name="about_changelog">Nhật kí thay đổi</string>
+    <string name="referer_description">%1$s header</string>
 </resources>

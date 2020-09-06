@@ -1,6 +1,7 @@
 [![Releases](https://img.shields.io/github/downloads/TachibanaGeneralLaboratories/download-navi/total.svg)](https://github.com/TachibanaGeneralLaboratories/download-navi/releases)
 [![Crowdin](https://d322cqt584bo4o.cloudfront.net/download-navi/localized.svg)](https://crowdin.com/project/download-navi)
 [![Chat - Telegram](https://img.shields.io/badge/chat-Telegram-blue.svg)](https://t.me/DownloadNavi)
+[<img alt="Coverity Scan Build Status" src="https://scan.coverity.com/projects/20752/badge.svg">](https://scan.coverity.com/projects/download-navi)
 
 Download Navi
 =====================
@@ -29,6 +30,7 @@ Features
  - Chrome OS support
  - Pause and resume downloads
  - Browsers support
+ - Built-in browser
  - Simultaneous downloads (default 3)
  - Multi part downloading (max 16)
  - Download files in background
@@ -56,25 +58,28 @@ Translations
 
 You can help translate the app here: [https://crowdin.com/project/download-navi](https://crowdin.com/project/download-navi)
 
- - **English**
- - **Russian**
- - **Spanish** *(thanks c-sanchez)*
- - **Brazilian Portuguese** *(thanks lu.santi.oli)*
- - **Czech** *(thanks novas78)*
- - **Slovak** *(thanks kubalav)*
- - **German** *(thanks noc-jfcbs, soristre)*
- - **Japanese** *(thanks konnyaku2mc)*
- - **Turkish** *(thanks byzlo685, muhaaliss)*
  - **Arabic** *(thanks rex07)*
- - **Chinese Simplified** *(thanks OR120, dwughjsd)*
- - **Serbian** *(thanks Aimbot91)*
- - **Hindi** *(thanks imcmjha)*
- - **Chinese Traditional** *(thanks Fei1Yang)*
  - **Azerbaijani** *(thanks Khan27)*
- - **Indonesian** *(thanks bzntm)*
- - **Vietnamese** *(thanks pnhpnh)*
+ - **Bengali** *(thanks Oymate)*
+ - **Brazilian Portuguese** *(thanks lu.santi.oli)*
+ - **Chinese Simplified** *(thanks OR120, dwughjsd)*
+ - **Chinese Traditional** *(thanks Fei1Yang)*
+ - **Czech** *(thanks novas78)*
+ - **English**
  - **French** *(thanks Ilith, KaKi87)*
+ - **German** *(thanks noc-jfcbs, soristre)*
+ - **Hindi** *(thanks imcmjha)*
+ - **Indonesian** *(thanks bzntm)*
  - **Italian** *(thanks alisseo)*
+ - **Japanese** *(thanks konnyaku2mc)*
+ - **Persian** *(thanks Reg3xp)*
+ - **Russian**
+ - **Serbian** *(thanks Aimbot91)*
+ - **Slovak** *(thanks kubalav)*
+ - **Spanish** *(thanks c-sanchez)*
+ - **Turkish** *(thanks byzlo685, muhaaliss)*
+ - **Ukrainian** *(thanks Sensetivity)*
+ - **Vietnamese** *(thanks pnhpnh)*
 
 Contributors
 ---

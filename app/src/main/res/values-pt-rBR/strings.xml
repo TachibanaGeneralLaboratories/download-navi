@@ -51,8 +51,8 @@
     <string name="apply">Aplicar</string>
     <string name="report">Reportar</string>
     <string name="more_details">Mais detalhes</string>
-    <string name="clipboard">Clipboard</string>
-    <string name="verify">Verify</string>
+    <string name="clipboard">Área de Transferência</string>
+    <string name="verify">Verificar</string>
     <!-- Permission dialog -->
     <string name="perm_denied_title">Permissão negada</string>
     <string name="perm_denied_warning">Sem essa permissão o app não pode salvar arquivos em memória em alguns dispositivos e versões do Android. O aplicativo não funcionará corretamente. Tem certeza que deseja negar essa permissão?</string>
@@ -103,7 +103,8 @@
     <string name="add_download_error_invalid_url">Não foi possível adicionar o download: URL inválida</string>
     <string name="checksum">Checksum</string>
     <string name="add_dialog_checksum_description">MD5, SHA-256</string>
-    <string name="error_invalid_checksum">Invalid checksum</string>
+    <string name="referer_description">%1$s header</string>
+    <string name="error_invalid_checksum">Checksum inválido</string>
     <!-- Add user agent dialog -->
     <string name="dialog_add_user_agent_title">Adicionar agente de usuário</string>
     <!-- Main activity -->
@@ -151,7 +152,7 @@
     <string name="delete_selected_download">Excluir o download selecionado? Esta operação não pode ser desfeita</string>
     <string name="delete_selected_downloads">Excluir os downloads selecionados? Esta operação não pode ser desfeita</string>
     <string name="delete_with_downloaded_file">Excluir com arquivo baixado</string>
-    <string name="error_verify_checksum">Invalid file checksum</string>
+    <string name="error_verify_checksum">Checksum de arquivo inválido</string>
     <!-- Filemanager dialog -->
     <string name="dir_chooser_title">Seleção de pasta</string>
     <string name="file_chooser_title">Seleção de arquivo</string>
@@ -185,11 +186,45 @@
     <!-- Send text to clipboard -->
     <string name="send_text_to_clipboard">Copiar</string>
     <string name="text_copied_to_clipboard">Texto copiado para a área de transferência</string>
+    <!-- Browser -->
+    <string name="browser">Navegador</string>
+    <string name="browser_app">Navegador Navi</string>
+    <string name="webview_is_required">WebView é necessário para funcionar</string>
+    <string name="browser_forward_arrow">Avançar</string>
+    <string name="browser_desktop_version">Versão desktop</string>
+    <string name="browser_address_bar_hint">Digite o endereço ou consulte</string>
+    <string name="browser_back_pressed">Pressione novamente para fechar</string>
+    <string name="browser_secure_connection">Conexão segura</string>
+    <string name="browser_download_from_link">Baixar</string>
+    <string name="browser_copy_link">Copiar link</string>
+    <!-- Browser bookmarks -->
+    <string name="browser_bookmarks">Marcadores</string>
+    <string name="bookmarks_list_empty">Sem marcadores</string>
+    <string name="browser_add_bookmark">Adicionar marcador</string>
+    <string name="browser_edit_bookmark">Editar marcador</string>
+    <!-- Edit bookmark dialog -->
+    <string name="browser_bookmark_name">Nome</string>
+    <string name="browser_bookmark_url">URL</string>
+    <string name="browser_bookmark_error_empty_url">Por favor, digite a URL</string>
+    <string name="browser_bookmark_error_empty_name">Por favor, insira o nome</string>
+    <plurals name="browser_bookmark_deleted">
+        <item quantity="one">Marcador apagado</item>
+        <item quantity="other">Marcadores apagados</item>
+    </plurals>
+    <plurals name="browser_bookmark_delete_failed">
+        <item quantity="one">Falha em excluir marcador</item>
+        <item quantity="other">Falha em excluir marcadores</item>
+    </plurals>
+    <string name="browser_bookmark_change_failed">Falha ao alterar marcador</string>
+    <string name="browser_bookmark_added">Marcador adicionado</string>
+    <string name="browser_bookmark_add_failed">Falha ao adicionar favorito</string>
+    <string name="browser_bookmark_edit_menu">Editar</string>
     <!-- Settings -->
     <!-- Headers -->
     <string name="pref_header_appearance">Aparência</string>
     <string name="pref_header_behavior">Comportamento</string>
     <string name="pref_header_storage">Armazenamento</string>
+    <string name="pref_header_browser">Navegador</string>
     <!-- Appearance settings -->
     <string name="pref_theme_category">Configurações de tema</string>
     <string name="pref_theme_title">Tema</string>
@@ -243,6 +278,26 @@
     <string name="pref_delete_file_if_error_title">Excluir arquivo se ocorrer um erro</string>
     <string name="pref_preallocate_disk_space_title">Pré-alocar espaço em disco para o arquivo</string>
     <string name="pref_preallocate_disk_space_summary">Disponível para Android 5.0 Lollipop ou superior</string>
+    <!-- Browser settings -->
+    <string name="pref_browser_bottom_address_bar_title">Barra de endereço na parte inferior</string>
+    <string name="pref_browser_bottom_address_bar_summary">A barra de endereço estará localizada na parte inferior da tela</string>
+    <string name="pref_browser_start_page_title">Página inicial</string>
+    <string name="pref_browser_allow_java_script_title">Permitir Java Script</string>
+    <string name="pref_browser_allow_popup_windows_title">Permitir janelas popup</string>
+    <string name="pref_browser_cache_category">Cache</string>
+    <string name="pref_browser_cookies_category">Cookies</string>
+    <string name="pref_browser_enable_caching_title">Habilitar caching</string>
+    <string name="pref_browser_enable_cookies_title">Ativar cookies</string>
+    <string name="pref_browser_delete_cookies_title">Apagar cookies</string>
+    <string name="pref_browser_delete_cookies_done">Apagado todos os cookies</string>
+    <string name="pref_browser_clear_cache_title">Limpar cache</string>
+    <string name="pref_browser_clear_cache_done">O cache está limpo</string>
+    <string name="pref_browser_do_not_track_title">Não Rastrear</string>
+    <string name="pref_browser_do_not_track_summary">Enviar um pedido \"Não Rastrear\" para os sites que você visitar</string>
+    <string name="pref_browser_launcher_icon_title">Ícone do navegador no launcher</string>
+    <string name="pref_browser_disable_from_system_title">Desativar o navegador do sistema</string>
+    <string name="pref_browser_disable_from_system_summary">Navegador não estará disponível para abrir links</string>
+    <string name="pref_browser_search_engine_title">Mecanismo de pesquisa</string>
     <!-- About dialog -->
     <string name="about_title">Sobre Download Navi</string>
     <string name="about_description"><![CDATA[    Mais informações e também para ajudar o projeto: <a href="https://github.com/TachibanaGeneralLaboratories/download-navi">https://github.com/TachibanaGeneralLaboratories/download-navi</a><br><br>
