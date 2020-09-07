@@ -58,6 +58,7 @@ Translations
 
 You can help translate the app here: [https://crowdin.com/project/download-navi](https://crowdin.com/project/download-navi)
 
+ - **Amharic** *(thanks dnt)*
  - **Arabic** *(thanks rex07)*
  - **Azerbaijani** *(thanks Khan27)*
  - **Bengali** *(thanks Oymate)*

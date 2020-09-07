@@ -285,28 +285,28 @@
     <!-- Browser settings -->
     <string name="pref_browser_bottom_address_bar_title">Address bar at the bottom</string>
     <string name="pref_browser_bottom_address_bar_summary">The address bar will be located at the bottom of the screen</string>
-    <string name="pref_browser_start_page_title">Start page</string>
-    <string name="pref_browser_allow_java_script_title">Allow Java Script</string>
-    <string name="pref_browser_allow_popup_windows_title">Allow popup windows</string>
-    <string name="pref_browser_cache_category">Cache</string>
-    <string name="pref_browser_cookies_category">Cookies</string>
-    <string name="pref_browser_enable_caching_title">Enable caching</string>
-    <string name="pref_browser_enable_cookies_title">Enable cookies</string>
-    <string name="pref_browser_delete_cookies_title">Delete cookies</string>
-    <string name="pref_browser_delete_cookies_done">Deleted all the cookies</string>
-    <string name="pref_browser_clear_cache_title">Clear cache</string>
-    <string name="pref_browser_clear_cache_done">The cache is cleared</string>
-    <string name="pref_browser_do_not_track_title">Do Not Track</string>
-    <string name="pref_browser_do_not_track_summary">Send a “Do Not Track” request to websites you visit</string>
+    <string name="pref_browser_start_page_title">Початкова сторінка</string>
+    <string name="pref_browser_allow_java_script_title">Дозволити Java Script</string>
+    <string name="pref_browser_allow_popup_windows_title">Дозволити виринаючі вікна</string>
+    <string name="pref_browser_cache_category">Кеш</string>
+    <string name="pref_browser_cookies_category">Файли Cookies</string>
+    <string name="pref_browser_enable_caching_title">Увімкнути кеш</string>
+    <string name="pref_browser_enable_cookies_title">Увімкнути cookies</string>
+    <string name="pref_browser_delete_cookies_title">Видалити cookie</string>
+    <string name="pref_browser_delete_cookies_done">Усі файли cookie видалені</string>
+    <string name="pref_browser_clear_cache_title">Очистити кеш</string>
+    <string name="pref_browser_clear_cache_done">Кеш очищений</string>
+    <string name="pref_browser_do_not_track_title">Не відстежувати</string>
+    <string name="pref_browser_do_not_track_summary">Надсилати \"Не відстежувати\" до веб-сторінок, які ви відвідуєте</string>
     <string name="pref_browser_launcher_icon_title">Browser icon in the launcher</string>
     <string name="pref_browser_disable_from_system_title">Disable browser from the system</string>
     <string name="pref_browser_disable_from_system_summary">Browser will not be available for opening links</string>
-    <string name="pref_browser_search_engine_title">Search engine</string>
+    <string name="pref_browser_search_engine_title">Пошукова система</string>
     <!-- About dialog -->
-    <string name="about_title">About Download Navi</string>
+    <string name="about_title">Про Download Navi</string>
     <string name="about_description"><![CDATA[    More information and also to help the project: <a href="https://github.com/TachibanaGeneralLaboratories/download-navi">https://github.com/TachibanaGeneralLaboratories/download-navi</a><br><br>
     Download Navi is a free and Open Source download manager for Android 4.4+<br><br>
     Download Navi is free software, released under the terms of the <a href="http://www.gnu.org/copyleft/gpl.html">GNU General Public License v3 (GPLv3)</a><br><br>
     <a href="https://github.com/TachibanaGeneralLaboratories/download-navi/blob/HEAD/Privacy.md">Privacy Policy</a>]]></string>
-    <string name="about_changelog">Changelog</string>
+    <string name="about_changelog">Журнал змін</string>
 </resources>

@@ -1,0 +1,308 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Global string -->
+    <string name="app_name">Download Navi</string>
+    <string name="foreground_notification">የፊተኛው ማስታወቂያ</string>
+    <string name="download_running">በሂደት ላይ</string>
+    <string name="finished">ተጠናቅቋል</string>
+    <string name="shutdown">ዝጋው</string>
+    <!-- 1 d. 1 h. 1 m -->
+    <string name="elapsed_time_format_d_h_mm">%1$d d. %2$d h. %3$d m</string>
+    <!-- 1 h. 1 m. 1 s -->
+    <string name="elapsed_time_format_h_mm_ss">%1$d d. %2$d h. %3$d m</string>
+    <!-- 1 m. 1 s -->
+    <string name="elapsed_time_format_mm_ss">%1$d m. %2$d s</string>
+    <!-- 1 s -->
+    <string name="elapsed_time_format_ss">%1$d s</string>
+    <string name="ok">እሺ</string>
+    <string name="cancel">ሰርዝ</string>
+    <!-- A synonym for word "unmetered" - unlimited-->
+    <string name="unmetered_connections_only">ያልተገደበ ግንኙነቶች ብቻ</string>
+    <string name="connect">ያገናኙ</string>
+    <string name="add">አክል</string>
+    <string name="not_available">N/A</string>
+    <string name="open_navigation_drawer">የአሰሳ መሳቢያዉን ይክፈቱ</string>
+    <string name="close_navigation_drawer">የአሰሳ መሳቢያዉን ይዝጉ</string>
+    <string name="error_template">ስህተት %1$s</string>
+    <string name="pause">ለአፍታ አቁም</string>
+    <string name="resume">ከቆመበት ቀጥል</string>
+    <string name="stop">አቁም</string>
+    <string name="stopped">ቆሟል</string>
+    <string name="pending">በመጠባበቅ ላይ</string>
+    <string name="delete">ሰርዝ</string>
+    <string name="share">አጋራ</string>
+    <string name="menu">ማውጫ</string>
+    <string name="select_all">ሁሉንም ምረጥ</string>
+    <string name="share_via">በኩል አጋራ</string>
+    <string name="no">አይ</string>
+    <string name="yes">አዎ</string>
+    <string name="error">ስህተት</string>
+    <string name="file">ፋይል</string>
+    <string name="folder">አቃፊ</string>
+    <string name="downloading_metadata">ሜታዳታ በማውረድ ላይ</string>
+    <string name="all">ሁሉም</string>
+    <string name="search">ፈልግ</string>
+    <string name="settings">ቅንብሮች</string>
+    <string name="about">ስለ</string>
+    <string name="close">ዝጋ</string>
+    <string name="redownload">እንደገና ያውርዱ</string>
+    <string name="Default">ነባሪ</string>
+    <string name="warning">ማስጠንቀቂያ</string>
+    <string name="apply">ተግብር</string>
+    <string name="report">አስታዉቅ</string>
+    <string name="more_details">ተጨማሪ ዝርዝሮች</string>
+    <string name="clipboard">ቅንጥብ ሰሌዳ</string>
+    <string name="verify">አረጋግጥ</string>
+    <!-- Permission dialog -->
+    <string name="perm_denied_title">ፍቃድ ተከልክሏል</string>
+    <string name="perm_denied_warning">ያለዚህ ፈቃድ መተግበሪያዉ በአንዳንድ መሣሪያዎች እና በ Android ስሪቶች ላይ ማህደረ ትውስታ ውስጥ ፋይሎችን ማስቀመጥ አይችልም። መተግበሪያው በትክክል አይሰራም። እርግጠኛ ነዎት ይህንን ፈቃድ መከልከል ይፈልጋሉ?</string>
+    <!-- Download progress notification -->
+    <string name="download_ticker_notify">በማውረድ ላይ %1$s</string>
+    <!-- Foreground notification -->
+    <string name="app_running_in_the_background">ዳዉንሎድ ናቪ ከበስተጀርባ እየሰራ ነዉ</string>
+    <string name="pause_all">ሁሉንም ለአፍታ አቁም</string>
+    <string name="resume_all">ሁሉንም ከቆመበት ቀጥል</string>
+    <!-- Finish notification -->
+    <string name="download_finished_notify">ማውረድ ተጠናቅቋል</string>
+    <string name="open_using">በመጠቀም ይክፈቱ</string>
+    <!-- Pending notification -->
+    <string name="download_in_queue_ticker_notify">%1$s ወረፋ ላይ</string>
+    <string name="waiting_for_network">አውታረ መረብን በመጠበቅ ላይ</string>
+    <string name="waiting_for_retry">እንደገና ለመሞከር በመጠበቅ ላይ</string>
+    <!-- Error notification -->
+    <string name="download_error_notify_title">የማውረድ ስህተት</string>
+    <!-- Applying params notification -->
+    <string name="applying_params_title">ፓራሞችን መተግበር</string>
+    <string name="applying_params_for_downloads">ፓራሞችን ለማውረድ መተግበር</string>
+    <string name="applying_params_error_title">የፓራምስ ስህተትን በመተግበር ላይ ለ %1$s</string>
+    <!-- Add download dialog -->
+    <string name="add_download">ማውረድ ያክሉ</string>
+    <string name="download_link">አገናኝ</string>
+    <string name="download_name">ስም</string>
+    <string name="download_size">መጠን: %1$s</string>
+    <string name="download_retry">እንደገና ሞክር</string>
+    <string name="download_advanced">የላቀ</string>
+    <string name="download_user_agent">የተጠቃሚ ወኪል</string>
+    <string name="download_error_empty_link">እባክዎ አገናኝ ያስገቡ</string>
+    <string name="download_error_empty_name">እባክዎን ስም ያስገቡ</string>
+    <string name="download_error_no_enough_free_space">በቂ ነፃ ቦታ የለም: %1$s ነፃ, ግን የፋይል መጠን %2$s ነው</string>
+    <string name="download_error_name_is_not_correct">ትክክለኛ ስም \"%1$s\" ነው</string>
+    <string name="fetch_error_default_fmt">ስህተት: %1$s</string>
+    <string name="fetch_error_invalid_url">ልክ ያልሆነ URL: %1$s</string>
+    <string name="fetch_error_network_disconnected">አውታረመረብ ተቋርጧል</string>
+    <string name="fetch_error_http_response">ስህተ: አገልጋይ HTTP %1$d ኮድ መልሷ</string>
+    <string name="fetch_error_io">IO ስህተት: %1$s</string>
+    <string name="unable_to_open_folder">የተመረጠውን አቃፊ መክፈት አልተቻለም። እባክዎ ሌላ አቃፊ ለመምረጥ ይሞክሩ</string>
+    <string name="unable_to_create_file">ፋይል መፍጠር አልተቻለም። እባክዎ ሌላ አቃፊ ለመምረጥ ይሞክሩ</string>
+    <string name="partial_download_not_supported">ይህ ማውረድ ለአፍታ ቆም ማለት እና በቁርጥራጮች ማውረድ አይደግፍም</string>
+    <string name="download_pieces_number_title">ቁርጥራጮች ብዛት</string>
+    <string name="download_description">መግለጫ</string>
+    <string name="select_folder_to_save">ለማስቀመጥ አቃፊውን ይምረጡ</string>
+    <string name="path">ዱካ</string>
+    <string name="storage_free_space">ባዶ ቦታ: %1$s</string>
+    <string name="add_download_error_invalid_url">ማውረድ ማከል አልተቻለም: ልክ ያልሆነ URL</string>
+    <string name="checksum">ቼክሰም</string>
+    <string name="add_dialog_checksum_description">MD5, SHA-256</string>
+    <string name="referer_description">%1$s ራስጌ</string>
+    <string name="error_invalid_checksum">ልክ ያልሆነ ቼክሰም</string>
+    <!-- Add user agent dialog -->
+    <string name="dialog_add_user_agent_title">የተጠቃሚ ወኪል ያክሉ</string>
+    <!-- Main activity -->
+    <string name="fragment_title_queued">ተሰልፏል</string>
+    <string name="fragment_title_completed">ተጠናቅቋል</string>
+    <string name="download_list_empty">ምንም የሚወርዱ</string>
+    <string name="share_url">URL ያጋሩ</string>
+    <!-- Navigation drawer -->
+    <!-- Category -->
+    <string name="drawer_category">ምድብ</string>
+    <string name="drawer_category_others">ሌሎች</string>
+    <string name="drawer_category_documents">ሰነዶች</string>
+    <string name="drawer_category_images">ምስሎች</string>
+    <string name="drawer_category_video">ቪዲዮ</string>
+    <string name="drawer_category_apk">ኤፒኬ</string>
+    <string name="drawer_category_audio">ድምፅ</string>
+    <string name="drawer_category_archives">ማህደሮች</string>
+    <!-- Status -->
+    <string name="drawer_status">ሁኔታ</string>
+    <string name="drawer_status_running">በመስራት ላይ</string>
+    <string name="drawer_status_stopped">ቆሟል</string>
+    <!-- Date added -->
+    <string name="drawer_date_added">ቀን ታክሏል</string>
+    <string name="drawer_date_added_today">ዛሬ</string>
+    <string name="drawer_date_added_yesterday">ትናንት</string>
+    <string name="drawer_date_added_week">ሳምንት</string>
+    <string name="drawer_date_added_month">ወር</string>
+    <string name="drawer_date_added_year">አመት</string>
+    <!-- Sorting -->
+    <string name="drawer_sorting">መለያ</string>
+    <string name="drawer_sorting_date_added">ቀን ታክሏል</string>
+    <string name="drawer_sorting_name">ስም</string>
+    <string name="drawer_sorting_size">መጠን</string>
+    <string name="drawer_sorting_category">ምድብ</string>
+    <string name="drawer_sorting_no_sorting">አትለይ</string>
+    <!-- Download list item -->
+    <!-- downloaded/total • ETA • speed -->
+    <string name="download_queued_progress_template">%1$s/%2$s \u2022 %3$s \u2022 %4$s/s</string>
+    <!-- downloaded/total • status -->
+    <string name="download_queued_template">%1$s/%2$s \u2022 %3$s</string>
+    <!-- hostname • total -->
+    <string name="download_finished_template">%1$s \u2022 %2$s</string>
+    <string name="download_details">ዝርዝሮች</string>
+    <string name="deleting">በመሰረዝ ላይ</string>
+    <string name="delete_selected_download">የተመረጠው ማውረድ ይሰረዝ? ይህ ክወና ሊቀለበስ አይችልም</string>
+    <string name="delete_selected_downloads">የተመረጡት ውርዶች ይሰረዙ? ይህ ክወና ሊቀለበስ አይችልም</string>
+    <string name="delete_with_downloaded_file">ከወረደ ፋይል ጋር ሰርዝ</string>
+    <string name="error_verify_checksum">ልክ ያልሆነ የፋይል ቼክሰም</string>
+    <!-- Filemanager dialog -->
+    <string name="dir_chooser_title">የአቃፊ ምርጫ</string>
+    <string name="file_chooser_title">የፋይል ምርጫ</string>
+    <string name="dialog_new_folder_title">አዲስ አቃፊ</string>
+    <string name="error_dialog_new_folder">አዲስ አቃፊ መፍጠር አልተቻለም</string>
+    <string name="error_open_dir">አቃፊውን መክፈት አልተቻለም</string>
+    <string name="home_directory">ቤት</string>
+    <!-- name (size) -->
+    <string name="permission_denied">ፈቃዱ ተከልክሏል</string>
+    <string name="save_file">ፋይልን ያስቀምጡ</string>
+    <string name="file_name">የፋይል ስም</string>
+    <string name="error_file_exists">ፋይል አስቀድሞ አለ ይተኩ?</string>
+    <string name="file_name_is_empty">የፋይል ስም ባዶ ሊሆን አይችልም</string>
+    <string name="system_manager">የስርዓት አስተዳዳሪ</string>
+    <string name="device_does_not_support_this_feature">መሣሪያዎ ይህንን ባህሪ አይደግፍም</string>
+    <string name="system_file_manager_not_found">የስርዓት ፋይል አስተዳዳሪ አልተገኘም</string>
+    <string name="replace_file">ፋይልን ይተኩ</string>
+    <!-- Details download dialog -->
+    <string name="detail_downloaded">ወርዷል</string>
+    <!-- downloaded/total (percent) -->
+    <string name="detail_downloaded_format">%1$s/%2$s (%3$d%%)</string>
+    <string name="detail_pieces">ቁርጥራጮች</string>
+    <string name="detail_date_added">ቀን ታክሏል</string>
+    <string name="detail_user_agent">የተጠቃሚ ወኪል</string>
+    <string name="detail_md5_hash_sum">MD5</string>
+    <string name="detail_sha256_hash_sum">SHA-256</string>
+    <string name="calculate">አስላ</string>
+    <!-- Error report -->
+    <string name="app_error_occurred">የመተግበሪያው ስህተት ተከስቷል ሪፖርቱን ለገንቢዎች መላክ ይችላሉ</string>
+    <string name="error_comment_prompt">ተጨማሪ መረጃዎችን እና አስተያየቶችን እዚህ ማከል ይችላሉ:</string>
+    <!-- Send text to clipboard -->
+    <string name="send_text_to_clipboard">ገልብጥ</string>
+    <string name="text_copied_to_clipboard">ጽሑፍ ወደ ቅንጥብ ሰሌዳ ተቀድቷል</string>
+    <!-- Browser -->
+    <string name="browser">አሳሽ</string>
+    <string name="browser_app">ናቪ አሳሽ</string>
+    <string name="webview_is_required">እንዲሰራ WebView ይስፈለጋል</string>
+    <string name="browser_forward_arrow">ወደፊት</string>
+    <string name="browser_desktop_version">የዴስክቶፕ ስሪት</string>
+    <string name="browser_address_bar_hint">አድራሻ ወይም ጥያቄ ያስገቡ</string>
+    <string name="browser_back_pressed">ለመዝጋት እንደገና ይጫኑ</string>
+    <string name="browser_secure_connection">ደህንነቱ የተጠበቀ ግንኙነት</string>
+    <string name="browser_download_from_link">ወርዷል</string>
+    <string name="browser_copy_link">አገናኝ ገልብጥ</string>
+    <!-- Browser bookmarks -->
+    <string name="browser_bookmarks">ዕልባቶች</string>
+    <string name="bookmarks_list_empty">ምንም ዕልባቶች የሉም</string>
+    <string name="browser_add_bookmark">ዕልባት አክል</string>
+    <string name="browser_edit_bookmark">ዕልባት አስተካክል</string>
+    <!-- Edit bookmark dialog -->
+    <string name="browser_bookmark_name">ስም</string>
+    <string name="browser_bookmark_url">URL</string>
+    <string name="browser_bookmark_error_empty_url">እባክዎ URL ያስገቡ</string>
+    <string name="browser_bookmark_error_empty_name">እባክዎ ስም ያስገቡ</string>
+    <plurals name="browser_bookmark_deleted">
+        <item quantity="one">እልባት ተሰርዟል</item>
+        <item quantity="other">ዕልባቶች ተሰርዘዋል</item>
+    </plurals>
+    <plurals name="browser_bookmark_delete_failed">
+        <item quantity="one">ዕልባቱን መሰረዝ አልተሳካም</item>
+        <item quantity="other">ዕልባቶችን መሰረዝ አልተሳካም</item>
+    </plurals>
+    <string name="browser_bookmark_change_failed">ዕልባት መቀየር አልተሳካም</string>
+    <string name="browser_bookmark_added">ዕልባት ታክሏል</string>
+    <string name="browser_bookmark_add_failed">ዕልባት ማከል አልተሳካም</string>
+    <string name="browser_bookmark_edit_menu">አስተካክል</string>
+    <!-- Settings -->
+    <!-- Headers -->
+    <string name="pref_header_appearance">አቀራረብ</string>
+    <string name="pref_header_behavior">ባህሪ</string>
+    <string name="pref_header_storage">ማከማቻ</string>
+    <string name="pref_header_browser">አሳሽ</string>
+    <!-- Appearance settings -->
+    <string name="pref_theme_category">የገጽታ ቅንብሮች</string>
+    <string name="pref_theme_title">ገጽታ</string>
+    <string-array name="pref_theme_entries">
+        <item>ብርሃን</item>
+        <item>ጨለማ</item>
+        <item>ጥቁር</item>
+    </string-array>
+    <string name="pref_notification_category">የማሳወቂያ ቅንብሮች</string>
+    <string name="pref_progress_notify_title">የእድገት ማሳወቂያ</string>
+    <string name="pref_finish_notify_title">ማሳወቂያ ጨርስ</string>
+    <string name="pref_pending_notify_title">በመጠባበቅ ላይ ያለ ማሳወቂያ</string>
+    <string name="pref_play_sound_notify_title">ድምጽ አጫውት</string>
+    <string name="pref_notify_sound_title">የማሳወቂያ ድምጽ</string>
+    <string name="pref_led_indicator_notify_title">የ LED አመልካች</string>
+    <string name="pref_led_indicator_color_notify_title">የ LED አመልካች ቀለም</string>
+    <string name="pref_vibration_notify_title">ንዝረት</string>
+    <string name="theme_settings_apply_after_reboot">መተግበሪያውን እንደገና ከጀመሩ በኋላ የገጽታ ቅንብሮች ይተገበራሉ</string>
+    <!-- Behavior settings -->
+    <string name="pref_autostart_title">Autostart</string>
+    <string name="pref_autostart_summary">እራስዎ ካላቆሙት መሣሪያው ከጀመረ ብኋላ ውርዶችን ይጀምሩ</string>
+    <!-- A synonym for word "unmetered" - unlimited-->
+    <string name="pref_umnetered_connections_only_title">ያልተገደበ ግንኙነቶች ብቻ</string>
+    <string name="pref_umnetered_connections_only_summary">ባልተገደበ ግንኙነቶች ላይ ብቻ ያውርዱ (ለምሳሌ ፣ Wi-Fi ወይም ኤተርኔት)</string>
+    <string name="pref_power_management_category">የኃይል አስተዳደር</string>
+    <string name="pref_cpu_do_not_sleep_title">CPU እንዲነቃ ያድርጉ</string>
+    <string name="pref_cpu_do_not_sleep_summary">ይህንን ማንቃት የባትሪውን አጠቃቀም ይጨምራል። ማያ ገጹ ሲጠፋ የማውረድ ፍጥነት ከቀነሰ ይህንን አማራጭ ይጠቀሙ</string>
+    <string name="pref_download_only_when_charging_title">ኃይል በመሙላት ጊዜ ብቻ አውርድ</string>
+    <string name="pref_download_only_when_charging_summary">ከነቃ ባትሪ በሚሞላበት ጊዜ ብቻ ማውረድ ይከሰታል ፡፡ ከባትሪ መሙያው ጋር ካልተገናኘ ሁሉም ውርዶች ለአፍታ ይቆማሉ</string>
+    <string name="pref_battery_control_title">የባትሪ ቁጥጥር</string>
+    <string name="pref_custom_battery_control_title">ብጁ የባትሪ መቶኛ</string>
+    <string name="pref_custom_battery_control_value_title">የባትሪ ቁጥጥር መቶኛ</string>
+    <string name="pref_battery_control_summary">የባትሪው መጠን ከ %1$d%% በታች ከሄደ ሁሉም ውርዶች ለአፍታ ይቆማሉ። በሚሞላበት ጊዜ ገደብ አይተገበርም</string>
+    <string name="pref_custom_battery_control_summary">ባትሪው ከተሰጠው ገደብ በታች ቢወርድ ውርዶችን ለማቆም ብጁ መቶኛ ያዘጋጁ። ይህንን ማንቃት ነባሪው %1$d%% ገደቡን ችላ ይለዋል</string>
+    <string name="pref_custom_battery_control_dialog_summary">ለመተግበሪያው ብጁ የባትሪ መቶኛ ማዘጋጀት ውርዶች በሚከሰቱበት ጊዜ በባትሪ ዕድሜ ላይ አሉታዊ ተጽዕኖ ያሳድራል። እርግጠኛ ነዎት ይህንን ማንቃት ይፈልጋሉ?</string>
+    <string name="pref_enable_roaming_title">መንቀሳቀስን ያንቁ</string>
+    <string name="pref_enable_roaming_summary">መሣሪያው እየተዘዋወረ ካልሆነ ብቻ ያውርዱ</string>
+    <string name="pref_max_active_downloads_title">ከፍተኛው ንቁ ውርዶች</string>
+    <string name="pref_max_download_retries_title">ከፍተኛው የውርድ ሙከራዎች ብዛት</string>
+    <string name="pref_max_download_retries_dialog_msg">0 - ያለ ሙከራዎች</string>
+    <string name="pref_replace_duplicate_downloads_title">የተባዙ ውርዶችን ይተኩ</string>
+    <string name="pref_replace_duplicate_downloads_summary">በዝርዝሩ ውስጥ ሲጨመሩ ቀድሞውኑ የተባዙ ውርዶችን(በተመሳሳይ URL) ይተኩ</string>
+    <string name="pref_auto_connect_title">ራስ-ሰር ይገናኙ</string>
+    <string name="pref_auto_connect_summary">የማከያውን መገናኛ ሲከፍቱ በራስ-ሰር ይገናኙ</string>
+    <string name="pref_timeout_title">ጊዜው አልቋል</string>
+    <string name="pref_timeout_summary">ግንኙነቱ ከማለቁ በፊት የሚጠብቁት የሚሊሰከንዶች ብዛት። ዜሮ ማለቂያ የሌለው የጊዜ ማለቂያ ተብሎ ይተረጎማል</string>
+    <!-- Storage settings -->
+    <string name="pref_save_downloads_in_title">ማውረዶችን በ ውስጥ ያስቀምጡ</string>
+    <string name="pref_move_after_download_title">ከወረዱ በኋላ አንቀሳቅስ</string>
+    <string name="pref_move_after_download_in_title">ውስጥ ከወረዱ በኋላ ይንቀሳቀሱ</string>
+    <string name="pref_delete_file_if_error_title">ስህተት ከተከሰተ ፋይልን ይሰርዙ</string>
+    <string name="pref_preallocate_disk_space_title">ለፋይሉ የዲስክ ቦታን ቀድመው ይመድቡ</string>
+    <string name="pref_preallocate_disk_space_summary">ለ Android 5.0 Lollipop እና ከዚያ በላይ ይገኛል</string>
+    <!-- Browser settings -->
+    <string name="pref_browser_bottom_address_bar_title">የአድራሻ አሞሌ ከታች</string>
+    <string name="pref_browser_bottom_address_bar_summary">የአድራሻው አሞሌ በማያ ገጹ ታችኛው ክፍል ላይ ይቀመጣል</string>
+    <string name="pref_browser_start_page_title">የመነሻ ገጽ</string>
+    <string name="pref_browser_allow_java_script_title">ጃቫስክሪፕትን ፍቀድ</string>
+    <string name="pref_browser_allow_popup_windows_title">ብቅ ባይ መስኮቶችን ፍቀድ</string>
+    <string name="pref_browser_cache_category">መሸጎጫ</string>
+    <string name="pref_browser_cookies_category">ኩኪዎች</string>
+    <string name="pref_browser_enable_caching_title">መሸጎጫን ያንቁ</string>
+    <string name="pref_browser_enable_cookies_title">ኩኪዎችን ያንቁ</string>
+    <string name="pref_browser_delete_cookies_title">ኩኪዎችን ሰርዝ</string>
+    <string name="pref_browser_delete_cookies_done">ሁሉም ኩኪዎች ተሰርል</string>
+    <string name="pref_browser_clear_cache_title">መሸጎጫውን ያጽዱ</string>
+    <string name="pref_browser_clear_cache_done">መሸጎጫው ጸድቷል</string>
+    <string name="pref_browser_do_not_track_title">አትከታተል</string>
+    <string name="pref_browser_do_not_track_summary">ለጎበኟቸው ድር ጣቢያዎች “አትከታተል” የሚል ጥያቄ ይላኩ</string>
+    <string name="pref_browser_launcher_icon_title">በአስጀማሪው ውስጥ የአሳሽ አዶ</string>
+    <string name="pref_browser_disable_from_system_title">አሳሹን ከስርዓቱ ያሰናክሉ</string>
+    <string name="pref_browser_disable_from_system_summary">አገናኞችን ለመክፈት አሳሽ አይገኝም</string>
+    <string name="pref_browser_search_engine_title">የመፈለጊያ ማሸን</string>
+    <!-- About dialog -->
+    <string name="about_title">ስለ ዳዉንሎድ ናቪ</string>
+    <string name="about_description"><![CDATA[    ተጨማሪ መረጃ እና እንዲሁም ፕሮጀክቱን ለማገዝ: <a href="https://github.com/TachibanaGeneralLaboratories/download-navi">https://github.com/TachibanaGeneralLaboratories/download-navi</a><br><br>
+  ዳዉንሎድ ናቪ ለ Android 4.4+ ነፃ እና ክፍት ምንጭ ማውረጃ አቀናባሪ ነው<br><br>
+    ዳዉንሎድ ናቪ ነፃ ሶፍትዌር ነው ፣ በ ውሎቹ ስር ይወጣል<a href="http://www.gnu.org/copyleft/gpl.html">GNU General Public License v3 (GPLv3)</a><br><br>
+    <a href="https://github.com/TachibanaGeneralLaboratories/download-navi/blob/HEAD/Privacy.md">የግላዊነት ፖሊሲ</a>]]></string>
+    <string name="about_changelog">የለውጥ ምዝግብ</string>
+</resources>
