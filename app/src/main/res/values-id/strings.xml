@@ -255,7 +255,7 @@
     <string name="pref_battery_control_title">Kontrol baterei</string>
     <string name="pref_custom_battery_control_title">Persentase baterei khusus</string>
     <string name="pref_custom_battery_control_value_title">Persentase kontrol baterei</string>
-    <string name="pref_battery_control_summary">Semua unduhan akan dijeda saat level baterei dibawah %1$d%. Batasan tidak berlaku saat mengisi daya</string>
+    <string name="pref_battery_control_summary">Semua unduhan akan dijeda saat level baterei dibawah %1$d%%. Batasan tidak berlaku saat mengisi daya</string>
     <string name="pref_custom_battery_control_summary">Atur persentase khusus untuk menghentikan unduhan jika baterei dibawah batas yang ditentukan. Mengaktifkan ini akan mengabaikan batas bawaan %1$d%%</string>
     <string name="pref_custom_battery_control_dialog_summary">Mengatur persentase baterei khusus untuk aplikasi akan berdampak negatif pada ketahanan baterei saat proses unduh sedang berjalan. Apakah anda yakin ingin mengaktifkan fitur ini?</string>
     <string name="pref_enable_roaming_title">Aktifkan roaming</string>
