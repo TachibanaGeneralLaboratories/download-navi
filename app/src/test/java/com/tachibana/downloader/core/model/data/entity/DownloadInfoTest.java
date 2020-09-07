@@ -21,10 +21,12 @@
 package com.tachibana.downloader.core.model.data.entity;
 
 import android.net.Uri;
+import android.os.Build;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.robolectric.RobolectricTestRunner;
+import org.robolectric.annotation.Config;
 
 import java.util.List;
 
@@ -32,6 +34,8 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.fail;
 
 @RunWith(RobolectricTestRunner.class)
+// TODO: needs Java 9
+@Config(sdk = Build.VERSION_CODES.P)
 public class DownloadInfoTest
 {
     private DownloadInfo info = new DownloadInfo(Uri.parse("file:///"),
