@@ -1,0 +1,17 @@
+* Android 10 as a target platform
+* SSL cache optimization
+* Added:
+     - "HTTP Referer" header field in the add download dialog
+     - Saving options after closing the add download dialog
+     - Opening app from download progress notification
+* Bugfixing:
+     - Downloading from GDrive (currently works only with built-in browser)
+     - [Browser] pinch zooming
+     - [Browser] desktop page
+     - Clipboard button in Android 10
+     - Ability to close the pause notification
+     - URL normalizing
+* New translations:
+     - Persian
+     - Ukrainian
+     - Amharic
