@@ -348,6 +348,13 @@ public class BrowserViewModel extends AndroidViewModel
             if (!requestStop)
                 urlFetchState.postValue(UrlFetchState.PAGE_FINISHED);
         }
+
+          @Override
+        public void onLoadResource(WebView view, String url) {
+            super.onLoadResource(view, url);
+            view.evaluateJavascript("document.querySelector('meta[name=\"viewport\"]').setAttribute('content', 'width=1024px, initial-scale=' + (window.screen.width / 1024));", null);
+        }
+
     };
 
     private final WebChromeClient webChromeClient = new WebChromeClient() {
