@@ -20,6 +20,8 @@
 
 package com.tachibana.downloader.ui.browser;
 import android.content.Intent;
+import android.net.Uri;
+import android.widget.Toast;
 import android.annotation.TargetApi;
 import android.app.Application;
 import android.graphics.Bitmap;
@@ -372,7 +374,7 @@ public class BrowserViewModel extends AndroidViewModel
             }
 
             return true;
-            
+
         }
 
         @Override
