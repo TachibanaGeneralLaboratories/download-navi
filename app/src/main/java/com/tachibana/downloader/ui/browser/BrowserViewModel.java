@@ -310,7 +310,66 @@ public class BrowserViewModel extends AndroidViewModel
         @Override
         public boolean shouldOverrideUrlLoading(@NonNull WebView view, @NonNull WebResourceRequest request)
         {
-            view.loadUrl(request.getUrl().toString());
+           
+            if (request.getUrl().toString().startsWith("http")) {
+
+
+                view.loadUrl(request.getUrl().toString());
+
+            } else if (request.getUrl().toString().startsWith("mailto:")) {  // Load the email address in an external email program.
+                // Use `ACTION_SENDTO` instead of `ACTION_SEND` so that only email programs are launched.
+                Intent emailIntent = new Intent(Intent.ACTION_SENDTO);
+
+                // Parse the url and set it as the data for the intent.
+                emailIntent.setData(Uri.parse(request.getUrl().toString()));
+
+                // Open the email program in a new task instead of as part of Browser.
+                emailIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+
+                // Make it so.
+                view.getContext().startActivity(emailIntent);
+
+                // Returning true indicates Browser is handling the URL by creating an intent.
+                return true;
+            } else if (request.getUrl().toString().startsWith("tel:")) {  // Load the phone number in the dialer.
+                // Open the dialer and load the phone number, but wait for the user to place the call.
+                Intent dialIntent = new Intent(Intent.ACTION_DIAL);
+
+                // Add the phone number to the intent.
+                dialIntent.setData(Uri.parse(request.getUrl().toString()));
+
+                // Open the dialer in a new task instead of as part of Browser.
+                dialIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+
+                // Make it so.
+                view.getContext().startActivity(dialIntent);
+
+                // Returning true indicates Browser is handling the URL by creating an intent.
+                return true;
+            } else {  // Load a system chooser to select an app that can handle the URL.
+                // Open an app that can handle the URL.
+                Intent genericIntent = new Intent(Intent.ACTION_VIEW);
+
+                // Add the URL to the intent.
+                genericIntent.setData(Uri.parse(request.getUrl().toString()));
+
+                // List all apps that can handle the URL instead of just opening the first one.
+                genericIntent.addCategory(Intent.CATEGORY_BROWSABLE);
+
+                // Open the app in a new task instead of as part of Browser.
+                genericIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+
+                // Start the app or display a toast if no app is available to handle the URL.
+                try {
+                    view.getContext().startActivity(genericIntent);
+                } catch (ActivityNotFoundException exception) {
+                    // Toast.makeText(getActivity(),"unrecognized url",Toast.LENGTH_LONG).show();
+                    Toast.makeText(view.getContext(),"unrecognized url",Toast.LENGTH_LONG).show();
+                }
+
+                // Returning true indicates Browser is handling the URL by creating an intent.
+                return true;
+            }
 
             return true;
         }
@@ -318,7 +377,61 @@ public class BrowserViewModel extends AndroidViewModel
         @Override
         public boolean shouldOverrideUrlLoading(@NonNull WebView view, @NonNull String url)
         {
-            view.loadUrl(url);
+                 if (url.startsWith("http")) {
+
+
+                view.loadUrl(url);
+
+            } else if (url.startsWith("mailto:")) {  // Load the email address in an external email program.
+                // Use `ACTION_SENDTO` instead of `ACTION_SEND` so that only email programs are launched.
+                Intent emailIntent = new Intent(Intent.ACTION_SENDTO);
+
+                // Parse the url and set it as the data for the intent.
+                emailIntent.setData(Uri.parse(url));
+
+                // Open the email program in a new task instead of as part of Browser.
+                emailIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+
+                // Make it so.
+                view.getContext().startActivity(emailIntent);
+
+                // Returning true indicates Browser is handling the URL by creating an intent.
+                return true;
+            } else if (url.startsWith("tel:")) {  // Load the phone number in the dialer.
+                // Open the dialer and load the phone number, but wait for the user to place the call.
+                Intent dialIntent = new Intent(Intent.ACTION_DIAL);
+
+                // Add the phone number to the intent.
+                dialIntent.setData(Uri.parse(url));
+
+                // Open the dialer in a new task instead of as part of Browser.
+                dialIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+
+                // Make it so.
+                view.getContext().startActivity(dialIntent);
+
+                // Returning true indicates Browser is handling the URL by creating an intent.
+                return true;
+            } else {  // Load a system chooser to select an app that can handle the URL.
+                // Open an app that can handle the URL.
+                Intent genericIntent = new Intent(Intent.ACTION_VIEW);
+
+                // Add the URL to the intent.
+                genericIntent.setData(Uri.parse(url));
+
+                // List all apps that can handle the URL instead of just opening the first one.
+                genericIntent.addCategory(Intent.CATEGORY_BROWSABLE);
+
+                // Open the app in a new task instead of as part of Browser.
+                genericIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+
+                // Start the app or display a toast if no app is available to handle the URL.
+                try {
+                    view.getContext().startActivity(genericIntent);
+                } catch (ActivityNotFoundException exception) {
+                   // Toast.makeText(getActivity(),"unrecognized url",Toast.LENGTH_LONG).show();
+                    Toast.makeText(view.getContext(),"unrecognized url",Toast.LENGTH_LONG).show();
+                }
 
             return true;
         }
