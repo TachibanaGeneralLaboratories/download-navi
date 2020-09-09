@@ -72,4 +72,12 @@ public class UtilsTest extends AbstractTest
                 "Content-Location: subdir/file.pdf", null);
         assertEquals("real.pdf", actual);
     }
+
+    @Test
+    public void testGetHttpFileName_dispositionWithEncoding()
+    {
+        String actual = Utils.getHttpFileName(fs, "http://example.org/file.pdf",
+                "attachment;filename=\"foo.txt\";filename*=UTF-8''foo.txt", null, null);
+        assertEquals("foo.txt", actual);
+    }
 }

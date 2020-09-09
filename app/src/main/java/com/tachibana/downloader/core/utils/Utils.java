@@ -70,7 +70,9 @@ import com.tachibana.downloader.ui.main.drawer.DrawerGroupItem;
 import org.acra.ACRA;
 import org.acra.ReportField;
 
+import java.io.ByteArrayOutputStream;
 import java.io.File;
+import java.io.UnsupportedEncodingException;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ArrayList;
@@ -86,14 +88,37 @@ import static com.tachibana.downloader.core.utils.MimeTypeUtils.MIME_TYPE_DELIMI
 import static java.net.HttpURLConnection.HTTP_INTERNAL_ERROR;
 import static java.net.HttpURLConnection.HTTP_UNAVAILABLE;
 
-public class Utils
-{
+public class Utils {
     public static final String INFINITY_SYMBOL = "\u221e";
     public static final String HTTP_PREFIX = "http";
     public static final String DEFAULT_DOWNLOAD_FILENAME = "downloadfile";
-    private static final Pattern CONTENT_DISPOSITION_PATTERN =
-            Pattern.compile("attachment;\\s*filename\\s*=\\s*(\"?)([^\"]*)\\1\\s*$",
-                    Pattern.CASE_INSENSITIVE);
+
+    /*
+     * Format as defined in RFC 2616 and RFC 5987.
+     * Both inline and attachment types are supported
+     */
+    private static final Pattern CONTENT_DISPOSITION_PATTERN = Pattern.compile(
+            "(inline|attachment)\\s*;" +
+                    "\\s*filename\\s*=\\s*(\"((?:\\\\.|[^\"\\\\])*)\"|[^;]*)\\s*" +
+                    "(?:;\\s*filename\\*\\s*=\\s*(utf-8|iso-8859-1)'[^']*'(\\S*))?",
+            Pattern.CASE_INSENSITIVE
+    );
+    /**
+     * Keys for the capture groups inside contentDispositionPattern
+     */
+    private static final int ENCODED_FILE_NAME_GROUP = 5;
+    private static final int ENCODING_GROUP = 4;
+    private static final int QUOTED_FILE_NAME_GROUP = 3;
+    private static final int UNQUOTED_FILE_NAME = 2;
+
+    /**
+     * Definition as per RFC 5987, section 3.2.1. (value-chars)
+     */
+    private static final Pattern ENCODED_SYMBOL_PATTERN = Pattern.compile(
+            "%[0-9a-f]{2}|[0-9a-z!#$&+-.^_`|~]",
+            Pattern.CASE_INSENSITIVE
+    );
+
     private static final Pattern ACCEPTED_URI_SCHEMA = Pattern.compile(
             "(?i)" +  /* Switch on case insensitive matching */
                     "(" +  /* Begin group for schema */
@@ -109,21 +134,18 @@ public class Utils
      * if work is longer than a millisecond but less than a few seconds.
      */
 
-    public static void startServiceBackground(@NonNull Context context, @NonNull Intent i)
-    {
+    public static void startServiceBackground(@NonNull Context context, @NonNull Intent i) {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O)
             context.startForegroundService(i);
         else
             context.startService(i);
     }
 
-    public static int getThemePreference(@NonNull Context appContext)
-    {
+    public static int getThemePreference(@NonNull Context appContext) {
         return RepositoryHelper.getSettingsRepository(appContext).theme();
     }
 
-    public static int getAppTheme(@NonNull Context appContext)
-    {
+    public static int getAppTheme(@NonNull Context appContext) {
         int theme = getThemePreference(appContext);
 
         if (theme == Integer.parseInt(appContext.getString(R.string.pref_theme_light_value)))
@@ -136,8 +158,7 @@ public class Utils
         return R.style.AppTheme;
     }
 
-    public static int getTranslucentAppTheme(@NonNull Context appContext)
-    {
+    public static int getTranslucentAppTheme(@NonNull Context appContext) {
         int theme = getThemePreference(appContext);
 
         if (theme == Integer.parseInt(appContext.getString(R.string.pref_theme_light_value)))
@@ -150,8 +171,7 @@ public class Utils
         return R.style.AppTheme_Translucent;
     }
 
-    public static int getSettingsTheme(@NonNull Context appContext)
-    {
+    public static int getSettingsTheme(@NonNull Context appContext) {
         int theme = getThemePreference(appContext);
 
         if (theme == Integer.parseInt(appContext.getString(R.string.pref_theme_light_value)))
@@ -169,17 +189,15 @@ public class Utils
      */
 
     public static void colorizeProgressBar(@NonNull Context context,
-                                           @NonNull ProgressBar progress)
-    {
+                                           @NonNull ProgressBar progress) {
         if (Build.VERSION.SDK_INT < Build.VERSION_CODES.LOLLIPOP)
             progress.getProgressDrawable().setColorFilter(ContextCompat.getColor(context, R.color.accent),
                     android.graphics.PorterDuff.Mode.SRC_IN);
     }
 
     @Nullable
-    public static ClipData getClipData(@NonNull Context context)
-    {
-        ClipboardManager clipboard = (ClipboardManager)context.getSystemService(Activity.CLIPBOARD_SERVICE);
+    public static ClipData getClipData(@NonNull Context context) {
+        ClipboardManager clipboard = (ClipboardManager) context.getSystemService(Activity.CLIPBOARD_SERVICE);
         if (!clipboard.hasPrimaryClip())
             return null;
 
@@ -190,8 +208,7 @@ public class Utils
         return clip;
     }
 
-    public static List<CharSequence> getClipboardText(@NonNull Context context)
-    {
+    public static List<CharSequence> getClipboardText(@NonNull Context context) {
         ArrayList<CharSequence> clipboardText = new ArrayList<>();
 
         ClipData clip = Utils.getClipData(context);
@@ -212,8 +229,7 @@ public class Utils
                                          @NonNull String decodedUrl,
                                          String contentDisposition,
                                          String contentLocation,
-                                         String mimeType)
-    {
+                                         String mimeType) {
         String filename = null;
         String extension = null;
 
@@ -322,30 +338,60 @@ public class Utils
      * downloaded to the file system. We only support the attachment type
      */
 
-    private static String parseContentDisposition(@NonNull String contentDisposition)
-    {
+    private static String parseContentDisposition(@NonNull String contentDisposition) {
         try {
             Matcher m = CONTENT_DISPOSITION_PATTERN.matcher(contentDisposition);
-            if (m.find())
-                return m.group(2);
+            if (m.find()) {
+                // If escaped string is found, decode it using the given encoding
+                String encodedFileName = m.group(ENCODED_FILE_NAME_GROUP);
+                String encoding = m.group(ENCODING_GROUP);
 
-        } catch (IllegalStateException e) {
-            /* Ignore */
+                if (encodedFileName != null && encoding != null) {
+                    return decodeHeaderField(encodedFileName, encoding);
+                }
+
+                // Return quoted string if available and replace escaped characters.
+                String quotedFileName = m.group(QUOTED_FILE_NAME_GROUP);
+
+                return quotedFileName == null ?
+                        m.group(UNQUOTED_FILE_NAME) :
+                        quotedFileName.replace("\\\\(.)", "$1");
+            }
+        } catch (IllegalStateException | NumberFormatException e) {
+            // This function is defined as returning null when it can't parse the header
+        } catch (UnsupportedEncodingException e) {
+            // Nothing
         }
+
         return null;
     }
 
+    private static String decodeHeaderField(String field, String encoding)
+            throws UnsupportedEncodingException, NumberFormatException {
+        Matcher m = ENCODED_SYMBOL_PATTERN.matcher(field);
+        ByteArrayOutputStream stream = new ByteArrayOutputStream();
+
+        while (m.find()) {
+            String symbol = m.group();
+            if (symbol.startsWith("%")) {
+                stream.write(Integer.parseInt(symbol.substring(1), 16));
+            } else {
+                stream.write(symbol.charAt(0));
+            }
+        }
+
+        return stream.toString(encoding);
+    }
+
     public static boolean checkConnectivity(@NonNull SettingsRepository pref,
-                                            @NonNull SystemFacade systemFacade)
-    {
+                                            @NonNull SystemFacade systemFacade) {
         NetworkInfo netInfo = systemFacade.getActiveNetworkInfo();
 
         return netInfo != null && netInfo.isConnected() && isNetworkTypeAllowed(pref, systemFacade);
     }
 
     public static boolean isNetworkTypeAllowed(@NonNull SettingsRepository pref,
-                                               @NonNull SystemFacade systemFacade)
-    {
+                                               @NonNull SystemFacade systemFacade) {
         boolean enableRoaming = pref.enableRoaming();
         boolean unmeteredOnly = pref.unmeteredConnectionsOnly();
 
@@ -386,8 +432,7 @@ public class Utils
         return noUnmeteredOnly && noRoaming;
     }
 
-    public static boolean isMetered(@NonNull SystemFacade systemFacade)
-    {
+    public static boolean isMetered(@NonNull SystemFacade systemFacade) {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
             NetworkCapabilities caps = systemFacade.getNetworkCapabilities();
             return caps != null && !caps.hasCapability(NetworkCapabilities.NET_CAPABILITY_NOT_METERED) ||
@@ -397,8 +442,7 @@ public class Utils
         }
     }
 
-    public static boolean isRoaming(@NonNull SystemFacade systemFacade)
-    {
+    public static boolean isRoaming(@NonNull SystemFacade systemFacade) {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P) {
             NetworkCapabilities caps = systemFacade.getNetworkCapabilities();
             return caps != null && !caps.hasCapability(NetworkCapabilities.NET_CAPABILITY_NOT_ROAMING);
@@ -412,8 +456,7 @@ public class Utils
      * Don't use app context (its doesn't reload after configuration changes)
      */
 
-    public static boolean isTwoPane(@NonNull Context context)
-    {
+    public static boolean isTwoPane(@NonNull Context context) {
         return context.getResources().getBoolean(R.bool.isTwoPane);
     }
 
@@ -423,13 +466,11 @@ public class Utils
      * Don't use app context (its doesn't reload after configuration changes)
      */
 
-    public static boolean isLargeScreenDevice(Context context)
-    {
+    public static boolean isLargeScreenDevice(Context context) {
         return context.getResources().getBoolean(R.bool.isLargeScreenDevice);
     }
 
-    public static long calcETA(long totalBytes, long curBytes, long speed)
-    {
+    public static long calcETA(long totalBytes, long curBytes, long speed) {
         long left = totalBytes - curBytes;
         if (left <= 0)
             return 0;
@@ -444,8 +485,7 @@ public class Utils
      * returns docs.oracle.com
      */
 
-    static public String getHostFromUrl(@NonNull String url)
-    {
+    static public String getHostFromUrl(@NonNull String url) {
         URL uri;
         try {
             uri = new URL(url);
@@ -461,8 +501,7 @@ public class Utils
         return host.replaceAll("^www\\.", "");
     }
 
-    public static int getAttributeColor(@NonNull Context context, int attributeId)
-    {
+    public static int getAttributeColor(@NonNull Context context, int attributeId) {
         TypedValue typedValue = new TypedValue();
         context.getTheme().resolveAttribute(attributeId, typedValue, true);
         int colorRes = typedValue.resourceId;
@@ -477,13 +516,11 @@ public class Utils
         return color;
     }
 
-    public static boolean isSafPath(@NonNull Context appContext, @NonNull Uri path)
-    {
+    public static boolean isSafPath(@NonNull Context appContext, @NonNull Uri path) {
         return SafFileSystem.getInstance(appContext).isSafPath(path);
     }
 
-    public static boolean isFileSystemPath(@NonNull Uri path)
-    {
+    public static boolean isFileSystemPath(@NonNull Uri path) {
         String scheme = path.getScheme();
         if (scheme == null)
             throw new IllegalArgumentException("Scheme of " + path.getPath() + " is null");
@@ -492,8 +529,7 @@ public class Utils
     }
 
     public static Intent makeFileShareIntent(@NonNull Context context,
-                                             @NonNull List<DownloadItem> items)
-    {
+                                             @NonNull List<DownloadItem> items) {
         FileSystemFacade fs = SystemFacadeHelper.getFileSystemFacade(context);
 
         Intent i = new Intent();
@@ -543,7 +579,7 @@ public class Utils
              * In either case, intentMimeType is already the correct value
              */
             if (TextUtils.equals(intentMimeType, DEFAULT_MIME_TYPE) ||
-                TextUtils.equals(intentMimeType, mimeType))
+                    TextUtils.equals(intentMimeType, mimeType))
                 continue;
 
             String[] mimeParts = mimeType.split(MIME_TYPE_DELIMITER);
@@ -577,16 +613,14 @@ public class Utils
         return i;
     }
 
-    public static Intent createOpenFileIntent(@NonNull Context context, @NonNull DownloadInfo info)
-    {
+    public static Intent createOpenFileIntent(@NonNull Context context, @NonNull DownloadInfo info) {
         FileSystemFacade fs = SystemFacadeHelper.getFileSystemFacade(context);
         Uri filePath = fs.getFileUri(info.dirPath, info.fileName);
 
         return createOpenFileIntent(context, filePath, info.mimeType);
     }
 
-    public static Intent createOpenFileIntent(@NonNull Context context, Uri filePath, String mimeType)
-    {
+    public static Intent createOpenFileIntent(@NonNull Context context, Uri filePath, String mimeType) {
         Intent i = new Intent();
         i.setAction(Intent.ACTION_VIEW);
         i.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
@@ -605,14 +639,12 @@ public class Utils
         return i;
     }
 
-    public static boolean checkStoragePermission(@NonNull Context context)
-    {
+    public static boolean checkStoragePermission(@NonNull Context context) {
         return ContextCompat.checkSelfPermission(context,
                 Manifest.permission.WRITE_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED;
     }
 
-    public static Intent makeShareUrlIntent(@NonNull List<String> urlList)
-    {
+    public static Intent makeShareUrlIntent(@NonNull List<String> urlList) {
         Intent sharingIntent = new Intent(android.content.Intent.ACTION_SEND);
         sharingIntent.setType("text/plain");
         sharingIntent.putExtra(android.content.Intent.EXTRA_SUBJECT, "url");
@@ -628,8 +660,7 @@ public class Utils
         return sharingIntent;
     }
 
-    public static Intent makeShareUrlIntent(@NonNull String url)
-    {
+    public static Intent makeShareUrlIntent(@NonNull String url) {
         Intent sharingIntent = new Intent(android.content.Intent.ACTION_SEND);
         sharingIntent.setType("text/plain");
         sharingIntent.putExtra(android.content.Intent.EXTRA_SUBJECT, "url");
@@ -642,19 +673,16 @@ public class Utils
      * Return system text line separator (in android it '\n').
      */
 
-    public static String getLineSeparator()
-    {
+    public static String getLineSeparator() {
         return System.getProperty("line.separator");
     }
 
-    public static int getDefaultBatteryLowLevel()
-    {
+    public static int getDefaultBatteryLowLevel() {
         return Resources.getSystem().getInteger(
                 Resources.getSystem().getIdentifier("config_lowBatteryWarningLevel", "integer", "android"));
     }
 
-    public static float getBatteryLevel(@NonNull Context context)
-    {
+    public static float getBatteryLevel(@NonNull Context context) {
         Intent batteryIntent = context.registerReceiver(null, new IntentFilter(Intent.ACTION_BATTERY_CHANGED));
         int level = batteryIntent.getIntExtra(BatteryManager.EXTRA_LEVEL, -1);
         int scale = batteryIntent.getIntExtra(BatteryManager.EXTRA_SCALE, -1);
@@ -666,8 +694,7 @@ public class Utils
         return ((float) level / (float) scale) * 100.0f;
     }
 
-    public static boolean isBatteryCharging(@NonNull Context context)
-    {
+    public static boolean isBatteryCharging(@NonNull Context context) {
         Intent batteryIntent = context.registerReceiver(null, new IntentFilter(Intent.ACTION_BATTERY_CHANGED));
         int status = batteryIntent.getIntExtra(BatteryManager.EXTRA_STATUS, -1);
 
@@ -675,18 +702,15 @@ public class Utils
                 status == BatteryManager.BATTERY_STATUS_FULL;
     }
 
-    public static boolean isBatteryLow(@NonNull Context context)
-    {
+    public static boolean isBatteryLow(@NonNull Context context) {
         return Utils.getBatteryLevel(context) <= Utils.getDefaultBatteryLowLevel();
     }
 
-    public static boolean isBatteryBelowThreshold(@NonNull Context context, int threshold)
-    {
+    public static boolean isBatteryBelowThreshold(@NonNull Context context, int threshold) {
         return Utils.getBatteryLevel(context) <= threshold;
     }
 
-    public static void enableBootReceiver(@NonNull Context appContext, boolean enable)
-    {
+    public static void enableBootReceiver(@NonNull Context appContext, boolean enable) {
         int flag = (enable ? PackageManager.COMPONENT_ENABLED_STATE_ENABLED : PackageManager.COMPONENT_ENABLED_STATE_DISABLED);
         ComponentName bootReceiver = new ComponentName(appContext, BootReceiver.class);
         appContext.getPackageManager()
@@ -694,16 +718,14 @@ public class Utils
     }
 
     public static void reportError(@NonNull Throwable error,
-                                   String comment)
-    {
+                                   String comment) {
         if (comment != null)
             ACRA.getErrorReporter().putCustomData(ReportField.USER_COMMENT.toString(), comment);
 
         ACRA.getErrorReporter().handleSilentException(error);
     }
 
-    public static String getAppVersionName(@NonNull Context context)
-    {
+    public static String getAppVersionName(@NonNull Context context) {
         try {
             PackageInfo info = context.getPackageManager().getPackageInfo(context.getPackageName(), 0);
 
@@ -715,8 +737,7 @@ public class Utils
         return null;
     }
 
-    public static String getScheme(@NonNull String url)
-    {
+    public static String getScheme(@NonNull String url) {
         int indexColon = url.indexOf(':');
         if (indexColon <= 0)
             return null;
@@ -724,8 +745,7 @@ public class Utils
         return url.substring(0, indexColon).toLowerCase();
     }
 
-    public static boolean isStatusRetryable(int statusCode)
-    {
+    public static boolean isStatusRetryable(int statusCode) {
         switch (statusCode) {
             case STATUS_HTTP_DATA_ERROR:
             case HTTP_UNAVAILABLE:
@@ -737,13 +757,11 @@ public class Utils
         }
     }
 
-    public static boolean isWebViewAvailable(@NonNull Context context)
-    {
+    public static boolean isWebViewAvailable(@NonNull Context context) {
         return context.getPackageManager().hasSystemFeature("android.software.webview");
     }
 
-    public static void enableBrowserLauncherIcon(@NonNull Context context, boolean enable)
-    {
+    public static void enableBrowserLauncherIcon(@NonNull Context context, boolean enable) {
         PackageManager pm = context.getPackageManager();
         int flag = (enable ?
                 PackageManager.COMPONENT_ENABLED_STATE_ENABLED :
@@ -753,8 +771,7 @@ public class Utils
                 flag, PackageManager.DONT_KILL_APP);
     }
 
-    public static void disableBrowserFromSystem(@NonNull Context context, boolean disable)
-    {
+    public static void disableBrowserFromSystem(@NonNull Context context, boolean disable) {
         PackageManager pm = context.getPackageManager();
         int flag = (disable ?
                 PackageManager.COMPONENT_ENABLED_STATE_DISABLED :
@@ -764,8 +781,7 @@ public class Utils
                 flag, PackageManager.DONT_KILL_APP);
     }
 
-    public static void deleteCookies()
-    {
+    public static void deleteCookies() {
         CookieManager cookieManager = CookieManager.getInstance();
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             cookieManager.removeAllCookies(null);
@@ -779,8 +795,7 @@ public class Utils
      * Formats a launch-able uri out of the template uri by
      * replacing the template parameters with actual values
      */
-    public static String getFormattedSearchUrl(String templateUrl, String query)
-    {
+    public static String getFormattedSearchUrl(String templateUrl, String query) {
         return URLUtil.composeSearchUrl(query, templateUrl, "{searchTerms}");
     }
 
@@ -790,8 +805,7 @@ public class Utils
      * Converts to lowercase any mistakenly uppercased schema (i.e.,
      * "Http://" converts to "http://"
      */
-    public static String smartUrlFilter(@NonNull String url)
-    {
+    public static String smartUrlFilter(@NonNull String url) {
         String inUrl = url.trim();
         boolean hasSpace = inUrl.indexOf(' ') != -1;
         Matcher matcher = ACCEPTED_URI_SCHEMA.matcher(inUrl);
@@ -813,8 +827,7 @@ public class Utils
     }
 
     public static List<DrawerGroup> getNavigationDrawerItems(@NonNull Context context,
-                                                             @NonNull SharedPreferences localPref)
-    {
+                                                             @NonNull SharedPreferences localPref) {
         Resources res = context.getResources();
 
         ArrayList<DrawerGroup> groups = new ArrayList<>();
@@ -823,26 +836,26 @@ public class Utils
                 res.getString(R.string.drawer_category),
                 localPref.getBoolean(res.getString(R.string.drawer_category_is_expanded), true));
         category.selectItem(localPref.getLong(res.getString(R.string.drawer_category_selected_item),
-                                              DrawerGroup.DEFAULT_SELECTED_ID));
+                DrawerGroup.DEFAULT_SELECTED_ID));
 
         DrawerGroup status = new DrawerGroup(res.getInteger(R.integer.drawer_status_id),
                 res.getString(R.string.drawer_status),
                 localPref.getBoolean(res.getString(R.string.drawer_status_is_expanded), false));
         status.selectItem(localPref.getLong(res.getString(R.string.drawer_status_selected_item),
-                                            DrawerGroup.DEFAULT_SELECTED_ID));
+                DrawerGroup.DEFAULT_SELECTED_ID));
 
         DrawerGroup dateAdded = new DrawerGroup(res.getInteger(R.integer.drawer_date_added_id),
                 res.getString(R.string.drawer_date_added),
                 localPref.getBoolean(res.getString(R.string.drawer_time_is_expanded), false));
         dateAdded.selectItem(localPref.getLong(res.getString(R.string.drawer_time_selected_item),
-                                               DrawerGroup.DEFAULT_SELECTED_ID));
+                DrawerGroup.DEFAULT_SELECTED_ID));
 
         DrawerGroup sorting = new DrawerGroup(res.getInteger(R.integer.drawer_sorting_id),
                 res.getString(R.string.drawer_sorting),
                 localPref.getBoolean(res.getString(R.string.drawer_sorting_is_expanded), false));
         final long DEFAULT_SORTING_ITEM = 1;
         sorting.selectItem(localPref.getLong(res.getString(R.string.drawer_sorting_selected_item),
-                                             DEFAULT_SORTING_ITEM));
+                DEFAULT_SORTING_ITEM));
 
         category.items.add(new DrawerGroupItem(res.getInteger(R.integer.drawer_category_all_id),
                 R.drawable.ic_all_inclusive_grey600_24dp, res.getString(R.string.all)));
@@ -909,8 +922,7 @@ public class Utils
     }
 
     public static DownloadSortingComparator getDrawerGroupItemSorting(@NonNull Context context,
-                                                                      long itemId)
-    {
+                                                                      long itemId) {
         Resources res = context.getResources();
         if (itemId == res.getInteger(R.integer.drawer_sorting_no_sorting_id))
             return new DownloadSortingComparator(new DownloadSorting(DownloadSorting.SortingColumns.none, DownloadSorting.Direction.ASC));
@@ -935,8 +947,7 @@ public class Utils
     }
 
     public static DownloadFilter getDrawerGroupCategoryFilter(@NonNull Context context,
-                                                              long itemId)
-    {
+                                                              long itemId) {
         Resources res = context.getResources();
         if (itemId == res.getInteger(R.integer.drawer_category_all_id))
             return DownloadFilterCollection.all();
@@ -959,8 +970,7 @@ public class Utils
     }
 
     public static DownloadFilter getDrawerGroupStatusFilter(@NonNull Context context,
-                                                            long itemId)
-    {
+                                                            long itemId) {
         Resources res = context.getResources();
         if (itemId == res.getInteger(R.integer.drawer_status_all_id))
             return DownloadFilterCollection.all();
@@ -973,8 +983,7 @@ public class Utils
     }
 
     public static DownloadFilter getDrawerGroupDateAddedFilter(@NonNull Context context,
-                                                               long itemId)
-    {
+                                                               long itemId) {
         Resources res = context.getResources();
         if (itemId == res.getInteger(R.integer.drawer_date_added_all_id))
             return DownloadFilterCollection.all();
