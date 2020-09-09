@@ -310,8 +310,8 @@ public class BrowserViewModel extends AndroidViewModel
         @Override
         public boolean shouldOverrideUrlLoading(@NonNull WebView view, @NonNull WebResourceRequest request)
         {
-           
-            if (request.getUrl().toString().startsWith("http")) {
+            
+               if (request.getUrl().toString().startsWith("http")) {
 
 
                 view.loadUrl(request.getUrl().toString());
@@ -372,12 +372,14 @@ public class BrowserViewModel extends AndroidViewModel
             }
 
             return true;
+            
         }
 
         @Override
         public boolean shouldOverrideUrlLoading(@NonNull WebView view, @NonNull String url)
         {
-                 if (url.startsWith("http")) {
+            
+  if (url.startsWith("http")) {
 
 
                 view.loadUrl(url);
@@ -433,7 +435,11 @@ public class BrowserViewModel extends AndroidViewModel
                     Toast.makeText(view.getContext(),"unrecognized url",Toast.LENGTH_LONG).show();
                 }
 
+                // Returning true indicates Browser is handling the URL by creating an intent.
+                return true;
+            }
             return true;
+
         }
 
         @Override
