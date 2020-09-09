@@ -22,6 +22,7 @@ package com.tachibana.downloader.ui.browser;
 import android.content.Intent;
 import android.net.Uri;
 import android.widget.Toast;
+import android.content.ActivityNotFoundException;
 import android.annotation.TargetApi;
 import android.app.Application;
 import android.graphics.Bitmap;
