@@ -19,7 +19,7 @@
  */
 
 package com.tachibana.downloader.ui.browser;
-
+import android.content.Intent;
 import android.annotation.TargetApi;
 import android.app.Application;
 import android.graphics.Bitmap;
