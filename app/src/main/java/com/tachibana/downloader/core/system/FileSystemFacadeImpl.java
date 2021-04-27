@@ -490,4 +490,11 @@ class FileSystemFacadeImpl implements FileSystemFacade
 
         return fsModule.getDirName(dir);
     }
+
+    @Override
+    public long getFileSize(@NonNull Uri filePath) {
+        FsModule fsModule = fsResolver.resolveFsByUri(filePath);
+
+        return fsModule.getFileSize(filePath);
+    }
 }

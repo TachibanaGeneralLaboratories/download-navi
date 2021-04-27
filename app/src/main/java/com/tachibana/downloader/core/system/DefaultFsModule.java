@@ -99,4 +99,9 @@ class DefaultFsModule implements FsModule
 
         return availableBytes;
     }
+
+    @Override
+    public long getFileSize(@NonNull Uri filePath) {
+        return new File(filePath.getPath()).length();
+    }
 }

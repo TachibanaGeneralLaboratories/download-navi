@@ -106,6 +106,14 @@ class SafFsModule implements FsModule
         return availableBytes;
     }
 
+    @Override
+    public long getFileSize(@NonNull Uri filePath) {
+        SafFileSystem fs = SafFileSystem.getInstance(appContext);
+        SafFileSystem.Stat stat = fs.stat(filePath);
+
+        return (stat == null ? -1 : stat.length);
+    }
+
     /*
      * Return the number of bytes that are free on the file system
      * backing the given FileDescriptor

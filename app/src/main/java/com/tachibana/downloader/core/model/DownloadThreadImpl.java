@@ -398,8 +398,9 @@ class DownloadThreadImpl implements DownloadThread
             }
 
             /* Check free space */
+            long fileSize = fs.getFileSize(filePath);
             long availBytes = fs.getDirAvailableBytes(info.dirPath);
-            if (availBytes != -1 && availBytes < info.totalBytes) {
+            if (availBytes != -1 && availBytes < (info.totalBytes - fileSize)) {
                 ret = new StopRequest(StatusCode.STATUS_INSUFFICIENT_SPACE_ERROR,
                                     "No space left on device");
                 return new ExecDownloadResult(ret, resList);

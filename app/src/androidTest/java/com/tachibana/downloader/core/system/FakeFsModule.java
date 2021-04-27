@@ -98,4 +98,9 @@ public class FakeFsModule implements FsModule
     {
         return -1;
     }
+
+    @Override
+    public long getFileSize(@NonNull Uri filePath) {
+        return -1;
+    }
 }

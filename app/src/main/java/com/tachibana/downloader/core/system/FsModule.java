@@ -65,4 +65,6 @@ interface FsModule
      */
 
     long getDirAvailableBytes(@NonNull Uri dir) throws IOException;
+
+    long getFileSize(@NonNull Uri filePath);
 }

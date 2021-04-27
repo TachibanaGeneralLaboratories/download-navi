@@ -87,4 +87,6 @@ public interface FileSystemFacade
     String buildValidFatFilename(String name);
 
     String getDirName(@NonNull Uri dir);
+
+    long getFileSize(@NonNull Uri filePath);
 }
