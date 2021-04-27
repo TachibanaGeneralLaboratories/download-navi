@@ -20,7 +20,7 @@
 
 package com.tachibana.downloader;
 
-import android.app.Application;
+import androidx.multidex.MultiDexApplication;
 
 import com.tachibana.downloader.core.DownloadNotifier;
 import com.tachibana.downloader.ui.errorreport.ErrorReportActivity;
@@ -34,7 +34,7 @@ import org.acra.annotation.AcraMailSender;
 @AcraMailSender(mailTo = "proninyaroslav@mail.ru")
 @AcraDialog(reportDialogClass = ErrorReportActivity.class)
 
-public class MainApplication extends Application
+public class MainApplication extends MultiDexApplication
 {
     @Override
     public void onCreate()
