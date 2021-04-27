@@ -447,7 +447,7 @@ class DownloadThreadImpl implements DownloadThread
             @Override
             public void onConnectionCreated(HttpURLConnection conn)
             {
-                /* Nothing */
+                ret[0] = addRequestHeaders(conn);
             }
 
             @Override
@@ -501,6 +501,13 @@ class DownloadThreadImpl implements DownloadThread
         connection.run();
 
         return ret[0];
+    }
+
+    private StopRequest addRequestHeaders(HttpURLConnection conn) {
+        if (conn.getRequestProperty("User-Agent") == null && !TextUtils.isEmpty(info.userAgent)) {
+            conn.addRequestProperty("User-Agent", info.userAgent);
+        }
+        return null;
     }
 
     private StopRequest parseOkHeaders(HttpURLConnection conn)

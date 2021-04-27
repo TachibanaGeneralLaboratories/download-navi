@@ -262,7 +262,10 @@ public class AddDownloadViewModel extends AndroidViewModel
                 @Override
                 public void onConnectionCreated(HttpURLConnection conn)
                 {
-                    /* TODO: maybe user agent spoofing (from settings) */
+                    String userAgent = viewModel.get().params.getUserAgent();
+                    if (conn.getRequestProperty("User-Agent") == null && !TextUtils.isEmpty(userAgent)) {
+                        conn.addRequestProperty("User-Agent", userAgent);
+                    }
                 }
 
                 @Override
