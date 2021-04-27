@@ -61,8 +61,11 @@ public class DownloadsViewModel extends AndroidViewModel
           return true;
 
         String filterPattern = searchQuery.toLowerCase().trim();
+        String fileName = infoAndPieces.info.fileName;
+        String description = infoAndPieces.info.description;
 
-        return infoAndPieces.info.fileName.toLowerCase().contains(filterPattern);
+        return fileName.toLowerCase().contains(filterPattern) ||
+                (description != null && description.toLowerCase().contains(filterPattern));
     };
 
     public DownloadsViewModel(@NonNull Application application)
