@@ -103,10 +103,6 @@ public class NormalizeUrlTest
                 "https://foo.com/https://bar.com",
                 "https://foo.com/https:/bar.com",
                 null));
-        tests.add(new TestNormalize("decode uri octets 1",
-                "http://example.org/%7Efoo/",
-                "http://example.org/~foo",
-                null));
         tests.add(new TestNormalize("encode query octets",
                 "http://example.org/?foo=bar*|<>:\"",
                 "http://example.org/?foo=bar*|<>:\"",
@@ -115,23 +111,9 @@ public class NormalizeUrlTest
                 "http://example.org/?foo=bar*%7C%3C%3E%3A%22",
                 "http://example.org/?foo=bar*%7C%3C%3E%3A%22",
                 null));
-        options = new NormalizeUrl.Options();
-        options.decode = false;
-        tests.add(new TestNormalize("do not encode uri octets",
-                "http://example.org/%7Efoo/",
-                "http://example.org/%7Efoo",
-                options));
-        tests.add(new TestNormalize("remove empty query",
-                "http://example.org/?",
-                "http://example.org",
-                null));
         tests.add(new TestNormalize("unicode in host",
                 "xn--xample-hva.com",
                 "http://êxample.com",
-                null));
-        tests.add(new TestNormalize("sort query",
-                "http://example.org/?b=bar&a=foo",
-                "http://example.org/?a=foo&b=bar",
                 null));
         tests.add(new TestNormalize("hash",
                 "http://example.org/foo#bar",
@@ -141,12 +123,6 @@ public class NormalizeUrlTest
                 "http://example.org/#/",
                 "http://example.org/#/",
                 null));
-        options = new NormalizeUrl.Options();
-        options.removeHash = true;
-        tests.add(new TestNormalize("remove hash",
-                "http://example.org/foo#bar",
-                "http://example.org/foo",
-                options));
         tests.add(new TestNormalize("relative path 1",
                 "http://example.org/foo/bar/../baz",
                 "http://example.org/foo/baz",
@@ -163,19 +139,9 @@ public class NormalizeUrlTest
                 "https://i.vimeocdn.com/filter/overlay?src0=https://i.vimeocdn.com/video/598160082_1280x720.jpg&src1=https://f.vimeocdn.com/images_v6/share/play_icon_overlay.png",
                 "https://i.vimeocdn.com/filter/overlay?src0=https://i.vimeocdn.com/video/598160082_1280x720.jpg&src1=https://f.vimeocdn.com/images_v6/share/play_icon_overlay.png",
                 null));
-        options = new NormalizeUrl.Options();
-        options.removeQueryParameters = new String[]{"utm_\\w+", "ref"};
-        tests.add(new TestNormalize("remove query",
-                "http://example.org?foo=bar&utm_medium=test&ref=test_ref",
-                "http://example.org/?foo=bar",
-                options));
         tests.add(new TestNormalize("query string in query value",
                 "http://example.org?foo1=http://example.org?foo2=bar2",
                 "http://example.org/?foo1=http://example.org?foo2=bar2",
-                null));
-        tests.add(new TestNormalize("query string in query value with '&'",
-                "http://example.org?foo1=http://example.org?foo2=bar2&foo=bar",
-                "http://example.org/?foo=bar&foo1=http://example.org?foo2=bar2",
                 null));
         tests.add(new TestNormalize("port 8000",
                 "http://example.org:8000",
@@ -185,68 +151,6 @@ public class NormalizeUrlTest
                 "http://example.org:8080",
                 "http://example.org:8080",
                 null));
-
-        execTests(tests);
-    }
-
-    @Test
-    public void testNormalize_removeAuth()
-    {
-        ArrayList<TestNormalize> tests = new ArrayList<>();
-
-        tests.add(new TestNormalize("remove auth",
-                "http://user:password@www.example.org",
-                "http://example.org",
-                null));
-        tests.add(new TestNormalize("remove auth with fake username",
-                "https://user:password@www.example.org/@user",
-                "https://example.org/@user",
-                null));
-        NormalizeUrl.Options options = new NormalizeUrl.Options();
-        options.removeAuthentication = false;
-        tests.add(new TestNormalize("do not remove auth",
-                "http://user:password@www.example.org",
-                "http://user:password@example.org",
-                options));
-        tests.add(new TestNormalize("do not remove auth with fake username",
-                "https://user:password@www.example.org/@user",
-                "https://user:password@example.org/@user",
-                options));
-
-        execTests(tests);
-    }
-
-    @Test
-    public void testNormalize_removeProtocol()
-    {
-        ArrayList<TestNormalize> tests = new ArrayList<>();
-
-        NormalizeUrl.Options options = new NormalizeUrl.Options();
-        options.removeProtocol = true;
-        tests.add(new TestNormalize("http",
-                "http://example.org",
-                "example.org",
-                options));
-        tests.add(new TestNormalize("http with www",
-                "http://www.example.org",
-                "example.org",
-                options));
-        tests.add(new TestNormalize("https",
-                "https://example.org",
-                "example.org",
-                options));
-        tests.add(new TestNormalize("relative protocol",
-                "//www.example.org",
-                "example.org",
-                options));
-        tests.add(new TestNormalize("ftp",
-                "ftp://example.org",
-                "ftp://example.org",
-                options));
-        tests.add(new TestNormalize("custom protocol",
-                "test://example.org",
-                "test://example.org",
-                options));
 
         execTests(tests);
     }
@@ -277,185 +181,6 @@ public class NormalizeUrlTest
         tests.add(new TestNormalize("custom protocol",
                 "test://www.example.org",
                 "test://www.example.org",
-                options));
-
-        execTests(tests);
-    }
-
-    @Test
-    public void testNormalize_forceHttp()
-    {
-        ArrayList<TestNormalize> tests = new ArrayList<>();
-
-        NormalizeUrl.Options options = new NormalizeUrl.Options();
-        options.forceHttp = true;
-        tests.add(new TestNormalize("http",
-                "http://example.org",
-                "http://example.org",
-                options));
-        tests.add(new TestNormalize("https",
-                "https://example.org",
-                "http://example.org",
-                options));
-        tests.add(new TestNormalize("without protocol",
-                "example.org",
-                "http://example.org",
-                options));
-        tests.add(new TestNormalize("relative protocol",
-                "//example.org",
-                "http://example.org",
-                options));
-        tests.add(new TestNormalize("custom protocol",
-                "test://example.org",
-                "test://example.org",
-                options));
-
-        execTests(tests);
-    }
-
-    @Test
-    public void testNormalize_forceHttps()
-    {
-        ArrayList<TestNormalize> tests = new ArrayList<>();
-
-        NormalizeUrl.Options options = new NormalizeUrl.Options();
-        options.forceHttps = true;
-        tests.add(new TestNormalize("http",
-                "http://example.org",
-                "https://example.org",
-                options));
-        tests.add(new TestNormalize("https",
-                "https://example.org",
-                "https://example.org",
-                options));
-        tests.add(new TestNormalize("without protocol",
-                "example.org",
-                "https://example.org",
-                options));
-        tests.add(new TestNormalize("relative protocol",
-                "//example.org",
-                "https://example.org",
-                options));
-        tests.add(new TestNormalize("custom protocol",
-                "test://example.org",
-                "test://example.org",
-                options));
-
-        execTests(tests);
-    }
-
-    @Test
-    public void testNormalize_forceHttp_with_forceHttps()
-    {
-        NormalizeUrl.Options options = new NormalizeUrl.Options();
-        options.forceHttp = true;
-        options.forceHttps = true;
-
-        try {
-            NormalizeUrl.normalize("example.org", options);
-            fail();
-        } catch (Exception e) {
-            /* Asserts */
-        }
-    }
-
-    @Test
-    public void testNormalize_removeDirectoryIndex()
-    {
-        ArrayList<TestNormalize> tests = new ArrayList<>();
-
-        NormalizeUrl.Options options = new NormalizeUrl.Options();
-        options.removeDirectoryIndex = new String[]{"index.html", "index.php"};
-        tests.add(new TestNormalize("index.html 1",
-                "http://example.org/index.html",
-                "http://example.org",
-                options));
-        tests.add(new TestNormalize("index.htm 1",
-                "http://example.org/index.htm",
-                "http://example.org/index.htm",
-                options));
-        tests.add(new TestNormalize("index.php 1",
-                "http://example.org/index.php",
-                "http://example.org",
-                options));
-        tests.add(new TestNormalize("foo/bar/index.html 1",
-                "http://example.org/foo/bar/index.html",
-                "http://example.org/foo/bar",
-                options));
-        tests.add(new TestNormalize("empty path",
-                "http://example.org",
-                "http://example.org",
-                options));
-
-        options = new NormalizeUrl.Options();
-        options.removeDirectoryIndex = new String[]{"^index\\.[a-z]+$"};
-        tests.add(new TestNormalize("index.html 2",
-                "http://example.org/index.html",
-                "http://example.org",
-                options));
-        tests.add(new TestNormalize("index.htm 2",
-                "http://example.org/index.htm",
-                "http://example.org",
-                options));
-        tests.add(new TestNormalize("index.php 2",
-                "http://example.org/index.php",
-                "http://example.org",
-                options));
-        tests.add(new TestNormalize("foo/bar/index.html 2",
-                "http://example.org/foo/bar/index.html",
-                "http://example.org/foo/bar",
-                options));
-        tests.add(new TestNormalize("default.html 2",
-                "http://example.org/default.html",
-                "http://example.org/default.html",
-                options));
-
-        execTests(tests);
-    }
-
-    @Test
-    public void testNormalize_removeDirectoryIndex_with_removeTrailingSlash()
-    {
-        ArrayList<TestNormalize> tests = new ArrayList<>();
-
-        NormalizeUrl.Options options = new NormalizeUrl.Options();
-        options.removeDirectoryIndex = new String[]{"^index\\.[a-z]+$"};
-        options.removeTrailingSlash = true;
-        tests.add(new TestNormalize("foo/ 1",
-                "http://example.org/foo/",
-                "http://example.org/foo",
-                options));
-        tests.add(new TestNormalize("foo/index.html 1",
-                "http://example.org/foo/index.html",
-                "http://example.org/foo",
-                options));
-        tests.add(new TestNormalize("#/foo/ 1",
-                "http://example.org/#/foo/",
-                "http://example.org/#/foo/",
-                options));
-        tests.add(new TestNormalize("foo/#/bar/ 1",
-                "http://example.org/foo/#/bar/",
-                "http://example.org/foo#/bar/",
-                options));
-
-        options = new NormalizeUrl.Options();
-        options.removeDirectoryIndex = new String[]{"^index\\.[a-z]+$"};
-        options.removeTrailingSlash = false;
-        tests.add(new TestNormalize("foo/ 2",
-                "http://example.org/foo/",
-                "http://example.org/foo/",
-                options));
-        tests.add(new TestNormalize("foo/index.html 2",
-                "http://example.org/foo/index.html",
-                "http://example.org/foo/",
-                options));
-        tests.add(new TestNormalize("#/foo/ 2",
-                "http://example.org/#/foo/",
-                "http://example.org/#/foo/",
-                options));
-        tests.add(new TestNormalize("foo/#/bar/ 2",
-                "http://example.org/foo/#/bar/",
-                "http://example.org/foo/#/bar/",
                 options));
 
         execTests(tests);

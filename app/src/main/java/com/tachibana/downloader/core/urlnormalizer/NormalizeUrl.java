@@ -60,15 +60,6 @@ public class NormalizeUrl
          */
         public boolean removeWWW = true;
         /**
-         * Removes query parameters that match any of the provided strings or regular expressions.
-         * Default is "utm_\w+"
-         *
-         * Example:
-         *    Before: "http://example.org?foo=bar&utm_medium=test"
-         *    After: "http://example.org?foo=bar"
-         */
-        public String[] removeQueryParameters = new String[]{"utm_\\w+"};
-        /**
          * Removes trailing slash.
          * Default is true.
          *
@@ -77,6 +68,7 @@ public class NormalizeUrl
          *    After: "http://example.org"
          */
         public boolean removeTrailingSlash = true;
+
         /**
          * Removes the default directory index file from a path that
          * matches any of the provided strings or regular expressions.
@@ -144,14 +136,14 @@ public class NormalizeUrl
          */
         public boolean forceHttps = false;
         /**
-         * Decode the percent-decoded symbols and IDN in the URL to Unicode symbols.
+         * Decode IDN in the URL to Unicode symbols.
          * Default is true.
          *
          * Example:
-         *    Before: "https://example.org/?foo=bar*%7C%3C%3E%3A%22"
-         *    After: "http://example.org/?foo=bar*|<>:""
+         *    Before: "https://xn--xample-hva.com"
+         *    After: "https://êxample.com"
          */
-        public boolean decode = true;
+        public boolean decodeIDN = true;
     }
 
     /**
@@ -194,8 +186,6 @@ public class NormalizeUrl
 
         if (options == null)
             options = new Options();
-        if (options.forceHttp && options.forceHttps)
-            throw new IllegalStateException("The 'forceHttp' and 'forceHttps' options cannot be used together");
 
         url = url.trim();
 
@@ -205,35 +195,19 @@ public class NormalizeUrl
             url = url.replaceFirst("^(?!(?:\\w+:)?//)|^//", options.defaultProtocol + "://");
 
         URL urlObj = URL.parse(url);
-        String protocol, hash, user, password, path, queryStr, host;
-        Map<String, Collection<String>> query;
+        String protocol, hash, user, password, path, query, host;
 
         protocol = urlObj.getScheme();
         hash = urlObj.getFragment();
         user = urlObj.getUsername();
         password = urlObj.getPassword();
-        queryStr = urlObj.getQuery();
-        if (options.decode) {
-            path = urlObj.getPath();
+        query = urlObj.getQuery();
+        path = urlObj.getRawPath();
+        if (options.decodeIDN) {
             host = IDN.toUnicode(urlObj.getHost());
         } else {
-            path = urlObj.getRawPath();
             host = urlObj.getHost();
         }
-        query = parseQuery(queryStr);
-
-        if (options.forceHttp && protocol.equals("https"))
-            protocol = "http";
-        if (options.forceHttps && protocol.equals("http"))
-            protocol = "https";
-
-        if (options.removeAuthentication) {
-            user = null;
-            password = null;
-        }
-
-        if (options.removeHash)
-            hash = null;
 
         if (host != null) {
             /* Remove trailing dot */
@@ -258,128 +232,18 @@ public class NormalizeUrl
             /* Remove duplicate slashes if not preceded by a protocol */
             path = path.replaceAll("(?<!:)/{2,}", "/");
 
-            if (options.removeDirectoryIndex.length > 0) {
-                String[] pathComponents = path.split("/");
-                if (pathComponents.length > 0) {
-                    String lastComponent = pathComponents[pathComponents.length - 1];
-                    if (isMatch(lastComponent, options.removeDirectoryIndex))
-                        path = '/' + join("/", Arrays.copyOfRange(pathComponents, 1, pathComponents.length - 1));
-                    if (!path.endsWith("/"))
-                        path += '/';
-                }
-            }
             if (options.removeTrailingSlash)
                 path = path.replaceFirst("/$", "");
         }
 
-        if (!query.isEmpty()) {
-            if (options.removeQueryParameters.length > 0) {
-                Iterator<String> it = query.keySet().iterator();
-                while (it.hasNext()) {
-                    String key = it.next();
-                    if (isMatch(key, options.removeQueryParameters))
-                        it.remove();
-                }
-            }
-            if (options.sortQueryParameters)
-                query = new TreeMap<>(query);
-        }
-
         url = urlToString(protocol, user, password, host,
-                path, mapToQuery(query), hash);
+                path, query, hash);
 
         /* Restore relative protocol, if applicable */
         if (hasRelativeProtocol && !options.normalizeProtocol)
             url = url.replaceFirst("^(?:https?:)?//", "//");
 
-        /* Remove http/https */
-        if (options.removeProtocol)
-            url = url.replaceFirst("^(?:https?:)?//", "");
-
         return url;
-    }
-
-    private static boolean isMatch(String s, String[] filterList)
-    {
-        for (String filter : filterList) {
-            if (filter == null)
-                continue;
-
-            if (s.matches(filter))
-                return true;
-        }
-
-        return false;
-    }
-
-    private static String join(CharSequence delimiter, String[] tokens)
-    {
-        int length = tokens.length;
-        if (length == 0)
-            return "";
-
-        StringBuilder sb = new StringBuilder();
-        sb.append(tokens[0]);
-        for (int i = 1; i < length; i++) {
-            sb.append(delimiter);
-            sb.append(tokens[i]);
-        }
-
-        return sb.toString();
-    }
-
-    private static Map<String, Collection<String>> parseQuery(String query)
-    {
-        HashMap<String, Collection<String>> queryPairs = new HashMap<>();
-
-        if (query == null || query.isEmpty() || query.equals("?"))
-            return queryPairs;
-
-        String[] pairs = query.split("&");
-        for (String pair : pairs) {
-            /* Ignore nested query string in the value of the pair, if one exists */
-            int equalPos = pair.indexOf('=');
-            if (equalPos <= 0)
-                continue;
-
-            String key = pair.substring(0, equalPos);
-            String value = pair.substring(equalPos + 1);
-
-            if (!key.isEmpty()) {
-                Collection<String> existing = queryPairs.get(key);
-                if (existing == null)
-                    existing = new ArrayList<>();
-
-                if (!value.isEmpty())
-                    existing.add(value);
-                queryPairs.put(key, existing);
-            }
-        }
-
-        return queryPairs;
-    }
-
-    private static String mapToQuery(Map<String, Collection<String>> query)
-    {
-        if (query.isEmpty())
-            return null;
-
-        StringBuilder sb = new StringBuilder();
-        int i = 0;
-        for (Map.Entry<String, Collection<String>> parameter : query.entrySet()) {
-            for (String value : parameter.getValue()) {
-                if (i > 0)
-                    sb.append("&");
-                sb.append(parameter.getKey());
-                if (value != null && !value.isEmpty()) {
-                    sb.append("=");
-                    sb.append(value);
-                }
-                i++;
-            }
-        }
-
-        return sb.toString();
     }
 
     private static String urlToString(String protocol, String user, String password,

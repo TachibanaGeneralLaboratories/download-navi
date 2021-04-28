@@ -102,4 +102,5 @@ dependencies {
     implementation "com.jaredrummler:colorpicker:1.1.0"
     implementation "com.github.anthonynsimon:jurl:v0.4.2"
     implementation 'net.yslibrary.keyboardvisibilityevent:keyboardvisibilityevent:3.0.0-RC3'
+    implementation 'com.github.albfernandez:juniversalchardet:2.4.0'
 }

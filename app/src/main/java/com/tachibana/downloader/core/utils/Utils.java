@@ -69,12 +69,17 @@ import com.tachibana.downloader.ui.main.drawer.DrawerGroupItem;
 
 import org.acra.ACRA;
 import org.acra.ReportField;
+import org.mozilla.universalchardet.UniversalDetector;
 
 import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.UnsupportedEncodingException;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.nio.ByteBuffer;
+import java.nio.charset.CharacterCodingException;
+import java.nio.charset.CharsetDecoder;
+import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
@@ -100,9 +105,13 @@ public class Utils {
     private static final Pattern CONTENT_DISPOSITION_PATTERN = Pattern.compile(
             "(inline|attachment)\\s*;" +
                     "\\s*filename\\s*=\\s*(\"((?:\\\\.|[^\"\\\\])*)\"|[^;]*)\\s*" +
-                    "(?:;\\s*filename\\*\\s*=\\s*(utf-8|iso-8859-1)'[^']*'(\\S*))?",
+                    "(?:;\\s*filename\\*\\s*=\\s*(utf-8|iso-8859-1|windows-1251)'[^']*'(\\S*))?",
             Pattern.CASE_INSENSITIVE
     );
+    private static final String[] supportedFilenameEncodings = new String[]{
+            "utf-8",
+            "windows-1251"
+    };
     /**
      * Keys for the capture groups inside contentDispositionPattern
      */
@@ -272,7 +281,11 @@ public class Utils {
             if (!decodedUrl.endsWith("/")) {
                 int index = decodedUrl.lastIndexOf('/') + 1;
                 if (index > 0) {
-                    filename = decodedUrl.substring(index);
+                    String rawFilename = decodedUrl.substring(index);
+                    filename = autoDecodePercentEncoding(rawFilename);
+                    if (filename == null) {
+                        filename = rawFilename;
+                    }
                 }
             }
         }
@@ -347,7 +360,7 @@ public class Utils {
                 String encoding = m.group(ENCODING_GROUP);
 
                 if (encodedFileName != null && encoding != null) {
-                    return decodeHeaderField(encodedFileName, encoding);
+                    return decodePercentEncoding(encodedFileName, encoding);
                 }
 
                 // Return quoted string if available and replace escaped characters.
@@ -366,8 +379,14 @@ public class Utils {
         return null;
     }
 
-    private static String decodeHeaderField(String field, String encoding)
+    private static String decodePercentEncoding(String field, String encoding)
             throws UnsupportedEncodingException, NumberFormatException {
+        byte[] bytes = percentEncodingBytes(field);
+        return new String(bytes, 0, bytes.length, encoding);
+    }
+
+    private static byte[] percentEncodingBytes(String field)
+            throws NumberFormatException {
         Matcher m = ENCODED_SYMBOL_PATTERN.matcher(field);
         ByteArrayOutputStream stream = new ByteArrayOutputStream();
 
@@ -380,7 +399,26 @@ public class Utils {
             }
         }
 
-        return stream.toString(encoding);
+        return stream.toByteArray();
+    }
+
+    private static String autoDecodePercentEncoding(String field) throws NumberFormatException {
+        String encoding;
+        UniversalDetector detector = new UniversalDetector();
+        byte[] bytes = percentEncodingBytes(field);
+
+        detector.handleData(bytes);
+        detector.dataEnd();
+        encoding = detector.getDetectedCharset();
+        detector.reset();
+
+        try {
+            return encoding == null ?
+                    null :
+                    new String(bytes, 0, bytes.length, encoding);
+        } catch (UnsupportedEncodingException e) {
+            return null;
+        }
     }
 
     public static boolean checkConnectivity(@NonNull SettingsRepository pref,
