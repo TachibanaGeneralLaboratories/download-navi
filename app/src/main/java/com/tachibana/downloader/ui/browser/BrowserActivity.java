@@ -410,42 +410,35 @@ public class BrowserActivity extends AppCompatActivity
     @Override
     public boolean onOptionsItemSelected(MenuItem item)
     {
-        switch (item.getItemId()) {
-            case R.id.forward_menu:
-                if (webView.canGoForward())
-                    webView.goForward();
-                break;
-            case R.id.stop_menu:
-                viewModel.stopLoading(webView);
-                break;
-            case R.id.refresh_menu:
-                webView.reload();
-                break;
-            case R.id.share_menu:
-                makeShareDialog(viewModel.url.get());
-                break;
-            case R.id.settings_menu:
-                showSettings();
-                break;
-            case R.id.desktop_version_menu:
-                item.setChecked(!item.isChecked());
-                viewModel.enableDesktopMode(webView, item.isChecked());
-                webView.reload();
-                break;
-            case R.id.bookmarks_menu:
-                showBookmarks();
-                break;
-            case R.id.add_bookmark_menu:
-                addBookmark();
-                break;
-            case R.id.edit_bookmark_menu:
-                disposables.add(viewModel.getBookmarkForCurrentPage()
-                        .subscribeOn(Schedulers.io())
-                        .observeOn(AndroidSchedulers.mainThread())
-                        .subscribe(this::showEditBookmarkDialog,
-                                (e) -> Log.e(TAG, Log.getStackTraceString(e)))
-                );
-                break;
+        int itemId = item.getItemId();
+        if (itemId == R.id.forward_menu) {
+            if (webView.canGoForward())
+                webView.goForward();
+        } else if (itemId == R.id.stop_menu) {
+            viewModel.stopLoading(webView);
+        } else if (itemId == R.id.refresh_menu) {
+            webView.reload();
+        } else if (itemId == R.id.share_menu) {
+            makeShareDialog(viewModel.url.get());
+        } else if (itemId == R.id.settings_menu) {
+            showSettings();
+        } else if (itemId == R.id.desktop_version_menu) {
+            item.setChecked(!item.isChecked());
+            viewModel.enableDesktopMode(webView, item.isChecked());
+            webView.reload();
+        } else if (itemId == R.id.bookmarks_menu) {
+            showBookmarks();
+        } else if (itemId == R.id.add_bookmark_menu) {
+            addBookmark();
+        } else if (itemId == R.id.edit_bookmark_menu) {
+            disposables.add(viewModel.getBookmarkForCurrentPage()
+                    .subscribeOn(Schedulers.io())
+                    .observeOn(AndroidSchedulers.mainThread())
+                    .subscribe(this::showEditBookmarkDialog,
+                            (e) -> Log.e(TAG, Log.getStackTraceString(e)))
+            );
+        } else if (itemId == R.id.close_menu) {
+            finish();
         }
 
         return true;
