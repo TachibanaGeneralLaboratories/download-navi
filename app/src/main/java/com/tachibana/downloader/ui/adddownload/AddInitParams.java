@@ -25,6 +25,7 @@ import android.os.Parcel;
 import android.os.Parcelable;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 
 import com.tachibana.downloader.core.model.data.entity.DownloadInfo;
 
@@ -35,10 +36,14 @@ public class AddInitParams implements Parcelable
     public String description;
     public String userAgent;
     public Uri dirPath;
-    public boolean unmeteredConnectionsOnly = false;
-    public boolean retry = true;
-    public boolean replaceFile = false;
-    public int numPieces = DownloadInfo.MIN_PIECES;
+    @Nullable
+    public Boolean unmeteredConnectionsOnly;
+    @Nullable
+    public Boolean retry;
+    @Nullable
+    public Boolean replaceFile;
+    @Nullable
+    public Integer numPieces;
 
     public AddInitParams() {}
 
@@ -49,10 +54,22 @@ public class AddInitParams implements Parcelable
         fileName = source.readString();
         description = source.readString();
         userAgent = source.readString();
-        unmeteredConnectionsOnly = source.readByte() > 0;
-        retry = source.readByte() > 0;
-        replaceFile = source.readByte() > 0;
-        numPieces = source.readInt();
+        byte unmeteredConnectionsOnlyVal = source.readByte();
+        if (unmeteredConnectionsOnlyVal != -1) {
+            unmeteredConnectionsOnly = unmeteredConnectionsOnlyVal > 0;
+        }
+        byte retryVal = source.readByte();
+        if (retryVal != -1) {
+            retry = retryVal > 0;
+        }
+        byte replaceFileVal = source.readByte();
+        if (replaceFileVal != -1) {
+            replaceFile = replaceFileVal > 0;
+        }
+        int numPiecesVal = source.readInt();
+        if (numPiecesVal != -1) {
+            numPieces = numPiecesVal;
+        }
     }
 
     @Override
@@ -69,10 +86,26 @@ public class AddInitParams implements Parcelable
         dest.writeString(fileName);
         dest.writeString(description);
         dest.writeString(userAgent);
-        dest.writeByte((byte)(unmeteredConnectionsOnly ? 1 : 0));
-        dest.writeByte((byte)(retry ? 1 : 0));
-        dest.writeByte((byte)(replaceFile ? 1 : 0));
-        dest.writeInt(numPieces);
+        if (unmeteredConnectionsOnly == null) {
+            dest.writeByte((byte)-1);
+        } else {
+            dest.writeByte((byte)(unmeteredConnectionsOnly ? 1 : 0));
+        }
+        if (retry == null) {
+            dest.writeByte((byte)-1);
+        } else {
+            dest.writeByte((byte)(retry ? 1 : 0));
+        }
+        if (replaceFile == null) {
+            dest.writeByte((byte)-1);
+        } else {
+            dest.writeByte((byte)(replaceFile ? 1 : 0));
+        }
+        if (numPieces == null) {
+            dest.writeInt(-1);
+        } else {
+            dest.writeInt(numPieces);
+        }
     }
 
     public static final Parcelable.Creator<AddInitParams> CREATOR =

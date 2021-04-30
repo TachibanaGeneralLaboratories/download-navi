@@ -32,6 +32,7 @@ import androidx.fragment.app.FragmentManager;
 
 import com.tachibana.downloader.R;
 import com.tachibana.downloader.core.RepositoryHelper;
+import com.tachibana.downloader.core.model.data.entity.DownloadInfo;
 import com.tachibana.downloader.core.settings.SettingsRepository;
 import com.tachibana.downloader.core.utils.Utils;
 import com.tachibana.downloader.ui.FragmentCallback;
@@ -58,40 +59,50 @@ public class AddDownloadActivity extends AppCompatActivity
             Intent i = getIntent();
             if (i != null)
                 initParams = i.getParcelableExtra(TAG_INIT_PARAMS);
-            if (initParams == null)
-                initParams = makeInitParams();
-
+            if (initParams == null) {
+                initParams = new AddInitParams();
+            }
+            fillInitParams(initParams);
             addDownloadDialog = AddDownloadDialog.newInstance(initParams);
             addDownloadDialog.show(fm, TAG_DOWNLOAD_DIALOG);
         }
     }
 
-    private AddInitParams makeInitParams()
+    private void fillInitParams(AddInitParams params)
     {
         SettingsRepository pref = RepositoryHelper.getSettingsRepository(getApplicationContext());
         SharedPreferences localPref = PreferenceManager.getDefaultSharedPreferences(this);
 
-        AddInitParams initParams = new AddInitParams();
-        initParams.url = getUrlFromIntent();
-        initParams.dirPath = Uri.parse(pref.saveDownloadsIn());
-        initParams.retry = localPref.getBoolean(
-                getString(R.string.add_download_retry_flag),
-                initParams.retry
-        );
-        initParams.replaceFile = localPref.getBoolean(
-                getString(R.string.add_download_replace_file_flag),
-                initParams.replaceFile
-        );
-        initParams.unmeteredConnectionsOnly = localPref.getBoolean(
-                getString(R.string.add_download_unmetered_only_flag),
-                initParams.unmeteredConnectionsOnly
-        );
-        initParams.numPieces = localPref.getInt(
-                getString(R.string.add_download_num_pieces),
-                initParams.numPieces
-        );
-
-        return initParams;
+        if (params.url == null) {
+            params.url = getUrlFromIntent();
+        }
+        if (params.dirPath == null) {
+            params.dirPath = Uri.parse(pref.saveDownloadsIn());
+        }
+        if (params.retry == null) {
+            params.retry = localPref.getBoolean(
+                    getString(R.string.add_download_retry_flag),
+                    true
+            );
+        }
+        if (params.replaceFile == null) {
+            params.replaceFile = localPref.getBoolean(
+                    getString(R.string.add_download_replace_file_flag),
+                    false
+            );
+        }
+        if (params.unmeteredConnectionsOnly == null) {
+            params.unmeteredConnectionsOnly = localPref.getBoolean(
+                    getString(R.string.add_download_unmetered_only_flag),
+                    false
+            );
+        }
+        if (params.numPieces == null) {
+            params.numPieces = localPref.getInt(
+                    getString(R.string.add_download_num_pieces),
+                    DownloadInfo.MIN_PIECES
+            );
+        }
     }
 
     private String getUrlFromIntent()

@@ -156,10 +156,26 @@ public class AddDownloadViewModel extends AndroidViewModel
         params.setDirPath(initParams.dirPath == null ?
                 Uri.fromFile(new File(fs.getDefaultDownloadPath())) :
                 initParams.dirPath);
-        params.setUnmeteredConnectionsOnly(initParams.unmeteredConnectionsOnly);
-        params.setRetry(initParams.retry);
-        params.setReplaceFile(initParams.replaceFile);
-        params.setNumPieces(initParams.numPieces);
+        params.setUnmeteredConnectionsOnly(
+                initParams.unmeteredConnectionsOnly == null ?
+                        false :
+                        initParams.unmeteredConnectionsOnly
+        );
+        params.setRetry(
+                initParams.retry == null ?
+                        false :
+                        initParams.retry
+        );
+        params.setReplaceFile(
+                initParams.replaceFile == null ?
+                        false :
+                        initParams.replaceFile
+        );
+        params.setNumPieces(
+                initParams.numPieces == null ?
+                        DownloadInfo.MIN_PIECES :
+                        initParams.numPieces
+        );
     }
 
     public LiveData<List<UserAgent>> observeUserAgents()
