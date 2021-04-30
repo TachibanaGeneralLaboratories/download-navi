@@ -481,20 +481,17 @@ public class FileManagerDialog extends AppCompatActivity
     @Override
     public boolean onOptionsItemSelected(MenuItem item)
     {
-        switch (item.getItemId()) {
-            case android.R.id.home:
-                onBackPressed();
-                break;
-            case R.id.filemanager_home_menu:
-                openHomeDirectory();
-                break;
-            case R.id.filemanager_ok_menu:
-                saveCurDirectoryPath();
-                if (viewModel.config.showMode == FileManagerConfig.SAVE_FILE_MODE)
-                    createFile(false);
-                else
-                    returnDirectoryUri();
-                break;
+        int itemId = item.getItemId();
+        if (itemId == android.R.id.home) {
+            onBackPressed();
+        } else if (itemId == R.id.filemanager_home_menu) {
+            openHomeDirectory();
+        } else if (itemId == R.id.filemanager_ok_menu) {
+            saveCurDirectoryPath();
+            if (viewModel.config.showMode == FileManagerConfig.SAVE_FILE_MODE)
+                createFile(false);
+            else
+                returnDirectoryUri();
         }
 
         return true;

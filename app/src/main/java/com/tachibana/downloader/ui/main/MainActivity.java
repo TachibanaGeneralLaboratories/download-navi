@@ -418,26 +418,20 @@ public class MainActivity extends AppCompatActivity
     @Override
     public boolean onOptionsItemSelected(MenuItem item)
     {
-        switch (item.getItemId()) {
-            case R.id.pause_all_menu:
-                pauseAll();
-                break;
-            case R.id.resume_all_menu:
-                resumeAll();
-                break;
-            case R.id.settings_menu:
-                startActivity(new Intent(this, SettingsActivity.class));
-                break;
-            case R.id.about_menu:
-                showAboutDialog();
-                break;
-            case R.id.shutdown_app_menu:
-                closeOptionsMenu();
-                shutdown();
-                break;
-            case R.id.browser_menu:
-                startActivity(new Intent(this, BrowserActivity.class));
-                break;
+        int itemId = item.getItemId();
+        if (itemId == R.id.pause_all_menu) {
+            pauseAll();
+        } else if (itemId == R.id.resume_all_menu) {
+            resumeAll();
+        } else if (itemId == R.id.settings_menu) {
+            startActivity(new Intent(this, SettingsActivity.class));
+        } else if (itemId == R.id.about_menu) {
+            showAboutDialog();
+        } else if (itemId == R.id.shutdown_app_menu) {
+            closeOptionsMenu();
+            shutdown();
+        } else if (itemId == R.id.browser_menu) {
+            startActivity(new Intent(this, BrowserActivity.class));
         }
 
         return true;
