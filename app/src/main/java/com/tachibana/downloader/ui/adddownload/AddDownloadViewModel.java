@@ -1,6 +1,6 @@
 /*
  * Copyright (C) 2019 Tachibana General Laboratories, LLC
- * Copyright (C) 2019 Yaroslav Pronin <proninyaroslav@mail.ru>
+ * Copyright (C) 2019, 2021 Yaroslav Pronin <proninyaroslav@mail.ru>
  * Copyright (C) 2020 8176135 <elsecaller@8176135.xyz>
  *
  * This file is part of Download Navi.
@@ -59,16 +59,12 @@ import com.tachibana.downloader.core.utils.MimeTypeUtils;
 import com.tachibana.downloader.core.utils.Utils;
 
 import java.io.File;
-import java.io.FileDescriptor;
-import java.io.FileInputStream;
 import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
 import java.io.IOException;
 import java.lang.ref.WeakReference;
 import java.net.ConnectException;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
-import java.nio.channels.FileChannel;
 import java.util.ArrayList;
 import java.util.List;
 
