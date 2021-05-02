@@ -497,4 +497,14 @@ class FileSystemFacadeImpl implements FileSystemFacade
 
         return fsModule.getFileSize(filePath);
     }
+
+    @Override
+    public void truncate(@NonNull Uri filePath, long newSize) throws IOException {
+        try (FileDescriptorWrapper w = getFD(filePath)) {
+            FileDescriptor fd = w.open("rw");
+            try (FileChannel chan = new FileOutputStream(fd).getChannel()) {
+                chan.truncate(newSize);
+            }
+        }
+    }
 }
