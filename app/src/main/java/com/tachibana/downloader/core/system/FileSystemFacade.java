@@ -89,4 +89,6 @@ public interface FileSystemFacade
     String getDirName(@NonNull Uri dir);
 
     long getFileSize(@NonNull Uri filePath);
+
+    void truncate(@NonNull Uri filePath, long newSize) throws IOException;
 }

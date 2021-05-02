@@ -49,6 +49,7 @@ import com.tachibana.downloader.core.model.data.entity.Header;
 import com.tachibana.downloader.core.model.data.entity.UserAgent;
 import com.tachibana.downloader.core.settings.SettingsRepository;
 import com.tachibana.downloader.core.storage.DataRepository;
+import com.tachibana.downloader.core.system.FileDescriptorWrapper;
 import com.tachibana.downloader.core.system.FileSystemFacade;
 import com.tachibana.downloader.core.system.SystemFacade;
 import com.tachibana.downloader.core.system.SystemFacadeHelper;
@@ -58,12 +59,16 @@ import com.tachibana.downloader.core.utils.MimeTypeUtils;
 import com.tachibana.downloader.core.utils.Utils;
 
 import java.io.File;
+import java.io.FileDescriptor;
+import java.io.FileInputStream;
 import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.lang.ref.WeakReference;
 import java.net.ConnectException;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
+import java.nio.channels.FileChannel;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -446,13 +451,11 @@ public class AddDownloadViewModel extends AndroidViewModel
         if (!fs.isValidFatFilename(fileName))
             fileName = fs.buildValidFatFilename(params.getFileName());
         fileName = fs.appendExtension(fileName, params.getMimeType());
-        if (params.isReplaceFile()) {
+        if (filePath != null && params.isReplaceFile()) {
             try {
-                if (filePath != null)
-                    fs.deleteFile(filePath);
-
-            } catch (FileNotFoundException | IllegalArgumentException e) {
-                /* Ignore */
+                fs.truncate(filePath, 0);
+            } catch (IOException e) {
+                Log.w(TAG, "Unable to truncate file size: " +  Log.getStackTraceString(e));
             }
         } else {
             fileName = fs.makeFilename(params.getDirPath(), fileName);
