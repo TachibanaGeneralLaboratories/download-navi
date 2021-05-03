@@ -103,7 +103,7 @@
     <string name="add_download_error_invalid_url">نمی‌توان بارگیری کرد: پیوند نامعتبر است</string>
     <string name="checksum">Checksum</string>
     <string name="add_dialog_checksum_description">MD5, SHA-256</string>
-    <string name="referer_description">%1$s header</string>
+    <string name="referer_description">%1$s سربرگ</string>
     <string name="error_invalid_checksum">Checksum نامعتبر است</string>
     <!-- Add user agent dialog -->
     <string name="dialog_add_user_agent_title">افزودن عامل کاربر</string>

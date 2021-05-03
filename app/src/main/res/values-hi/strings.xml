@@ -103,7 +103,7 @@
     <string name="add_download_error_invalid_url">डाउनलोड जोड़ने में असमर्थ: अमान्य URL</string>
     <string name="checksum">चेकसम</string>
     <string name="add_dialog_checksum_description">एमडी 5, एस एच ए -256</string>
-    <string name="referer_description">%1$s header</string>
+    <string name="referer_description">%1$s शीर्षणी</string>
     <string name="error_invalid_checksum">अमान्य चेकसम</string>
     <!-- Add user agent dialog -->
     <string name="dialog_add_user_agent_title">यूजर एजेंट जोड़ें</string>

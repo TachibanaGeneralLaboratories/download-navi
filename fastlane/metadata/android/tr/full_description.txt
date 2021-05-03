@@ -1,12 +1,13 @@
 # Özellikler
 
-* Özgür ve Açık Kaynak (FOSS)
-* Metaryal tasarım
+* Özgür ve Açık Kaynaklı yazılım (FOSS)
+* Metaryal Tasarım
 * Çoklu tema (Açık, Koyu, Siyah)
 * Android TV desteği
 * Chrome OS desteği
 * İndirmeleri duraklatma ve devam ettirebilme
 * Tarayıcı desteği
+* Yerleşik tarayıcı
 * Eş zamanlı indirme (varsayılan 3)
 * Parçalı indirme (en fazla 16)
 * Arka planda dosya indirebilme

@@ -103,7 +103,7 @@
     <string name="add_download_error_invalid_url">ডাউনলোড যুক্ত করতে ব্যর্থ: অবৈধ ইউআরএল</string>
     <string name="checksum">চেকসাম</string>
     <string name="add_dialog_checksum_description">এমডি৫, শা-২৫৬</string>
-    <string name="referer_description">%1$s header</string>
+    <string name="referer_description">%1$s হেডার</string>
     <string name="error_invalid_checksum">অবৈধ চেকসাম মান</string>
     <!-- Add user agent dialog -->
     <string name="dialog_add_user_agent_title">ব্যবহারকারীর এজেন্ট যোগ করুন</string>
@@ -267,9 +267,9 @@
     <string name="pref_max_download_retries_dialog_msg">0 - without retries</string>
     <string name="pref_replace_duplicate_downloads_title">Replace duplicate downloads</string>
     <string name="pref_replace_duplicate_downloads_summary">Replace duplicate downloads (with the same URL) when added that are already in the list</string>
-    <string name="pref_auto_connect_title">Auto connect</string>
+    <string name="pref_auto_connect_title">স্বতঃ সংযোগ</string>
     <string name="pref_auto_connect_summary">Auto connect when opening the add dialog</string>
-    <string name="pref_timeout_title">Timeout</string>
+    <string name="pref_timeout_title">সময়োত্তীর্ণ</string>
     <string name="pref_timeout_summary">The number of milliseconds to wait before the connection timed out. Zero is interpreted as an infinite timeout</string>
     <!-- Storage settings -->
     <string name="pref_save_downloads_in_title">Save downloads in</string>
@@ -281,7 +281,7 @@
     <!-- Browser settings -->
     <string name="pref_browser_bottom_address_bar_title">Address bar at the bottom</string>
     <string name="pref_browser_bottom_address_bar_summary">The address bar will be located at the bottom of the screen</string>
-    <string name="pref_browser_start_page_title">Start page</string>
+    <string name="pref_browser_start_page_title">শুরুর পাতা</string>
     <string name="pref_browser_allow_java_script_title">Allow Java Script</string>
     <string name="pref_browser_allow_popup_windows_title">Allow popup windows</string>
     <string name="pref_browser_cache_category">ক্যাশ</string>
@@ -290,9 +290,9 @@
     <string name="pref_browser_enable_cookies_title">Enable cookies</string>
     <string name="pref_browser_delete_cookies_title">Delete cookies</string>
     <string name="pref_browser_delete_cookies_done">Deleted all the cookies</string>
-    <string name="pref_browser_clear_cache_title">Clear cache</string>
-    <string name="pref_browser_clear_cache_done">The cache is cleared</string>
-    <string name="pref_browser_do_not_track_title">Do Not Track</string>
+    <string name="pref_browser_clear_cache_title">ক্যাশ পরিষ্কার করো</string>
+    <string name="pref_browser_clear_cache_done">ক্যাশ পরিষ্কারকৃত</string>
+    <string name="pref_browser_do_not_track_title">ট্রাক করো না</string>
     <string name="pref_browser_do_not_track_summary">Send a “Do Not Track” request to websites you visit</string>
     <string name="pref_browser_launcher_icon_title">Browser icon in the launcher</string>
     <string name="pref_browser_disable_from_system_title">Disable browser from the system</string>
@@ -304,5 +304,5 @@
     Download Navi is a free and Open Source download manager for Android 4.4+<br><br>
     Download Navi is free software, released under the terms of the <a href="http://www.gnu.org/copyleft/gpl.html">GNU General Public License v3 (GPLv3)</a><br><br>
     <a href="https://github.com/TachibanaGeneralLaboratories/download-navi/blob/HEAD/Privacy.md">Privacy Policy</a>]]></string>
-    <string name="about_changelog">Changelog</string>
+    <string name="about_changelog">পরিবর্তনসূচী</string>
 </resources>

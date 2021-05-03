@@ -52,7 +52,7 @@
     <string name="report">Пријави</string>
     <string name="more_details">Детаљније</string>
     <string name="clipboard">Клипборд</string>
-    <string name="verify">Verify</string>
+    <string name="verify">Верификуј</string>
     <!-- Permission dialog -->
     <string name="perm_denied_title">Дозвола одбијена</string>
     <string name="perm_denied_warning">Без ове дозволе апликације неће моћи да чува фајлове у меморији на неким верзијама система. Апликације неће радити правилно. Да ли сигурно желите да одбијете ову дозволу?</string>
@@ -101,9 +101,10 @@
     <string name="path">Путања</string>
     <string name="storage_free_space">Слободно места: %1$s</string>
     <string name="add_download_error_invalid_url">Неуспешно преузимање: погрешан URL</string>
-    <string name="checksum">Checksum</string>
+    <string name="checksum">Контролни збир</string>
     <string name="add_dialog_checksum_description">MD5, SHA-256</string>
-    <string name="error_invalid_checksum">Invalid checksum</string>
+    <string name="referer_description">%1$s хедер</string>
+    <string name="error_invalid_checksum">Погрешан контролни збир</string>
     <!-- Add user agent dialog -->
     <string name="dialog_add_user_agent_title">Додајте корисничког агента</string>
     <!-- Main activity -->
@@ -151,7 +152,7 @@
     <string name="delete_selected_download">Избриши изабрано преузимање? Ова операција не може бити повраћена</string>
     <string name="delete_selected_downloads">Избриши изабрана преузимања? Ова операција не може бити повраћена</string>
     <string name="delete_with_downloaded_file">Избриши са преузетим фајлом</string>
-    <string name="error_verify_checksum">Invalid file checksum</string>
+    <string name="error_verify_checksum">Погрешан фајл контролног збира</string>
     <!-- Filemanager dialog -->
     <string name="dir_chooser_title">Избор фолдера</string>
     <string name="file_chooser_title">Избор фајлова</string>
@@ -186,46 +187,46 @@
     <string name="send_text_to_clipboard">Копирај</string>
     <string name="text_copied_to_clipboard">Текст копиран на клипборд</string>
     <!-- Browser -->
-    <string name="browser">Browser</string>
+    <string name="browser">Претраживач</string>
     <string name="browser_app">Navi Browser</string>
-    <string name="webview_is_required">WebView is required to work</string>
-    <string name="browser_forward_arrow">Forward</string>
-    <string name="browser_desktop_version">Desktop version</string>
-    <string name="browser_address_bar_hint">Enter address or query</string>
-    <string name="browser_back_pressed">Press again to close</string>
-    <string name="browser_secure_connection">Secure connection</string>
-    <string name="browser_download_from_link">Download</string>
-    <string name="browser_copy_link">Copy link</string>
+    <string name="webview_is_required">WebView је потребан за рад</string>
+    <string name="browser_forward_arrow">Напред</string>
+    <string name="browser_desktop_version">Десктоп верзија</string>
+    <string name="browser_address_bar_hint">Унети адресу или квери</string>
+    <string name="browser_back_pressed">Притисни опет за илзаз</string>
+    <string name="browser_secure_connection">Безбедна веза</string>
+    <string name="browser_download_from_link">Преузми</string>
+    <string name="browser_copy_link">Копирај линк</string>
     <!-- Browser bookmarks -->
-    <string name="browser_bookmarks">Bookmarks</string>
-    <string name="bookmarks_list_empty">No bookmarks</string>
-    <string name="browser_add_bookmark">Add bookmark</string>
-    <string name="browser_edit_bookmark">Edit bookmark</string>
+    <string name="browser_bookmarks">Обележивачи</string>
+    <string name="bookmarks_list_empty">Нема забелешки</string>
+    <string name="browser_add_bookmark">Додај забелешку</string>
+    <string name="browser_edit_bookmark">Уреди забелешку</string>
     <!-- Edit bookmark dialog -->
-    <string name="browser_bookmark_name">Name</string>
+    <string name="browser_bookmark_name">Име</string>
     <string name="browser_bookmark_url">URL</string>
-    <string name="browser_bookmark_error_empty_url">Please enter URL</string>
-    <string name="browser_bookmark_error_empty_name">Please enter name</string>
+    <string name="browser_bookmark_error_empty_url">Унеси URL</string>
+    <string name="browser_bookmark_error_empty_name">Молимо унесите име</string>
     <plurals name="browser_bookmark_deleted">
-        <item quantity="one">Bookmark deleted</item>
-        <item quantity="few">Bookmarks deleted</item>
-        <item quantity="other">Bookmarks deleted</item>
+        <item quantity="one">Забелешка избрисана</item>
+        <item quantity="few">Забелешке избрисане</item>
+        <item quantity="other">Забелешке избрисане</item>
     </plurals>
     <plurals name="browser_bookmark_delete_failed">
-        <item quantity="one">Failed to delete bookmark</item>
-        <item quantity="few">Failed to delete bookmarks</item>
-        <item quantity="other">Failed to delete bookmarks</item>
+        <item quantity="one">Неуспешно брисање забелешке</item>
+        <item quantity="few">Неуспешно брисање забелешки</item>
+        <item quantity="other">Неуспешно брисање забелешки</item>
     </plurals>
-    <string name="browser_bookmark_change_failed">Failed to change bookmark</string>
-    <string name="browser_bookmark_added">Bookmark added</string>
-    <string name="browser_bookmark_add_failed">Failed to add bookmark</string>
-    <string name="browser_bookmark_edit_menu">Edit</string>
+    <string name="browser_bookmark_change_failed">Неуспешна измена забелешке</string>
+    <string name="browser_bookmark_added">Забелешка додата</string>
+    <string name="browser_bookmark_add_failed">Неуспешно додавање забелешке</string>
+    <string name="browser_bookmark_edit_menu">Уреди</string>
     <!-- Settings -->
     <!-- Headers -->
     <string name="pref_header_appearance">Изглед</string>
     <string name="pref_header_behavior">Понашање</string>
     <string name="pref_header_storage">Меморија</string>
-    <string name="pref_header_browser">Browser</string>
+    <string name="pref_header_browser">Претраживач</string>
     <!-- Appearance settings -->
     <string name="pref_theme_category">Подешавање теме</string>
     <string name="pref_theme_title">Тема</string>
@@ -280,25 +281,25 @@
     <string name="pref_preallocate_disk_space_title">Заузми потребно место за фајл</string>
     <string name="pref_preallocate_disk_space_summary">Доступно за Android 5.0 Lollipop и новије</string>
     <!-- Browser settings -->
-    <string name="pref_browser_bottom_address_bar_title">Address bar at the bottom</string>
-    <string name="pref_browser_bottom_address_bar_summary">The address bar will be located at the bottom of the screen</string>
-    <string name="pref_browser_start_page_title">Start page</string>
-    <string name="pref_browser_allow_java_script_title">Allow Java Script</string>
-    <string name="pref_browser_allow_popup_windows_title">Allow popup windows</string>
-    <string name="pref_browser_cache_category">Cache</string>
-    <string name="pref_browser_cookies_category">Cookies</string>
-    <string name="pref_browser_enable_caching_title">Enable caching</string>
-    <string name="pref_browser_enable_cookies_title">Enable cookies</string>
-    <string name="pref_browser_delete_cookies_title">Delete cookies</string>
-    <string name="pref_browser_delete_cookies_done">Deleted all the cookies</string>
-    <string name="pref_browser_clear_cache_title">Clear cache</string>
-    <string name="pref_browser_clear_cache_done">The cache is cleared</string>
-    <string name="pref_browser_do_not_track_title">Do Not Track</string>
-    <string name="pref_browser_do_not_track_summary">Send a “Do Not Track” request to websites you visit</string>
-    <string name="pref_browser_launcher_icon_title">Browser icon in the launcher</string>
-    <string name="pref_browser_disable_from_system_title">Disable browser from the system</string>
-    <string name="pref_browser_disable_from_system_summary">Browser will not be available for opening links</string>
-    <string name="pref_browser_search_engine_title">Search engine</string>
+    <string name="pref_browser_bottom_address_bar_title">Адресни ред на дну</string>
+    <string name="pref_browser_bottom_address_bar_summary">Адресни ред ће бити лоциран на дну екрана</string>
+    <string name="pref_browser_start_page_title">Почетна страница</string>
+    <string name="pref_browser_allow_java_script_title">Дозволи Java Script</string>
+    <string name="pref_browser_allow_popup_windows_title">Дозволи попап прозоре</string>
+    <string name="pref_browser_cache_category">Кеш</string>
+    <string name="pref_browser_cookies_category">Колачићи</string>
+    <string name="pref_browser_enable_caching_title">Омогући кеширање</string>
+    <string name="pref_browser_enable_cookies_title">Омогући колачиће</string>
+    <string name="pref_browser_delete_cookies_title">Избриши колачиће</string>
+    <string name="pref_browser_delete_cookies_done">Избриши све колачиће</string>
+    <string name="pref_browser_clear_cache_title">Обриши кеш</string>
+    <string name="pref_browser_clear_cache_done">Кеш је обрисан</string>
+    <string name="pref_browser_do_not_track_title">Не желим да ме прате</string>
+    <string name="pref_browser_do_not_track_summary">Шаље захтев „Не желим да ме прате“ сајтовима које посећујете</string>
+    <string name="pref_browser_launcher_icon_title">Икона претраживача</string>
+    <string name="pref_browser_disable_from_system_title">Забрани претраживач из систем</string>
+    <string name="pref_browser_disable_from_system_summary">Претраживач неће бити доступан за отварање линкова</string>
+    <string name="pref_browser_search_engine_title">Претраживач</string>
     <!-- About dialog -->
     <string name="about_title">Више о Download Navi</string>
     <string name="about_description"><![CDATA[    Више информација, као и помагање пројекту: <a href="https://github.com/TachibanaGeneralLaboratories/download-navi">https://github.com/TachibanaGeneralLaboratories/download-navi</a><br><br>
@@ -306,5 +307,4 @@
     Download Navi је бесплатан софтвер, објављен под условима <a href="http://www.gnu.org/copyleft/gpl.html">GNU General Public License v3 (GPLv3)</a><br><br>
     <a href="https://github.com/TachibanaGeneralLaboratories/download-navi/blob/HEAD/Privacy.md">Полиса приватности</a>]]></string>
     <string name="about_changelog">Евиденција измена</string>
-    <string name="referer_description">%1$s header</string>
 </resources>

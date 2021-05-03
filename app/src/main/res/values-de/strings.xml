@@ -103,7 +103,7 @@
     <string name="add_download_error_invalid_url">Download konnte nicht hinzugefügt werden: ungültige URL</string>
     <string name="checksum">Prüfsumme</string>
     <string name="add_dialog_checksum_description">MD5, SHA-256</string>
-    <string name="referer_description">%1$s header</string>
+    <string name="referer_description">%1$s Kopfzeile</string>
     <string name="error_invalid_checksum">Ungültige Prüfsumme</string>
     <!-- Add user agent dialog -->
     <string name="dialog_add_user_agent_title">User-Agent hinzufügen</string>

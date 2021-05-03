@@ -103,6 +103,7 @@
     <string name="add_download_error_invalid_url">لايمكن اضافة التحميل: الرابط غير صحيح</string>
     <string name="checksum">Checksum</string>
     <string name="add_dialog_checksum_description">MD5, SHA-256</string>
+    <string name="referer_description">%1$s رأس</string>
     <string name="error_invalid_checksum">المجموع الاختباري غير صالح</string>
     <!-- Add user agent dialog -->
     <string name="dialog_add_user_agent_title">إضافة وكيل المستخدم</string>
@@ -314,5 +315,4 @@ href="http://www.gnu.org/copyleft/gpl.html">
 جنو العمومية الإصدارv3 (GPLv3)</a><br><br>
    <a href="https://github.com/TachibanaGeneralLaboratories/download-navi/blob/HEAD/Privacy.md">سياسة الخصوصية</a>]]></string>
     <string name="about_changelog">سِجل التغييرات</string>
-    <string name="referer_description">%1$s header</string>
 </resources>
