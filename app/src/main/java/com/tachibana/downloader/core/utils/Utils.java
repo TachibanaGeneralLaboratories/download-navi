@@ -256,7 +256,7 @@ public class Utils {
         if (filename == null && contentLocation != null) {
             String decodedContentLocation = Uri.decode(contentLocation);
             if (decodedContentLocation != null) {
-                int queryIndex = decodedUrl.indexOf('?');
+                int queryIndex = decodedContentLocation.indexOf('?');
                 /* If there is a query string strip it, same as desktop browsers */
                 if (queryIndex > 0)
                     decodedUrl = decodedContentLocation.substring(0, queryIndex);
