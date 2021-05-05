@@ -1,0 +1,9 @@
+* Improved support for some URLs and filename parsing
+* Support for non-Unicode filenames
+* Added close and start page buttons in the browser
+* Bugfixing:
+     - Applying custom User Agent
+     - Including download description in the search
+     - Storage free space checking
+     - "Replace file" option
+     - Small fixes

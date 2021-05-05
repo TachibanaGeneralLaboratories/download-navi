@@ -1,3 +1,16 @@
+Version 1.3.1 (2021-05-05)
+========================
+
+ * Improved support for some URLs and filename parsing
+ * Support for non-Unicode filenames
+ * Added close and start page buttons in the browser
+ * Bugfixing:
+      - Applying custom User Agent
+      - Including download description in the search
+      - Storage free space checking
+      - "Replace file" option
+      - Small fixes
+
 Version 1.3 (2020-09-07)
 ========================
 
