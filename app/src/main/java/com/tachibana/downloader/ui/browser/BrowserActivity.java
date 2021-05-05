@@ -439,6 +439,8 @@ public class BrowserActivity extends AppCompatActivity
             );
         } else if (itemId == R.id.close_menu) {
             finish();
+        } else if (itemId == R.id.start_page_menu) {
+            viewModel.loadStartPage(webView);
         }
 
         return true;

@@ -17,6 +17,11 @@
         android:icon="@drawable/ic_arrow_forward_menu_24dp"
         app:showAsAction="never" />
 
+    <item android:id="@+id/start_page_menu"
+        android:title="@string/pref_browser_start_page_title"
+        android:icon="@drawable/ic_home_menu_24dp"
+        app:showAsAction="never" />
+
     <item android:id="@+id/share_menu"
         android:title="@string/share"
         android:icon="@drawable/ic_share_menu_24dp"
