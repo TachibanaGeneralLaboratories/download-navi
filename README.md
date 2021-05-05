@@ -1,5 +1,6 @@
 [![Releases](https://img.shields.io/github/downloads/TachibanaGeneralLaboratories/download-navi/total.svg)](https://github.com/TachibanaGeneralLaboratories/download-navi/releases)
 [![Crowdin](https://d322cqt584bo4o.cloudfront.net/download-navi/localized.svg)](https://crowdin.com/project/download-navi)
+[![Matrix Room](https://img.shields.io/matrix/download-navi:matrix.org?label=Matrix%20Room)](https://matrix.to/#download-navi:matrix.org)
 [![Chat - Telegram](https://img.shields.io/badge/chat-Telegram-blue.svg)](https://t.me/DownloadNavi)
 [<img alt="Coverity Scan Build Status" src="https://scan.coverity.com/projects/20752/badge.svg">](https://scan.coverity.com/projects/download-navi)
 
