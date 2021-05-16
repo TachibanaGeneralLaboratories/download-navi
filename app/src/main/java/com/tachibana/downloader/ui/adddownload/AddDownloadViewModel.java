@@ -268,7 +268,7 @@ public class AddDownloadViewModel extends AndroidViewModel
                 return e;
             }
             connection.setTimeout(viewModel.get().pref.timeout());
-            connection.setReferer(params[1]);
+            connection.setReferer(params[1] == null ? params[0] : params[1]);
             
             NetworkInfo netInfo = viewModel.get().systemFacade.getActiveNetworkInfo();
             if (netInfo == null || !netInfo.isConnected())
@@ -412,6 +412,8 @@ public class AddDownloadViewModel extends AndroidViewModel
         headers.add(new Header(info.id, "ETag", params.getEtag()));
         if (params.getReferer() != null && !params.getReferer().isEmpty()) {
             headers.add(new Header(info.id, "Referer", params.getReferer()));
+        } else {
+            headers.add(new Header(info.id, "Referer", params.getUrl()));
         }
 
         /* TODO: rewrite to WorkManager */
