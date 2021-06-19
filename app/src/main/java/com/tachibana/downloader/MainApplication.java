@@ -20,6 +20,8 @@
 
 package com.tachibana.downloader;
 
+import android.util.Log;
+
 import androidx.multidex.MultiDexApplication;
 
 import com.tachibana.downloader.core.DownloadNotifier;
@@ -33,6 +35,8 @@ import org.acra.data.StringFormat;
 
 public class MainApplication extends MultiDexApplication
 {
+    public static final String TAG = MainApplication.class.getSimpleName();
+
     @Override
     public void onCreate()
     {
@@ -47,6 +51,12 @@ public class MainApplication extends MultiDexApplication
         builder.getPluginConfigurationBuilder(DialogConfigurationBuilder.class)
                 .withEnabled(true)
                 .setReportDialogClass(ErrorReportActivity.class);
+        // Set stub handler
+        if (Thread.getDefaultUncaughtExceptionHandler() == null) {
+            Thread.setDefaultUncaughtExceptionHandler((t, e) ->
+                    Log.e(TAG, "Uncaught exception in "  + t + ": " + Log.getStackTraceString(e))
+            );
+        }
         ACRA.init(this, builder);
 
         DownloadNotifier downloadNotifier = DownloadNotifier.getInstance(this);
