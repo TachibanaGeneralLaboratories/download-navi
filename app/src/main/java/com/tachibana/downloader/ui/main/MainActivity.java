@@ -20,6 +20,7 @@
 
 package com.tachibana.downloader.ui.main;
 
+import android.Manifest;
 import android.app.Dialog;
 import android.app.SearchManager;
 import android.content.Context;
@@ -35,7 +36,8 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.TextView;
 
-import androidx.annotation.NonNull;
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.SearchView;
@@ -44,6 +46,7 @@ import androidx.coordinatorlayout.widget.CoordinatorLayout;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -55,6 +58,7 @@ import com.google.android.material.tabs.TabLayout;
 import com.h6ah4i.android.widget.advrecyclerview.animator.GeneralItemAnimator;
 import com.h6ah4i.android.widget.advrecyclerview.animator.RefactoredDefaultItemAnimator;
 import com.h6ah4i.android.widget.advrecyclerview.expandable.RecyclerViewExpandableItemManager;
+import com.tachibana.downloader.PermissionDeniedDialog;
 import com.tachibana.downloader.R;
 import com.tachibana.downloader.core.RepositoryHelper;
 import com.tachibana.downloader.core.model.DownloadEngine;
@@ -63,7 +67,6 @@ import com.tachibana.downloader.core.utils.Utils;
 import com.tachibana.downloader.receiver.NotificationReceiver;
 import com.tachibana.downloader.service.DownloadService;
 import com.tachibana.downloader.ui.BaseAlertDialog;
-import com.tachibana.downloader.ui.RequestPermissions;
 import com.tachibana.downloader.ui.adddownload.AddDownloadActivity;
 import com.tachibana.downloader.ui.browser.BrowserActivity;
 import com.tachibana.downloader.ui.main.drawer.DrawerExpandableAdapter;
@@ -81,8 +84,8 @@ public class MainActivity extends AppCompatActivity
     @SuppressWarnings("unused")
     private static final String TAG = MainActivity.class.getSimpleName();
 
-    private static final String TAG_PERM_DIALOG_IS_SHOW = "perm_dialog_is_show";
     private static final String TAG_ABOUT_DIALOG = "about_dialog";
+    private static final String TAG_PERM_DENIED_DIALOG = "perm_denied_dialog";
 
     /* Android data binding doesn't work with layout aliases */
     private CoordinatorLayout coordinatorLayout;
@@ -103,12 +106,12 @@ public class MainActivity extends AppCompatActivity
     private DownloadsViewModel fragmentViewModel;
     private FloatingActionButton fab;
     private SearchView searchView;
-    private boolean permDialogIsShow = false;
     private DownloadEngine engine;
     private SettingsRepository pref;
     protected CompositeDisposable disposables = new CompositeDisposable();
     private BaseAlertDialog.SharedViewModel dialogViewModel;
     private BaseAlertDialog aboutDialog;
+    private PermissionDeniedDialog permDeniedDialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -125,14 +128,12 @@ public class MainActivity extends AppCompatActivity
         ViewModelProvider provider = new ViewModelProvider(this);
         fragmentViewModel = provider.get(DownloadsViewModel.class);
         dialogViewModel = provider.get(BaseAlertDialog.SharedViewModel.class);
-        aboutDialog = (BaseAlertDialog)getSupportFragmentManager().findFragmentByTag(TAG_ABOUT_DIALOG);
+        FragmentManager fm = getSupportFragmentManager();
+        aboutDialog = (BaseAlertDialog)fm.findFragmentByTag(TAG_ABOUT_DIALOG);
+        permDeniedDialog = (PermissionDeniedDialog)fm.findFragmentByTag(TAG_PERM_DENIED_DIALOG);
 
-        if (savedInstanceState != null)
-            permDialogIsShow = savedInstanceState.getBoolean(TAG_PERM_DIALOG_IS_SHOW);
-
-        if (!Utils.checkStoragePermission(getApplicationContext()) && !permDialogIsShow) {
-            permDialogIsShow = true;
-            startActivity(new Intent(this, RequestPermissions.class));
+        if (!Utils.checkStoragePermission(this) && permDeniedDialog == null) {
+            storagePermission.launch(Manifest.permission.WRITE_EXTERNAL_STORAGE);
         }
 
         setContentView(R.layout.activity_main);
@@ -146,6 +147,20 @@ public class MainActivity extends AppCompatActivity
         initLayout();
         engine.restoreDownloads();
     }
+
+    private final ActivityResultLauncher<String> storagePermission = registerForActivityResult(
+            new ActivityResultContracts.RequestPermission(),
+            isGranted -> {
+                if (!isGranted && Utils.shouldRequestStoragePermission(this)) {
+                    FragmentManager fm = getSupportFragmentManager();
+                    if (fm.findFragmentByTag(TAG_PERM_DENIED_DIALOG) == null) {
+                        permDeniedDialog = PermissionDeniedDialog.newInstance();
+                        FragmentTransaction ft = fm.beginTransaction();
+                        ft.add(permDeniedDialog, TAG_PERM_DENIED_DIALOG);
+                        ft.commitAllowingStateLoss();
+                    }
+                }
+            });
 
     private void initLayout()
     {
@@ -218,14 +233,6 @@ public class MainActivity extends AppCompatActivity
     }
 
     @Override
-    public void onSaveInstanceState(@NonNull Bundle outState)
-    {
-        outState.putBoolean(TAG_PERM_DIALOG_IS_SHOW, permDialogIsShow);
-
-        super.onSaveInstanceState(outState);
-    }
-
-    @Override
     protected void onPostCreate(Bundle savedInstanceState)
     {
         super.onPostCreate(savedInstanceState);
@@ -254,15 +261,25 @@ public class MainActivity extends AppCompatActivity
     {
         Disposable d = dialogViewModel.observeEvents()
                 .subscribe((event) -> {
-                    if (event.dialogTag == null || !event.dialogTag.equals(TAG_ABOUT_DIALOG))
+                    if (event.dialogTag == null) {
                         return;
-                    switch (event.type) {
-                        case NEGATIVE_BUTTON_CLICKED:
-                            openChangelogLink();
-                            break;
-                        case DIALOG_SHOWN:
-                            initAboutDialog();
-                            break;
+                    }
+                    if (event.dialogTag.equals(TAG_ABOUT_DIALOG)) {
+                        switch (event.type) {
+                            case NEGATIVE_BUTTON_CLICKED:
+                                openChangelogLink();
+                                break;
+                            case DIALOG_SHOWN:
+                                initAboutDialog();
+                                break;
+                        }
+                    } else if (event.dialogTag.equals(TAG_PERM_DENIED_DIALOG)) {
+                        if (event.type != BaseAlertDialog.EventType.DIALOG_SHOWN) {
+                            permDeniedDialog.dismiss();
+                        }
+                        if (event.type == BaseAlertDialog.EventType.NEGATIVE_BUTTON_CLICKED) {
+                            storagePermission.launch(Manifest.permission.WRITE_EXTERNAL_STORAGE);
+                        }
                     }
                 });
         disposables.add(d);

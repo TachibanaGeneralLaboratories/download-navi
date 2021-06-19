@@ -20,6 +20,7 @@
 
 package com.tachibana.downloader.ui.adddownload;
 
+import android.Manifest;
 import android.app.Activity;
 import android.app.Dialog;
 import android.content.ClipData;
@@ -35,7 +36,6 @@ import android.text.Editable;
 import android.text.TextUtils;
 import android.text.TextWatcher;
 import android.text.format.Formatter;
-import android.util.Log;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -45,6 +45,8 @@ import android.widget.Button;
 import android.widget.SeekBar;
 import android.widget.Toast;
 
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
@@ -54,9 +56,11 @@ import androidx.databinding.Observable;
 import androidx.databinding.library.baseAdapters.BR;
 import androidx.fragment.app.DialogFragment;
 import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.lifecycle.ViewModelProvider;
 
 import com.google.android.material.textfield.TextInputEditText;
+import com.tachibana.downloader.PermissionDeniedDialog;
 import com.tachibana.downloader.R;
 import com.tachibana.downloader.core.exception.FreeSpaceException;
 import com.tachibana.downloader.core.exception.HttpException;
@@ -67,7 +71,6 @@ import com.tachibana.downloader.databinding.DialogAddDownloadBinding;
 import com.tachibana.downloader.ui.BaseAlertDialog;
 import com.tachibana.downloader.ui.ClipboardDialog;
 import com.tachibana.downloader.ui.FragmentCallback;
-import com.tachibana.downloader.ui.RequestPermissions;
 import com.tachibana.downloader.ui.filemanager.FileManagerConfig;
 import com.tachibana.downloader.ui.filemanager.FileManagerDialog;
 
@@ -86,13 +89,13 @@ public class AddDownloadDialog extends DialogFragment {
     private static final String TAG_ADD_USER_AGENT_DIALOG = "add_user_agent_dialog";
     private static final int CHOOSE_PATH_TO_SAVE_REQUEST_CODE = 1;
     private static final String TAG_INIT_PARAMS = "init_params";
-    private static final String TAG_PERM_DIALOG_IS_SHOW = "perm_dialog_is_show";
     private static final String TAG_CREATE_FILE_ERROR_DIALOG = "create_file_error_dialog";
     private static final String TAG_OPEN_DIR_ERROR_DIALOG = "open_dir_error_dialog";
     private static final String TAG_URL_CLIPBOARD_DIALOG = "url_clipboard_dialog";
     private static final String TAG_CHECKSUM_CLIPBOARD_DIALOG = "checksum_clipboard_dialog";
     private static final String TAG_REFERER_CLIPBOARD_DIALOG = "referer_clipboard_dialog";
     private static final String TAG_CUR_CLIPBOARD_TAG = "cur_clipboard_tag";
+    private static final String TAG_PERM_DENIED_DIALOG = "perm_denied_dialog";
 
     private AlertDialog alert;
     private AppCompatActivity activity;
@@ -102,11 +105,11 @@ public class AddDownloadDialog extends DialogFragment {
     private BaseAlertDialog.SharedViewModel dialogViewModel;
     private DialogAddDownloadBinding binding;
     private CompositeDisposable disposables = new CompositeDisposable();
-    private boolean permDialogIsShow = false;
     private ClipboardDialog clipboardDialog;
     private ClipboardDialog.SharedViewModel clipboardViewModel;
     private String curClipboardTag;
     private SharedPreferences localPref;
+    private PermissionDeniedDialog permDeniedDialog;
 
     public static AddDownloadDialog newInstance(@NonNull AddInitParams initParams)
     {
@@ -212,23 +215,33 @@ public class AddDownloadDialog extends DialogFragment {
 
     private void handleAlertDialogEvent(BaseAlertDialog.Event event)
     {
-        if (event.dialogTag == null || !event.dialogTag.equals(TAG_ADD_USER_AGENT_DIALOG) || addUserAgentDialog == null)
+        if (event.dialogTag == null) {
             return;
-        switch (event.type) {
-            case POSITIVE_BUTTON_CLICKED:
-                Dialog dialog = addUserAgentDialog.getDialog();
-                if (dialog != null) {
-                    TextInputEditText editText = dialog.findViewById(R.id.text_input_dialog);
-                    Editable e = editText.getText();
-                    String userAgent = (e == null ? null : e.toString());
-                    if (!TextUtils.isEmpty(userAgent))
-                        disposables.add(viewModel.addUserAgent(new UserAgent(userAgent))
-                                .subscribeOn(Schedulers.io())
-                                .subscribe());
-                }
-            case NEGATIVE_BUTTON_CLICKED:
-                addUserAgentDialog.dismiss();
-                break;
+        }
+        if (event.dialogTag.equals(TAG_ADD_USER_AGENT_DIALOG) && addUserAgentDialog != null) {
+            switch (event.type) {
+                case POSITIVE_BUTTON_CLICKED:
+                    Dialog dialog = addUserAgentDialog.getDialog();
+                    if (dialog != null) {
+                        TextInputEditText editText = dialog.findViewById(R.id.text_input_dialog);
+                        Editable e = editText.getText();
+                        String userAgent = (e == null ? null : e.toString());
+                        if (!TextUtils.isEmpty(userAgent))
+                            disposables.add(viewModel.addUserAgent(new UserAgent(userAgent))
+                                    .subscribeOn(Schedulers.io())
+                                    .subscribe());
+                    }
+                case NEGATIVE_BUTTON_CLICKED:
+                    addUserAgentDialog.dismiss();
+                    break;
+            }
+        } else if (event.dialogTag.equals(TAG_PERM_DENIED_DIALOG)) {
+            if (event.type != BaseAlertDialog.EventType.DIALOG_SHOWN) {
+                permDeniedDialog.dismiss();
+            }
+            if (event.type == BaseAlertDialog.EventType.NEGATIVE_BUTTON_CLICKED) {
+                storagePermission.launch(Manifest.permission.WRITE_EXTERNAL_STORAGE);
+            }
         }
     }
 
@@ -314,14 +327,24 @@ public class AddDownloadDialog extends DialogFragment {
         if (initParams != null)
             viewModel.initParams(initParams);
 
-        if (savedInstanceState != null)
-            permDialogIsShow = savedInstanceState.getBoolean(TAG_PERM_DIALOG_IS_SHOW);
-
-        if (!Utils.checkStoragePermission(activity.getApplicationContext()) && !permDialogIsShow) {
-            permDialogIsShow = true;
-            startActivity(new Intent(activity, RequestPermissions.class));
+        if (!Utils.checkStoragePermission(activity) && permDeniedDialog == null) {
+            storagePermission.launch(Manifest.permission.WRITE_EXTERNAL_STORAGE);
         }
     }
+
+    private final ActivityResultLauncher<String> storagePermission = registerForActivityResult(
+            new ActivityResultContracts.RequestPermission(),
+            isGranted -> {
+                if (!isGranted && Utils.shouldRequestStoragePermission(activity)) {
+                    FragmentManager fm = getChildFragmentManager();
+                    if (fm.findFragmentByTag(TAG_PERM_DENIED_DIALOG) == null) {
+                        permDeniedDialog = PermissionDeniedDialog.newInstance();
+                        FragmentTransaction ft = fm.beginTransaction();
+                        ft.add(permDeniedDialog, TAG_PERM_DENIED_DIALOG);
+                        ft.commitAllowingStateLoss();
+                    }
+                }
+            });
 
     @NonNull
     @Override
@@ -336,6 +359,7 @@ public class AddDownloadDialog extends DialogFragment {
         FragmentManager fm = getChildFragmentManager();
         addUserAgentDialog = (BaseAlertDialog)fm.findFragmentByTag(TAG_ADD_USER_AGENT_DIALOG);
         clipboardDialog = (ClipboardDialog)fm.findFragmentByTag(curClipboardTag);
+        permDeniedDialog = (PermissionDeniedDialog)fm.findFragmentByTag(TAG_PERM_DENIED_DIALOG);
 
         LayoutInflater i = LayoutInflater.from(activity);
         binding = DataBindingUtil.inflate(i, R.layout.dialog_add_download, null, false);
@@ -561,7 +585,6 @@ public class AddDownloadDialog extends DialogFragment {
     @Override
     public void onSaveInstanceState(@NonNull Bundle outState)
     {
-        outState.putBoolean(TAG_PERM_DIALOG_IS_SHOW, permDialogIsShow);
         outState.putString(TAG_CUR_CLIPBOARD_TAG, curClipboardTag);
 
         super.onSaveInstanceState(outState);

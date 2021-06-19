@@ -31,8 +31,7 @@
         android:supportsRtl="true"
         android:allowBackup="true"
         android:fullBackupContent="true"
-        android:usesCleartextTraffic="true"
-        android:requestLegacyExternalStorage="true"> <!-- TODO: remove after change targetSdkVersion to 30 -->
+        android:usesCleartextTraffic="true">
 
         <activity android:name=".ui.main.MainActivity"
             android:theme="@style/AppTheme.Launcher">
@@ -1088,10 +1087,6 @@
                 <data android:pathPattern=".*\\.wlmp"/>
             </intent-filter>
         </activity>
-
-        <activity
-            android:name=".ui.RequestPermissions"
-            android:theme="@style/AppTheme.Translucent" />
 
         <activity android:name=".ui.filemanager.FileManagerDialog" />
 

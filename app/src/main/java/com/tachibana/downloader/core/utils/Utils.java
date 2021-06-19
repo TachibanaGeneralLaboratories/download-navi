@@ -45,8 +45,12 @@ import android.webkit.CookieManager;
 import android.webkit.URLUtil;
 import android.widget.ProgressBar;
 
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 import androidx.core.content.FileProvider;
 
@@ -680,6 +684,13 @@ public class Utils {
     public static boolean checkStoragePermission(@NonNull Context context) {
         return ContextCompat.checkSelfPermission(context,
                 Manifest.permission.WRITE_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED;
+    }
+
+    public static boolean shouldRequestStoragePermission(@NonNull Activity activity) {
+        return ActivityCompat.shouldShowRequestPermissionRationale(
+                activity,
+                Manifest.permission.WRITE_EXTERNAL_STORAGE
+        );
     }
 
     public static Intent makeShareUrlIntent(@NonNull List<String> urlList) {
