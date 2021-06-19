@@ -1,6 +1,6 @@
 /*
- * Copyright (C) 2019 Tachibana General Laboratories, LLC
- * Copyright (C) 2019 Yaroslav Pronin <proninyaroslav@mail.ru>
+ * Copyright (C) 2019-2021 Tachibana General Laboratories, LLC
+ * Copyright (C) 2019-2021 Yaroslav Pronin <proninyaroslav@mail.ru>
  *
  * This file is part of Download Navi.
  *
@@ -26,13 +26,10 @@ import com.tachibana.downloader.core.DownloadNotifier;
 import com.tachibana.downloader.ui.errorreport.ErrorReportActivity;
 
 import org.acra.ACRA;
-import org.acra.annotation.AcraCore;
-import org.acra.annotation.AcraDialog;
-import org.acra.annotation.AcraMailSender;
-
-@AcraCore(buildConfigClass = BuildConfig.class)
-@AcraMailSender(mailTo = "proninyaroslav@mail.ru")
-@AcraDialog(reportDialogClass = ErrorReportActivity.class)
+import org.acra.config.CoreConfigurationBuilder;
+import org.acra.config.DialogConfigurationBuilder;
+import org.acra.config.MailSenderConfigurationBuilder;
+import org.acra.data.StringFormat;
 
 public class MainApplication extends MultiDexApplication
 {
@@ -41,7 +38,16 @@ public class MainApplication extends MultiDexApplication
     {
         super.onCreate();
 
-        ACRA.init(this);
+        CoreConfigurationBuilder builder = new CoreConfigurationBuilder(this);
+        builder
+                .withBuildConfigClass(BuildConfig.class)
+                .withReportFormat(StringFormat.JSON);
+        builder.getPluginConfigurationBuilder(MailSenderConfigurationBuilder.class)
+                .withMailTo("proninyaroslav@mail.ru");
+        builder.getPluginConfigurationBuilder(DialogConfigurationBuilder.class)
+                .withEnabled(true)
+                .setReportDialogClass(ErrorReportActivity.class);
+        ACRA.init(this, builder);
 
         DownloadNotifier downloadNotifier = DownloadNotifier.getInstance(this);
         downloadNotifier.makeNotifyChans();
