@@ -9,8 +9,6 @@ Download Navi
 
 ![Download Navi](fastlane/metadata/android/en-US/images/featureGraphic.png)
 
-Downloads
----
 [<img alt="Get it on Google Play" height="80" src="https://tachibanagenerallaboratories.github.io/images/badges/Google%20Play/google-play-badge.png">](https://play.google.com/store/apps/details?id=com.tachibana.downloader)
 [<img alt="Get it on F-Droid" height="80" src="https://tachibanagenerallaboratories.github.io/images/badges/F-Droid/get-it-on.png">](https://f-droid.org/en/packages/com.tachibana.downloader/)
 [<img alt="Get it on GitHub" height="80" src="https://tachibanagenerallaboratories.github.io/images/badges/GitHub/get-it-on-github.png">](https://github.com/TachibanaGeneralLaboratories/download-navi/releases)
@@ -20,8 +18,7 @@ Downloads
 
 Download Navi is a free and Open Source download manager for Android 4.4+.
 
-Features
----
+## 📋 Features
 
  - Free and Open Source software (FOSS)
  - Material Design
@@ -41,14 +38,13 @@ Features
  - Power Management and battery control
  - Various automatic actions after finishing download
 
-Donation
----
+## Donation
 
 If you like Download Navi you can support developer with these methods. If you have problems with payment or you want to donate in another way, contact me: `proninyaroslav@mail.ru`. Thank you!
 
  - **PayPal**: [![paypal](https://www.paypalobjects.com/en_US/i/btn/btn_donateCC_LG.gif)](https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=G62LXDZPCPFEU)
- - **Yandex Money**: `410011738561939`
- - **WebMoney**: 
+ - **Yandex Money (YooMoney)**: `410011738561939`
+ - **WebMoney**:
      - **WMZ**: `Z335461926163`
      - **WMR**: `R151579576467`
  - **Amazon.com eGift Cards**: just choose your amount and type e-mail `proninyaroslav@mail.ru`
@@ -57,8 +53,7 @@ in the gift card details https://smile.amazon.com/gp/product/B004LLIKVU/
  - **Bitcoin**: `1Af9DgxtWvVp6bFiYQw2MeWtRzTXshRYpB`
  - **Nano**: `nano_1b13t35x5dwu39xcs3xj4ozfsniozfnxdqwjijy6efnkda6sc3hqie914fja`
 
-Translations
----
+## 🌍 Translations
 
 You can help translate the app here: [https://crowdin.com/project/download-navi](https://crowdin.com/project/download-navi)
 
@@ -86,8 +81,9 @@ You can help translate the app here: [https://crowdin.com/project/download-navi]
  - **Ukrainian** *(thanks Sensetivity)*
  - **Vietnamese** *(thanks pnhpnh)*
 
-Contributors
----
+## 🎉 Contributors
+
+Please see [CONTRIBUTING.md](CONTRIBUTING.md)
 
 #### Developers
 
@@ -97,18 +93,16 @@ Contributors
 
 * [Patryk Goworowski](https://github.com/Gowsky)
 
-See [CONTRIBUTING.md](CONTRIBUTING.md)
-
-Screenshots
----
+## Screenshots
 
 ![phone](/art/screenshots/phone.png) ![phone dark](/art/screenshots/phone_dark.png) ![tablet](/art/screenshots/tablet.png)
 
-Privacy
----
+## 🔒 Privacy Policy
+
 Please see our [privacy policy](Privacy.md).
 
-## License
+## 📄 License
+
 [![Large GPLv3 logo with “Free as in Freedom”](https://www.gnu.org/graphics/gplv3-with-text-136x68.png)](http://www.gnu.org/licenses/gpl-3.0.en.html)
 
     Copyright (C) 2018, 2019 Tachibana General Laboratories, LLC
