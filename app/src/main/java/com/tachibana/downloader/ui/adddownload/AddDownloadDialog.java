@@ -60,7 +60,7 @@ import androidx.fragment.app.FragmentTransaction;
 import androidx.lifecycle.ViewModelProvider;
 
 import com.google.android.material.textfield.TextInputEditText;
-import com.tachibana.downloader.PermissionDeniedDialog;
+import com.tachibana.downloader.ui.PermissionDeniedDialog;
 import com.tachibana.downloader.R;
 import com.tachibana.downloader.core.exception.FreeSpaceException;
 import com.tachibana.downloader.core.exception.HttpException;

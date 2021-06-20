@@ -58,7 +58,7 @@ import com.google.android.material.tabs.TabLayout;
 import com.h6ah4i.android.widget.advrecyclerview.animator.GeneralItemAnimator;
 import com.h6ah4i.android.widget.advrecyclerview.animator.RefactoredDefaultItemAnimator;
 import com.h6ah4i.android.widget.advrecyclerview.expandable.RecyclerViewExpandableItemManager;
-import com.tachibana.downloader.PermissionDeniedDialog;
+import com.tachibana.downloader.ui.PermissionDeniedDialog;
 import com.tachibana.downloader.R;
 import com.tachibana.downloader.core.RepositoryHelper;
 import com.tachibana.downloader.core.model.DownloadEngine;

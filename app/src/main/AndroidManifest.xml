@@ -11,7 +11,6 @@
     <uses-permission android:name="com.android.launcher.permission.INSTALL_SHORTCUT" />
     <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
     <uses-permission android:name="android.permission.REQUEST_INSTALL_PACKAGES" />
     <uses-permission android:name="android.permission.WAKE_LOCK" tools:node="replace" />
@@ -31,8 +30,7 @@
         android:supportsRtl="true"
         android:allowBackup="true"
         android:fullBackupContent="true"
-        android:usesCleartextTraffic="true"
-        android:requestLegacyExternalStorage="true"> <!-- TODO: remove after change targetSdkVersion to 30 -->
+        android:usesCleartextTraffic="true">
 
         <activity android:name=".ui.main.MainActivity"
             android:theme="@style/AppTheme.Launcher">

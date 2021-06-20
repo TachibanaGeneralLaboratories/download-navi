@@ -18,14 +18,14 @@
  * along with Download Navi.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package com.tachibana.downloader;
+package com.tachibana.downloader.ui;
 
 import android.app.Dialog;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 
-import com.tachibana.downloader.ui.BaseAlertDialog;
+import com.tachibana.downloader.R;
 
 public class PermissionDeniedDialog extends BaseAlertDialog {
     public static PermissionDeniedDialog newInstance() {
