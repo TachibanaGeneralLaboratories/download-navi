@@ -1,6 +1,6 @@
 /*
- * Copyright (C) 2018, 2019 Tachibana General Laboratories, LLC
- * Copyright (C) 2018, 2019 Yaroslav Pronin <proninyaroslav@mail.ru>
+ * Copyright (C) 2018-2021 Tachibana General Laboratories, LLC
+ * Copyright (C) 2018-2021 Yaroslav Pronin <proninyaroslav@mail.ru>
  *
  * This file is part of Download Navi.
  *
@@ -50,11 +50,12 @@ import androidx.fragment.app.FragmentTransaction;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-import androidx.viewpager.widget.ViewPager;
+import androidx.viewpager2.widget.ViewPager2;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.navigation.NavigationView;
 import com.google.android.material.tabs.TabLayout;
+import com.google.android.material.tabs.TabLayoutMediator;
 import com.h6ah4i.android.widget.advrecyclerview.animator.GeneralItemAnimator;
 import com.h6ah4i.android.widget.advrecyclerview.animator.RefactoredDefaultItemAnimator;
 import com.h6ah4i.android.widget.advrecyclerview.expandable.RecyclerViewExpandableItemManager;
@@ -101,7 +102,7 @@ public class MainActivity extends AppCompatActivity
     private RecyclerViewExpandableItemManager drawerItemManager;
 
     private TabLayout tabLayout;
-    private ViewPager viewPager;
+    private ViewPager2 viewPager;
     private DownloadListPagerAdapter pagerAdapter;
     private DownloadsViewModel fragmentViewModel;
     private FloatingActionButton fab;
@@ -191,10 +192,21 @@ public class MainActivity extends AppCompatActivity
         initDrawer();
         fragmentViewModel.resetSearch();
 
-        pagerAdapter = new DownloadListPagerAdapter(getApplicationContext(), getSupportFragmentManager());
+        pagerAdapter = new DownloadListPagerAdapter(this);
         viewPager.setAdapter(pagerAdapter);
         viewPager.setOffscreenPageLimit(DownloadListPagerAdapter.NUM_FRAGMENTS);
-        tabLayout.setupWithViewPager(viewPager);
+        new TabLayoutMediator(tabLayout, viewPager,
+                (tab, position) -> {
+                    switch (position) {
+                        case DownloadListPagerAdapter.QUEUED_FRAG_POS:
+                            tab.setText(R.string.fragment_title_queued);
+                            break;
+                        case DownloadListPagerAdapter.COMPLETED_FRAG_POS:
+                            tab.setText(R.string.fragment_title_completed);
+                            break;
+                    }
+                }
+        ).attach();
 
         fab.setOnClickListener((v) -> startActivity(new Intent(this, AddDownloadActivity.class)));
     }

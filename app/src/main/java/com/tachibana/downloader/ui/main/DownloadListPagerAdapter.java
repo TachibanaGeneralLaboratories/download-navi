@@ -1,6 +1,6 @@
 /*
- * Copyright (C) 2019 Tachibana General Laboratories, LLC
- * Copyright (C) 2019 Yaroslav Pronin <proninyaroslav@mail.ru>
+ * Copyright (C) 2019-2021 Tachibana General Laboratories, LLC
+ * Copyright (C) 2019-2021 Yaroslav Pronin <proninyaroslav@mail.ru>
  *
  * This file is part of Download Navi.
  *
@@ -20,34 +20,26 @@
 
 package com.tachibana.downloader.ui.main;
 
-import android.content.Context;
-
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentManager;
-import androidx.fragment.app.FragmentPagerAdapter;
+import androidx.fragment.app.FragmentActivity;
+import androidx.viewpager2.adapter.FragmentStateAdapter;
+import androidx.viewpager2.widget.ViewPager2;
 
-import com.tachibana.downloader.R;
-
-public class DownloadListPagerAdapter extends FragmentPagerAdapter
-{
+public class DownloadListPagerAdapter extends FragmentStateAdapter {
+    @ViewPager2.OffscreenPageLimit
     public static final int NUM_FRAGMENTS = 2;
+
     public static final int QUEUED_FRAG_POS = 0;
     public static final int COMPLETED_FRAG_POS = 1;
 
-    private Context context;
-
-    public DownloadListPagerAdapter(Context context, FragmentManager fm)
-    {
-        super(fm, BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT);
-
-        this.context = context;
+    public DownloadListPagerAdapter(FragmentActivity fa) {
+        super(fa);
     }
 
     @NonNull
     @Override
-    public Fragment getItem(int position)
-    {
+    public Fragment createFragment(int position) {
         /* Stubs */
         switch (position) {
             case QUEUED_FRAG_POS:
@@ -60,24 +52,7 @@ public class DownloadListPagerAdapter extends FragmentPagerAdapter
     }
 
     @Override
-    public CharSequence getPageTitle(int position)
-    {
-        if (position < 0 || position >= getCount())
-            return null;
-
-        switch (position) {
-            case QUEUED_FRAG_POS:
-                return context.getString(R.string.fragment_title_queued);
-            case COMPLETED_FRAG_POS:
-                return context.getString(R.string.fragment_title_completed);
-            default:
-                return null;
-        }
-    }
-
-    @Override
-    public int getCount()
-    {
+    public int getItemCount() {
         return NUM_FRAGMENTS;
     }
 }
