@@ -41,6 +41,8 @@ import android.view.ViewTreeObserver;
 import android.widget.Button;
 import android.widget.Toast;
 
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
@@ -75,7 +77,6 @@ public class DownloadDetailsDialog extends DialogFragment
     @SuppressWarnings("unused")
     private static final String TAG = DownloadDetailsDialog.class.getSimpleName();
 
-    private static final int CHOOSE_PATH_TO_SAVE_REQUEST_CODE = 1;
     private static final String TAG_OPEN_DIR_ERROR_DIALOG = "open_dir_error_dialog";
     private static final String TAG_REPLACE_FILE_DIALOG = "replace_file_dialog";
     private static final String TAG_ID = "id";
@@ -490,7 +491,7 @@ public class DownloadDetailsDialog extends DialogFragment
                 FileManagerConfig.DIR_CHOOSER_MODE);
 
         i.putExtra(FileManagerDialog.TAG_CONFIG, config);
-        startActivityForResult(i, CHOOSE_PATH_TO_SAVE_REQUEST_CODE);
+        pathToSave.launch(i);
     }
 
     private void showClipboardDialog(String tag)
@@ -506,19 +507,21 @@ public class DownloadDetailsDialog extends DialogFragment
         }
     }
 
-    @Override
-    public void onActivityResult(int requestCode, int resultCode, Intent data)
-    {
-        if (resultCode != CHOOSE_PATH_TO_SAVE_REQUEST_CODE && resultCode != Activity.RESULT_OK)
-            return;
+    final ActivityResultLauncher<Intent> pathToSave = registerForActivityResult(
+            new ActivityResultContracts.StartActivityForResult(),
+            result -> {
+                Intent data = result.getData();
+                if (result.getResultCode() != Activity.RESULT_OK)
+                    return;
 
-        if (data == null || data.getData() == null) {
-            showOpenDirErrorDialog();
-            return;
-        }
+                if (data == null || data.getData() == null) {
+                    showOpenDirErrorDialog();
+                    return;
+                }
 
-        viewModel.mutableParams.setDirPath(data.getData());
-    }
+                viewModel.mutableParams.setDirPath(data.getData());
+            }
+    );
 
     private void showOpenDirErrorDialog()
     {

@@ -189,7 +189,7 @@ public class BrowserBookmarksAdapter extends ListAdapter<BrowserBookmarkItem, Br
         @Override
         public ItemDetails getItemDetails()
         {
-            return new ItemDetails(selectionKey, getAdapterPosition());
+            return new ItemDetails(selectionKey, getBindingAdapterPosition());
         }
     }
 

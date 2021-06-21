@@ -195,7 +195,7 @@ public class DownloadListAdapter extends ListAdapter<DownloadItem, DownloadListA
         @Override
         public ItemDetails getItemDetails()
         {
-            return new ItemDetails(selectionKey, getAdapterPosition());
+            return new ItemDetails(selectionKey, getBindingAdapterPosition());
         }
     }
 

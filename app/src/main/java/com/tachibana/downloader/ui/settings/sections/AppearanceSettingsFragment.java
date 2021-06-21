@@ -20,6 +20,8 @@
 
 package com.tachibana.downloader.ui.settings.sections;
 
+import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.media.RingtoneManager;
 import android.net.Uri;
@@ -28,6 +30,8 @@ import android.os.Bundle;
 import android.provider.Settings;
 import android.view.View;
 
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.coordinatorlayout.widget.CoordinatorLayout;
@@ -48,8 +52,6 @@ public class AppearanceSettingsFragment extends PreferenceFragmentCompat
 {
     @SuppressWarnings("unused")
     private static final String TAG = AppearanceSettingsFragment.class.getSimpleName();
-
-    private static final int REQUEST_CODE_ALERT_RINGTONE = 1;
 
     private SettingsRepository pref;
     private CoordinatorLayout coordinatorLayout;
@@ -152,7 +154,7 @@ public class AppearanceSettingsFragment extends PreferenceFragmentCompat
                     intent.putExtra(RingtoneManager.EXTRA_RINGTONE_EXISTING_URI, Settings.System.DEFAULT_NOTIFICATION_URI);
                 }
 
-                startActivityForResult(intent, REQUEST_CODE_ALERT_RINGTONE);
+                alertRingtone.launch(intent);
 
                 return true;
             });
@@ -186,24 +188,26 @@ public class AppearanceSettingsFragment extends PreferenceFragmentCompat
         setPreferencesFromResource(R.xml.pref_appearance, rootKey);
     }
 
-    @Override
-    public void onActivityResult(int requestCode, int resultCode, Intent data)
-    {
-        if (requestCode == REQUEST_CODE_ALERT_RINGTONE && data != null) {
-            Uri ringtone = data.getParcelableExtra(RingtoneManager.EXTRA_RINGTONE_PICKED_URI);
-            if (ringtone != null) {
-                String keyNotifySound = getString(R.string.pref_key_notify_sound);
-                Preference notifySound = findPreference(keyNotifySound);
-                if (notifySound != null)
-                    notifySound.setSummary(RingtoneManager.getRingtone(getActivity().getApplicationContext(), ringtone)
-                            .getTitle(getActivity().getApplicationContext()));
-                pref.notifySound(ringtone.toString());
+    final ActivityResultLauncher<Intent> alertRingtone = registerForActivityResult(
+            new ActivityResultContracts.StartActivityForResult(),
+            result -> {
+                Intent data = result.getData();
+                if (result.getResultCode() == Activity.RESULT_OK && data != null) {
+                    Uri ringtone = data.getParcelableExtra(RingtoneManager.EXTRA_RINGTONE_PICKED_URI);
+                    if (ringtone != null) {
+                        String keyNotifySound = getString(R.string.pref_key_notify_sound);
+                        Preference notifySound = findPreference(keyNotifySound);
+                        if (notifySound != null) {
+                            Context context = getActivity().getApplicationContext();
+                            notifySound.setSummary(
+                                    RingtoneManager.getRingtone(context, ringtone).getTitle(context)
+                            );
+                        }
+                        pref.notifySound(ringtone.toString());
+                    }
+                }
             }
-
-        } else {
-            super.onActivityResult(requestCode, resultCode, data);
-        }
-    }
+    );
 
     private void bindOnPreferenceChangeListener(Preference preference)
     {

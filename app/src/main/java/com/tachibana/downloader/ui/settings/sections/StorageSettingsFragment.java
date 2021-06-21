@@ -27,6 +27,8 @@ import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.preference.Preference;
 import androidx.preference.SwitchPreferenceCompat;
 
@@ -47,8 +49,6 @@ public class StorageSettingsFragment extends PreferenceFragmentCompat
     private static final String TAG = StorageSettingsFragment.class.getSimpleName();
 
     private static final String TAG_DIR_CHOOSER_BIND_PREF = "dir_chooser_bind_pref";
-
-    private static final int DOWNLOAD_DIR_CHOOSE_REQUEST = 1;
 
     private SettingsRepository pref;
     /* Preference that is associated with the current dir selection dialog */
@@ -159,32 +159,33 @@ public class StorageSettingsFragment extends PreferenceFragmentCompat
         FileManagerConfig config = new FileManagerConfig(dirPath, null, FileManagerConfig.DIR_CHOOSER_MODE);
         i.putExtra(FileManagerDialog.TAG_CONFIG, config);
 
-        startActivityForResult(i, DOWNLOAD_DIR_CHOOSE_REQUEST);
+        dirChoose.launch(i);
     }
 
-    @Override
-    public void onActivityResult(int requestCode, int resultCode, Intent data)
-    {
-        if (requestCode == DOWNLOAD_DIR_CHOOSE_REQUEST && resultCode == Activity.RESULT_OK) {
-            if (data.getData() == null || dirChooserBindPref == null)
-                return;
+    final ActivityResultLauncher<Intent> dirChoose = registerForActivityResult(
+            new ActivityResultContracts.StartActivityForResult(),
+            result -> {
+                Intent data = result.getData();
+                if (result.getResultCode() == Activity.RESULT_OK) {
+                    if (data == null || data.getData() == null || dirChooserBindPref == null)
+                        return;
+                    Uri path = data.getData();
 
-            Uri path = data.getData();
+                    Preference p = findPreference(dirChooserBindPref);
+                    if (p == null)
+                        return;
 
-            Preference p = findPreference(dirChooserBindPref);
-            if (p == null)
-                return;
+                    if (dirChooserBindPref.equals(getString(R.string.pref_key_save_downloads_in))) {
+                        pref.saveDownloadsIn(path.toString());
 
-            if (dirChooserBindPref.equals(getString(R.string.pref_key_save_downloads_in))) {
-                pref.saveDownloadsIn(path.toString());
+                    } else if (dirChooserBindPref.equals(getString(R.string.pref_key_move_after_download_in))) {
+                        pref.moveAfterDownloadIn(path.toString());
 
-            } else if (dirChooserBindPref.equals(getString(R.string.pref_key_move_after_download_in))) {
-                pref.moveAfterDownloadIn(path.toString());
-
+                    }
+                    p.setSummary(fs.getDirName(path));
+                }
             }
-            p.setSummary(fs.getDirName(path));
-        }
-    }
+    );
 
     @Override
     public boolean onPreferenceChange(Preference preference, Object newValue)

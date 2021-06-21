@@ -28,6 +28,8 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.ActionBar;
@@ -68,7 +70,6 @@ public class BrowserBookmarksActivity extends AppCompatActivity
 
     private static final String TAG_BOOKMARKS_LIST_STATE = "bookmarks_list_state";
     private static final String SELECTION_TRACKER_ID = "selection_tracker_0";
-    private static final int REQUEST_CODE_EDIT_BOOKMARK = 1;
 
     private ActivityBrowserBookmarksBinding binding;
     private BrowserBookmarksViewModel viewModel;
@@ -306,7 +307,7 @@ public class BrowserBookmarksActivity extends AppCompatActivity
     {
         Intent i = new Intent(this, EditBookmarkActivity.class);
         i.putExtra(EditBookmarkActivity.TAG_BOOKMARK, bookmark);
-        startActivityForResult(i, REQUEST_CODE_EDIT_BOOKMARK);
+        editBookmark.launch(i);
     }
 
     private void deleteSelectedBookmarks()
@@ -384,32 +385,32 @@ public class BrowserBookmarksActivity extends AppCompatActivity
         }
     }
 
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data)
-    {
-        super.onActivityResult(requestCode, resultCode, data);
+    final ActivityResultLauncher<Intent> editBookmark = registerForActivityResult(
+            new ActivityResultContracts.StartActivityForResult(),
+            result -> {
+                Intent data = result.getData();
+                if (result.getResultCode() == RESULT_OK && data != null) {
+                    String action = data.getAction();
+                    if (action == null)
+                        return;
 
-        if (requestCode == REQUEST_CODE_EDIT_BOOKMARK && resultCode == RESULT_OK && data != null) {
-            String action = data.getAction();
-            if (action == null)
-                return;
-
-            String message = null;
-            switch (action) {
-                case EditBookmarkActivity.TAG_RESULT_ACTION_DELETE_BOOKMARK:
-                    message = getResources().getQuantityString(R.plurals.browser_bookmark_deleted, 1);
-                    break;
-                case EditBookmarkActivity.TAG_RESULT_ACTION_DELETE_BOOKMARK_FAILED:
-                    message = getResources().getQuantityString(R.plurals.browser_bookmark_delete_failed, 1);
-                    break;
-                case EditBookmarkActivity.TAG_RESULT_ACTION_APPLY_CHANGES_FAILED:
-                    message = getString(R.string.browser_bookmark_change_failed);
-                    break;
+                    String message = null;
+                    switch (action) {
+                        case EditBookmarkActivity.TAG_RESULT_ACTION_DELETE_BOOKMARK:
+                            message = getResources().getQuantityString(R.plurals.browser_bookmark_deleted, 1);
+                            break;
+                        case EditBookmarkActivity.TAG_RESULT_ACTION_DELETE_BOOKMARK_FAILED:
+                            message = getResources().getQuantityString(R.plurals.browser_bookmark_delete_failed, 1);
+                            break;
+                        case EditBookmarkActivity.TAG_RESULT_ACTION_APPLY_CHANGES_FAILED:
+                            message = getString(R.string.browser_bookmark_change_failed);
+                            break;
+                    }
+                    if (message != null)
+                        Snackbar.make(binding.coordinatorLayout, message, Snackbar.LENGTH_SHORT).show();
+                }
             }
-            if (message != null)
-                Snackbar.make(binding.coordinatorLayout, message, Snackbar.LENGTH_SHORT).show();
-        }
-    }
+    );
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item)

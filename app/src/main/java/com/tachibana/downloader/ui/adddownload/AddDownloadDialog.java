@@ -87,7 +87,6 @@ public class AddDownloadDialog extends DialogFragment {
     private static final String TAG = AddDownloadDialog.class.getSimpleName();
 
     private static final String TAG_ADD_USER_AGENT_DIALOG = "add_user_agent_dialog";
-    private static final int CHOOSE_PATH_TO_SAVE_REQUEST_CODE = 1;
     private static final String TAG_INIT_PARAMS = "init_params";
     private static final String TAG_CREATE_FILE_ERROR_DIALOG = "create_file_error_dialog";
     private static final String TAG_OPEN_DIR_ERROR_DIALOG = "open_dir_error_dialog";
@@ -782,7 +781,7 @@ public class AddDownloadDialog extends DialogFragment {
                 FileManagerConfig.DIR_CHOOSER_MODE);
 
         i.putExtra(FileManagerDialog.TAG_CONFIG, config);
-        startActivityForResult(i, CHOOSE_PATH_TO_SAVE_REQUEST_CODE);
+        pathToSave.launch(i);
     }
 
     private void showClipboardDialog(String tag)
@@ -798,19 +797,21 @@ public class AddDownloadDialog extends DialogFragment {
         }
     }
 
-    @Override
-    public void onActivityResult(int requestCode, int resultCode, Intent data)
-    {
-        if (resultCode != CHOOSE_PATH_TO_SAVE_REQUEST_CODE && resultCode != Activity.RESULT_OK)
-            return;
+    final ActivityResultLauncher<Intent> pathToSave = registerForActivityResult(
+            new ActivityResultContracts.StartActivityForResult(),
+            result -> {
+                Intent data = result.getData();
+                if (result.getResultCode() != Activity.RESULT_OK)
+                    return;
 
-        if (data == null || data.getData() == null) {
-            showOpenDirErrorDialog();
-            return;
-        }
+                if (data == null || data.getData() == null) {
+                    showOpenDirErrorDialog();
+                    return;
+                }
 
-        viewModel.params.setDirPath(data.getData());
-    }
+                viewModel.params.setDirPath(data.getData());
+            }
+    );
 
     private void showCreateFileErrorDialog()
     {

@@ -37,6 +37,8 @@ import android.view.inputmethod.InputMethodManager;
 import android.webkit.WebView;
 import android.widget.Toast;
 
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.ActionBar;
@@ -81,11 +83,6 @@ public class BrowserActivity extends AppCompatActivity
     private static final String TAG_DOUBLE_BACK_PRESSED = "double_back_pressed";
     private static final String TAG_IS_CURRENT_PAGE_BOOKMARKED = "is_current_page_bookmarked";
     private static final String TAG_CONTEXT_MENU_DIALOG = "context_menu_dialog";
-    private static final int REQUEST_CODE_SETTINGS = 1;
-    private static final int REQUEST_CODE_BOOKMARKS = 2;
-    private static final int REQUEST_CODE_EDIT_BOOKMARK = 3;
-    private static final int REQUEST_CODE_ADD_DOWNLOAD = 4;
-    private static final int REQUEST_CODE_COPY_TO_CLIPBOARD = 5;
 
     private BrowserViewModel viewModel;
     private WebView webView;
@@ -172,7 +169,7 @@ public class BrowserActivity extends AppCompatActivity
 
         Intent i = new Intent(this, AddDownloadActivity.class);
         i.putExtra(AddDownloadActivity.TAG_INIT_PARAMS, initParams);
-        startActivityForResult(i, REQUEST_CODE_ADD_DOWNLOAD);
+        startActivityForResult(i, 0);
     }
 
     private void handleUrlFetchState(BrowserViewModel.UrlFetchState fetchState)
@@ -463,21 +460,19 @@ public class BrowserActivity extends AppCompatActivity
 
         Intent i = new Intent(this, SendTextToClipboard.class);
         i.putExtra(Intent.EXTRA_TEXT, url);
-        startActivityForResult(i, REQUEST_CODE_COPY_TO_CLIPBOARD);
+        startActivityForResult(i, 0);
     }
 
     private void showSettings()
     {
         Intent i = new Intent(this, SettingsActivity.class);
         i.putExtra(SettingsActivity.TAG_OPEN_PREFERENCE, SettingsActivity.BrowserSettings);
-        startActivityForResult(i, REQUEST_CODE_SETTINGS);
+        settings.launch(i);
     }
 
     private void showBookmarks()
     {
-        startActivityForResult(
-                new Intent(this, BrowserBookmarksActivity.class),
-                REQUEST_CODE_BOOKMARKS);
+        bookmarks.launch(new Intent(this, BrowserBookmarksActivity.class));
     }
 
     private void addBookmark()
@@ -500,7 +495,7 @@ public class BrowserActivity extends AppCompatActivity
 
         Intent i = new Intent(this, EditBookmarkActivity.class);
         i.putExtra(EditBookmarkActivity.TAG_BOOKMARK, bookmark);
-        startActivityForResult(i, REQUEST_CODE_EDIT_BOOKMARK);
+        editBookmark.launch(i);
     }
 
     private void showBookmarkAddedSnackbar(BrowserBookmark bookmark)
@@ -523,27 +518,32 @@ public class BrowserActivity extends AppCompatActivity
                 .show();
     }
 
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data)
-    {
-        super.onActivityResult(requestCode, resultCode, data);
-
-        switch (requestCode) {
-            case REQUEST_CODE_SETTINGS:
+    final ActivityResultLauncher<Intent> settings = registerForActivityResult(
+            new ActivityResultContracts.StartActivityForResult(),
+            result -> {
                 /*
                  * Lazy applying settings
                  * TODO: consider other options for applying settings
                  */
                 recreate();
-                break;
-            case REQUEST_CODE_EDIT_BOOKMARK:
-                handleEditBookmarkRequest(resultCode, data);
-                break;
-            case REQUEST_CODE_BOOKMARKS:
+            }
+    );
+
+    final ActivityResultLauncher<Intent> editBookmark = registerForActivityResult(
+            new ActivityResultContracts.StartActivityForResult(),
+            result -> {
+                Intent data = result.getData();
+                handleEditBookmarkRequest(result.getResultCode(), data);
+            }
+    );
+
+    final ActivityResultLauncher<Intent> bookmarks = registerForActivityResult(
+            new ActivityResultContracts.StartActivityForResult(),
+            result -> {
+                Intent data = result.getData();
                 handleBookmarksRequest(data);
-                break;
-        }
-    }
+            }
+    );
 
     private void handleEditBookmarkRequest(int resultCode, @Nullable Intent data)
     {
