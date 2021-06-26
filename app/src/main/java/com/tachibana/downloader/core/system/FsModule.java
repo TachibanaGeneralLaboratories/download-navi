@@ -1,6 +1,6 @@
 /*
- * Copyright (C) 2019 Tachibana General Laboratories, LLC
- * Copyright (C) 2019 Yaroslav Pronin <proninyaroslav@mail.ru>
+ * Copyright (C) 2019-2021 Tachibana General Laboratories, LLC
+ * Copyright (C) 2019-2021 Yaroslav Pronin <proninyaroslav@mail.ru>
  *
  * This file is part of Download Navi.
  *
@@ -67,4 +67,12 @@ interface FsModule
     long getDirAvailableBytes(@NonNull Uri dir) throws IOException;
 
     long getFileSize(@NonNull Uri filePath);
+
+    void takePermissions(@NonNull Uri path);
+
+    /*
+     * Returns path (if present) or directory name
+     */
+
+    String getDirPath(@NonNull Uri dir);
 }

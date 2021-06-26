@@ -1,6 +1,6 @@
 /*
- * Copyright (C) 2018, 2019 Tachibana General Laboratories, LLC
- * Copyright (C) 2018, 2019, 2021 Yaroslav Pronin <proninyaroslav@mail.ru>
+ * Copyright (C) 2018-2021 Tachibana General Laboratories, LLC
+ * Copyright (C) 2018-2021 Yaroslav Pronin <proninyaroslav@mail.ru>
  *
  * This file is part of Download Navi.
  *
@@ -91,4 +91,8 @@ public interface FileSystemFacade
     long getFileSize(@NonNull Uri filePath);
 
     void truncate(@NonNull Uri filePath, long newSize) throws IOException;
+
+    void takePermissions(@NonNull Uri path);
+
+    String getDirPath(@NonNull Uri dir);
 }

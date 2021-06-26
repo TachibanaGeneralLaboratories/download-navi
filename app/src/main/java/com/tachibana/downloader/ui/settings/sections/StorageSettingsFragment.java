@@ -20,26 +20,21 @@
 
 package com.tachibana.downloader.ui.settings.sections;
 
-import android.app.Activity;
 import android.content.Context;
-import android.content.Intent;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 
 import androidx.activity.result.ActivityResultLauncher;
-import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.preference.Preference;
 import androidx.preference.SwitchPreferenceCompat;
 
 import com.tachibana.downloader.R;
 import com.tachibana.downloader.core.RepositoryHelper;
 import com.tachibana.downloader.core.settings.SettingsRepository;
+import com.tachibana.downloader.core.system.FileSystemContracts;
 import com.tachibana.downloader.core.system.FileSystemFacade;
 import com.tachibana.downloader.core.system.SystemFacadeHelper;
-import com.tachibana.downloader.core.utils.Utils;
-import com.tachibana.downloader.ui.filemanager.FileManagerConfig;
-import com.tachibana.downloader.ui.filemanager.FileManagerDialog;
 import com.takisoft.preferencex.PreferenceFragmentCompat;
 
 public class StorageSettingsFragment extends PreferenceFragmentCompat
@@ -84,7 +79,7 @@ public class StorageSettingsFragment extends PreferenceFragmentCompat
                 saveDownloadsIn.setSummary(fs.getDirName(uri));
                 saveDownloadsIn.setOnPreferenceClickListener((preference) -> {
                     dirChooserBindPref = getString(R.string.pref_key_save_downloads_in);
-                    dirChooseDialog(uri);
+                    dirChoose.launch(uri);
 
                     return true;
                 });
@@ -107,7 +102,7 @@ public class StorageSettingsFragment extends PreferenceFragmentCompat
                 moveAfterDownloadIn.setSummary(fs.getDirName(uri));
                 moveAfterDownloadIn.setOnPreferenceClickListener((preference) -> {
                     dirChooserBindPref = getString(R.string.pref_key_move_after_download_in);
-                    dirChooseDialog(uri);
+                    dirChoose.launch(uri);
 
                     return true;
                 });
@@ -149,41 +144,24 @@ public class StorageSettingsFragment extends PreferenceFragmentCompat
         preference.setOnPreferenceChangeListener(this);
     }
 
-    private void dirChooseDialog(Uri dirUri)
-    {
-        String dirPath = null;
-        if (dirUri != null && Utils.isFileSystemPath(dirUri))
-            dirPath = dirUri.getPath();
-
-        Intent i = new Intent(getActivity(), FileManagerDialog.class);
-        FileManagerConfig config = new FileManagerConfig(dirPath, null, FileManagerConfig.DIR_CHOOSER_MODE);
-        i.putExtra(FileManagerDialog.TAG_CONFIG, config);
-
-        dirChoose.launch(i);
-    }
-
-    final ActivityResultLauncher<Intent> dirChoose = registerForActivityResult(
-            new ActivityResultContracts.StartActivityForResult(),
-            result -> {
-                Intent data = result.getData();
-                if (result.getResultCode() == Activity.RESULT_OK) {
-                    if (data == null || data.getData() == null || dirChooserBindPref == null)
-                        return;
-                    Uri path = data.getData();
-
-                    Preference p = findPreference(dirChooserBindPref);
-                    if (p == null)
-                        return;
-
-                    if (dirChooserBindPref.equals(getString(R.string.pref_key_save_downloads_in))) {
-                        pref.saveDownloadsIn(path.toString());
-
-                    } else if (dirChooserBindPref.equals(getString(R.string.pref_key_move_after_download_in))) {
-                        pref.moveAfterDownloadIn(path.toString());
-
-                    }
-                    p.setSummary(fs.getDirName(path));
+    final ActivityResultLauncher<Uri> dirChoose = registerForActivityResult(
+            new FileSystemContracts.OpenDirectory(),
+            uri -> {
+                if (uri == null || dirChooserBindPref == null) {
+                    return;
                 }
+                Preference p = findPreference(dirChooserBindPref);
+                if (p == null) {
+                    return;
+                }
+
+                fs.takePermissions(uri);
+                if (dirChooserBindPref.equals(getString(R.string.pref_key_save_downloads_in))) {
+                    pref.saveDownloadsIn(uri.toString());
+                } else if (dirChooserBindPref.equals(getString(R.string.pref_key_move_after_download_in))) {
+                    pref.moveAfterDownloadIn(uri.toString());
+                }
+                p.setSummary(fs.getDirName(uri));
             }
     );
 

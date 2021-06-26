@@ -298,7 +298,7 @@ public class FileSystemFacadeTest extends AbstractTest
         assertEquals("test.txt", fakeFs.appendExtension("test", "text/plain"));
         assertEquals("test.png", fakeFs.appendExtension("test", "image/png"));
         assertEquals("test.png", fakeFs.appendExtension("test.png", "image/png"));
-        assertEquals("test.bin", fakeFs.appendExtension("test", "application/octet-stream"));
+        assertEquals("test", fakeFs.appendExtension("test", "application/octet-stream"));
     }
 
     @Test
@@ -387,5 +387,11 @@ public class FileSystemFacadeTest extends AbstractTest
         fsResolver.existsFileNames = Arrays.asList("bar");
         assertEquals("bar", fakeFs.getDirName(Uri.parse("file///root/bar")));
         fsResolver.existsFileNames = null;
+    }
+
+    @Test
+    public void getDirPath()
+    {
+        assertEquals("/bar", fakeFs.getDirPath(Uri.parse("file://foo/bar")));
     }
 }

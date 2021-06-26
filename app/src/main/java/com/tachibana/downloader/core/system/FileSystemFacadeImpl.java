@@ -1,6 +1,6 @@
 /*
- * Copyright (C) 2018, 2019 Tachibana General Laboratories, LLC
- * Copyright (C) 2018, 2019, 2021 Yaroslav Pronin <proninyaroslav@mail.ru>
+ * Copyright (C) 2018-2021 Tachibana General Laboratories, LLC
+ * Copyright (C) 2018-2021 Yaroslav Pronin <proninyaroslav@mail.ru>
  *
  * This file is part of Download Navi.
  *
@@ -506,5 +506,19 @@ class FileSystemFacadeImpl implements FileSystemFacade
                 chan.truncate(newSize);
             }
         }
+    }
+
+    @Override
+    public void takePermissions(@NonNull Uri path) {
+        FsModule fsModule = fsResolver.resolveFsByUri(path);
+
+        fsModule.takePermissions(path);
+    }
+
+    @Override
+    public String getDirPath(@NonNull Uri dir) {
+        FsModule fsModule = fsResolver.resolveFsByUri(dir);
+
+        return fsModule.getDirPath(dir);
     }
 }

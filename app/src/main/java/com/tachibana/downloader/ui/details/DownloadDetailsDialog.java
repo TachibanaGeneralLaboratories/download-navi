@@ -42,7 +42,6 @@ import android.widget.Button;
 import android.widget.Toast;
 
 import androidx.activity.result.ActivityResultLauncher;
-import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
@@ -56,6 +55,7 @@ import com.tachibana.downloader.R;
 import com.tachibana.downloader.core.exception.FileAlreadyExistsException;
 import com.tachibana.downloader.core.exception.FreeSpaceException;
 import com.tachibana.downloader.core.model.data.entity.DownloadInfo;
+import com.tachibana.downloader.core.system.FileSystemContracts;
 import com.tachibana.downloader.core.utils.Utils;
 import com.tachibana.downloader.databinding.DialogDownloadDetailsBinding;
 import com.tachibana.downloader.ui.BaseAlertDialog;
@@ -325,7 +325,9 @@ public class DownloadDetailsDialog extends DialogFragment
             }
         });
 
-        binding.folderChooserButton.setOnClickListener((v) -> showChooseDirDialog());
+        binding.folderChooserButton.setOnClickListener((v) ->
+                chooseDir.launch(viewModel.mutableParams.getDirPath())
+        );
         binding.urlClipboardButton.setOnClickListener((v) ->
                 showClipboardDialog(TAG_URL_CLIPBOARD_DIALOG));
         binding.checksumClipboardButton.setOnClickListener((v) ->
@@ -477,23 +479,6 @@ public class DownloadDetailsDialog extends DialogFragment
                 .show();
     }
 
-    private void showChooseDirDialog()
-    {
-        Intent i = new Intent(activity, FileManagerDialog.class);
-
-        String dirPath = null;
-        Uri dirUri = viewModel.mutableParams.getDirPath();
-        if (dirUri != null && Utils.isFileSystemPath(dirUri))
-            dirPath = dirUri.getPath();
-
-        FileManagerConfig config = new FileManagerConfig(dirPath,
-                getString(R.string.select_folder_to_save),
-                FileManagerConfig.DIR_CHOOSER_MODE);
-
-        i.putExtra(FileManagerDialog.TAG_CONFIG, config);
-        pathToSave.launch(i);
-    }
-
     private void showClipboardDialog(String tag)
     {
         if (!isAdded())
@@ -507,19 +492,19 @@ public class DownloadDetailsDialog extends DialogFragment
         }
     }
 
-    final ActivityResultLauncher<Intent> pathToSave = registerForActivityResult(
-            new ActivityResultContracts.StartActivityForResult(),
-            result -> {
-                Intent data = result.getData();
-                if (result.getResultCode() != Activity.RESULT_OK)
-                    return;
-
-                if (data == null || data.getData() == null) {
-                    showOpenDirErrorDialog();
+    final ActivityResultLauncher<Uri> chooseDir = registerForActivityResult(
+            new FileSystemContracts.OpenDirectory(),
+            uri -> {
+                if (uri == null) {
                     return;
                 }
-
-                viewModel.mutableParams.setDirPath(data.getData());
+                try {
+                    viewModel.fs.takePermissions(uri);
+                    viewModel.mutableParams.setDirPath(uri);
+                } catch (Exception e) {
+                    Log.e(TAG, "Unable to open directory: " + Log.getStackTraceString(e));
+                    showOpenDirErrorDialog();
+                }
             }
     );
 

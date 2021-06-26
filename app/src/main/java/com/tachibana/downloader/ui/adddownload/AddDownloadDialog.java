@@ -36,6 +36,7 @@ import android.text.Editable;
 import android.text.TextUtils;
 import android.text.TextWatcher;
 import android.text.format.Formatter;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -60,19 +61,18 @@ import androidx.fragment.app.FragmentTransaction;
 import androidx.lifecycle.ViewModelProvider;
 
 import com.google.android.material.textfield.TextInputEditText;
-import com.tachibana.downloader.ui.PermissionDeniedDialog;
 import com.tachibana.downloader.R;
 import com.tachibana.downloader.core.exception.FreeSpaceException;
 import com.tachibana.downloader.core.exception.HttpException;
 import com.tachibana.downloader.core.exception.NormalizeUrlException;
 import com.tachibana.downloader.core.model.data.entity.UserAgent;
+import com.tachibana.downloader.core.system.FileSystemContracts;
 import com.tachibana.downloader.core.utils.Utils;
 import com.tachibana.downloader.databinding.DialogAddDownloadBinding;
 import com.tachibana.downloader.ui.BaseAlertDialog;
 import com.tachibana.downloader.ui.ClipboardDialog;
 import com.tachibana.downloader.ui.FragmentCallback;
-import com.tachibana.downloader.ui.filemanager.FileManagerConfig;
-import com.tachibana.downloader.ui.filemanager.FileManagerDialog;
+import com.tachibana.downloader.ui.PermissionDeniedDialog;
 
 import java.io.IOException;
 import java.net.ConnectException;
@@ -476,7 +476,9 @@ public class AddDownloadDialog extends DialogFragment {
             }
         });
 
-        binding.folderChooserButton.setOnClickListener((v) -> showChooseDirDialog());
+        binding.folderChooserButton.setOnClickListener((v) ->
+            chooseDir.launch(viewModel.params.getDirPath())
+        );
         binding.urlClipboardButton.setOnClickListener((v) ->
                 showClipboardDialog(TAG_URL_CLIPBOARD_DIALOG));
         binding.checksumClipboardButton.setOnClickListener((v) ->
@@ -767,23 +769,6 @@ public class AddDownloadDialog extends DialogFragment {
         finish(new Intent(), FragmentCallback.ResultCode.OK);
     }
 
-    private void showChooseDirDialog()
-    {
-        Intent i = new Intent(activity, FileManagerDialog.class);
-
-        String dirPath = null;
-        Uri dirUri = viewModel.params.getDirPath();
-        if (dirUri != null && Utils.isFileSystemPath(dirUri))
-            dirPath = dirUri.getPath();
-
-        FileManagerConfig config = new FileManagerConfig(dirPath,
-                getString(R.string.select_folder_to_save),
-                FileManagerConfig.DIR_CHOOSER_MODE);
-
-        i.putExtra(FileManagerDialog.TAG_CONFIG, config);
-        pathToSave.launch(i);
-    }
-
     private void showClipboardDialog(String tag)
     {
         if (!isAdded())
@@ -797,19 +782,19 @@ public class AddDownloadDialog extends DialogFragment {
         }
     }
 
-    final ActivityResultLauncher<Intent> pathToSave = registerForActivityResult(
-            new ActivityResultContracts.StartActivityForResult(),
-            result -> {
-                Intent data = result.getData();
-                if (result.getResultCode() != Activity.RESULT_OK)
-                    return;
-
-                if (data == null || data.getData() == null) {
-                    showOpenDirErrorDialog();
+    final ActivityResultLauncher<Uri> chooseDir = registerForActivityResult(
+            new FileSystemContracts.OpenDirectory(),
+            uri -> {
+                if (uri == null) {
                     return;
                 }
-
-                viewModel.params.setDirPath(data.getData());
+                try {
+                    viewModel.fs.takePermissions(uri);
+                    viewModel.params.setDirPath(uri);
+                } catch (Exception e) {
+                    Log.e(TAG, "Unable to open directory: " + Log.getStackTraceString(e));
+                    showOpenDirErrorDialog();
+                }
             }
     );
 

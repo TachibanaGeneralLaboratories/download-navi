@@ -115,20 +115,4 @@ public class FileManagerViewModelTest extends AbstractTest
                 f.delete();
         }
     }
-
-    @Test
-    public void testPermissionDenied()
-    {
-        try {
-            viewModel.jumpToDirectory(fs.getUserDirPath());
-            viewModel.upToParentDirectory();
-
-        } catch (SecurityException e) {
-            return;
-        } catch (Exception e) {
-            fail(Log.getStackTraceString(e));
-        }
-
-        fail("Permission available");
-    }
 }

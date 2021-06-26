@@ -1,6 +1,6 @@
 /*
- * Copyright (C) 2019 Tachibana General Laboratories, LLC
- * Copyright (C) 2019 Yaroslav Pronin <proninyaroslav@mail.ru>
+ * Copyright (C) 2019-2021 Tachibana General Laboratories, LLC
+ * Copyright (C) 2019-2021 Yaroslav Pronin <proninyaroslav@mail.ru>
  *
  * This file is part of Download Navi.
  *
@@ -102,5 +102,15 @@ public class FakeFsModule implements FsModule
     @Override
     public long getFileSize(@NonNull Uri filePath) {
         return -1;
+    }
+
+    @Override
+    public void takePermissions(@NonNull Uri path) {
+        // None
+    }
+
+    @Override
+    public String getDirPath(@NonNull Uri dir) {
+        return dir.getPath();
     }
 }

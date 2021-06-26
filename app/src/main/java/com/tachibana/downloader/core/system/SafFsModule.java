@@ -1,6 +1,6 @@
 /*
- * Copyright (C) 2019 Tachibana General Laboratories, LLC
- * Copyright (C) 2019 Yaroslav Pronin <proninyaroslav@mail.ru>
+ * Copyright (C) 2019-2021 Tachibana General Laboratories, LLC
+ * Copyright (C) 2019-2021 Yaroslav Pronin <proninyaroslav@mail.ru>
  *
  * This file is part of Download Navi.
  *
@@ -23,6 +23,7 @@ package com.tachibana.downloader.core.system;
 import android.annotation.TargetApi;
 import android.content.ContentResolver;
 import android.content.Context;
+import android.content.Intent;
 import android.net.Uri;
 import android.os.ParcelFileDescriptor;
 import android.system.Os;
@@ -112,6 +113,22 @@ class SafFsModule implements FsModule
         SafFileSystem.Stat stat = fs.stat(filePath);
 
         return (stat == null ? -1 : stat.length);
+    }
+
+    @Override
+    public void takePermissions(@NonNull Uri path) {
+        ContentResolver resolver = appContext.getContentResolver();
+
+        int takeFlags = Intent.FLAG_GRANT_READ_URI_PERMISSION |
+                Intent.FLAG_GRANT_WRITE_URI_PERMISSION;
+        resolver.takePersistableUriPermission(path, takeFlags);
+    }
+
+    @Override
+    public String getDirPath(@NonNull Uri dir) {
+        SafFileSystem.Stat stat = SafFileSystem.getInstance(appContext).statSafRoot(dir);
+
+        return (stat == null || stat.name == null ? dir.getPath() : stat.name);
     }
 
     /*

@@ -208,7 +208,7 @@ public class DownloadThreadTest extends AbstractTest
     @Test
     public void testDownload_withoutPartialSupport()
     {
-        String url = "http://example.org";
+        String url = "http://example.com";
         String name = "example.html";
 
         /* Write download info */
