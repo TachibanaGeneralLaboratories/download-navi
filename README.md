@@ -99,7 +99,7 @@ Please see [CONTRIBUTING.md](CONTRIBUTING.md)
 
 ## 🔒 Privacy Policy
 
-Please see our [privacy policy](Privacy.md).
+Please see our [privacy policy](PRIVACY.md).
 
 ## 📄 License
 
