@@ -556,8 +556,12 @@ class DownloadThreadImpl implements DownloadThread
             }
         }
 
-        if (mimeType != null && !mimeType.equals(info.mimeType))
+        if (mimeType != null && !mimeType.equals(info.mimeType)) {
             info.mimeType = mimeType;
+            if (TextUtils.isEmpty(fs.getExtension(info.fileName))) {
+                info.fileName = fs.appendExtension(info.fileName, info.mimeType);
+            }
+        }
 
         final String transferEncoding = conn.getHeaderField("Transfer-Encoding");
         if (transferEncoding == null) {

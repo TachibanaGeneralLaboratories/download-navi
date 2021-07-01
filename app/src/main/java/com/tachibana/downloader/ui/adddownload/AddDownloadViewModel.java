@@ -436,7 +436,7 @@ public class AddDownloadViewModel extends AndroidViewModel
 
         ArrayList<Header> headers = new ArrayList<>();
         headers.add(new Header(info.id, "ETag", params.getEtag()));
-        if (params.getReferer() != null && !params.getReferer().isEmpty()) {
+        if (!TextUtils.isEmpty(params.getReferer())) {
             headers.add(new Header(info.id, "Referer", params.getReferer()));
         }
 
@@ -470,9 +470,14 @@ public class AddDownloadViewModel extends AndroidViewModel
         Uri filePath = fs.getFileUri(params.getDirPath(), params.getFileName());
 
         String fileName = params.getFileName();
-        if (!fs.isValidFatFilename(fileName))
+        if (!fs.isValidFatFilename(fileName)) {
             fileName = fs.buildValidFatFilename(params.getFileName());
-        fileName = fs.appendExtension(fileName, params.getMimeType());
+        }
+        String mimeType = params.getMimeType();
+        if (TextUtils.isEmpty(fs.getExtension(fileName)) &&
+                !"application/octet-stream".equals(mimeType)) {
+            fileName = fs.appendExtension(fileName, mimeType);
+        }
         if (filePath != null && params.isReplaceFile()) {
             try {
                 fs.truncate(filePath, 0);
