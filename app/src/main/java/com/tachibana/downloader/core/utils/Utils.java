@@ -875,6 +875,13 @@ public class Utils {
                 null);
     }
 
+    /*
+     * If an HTML document is returned, then need a Referer from the site URL to download a required file
+     */
+    public static boolean needsReferer(@Nullable String mimeType, @Nullable String extension) {
+        return "text/html".equals(mimeType) || "html".equals(extension) || "htm".equals(extension);
+    }
+
     public static List<DrawerGroup> getNavigationDrawerItems(@NonNull Context context,
                                                              @NonNull SharedPreferences localPref) {
         Resources res = context.getResources();

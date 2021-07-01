@@ -433,73 +433,81 @@ class DownloadThreadImpl implements DownloadThread
     private StopRequest fetchMetadata()
     {
         final StopRequest[] ret = new StopRequest[1];
+        final boolean[] connectWithReferer = new boolean[] {false};
 
-        HttpConnection connection;
-        try {
-            connection = new HttpConnection(info.url);
+        do {
+            HttpConnection connection;
+            try {
+                connection = new HttpConnection(info.url);
 
-        } catch (MalformedURLException e) {
-            return new StopRequest(STATUS_BAD_REQUEST, "bad url " + info.url, e);
-        } catch (GeneralSecurityException e) {
-            return new StopRequest(STATUS_UNKNOWN_ERROR, "Unable to create SSLContext");
-        }
-        connection.setTimeout(pref.timeout());
-        connection.setListener(new HttpConnection.Listener() {
-            @Override
-            public void onConnectionCreated(HttpURLConnection conn)
-            {
-                ret[0] = addRequestHeaders(conn);
+            } catch (MalformedURLException e) {
+                return new StopRequest(STATUS_BAD_REQUEST, "bad url " + info.url, e);
+            } catch (GeneralSecurityException e) {
+                return new StopRequest(STATUS_UNKNOWN_ERROR, "Unable to create SSLContext");
             }
-
-            @Override
-            public void onResponseHandle(HttpURLConnection conn, int code, String message)
-            {
-                switch (code) {
-                    case HTTP_OK:
-                        ret[0] = parseOkHeaders(conn);
-                        break;
-                    case HTTP_PRECON_FAILED:
-                        ret[0] = new StopRequest(STATUS_CANNOT_RESUME,
-                                "Precondition failed");
-                        break;
-                    case HTTP_UNAVAILABLE:
-                        parseUnavailableHeaders(conn);
-                        ret[0] = new StopRequest(HTTP_UNAVAILABLE, message);
-                        break;
-                    case HTTP_INTERNAL_ERROR:
-                        ret[0] = new StopRequest(HTTP_INTERNAL_ERROR, message);
-                        break;
-                    default:
-                        ret[0] = StopRequest.getUnhandledHttpError(code, message);
-                        break;
+            connection.setReferer(connectWithReferer[0] ? info.url : null);
+            connection.setTimeout(pref.timeout());
+            connection.setListener(new HttpConnection.Listener() {
+                @Override
+                public void onConnectionCreated(HttpURLConnection conn)
+                {
+                    ret[0] = addRequestHeaders(conn);
                 }
-            }
 
-            @Override
-            public void onMovedPermanently(String newUrl)
-            {
-                info.url = newUrl;
-            }
+                @Override
+                public void onResponseHandle(HttpURLConnection conn, int code, String message)
+                {
+                    switch (code) {
+                        case HTTP_OK:
+                            connectWithReferer[0] = parseOkHeaders(conn, connectWithReferer[0]);
+                            StopRequest r;
+                            if ((r = checkPauseStop()) != null)
+                                ret[0] = r;
+                            break;
+                        case HTTP_PRECON_FAILED:
+                            ret[0] = new StopRequest(STATUS_CANNOT_RESUME,
+                                    "Precondition failed");
+                            break;
+                        case HTTP_UNAVAILABLE:
+                            parseUnavailableHeaders(conn);
+                            ret[0] = new StopRequest(HTTP_UNAVAILABLE, message);
+                            break;
+                        case HTTP_INTERNAL_ERROR:
+                            ret[0] = new StopRequest(HTTP_INTERNAL_ERROR, message);
+                            break;
+                        default:
+                            ret[0] = StopRequest.getUnhandledHttpError(code, message);
+                            break;
+                    }
+                }
 
-            @Override
-            public void onIOException(IOException e)
-            {
-                if (e instanceof ProtocolException && e.getMessage().startsWith("Unexpected status line"))
-                    ret[0] = new StopRequest(STATUS_UNHANDLED_HTTP_CODE, e);
-                else if (e instanceof InterruptedIOException)
-                    ret[0] = new StopRequest(STATUS_STOPPED, "Download cancelled");
-                else
-                    /* Trouble with low-level sockets */
-                    ret[0] = new StopRequest(STATUS_HTTP_DATA_ERROR, e);
-            }
+                @Override
+                public void onMovedPermanently(String newUrl)
+                {
+                    info.url = newUrl;
+                }
 
-            @Override
-            public void onTooManyRedirects()
-            {
-                ret[0] = new StopRequest(STATUS_TOO_MANY_REDIRECTS, "Too many redirects");
-            }
-        });
-        connection.run();
+                @Override
+                public void onIOException(IOException e)
+                {
+                    if (e instanceof ProtocolException && e.getMessage().startsWith("Unexpected status line"))
+                        ret[0] = new StopRequest(STATUS_UNHANDLED_HTTP_CODE, e);
+                    else if (e instanceof InterruptedIOException)
+                        ret[0] = new StopRequest(STATUS_STOPPED, "Download cancelled");
+                    else
+                        /* Trouble with low-level sockets */
+                        ret[0] = new StopRequest(STATUS_HTTP_DATA_ERROR, e);
+                }
+
+                @Override
+                public void onTooManyRedirects()
+                {
+                    ret[0] = new StopRequest(STATUS_TOO_MANY_REDIRECTS, "Too many redirects");
+                }
+            });
+            connection.run();
+
+        } while (connectWithReferer[0]);
 
         return ret[0];
     }
@@ -508,19 +516,23 @@ class DownloadThreadImpl implements DownloadThread
         if (conn.getRequestProperty("User-Agent") == null && !TextUtils.isEmpty(info.userAgent)) {
             conn.addRequestProperty("User-Agent", info.userAgent);
         }
+        for (Header header : repo.getHeadersById(id)) {
+            conn.addRequestProperty(header.name, header.value);
+        }
         return null;
     }
 
-    private StopRequest parseOkHeaders(HttpURLConnection conn)
+    private boolean parseOkHeaders(HttpURLConnection conn, boolean needsRefererPrevValue)
     {
         String mimeType = Intent.normalizeMimeType(conn.getContentType());
+        String fileName = null;
         /* Try to determine the MIME type by the filename extension */
         if (mimeType == null || mimeType.equals("application/octet-stream")) {
             String contentDisposition = conn.getHeaderField("Content-Disposition");
             String contentLocation = conn.getHeaderField("Content-Location");
             String tmpUrl = conn.getURL().toString();
 
-            String fileName = Utils.getHttpFileName(fs,
+            fileName = Utils.getHttpFileName(fs,
                     tmpUrl,
                     contentDisposition,
                     contentLocation,
@@ -530,6 +542,18 @@ class DownloadThreadImpl implements DownloadThread
             String extension = fs.getExtension(fileName);
             if (!TextUtils.isEmpty(extension))
                 mimeType = MimeTypeUtils.getMimeTypeFromExtension(extension);
+        }
+
+        boolean currentRefererEmpty = TextUtils.isEmpty(conn.getHeaderField("Referer"));
+        boolean needsReferer = currentRefererEmpty &&
+                Utils.needsReferer(mimeType, fs.getExtension(fileName));
+        String urlReferer = null;
+        if (needsReferer && !needsRefererPrevValue) {
+            return true;
+        } else if (!needsReferer && needsRefererPrevValue) {
+            if (currentRefererEmpty) {
+                urlReferer = info.url;
+            }
         }
 
         if (mimeType != null && !mimeType.equals(info.mimeType))
@@ -549,29 +573,36 @@ class DownloadThreadImpl implements DownloadThread
         info.partialSupport = "bytes".equalsIgnoreCase(conn.getHeaderField("Accept-Ranges"));
 
         Header eTagHeader = null;
-        /* Find already added ETag */
+        Header refererHeader = null;
+        /* Find already added ETag and Referer */
         for (Header header : repo.getHeadersById(id)) {
-            if ("ETag".equals(header.name)) {
+            if ("Referer".equals(header.name)) {
+                refererHeader = header;
+            } else if ("ETag".equals(header.name)) {
                 eTagHeader = header;
+            }
+            if (refererHeader != null && eTagHeader != null) {
                 break;
             }
         }
-        if (eTagHeader == null)
-            eTagHeader = new Header(id, "ETag", conn.getHeaderField("ETag"));
-        else
-            eTagHeader.value = conn.getHeaderField("ETag");
 
+        if (eTagHeader == null) {
+            eTagHeader = new Header(id, "ETag", conn.getHeaderField("ETag"));
+        } else {
+            eTagHeader.value = conn.getHeaderField("ETag");
+        }
         repo.addHeader(eTagHeader);
+
+        if (refererHeader == null && urlReferer != null) {
+            refererHeader = new Header(id, "Referer", urlReferer);
+            repo.addHeader(refererHeader);
+        }
 
         info.hasMetadata = true;
         info.statusCode = STATUS_RUNNING;
         writeToDatabase(true);
 
-        StopRequest ret;
-        if ((ret = checkPauseStop()) != null)
-            return ret;
-
-        return null;
+        return false;
     }
 
     private void parseUnavailableHeaders(@NonNull HttpURLConnection conn)

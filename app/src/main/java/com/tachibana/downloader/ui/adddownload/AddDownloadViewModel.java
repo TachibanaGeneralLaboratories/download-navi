@@ -261,69 +261,79 @@ public class AddDownloadViewModel extends AndroidViewModel
             if (!url.startsWith(Utils.HTTP_PREFIX))
                 return new MalformedURLException(Utils.getScheme(url));
 
-            HttpConnection connection;
-            try {
-                connection = new HttpConnection(url);
-            } catch (Exception e) {
-                return e;
-            }
-            connection.setTimeout(viewModel.get().pref.timeout());
-            connection.setReferer(params[1] == null ? params[0] : params[1]);
-            
-            NetworkInfo netInfo = viewModel.get().systemFacade.getActiveNetworkInfo();
-            if (netInfo == null || !netInfo.isConnected())
-                return new ConnectException("Network is disconnected");
+            final Exception[] err = new Exception[1];
+            final boolean[] connectWithReferer = new boolean[] {false};
+            do {
+                HttpConnection connection;
+                try {
+                    connection = new HttpConnection(url);
+                } catch (Exception e) {
+                    return e;
+                }
+                connection.setTimeout(viewModel.get().pref.timeout());
+                connection.setReferer(
+                        params[1] == null && connectWithReferer[0] ?
+                                params[0] :
+                                params[1]
+                );
 
-            Exception[] err = new Exception[1];
-            connection.setListener(new HttpConnection.Listener() {
-                @Override
-                public void onConnectionCreated(HttpURLConnection conn)
-                {
-                    String userAgent = viewModel.get().params.getUserAgent();
-                    if (conn.getRequestProperty("User-Agent") == null && !TextUtils.isEmpty(userAgent)) {
-                        conn.addRequestProperty("User-Agent", userAgent);
+                NetworkInfo netInfo = viewModel.get().systemFacade.getActiveNetworkInfo();
+                if (netInfo == null || !netInfo.isConnected())
+                    return new ConnectException("Network is disconnected");
+
+                connection.setListener(new HttpConnection.Listener() {
+                    @Override
+                    public void onConnectionCreated(HttpURLConnection conn)
+                    {
+                        String userAgent = viewModel.get().params.getUserAgent();
+                        if (conn.getRequestProperty("User-Agent") == null && !TextUtils.isEmpty(userAgent)) {
+                            conn.addRequestProperty("User-Agent", userAgent);
+                        }
                     }
-                }
 
-                @Override
-                public void onResponseHandle(HttpURLConnection conn, int code, String message)
-                {
-                    if (viewModel.get() == null)
-                        return;
+                    @Override
+                    public void onResponseHandle(HttpURLConnection conn, int code, String message)
+                    {
+                        if (viewModel.get() == null)
+                            return;
 
-                    if (code == HttpURLConnection.HTTP_OK)
-                        viewModel.get().parseOkHeaders(conn);
-                    else
-                        err[0] = new HttpException("Failed to fetch link, response code: " + code, code);
-                }
+                        if (code == HttpURLConnection.HTTP_OK) {
+                            connectWithReferer[0] = viewModel.get()
+                                    .parseOkHeaders(conn, connectWithReferer[0]);
+                        } else {
+                            err[0] = new HttpException("Failed to fetch link, response code: " + code, code);
+                        }
+                    }
 
-                @Override
-                public void onMovedPermanently(String newUrl)
-                {
-                    if (viewModel.get() == null)
-                        return;
+                    @Override
+                    public void onMovedPermanently(String newUrl)
+                    {
+                        if (viewModel.get() == null)
+                            return;
 
-                    try {
-                        viewModel.get().params.setUrl(NormalizeUrl.normalize(newUrl));
+                        try {
+                            viewModel.get().params.setUrl(NormalizeUrl.normalize(newUrl));
 
-                    } catch (NormalizeUrlException e) {
+                        } catch (NormalizeUrlException e) {
+                            err[0] = e;
+                        }
+                    }
+
+                    @Override
+                    public void onIOException(IOException e)
+                    {
                         err[0] = e;
                     }
-                }
 
-                @Override
-                public void onIOException(IOException e)
-                {
-                    err[0] = e;
-                }
+                    @Override
+                    public void onTooManyRedirects()
+                    {
+                        err[0] = new HttpException("Too many redirects");
+                    }
+                });
+                connection.run();
 
-                @Override
-                public void onTooManyRedirects()
-                {
-                    err[0] = new HttpException("Too many redirects");
-                }
-            });
-            connection.run();
+            } while (connectWithReferer[0]);
 
             return err[0];
         }
@@ -343,7 +353,7 @@ public class AddDownloadViewModel extends AndroidViewModel
         }
     }
 
-    private void parseOkHeaders(HttpURLConnection conn)
+    private boolean parseOkHeaders(HttpURLConnection conn, boolean needsRefererPrevValue)
     {
         String contentDisposition = conn.getHeaderField("Content-Disposition");
         String contentLocation = conn.getHeaderField("Content-Location");
@@ -354,19 +364,33 @@ public class AddDownloadViewModel extends AndroidViewModel
         if ("application/octet-stream".equals(mimeType))
             mimeType = null;
 
-        if (TextUtils.isEmpty(params.getFileName()))
-            params.setFileName(Utils.getHttpFileName(fs,
-                    tmpUrl,
-                    contentDisposition,
-                    contentLocation,
-                    mimeType));
+        String fileName = Utils.getHttpFileName(
+                fs,
+                tmpUrl,
+                contentDisposition,
+                contentLocation,
+                mimeType
+        );
 
         /* Try to get MIME from filename extension */
         if (mimeType == null) {
-            String extension = fs.getExtension(params.getFileName());
+            String extension = fs.getExtension(fileName);
             if (!TextUtils.isEmpty(extension))
                 mimeType = MimeTypeUtils.getMimeTypeFromExtension(extension);
         }
+        boolean currentRefererEmpty = TextUtils.isEmpty(params.getReferer());
+        boolean needsReferer = currentRefererEmpty &&
+                Utils.needsReferer(mimeType, fs.getExtension(fileName));
+        if (needsReferer && !needsRefererPrevValue) {
+            return true;
+        } else if (!needsReferer && needsRefererPrevValue) {
+            if (currentRefererEmpty) {
+                params.setReferer(params.getUrl());
+            }
+        }
+
+        if (TextUtils.isEmpty(params.getFileName()))
+            params.setFileName(fileName);
         if (mimeType != null)
             params.setMimeType(mimeType);
 
@@ -388,6 +412,8 @@ public class AddDownloadViewModel extends AndroidViewModel
         long total = params.getTotalBytes();
         if (total > 0)
             maxNumPieces.set(total < maxNumPieces.get() ? (int)total : DownloadInfo.MAX_PIECES);
+
+        return false;
     }
 
     /*
@@ -412,8 +438,6 @@ public class AddDownloadViewModel extends AndroidViewModel
         headers.add(new Header(info.id, "ETag", params.getEtag()));
         if (params.getReferer() != null && !params.getReferer().isEmpty()) {
             headers.add(new Header(info.id, "Referer", params.getReferer()));
-        } else {
-            headers.add(new Header(info.id, "Referer", params.getUrl()));
         }
 
         /* TODO: rewrite to WorkManager */
