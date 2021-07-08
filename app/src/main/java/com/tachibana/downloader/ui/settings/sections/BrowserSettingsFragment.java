@@ -210,7 +210,7 @@ public class BrowserSettingsFragment extends PreferenceFragmentCompat
 
         } else if (preference.getKey().equals(getString(R.string.pref_key_browser_enable_cookies))) {
             boolean enable = (boolean)newValue;
-            pref.browserDoNotTrack(enable);
+            pref.browserEnableCookies(enable);
             if (!enable)
                 Utils.deleteCookies();
 
