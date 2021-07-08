@@ -75,6 +75,12 @@
                 android:title="@string/pref_browser_disable_from_system_title"
                 android:summary="@string/pref_browser_disable_from_system_summary"
                 android:persistent="false" />
+
+            <SwitchPreferenceCompat
+                android:key="@string/pref_key_browser_hide_menu_icon"
+                android:title="@string/pref_browser_hide_menu_icon_title"
+                android:summary="@string/pref_browser_hide_menu_icon_summary"
+                android:persistent="false" />
         </PreferenceCategory>
     </PreferenceCategory>
 </PreferenceScreen>

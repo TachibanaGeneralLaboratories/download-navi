@@ -197,4 +197,8 @@ public interface SettingsRepository
     String browserSearchEngine();
 
     void browserSearchEngine(String val);
+
+    boolean browserHideMenuIcon();
+
+    void browserHideMenuIcon(boolean val);
 }

@@ -302,6 +302,8 @@
     <string name="pref_browser_disable_from_system_title">Отключить браузер из системы</string>
     <string name="pref_browser_disable_from_system_summary">Браузер не будет доступен для открытия ссылок</string>
     <string name="pref_browser_search_engine_title">Поисковая система</string>
+    <string name="pref_browser_hide_menu_icon_title">Скрыть иконку из меню</string>
+    <string name="pref_browser_hide_menu_icon_summary">Скрыть иконку браузера из меню главного экрана</string>
     <!-- About dialog -->
     <string name="about_title">О Download Navi</string>
     <string name="about_description"><![CDATA[    Больше информации, а также помочь проекту: <a href="https://github.com/TachibanaGeneralLaboratories/download-navi">https://github.com/TachibanaGeneralLaboratories/download-navi</a><br><br>

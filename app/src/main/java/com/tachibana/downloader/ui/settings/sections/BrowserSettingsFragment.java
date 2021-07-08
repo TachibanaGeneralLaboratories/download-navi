@@ -170,6 +170,13 @@ public class BrowserSettingsFragment extends PreferenceFragmentCompat
             searchEngine.setValue(searchUrl);
             bindOnPreferenceChangeListener(searchEngine);
         }
+
+        String keyHideMenuIcon = getString(R.string.pref_key_browser_hide_menu_icon);
+        SwitchPreferenceCompat hideMenuIcon = findPreference(keyHideMenuIcon);
+        if (hideMenuIcon != null) {
+            hideMenuIcon.setChecked(pref.browserHideMenuIcon());
+            bindOnPreferenceChangeListener(hideMenuIcon);
+        }
     }
 
     @Override
@@ -232,6 +239,9 @@ public class BrowserSettingsFragment extends PreferenceFragmentCompat
 
         } else if (preference.getKey().equals(getString(R.string.pref_key_browser_search_engine))) {
             pref.browserSearchEngine((String)newValue);
+
+        } else if (preference.getKey().equals(getString(R.string.pref_key_browser_hide_menu_icon))) {
+            pref.browserHideMenuIcon((boolean)newValue);
         }
 
         return true;

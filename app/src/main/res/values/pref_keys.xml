@@ -63,6 +63,7 @@
     <string name="pref_key_browser_bottom_address_bar" translatable="false">pref_key_browser_bottom_address_bar</string>
     <string name="pref_key_browser_do_not_track" translatable="false">pref_key_browser_do_not_track</string>
     <string name="pref_key_browser_search_engine" translatable="false">pref_key_browser_search_engine</string>
+    <string name="pref_key_browser_hide_menu_icon" translatable="false">pref_key_browser_hide_menu_icon</string>
 
     <!-- Filemanager settings -->
     <string name="pref_key_filemanager_last_dir" translatable="false">pref_key_filemanager_last_dir</string>

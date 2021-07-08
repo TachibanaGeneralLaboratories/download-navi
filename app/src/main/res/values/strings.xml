@@ -315,6 +315,8 @@
     <string name="pref_browser_disable_from_system_title">Disable browser from the system</string>
     <string name="pref_browser_disable_from_system_summary">Browser will not be available for opening links</string>
     <string name="pref_browser_search_engine_title">Search engine</string>
+    <string name="pref_browser_hide_menu_icon_title">Hide icon from menu</string>
+    <string name="pref_browser_hide_menu_icon_summary">Hide browser icon from the main screen menu</string>
 
     <!-- About dialog -->
     <string name="about_title">About Download Navi</string>

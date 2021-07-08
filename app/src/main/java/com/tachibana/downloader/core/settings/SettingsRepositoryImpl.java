@@ -104,6 +104,7 @@ public class SettingsRepositoryImpl implements SettingsRepository
         static final boolean browserBottomAddressBar = true;
         static final boolean browserDoNotTrack = true;
         static final String browserSearchEngine = "https://duckduckgo.com/?q={searchTerms}";
+        static final boolean browserHideMenuIcon = false;
     }
 
     public SettingsRepositoryImpl(@NonNull Context appContext)
@@ -700,6 +701,19 @@ public class SettingsRepositoryImpl implements SettingsRepository
     {
         pref.edit()
                 .putString(appContext.getString(R.string.pref_key_browser_search_engine), val)
+                .apply();
+    }
+
+    @Override
+    public boolean browserHideMenuIcon() {
+        return pref.getBoolean(appContext.getString(R.string.pref_key_browser_hide_menu_icon),
+                Default.browserHideMenuIcon);
+    }
+
+    @Override
+    public void browserHideMenuIcon(boolean val) {
+        pref.edit()
+                .putBoolean(appContext.getString(R.string.pref_key_browser_hide_menu_icon), val)
                 .apply();
     }
 }

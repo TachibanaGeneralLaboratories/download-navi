@@ -259,6 +259,7 @@ public class MainActivity extends AppCompatActivity
         super.onStart();
 
         subscribeAlertDialog();
+        subscribeSettingsChanged();
     }
 
     @Override
@@ -295,6 +296,16 @@ public class MainActivity extends AppCompatActivity
                     }
                 });
         disposables.add(d);
+    }
+
+    void subscribeSettingsChanged() {
+        invalidateOptionsMenu();
+        disposables.add(pref.observeSettingsChanged()
+                .subscribe((key) -> {
+                    if (key.equals(getString(R.string.pref_key_browser_hide_menu_icon))) {
+                        invalidateOptionsMenu();
+                    }
+                }));
     }
 
     private void onDrawerGroupsCreated()
@@ -442,6 +453,13 @@ public class MainActivity extends AppCompatActivity
         SearchManager searchManager = (SearchManager)getSystemService(Context.SEARCH_SERVICE);
         /* Assumes current activity is the searchable activity */
         searchView.setSearchableInfo(searchManager.getSearchableInfo(getComponentName()));
+    }
+
+    @Override
+    public boolean onPrepareOptionsMenu(Menu menu) {
+        menu.findItem(R.id.browser_menu).setVisible(!pref.browserHideMenuIcon());
+
+        return true;
     }
 
     @Override
