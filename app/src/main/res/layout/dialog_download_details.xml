@@ -53,15 +53,15 @@
                         android:id="@+id/layout_link"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_toStartOf="@id/url_clipboard_button">
+                        android:layout_toStartOf="@id/url_clipboard_button"
+                        android:hint="@string/download_link">
 
                         <com.google.android.material.textfield.TextInputEditText
                             android:id="@+id/link"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:inputType="text|textNoSuggestions"
-                            android:text="@={viewModel.mutableParams.url}"
-                            android:hint="@string/download_link" />
+                            android:text="@={viewModel.mutableParams.url}" />
                     </com.google.android.material.textfield.TextInputLayout>
 
                     <ImageButton
@@ -83,30 +83,30 @@
                     android:id="@+id/layout_name"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginBottom="16dp">
+                    android:layout_marginBottom="16dp"
+                    android:hint="@string/download_name">
 
                     <com.google.android.material.textfield.TextInputEditText
                         android:id="@+id/name"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:inputType="text|textNoSuggestions"
-                        android:text="@={viewModel.mutableParams.fileName}"
-                        android:hint="@string/download_name" />
+                        android:text="@={viewModel.mutableParams.fileName}" />
                 </com.google.android.material.textfield.TextInputLayout>
 
                 <com.google.android.material.textfield.TextInputLayout
                     android:id="@+id/layout_description"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginBottom="16dp">
+                    android:layout_marginBottom="16dp"
+                    android:hint="@string/download_description">
 
                     <com.google.android.material.textfield.TextInputEditText
                         android:id="@+id/description"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:inputType="text|textNoSuggestions"
-                        android:text="@={viewModel.mutableParams.description}"
-                        android:hint="@string/download_description" />
+                        android:text="@={viewModel.mutableParams.description}" />
                 </com.google.android.material.textfield.TextInputLayout>
 
                 <RelativeLayout
@@ -118,7 +118,8 @@
                         android:id="@+id/layout_save_path"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_toStartOf="@id/folder_chooser_button">
+                        android:layout_toStartOf="@id/folder_chooser_button"
+                        android:hint="@string/path" >
 
                         <com.google.android.material.textfield.TextInputEditText
                             android:id="@+id/save_path"
@@ -126,7 +127,6 @@
                             android:layout_height="wrap_content"
                             android:focusable="false"
                             android:text="@{viewModel.info.dirName}"
-                            android:hint="@string/path"
                             android:inputType="textMultiLine" />
                     </com.google.android.material.textfield.TextInputLayout>
 
@@ -234,13 +234,13 @@
                         app:hintEnabled="false"
                         android:layout_toStartOf="@+id/checksum_clipboard_button">
 
-                        <com.google.android.material.textfield.TextInputEditText
+                        <com.tachibana.downloader.ui.customview.FixHintTextInputEditText
                             android:id="@+id/checksum"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:inputType="text|textNoSuggestions"
                             android:hint="@string/add_dialog_checksum_description"
-                            android:text="@={viewModel.mutableParams.checksum}"/>
+                            android:text="@={viewModel.mutableParams.checksum}" />
                     </com.google.android.material.textfield.TextInputLayout>
 
                     <ImageButton

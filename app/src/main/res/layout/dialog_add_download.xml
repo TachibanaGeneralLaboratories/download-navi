@@ -36,14 +36,14 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_toEndOf="@id/fetch_progress"
-                    android:layout_toStartOf="@+id/url_clipboard_button">
+                    android:layout_toStartOf="@+id/url_clipboard_button"
+                    android:hint="@string/download_link">
 
                     <com.google.android.material.textfield.TextInputEditText
                         android:id="@+id/link"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:inputType="text|textNoSuggestions"
-                        android:hint="@string/download_link"
                         android:text="@={viewModel.params.url}" />
                 </com.google.android.material.textfield.TextInputLayout>
 
@@ -77,14 +77,14 @@
                 android:id="@+id/layout_name"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="16dp">
+                android:layout_marginBottom="16dp"
+                android:hint="@string/download_name">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/name"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:inputType="text|textNoSuggestions"
-                    android:hint="@string/download_name"
                     android:text="@={viewModel.params.fileName}"/>
             </com.google.android.material.textfield.TextInputLayout>
 
@@ -97,14 +97,14 @@
                     android:id="@+id/layout_save_path"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_toStartOf="@id/folder_chooser_button">
+                    android:layout_toStartOf="@id/folder_chooser_button"
+                    android:hint="@string/path">
 
                     <com.google.android.material.textfield.TextInputEditText
                         android:id="@+id/save_path"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:focusable="false"
-                        android:hint="@string/path"
                         android:inputType="textMultiLine"
                         android:text="@{viewModel.params.dirName}" />
                 </com.google.android.material.textfield.TextInputLayout>
@@ -234,14 +234,14 @@
                         android:id="@+id/layout_description"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginBottom="16dp">
+                        android:layout_marginBottom="16dp"
+                        android:hint="@string/download_description">
 
                         <com.google.android.material.textfield.TextInputEditText
                             android:id="@+id/description"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:inputType="text|textNoSuggestions"
-                            android:hint="@string/download_description"
                             android:text="@={viewModel.params.description}"/>
                     </com.google.android.material.textfield.TextInputLayout>
 
@@ -331,7 +331,7 @@
                             app:hintEnabled="false"
                             android:layout_toStartOf="@+id/checksum_clipboard_button">
 
-                            <com.google.android.material.textfield.TextInputEditText
+                            <com.tachibana.downloader.ui.customview.FixHintTextInputEditText
                                 android:id="@+id/checksum"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
@@ -373,7 +373,7 @@
                             android:layout_toStartOf="@+id/referer_clipboard_button"
                             app:hintEnabled="false">
 
-                            <com.google.android.material.textfield.TextInputEditText
+                            <com.tachibana.downloader.ui.customview.FixHintTextInputEditText
                                 android:id="@+id/referer"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
