@@ -31,8 +31,6 @@ import android.system.StructStatVfs;
 
 import androidx.annotation.NonNull;
 
-import org.jetbrains.annotations.NotNull;
-
 import java.io.FileDescriptor;
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -85,7 +83,7 @@ class SafFsModule implements FsModule
     }
 
     @Override
-    public boolean exists(@NotNull Uri filePath) {
+    public boolean exists(@NonNull Uri filePath) {
         SafFileSystem fs = SafFileSystem.getInstance(appContext);
 
         return fs.exists(filePath);

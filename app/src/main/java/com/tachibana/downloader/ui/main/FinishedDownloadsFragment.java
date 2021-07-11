@@ -129,7 +129,7 @@ public class FinishedDownloadsFragment extends DownloadsFragment
         if (file != null) {
             startActivity(Intent.createChooser(file, getString(R.string.open_using)));
         } else {
-            Toast.makeText(activity.getApplicationContext(), "file not available!", Toast.LENGTH_SHORT).show();
+            Toast.makeText(activity.getApplicationContext(), getString(R.string.file_not_available), Toast.LENGTH_SHORT).show();
         }
     }
 

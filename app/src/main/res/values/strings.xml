@@ -121,6 +121,7 @@
     <string name="fragment_title_completed">Completed</string>
     <string name="download_list_empty">No downloads</string>
     <string name="share_url">Share URL</string>
+    <string name="file_not_available">file not available!</string>
     <!-- Navigation drawer -->
     <!-- Category -->
     <string name="drawer_category">Category</string>
