@@ -77,6 +77,11 @@ class DefaultFsModule implements FsModule
     }
 
     @Override
+    public boolean exists(@NonNull Uri filePath) {
+        return new File(filePath.getPath()).exists();
+    }
+
+    @Override
     public FileDescriptorWrapper openFD(@NonNull Uri path)
     {
         return new FileDescriptorWrapperImpl(appContext, path);

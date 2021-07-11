@@ -95,4 +95,6 @@ public interface FileSystemFacade
     void takePermissions(@NonNull Uri path);
 
     String getDirPath(@NonNull Uri dir);
+
+    boolean exists(@NonNull Uri filePath);
 }

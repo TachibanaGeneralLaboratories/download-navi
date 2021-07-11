@@ -24,6 +24,7 @@ import android.app.Dialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.widget.CheckBox;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -123,11 +124,13 @@ public class FinishedDownloadsFragment extends DownloadsFragment
     }
 
     @Override
-    public void onItemClicked(@NonNull DownloadItem item)
-    {
-        startActivity(Intent.createChooser(
-                Utils.createOpenFileIntent(activity.getApplicationContext(), item.info),
-                getString(R.string.open_using)));
+    public void onItemClicked(@NonNull DownloadItem item) {
+        Intent file = Utils.createOpenFileIntent(activity.getApplicationContext(), item.info);
+        if (file != null) {
+            startActivity(Intent.createChooser(file, getString(R.string.open_using)));
+        } else {
+            Toast.makeText(activity.getApplicationContext(), getString(R.string.file_not_available), Toast.LENGTH_SHORT).show();
+        }
     }
 
     @Override

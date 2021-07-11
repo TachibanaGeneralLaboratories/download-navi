@@ -57,6 +57,8 @@ interface FsModule
 
     boolean delete(@NonNull Uri filePath) throws FileNotFoundException;
 
+    boolean exists(@NonNull Uri filePath);
+
     FileDescriptorWrapper openFD(@NonNull Uri path);
 
     /*

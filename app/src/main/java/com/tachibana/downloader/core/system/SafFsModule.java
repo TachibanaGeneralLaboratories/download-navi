@@ -83,6 +83,13 @@ class SafFsModule implements FsModule
     }
 
     @Override
+    public boolean exists(@NonNull Uri filePath) {
+        SafFileSystem fs = SafFileSystem.getInstance(appContext);
+
+        return fs.exists(filePath);
+    }
+
+    @Override
     public FileDescriptorWrapper openFD(@NonNull Uri path)
     {
         return new FileDescriptorWrapperImpl(appContext, path);
