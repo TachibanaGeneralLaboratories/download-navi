@@ -31,6 +31,8 @@ import androidx.annotation.Nullable;
 
 import com.tachibana.downloader.core.exception.FileAlreadyExistsException;
 
+import org.jetbrains.annotations.NotNull;
+
 import java.io.Closeable;
 import java.io.File;
 import java.io.FileDescriptor;
@@ -520,5 +522,12 @@ class FileSystemFacadeImpl implements FileSystemFacade
         FsModule fsModule = fsResolver.resolveFsByUri(dir);
 
         return fsModule.getDirPath(dir);
+    }
+
+    @Override
+    public boolean exists(@NotNull Uri filePath) {
+        FsModule fsModule = fsResolver.resolveFsByUri(filePath);
+
+        return fsModule.exists(filePath);
     }
 }

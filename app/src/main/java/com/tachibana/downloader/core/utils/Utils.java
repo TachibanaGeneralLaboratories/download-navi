@@ -658,8 +658,11 @@ public class Utils {
     public static Intent createOpenFileIntent(@NonNull Context context, @NonNull DownloadInfo info) {
         FileSystemFacade fs = SystemFacadeHelper.getFileSystemFacade(context);
         Uri filePath = fs.getFileUri(info.dirPath, info.fileName);
-
-        return createOpenFileIntent(context, filePath, info.mimeType);
+        if (filePath != null && fs.exists(filePath)) {
+            return createOpenFileIntent(context, filePath, info.mimeType);
+        } else {
+            return null;
+        }
     }
 
     public static Intent createOpenFileIntent(@NonNull Context context, Uri filePath, String mimeType) {
