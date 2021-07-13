@@ -52,13 +52,13 @@ public class NormalizeUrl
         public String defaultProtocol = "http";
         /**
          * Removes "www." from the URL.
-         * Default is true.
+         * Default is false.
          *
          * Example:
          *    Before: "http://www.example.org"
          *    After: "http://example.org"
          */
-        public boolean removeWWW = true;
+        public boolean removeWWW = false;
         /**
          * Removes trailing slash.
          * Default is true.

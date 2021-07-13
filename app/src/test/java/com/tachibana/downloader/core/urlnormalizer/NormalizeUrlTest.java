@@ -80,7 +80,7 @@ public class NormalizeUrlTest
                 null));
         tests.add(new TestNormalize("www with protocol",
                 "http://www.example.org",
-                "http://example.org",
+                "http://www.example.org",
                 null));
         tests.add(new TestNormalize("www as host","www.com", "http://www.com", null));
         tests.add(new TestNormalize("double www",
@@ -89,7 +89,7 @@ public class NormalizeUrlTest
                 null));
         tests.add(new TestNormalize("www without protocol",
                 "www.example.org",
-                "http://example.org",
+                "http://www.example.org",
                 null));
         tests.add(new TestNormalize("host with path",
                 "http://example.org/foo",
