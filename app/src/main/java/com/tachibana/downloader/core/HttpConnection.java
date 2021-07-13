@@ -45,6 +45,7 @@ public class HttpConnection implements Runnable
     /* Can't be more than 7 */
     private static final int MAX_REDIRECTS = 5;
     public static final int DEFAULT_TIMEOUT = (int)(20 * SECOND_IN_MILLIS);
+    public static final int HTTP_TEMPORARY_REDIRECT = 307;
 
     private URL url;
     private TLSSocketFactory socketFactory;
@@ -123,6 +124,7 @@ public class HttpConnection implements Runnable
                     case HTTP_MOVED_PERM:
                     case HTTP_MOVED_TEMP:
                     case HTTP_SEE_OTHER:
+                    case HTTP_TEMPORARY_REDIRECT:
                         String location = conn.getHeaderField("Location");
                         url = new URL(url, location);
                         if (responseCode == HTTP_MOVED_PERM && listener != null)
