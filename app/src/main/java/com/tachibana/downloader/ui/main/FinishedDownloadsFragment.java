@@ -187,11 +187,13 @@ public class FinishedDownloadsFragment extends DownloadsFragment
         viewModel.deleteDownload(info, withFile);
     }
 
-    private void shareDownload(DownloadItem item)
-    {
-        startActivity(Intent.createChooser(
-                Utils.makeFileShareIntent(activity.getApplicationContext(), Collections.singletonList(item)),
-                getString(R.string.share_via)));
+    private void shareDownload(DownloadItem item) {
+        Intent intent = Utils.makeFileShareIntent(activity.getApplicationContext(), Collections.singletonList(item));
+        if (intent != null) {
+            startActivity(Intent.createChooser(intent, getString(R.string.share_via)));
+        } else {
+            Toast.makeText(activity.getApplicationContext(), getString(R.string.unable_sharing), Toast.LENGTH_SHORT).show();
+        }
     }
 
     private void shareUrl(DownloadItem item)

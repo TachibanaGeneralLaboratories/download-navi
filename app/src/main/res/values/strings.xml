@@ -122,6 +122,7 @@
     <string name="download_list_empty">No downloads</string>
     <string name="share_url">Share URL</string>
     <string name="file_not_available">file not available!</string>
+    <string name="unable_sharing">The file(s) cannot be shared.</string>
     <!-- Navigation drawer -->
     <!-- Category -->
     <string name="drawer_category">Category</string>
