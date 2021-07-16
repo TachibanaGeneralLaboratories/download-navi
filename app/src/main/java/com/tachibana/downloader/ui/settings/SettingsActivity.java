@@ -1,6 +1,6 @@
 /*
- * Copyright (C) 2019, 2020 Tachibana General Laboratories, LLC
- * Copyright (C) 2019, 2020 Yaroslav Pronin <proninyaroslav@mail.ru>
+ * Copyright (C) 2019-2021 Tachibana General Laboratories, LLC
+ * Copyright (C) 2019-2021 Yaroslav Pronin <proninyaroslav@mail.ru>
  *
  * This file is part of Download Navi.
  *
@@ -40,6 +40,7 @@ public class SettingsActivity extends AppCompatActivity
 
     public static final String AppearanceSettings = "AppearanceSettingsFragment";
     public static final String BehaviorSettings = "BehaviorSettingsFragment";
+    public static final String LimitationsSettings = "LimitationsSettingsFragment";
     public static final String StorageSettings = "StorageSettingsFragment";
     public static final String BrowserSettings = "BrowserSettingsFragment";
 

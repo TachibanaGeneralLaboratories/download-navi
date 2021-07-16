@@ -38,12 +38,14 @@ import com.tachibana.downloader.core.utils.Utils;
 import com.tachibana.downloader.ui.settings.sections.AppearanceSettingsFragment;
 import com.tachibana.downloader.ui.settings.sections.BehaviorSettingsFragment;
 import com.tachibana.downloader.ui.settings.sections.BrowserSettingsFragment;
+import com.tachibana.downloader.ui.settings.sections.LimitationsSettingsFragment;
 import com.tachibana.downloader.ui.settings.sections.StorageSettingsFragment;
 import com.takisoft.preferencex.PreferenceFragmentCompat;
 
 import static com.tachibana.downloader.ui.settings.SettingsActivity.AppearanceSettings;
 import static com.tachibana.downloader.ui.settings.SettingsActivity.BehaviorSettings;
 import static com.tachibana.downloader.ui.settings.SettingsActivity.BrowserSettings;
+import static com.tachibana.downloader.ui.settings.SettingsActivity.LimitationsSettings;
 import static com.tachibana.downloader.ui.settings.SettingsActivity.StorageSettings;
 
 public class SettingsFragment extends PreferenceFragmentCompat
@@ -106,6 +108,9 @@ public class SettingsFragment extends PreferenceFragmentCompat
 
         Preference browser = findPreference(BrowserSettingsFragment.class.getSimpleName());
         browser.setOnPreferenceClickListener(prefClickListener);
+
+        Preference limitations = findPreference(LimitationsSettingsFragment.class.getSimpleName());
+        limitations.setOnPreferenceClickListener(prefClickListener);
     }
 
     private Preference.OnPreferenceClickListener prefClickListener = (preference) -> {
@@ -150,6 +155,15 @@ public class SettingsFragment extends PreferenceFragmentCompat
                 } else {
                     startActivity(BrowserSettingsFragment.class,
                             getString(R.string.pref_header_browser));
+                }
+                break;
+            case LimitationsSettings:
+                if (Utils.isLargeScreenDevice(activity)) {
+                    setFragment(LimitationsSettingsFragment.newInstance(),
+                            getString(R.string.pref_header_limitations));
+                } else {
+                    startActivity(LimitationsSettingsFragment.class,
+                            getString(R.string.pref_header_limitations));
                 }
                 break;
         }

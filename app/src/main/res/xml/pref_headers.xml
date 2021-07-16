@@ -12,6 +12,11 @@
         android:persistent="false" />
 
     <Preference
+        android:key="LimitationsSettingsFragment"
+        android:title="@string/pref_header_limitations"
+        android:persistent="false" />
+
+    <Preference
         android:key="StorageSettingsFragment"
         android:title="@string/pref_header_storage"
         android:persistent="false" />

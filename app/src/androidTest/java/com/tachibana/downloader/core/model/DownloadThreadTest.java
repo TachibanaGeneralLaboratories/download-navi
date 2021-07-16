@@ -333,6 +333,54 @@ public class DownloadThreadTest extends AbstractTest
         }
     }
 
+    @Test
+    public void testSpeedLimit()
+    {
+        /* Write download info */
+        DownloadInfo info = new DownloadInfo(dir, linuxUrl, linuxName);
+        UUID id = info.id;
+        info.hasMetadata = false;
+        repo.addInfo(info, new ArrayList<>());
+
+        // Set speed limit in 10 KiB/s
+        pref.speedLimit(10);
+
+        /* Run download task and get result */
+        DownloadResult result = runTask(new DownloadThreadImpl(id, repo, pref, fs, systemFacade));
+        assertNotNull(result);
+
+        /* Read download info */
+        info = repo.getInfoById(id);
+        assertNotNull(info);
+        assertEquals(getStatus(info), DownloadResult.Status.FINISHED, result.status);
+
+        /* Read and check downloaded file */
+        File file = new File(dir.getPath(), linuxName);
+        try {
+            assertTrue(file.exists());
+
+            try (FileInputStream is = new FileInputStream(file)) {
+                assertEquals(linuxSize, file.length());
+                assertEquals(linuxSha256Hash, DigestUtils.makeSha256Hash(is));
+
+            } catch (FileNotFoundException e) {
+                fail("File not found");
+            } catch (IOException e) {
+                fail(Log.getStackTraceString(e));
+            }
+        } finally {
+            file.delete();
+        }
+
+        /* Check metadata */
+        assertEquals(StatusCode.STATUS_SUCCESS, info.statusCode);
+        assertEquals("application/x-gzip", info.mimeType);
+        assertEquals(linuxSize, info.totalBytes);
+
+        DownloadPiece piece = repo.getPiece(0, info.id);
+        assertTrue(piece.speed <= pref.speedLimit() * 1024);
+    }
+
     private void runTask_checkWaitingNetwork(String msg, UUID id)
     {
         runTask(new DownloadThreadImpl(id, repo, pref, fs, systemFacade));
