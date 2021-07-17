@@ -192,7 +192,8 @@ public class FinishedDownloadsFragment extends DownloadsFragment
         if (intent != null) {
             startActivity(Intent.createChooser(intent, getString(R.string.share_via)));
         } else {
-            Toast.makeText(activity.getApplicationContext(), getString(R.string.unable_sharing), Toast.LENGTH_SHORT).show();
+            Toast.makeText(activity.getApplicationContext(),
+                    getResources().getQuantityString(R.plurals.unable_sharing, 1), Toast.LENGTH_SHORT).show();
         }
     }
 
