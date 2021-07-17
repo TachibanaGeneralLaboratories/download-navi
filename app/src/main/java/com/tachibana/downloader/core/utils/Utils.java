@@ -586,13 +586,13 @@ public class Utils {
 
             DownloadInfo info = item.info;
             Uri filePath = fs.getFileUri(info.dirPath, info.fileName);
-            if (filePath != null) {
+            if (filePath != null && fs.exists(filePath)) {
                 if (Utils.isFileSystemPath(filePath))
-                    filePath = FileProvider.getUriForFile(context,
+                    itemsUri.add(FileProvider.getUriForFile(context,
                             context.getPackageName() + ".provider",
-                            new File(filePath.getPath()));
-
-                itemsUri.add(filePath);
+                            new File(filePath.getPath())));
+                else
+                    itemsUri.add(filePath);
             }
 
             String mimeType = item.info.mimeType;
@@ -634,25 +634,25 @@ public class Utils {
             }
         }
 
-        if (itemsUri.size() == 0 || itemsUri.size() == 1)
-            intentAction = Intent.ACTION_SEND;
-        else
-            intentAction = Intent.ACTION_SEND_MULTIPLE;
+        if (itemsUri.isEmpty()) {
+            return null;
+        } else {
+            if (itemsUri.size() == 1) {
+                intentAction = Intent.ACTION_SEND;
+                i.putExtra(Intent.EXTRA_STREAM, itemsUri.get(0));
+                /* If there is exactly one item shared, set the mail title */
+                i.putExtra(Intent.EXTRA_SUBJECT, items.get(0).info.fileName);
+            } else {
+                intentAction = Intent.ACTION_SEND_MULTIPLE;
+                i.putParcelableArrayListExtra(Intent.EXTRA_STREAM, itemsUri);
+            }
 
-        if (itemsUri.size() == 1)
-            i.putExtra(Intent.EXTRA_STREAM, itemsUri.get(0));
-        else if (itemsUri.size() > 1)
-            i.putParcelableArrayListExtra(Intent.EXTRA_STREAM, itemsUri);
+            i.setAction(intentAction);
+            i.setType(intentMimeType);
+            i.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
 
-        /* If there is exactly one item shared, set the mail title */
-        if (items.size() == 1)
-            i.putExtra(Intent.EXTRA_SUBJECT, items.get(0).info.fileName);
-
-        i.setAction(intentAction);
-        i.setType(intentMimeType);
-        i.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-
-        return i;
+            return i;
+        }
     }
 
     public static Intent createOpenFileIntent(@NonNull Context context, @NonNull DownloadInfo info) {

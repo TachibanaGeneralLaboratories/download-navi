@@ -33,6 +33,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.CheckBox;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -411,9 +412,13 @@ public abstract class DownloadsFragment extends Fragment
         disposables.add(Observable.fromIterable(selections)
                 .toList()
                 .subscribe((items) -> {
-                    startActivity(Intent.createChooser(
-                            Utils.makeFileShareIntent(activity.getApplicationContext(), items),
-                            getString(R.string.share_via)));
+                    Intent intent = Utils.makeFileShareIntent(activity.getApplicationContext(), items);
+                    if (intent != null) {
+                        startActivity(Intent.createChooser(intent, getString(R.string.share_via)));
+                    } else {
+                        Toast.makeText(activity.getApplicationContext(),
+                                getResources().getQuantityString(R.plurals.unable_sharing, items.size()), Toast.LENGTH_SHORT).show();
+                    }
                 }));
     }
 
