@@ -1,6 +1,6 @@
 /*
- * Copyright (C) 2018, 2019 Tachibana General Laboratories, LLC
- * Copyright (C) 2018, 2019 Yaroslav Pronin <proninyaroslav@mail.ru>
+ * Copyright (C) 2018-2021 Tachibana General Laboratories, LLC
+ * Copyright (C) 2018-2021 Yaroslav Pronin <proninyaroslav@mail.ru>
  *
  * This file is part of Download Navi.
  *
@@ -78,11 +78,12 @@ class PieceThreadImpl extends Thread implements PieceThread
     @SuppressWarnings("unused")
     private static final String TAG = PieceThreadImpl.class.getSimpleName();
 
-    private static final int BUFFER_SIZE = 8192;
+    private static final int DEFAULT_BUFFER_SIZE = 8192;
     /* The minimum amount of progress that has to be done before the progress bar gets updated */
-    private static final int MIN_PROGRESS_STEP = 65536;
+    private static final int DEFAULT_MIN_PROGRESS_STEP = 65536;
     /* The minimum amount of time that has to elapse before the progress bar gets updated, ms */
     private static final long MIN_PROGRESS_TIME = 2000;
+    private static final long MILLIS_IN_SEC = 1000;
 
     private DownloadPiece piece;
     private UUID infoId;
@@ -91,6 +92,8 @@ class PieceThreadImpl extends Thread implements PieceThread
     /* Details from the last time we pushed a database update */
     private long lastUpdateBytes = 0;
     private long lastUpdateTime = 0;
+    private long bytesReadBandwidth = 0;
+    private long lastBandwidthUpdateTime = 0;
     /* Time when current sample started */
     private long speedSampleStart;
     /* Bytes transferred since current sample started */
@@ -192,6 +195,8 @@ class PieceThreadImpl extends Thread implements PieceThread
 
     private StopRequest execDownload()
     {
+        lastBandwidthUpdateTime = DateUtils.elapsedRealtime();
+
         if (piece.size == 0)
             return new StopRequest(STATUS_SUCCESS, "Length is zero; skipping");
 
@@ -430,28 +435,34 @@ class PieceThreadImpl extends Thread implements PieceThread
 
     private StopRequest transferData(InputStream in, FileOutputStream fout, FileDescriptor outFd)
     {
-        byte[] buffer = new byte[BUFFER_SIZE];
+        byte[] buffer = new byte[DEFAULT_BUFFER_SIZE];
         while (true) {
             StopRequest ret;
             if ((ret = checkCancel()) != null)
                 return ret;
 
-            int len = -1;
+            int byteCount;
+            int speedLimit = pref.speedLimit();
+            int speedLimitBytes = speedLimit * 1024;
+
             try {
-                len = in.read(buffer);
+                int len = speedLimitBytes != 0 && speedLimitBytes < DEFAULT_BUFFER_SIZE ?
+                        speedLimitBytes :
+                        DEFAULT_BUFFER_SIZE;
+                byteCount = in.read(buffer, 0, len);
 
             } catch (IOException e) {
                 return new StopRequest(STATUS_HTTP_DATA_ERROR,
                         "Failed reading response: " + e, e);
             }
-            if (len == -1)
+            if (byteCount == -1)
                 break;
 
             try {
-                fout.write(buffer, 0, len);
+                fout.write(buffer, 0, byteCount);
 
-                piece.curBytes += len;
-                if ((ret = updateProgress(outFd)) != null)
+                piece.curBytes += byteCount;
+                if ((ret = updateProgress(outFd, speedLimitBytes)) != null)
                     return ret;
 
             } catch (IOException e) {
@@ -460,6 +471,8 @@ class PieceThreadImpl extends Thread implements PieceThread
 
             if (piece.size != -1 && piece.curBytes >= endPos + 1)
                 break;
+
+            speedLimit(byteCount, speedLimitBytes);
         }
 
         /* Finished without error; verify length if known */
@@ -472,7 +485,31 @@ class PieceThreadImpl extends Thread implements PieceThread
         return null;
     }
 
-    private StopRequest updateProgress(FileDescriptor outFd) throws IOException
+    private void speedLimit(long byteCount, int speedLimitBytes) {
+        bytesReadBandwidth += byteCount;
+        if (speedLimitBytes == 0) {
+            return;
+        }
+        if (bytesReadBandwidth >= speedLimitBytes) {
+            // Check the time from downloading to the limit bandwidth, this time is less than 1 second,
+            // and the data will not be read in the remaining time of this 1 second.
+            long offsetTime = DateUtils.elapsedRealtime() - lastBandwidthUpdateTime;
+            if (offsetTime < MILLIS_IN_SEC) {
+                try {
+                    if (offsetTime < 0) {
+                        offsetTime = 0;
+                    }
+                    Thread.sleep(MILLIS_IN_SEC - offsetTime);
+                } catch (InterruptedException e) {
+                    // Ignore
+                }
+            }
+            lastBandwidthUpdateTime = DateUtils.elapsedRealtime();
+            bytesReadBandwidth = 0;
+        }
+    }
+
+    private StopRequest updateProgress(FileDescriptor outFd, int speedLimitBytes) throws IOException
     {
         long now = DateUtils.elapsedRealtime();
         long currentBytes = piece.curBytes;
@@ -491,7 +528,10 @@ class PieceThreadImpl extends Thread implements PieceThread
 
         long bytesDelta = currentBytes - lastUpdateBytes;
         long timeDelta = now - lastUpdateTime;
-        if (bytesDelta > MIN_PROGRESS_STEP && timeDelta > MIN_PROGRESS_TIME) {
+        int minProgressStep = speedLimitBytes != 0 && speedLimitBytes < DEFAULT_MIN_PROGRESS_STEP ?
+                speedLimitBytes :
+                DEFAULT_MIN_PROGRESS_STEP;
+        if (bytesDelta > minProgressStep && timeDelta > MIN_PROGRESS_TIME) {
             /*
              * sync() to ensure that current progress has been flushed to disk,
              * so we can always resume based on latest database information

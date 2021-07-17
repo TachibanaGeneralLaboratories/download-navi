@@ -70,8 +70,6 @@ public class SettingsRepositoryImpl implements SettingsRepository
         static final boolean batteryControl = false;
         static final boolean customBatteryControl = false;
         static final int customBatteryControlValue = Utils.getDefaultBatteryLowLevel();
-        static final int maxActiveDownloads = 3;
-        static final int maxDownloadRetries = 5;
         static final int timeout = HttpConnection.DEFAULT_TIMEOUT;
         static final boolean replaceDuplicateDownloads = true;
         static final boolean autoConnect = true;
@@ -81,6 +79,11 @@ public class SettingsRepositoryImpl implements SettingsRepository
 
             return (userAgent == null ? UserAgentUtils.defaultUserAgents[0].userAgent : userAgent);
         }
+        /* Limitation settings */
+        static final int maxActiveDownloads = 3;
+        static final int maxDownloadRetries = 5;
+        // In Kib
+        static final int speedLimit = 0;
         /* Storage settings */
         static String saveDownloadsIn(@NonNull Context context)
         {
@@ -416,6 +419,19 @@ public class SettingsRepositoryImpl implements SettingsRepository
     {
         pref.edit()
                 .putInt(appContext.getString(R.string.pref_key_max_download_retries), val)
+                .apply();
+    }
+
+    @Override
+    public int speedLimit() {
+        return pref.getInt(appContext.getString(R.string.pref_key_speed_limit),
+                Default.speedLimit);
+    }
+
+    @Override
+    public void speedLimit(int val) {
+        pref.edit()
+                .putInt(appContext.getString(R.string.pref_key_speed_limit), val)
                 .apply();
     }
 

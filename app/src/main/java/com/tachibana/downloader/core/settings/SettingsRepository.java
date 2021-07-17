@@ -106,14 +106,6 @@ public interface SettingsRepository
 
     void customBatteryControlValue(int val);
 
-    int maxActiveDownloads();
-
-    void maxActiveDownloads(int val);
-
-    int maxDownloadRetries();
-
-    void maxDownloadRetries(int val);
-
     int timeout();
 
     void timeout(int val);
@@ -129,6 +121,22 @@ public interface SettingsRepository
     String userAgent();
 
     void userAgent(String val);
+
+    /*
+     * Limitation settings
+     */
+
+    int maxActiveDownloads();
+
+    void maxActiveDownloads(int val);
+
+    int maxDownloadRetries();
+
+    void maxDownloadRetries(int val);
+
+    int speedLimit();
+
+    void speedLimit(int val);
 
     /*
      * Storage settings

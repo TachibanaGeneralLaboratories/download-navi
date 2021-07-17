@@ -242,6 +242,7 @@
     <!-- Headers -->
     <string name="pref_header_appearance">Appearance</string>
     <string name="pref_header_behavior">Behavior</string>
+    <string name="pref_header_limitations">Limitations</string>
     <string name="pref_header_storage">Storage</string>
     <string name="pref_header_browser">Browser</string>
     <!-- Appearance settings -->
@@ -281,15 +282,18 @@
     <string name="pref_custom_battery_control_dialog_summary">Setting a custom battery percentage for the application to watch for will have a negative impact on battery life while downloads are occurring. Are you sure you want to enable this?</string>
     <string name="pref_enable_roaming_title">Enable roaming</string>
     <string name="pref_enable_roaming_summary">Download only if the device isn\'t roaming</string>
-    <string name="pref_max_active_downloads_title">Maximum active downloads</string>
-    <string name="pref_max_download_retries_title">Maximum number of download retries</string>
-    <string name="pref_max_download_retries_dialog_msg">0 - without retries</string>
     <string name="pref_replace_duplicate_downloads_title">Replace duplicate downloads</string>
     <string name="pref_replace_duplicate_downloads_summary">Replace duplicate downloads (with the same URL) when added that are already in the list</string>
     <string name="pref_auto_connect_title">Auto connect</string>
     <string name="pref_auto_connect_summary">Auto connect when opening the add dialog</string>
     <string name="pref_timeout_title">Timeout</string>
     <string name="pref_timeout_summary">The number of milliseconds to wait before the connection timed out. Zero is interpreted as an infinite timeout</string>
+    <!-- Limitation settings -->
+    <string name="pref_max_active_downloads_title">Maximum active downloads</string>
+    <string name="pref_max_download_retries_title">Maximum number of download retries</string>
+    <string name="pref_max_download_retries_dialog_msg">0 - without retries</string>
+    <string name="pref_speed_limit_title">Speed limit for one piece</string>
+    <string name="pref_speed_limit_dialog_hint">Set speed in KiB/s (0 - without limit)</string>
     <!-- Storage settings -->
     <string name="pref_save_downloads_in_title">Save downloads in</string>
     <string name="pref_move_after_download_title">Move after download</string>

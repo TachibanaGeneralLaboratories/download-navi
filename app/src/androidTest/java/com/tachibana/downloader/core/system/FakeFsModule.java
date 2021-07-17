@@ -88,6 +88,11 @@ public class FakeFsModule implements FsModule
     }
 
     @Override
+    public boolean exists(@NonNull Uri filePath) {
+        return true;
+    }
+
+    @Override
     public FileDescriptorWrapper openFD(@NonNull Uri path)
     {
         return new FakeFileDescriptorWrapper(FileDescriptor.out);

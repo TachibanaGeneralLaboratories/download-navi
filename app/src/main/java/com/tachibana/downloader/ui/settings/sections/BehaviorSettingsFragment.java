@@ -133,29 +133,6 @@ public class BehaviorSettingsFragment extends PreferenceFragmentCompat
             bindOnPreferenceChangeListener(roaming);
         }
 
-        String keyMaxActiveDownloads = getString(R.string.pref_key_max_active_downloads);
-        EditTextPreference maxActiveDownloads = findPreference(keyMaxActiveDownloads);
-        if (maxActiveDownloads != null) {
-            String value = Integer.toString(pref.maxActiveDownloads());
-            maxActiveDownloads.setOnBindEditTextListener((editText) ->
-                    editText.setFilters(new InputFilter[]{new InputFilterMinMax(1, Integer.MAX_VALUE)}));
-            maxActiveDownloads.setSummary(value);
-            maxActiveDownloads.setText(value);
-            bindOnPreferenceChangeListener(maxActiveDownloads);
-        }
-
-        String keyMaxDownloadRetries = getString(R.string.pref_key_max_download_retries);
-        EditTextPreference maxDownloadRetries = findPreference(keyMaxDownloadRetries);
-        if (maxDownloadRetries != null) {
-            String value = Integer.toString(pref.maxDownloadRetries());
-            maxDownloadRetries.setOnBindEditTextListener((editText) ->
-                    editText.setFilters(new InputFilter[]{new InputFilterMinMax(0, Integer.MAX_VALUE)}));
-            maxDownloadRetries.setSummary(value);
-            maxDownloadRetries.setText(value);
-            maxDownloadRetries.setDialogMessage(R.string.pref_max_download_retries_dialog_msg);
-            bindOnPreferenceChangeListener(maxDownloadRetries);
-        }
-
         String keyReplaceDuplicateDownloads = getString(R.string.pref_key_replace_duplicate_downloads);
         SwitchPreferenceCompat replaceDuplicateDownloads = findPreference(keyReplaceDuplicateDownloads);
         if (replaceDuplicateDownloads != null) {
@@ -255,20 +232,6 @@ public class BehaviorSettingsFragment extends PreferenceFragmentCompat
 
         } else if(preference.getKey().equals(getString(R.string.pref_key_enable_roaming))) {
             pref.enableRoaming((boolean)newValue);
-
-        } else if (preference.getKey().equals(getString(R.string.pref_key_max_active_downloads))) {
-            int value = 1;
-            if (!TextUtils.isEmpty((String)newValue))
-                value = Integer.parseInt((String)newValue);
-            pref.maxActiveDownloads(value);
-            preference.setSummary(Integer.toString(value));
-
-        } else if (preference.getKey().equals(getString(R.string.pref_key_max_download_retries))) {
-            int value = 0;
-            if (!TextUtils.isEmpty((String)newValue))
-                value = Integer.parseInt((String)newValue);
-            pref.maxDownloadRetries(value);
-            preference.setSummary(Integer.toString(value));
 
         } else if(preference.getKey().equals(getString(R.string.pref_key_replace_duplicate_downloads))) {
             pref.replaceDuplicateDownloads((boolean)newValue);

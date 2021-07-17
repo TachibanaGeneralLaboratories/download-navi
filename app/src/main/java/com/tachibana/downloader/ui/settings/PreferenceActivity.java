@@ -1,6 +1,6 @@
 /*
- * Copyright (C) 2019, 2020 Tachibana General Laboratories, LLC
- * Copyright (C) 2019, 2020 Yaroslav Pronin <proninyaroslav@mail.ru>
+ * Copyright (C) 2019-2021 Tachibana General Laboratories, LLC
+ * Copyright (C) 2019-2021 Yaroslav Pronin <proninyaroslav@mail.ru>
  *
  * This file is part of Download Navi.
  *
@@ -32,6 +32,7 @@ import com.tachibana.downloader.core.utils.Utils;
 import com.tachibana.downloader.ui.settings.sections.AppearanceSettingsFragment;
 import com.tachibana.downloader.ui.settings.sections.BehaviorSettingsFragment;
 import com.tachibana.downloader.ui.settings.sections.BrowserSettingsFragment;
+import com.tachibana.downloader.ui.settings.sections.LimitationsSettingsFragment;
 import com.tachibana.downloader.ui.settings.sections.StorageSettingsFragment;
 import com.takisoft.preferencex.PreferenceFragmentCompat;
 
@@ -98,6 +99,8 @@ public class PreferenceActivity extends AppCompatActivity
                 return (F)StorageSettingsFragment.newInstance();
             else if (fragment.equals(BrowserSettingsFragment.class.getSimpleName()))
                 return (F)BrowserSettingsFragment.newInstance();
+            else if (fragment.equals(LimitationsSettingsFragment.class.getSimpleName()))
+                return (F)LimitationsSettingsFragment.newInstance();
             else
                 return null;
         }

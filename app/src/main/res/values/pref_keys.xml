@@ -39,11 +39,13 @@
     <string name="pref_key_custom_battery_control_value" translatable="false">pref_key_custom_battery_control_value</string>
     <string name="pref_key_umnetered_connections_only" translatable="false">pref_key_umnetered_connections_only</string>
     <string name="pref_key_enable_roaming" translatable="false">pref_key_enable_roaming</string>
-    <string name="pref_key_max_active_downloads" translatable="false">pref_key_max_active_downloads</string>
-    <string name="pref_key_max_download_retries" translatable="false">pref_key_max_download_retries</string>
     <string name="pref_key_replace_duplicate_downloads" translatable="false">pref_key_replace_duplicate_downloads</string>
     <string name="pref_key_auto_connect" translatable="false">pref_key_auto_connect</string>
     <string name="pref_key_timeout" translatable="false">pref_key_timeout</string>
+    <!-- Limitation settings -->
+    <string name="pref_key_max_active_downloads" translatable="false">pref_key_max_active_downloads</string>
+    <string name="pref_key_max_download_retries" translatable="false">pref_key_max_download_retries</string>
+    <string name="pref_key_speed_limit" translatable="false">pref_key_speed_limit</string>
     <!-- Storage settings -->
     <string name="pref_key_save_downloads_in" translatable="false">pref_key_save_downloads_in</string>
     <string name="pref_key_move_after_download" translatable="false">pref_key_move_after_download</string>
