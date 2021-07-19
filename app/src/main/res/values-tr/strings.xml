@@ -303,6 +303,6 @@
     <string name="about_description"><![CDATA[    Daha fazla bilgi ve projeye yardımcı olmak için: <a href="https://github.com/TachibanaGeneralLaboratories/download-navi">https://github.com/TachibanaGeneralLaboratories/download-navi</a><br><br>
     Download Navi, Android 4.4+ için ücretsiz ve Açık Kaynaklı indirme yöneticisidir<br><br>
     Download Navi, <a href="http://www.gnu.org/copyleft/gpl.html">GNU General Public License v3 (GPLv3)</a> şartları altında yayınlanan ücretsiz bir yazılımdır<br><br>
-    <a href="https://github.com/TachibanaGeneralLaboratories/download-navi/blob/HEAD/Privacy.md">Gizlilik Politikası</a>]]></string>
+    <a href="https://github.com/TachibanaGeneralLaboratories/download-navi/blob/HEAD/PRIVACY.md">Gizlilik Politikası</a>]]></string>
     <string name="about_changelog">Değişiklik günlüğü</string>
 </resources>

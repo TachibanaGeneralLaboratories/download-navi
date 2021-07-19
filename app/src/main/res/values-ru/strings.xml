@@ -320,6 +320,6 @@
     <string name="about_description"><![CDATA[    Больше информации, а также помочь проекту: <a href="https://github.com/TachibanaGeneralLaboratories/download-navi">https://github.com/TachibanaGeneralLaboratories/download-navi</a><br><br>
     Download Navi - свободный и Open Source менеджер загрузок для Android 4.4+<br><br>
     Download Navi является свободным программным обеспечением, выпущенным в соответствии с условиями лицензииe <a href="http://www.gnu.org/copyleft/gpl.html">GNU General Public License v3 (GPLv3)</a><br><br>
-    <a href="https://github.com/TachibanaGeneralLaboratories/download-navi/blob/HEAD/Privacy.md">Политика конфидециальности</a>]]></string>
+    <a href="https://github.com/TachibanaGeneralLaboratories/download-navi/blob/HEAD/PRIVACY.md">Политика конфидециальности</a>]]></string>
     <string name="about_changelog">Изменения</string>
 </resources>

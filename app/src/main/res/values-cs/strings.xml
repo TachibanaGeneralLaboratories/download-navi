@@ -320,6 +320,6 @@
     <string name="about_description"><![CDATA[    Více informací a také pomoc projektu: <a href="https://github.com/TachibanaGeneralLaboratories/download-navi">https://github.com/TachibanaGeneralLaboratories/download-navi</a><br><br>
     Download Navi je bezplatný a open source správce stahování pro Android 4.4+<br><br>
     Download Navi je volný software, vydaný za podmínek <a href="http://www.gnu.org/copyleft/gpl.html">GNU General Public License v3 (GPLv3)</a><br><br>
-    <a href="https://github.com/TachibanaGeneralLaboratories/download-navi/blob/HEAD/Privacy.md">Zásady ochrany osobních údajů</a>]]></string>
+    <a href="https://github.com/TachibanaGeneralLaboratories/download-navi/blob/HEAD/PRIVACY.md">Zásady ochrany osobních údajů</a>]]></string>
     <string name="about_changelog">Seznam změn</string>
 </resources>

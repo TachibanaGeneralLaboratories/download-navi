@@ -304,6 +304,6 @@
     <string name="about_description"><![CDATA[    آگاهی بیشتر و برای کمک به پروژه:  <a href="https://github.com/TachibanaGeneralLaboratories/download-navi">https://github.com/TachibanaGeneralLaboratories/download-navi</a><br><br>
     Download Navi یک دانلود منیجر رایگان و منبع‌باز برای اندروید بالای 4.4 است<br><br>
     Download Navi یک نرم‌افزار رایگان تحت شروط  <a href="http://www.gnu.org/copyleft/gpl.html">پروانه عمومی همگانی گنو نگارش 3(GPLv3)</a><br><br> می‌باشد
-    <a href="https://github.com/TachibanaGeneralLaboratories/download-navi/blob/HEAD/Privacy.md">خط مشی رازداری</a>]]></string>
+    <a href="https://github.com/TachibanaGeneralLaboratories/download-navi/blob/HEAD/PRIVACY.md">خط مشی رازداری</a>]]></string>
     <string name="about_changelog">گزارش دگرگونی</string>
 </resources>

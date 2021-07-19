@@ -303,6 +303,6 @@
     <string name="about_description"><![CDATA[    अधिक जानकारी और भी परियोजना में मदद करने के लिए: <a href="https://github.com/TachibanaGeneralLaboratories/download-navi">https://github.com/TachibanaGeneralLaboratories/download-navi</a><br><br>
     Download Navi एंड्रॉयड 4.4 + के लिए एक स्वतंत्र और खुला स्रोत डाउनलोड प्रबंधक है<br><br>
     Download Navi मुफ्त सॉफ्टवेयर है, की शर्तों के तहत जारी <a href="http://www.gnu.org/copyleft/gpl.html">GNU General Public License v3 (GPLv3)</a><br><br>
-    <a href="https://github.com/TachibanaGeneralLaboratories/download-navi/blob/HEAD/Privacy.md">गोपनीयता नीति</a>]]></string>
+    <a href="https://github.com/TachibanaGeneralLaboratories/download-navi/blob/HEAD/PRIVACY.md">गोपनीयता नीति</a>]]></string>
     <string name="about_changelog">परिवर्तन लॉग</string>
 </resources>

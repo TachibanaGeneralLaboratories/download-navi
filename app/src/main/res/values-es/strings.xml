@@ -311,6 +311,6 @@
     <string name="pref_browser_hide_menu_icon_summary">Ocultar icono del navegador del menú de la pantalla principal</string>
     <!-- About dialog -->
     <string name="about_title">Acerca de Download Navi</string>
-    <string name="about_description"><![CDATA[Para más información y para ayudar en el proyecto: <a href="https://github.com/TachibanaGeneralLaboratories/download-navi">https://github.com/TachibanaGeneralLaboratories/download-navi</a><br><br>Download Navi es un administrador de descargas libre y de código abierto para Android 4.4+<br><br>Download Navi es software libre, publicado bajo los términos de la <a href="http://www.gnu.org/copyleft/gpl.html">Licencia Pública General de GNU v3 (GPLv3)</a><br><br><a href="https://github.com/TachibanaGeneralLaboratories/download-navi/blob/HEAD/Privacy.md">Política de privacidad</a>]]></string>
+    <string name="about_description"><![CDATA[Para más información y para ayudar en el proyecto: <a href="https://github.com/TachibanaGeneralLaboratories/download-navi">https://github.com/TachibanaGeneralLaboratories/download-navi</a><br><br>Download Navi es un administrador de descargas libre y de código abierto para Android 4.4+<br><br>Download Navi es software libre, publicado bajo los términos de la <a href="http://www.gnu.org/copyleft/gpl.html">Licencia Pública General de GNU v3 (GPLv3)</a><br><br><a href="https://github.com/TachibanaGeneralLaboratories/download-navi/blob/HEAD/PRIVACY.md">Política de privacidad</a>]]></string>
     <string name="about_changelog">Registro de cambios</string>
 </resources>

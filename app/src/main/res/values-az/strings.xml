@@ -314,6 +314,6 @@
     <string name="about_description"><![CDATA[    Layihəyə kömək etmək üçün ətraflı məlumat: <a href="https://github.com/TachibanaGeneralLaboratories/download-navi">https://github.com/TachibanaGeneralLaboratories/download-navi</a><br><br>
     Download Navi, Android 4.4+ üçün ödənişsiz Açıq Mənbəli endirmə idarəçisidir<br><br>
     Download Navi ödənişsiz proqram təminatıdır,<a href="http://www.gnu.org/copyleft/gpl.html">GNU Ümumi İctimai Lisenziyası v3 (GPLv3)</a><br><br>
-    <a href="https://github.com/TachibanaGeneralLaboratories/download-navi/blob/HEAD/Privacy.md">Gizlilik siyasəti</a> şərtləri altında buraxılıb]]></string>
+    <a href="https://github.com/TachibanaGeneralLaboratories/download-navi/blob/HEAD/PRIVACY.md">Gizlilik siyasəti</a> şərtləri altında buraxılıb]]></string>
     <string name="about_changelog">Dəyişiklik jurnalı</string>
 </resources>

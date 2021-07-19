@@ -311,6 +311,6 @@
     <string name="about_description"><![CDATA[    Thông tin thêm về dự án và cách đóng góp cho dự án: <a href="https://github.com/TachibanaGeneralLaboratories/download-navi">https://github.com/TachibanaGeneralLaboratories/download-navi</a><br><br>
     Download Navi là trình quản lí tải xuống miễn phí, mã nguồn mở, dành cho Android 4.4+<br><br>
     Download Navi là phần mềm tự do, được phân phối theo <a href="http://www.gnu.org/copyleft/gpl.html">Giấy phép công cộng GNU phiên bản 3 (GPLv3)</a><br><br>
-    <a href="https://github.com/TachibanaGeneralLaboratories/download-navi/blob/HEAD/Privacy.md">Chính sách quyền riêng tư</a>]]></string>
+    <a href="https://github.com/TachibanaGeneralLaboratories/download-navi/blob/HEAD/PRIVACY.md">Chính sách quyền riêng tư</a>]]></string>
     <string name="about_changelog">Nhật kí thay đổi</string>
 </resources>

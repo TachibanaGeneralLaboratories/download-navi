@@ -303,6 +303,6 @@
     <string name="about_description"><![CDATA[    ተጨማሪ መረጃ እና እንዲሁም ፕሮጀክቱን ለማገዝ: <a href="https://github.com/TachibanaGeneralLaboratories/download-navi">https://github.com/TachibanaGeneralLaboratories/download-navi</a><br><br>
   ዳዉንሎድ ናቪ ለ Android 4.4+ ነፃ እና ክፍት ምንጭ ማውረጃ አቀናባሪ ነው<br><br>
     ዳዉንሎድ ናቪ ነፃ ሶፍትዌር ነው ፣ በ ውሎቹ ስር ይወጣል<a href="http://www.gnu.org/copyleft/gpl.html">GNU General Public License v3 (GPLv3)</a><br><br>
-    <a href="https://github.com/TachibanaGeneralLaboratories/download-navi/blob/HEAD/Privacy.md">የግላዊነት ፖሊሲ</a>]]></string>
+    <a href="https://github.com/TachibanaGeneralLaboratories/download-navi/blob/HEAD/PRIVACY.md">የግላዊነት ፖሊሲ</a>]]></string>
     <string name="about_changelog">የለውጥ ምዝግብ</string>
 </resources>

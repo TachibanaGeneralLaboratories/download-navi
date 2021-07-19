@@ -311,6 +311,6 @@
     <string name="about_description"><![CDATA[    Informasi dan ikut dukung proyek ini: <a href="https://github.com/TachibanaGeneralLaboratories/download-navi">https://github.com/TachibanaGeneralLaboratories/download-navi</a><br><br>
     Download Navi adalah pengelola unduhan gratis dan bersumber tebuka untuk Android 4.4+<br><br>
     Download Navi adalah perangkat lunak bebas, dirilis dibawah perlindungan <a href="http://www.gnu.org/copyleft/gpl.html">Lisensi Publik Umum GNU v3 (GPLv3)</a><br><br>
-    <a href="https://github.com/TachibanaGeneralLaboratories/download-navi/blob/HEAD/Privacy.md">Kebijakan Privasi</a>]]></string>
+    <a href="https://github.com/TachibanaGeneralLaboratories/download-navi/blob/HEAD/PRIVACY.md">Kebijakan Privasi</a>]]></string>
     <string name="about_changelog">Catatan perubahan</string>
 </resources>
