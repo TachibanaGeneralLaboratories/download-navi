@@ -300,10 +300,15 @@ public class DownloadUtils {
             } else {
                 // Return quoted string if available and replace escaped characters.
                 String quotedFileName = m.group(QUOTED_FILE_NAME_GROUP);
-
-                return quotedFileName == null ?
+                String rawFileName = quotedFileName == null ?
                         m.group(UNQUOTED_FILE_NAME) :
                         quotedFileName.replace("\\\\(.)", "$1");
+                String fileName = autoDecodePercentEncoding(rawFileName);
+                if (fileName == null) {
+                    fileName = rawFileName;
+                }
+
+                return fileName;
             }
         }
 
