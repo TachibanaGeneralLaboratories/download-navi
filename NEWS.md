@@ -1,3 +1,20 @@
+Version 1.4 (2021-07-19)
+========================
+
+ * Android 11 support
+ * Added:
+      - Speed limit
+      - [Browser] Hide browser icon option
+ * More improved Content-Disposition parsing
+ * Bugfixing:
+      - Downloading files that requires Referer header
+      - Handling "Do not ask again" of the permissions
+      - Adding the .bin extension
+      - [Browser] Cookies option
+      - Crash on Android 8.0 if tap on the text field
+      - Sites that require WWW in URL
+      - Handling HTTP 307
+
 Version 1.3.1 (2021-05-05)
 ========================
 
