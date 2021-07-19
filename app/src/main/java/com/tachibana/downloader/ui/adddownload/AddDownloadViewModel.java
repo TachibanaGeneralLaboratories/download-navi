@@ -49,12 +49,12 @@ import com.tachibana.downloader.core.model.data.entity.Header;
 import com.tachibana.downloader.core.model.data.entity.UserAgent;
 import com.tachibana.downloader.core.settings.SettingsRepository;
 import com.tachibana.downloader.core.storage.DataRepository;
-import com.tachibana.downloader.core.system.FileDescriptorWrapper;
 import com.tachibana.downloader.core.system.FileSystemFacade;
 import com.tachibana.downloader.core.system.SystemFacade;
 import com.tachibana.downloader.core.system.SystemFacadeHelper;
 import com.tachibana.downloader.core.urlnormalizer.NormalizeUrl;
 import com.tachibana.downloader.core.utils.DigestUtils;
+import com.tachibana.downloader.core.utils.DownloadUtils;
 import com.tachibana.downloader.core.utils.MimeTypeUtils;
 import com.tachibana.downloader.core.utils.Utils;
 
@@ -364,7 +364,7 @@ public class AddDownloadViewModel extends AndroidViewModel
         if ("application/octet-stream".equals(mimeType))
             mimeType = null;
 
-        String fileName = Utils.getHttpFileName(
+        String fileName = DownloadUtils.getHttpFileName(
                 fs,
                 tmpUrl,
                 contentDisposition,

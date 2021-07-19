@@ -41,6 +41,7 @@ import com.tachibana.downloader.core.system.FileDescriptorWrapper;
 import com.tachibana.downloader.core.system.FileSystemFacade;
 import com.tachibana.downloader.core.system.SystemFacade;
 import com.tachibana.downloader.core.utils.DateUtils;
+import com.tachibana.downloader.core.utils.DownloadUtils;
 import com.tachibana.downloader.core.utils.MimeTypeUtils;
 import com.tachibana.downloader.core.utils.Utils;
 
@@ -532,7 +533,7 @@ class DownloadThreadImpl implements DownloadThread
             String contentLocation = conn.getHeaderField("Content-Location");
             String tmpUrl = conn.getURL().toString();
 
-            fileName = Utils.getHttpFileName(fs,
+            fileName = DownloadUtils.getHttpFileName(fs,
                     tmpUrl,
                     contentDisposition,
                     contentLocation,
