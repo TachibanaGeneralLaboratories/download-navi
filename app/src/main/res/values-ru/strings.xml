@@ -112,6 +112,13 @@
     <string name="fragment_title_completed">Завершённые</string>
     <string name="download_list_empty">Нет загрузок</string>
     <string name="share_url">Поделиться URL</string>
+    <string name="file_not_available">файл недоступен!</string>
+    <plurals name="unable_sharing">
+        <item quantity="one">Невозможно поделится файлом.</item>
+        <item quantity="few">Невозможно поделится файлами.</item>
+        <item quantity="many">Невозможно поделится файлами.</item>
+        <item quantity="other">Невозможно поделится файлами.</item>
+    </plurals>
     <!-- Navigation drawer -->
     <!-- Category -->
     <string name="drawer_category">Категория</string>
@@ -227,6 +234,7 @@
     <!-- Headers -->
     <string name="pref_header_appearance">Внешний вид</string>
     <string name="pref_header_behavior">Поведение</string>
+    <string name="pref_header_limitations">Ограничения</string>
     <string name="pref_header_storage">Хранилище</string>
     <string name="pref_header_browser">Браузер</string>
     <!-- Appearance settings -->
@@ -266,15 +274,18 @@
     <string name="pref_custom_battery_control_dialog_summary">Установка нестандартного уровня заряда аккумулятора для приложения будет отрицательно сказываться на времени автономной работы во время загрузки. Вы действительно хотите включить это?</string>
     <string name="pref_enable_roaming_title">Включить роуминг</string>
     <string name="pref_enable_roaming_summary">Скачивать только если устройство не в роуминге</string>
-    <string name="pref_max_active_downloads_title">Максимум активных загрузок</string>
-    <string name="pref_max_download_retries_title">Максимальное количество попыток загрузки</string>
-    <string name="pref_max_download_retries_dialog_msg">0 - без попыток</string>
     <string name="pref_replace_duplicate_downloads_title">Заменит дубликаты загрузок</string>
     <string name="pref_replace_duplicate_downloads_summary">Заменить дубликаты загрузок (с тем же URL) при добавлении, которые уже есть в списке</string>
     <string name="pref_auto_connect_title">Автоматическое соединение</string>
     <string name="pref_auto_connect_summary">Автоматическое соединение при открытии диалога добавления</string>
     <string name="pref_timeout_title">Тайм-аут</string>
     <string name="pref_timeout_summary">Количество миллисекунд ожидания до превышения времени ожидания соединения. Ноль интерпретируется как бесконечный тайм-аут</string>
+    <!-- Limitation settings -->
+    <string name="pref_max_active_downloads_title">Максимум активных загрузок</string>
+    <string name="pref_max_download_retries_title">Максимальное количество попыток загрузки</string>
+    <string name="pref_max_download_retries_dialog_msg">0 - без попыток</string>
+    <string name="pref_speed_limit_title">Ограничение скорости для одной части</string>
+    <string name="pref_speed_limit_dialog_hint">Установите скорость в КиБ/с (0 - безлимитная)</string>
     <!-- Storage settings -->
     <string name="pref_save_downloads_in_title">Сохранять загрузки в</string>
     <string name="pref_move_after_download_title">Перемещать после загрузки</string>

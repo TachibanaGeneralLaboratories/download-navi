@@ -112,6 +112,11 @@
     <string name="fragment_title_completed">Completado</string>
     <string name="download_list_empty">No hay descargas</string>
     <string name="share_url">Compartir URL</string>
+    <string name="file_not_available">¡fichero no disponible!</string>
+    <plurals name="unable_sharing">
+        <item quantity="one">El fichero no se puede compartir.</item>
+        <item quantity="other">Los ficheros no se pueden compartir.</item>
+    </plurals>
     <!-- Navigation drawer -->
     <!-- Category -->
     <string name="drawer_category">Categoría</string>
@@ -223,6 +228,7 @@
     <!-- Headers -->
     <string name="pref_header_appearance">Apariencia</string>
     <string name="pref_header_behavior">Comportamiento</string>
+    <string name="pref_header_limitations">Limitaciones</string>
     <string name="pref_header_storage">Almacenamiento</string>
     <string name="pref_header_browser">Navegador</string>
     <!-- Appearance settings -->
@@ -262,15 +268,18 @@
     <string name="pref_custom_battery_control_dialog_summary">Establecer un porcentaje de batería personalizado para la aplicación tendrá un impacto negativo en la duración de la batería mientras se realizan las descargas. ¿Estás seguro de que deseas habilitar esto?</string>
     <string name="pref_enable_roaming_title">Habilitar roaming</string>
     <string name="pref_enable_roaming_summary">Descargar solo si el dispositivo no está en roaming</string>
-    <string name="pref_max_active_downloads_title">Máximo número de descargas activas</string>
-    <string name="pref_max_download_retries_title">Máximo número de reintentos de descarga</string>
-    <string name="pref_max_download_retries_dialog_msg">0 - sin reintentos</string>
     <string name="pref_replace_duplicate_downloads_title">Reemplazar descargas duplicadas</string>
     <string name="pref_replace_duplicate_downloads_summary">Reemplazar descargas duplicadas (con la misma URL) cuando se añaden si ya están en la lista</string>
     <string name="pref_auto_connect_title">Conectar automáticamente</string>
     <string name="pref_auto_connect_summary">Conectar automáticamente al abrir el diálogo de añadir</string>
     <string name="pref_timeout_title">Tiempo de espera</string>
     <string name="pref_timeout_summary">Número de milisegundos a esperar antes de que se agote el tiempo de espera de la conexión. Cero se interpreta como un tiempo de espera infinito</string>
+    <!-- Limitation settings -->
+    <string name="pref_max_active_downloads_title">Máximo número de descargas activas</string>
+    <string name="pref_max_download_retries_title">Máximo número de reintentos de descarga</string>
+    <string name="pref_max_download_retries_dialog_msg">0 - sin reintentos</string>
+    <string name="pref_speed_limit_title">Límite de velocidad para una pieza</string>
+    <string name="pref_speed_limit_dialog_hint">Establecer velocidad en KiB/s (0 - sin límite)</string>
     <!-- Storage settings -->
     <string name="pref_save_downloads_in_title">Guardar descargas en</string>
     <string name="pref_move_after_download_title">Mover al finalizar descarga</string>
@@ -298,6 +307,8 @@
     <string name="pref_browser_disable_from_system_title">Deshabilitar el navegador del sistema</string>
     <string name="pref_browser_disable_from_system_summary">El navegador no estará disponible para abrir enlaces</string>
     <string name="pref_browser_search_engine_title">Motor de búsqueda</string>
+    <string name="pref_browser_hide_menu_icon_title">Ocultar icono del menú</string>
+    <string name="pref_browser_hide_menu_icon_summary">Ocultar icono del navegador del menú de la pantalla principal</string>
     <!-- About dialog -->
     <string name="about_title">Acerca de Download Navi</string>
     <string name="about_description"><![CDATA[Para más información y para ayudar en el proyecto: <a href="https://github.com/TachibanaGeneralLaboratories/download-navi">https://github.com/TachibanaGeneralLaboratories/download-navi</a><br><br>Download Navi es un administrador de descargas libre y de código abierto para Android 4.4+<br><br>Download Navi es software libre, publicado bajo los términos de la <a href="http://www.gnu.org/copyleft/gpl.html">Licencia Pública General de GNU v3 (GPLv3)</a><br><br><a href="https://github.com/TachibanaGeneralLaboratories/download-navi/blob/HEAD/Privacy.md">Política de privacidad</a>]]></string>

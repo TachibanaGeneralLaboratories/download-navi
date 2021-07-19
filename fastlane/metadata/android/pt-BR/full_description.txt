@@ -7,6 +7,7 @@
 * Suporte ao Chrome OS
 * Pausar e retomar downloads
 * Suporte a navegadores
+* Navegador integrado
 * Downloads simultâneos (padrão 3)
 * Download de várias partes (máx. 16)
 * Baixar arquivos em segundo plano
@@ -16,3 +17,4 @@
 * Calcular o valor de hash (MD5 e SHA-256)
 Gerenciamento de energia e controle de bateria
 * Várias ações automáticas após concluir o download
+* Speed limit

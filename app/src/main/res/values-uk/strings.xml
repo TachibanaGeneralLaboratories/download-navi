@@ -112,6 +112,13 @@
     <string name="fragment_title_completed">Завершені</string>
     <string name="download_list_empty">Немає завантажень</string>
     <string name="share_url">Поділитися посиланням</string>
+    <string name="file_not_available">file not available!</string>
+    <plurals name="unable_sharing">
+        <item quantity="one">The file cannot be shared.</item>
+        <item quantity="few">The files cannot be shared.</item>
+        <item quantity="many">The files cannot be shared.</item>
+        <item quantity="other">The files cannot be shared.</item>
+    </plurals>
     <!-- Navigation drawer -->
     <!-- Category -->
     <string name="drawer_category">Категорія</string>
@@ -227,6 +234,7 @@
     <!-- Headers -->
     <string name="pref_header_appearance">Зовнішній вигляд</string>
     <string name="pref_header_behavior">Поведінка</string>
+    <string name="pref_header_limitations">Limitations</string>
     <string name="pref_header_storage">Сховище</string>
     <string name="pref_header_browser">Браузер</string>
     <!-- Appearance settings -->
@@ -266,15 +274,18 @@
     <string name="pref_custom_battery_control_dialog_summary">Установка нестандартного рівня заряду акумулятора для додатка буде негативно позначатися на часі автономної роботи під час завантаження. Ви дійсно хочете увімкнути це?</string>
     <string name="pref_enable_roaming_title">Увімкнути роумінг</string>
     <string name="pref_enable_roaming_summary">Завантажувати лише якщо пристрій не у роумінгу</string>
-    <string name="pref_max_active_downloads_title">Максимальна кількість активних завантажень</string>
-    <string name="pref_max_download_retries_title">Максимальна кількість повторних спроб для завантаження</string>
-    <string name="pref_max_download_retries_dialog_msg">0 - без спроб</string>
     <string name="pref_replace_duplicate_downloads_title">Замінити повторювані завантаження</string>
     <string name="pref_replace_duplicate_downloads_summary">Замінити дублікати завантажень (з тим же URL) при додаванні у список завантаження</string>
     <string name="pref_auto_connect_title">Автоматичне підключення</string>
     <string name="pref_auto_connect_summary">Автоматичне підключення при відкритті діалогового вікна додавання</string>
     <string name="pref_timeout_title">Таймаут</string>
     <string name="pref_timeout_summary">Кількість мілісекунд очікування до перевищення часу очікування з\'єднання. Нуль інтерпретується як нескінченний час очікування</string>
+    <!-- Limitation settings -->
+    <string name="pref_max_active_downloads_title">Максимальна кількість активних завантажень</string>
+    <string name="pref_max_download_retries_title">Максимальна кількість повторних спроб для завантаження</string>
+    <string name="pref_max_download_retries_dialog_msg">0 - без спроб</string>
+    <string name="pref_speed_limit_title">Speed limit for one piece</string>
+    <string name="pref_speed_limit_dialog_hint">Set speed in KiB/s (0 - without limit)</string>
     <!-- Storage settings -->
     <string name="pref_save_downloads_in_title">Зберігати завантаження у</string>
     <string name="pref_move_after_download_title">Переміщати після завантаження</string>
@@ -302,6 +313,8 @@
     <string name="pref_browser_disable_from_system_title">Вимкнути браузер з системи</string>
     <string name="pref_browser_disable_from_system_summary">Браузер не буде доступний для відкриття посилань</string>
     <string name="pref_browser_search_engine_title">Пошукова система</string>
+    <string name="pref_browser_hide_menu_icon_title">Приховати значок з меню</string>
+    <string name="pref_browser_hide_menu_icon_summary">Приховати іконку браузера з меню на головному екрані</string>
     <!-- About dialog -->
     <string name="about_title">Про Download Navi</string>
     <string name="about_description"><![CDATA[    Більше інформації, а також допомогти проєкту: <a href="https://github.com/TachibanaGeneralLaboratories/download-navi">https://github.com/TachibanaGeneralLaboratories/download-navi</a><br><br>

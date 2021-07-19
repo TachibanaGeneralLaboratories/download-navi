@@ -112,6 +112,15 @@
     <string name="fragment_title_completed">المكتملة</string>
     <string name="download_list_empty">لا توجد تنزيلات</string>
     <string name="share_url">مشاركة الرابط</string>
+    <string name="file_not_available">الملف غير متوفر!</string>
+    <plurals name="unable_sharing">
+        <item quantity="zero">لا يمكن مشاركة الملف.</item>
+        <item quantity="one">لا يمكن مشاركة الملف.</item>
+        <item quantity="two">لا يمكن مشاركة الملف.</item>
+        <item quantity="few">لا يمكن مشاركة الملف.</item>
+        <item quantity="many">لا يمكن مشاركة الملفات.</item>
+        <item quantity="other">لا يمكن مشاركة الملفات.</item>
+    </plurals>
     <!-- Navigation drawer -->
     <!-- Category -->
     <string name="drawer_category">الفئة</string>
@@ -231,6 +240,7 @@
     <!-- Headers -->
     <string name="pref_header_appearance">المظهر</string>
     <string name="pref_header_behavior">السلوك</string>
+    <string name="pref_header_limitations">القيود</string>
     <string name="pref_header_storage">التخزين</string>
     <string name="pref_header_browser">المتصفح</string>
     <!-- Appearance settings -->
@@ -270,15 +280,18 @@
     <string name="pref_custom_battery_control_dialog_summary">تعيين نسبة مئوية مخصصة للتطبيق لمراقبة التحميل سيكون له أثر سلبي على عمر البطارية عند التحميل. هل أنت متأكد من أنك تريد تمكين هذا؟</string>
     <string name="pref_enable_roaming_title">تفعيل التجوال</string>
     <string name="pref_enable_roaming_summary">تحميل فقط إذا لم يكن الجهاز في وضع التجوال</string>
-    <string name="pref_max_active_downloads_title">الحد الأقصى من التحميلات النشطة</string>
-    <string name="pref_max_download_retries_title">الحد الأقصى لعدد المحاولات</string>
-    <string name="pref_max_download_retries_dialog_msg">0-بدون اي محاولات</string>
     <string name="pref_replace_duplicate_downloads_title">استبدال التحميلات المتكررة</string>
     <string name="pref_replace_duplicate_downloads_summary">استبدال التحميلات المكررة (التي تحتوي علئ نفس رابط التحميل) و موجودة مسبقاً في قائمة التنزيلات</string>
     <string name="pref_auto_connect_title">اللإتصال التلقائي</string>
     <string name="pref_auto_connect_summary">الاتصال التلقائي عند فتح نافذة الإضافة</string>
     <string name="pref_timeout_title">انتهت المهلة</string>
     <string name="pref_timeout_summary">وقت الانتظار بالملي ثانية قبل انتهاء مهلة الاتصال. يتم تفسير الصفر كـ مهلة لانهائية</string>
+    <!-- Limitation settings -->
+    <string name="pref_max_active_downloads_title">الحد الأقصى من التحميلات النشطة</string>
+    <string name="pref_max_download_retries_title">الحد الأقصى لعدد المحاولات</string>
+    <string name="pref_max_download_retries_dialog_msg">0-بدون اي محاولات</string>
+    <string name="pref_speed_limit_title">حد السرعة للجزء الواحد</string>
+    <string name="pref_speed_limit_dialog_hint">تعيين السرعة في KiB/s (0 - بدون حدود)</string>
     <!-- Storage settings -->
     <string name="pref_save_downloads_in_title">حفظ التنزيلات في</string>
     <string name="pref_move_after_download_title">نقل بعد التحميل</string>
@@ -306,6 +319,8 @@
     <string name="pref_browser_disable_from_system_title">تعطيل المتصفح من النظام</string>
     <string name="pref_browser_disable_from_system_summary">المتصفح لن يكون متاحا لفتح الروابط</string>
     <string name="pref_browser_search_engine_title">محرك البحث</string>
+    <string name="pref_browser_hide_menu_icon_title">إخفاء التطبيق من درج التطبيقات</string>
+    <string name="pref_browser_hide_menu_icon_summary">إخفاء أيقونة المتصفح من قائمة الشاشة الرئيسية</string>
     <!-- About dialog -->
     <string name="about_title">حول Download Navi</string>
     <string name="about_description"><![CDATA[    <br><br>لمزيد من المعلومات و للمساعدة في المشروع: <a href="https://github.com/TachibanaGeneralLaboratories/download-navi">https://github.com/TachibanaGeneralLaboratories/download-navi</a>

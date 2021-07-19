@@ -112,6 +112,13 @@
     <string name="fragment_title_completed">Dokončené</string>
     <string name="download_list_empty">Žiadne sťahovanie</string>
     <string name="share_url">Zdieľať URL</string>
+    <string name="file_not_available">súbor nie je dostupný!</string>
+    <plurals name="unable_sharing">
+        <item quantity="one">The file cannot be shared.</item>
+        <item quantity="few">The files cannot be shared.</item>
+        <item quantity="many">The files cannot be shared.</item>
+        <item quantity="other">Súbory nie je možné zdieľať.</item>
+    </plurals>
     <!-- Navigation drawer -->
     <!-- Category -->
     <string name="drawer_category">Kategória</string>
@@ -227,6 +234,7 @@
     <!-- Headers -->
     <string name="pref_header_appearance">Vzhľad</string>
     <string name="pref_header_behavior">Správanie</string>
+    <string name="pref_header_limitations">Obmedzenia</string>
     <string name="pref_header_storage">Úložisko</string>
     <string name="pref_header_browser">Prehliadač</string>
     <!-- Appearance settings -->
@@ -266,15 +274,18 @@
     <string name="pref_custom_battery_control_dialog_summary">Nastavenie vlastného percenta batérie bude mať negatívny vplyv na výdrž batérie počas sťahovania. Naozaj ho chcete povoliť?</string>
     <string name="pref_enable_roaming_title">Povoliť roaming</string>
     <string name="pref_enable_roaming_summary">Sťahovať len vtedy, ak zariadenie nie je v roamingu</string>
-    <string name="pref_max_active_downloads_title">Max. počet aktívnych sťahovaní</string>
-    <string name="pref_max_download_retries_title">Max. počet opakovaní sťahovania</string>
-    <string name="pref_max_download_retries_dialog_msg">0 - neopakovať</string>
     <string name="pref_replace_duplicate_downloads_title">Nahradiť duplicitné sťahovania</string>
     <string name="pref_replace_duplicate_downloads_summary">Nahradiť duplicitné sťahovania (s rovnakou adresou URL), ak sa už nachádza v zozname</string>
     <string name="pref_auto_connect_title">Automatické pripojenie</string>
     <string name="pref_auto_connect_summary">Automaticky pripojiť pri otváraní dialógu pre pridanie</string>
     <string name="pref_timeout_title">Časový limit</string>
     <string name="pref_timeout_summary">Koľko milisekúnd sa má čakať pred vypršaním časového limitu pripojenia. Nula znamená nekonečný časový limit</string>
+    <!-- Limitation settings -->
+    <string name="pref_max_active_downloads_title">Max. počet aktívnych sťahovaní</string>
+    <string name="pref_max_download_retries_title">Max. počet opakovaní sťahovania</string>
+    <string name="pref_max_download_retries_dialog_msg">0 - neopakovať</string>
+    <string name="pref_speed_limit_title">Obmedzenie rýchlosti na jednu časť</string>
+    <string name="pref_speed_limit_dialog_hint">Nastaviť rýchlosť na KiB/s (0 – bez obmedzenia)</string>
     <!-- Storage settings -->
     <string name="pref_save_downloads_in_title">Uložiť sťahovanie do</string>
     <string name="pref_move_after_download_title">Po stiahnutí presunúť</string>
@@ -302,6 +313,8 @@
     <string name="pref_browser_disable_from_system_title">Zakázať prehlliadač v systéme</string>
     <string name="pref_browser_disable_from_system_summary">Prehliadač nebude dostupný pre otváranie odkazov</string>
     <string name="pref_browser_search_engine_title">Vyhľadávač</string>
+    <string name="pref_browser_hide_menu_icon_title">Skryť ikonu z menu</string>
+    <string name="pref_browser_hide_menu_icon_summary">Skryť ikonu prehliačada z úvodnej obrazovky</string>
     <!-- About dialog -->
     <string name="about_title">O Download Navi</string>
     <string name="about_description"><![CDATA[    Viac informácií a tiež pomoc s projektom: <a href="https://github.com/TachibanaGeneralLaboratories/download-navi">https://github.com/TachibanaGeneralLaboratories/download-navi</a><br><br>

@@ -7,6 +7,7 @@
 * Hỗ trợ Chrome OS
 * Tạm dừng và tiếp tục tải xuống
 * Hỗ trợ các trình duyệt
+* Trình duyệt được tích hợp
 * Tải xuống song song (mặc định là 3)
 * Tải xuống phân mảnh (tối đa là 16)
 * Tải xuống khi chạy ngầm
@@ -16,3 +17,4 @@
 * Tính mã băm (MD5 & SHA-256)
 * Quản lí nguồn năng lượng và pin
 * Nhiều thao tác tự động sau khi tải xong
+* Speed limit

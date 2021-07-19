@@ -112,6 +112,10 @@
     <string name="fragment_title_completed">Komplet</string>
     <string name="download_list_empty">Tidak ada unduhan</string>
     <string name="share_url">Bagikan URL</string>
+    <string name="file_not_available">file not available!</string>
+    <plurals name="unable_sharing">
+        <item quantity="other">The files cannot be shared.</item>
+    </plurals>
     <!-- Navigation drawer -->
     <!-- Category -->
     <string name="drawer_category">Kategori</string>
@@ -221,6 +225,7 @@
     <!-- Headers -->
     <string name="pref_header_appearance">Tampilan</string>
     <string name="pref_header_behavior">Perilaku</string>
+    <string name="pref_header_limitations">Limitations</string>
     <string name="pref_header_storage">Penyimpanan</string>
     <string name="pref_header_browser">Peramban</string>
     <!-- Appearance settings -->
@@ -260,15 +265,18 @@
     <string name="pref_custom_battery_control_dialog_summary">Mengatur persentase baterei khusus untuk aplikasi akan berdampak negatif pada ketahanan baterei saat proses unduh sedang berjalan. Apakah anda yakin ingin mengaktifkan fitur ini?</string>
     <string name="pref_enable_roaming_title">Aktifkan roaming</string>
     <string name="pref_enable_roaming_summary">Hanya unduh saat perangkat tidak roaming</string>
-    <string name="pref_max_active_downloads_title">Jumlah maksimum unduhan aktif</string>
-    <string name="pref_max_download_retries_title">Jumlah maksimum pengulangan unduhan</string>
-    <string name="pref_max_download_retries_dialog_msg">0 - tanpa diulang</string>
     <string name="pref_replace_duplicate_downloads_title">Ganti duplikat unduhan</string>
     <string name="pref_replace_duplicate_downloads_summary">Ganti duplikat unduhan (dengan URL yang sama) jika saat ditambahkan sudah ada di dalam daftar</string>
     <string name="pref_auto_connect_title">Otomatis tersambung</string>
     <string name="pref_auto_connect_summary">Otomatis tersambung saat membuka dialog tambah</string>
     <string name="pref_timeout_title">Batas waktu</string>
     <string name="pref_timeout_summary">Batas waktu dalam milidetik sebelum koneksi ditutup. Nol untuk waktu yang tidak terbatas</string>
+    <!-- Limitation settings -->
+    <string name="pref_max_active_downloads_title">Jumlah maksimum unduhan aktif</string>
+    <string name="pref_max_download_retries_title">Jumlah maksimum pengulangan unduhan</string>
+    <string name="pref_max_download_retries_dialog_msg">0 - tanpa diulang</string>
+    <string name="pref_speed_limit_title">Speed limit for one piece</string>
+    <string name="pref_speed_limit_dialog_hint">Set speed in KiB/s (0 - without limit)</string>
     <!-- Storage settings -->
     <string name="pref_save_downloads_in_title">Simpan unduhan di</string>
     <string name="pref_move_after_download_title">Pindah setelah diunduh</string>
@@ -296,6 +304,8 @@
     <string name="pref_browser_disable_from_system_title">Nonaktifkan peramban dari pengaturan sistem</string>
     <string name="pref_browser_disable_from_system_summary">Peramban tidak akan tersedia saat membuka tautan</string>
     <string name="pref_browser_search_engine_title">Mesin pencari</string>
+    <string name="pref_browser_hide_menu_icon_title">Sembunyikan ikon dari menu</string>
+    <string name="pref_browser_hide_menu_icon_summary">Sembunyikan ikon peramban dari menu layar utama</string>
     <!-- About dialog -->
     <string name="about_title">Tentang Download Navi</string>
     <string name="about_description"><![CDATA[    Informasi dan ikut dukung proyek ini: <a href="https://github.com/TachibanaGeneralLaboratories/download-navi">https://github.com/TachibanaGeneralLaboratories/download-navi</a><br><br>

@@ -103,7 +103,7 @@
     <string name="add_download_error_invalid_url">Não foi possível adicionar o download: URL inválida</string>
     <string name="checksum">Checksum</string>
     <string name="add_dialog_checksum_description">MD5, SHA-256</string>
-    <string name="referer_description">%1$s header</string>
+    <string name="referer_description">%1$s cabeçalho</string>
     <string name="error_invalid_checksum">Checksum inválido</string>
     <!-- Add user agent dialog -->
     <string name="dialog_add_user_agent_title">Adicionar agente de usuário</string>
@@ -112,6 +112,11 @@
     <string name="fragment_title_completed">Concluído</string>
     <string name="download_list_empty">Sem downloads</string>
     <string name="share_url">Compartilhar URL</string>
+    <string name="file_not_available">arquivo não disponível!</string>
+    <plurals name="unable_sharing">
+        <item quantity="one">O arquivo não pode ser compartilhado.</item>
+        <item quantity="other">Os arquivos não podem ser compartilhados.</item>
+    </plurals>
     <!-- Navigation drawer -->
     <!-- Category -->
     <string name="drawer_category">Categoria</string>
@@ -223,6 +228,7 @@
     <!-- Headers -->
     <string name="pref_header_appearance">Aparência</string>
     <string name="pref_header_behavior">Comportamento</string>
+    <string name="pref_header_limitations">Limitações</string>
     <string name="pref_header_storage">Armazenamento</string>
     <string name="pref_header_browser">Navegador</string>
     <!-- Appearance settings -->
@@ -262,15 +268,18 @@
     <string name="pref_custom_battery_control_dialog_summary">Definir uma porcentagem de bateria personalizada para o aplicativo a ser observado causará um impacto negativo na duração da bateria enquanto os downloads estiverem ocorrendo. Tem certeza de que deseja ativar isso?</string>
     <string name="pref_enable_roaming_title">Ativar roaming</string>
     <string name="pref_enable_roaming_summary">Baixar apenas se o dispositivo não estiver em roaming</string>
-    <string name="pref_max_active_downloads_title">Máximo de downloads ativos</string>
-    <string name="pref_max_download_retries_title">Número máximo de tentativas de download</string>
-    <string name="pref_max_download_retries_dialog_msg">0 - sem tentativas</string>
     <string name="pref_replace_duplicate_downloads_title">Substituir downloads duplicados</string>
     <string name="pref_replace_duplicate_downloads_summary">Substituir downloads duplicados (com a mesma URL) quando adicionado que já estão na lista</string>
     <string name="pref_auto_connect_title">Conectar automaticamente</string>
     <string name="pref_auto_connect_summary">Conexão automática ao abrir o diálogo de adicionar</string>
     <string name="pref_timeout_title">Tempo Esgotado</string>
     <string name="pref_timeout_summary">O número de milissegundos a aguardar antes que a conexão atingisse o tempo limite. Zero é interpretado como um tempo limite infinito</string>
+    <!-- Limitation settings -->
+    <string name="pref_max_active_downloads_title">Máximo de downloads ativos</string>
+    <string name="pref_max_download_retries_title">Número máximo de tentativas de download</string>
+    <string name="pref_max_download_retries_dialog_msg">0 - sem tentativas</string>
+    <string name="pref_speed_limit_title">Limite de velocidade para uma parte</string>
+    <string name="pref_speed_limit_dialog_hint">Defina a velocidade em KiB/s (0 - sem limite)</string>
     <!-- Storage settings -->
     <string name="pref_save_downloads_in_title">Salvar downloads em</string>
     <string name="pref_move_after_download_title">Mover após download</string>
@@ -298,6 +307,8 @@
     <string name="pref_browser_disable_from_system_title">Desativar o navegador do sistema</string>
     <string name="pref_browser_disable_from_system_summary">Navegador não estará disponível para abrir links</string>
     <string name="pref_browser_search_engine_title">Mecanismo de pesquisa</string>
+    <string name="pref_browser_hide_menu_icon_title">Ocultar ícone do menu</string>
+    <string name="pref_browser_hide_menu_icon_summary">Ocultar ícone do navegador do menu da tela principal</string>
     <!-- About dialog -->
     <string name="about_title">Sobre Download Navi</string>
     <string name="about_description"><![CDATA[    Mais informações e também para ajudar o projeto: <a href="https://github.com/TachibanaGeneralLaboratories/download-navi">https://github.com/TachibanaGeneralLaboratories/download-navi</a><br><br>

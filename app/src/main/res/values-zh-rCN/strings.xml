@@ -112,6 +112,10 @@
     <string name="fragment_title_completed">已完成</string>
     <string name="download_list_empty">没有下载任务</string>
     <string name="share_url">分享网址</string>
+    <string name="file_not_available">文件不可用！</string>
+    <plurals name="unable_sharing">
+        <item quantity="other">无法共享文件。</item>
+    </plurals>
     <!-- Navigation drawer -->
     <!-- Category -->
     <string name="drawer_category">类型</string>
@@ -221,6 +225,7 @@
     <!-- Headers -->
     <string name="pref_header_appearance">外观</string>
     <string name="pref_header_behavior">行为设置</string>
+    <string name="pref_header_limitations">限制</string>
     <string name="pref_header_storage">存储</string>
     <string name="pref_header_browser">浏览器</string>
     <!-- Appearance settings -->
@@ -260,15 +265,18 @@
     <string name="pref_custom_battery_control_dialog_summary">在下载过程中，为应用程序设置自定义电池百分比将对电池寿命产生负面影响。你确定要启用它吗？</string>
     <string name="pref_enable_roaming_title">允许漫游</string>
     <string name="pref_enable_roaming_summary">仅在设备未漫游时下载</string>
-    <string name="pref_max_active_downloads_title">最大同时下载任务</string>
-    <string name="pref_max_download_retries_title">最大下载重试次数</string>
-    <string name="pref_max_download_retries_dialog_msg">0  - 不重试</string>
     <string name="pref_replace_duplicate_downloads_title">替换重复下载</string>
     <string name="pref_replace_duplicate_downloads_summary">替换已添加到列表中的重复下载（使用相同的URL）</string>
     <string name="pref_auto_connect_title">自动连接</string>
     <string name="pref_auto_connect_summary">在打开添加下载对话框时自动连接下载地址</string>
     <string name="pref_timeout_title">超时</string>
     <string name="pref_timeout_summary">等待连接超时的毫秒数。零被解释为无限超时</string>
+    <!-- Limitation settings -->
+    <string name="pref_max_active_downloads_title">最大同时下载任务</string>
+    <string name="pref_max_download_retries_title">最大下载重试次数</string>
+    <string name="pref_max_download_retries_dialog_msg">0  - 不重试</string>
+    <string name="pref_speed_limit_title">单个下载速度限制</string>
+    <string name="pref_speed_limit_dialog_hint">设置速度，单位 KiB/s (0 代表无限制)</string>
     <!-- Storage settings -->
     <string name="pref_save_downloads_in_title">下载保存目录</string>
     <string name="pref_move_after_download_title">下载后移动</string>
@@ -296,6 +304,8 @@
     <string name="pref_browser_disable_from_system_title">从系统中禁用浏览器</string>
     <string name="pref_browser_disable_from_system_summary">将无法使用Navi浏览器打开链接</string>
     <string name="pref_browser_search_engine_title">搜索引擎</string>
+    <string name="pref_browser_hide_menu_icon_title">在菜单中隐藏图标</string>
+    <string name="pref_browser_hide_menu_icon_summary">在主屏幕菜单中隐藏浏览器图标</string>
     <!-- About dialog -->
     <string name="about_title">关于 Download Navi</string>
     <string name="about_description"><![CDATA[    访问此网站获取更多信息或者帮助项目: <a href="https://github.com/TachibanaGeneralLaboratories/download-navi">https://github.com/TachibanaGeneralLaboratories/download-navi</a><br><br>

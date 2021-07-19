@@ -112,6 +112,11 @@
     <string name="fragment_title_completed">Complété</string>
     <string name="download_list_empty">Aucun téléchargement</string>
     <string name="share_url">Partager l\'URL</string>
+    <string name="file_not_available">file not available!</string>
+    <plurals name="unable_sharing">
+        <item quantity="one">The file cannot be shared.</item>
+        <item quantity="other">The files cannot be shared.</item>
+    </plurals>
     <!-- Navigation drawer -->
     <!-- Category -->
     <string name="drawer_category">Catégorie</string>
@@ -223,6 +228,7 @@
     <!-- Headers -->
     <string name="pref_header_appearance">Apparence</string>
     <string name="pref_header_behavior">Comportement</string>
+    <string name="pref_header_limitations">Limitations</string>
     <string name="pref_header_storage">Stockage</string>
     <string name="pref_header_browser">Navigateur</string>
     <!-- Appearance settings -->
@@ -262,15 +268,18 @@
     <string name="pref_custom_battery_control_dialog_summary">Définir un pourcentage de batterie personnalisé pour l\'application à surveiller aura un impact négatif sur la durée de vie de la batterie pendant que les téléchargements se produisent. Êtes-vous sûr de vouloir activer cela ?</string>
     <string name="pref_enable_roaming_title">Activer l\'itinérance des données</string>
     <string name="pref_enable_roaming_summary">Télécharger uniquement si l\'appareil n\'est pas en itinérance</string>
-    <string name="pref_max_active_downloads_title">Nombre maximum de téléchargements actifs</string>
-    <string name="pref_max_download_retries_title">Nombre maximum de tentatives de téléchargements</string>
-    <string name="pref_max_download_retries_dialog_msg">0 - aucune tentatives</string>
     <string name="pref_replace_duplicate_downloads_title">Remplacer les téléchargements en double</string>
     <string name="pref_replace_duplicate_downloads_summary">Remplacer les téléchargements en double (avec la même URL) lorsque ajoutés alors qu\'ils sont déjà dans la liste</string>
     <string name="pref_auto_connect_title">Connexion automatique</string>
     <string name="pref_auto_connect_summary">Connexion automatique lors de l\'ouverture de la boîte de dialogue d\'ajout</string>
     <string name="pref_timeout_title">Expiré</string>
     <string name="pref_timeout_summary">Le nombre de millisecondes d\'attente avant que la connexion n\'expire. Zéro est interprété comme un délai d\'attente infini</string>
+    <!-- Limitation settings -->
+    <string name="pref_max_active_downloads_title">Nombre maximum de téléchargements actifs</string>
+    <string name="pref_max_download_retries_title">Nombre maximum de tentatives de téléchargements</string>
+    <string name="pref_max_download_retries_dialog_msg">0 - aucune tentatives</string>
+    <string name="pref_speed_limit_title">Speed limit for one piece</string>
+    <string name="pref_speed_limit_dialog_hint">Set speed in KiB/s (0 - without limit)</string>
     <!-- Storage settings -->
     <string name="pref_save_downloads_in_title">Enregistrer les téléchargements dans</string>
     <string name="pref_move_after_download_title">Déplacer après téléchargement</string>
@@ -298,6 +307,8 @@
     <string name="pref_browser_disable_from_system_title">Désactiver le navigateur du système</string>
     <string name="pref_browser_disable_from_system_summary">Le navigateur ne sera pas disponible pour l\'ouverture des liens</string>
     <string name="pref_browser_search_engine_title">Moteur de recherche</string>
+    <string name="pref_browser_hide_menu_icon_title">Masquer l\'icône du menu</string>
+    <string name="pref_browser_hide_menu_icon_summary">Masquer l\'icône du navigateur dans le menu de l\'écran principal</string>
     <!-- About dialog -->
     <string name="about_title">À propos du gestionnaire de Download Navi</string>
     <string name="about_description"><![CDATA[Plus d\'informations et aussi pour aider le projet: <a href="https://github.com/TachibanaGeneralLaboratories/download-navi">https://github.com/TachibanaGeneralLaboratories/download-navi</a><br><br>

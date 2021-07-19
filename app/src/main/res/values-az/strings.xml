@@ -61,7 +61,7 @@
     <!-- Foreground notification -->
     <string name="app_running_in_the_background">Download Navi arxaplanda işləyir</string>
     <string name="pause_all">Hamısına fasilə ver</string>
-    <string name="resume_all">Hamısına fasilə ver</string>
+    <string name="resume_all">Hamısını davam etdir</string>
     <!-- Finish notification -->
     <string name="download_finished_notify">Endirmə bitdi</string>
     <string name="open_using">Açma üsulu</string>
@@ -103,6 +103,7 @@
     <string name="add_download_error_invalid_url">Endirmə əlavə edilə bilmədi: etibarsız URL</string>
     <string name="checksum">Yoxlama cəmi</string>
     <string name="add_dialog_checksum_description">MD5, SHA-256</string>
+    <string name="referer_description">%1$s başlıq</string>
     <string name="error_invalid_checksum">Etibarsız yoxlama cəmi</string>
     <!-- Add user agent dialog -->
     <string name="dialog_add_user_agent_title">İstifadəçi agenti əlavə et</string>
@@ -111,6 +112,11 @@
     <string name="fragment_title_completed">Tamamlandı</string>
     <string name="download_list_empty">Endirmə yoxdur</string>
     <string name="share_url">URL-ni paylaş</string>
+    <string name="file_not_available">fayl yoxdur!</string>
+    <plurals name="unable_sharing">
+        <item quantity="one">Fayl paylaşıla bilməz.</item>
+        <item quantity="other">Fayllar paylaşıla bilməz.</item>
+    </plurals>
     <!-- Navigation drawer -->
     <!-- Category -->
     <string name="drawer_category">Kateqoriya</string>
@@ -222,6 +228,7 @@
     <!-- Headers -->
     <string name="pref_header_appearance">Görünüş</string>
     <string name="pref_header_behavior">Davranış</string>
+    <string name="pref_header_limitations">Məhdudiyyətlər</string>
     <string name="pref_header_storage">Anbar</string>
     <string name="pref_header_browser">Səyyah</string>
     <!-- Appearance settings -->
@@ -250,26 +257,29 @@
     <string name="pref_umnetered_connections_only_summary">Yalnız limitsiz bağlantılarda endir (Wi-Fi və ya Ethernet)</string>
     <string name="pref_power_management_category">Enerji idarəsi</string>
     <string name="pref_cpu_do_not_sleep_title">CPU-nu oyaq saxla</string>
-    <string name="pref_cpu_do_not_sleep_summary">Bunu fəallaşdırmaq batereya istifadəsini artırar. Ekran sönəndə endirmə sürəti azalsa bu seçimi istifadə et</string>
+    <string name="pref_cpu_do_not_sleep_summary">Bunu fəallaşdırmaq batareya istifadəsini artırar. Ekran sönəndə endirmə sürəti azalsa bu seçimi istifadə edin</string>
     <string name="pref_download_only_when_charging_title">Yalnız batereya doldurularkən endir</string>
-    <string name="pref_download_only_when_charging_summary">Fəallaşdırılsa, endirmə yalnız batereya doldurma vaxtı həyata keçiriləcək. Batereya doldurma qurğusu cihazdan ayrılanda bütün endirmələrə fasilə verilər</string>
-    <string name="pref_battery_control_title">Batereyaya nəzarət</string>
-    <string name="pref_custom_battery_control_title">Fərdi batereya faizi</string>
-    <string name="pref_custom_battery_control_value_title">Batereyaya nəzarət faizi</string>
-    <string name="pref_battery_control_summary">Batereya səviyyəsi %1$d%% altında olanda bütün endirmələrə fasilə verilər. Limit batereya doldurma vaxtı tətbiq edilmir</string>
-    <string name="pref_custom_battery_control_summary">Batereya səviyyəsi müəyyən bir dəyərdən az olsa, endirməyə fasilə vermək üçün bir faiz müəyyən edin. Bu seçimin fəallaşdırılması, ilkin %1$d%% dəyərini əhəmiyyətsiz edər</string>
-    <string name="pref_custom_battery_control_dialog_summary">Endirmə ərzində tətbiqetmə üçün fərdi batereya faizi tənzimləmək, batereya ömrünə mənfi yöndə təsir edər. Fəallaşdırmaq istədiyinizə əminsiniz?</string>
+    <string name="pref_download_only_when_charging_summary">Fəallaşdırılsa, endirmə yalnız enerji yığımı zamanı həyata keçiriləcək. Enerji yükləyici cihazdan ayrılanda bütün endirmələrə fasilə verilər</string>
+    <string name="pref_battery_control_title">Batareyaya nəzarət</string>
+    <string name="pref_custom_battery_control_title">Özəl batareya faizi</string>
+    <string name="pref_custom_battery_control_value_title">Batareyaya nəzarət faizi</string>
+    <string name="pref_battery_control_summary">Batareya səviyyəsi %1$d%% altında olanda bütün endirmələrə fasilə verilər. Limit enerji yığımı zamanı tətbiq edilmir</string>
+    <string name="pref_custom_battery_control_summary">Batareya səviyyəsi müəyyən bir dəyərdən az olsa, endirməyə fasilə vermək üçün bir faiz müəyyən edin. Bu seçimin fəallaşdırılması, ilkin %1$d%% dəyərini əhəmiyyətsiz edər</string>
+    <string name="pref_custom_battery_control_dialog_summary">Endirmə ərzində tətbiqetmə üçün özəl batareya faizi tənzimləmək, batareya ömrünə mənfi yöndə təsir edir. Fəallaşdırmaq istədiyinizə əminsiniz?</string>
     <string name="pref_enable_roaming_title">Roaminqi fəallaşdır</string>
     <string name="pref_enable_roaming_summary">Cihaz roaminqdə olmayanda endir</string>
-    <string name="pref_max_active_downloads_title">Maksimum aktiv endirmə</string>
-    <string name="pref_max_download_retries_title">Endirmə cəhdinin maksimum sayı</string>
-    <string name="pref_max_download_retries_dialog_msg">0 - cəhd yoxdur</string>
     <string name="pref_replace_duplicate_downloads_title">Təkrarlanan endirmələri əvəz et</string>
     <string name="pref_replace_duplicate_downloads_summary">Siyahıya əlavə ediləndə (eyni URL ilə) təkrarlanan endirmələri əvəz et</string>
     <string name="pref_auto_connect_title">Avto bağlantı qur</string>
     <string name="pref_auto_connect_summary">Əlavə etmə pəncərəsi açılanda avtomatik bağlantı qur</string>
     <string name="pref_timeout_title">Vaxt tamamı</string>
     <string name="pref_timeout_summary">Bağlantının vaxtı tamamlanmamışdan əvvəl gözləniləcək millisaniyə müddəti. Sıfır, sonsuz bir vaxt tamamı kimi şərh edilir</string>
+    <!-- Limitation settings -->
+    <string name="pref_max_active_downloads_title">Maksimum aktiv endirmə</string>
+    <string name="pref_max_download_retries_title">Endirmə cəhdinin maksimum sayı</string>
+    <string name="pref_max_download_retries_dialog_msg">0 - cəhd yoxdur</string>
+    <string name="pref_speed_limit_title">Bir hissə üçün sürət limiti</string>
+    <string name="pref_speed_limit_dialog_hint">Sürəti KiB/s kimi tənzimlə (0 - limitsiz)</string>
     <!-- Storage settings -->
     <string name="pref_save_downloads_in_title">Endirmələrin saxlanması</string>
     <string name="pref_move_after_download_title">Endirəndən sonra köçürt</string>
@@ -296,7 +306,9 @@
     <string name="pref_browser_launcher_icon_title">Başladıcıda səyyah nişanı</string>
     <string name="pref_browser_disable_from_system_title">Sistemdə səyyahı sıradan çıxart</string>
     <string name="pref_browser_disable_from_system_summary">Səyyah, açılan bağlantılar üçün əlçatmaz olacaq</string>
-    <string name="pref_browser_search_engine_title">Axtarış motoru</string>
+    <string name="pref_browser_search_engine_title">Axtarış mühərriki</string>
+    <string name="pref_browser_hide_menu_icon_title">Nişan menyudan gizlət</string>
+    <string name="pref_browser_hide_menu_icon_summary">Əsas ekran menyusundan səyyah nişanını gizlət</string>
     <!-- About dialog -->
     <string name="about_title">Download Navi Haqqında</string>
     <string name="about_description"><![CDATA[    Layihəyə kömək etmək üçün ətraflı məlumat: <a href="https://github.com/TachibanaGeneralLaboratories/download-navi">https://github.com/TachibanaGeneralLaboratories/download-navi</a><br><br>
@@ -304,5 +316,4 @@
     Download Navi ödənişsiz proqram təminatıdır,<a href="http://www.gnu.org/copyleft/gpl.html">GNU Ümumi İctimai Lisenziyası v3 (GPLv3)</a><br><br>
     <a href="https://github.com/TachibanaGeneralLaboratories/download-navi/blob/HEAD/Privacy.md">Gizlilik siyasəti</a> şərtləri altında buraxılıb]]></string>
     <string name="about_changelog">Dəyişiklik jurnalı</string>
-    <string name="referer_description">%1$s header</string>
 </resources>

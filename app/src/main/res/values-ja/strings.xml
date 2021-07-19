@@ -112,6 +112,10 @@
     <string name="fragment_title_completed">完了</string>
     <string name="download_list_empty">ダウンロードはありません</string>
     <string name="share_url">URL を共有</string>
+    <string name="file_not_available">ファイルが利用できません!</string>
+    <plurals name="unable_sharing">
+        <item quantity="other">ファイルを共有できません。</item>
+    </plurals>
     <!-- Navigation drawer -->
     <!-- Category -->
     <string name="drawer_category">カテゴリ</string>
@@ -221,6 +225,7 @@
     <!-- Headers -->
     <string name="pref_header_appearance">外観</string>
     <string name="pref_header_behavior">動作</string>
+    <string name="pref_header_limitations">制限</string>
     <string name="pref_header_storage">ストレージ</string>
     <string name="pref_header_browser">ブラウザ</string>
     <!-- Appearance settings -->
@@ -260,15 +265,18 @@
     <string name="pref_custom_battery_control_dialog_summary">アプリが監視するカスタムバッテリー残量を設定すると、ダウンロード中のバッテリー寿命に悪影響があります。有効にしてもよろしいですか?</string>
     <string name="pref_enable_roaming_title">ローミングの有効化</string>
     <string name="pref_enable_roaming_summary">端末がローミングしていない場合にのみダウンロードする</string>
-    <string name="pref_max_active_downloads_title">実行する最大ダウンロード数</string>
-    <string name="pref_max_download_retries_title">ダウンロードの最大再試行回数</string>
-    <string name="pref_max_download_retries_dialog_msg">0 - 再試行なし</string>
     <string name="pref_replace_duplicate_downloads_title">重複ダウンロードを置き換える</string>
     <string name="pref_replace_duplicate_downloads_summary">既にリストにある場合、追加された時に (同じURL) 重複ダウンロードを置き換えます。</string>
     <string name="pref_auto_connect_title">自動接続</string>
     <string name="pref_auto_connect_summary">ダイアログを追加を開いた時自動接続する</string>
     <string name="pref_timeout_title">タイムアウト</string>
     <string name="pref_timeout_summary">接続がタイムアウトするまで待機するミリ秒数。ゼロは制限時間無しとして解釈されます。</string>
+    <!-- Limitation settings -->
+    <string name="pref_max_active_downloads_title">実行する最大ダウンロード数</string>
+    <string name="pref_max_download_retries_title">ダウンロードの最大再試行回数</string>
+    <string name="pref_max_download_retries_dialog_msg">0 - 再試行なし</string>
+    <string name="pref_speed_limit_title">1つあたりの項目の速度制限</string>
+    <string name="pref_speed_limit_dialog_hint">KiB/s で速度設定 (0 - 制限なし)</string>
     <!-- Storage settings -->
     <string name="pref_save_downloads_in_title">ダウンロードの保存先</string>
     <string name="pref_move_after_download_title">ダウンロード後の移動</string>
@@ -296,6 +304,8 @@
     <string name="pref_browser_disable_from_system_title">システムからブラウザを無効化</string>
     <string name="pref_browser_disable_from_system_summary">ブラウザはリンクを開くのに利用できません</string>
     <string name="pref_browser_search_engine_title">検索エンジン</string>
+    <string name="pref_browser_hide_menu_icon_title">メニューからアイコンを隠す</string>
+    <string name="pref_browser_hide_menu_icon_summary">メイン画面のメニューからブラウザアイコンを隠す</string>
     <!-- About dialog -->
     <string name="about_title">Download Navi について</string>
     <string name="about_description"><![CDATA[    詳細情報とプロジェクトの支援: <a href="https://github.com/TachibanaGeneralLaboratories/download-navi">https://github.com/TachibanaGeneralLaboratories/download-navi</a><br><br>

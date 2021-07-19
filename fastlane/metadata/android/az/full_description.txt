@@ -7,6 +7,7 @@
 * Chrome OS dəstəyi
 * Endirmələrə fasilə vermə və davam etdirmə
 * Səyyah dəstəyi
+* Daxili səyyah
 * Eyni zamanda bir neçə endirmə (ilkin 3)
 * Hissəli endirmə (ən çox 16)
 * Faylları arxaplanda endirmə
@@ -14,5 +15,6 @@
 * Roaminq nəzarəti
 * İstifadəçi agent nəzarəti
 * Hash dəyəri hesablama (MD5 & SHA-256)
-* Enerji İdarəsi və batereyaya nəzarət
+* Enerji İdarəsi və batareyaya nəzarət
 * Endirmədən sonra müxtəlif avtomatik hərəkətlər
+* Speed limit
