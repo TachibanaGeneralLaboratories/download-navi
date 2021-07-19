@@ -114,9 +114,9 @@
     <string name="share_url">Zdieľať URL</string>
     <string name="file_not_available">súbor nie je dostupný!</string>
     <plurals name="unable_sharing">
-        <item quantity="one">The file cannot be shared.</item>
-        <item quantity="few">The files cannot be shared.</item>
-        <item quantity="many">The files cannot be shared.</item>
+        <item quantity="one">Súbor nie je možné zdieľať.</item>
+        <item quantity="few">Súbory nie je možné zdieľať.</item>
+        <item quantity="many">Súbory nie je možné zdieľať.</item>
         <item quantity="other">Súbory nie je možné zdieľať.</item>
     </plurals>
     <!-- Navigation drawer -->

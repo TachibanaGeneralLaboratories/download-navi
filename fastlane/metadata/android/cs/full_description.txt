@@ -17,3 +17,4 @@
 * Výpočet hodnoty hash (MD5 & SHA-256)
 * Správa napájení a kontrola stavu baterie
 * Různé automatické akce po dokončení stahování
+* Omezení rychlosti
