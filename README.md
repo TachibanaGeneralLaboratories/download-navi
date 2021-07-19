@@ -37,6 +37,7 @@ Download Navi is a free and Open Source download manager for Android 4.4+.
  - Calculate hash value (MD5 & SHA-256)
  - Power Management and battery control
  - Various automatic actions after finishing download
+ - Speed limit
 
 ## Donation
 

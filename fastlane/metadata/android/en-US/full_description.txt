@@ -17,3 +17,4 @@
 * Calculate hash value (MD5 & SHA-256)
 * Power Management and battery control
 * Various automatic actions after finishing download
+* Speed limit
