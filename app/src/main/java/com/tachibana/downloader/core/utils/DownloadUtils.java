@@ -296,7 +296,7 @@ public class DownloadUtils {
             String encoding = m.group(ENCODING_GROUP);
 
             if (encodedFileName != null && encoding != null) {
-                decodePercentEncoding(encodedFileName, encoding);
+                return decodePercentEncoding(encodedFileName, encoding);
             } else {
                 // Return quoted string if available and replace escaped characters.
                 String quotedFileName = m.group(QUOTED_FILE_NAME_GROUP);
