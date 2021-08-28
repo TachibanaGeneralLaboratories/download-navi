@@ -278,7 +278,8 @@ class PieceThreadImpl extends Thread implements PieceThread
             @Override
             public void onIOException(IOException e)
             {
-                if (e instanceof ProtocolException && e.getMessage().startsWith("Unexpected status line"))
+                if (e instanceof ProtocolException && e.getMessage() != null &&
+                        e.getMessage().startsWith("Unexpected status line"))
                     ret[0] = new StopRequest(STATUS_UNHANDLED_HTTP_CODE, e);
                 else if (e instanceof SocketTimeoutException)
                     ret[0] = new StopRequest(HTTP_GATEWAY_TIMEOUT, "Download timeout");

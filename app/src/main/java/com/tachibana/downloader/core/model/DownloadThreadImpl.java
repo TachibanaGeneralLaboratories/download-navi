@@ -76,6 +76,7 @@ import static com.tachibana.downloader.core.model.data.StatusCode.STATUS_WAITING
 import static com.tachibana.downloader.core.model.data.StatusCode.STATUS_WAITING_TO_RETRY;
 import static java.net.HttpURLConnection.HTTP_INTERNAL_ERROR;
 import static java.net.HttpURLConnection.HTTP_OK;
+import static java.net.HttpURLConnection.HTTP_PARTIAL;
 import static java.net.HttpURLConnection.HTTP_PRECON_FAILED;
 import static java.net.HttpURLConnection.HTTP_UNAVAILABLE;
 
@@ -448,6 +449,7 @@ class DownloadThreadImpl implements DownloadThread
             }
             connection.setReferer(connectWithReferer[0] ? info.url : null);
             connection.setTimeout(pref.timeout());
+            connection.contentRangeLength(true);
             connection.setListener(new HttpConnection.Listener() {
                 @Override
                 public void onConnectionCreated(HttpURLConnection conn)
@@ -460,6 +462,7 @@ class DownloadThreadImpl implements DownloadThread
                 {
                     switch (code) {
                         case HTTP_OK:
+                        case HTTP_PARTIAL:
                             connectWithReferer[0] = parseOkHeaders(conn, connectWithReferer[0]);
                             StopRequest r;
                             if ((r = checkPauseStop()) != null)
@@ -575,7 +578,13 @@ class DownloadThreadImpl implements DownloadThread
         } else {
             info.totalBytes = -1;
         }
-        info.partialSupport = "bytes".equalsIgnoreCase(conn.getHeaderField("Accept-Ranges"));
+        if (info.totalBytes == -1) {
+            info.totalBytes = DownloadUtils.parseContentRangeFullSize(
+                    conn.getHeaderField("Content-Range")
+            );
+        };
+        info.partialSupport = "bytes".equalsIgnoreCase(conn.getHeaderField("Accept-Ranges")) ||
+                conn.getHeaderField("Content-Range") != null;
 
         Header eTagHeader = null;
         Header refererHeader = null;

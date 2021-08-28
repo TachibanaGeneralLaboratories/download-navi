@@ -276,6 +276,7 @@ public class AddDownloadViewModel extends AndroidViewModel
                                 params[0] :
                                 params[1]
                 );
+                connection.contentRangeLength(true);
 
                 NetworkInfo netInfo = viewModel.get().systemFacade.getActiveNetworkInfo();
                 if (netInfo == null || !netInfo.isConnected())
@@ -297,7 +298,8 @@ public class AddDownloadViewModel extends AndroidViewModel
                         if (viewModel.get() == null)
                             return;
 
-                        if (code == HttpURLConnection.HTTP_OK) {
+                        if (code == HttpURLConnection.HTTP_OK ||
+                            code == HttpURLConnection.HTTP_PARTIAL) {
                             connectWithReferer[0] = viewModel.get()
                                     .parseOkHeaders(conn, connectWithReferer[0]);
                         } else {
@@ -406,7 +408,16 @@ public class AddDownloadViewModel extends AndroidViewModel
         } else {
             params.setTotalBytes(-1);
         }
-        params.setPartialSupport("bytes".equalsIgnoreCase(conn.getHeaderField("Accept-Ranges")));
+        if (params.getTotalBytes() == -1) {
+            var bytes = DownloadUtils.parseContentRangeFullSize(
+                    conn.getHeaderField("Content-Range")
+            );
+            params.setTotalBytes(bytes);
+        };
+        params.setPartialSupport(
+                "bytes".equalsIgnoreCase(conn.getHeaderField("Accept-Ranges")) ||
+                conn.getHeaderField("Content-Range") != null
+        );
 
         /* The number of pieces can't be more than the number of bytes */
         long total = params.getTotalBytes();

@@ -375,4 +375,43 @@ public class DownloadUtils {
             return null;
         }
     }
+
+    /*
+     * Returns -1 if the content length is not known,
+     * or if the content length is greater than Integer.MAX_VALUE.
+     */
+    public static long parseContentRangeFullSize(String contentRange) {
+        if (contentRange == null || contentRange.isEmpty()) {
+            return -1;
+        }
+        var bytesRange = contentRange.substring("bytes ".length());
+        var sizeSplit = bytesRange.indexOf('/');
+        var rangeSplit = bytesRange.indexOf('-');
+        if (sizeSplit > 0) {
+            var size = bytesRange.substring(sizeSplit + 1);
+            if (!"*".equals(size)) {
+                return parseContentSizeLong(size);
+            }
+        }
+        if (!"*".startsWith(bytesRange) && rangeSplit > 0) {
+            var start = bytesRange.substring(0, rangeSplit);
+            var end = sizeSplit > 0 ?
+                    bytesRange.substring(rangeSplit + 1, sizeSplit) :
+                    bytesRange.substring(rangeSplit + 1);
+            var startLong = parseContentSizeLong(start);
+            var endLong = parseContentSizeLong(end);
+            var size = endLong - startLong + 1;
+            return size < 0 ? -1 : size;
+        }
+
+        return -1;
+    }
+
+    private static long parseContentSizeLong(String size) {
+        try {
+            return Long.parseLong(size);
+        } catch (NumberFormatException e) {
+            return -1;
+        }
+    }
 }

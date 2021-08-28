@@ -1,6 +1,6 @@
 /*
- * Copyright (C) 2018 Tachibana General Laboratories, LLC
- * Copyright (C) 2018 Yaroslav Pronin <proninyaroslav@mail.ru>
+ * Copyright (C) 2018-2021 Tachibana General Laboratories, LLC
+ * Copyright (C) 2018-2021 Yaroslav Pronin <proninyaroslav@mail.ru>
  * Copyright (C) 2020 8176135 <elsecaller@8176135.xyz>
  *
  * This file is part of Download Navi.
@@ -52,6 +52,7 @@ public class HttpConnection implements Runnable
     private Listener listener;
     private int timeout = DEFAULT_TIMEOUT;
     private String referer;
+    private boolean contentRangeLength = false;
 
     public interface Listener
     {
@@ -72,10 +73,21 @@ public class HttpConnection implements Runnable
         this.socketFactory = new TLSSocketFactory();
     }
 
-    public void setReferer(String referer) { this.referer = referer; }
-    public void setListener(Listener listener)
-    {
+    public void setReferer(String referer) {
+        this.referer = referer;
+    }
+
+    public void setListener(Listener listener) {
         this.listener = listener;
+    }
+
+    /*
+     * Trying to get length via `Content-Range` if the server responds with
+     * `Transfer-Encoding: chunked` and the `Content-Length` header
+     * is not set as required by RFC 7230.
+     */
+    public void contentRangeLength(boolean contentRangeLength) {
+        this.contentRangeLength = contentRangeLength;
     }
 
     /*
@@ -91,7 +103,8 @@ public class HttpConnection implements Runnable
     @Override
     public void run()
     {
-        int redirectionCount = 0;
+        var redirectionCount = 0;
+        var requestContentRange = false;
         while (redirectionCount++ < MAX_REDIRECTS) {
             HttpURLConnection conn = null;
             try {
@@ -101,7 +114,7 @@ public class HttpConnection implements Runnable
                 conn.setReadTimeout(timeout);
 
                 // Get the cookies for the current domain.
-                String cookiesString = CookieManager.getInstance().getCookie(url.toString());
+                var cookiesString = CookieManager.getInstance().getCookie(url.toString());
 
                 // Only add the cookies if they are not null.
                 if (cookiesString != null) {
@@ -111,6 +124,9 @@ public class HttpConnection implements Runnable
 
                 if (referer != null && !referer.isEmpty()) {
                     conn.setRequestProperty("Referer", referer);
+                }
+                if (requestContentRange) {
+                    conn.setRequestProperty("Range", "bytes=0-");
                 }
 
                 if (conn instanceof HttpsURLConnection)
@@ -131,6 +147,24 @@ public class HttpConnection implements Runnable
                             listener.onMovedPermanently(url.toString());
                         continue;
                     default:
+                        if (requestContentRange) {
+                            if (responseCode != HttpURLConnection.HTTP_OK &&
+                                responseCode != HttpURLConnection.HTTP_PARTIAL) {
+                                // Try without range
+                                requestContentRange = false;
+                                continue;
+                            }
+                        } else if (contentRangeLength) {
+                            var noContentLength = conn.getHeaderField("content-length") == null;
+                            var chunked = "chunked".equals(conn.getHeaderField("Transfer-Encoding"));
+                            if (chunked && noContentLength) {
+                                // Server responds with `Transfer-Encoding: chunked` and
+                                // the `Content-Length` header is not set as required by RFC 7230.
+                                // Trying to get length via `Content-Range`.
+                                requestContentRange = true;
+                                continue;
+                            }
+                        }
                         if (listener != null)
                             listener.onResponseHandle(conn, responseCode, conn.getResponseMessage());
                         return;
