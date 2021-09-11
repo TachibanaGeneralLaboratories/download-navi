@@ -42,11 +42,8 @@ public class NotificationReceiver extends BroadcastReceiver
     public static final String NOTIFY_ACTION_PAUSE_RESUME = "com.tachibana.downloader.receiver.NotificationReceiver.NOTIFY_ACTION_PAUSE_RESUME";
     public static final String NOTIFY_ACTION_CANCEL = "com.tachibana.downloader.receiver.NotificationReceiver.NOTIFY_ACTION_CANCEL";
     public static final String NOTIFY_ACTION_REPORT_APPLYING_PARAMS_ERROR = "com.tachibana.downloader.receiver.NotificationReceiver.NOTIFY_ACTION_REPORT_APPLYING_PARAMS_ERROR";
-    public static final String NOTIFY_ACTION_OPEN = "com.tachibana.downloader.receiver.NotificationReceiver.NOTIFY_ACTION_OPEN";
     public static final String TAG_ID = "id";
     public static final String TAG_ERR = "err";
-    public static final String TAG_FILE_PATH = "file_path";
-    public static final String TAG_MIME_TYPE = "mime_type";
 
     @Override
     public void onReceive(Context context, Intent intent)
@@ -93,15 +90,6 @@ public class NotificationReceiver extends BroadcastReceiver
                 Throwable e = (Throwable)intent.getSerializableExtra(TAG_ERR);
                 if (e != null)
                     Utils.reportError(e, null);
-                break;
-            case NOTIFY_ACTION_OPEN:
-                Uri filePath = intent.getParcelableExtra(TAG_FILE_PATH);
-                String mimeType = intent.getStringExtra(TAG_MIME_TYPE);
-                Intent i = Intent.createChooser(
-                        Utils.createOpenFileIntent(context, filePath, mimeType),
-                        context.getString(R.string.open_using));
-                i.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                context.startActivity(i);
                 break;
         }
     }

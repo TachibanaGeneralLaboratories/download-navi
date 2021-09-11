@@ -377,17 +377,13 @@ public class DownloadNotifier
             builder.setAutoCancel(true);
             if (!isError) {
                 Uri filePath = fs.getFileUri(info.dirPath, info.fileName);
-                Intent openIntent = new Intent(NotificationReceiver.NOTIFY_ACTION_OPEN,
-                        uri, appContext, NotificationReceiver.class);
-                openIntent.putExtra(NotificationReceiver.TAG_FILE_PATH, filePath);
-                openIntent.putExtra(NotificationReceiver.TAG_MIME_TYPE, info.mimeType);
+                Intent i = Intent.createChooser(
+                        Utils.createOpenFileIntent(appContext, filePath, info.mimeType),
+                        appContext.getString(R.string.open_using));
+                i.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
 
-                PendingIntent openPendingIntent =
-                        PendingIntent.getBroadcast(
-                                appContext,
-                                0,
-                                openIntent,
-                                PendingIntent.FLAG_UPDATE_CURRENT);
+                PendingIntent openPendingIntent = PendingIntent.getActivity(
+                        appContext, 0, i, PendingIntent.FLAG_UPDATE_CURRENT);
 
                 builder.setContentIntent(openPendingIntent);
             }
