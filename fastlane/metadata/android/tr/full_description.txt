@@ -1,19 +1,20 @@
-# Özellikler
+# Features
 
 * Özgür ve Açık Kaynaklı yazılım (FOSS)
-* Metaryal Tasarım
-* Çoklu tema (Açık, Koyu, Siyah)
+* Material Tasarımı
+* Birden fazla tema (Açık, Koyu, Siyah)
 * Android TV desteği
 * Chrome OS desteği
-* İndirmeleri duraklatma ve devam ettirebilme
+* İndirmeleri duraklatın ve devam ettirin
 * Tarayıcı desteği
 * Yerleşik tarayıcı
-* Eş zamanlı indirme (varsayılan 3)
-* Parçalı indirme (en fazla 16)
-* Arka planda dosya indirebilme
-* Belirli bağlantılarda indirme desteği (örn. Wi-Fi)
-* Gezici denetimleri
-* Kullanıcı aracısı kontrolü
-* Veri bütünlüğü hesaplama (MD5 ve SHA-256)
-* Güç Yönetimi ve pil kontrolü
-* İndirdikten sonra çeşitli otomatik eylemler
+* Eşzamanlı indirmeler (öntanımlı olarak 3)
+* Çok parçalı indirme (en fazla 16)
+* Dosyaları arka planda indirin
+* Yalnızca kotasız bağlantı desteği (örn. Wi-Fi)
+* Dolaşım denetimleri
+* Kullanıcı aracısı denetimleri
+* Sağlama toplamı değerini hesaplayın (MD5 ve SHA-256)
+* Güç Yönetimi ve pil denetimi
+* İndirmeyi bitirdikten sonra çeşitli otomatik eylemler
+* Hız sınırı
