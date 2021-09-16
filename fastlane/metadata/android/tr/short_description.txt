@@ -1,1 +1,1 @@
-Download Navi, Android 4.4+ için özgür ve açık kaynak bir indirme yöneticisidir
+Download Navi is a free and Open Source download manager for Android 4.4+
