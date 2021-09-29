@@ -1,6 +1,6 @@
 /*
- * Copyright (C) 2020 Tachibana General Laboratories, LLC
- * Copyright (C) 2020 Yaroslav Pronin <proninyaroslav@mail.ru>
+ * Copyright (C) 2020, 2021 Tachibana General Laboratories, LLC
+ * Copyright (C) 2020, 2021 Yaroslav Pronin <proninyaroslav@mail.ru>
  *
  * This file is part of Download Navi.
  *
@@ -349,12 +349,14 @@ public class BrowserViewModel extends AndroidViewModel
                 urlFetchState.postValue(UrlFetchState.PAGE_FINISHED);
         }
 
-          @Override
+        @Override
         public void onLoadResource(WebView view, String url) {
             super.onLoadResource(view, url);
-            view.evaluateJavascript("document.querySelector('meta[name=\"viewport\"]').setAttribute('content', 'width=1024px, initial-scale=' + (window.screen.width / 1024));", null);
+            view.evaluateJavascript("var v = document.querySelector('meta[name=\"viewport\"]');" +
+                    "if (v) v.setAttribute('content', 'width=1024, initial-scale=' + (window.screen.width / 1024));",
+                    null
+            );
         }
-
     };
 
     private final WebChromeClient webChromeClient = new WebChromeClient() {
