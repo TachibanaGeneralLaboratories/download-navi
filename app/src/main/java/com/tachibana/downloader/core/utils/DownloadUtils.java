@@ -74,7 +74,7 @@ public class DownloadUtils {
      *
      */
     private static final String contentDispositionFileNameAsterisk =
-            "\\s*filename\\*\\s*=\\s*(utf-8|iso-8859-1|windows-1251)'[^']*'(\\S*)";
+            "\\s*filename\\*\\s*=\\s*(utf-8|iso-8859-1|windows-1251)'[^']*'([^;\\s]*)";
 
     /**
      * Format as defined in RFC 2616 and RFC 5987
@@ -146,13 +146,12 @@ public class DownloadUtils {
     private static final int ALTERNATIVE_FILE_NAME_GROUP = 3;
     private static final int ALTERNATIVE_ENCODING_GROUP = 2;
 
-    /*
-     * Definition as per RFC 5987, section 3.2.1. (value-chars)
-     */
     private static final Pattern encodedSymbolPattern = Pattern.compile(
-            "%[0-9a-f]{2}|[0-9a-z!#$&+-.^_`|~]",
+            "%[0-9a-f]{2}|[\\S|\\s*]",
             Pattern.CASE_INSENSITIVE
     );
+
+    public static final String[] CONTENT_DISPOSITION_TYPES = new String[]{"attachment", "inline"};
 
     public static String getHttpFileName(@NonNull FileSystemFacade fs,
                                          @NonNull String decodedUrl,
