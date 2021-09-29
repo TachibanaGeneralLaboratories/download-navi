@@ -26,9 +26,11 @@ import android.graphics.Bitmap;
 import android.os.Build;
 import android.text.TextUtils;
 import android.util.Log;
+import android.util.Patterns;
 import android.webkit.CookieManager;
 import android.webkit.DownloadListener;
 import android.webkit.WebChromeClient;
+import android.webkit.WebResourceError;
 import android.webkit.WebResourceRequest;
 import android.webkit.WebSettings;
 import android.webkit.WebStorage;
@@ -36,6 +38,7 @@ import android.webkit.WebView;
 import android.webkit.WebViewClient;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.RequiresApi;
 import androidx.databinding.ObservableBoolean;
 import androidx.databinding.ObservableField;
 import androidx.lifecycle.AndroidViewModel;
@@ -310,17 +313,23 @@ public class BrowserViewModel extends AndroidViewModel
         @Override
         public boolean shouldOverrideUrlLoading(@NonNull WebView view, @NonNull WebResourceRequest request)
         {
-            view.loadUrl(request.getUrl().toString());
-
-            return true;
+            return validateAndLoad(view, request.getUrl().toString());
         }
 
         @Override
         public boolean shouldOverrideUrlLoading(@NonNull WebView view, @NonNull String url)
         {
-            view.loadUrl(url);
+            return validateAndLoad(view, url);
+        }
 
-            return true;
+        private boolean validateAndLoad(WebView view, String url) {
+            if (Patterns.WEB_URL.matcher(url).matches()) {
+                Log.e(TAG, url);
+                view.loadUrl(url);
+                return true;
+            } else {
+                return false;
+            }
         }
 
         @Override
