@@ -336,7 +336,7 @@ public class DownloadNotifier
             PendingIntent pauseResumeButtonPendingIntent =
                     PendingIntent.getBroadcast(
                             appContext,
-                            0,
+                            tag.hashCode(),
                             pauseResumeButtonIntent,
                             PendingIntent.FLAG_UPDATE_CURRENT);
 
@@ -349,7 +349,7 @@ public class DownloadNotifier
             PendingIntent stopButtonPendingIntent =
                     PendingIntent.getBroadcast(
                             appContext,
-                            0,
+                            tag.hashCode(),
                             stopButtonIntent,
                             PendingIntent.FLAG_UPDATE_CURRENT);
 
@@ -367,7 +367,7 @@ public class DownloadNotifier
 
             PendingIntent startupPendingIntent =
                     PendingIntent.getActivity(appContext,
-                            0,
+                            tag.hashCode(),
                             startupIntent,
                             PendingIntent.FLAG_UPDATE_CURRENT);
 
@@ -383,7 +383,7 @@ public class DownloadNotifier
                 i.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
 
                 PendingIntent openPendingIntent = PendingIntent.getActivity(
-                        appContext, 0, i, PendingIntent.FLAG_UPDATE_CURRENT);
+                        appContext, tag.hashCode(), i, PendingIntent.FLAG_UPDATE_CURRENT);
 
                 builder.setContentIntent(openPendingIntent);
             }
