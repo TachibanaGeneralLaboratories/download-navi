@@ -65,6 +65,9 @@ public class DownloadUtilsTest {
 
             // Provided filename field
             assertContentDisposition("filename.jpg", contentDisposition + "; filename=\"filename.jpg\"");
+            assertContentDisposition("file\"name.jpg", contentDisposition + "; filename=\"file\\\"name.jpg\"");
+            assertContentDisposition("file\\name.jpg", contentDisposition + "; filename=\"file\\\\name.jpg\"");
+            assertContentDisposition("file\\\"name.jpg", contentDisposition + "; filename=\"file\\\\\\\"name.jpg\"");
             assertContentDisposition("filename.jpg", contentDisposition + "; filename=filename.jpg");
             assertContentDisposition("filename.jpg", contentDisposition + "; filename=filename.jpg; foo");
             assertContentDisposition("filename.jpg", contentDisposition + "; filename=\"filename.jpg\"; foo");

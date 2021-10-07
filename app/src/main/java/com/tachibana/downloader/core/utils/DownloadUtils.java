@@ -301,7 +301,7 @@ public class DownloadUtils {
                 String quotedFileName = m.group(QUOTED_FILE_NAME_GROUP);
                 String rawFileName = quotedFileName == null ?
                         m.group(UNQUOTED_FILE_NAME) :
-                        quotedFileName.replace("\\\\(.)", "$1");
+                        quotedFileName.replaceAll("\\\\(.)", "$1");
                 String fileName = autoDecodePercentEncoding(rawFileName);
                 if (fileName == null) {
                     fileName = rawFileName;
