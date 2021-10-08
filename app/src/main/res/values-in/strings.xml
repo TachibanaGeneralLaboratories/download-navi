@@ -38,7 +38,6 @@
     <string name="yes">Ya</string>
     <string name="error">Kesalahan</string>
     <string name="file">Berkas</string>
-    <string name="folder"></string>
     <string name="downloading_metadata">Mengunduh metadata</string>
     <string name="all">Semua</string>
     <string name="search">Cari</string>
@@ -101,7 +100,6 @@
     <string name="path">Jalur</string>
     <string name="storage_free_space">Ruang kosong: %1$s</string>
     <string name="add_download_error_invalid_url">Tidak bisa menambahkan unduhan: URL tidak valid</string>
-    <string name="checksum"></string>
     <string name="add_dialog_checksum_description">MD5, SHA-256</string>
     <string name="referer_description">%1$s tajuk</string>
     <string name="error_invalid_checksum">Checksum tidak valid</string>
