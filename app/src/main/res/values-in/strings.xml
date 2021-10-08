@@ -38,7 +38,7 @@
     <string name="yes">Ya</string>
     <string name="error">Kesalahan</string>
     <string name="file">Berkas</string>
-    <string name="folder">Folder</string>
+    <string name="folder"></string>
     <string name="downloading_metadata">Mengunduh metadata</string>
     <string name="all">Semua</string>
     <string name="search">Cari</string>
@@ -101,7 +101,7 @@
     <string name="path">Jalur</string>
     <string name="storage_free_space">Ruang kosong: %1$s</string>
     <string name="add_download_error_invalid_url">Tidak bisa menambahkan unduhan: URL tidak valid</string>
-    <string name="checksum">Checksum</string>
+    <string name="checksum"></string>
     <string name="add_dialog_checksum_description">MD5, SHA-256</string>
     <string name="referer_description">%1$s tajuk</string>
     <string name="error_invalid_checksum">Checksum tidak valid</string>
@@ -112,9 +112,9 @@
     <string name="fragment_title_completed">Komplet</string>
     <string name="download_list_empty">Tidak ada unduhan</string>
     <string name="share_url">Bagikan URL</string>
-    <string name="file_not_available">file not available!</string>
+    <string name="file_not_available">berkas tidak tersedia!</string>
     <plurals name="unable_sharing">
-        <item quantity="other">The files cannot be shared.</item>
+        <item quantity="other">Berkas tidak bisa dibagikan.</item>
     </plurals>
     <!-- Navigation drawer -->
     <!-- Category -->
@@ -225,7 +225,7 @@
     <!-- Headers -->
     <string name="pref_header_appearance">Tampilan</string>
     <string name="pref_header_behavior">Perilaku</string>
-    <string name="pref_header_limitations">Limitations</string>
+    <string name="pref_header_limitations">Batasan</string>
     <string name="pref_header_storage">Penyimpanan</string>
     <string name="pref_header_browser">Peramban</string>
     <!-- Appearance settings -->
@@ -275,8 +275,8 @@
     <string name="pref_max_active_downloads_title">Jumlah maksimum unduhan aktif</string>
     <string name="pref_max_download_retries_title">Jumlah maksimum pengulangan unduhan</string>
     <string name="pref_max_download_retries_dialog_msg">0 - tanpa diulang</string>
-    <string name="pref_speed_limit_title">Speed limit for one piece</string>
-    <string name="pref_speed_limit_dialog_hint">Set speed in KiB/s (0 - without limit)</string>
+    <string name="pref_speed_limit_title">Batas kecepatan untuk satu bagian</string>
+    <string name="pref_speed_limit_dialog_hint">Setel kecepatan dalam KiB/s (0 - tak terbatas)</string>
     <!-- Storage settings -->
     <string name="pref_save_downloads_in_title">Simpan unduhan di</string>
     <string name="pref_move_after_download_title">Pindah setelah diunduh</string>
