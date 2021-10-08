@@ -246,11 +246,10 @@
     <!-- Appearance settings -->
     <string name="pref_theme_category">إعدادات الثيم</string>
     <string name="pref_theme_title">الثيم</string>
-    <string-array name="pref_theme_entries">
-        <item>فاتح</item>
-        <item>داكن</item>
-        <item>أسود</item>
-    </string-array>
+    <!-- pref_theme_entries -->
+    <string name="pref_theme_entries_0">فاتح</string>
+    <string name="pref_theme_entries_1">داكن</string>
+    <string name="pref_theme_entries_2">أسود</string>
     <string name="pref_notification_category">إعدادات النتبيهات</string>
     <string name="pref_progress_notify_title">تنبيهات التقدم</string>
     <string name="pref_finish_notify_title">تنبيه الإنتهاء</string>

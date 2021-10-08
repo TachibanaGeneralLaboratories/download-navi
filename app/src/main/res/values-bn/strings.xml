@@ -228,11 +228,10 @@
     <!-- Appearance settings -->
     <string name="pref_theme_category">থিম সেটিংস</string>
     <string name="pref_theme_title">থিম</string>
-    <string-array name="pref_theme_entries">
-        <item>হালকা</item>
-        <item>অন্ধকার</item>
-        <item>কালো</item>
-    </string-array>
+    <!-- pref_theme_entries -->
+    <string name="pref_theme_entries_0">হালকা</string>
+    <string name="pref_theme_entries_1">অন্ধকার</string>
+    <string name="pref_theme_entries_2">কালো</string>
     <string name="pref_notification_category">বিজ্ঞপ্তির সেটিংস</string>
     <string name="pref_progress_notify_title">অগ্রগতির বিজ্ঞপ্তি</string>
     <string name="pref_finish_notify_title">বিজ্ঞপ্তি শেষ</string>

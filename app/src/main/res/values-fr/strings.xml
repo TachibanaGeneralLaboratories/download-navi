@@ -234,11 +234,10 @@
     <!-- Appearance settings -->
     <string name="pref_theme_category">Configuration thème</string>
     <string name="pref_theme_title">Thème</string>
-    <string-array name="pref_theme_entries">
-        <item>Clair</item>
-        <item>Sombre</item>
-        <item>Noir</item>
-    </string-array>
+    <!-- pref_theme_entries -->
+    <string name="pref_theme_entries_0">Clair</string>
+    <string name="pref_theme_entries_1">Sombre</string>
+    <string name="pref_theme_entries_2">Noir</string>
     <string name="pref_notification_category">Préférences de notification</string>
     <string name="pref_progress_notify_title">Notification d\'avancement</string>
     <string name="pref_finish_notify_title">Notification de fin</string>

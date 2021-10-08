@@ -228,11 +228,10 @@
     <!-- Appearance settings -->
     <string name="pref_theme_category">የገጽታ ቅንብሮች</string>
     <string name="pref_theme_title">ገጽታ</string>
-    <string-array name="pref_theme_entries">
-        <item>ብርሃን</item>
-        <item>ጨለማ</item>
-        <item>ጥቁር</item>
-    </string-array>
+    <!-- pref_theme_entries -->
+    <string name="pref_theme_entries_0">ብርሃን</string>
+    <string name="pref_theme_entries_1">ጨለማ</string>
+    <string name="pref_theme_entries_2">ጥቁር</string>
     <string name="pref_notification_category">የማሳወቂያ ቅንብሮች</string>
     <string name="pref_progress_notify_title">የእድገት ማሳወቂያ</string>
     <string name="pref_finish_notify_title">ማሳወቂያ ጨርስ</string>

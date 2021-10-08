@@ -231,11 +231,10 @@
     <!-- Appearance settings -->
     <string name="pref_theme_category">Thiết lập chủ đề</string>
     <string name="pref_theme_title">Giao diện</string>
-    <string-array name="pref_theme_entries">
-        <item>Sáng</item>
-        <item>Tối</item>
-        <item>Đen</item>
-    </string-array>
+    <!-- pref_theme_entries -->
+    <string name="pref_theme_entries_0">Sáng</string>
+    <string name="pref_theme_entries_1">Tối</string>
+    <string name="pref_theme_entries_2">Đen</string>
     <string name="pref_notification_category">Thiết lập thông báo</string>
     <string name="pref_progress_notify_title">Thông báo quá trình tải</string>
     <string name="pref_finish_notify_title">Thông báo đã tải xong</string>

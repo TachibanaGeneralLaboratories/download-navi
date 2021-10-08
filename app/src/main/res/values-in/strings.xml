@@ -229,11 +229,10 @@
     <!-- Appearance settings -->
     <string name="pref_theme_category">Pengaturan tema</string>
     <string name="pref_theme_title">Tema</string>
-    <string-array name="pref_theme_entries">
-        <item>Terang</item>
-        <item>Gelap</item>
-        <item>Hitam</item>
-    </string-array>
+    <!-- pref_theme_entries -->
+    <string name="pref_theme_entries_0">Terang</string>
+    <string name="pref_theme_entries_1">Gelap</string>
+    <string name="pref_theme_entries_2">Hitam</string>
     <string name="pref_notification_category">Pengaturan notifikasi</string>
     <string name="pref_progress_notify_title">Notifikasi laju</string>
     <string name="pref_finish_notify_title">Notifikasi saat selesai</string>

@@ -228,11 +228,10 @@
     <!-- Appearance settings -->
     <string name="pref_theme_category">Impostazioni tema</string>
     <string name="pref_theme_title">Tema</string>
-    <string-array name="pref_theme_entries">
-        <item>Chiaro</item>
-        <item>Scuro</item>
-        <item>Nero</item>
-    </string-array>
+    <!-- pref_theme_entries -->
+    <string name="pref_theme_entries_0">Chiaro</string>
+    <string name="pref_theme_entries_1">Scuro</string>
+    <string name="pref_theme_entries_2">Nero</string>
     <string name="pref_notification_category">Impostazioni notifiche</string>
     <string name="pref_progress_notify_title">Notifica di avanzamento</string>
     <string name="pref_finish_notify_title">Notifica quando finito</string>

@@ -228,11 +228,10 @@
     <!-- Appearance settings -->
     <string name="pref_theme_category">Theme-Einstellungen</string>
     <string name="pref_theme_title">Theme</string>
-    <string-array name="pref_theme_entries">
-        <item>Hell</item>
-        <item>Dunkel</item>
-        <item>Schwarz</item>
-    </string-array>
+    <!-- pref_theme_entries -->
+    <string name="pref_theme_entries_0">Hell</string>
+    <string name="pref_theme_entries_1">Dunkel</string>
+    <string name="pref_theme_entries_2">Schwarz</string>
     <string name="pref_notification_category">Benachrichtigungseinstellungen</string>
     <string name="pref_progress_notify_title">Fortschrittsbenachrichtigung</string>
     <string name="pref_finish_notify_title">Abschlussbenachrichtigung</string>

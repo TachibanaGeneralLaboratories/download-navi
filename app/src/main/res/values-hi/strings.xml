@@ -228,11 +228,10 @@
     <!-- Appearance settings -->
     <string name="pref_theme_category">विषयवस्तु सेटिंग्स</string>
     <string name="pref_theme_title">थीम</string>
-    <string-array name="pref_theme_entries">
-        <item>हल्का</item>
-        <item>अंधेरा</item>
-        <item>काला</item>
-    </string-array>
+    <!-- pref_theme_entries -->
+    <string name="pref_theme_entries_0">हल्का</string>
+    <string name="pref_theme_entries_1">अंधेरा</string>
+    <string name="pref_theme_entries_2">काला</string>
     <string name="pref_notification_category">अधिसूचना सेटिंग</string>
     <string name="pref_progress_notify_title">प्रगति संबंधी अधिसूचना</string>
     <string name="pref_finish_notify_title">कार्य सूचना समाप्त अधिसूचना</string>

@@ -240,11 +240,10 @@
     <!-- Appearance settings -->
     <string name="pref_theme_category">Nastavení motivu</string>
     <string name="pref_theme_title">Motiv</string>
-    <string-array name="pref_theme_entries">
-        <item>Světlý</item>
-        <item>Tmavý</item>
-        <item>Černý</item>
-    </string-array>
+    <!-- pref_theme_entries -->
+    <string name="pref_theme_entries_0">Světlý</string>
+    <string name="pref_theme_entries_1">Tmavý</string>
+    <string name="pref_theme_entries_2">Černý</string>
     <string name="pref_notification_category">Nastavení oznámení</string>
     <string name="pref_progress_notify_title">Oznámení průběhu</string>
     <string name="pref_finish_notify_title">Oznámení dokončení</string>

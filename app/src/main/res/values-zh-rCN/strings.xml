@@ -231,11 +231,10 @@
     <!-- Appearance settings -->
     <string name="pref_theme_category">主题设置</string>
     <string name="pref_theme_title">主题</string>
-    <string-array name="pref_theme_entries">
-        <item>亮色</item>
-        <item>暗色</item>
-        <item>黑色</item>
-    </string-array>
+    <!-- pref_theme_entries -->
+    <string name="pref_theme_entries_0">亮色</string>
+    <string name="pref_theme_entries_1">暗色</string>
+    <string name="pref_theme_entries_2">黑色</string>
     <string name="pref_notification_category">通知设置</string>
     <string name="pref_progress_notify_title">进度通知</string>
     <string name="pref_finish_notify_title">完成通知</string>

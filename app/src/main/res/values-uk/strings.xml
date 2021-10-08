@@ -240,11 +240,10 @@
     <!-- Appearance settings -->
     <string name="pref_theme_category">Налаштування теми</string>
     <string name="pref_theme_title">Тема</string>
-    <string-array name="pref_theme_entries">
-        <item>Світла</item>
-        <item>Темна</item>
-        <item>Чорна</item>
-    </string-array>
+    <!-- pref_theme_entries -->
+    <string name="pref_theme_entries_0">Світла</string>
+    <string name="pref_theme_entries_1">Темна</string>
+    <string name="pref_theme_entries_2">Чорна</string>
     <string name="pref_notification_category">Налаштування сповіщень</string>
     <string name="pref_progress_notify_title">Сповіщення про прогрес завантаження</string>
     <string name="pref_finish_notify_title">Сповіщення про завершення завантаження</string>

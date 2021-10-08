@@ -230,11 +230,10 @@
     <!-- Appearance settings -->
     <string name="pref_theme_category">Подешавање теме</string>
     <string name="pref_theme_title">Тема</string>
-    <string-array name="pref_theme_entries">
-        <item>Светла</item>
-        <item>Тамна</item>
-        <item>Црна</item>
-    </string-array>
+    <!-- pref_theme_entries -->
+    <string name="pref_theme_entries_0">Светла</string>
+    <string name="pref_theme_entries_1">Тамна</string>
+    <string name="pref_theme_entries_2">Црна</string>
     <string name="pref_notification_category">Подешавања обавештења</string>
     <string name="pref_progress_notify_title">Обавештење о напретку</string>
     <string name="pref_finish_notify_title">Обавештење о завршетку</string>

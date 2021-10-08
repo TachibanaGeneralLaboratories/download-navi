@@ -228,11 +228,10 @@
     <!-- Appearance settings -->
     <string name="pref_theme_category">Tema ayarları</string>
     <string name="pref_theme_title">Tema</string>
-    <string-array name="pref_theme_entries">
-        <item>Açık</item>
-        <item>Koyu</item>
-        <item>Siyah</item>
-    </string-array>
+    <!-- pref_theme_entries -->
+    <string name="pref_theme_entries_0">Açık</string>
+    <string name="pref_theme_entries_1">Koyu</string>
+    <string name="pref_theme_entries_2">Siyah</string>
     <string name="pref_notification_category">Bildirim ayarları</string>
     <string name="pref_progress_notify_title">İlerleme bildirimi</string>
     <string name="pref_finish_notify_title">Tamamlandı bildirimi</string>

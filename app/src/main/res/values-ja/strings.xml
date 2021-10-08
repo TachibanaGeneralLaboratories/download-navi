@@ -231,11 +231,10 @@
     <!-- Appearance settings -->
     <string name="pref_theme_category">テーマの設定</string>
     <string name="pref_theme_title">テーマ</string>
-    <string-array name="pref_theme_entries">
-        <item>ライト</item>
-        <item>ダーク</item>
-        <item>ブラック</item>
-    </string-array>
+    <!-- pref_theme_entries -->
+    <string name="pref_theme_entries_0">ライト</string>
+    <string name="pref_theme_entries_1">ダーク</string>
+    <string name="pref_theme_entries_2">ブラック</string>
     <string name="pref_notification_category">通知の設定</string>
     <string name="pref_progress_notify_title">進捗通知</string>
     <string name="pref_finish_notify_title">完了通知</string>
