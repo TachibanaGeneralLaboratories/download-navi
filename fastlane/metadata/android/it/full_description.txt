@@ -1,6 +1,6 @@
-# Caratteristiche
+# Features
 
-* Software gratuito e Open Source (FOSS)
+* Software libero e con codice sorgente aperto (FOSS)
 * Material Design
 * Temi multipli (chiaro, scuro, nero)
 * Supporto Android TV
@@ -11,9 +11,11 @@
 * Download simultanei (predefinito 3)
 * Download multi parti (max 16)
 * Scarica in background
-* Sono supportate solo le connessioni illimitate (es. Wi-Fi)
+* Sono supportate solo le connessioni illimitate (es.
+Wi-Fi)
 * Controllo roaming
 * Controlli user agent
 * Calcola hash (MD5 & SHA-256)
 * Gestione alimentazione e controllo batteria
 * Varie azioni automatiche dopo aver terminato il download
+* Speed limit
