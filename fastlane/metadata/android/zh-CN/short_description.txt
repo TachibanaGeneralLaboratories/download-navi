@@ -1,1 +1,1 @@
-Download Navi 是兼容 Android 4.4 及以上版本的自由且开源的下载管理器。
+Download Navi is a free and Open Source download manager for Android 4.4+
