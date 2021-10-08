@@ -17,7 +17,7 @@
     <string name="ok">Tamam</string>
     <string name="cancel">İptal</string>
     <!-- A synonym for word "unmetered" - unlimited-->
-    <string name="unmetered_connections_only">Yalnızca belirli bağlantılar</string>
+    <string name="unmetered_connections_only">Yalnızca kotasız bağlantılar</string>
     <string name="connect">Bağlan</string>
     <string name="add">Ekle</string>
     <string name="not_available">N/A</string>
@@ -39,23 +39,23 @@
     <string name="error">Hata</string>
     <string name="file">Dosya</string>
     <string name="folder">Klasör</string>
-    <string name="downloading_metadata">Meta veri indiriliyor</string>
+    <string name="downloading_metadata">Üst veriler indiriliyor</string>
     <string name="all">Tümü</string>
     <string name="search">Ara</string>
     <string name="settings">Ayarlar</string>
     <string name="about">Hakkında</string>
     <string name="close">Kapat</string>
     <string name="redownload">Yeniden indir</string>
-    <string name="Default">Varsayılan</string>
+    <string name="Default">Öntanımlı</string>
     <string name="warning">Uyarı</string>
     <string name="apply">Uygula</string>
     <string name="report">Bildir</string>
-    <string name="more_details">Detaylar</string>
+    <string name="more_details">Daha fazla ayrıntı</string>
     <string name="clipboard">Pano</string>
     <string name="verify">Doğrula</string>
     <!-- Permission dialog -->
     <string name="perm_denied_title">İzin reddedildi</string>
-    <string name="perm_denied_warning">Bu izin olmadan uygulama, bazı cihazlarda ve Android sürümlerinde dosyaları belleğe kaydedemez. Uygulama düzgün çalışmayacak. Bu izni reddetmek istediğinden emin misin?</string>
+    <string name="perm_denied_warning">Bu izin olmadan uygulama, bazı aygıtlarda ve Android sürümlerinde dosyaları belleğe kaydedemez. Uygulama düzgün çalışmayacak. Bu izni reddetmek istediğinizden emin misiniz\?</string>
     <!-- Download progress notification -->
     <string name="download_ticker_notify">%1$s İndiriliyor</string>
     <!-- Foreground notification -->
@@ -64,7 +64,7 @@
     <string name="resume_all">Tümünü devam ettir</string>
     <!-- Finish notification -->
     <string name="download_finished_notify">İndirme tamamlandı</string>
-    <string name="open_using">Kullanarak aç</string>
+    <string name="open_using">Şununla aç</string>
     <!-- Pending notification -->
     <string name="download_in_queue_ticker_notify">sıradaki %1$s</string>
     <string name="waiting_for_network">Bağlantı bekleniyor</string>
@@ -167,7 +167,7 @@
     <string name="error_file_exists">Dosya zaten var. Değiştirilsin mi?</string>
     <string name="file_name_is_empty">Dosya adı boş bırakılamaz</string>
     <string name="system_manager">Sistem yöneticisi</string>
-    <string name="device_does_not_support_this_feature">Cihazınız bu özelliği desteklemiyor</string>
+    <string name="device_does_not_support_this_feature">Aygıtınız bu özelliği desteklemiyor</string>
     <string name="system_file_manager_not_found">Sistem dosya yöneticisi bulunamadı</string>
     <string name="replace_file">Dosyayı değiştir</string>
     <!-- Details download dialog -->
@@ -182,7 +182,7 @@
     <string name="calculate">Hesapla</string>
     <!-- Error report -->
     <string name="app_error_occurred">Uygulama hatası oluştu. Raporu geliştiricilere gönderebilirsiniz</string>
-    <string name="error_comment_prompt">Buraya ek bilgi ve yorumlar ekleyebilirsin:</string>
+    <string name="error_comment_prompt">Buraya ek bilgi ve yorumlar ekleyebilirsiniz:</string>
     <!-- Send text to clipboard -->
     <string name="send_text_to_clipboard">Kopyala</string>
     <string name="text_copied_to_clipboard">Metin panoya kopyalandı</string>
@@ -194,9 +194,9 @@
     <string name="browser_desktop_version">Masaüstü sürümü</string>
     <string name="browser_address_bar_hint">Adres veya sorgu girin</string>
     <string name="browser_back_pressed">Kapatmak için tekrar basın</string>
-    <string name="browser_secure_connection">Güvenli Bağlantı</string>
+    <string name="browser_secure_connection">Güvenli bağlantı</string>
     <string name="browser_download_from_link">İndir</string>
-    <string name="browser_copy_link">Linki kopyala</string>
+    <string name="browser_copy_link">Bağlantıyı kopyala</string>
     <!-- Browser bookmarks -->
     <string name="browser_bookmarks">Yer imleri</string>
     <string name="bookmarks_list_empty">Yer imi yok</string>
@@ -206,7 +206,7 @@
     <string name="browser_bookmark_name">Ad</string>
     <string name="browser_bookmark_url">Bağlantı</string>
     <string name="browser_bookmark_error_empty_url">Lütfen adres girin</string>
-    <string name="browser_bookmark_error_empty_name">Lütfen isim girin</string>
+    <string name="browser_bookmark_error_empty_name">Lütfen adı girin</string>
     <plurals name="browser_bookmark_deleted">
         <item quantity="one">Yer imi silindi</item>
         <item quantity="other">Yer imleri silindi</item>
@@ -245,28 +245,28 @@
     <string name="theme_settings_apply_after_reboot">Tema ayarları, uygulama yeniden başlatıldıktan sonra uygulanacak</string>
     <!-- Behavior settings -->
     <string name="pref_autostart_title">Otomatik başlatma</string>
-    <string name="pref_autostart_summary">Cihaz açıldıktan sonra uygulamayı çalıştır ve duraklatılmadıysa indirmeye başla</string>
+    <string name="pref_autostart_summary">Aygıt açıldıktan sonra uygulamayı çalıştır ve duraklatılmadıysa indirmeye başla</string>
     <!-- A synonym for word "unmetered" - unlimited-->
-    <string name="pref_umnetered_connections_only_title">Yalnızca belirli bağlantılar</string>
-    <string name="pref_umnetered_connections_only_summary">Yalnızca belirli bağlantılarda indir (örneğin, WiFi veya Ethernet)</string>
+    <string name="pref_umnetered_connections_only_title">Yalnızca kotasız bağlantılar</string>
+    <string name="pref_umnetered_connections_only_summary">Yalnızca kotasız bağlantılarda indir (örneğin, WiFi veya Ethernet)</string>
     <string name="pref_power_management_category">Güç yönetimi</string>
     <string name="pref_cpu_do_not_sleep_title"> CPU\'yu uyanık tut</string>
     <string name="pref_cpu_do_not_sleep_summary">Bunu etkinleştirmek pil kullanımını artıracaktır. Ekran kapandığında indirme hızı düşerse, bu seçeneği kullan</string>
     <string name="pref_download_only_when_charging_title">Sadece şarj olurken indir</string>
-    <string name="pref_download_only_when_charging_summary">Etkinleştirilirse, indirme işlemi yalnızca şarj sırasında gerçekleşir. Şarj cihazına bağlı değilken tüm indirmeler duraklar</string>
-    <string name="pref_battery_control_title">Pil kontrolü</string>
+    <string name="pref_download_only_when_charging_summary">Etkinleştirilirse, indirme işlemi yalnızca şarj sırasında gerçekleşir. Şarja bağlı değilken tüm indirmeler duraklatılır</string>
+    <string name="pref_battery_control_title">Pil denetimi</string>
     <string name="pref_custom_battery_control_title">Özel pil yüzdesi</string>
-    <string name="pref_custom_battery_control_value_title">Akü kontrol yüzdesi</string>
-    <string name="pref_battery_control_summary">Pil seviyesi %1$d%% altına düşerse, tüm indirmeler duraklatılır. Limit, şarj sırasında geçerli değildir</string>
-    <string name="pref_custom_battery_control_summary">Pil seviyesi belirli bir eşiğin altındaysa, indirmeyi duraklatmak için özel bir yüzde belirleyin. Bu seçeneğin etkinleştirilmesi, varsayılan %1$d%% eşiğini yok sayar</string>
-    <string name="pref_custom_battery_control_dialog_summary">İndirme işlemi sırasında uygulama için özel bir pil yüzdesi ayarlamak, pil ömrünü olumsuz yönde etkiler. Etkinleştirmek istediğinize emin misin?</string>
+    <string name="pref_custom_battery_control_value_title">Pil denetimi yüzdesi</string>
+    <string name="pref_battery_control_summary">Pil seviyesi %%%1$d altına düşerse, tüm indirmeler duraklatılır. Sınır, şarj sırasında geçerli değildir</string>
+    <string name="pref_custom_battery_control_summary">Pil seviyesi belirli bir eşiğin altındaysa, indirmeyi duraklatmak için özel bir yüzde belirleyin. Bu seçeneğin etkinleştirilmesi, öntanımlı %%%1$d eşiğini yok sayar</string>
+    <string name="pref_custom_battery_control_dialog_summary">İndirme işlemi sırasında uygulama için özel bir pil yüzdesi ayarlamak, pil ömrünü olumsuz yönde etkiler. Etkinleştirmek istediğinize emin misiniz\?</string>
     <string name="pref_enable_roaming_title">Dolaşımı etkinleştir</string>
-    <string name="pref_enable_roaming_summary">Yalnızca cihaz dolaşımda değilse indir</string>
-    <string name="pref_max_active_downloads_title">Maks. etkin indirme sayısı</string>
-    <string name="pref_max_download_retries_title">Maks. indirme deneme sayısı</string>
+    <string name="pref_enable_roaming_summary">Yalnızca aygıt dolaşımda değilse indir</string>
+    <string name="pref_max_active_downloads_title">En fazla etkin indirme sayısı</string>
+    <string name="pref_max_download_retries_title">En fazla indirme deneme sayısı</string>
     <string name="pref_max_download_retries_dialog_msg">0 - bir daha deneme</string>
-    <string name="pref_replace_duplicate_downloads_title">Yinelenen dosyalar yerine</string>
-    <string name="pref_replace_duplicate_downloads_summary">Yinelenen dosyalar (aynı URL ile) değiştirmek zaman zaten listede vardır ekledi</string>
+    <string name="pref_replace_duplicate_downloads_title">Yinelenen indirmeleri değiştir</string>
+    <string name="pref_replace_duplicate_downloads_summary">Zaten listede olan yinelenen indirmeleri eklendiğinde (aynı URL ile) değiştir</string>
     <string name="pref_auto_connect_title">Otomatik bağlantı</string>
     <string name="pref_auto_connect_summary">Ekleme iletişim kutusunu açarken otomatik bağlan</string>
     <string name="pref_timeout_title">Zaman aşımı</string>
@@ -289,7 +289,7 @@
     <string name="pref_browser_enable_caching_title">Önbelleğe almayı etkinleştir</string>
     <string name="pref_browser_enable_cookies_title">Çerezleri etkinleştir</string>
     <string name="pref_browser_delete_cookies_title">Çerezleri temizle</string>
-    <string name="pref_browser_delete_cookies_done">Tüm çerezleri temizlendi</string>
+    <string name="pref_browser_delete_cookies_done">Tüm çerezler temizlendi</string>
     <string name="pref_browser_clear_cache_title">Önbelleği temizle</string>
     <string name="pref_browser_clear_cache_done">Önbellek temizlendi</string>
     <string name="pref_browser_do_not_track_title">Beni İzleme</string>
@@ -300,9 +300,16 @@
     <string name="pref_browser_search_engine_title">Arama motoru</string>
     <!-- About dialog -->
     <string name="about_title">Download Navi Hakkında</string>
-    <string name="about_description"><![CDATA[    Daha fazla bilgi ve projeye yardımcı olmak için: <a href="https://github.com/TachibanaGeneralLaboratories/download-navi">https://github.com/TachibanaGeneralLaboratories/download-navi</a><br><br>
-    Download Navi, Android 4.4+ için ücretsiz ve Açık Kaynaklı indirme yöneticisidir<br><br>
-    Download Navi, <a href="http://www.gnu.org/copyleft/gpl.html">GNU General Public License v3 (GPLv3)</a> şartları altında yayınlanan ücretsiz bir yazılımdır<br><br>
-    <a href="https://github.com/TachibanaGeneralLaboratories/download-navi/blob/HEAD/PRIVACY.md">Gizlilik Politikası</a>]]></string>
+    <string name="about_description">Daha fazla bilgi ve projeye yardımcı olmak için: &lt;a href=https://github.com/TachibanaGeneralLaboratories/download-navi&gt;https://github.com/TachibanaGeneralLaboratories/download-navi&lt;/a&gt;&lt;br&gt;&lt;br&gt; Download Navi, Android 4.4+ için Özgür ve Açık Kaynaklı bir indirme yöneticisidir&lt;br&gt;&lt;br&gt; Download Navi, &lt;a href=http://www.gnu.org/copyleft/gpl.html&gt;GNU Genel Kamu Lisansının 3. sürümü (GPLv3)&lt;/a&gt; şartları altında yayınlanan özgür bir yazılımdır&lt;br&gt;&lt;br&gt; &lt;a href=https://github.com/TachibanaGeneralLaboratories/download-navi/blob/HEAD/PRIVACY.md&gt;Gizlilik Politikası&lt;/a&gt;</string>
     <string name="about_changelog">Değişiklik günlüğü</string>
+    <string name="pref_browser_hide_menu_icon_summary">Ana ekran menüsünden tarayıcı simgesini gizleyin</string>
+    <string name="pref_browser_hide_menu_icon_title">Simgeyi menüden gizle</string>
+    <string name="pref_speed_limit_dialog_hint">KiB/s olarak hızı ayarlayın (0 - sınırsız)</string>
+    <string name="pref_speed_limit_title">Tek parça için hız sınırı</string>
+    <string name="pref_header_limitations">Sınırlamalar</string>
+    <plurals name="unable_sharing">
+        <item quantity="one">Dosya paylaşılamıyor.</item>
+        <item quantity="other">Dosyalar paylaşılamıyor.</item>
+    </plurals>
+    <string name="file_not_available">dosya kullanılamıyor!</string>
 </resources>

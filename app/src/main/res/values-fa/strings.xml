@@ -306,4 +306,14 @@
     Download Navi یک نرم‌افزار رایگان تحت شروط  <a href="http://www.gnu.org/copyleft/gpl.html">پروانه عمومی همگانی گنو نگارش 3(GPLv3)</a><br><br> می‌باشد
     <a href="https://github.com/TachibanaGeneralLaboratories/download-navi/blob/HEAD/PRIVACY.md">خط مشی رازداری</a>]]></string>
     <string name="about_changelog">گزارش دگرگونی</string>
+    <string name="file_not_available">پرونده در دسترس نیست!</string>
+    <plurals name="unable_sharing">
+        <item quantity="one">نمی‌توان این پرونده را به اشتراک گذاشت.</item>
+        <item quantity="other">نمی‌توان این پرونده‌ها را به اشتراک گذاشت.</item>
+    </plurals>
+    <string name="pref_header_limitations">محدودیت‌ها</string>
+    <string name="pref_speed_limit_title">محدودیت سرعت برای یک قطعه</string>
+    <string name="pref_browser_hide_menu_icon_title">مخفی کردن آیکون از منو</string>
+    <string name="pref_speed_limit_dialog_hint">تنظیم سرعت در کیبی‌بایت/ثانیه (0 - بدون محدودیت)</string>
+    <string name="pref_browser_hide_menu_icon_summary">مخفی کردن آیکون مرورگر از منوی صفحه اصلی</string>
 </resources>

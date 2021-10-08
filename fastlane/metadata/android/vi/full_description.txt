@@ -1,20 +1,20 @@
-# Tính năng
+# Features
 
-* Là phần mềm tự do mã nguồn mở (FOSS)
+* Free and Open Source software (FOSS)
 * Material Design
-* Nhiều chủ đề (Sáng, Tối, Đen)
-* Hỗ trợ Android TV
-* Hỗ trợ Chrome OS
-* Tạm dừng và tiếp tục tải xuống
-* Hỗ trợ các trình duyệt
-* Trình duyệt được tích hợp
-* Tải xuống song song (mặc định là 3)
-* Tải xuống phân mảnh (tối đa là 16)
-* Tải xuống khi chạy ngầm
-* Chỉ tải khi mạng không tính cước (ví dụ Wi-Fi)
-* Kiểm soát chuyển vùng
-* Cài đặt tác nhân người dùng (user agent)
-* Tính mã băm (MD5 & SHA-256)
-* Quản lí nguồn năng lượng và pin
-* Nhiều thao tác tự động sau khi tải xong
+* Multiple themes (Light, Dark, Black)
+* Android TV support
+* Chrome OS support
+* Pause and resume downloads
+* Browsers support
+* Built-in browser
+* Simultaneous downloads (default 3)
+* Multi part downloading (max 16)
+* Download files in background
+* Unmetered connections only support (ex. Wi-Fi)
+* Roaming controls
+* User agent controls
+* Calculate hash value (MD5 & SHA-256)
+* Power Management and battery control
+* Various automatic actions after finishing download
 * Speed limit

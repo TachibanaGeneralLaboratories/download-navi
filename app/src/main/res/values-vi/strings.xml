@@ -112,9 +112,9 @@
     <string name="fragment_title_completed">Đã xong</string>
     <string name="download_list_empty">Không có mục tải xuống</string>
     <string name="share_url">Chia sẻ URL</string>
-    <string name="file_not_available">file not available!</string>
+    <string name="file_not_available">tệp không có sẵn!</string>
     <plurals name="unable_sharing">
-        <item quantity="other">The files cannot be shared.</item>
+        <item quantity="other">Tệp không thể được chia sẻ.</item>
     </plurals>
     <!-- Navigation drawer -->
     <!-- Category -->
@@ -225,7 +225,7 @@
     <!-- Headers -->
     <string name="pref_header_appearance">Giao diện</string>
     <string name="pref_header_behavior">Hoạt động</string>
-    <string name="pref_header_limitations">Limitations</string>
+    <string name="pref_header_limitations">Giới hạn</string>
     <string name="pref_header_storage">Lưu trữ</string>
     <string name="pref_header_browser">Trình duyệt</string>
     <!-- Appearance settings -->
@@ -275,8 +275,8 @@
     <string name="pref_max_active_downloads_title">Số tải xuống hoạt động tối đa</string>
     <string name="pref_max_download_retries_title">Số lần thử tải lại tối đa</string>
     <string name="pref_max_download_retries_dialog_msg">0 - không tải lại</string>
-    <string name="pref_speed_limit_title">Speed limit for one piece</string>
-    <string name="pref_speed_limit_dialog_hint">Set speed in KiB/s (0 - without limit)</string>
+    <string name="pref_speed_limit_title">Giới hạn tốc độ cho một mảnh</string>
+    <string name="pref_speed_limit_dialog_hint">Đặt tốc độ tính bằng KiB/s (0 - không có giới hạn)</string>
     <!-- Storage settings -->
     <string name="pref_save_downloads_in_title">Lưu tập tin tải xuống vào</string>
     <string name="pref_move_after_download_title">Di chuyển tập tin sau khi tải</string>
@@ -304,8 +304,8 @@
     <string name="pref_browser_disable_from_system_title">Tắt trình duyệt khỏi hệ thống</string>
     <string name="pref_browser_disable_from_system_summary">Trình duyệt sẽ không có sẵn để mở các liên kết</string>
     <string name="pref_browser_search_engine_title">Công cụ tìm kiếm</string>
-    <string name="pref_browser_hide_menu_icon_title">Hide icon from menu</string>
-    <string name="pref_browser_hide_menu_icon_summary">Hide browser icon from the main screen menu</string>
+    <string name="pref_browser_hide_menu_icon_title">Ẩn biểu tượng khỏi menu</string>
+    <string name="pref_browser_hide_menu_icon_summary">Ẩn biểu tượng trình duyệt khỏi menu màn hình chính</string>
     <!-- About dialog -->
     <string name="about_title">Giới thiệu về Download Navi</string>
     <string name="about_description"><![CDATA[    Thông tin thêm về dự án và cách đóng góp cho dự án: <a href="https://github.com/TachibanaGeneralLaboratories/download-navi">https://github.com/TachibanaGeneralLaboratories/download-navi</a><br><br>

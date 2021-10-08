@@ -112,12 +112,12 @@
     <string name="fragment_title_completed">Завершені</string>
     <string name="download_list_empty">Немає завантажень</string>
     <string name="share_url">Поділитися посиланням</string>
-    <string name="file_not_available">file not available!</string>
+    <string name="file_not_available">файл недоступний!</string>
     <plurals name="unable_sharing">
-        <item quantity="one">The file cannot be shared.</item>
-        <item quantity="few">The files cannot be shared.</item>
-        <item quantity="many">The files cannot be shared.</item>
-        <item quantity="other">The files cannot be shared.</item>
+        <item quantity="one">Неможливо поділитися файлом.</item>
+        <item quantity="few">Неможливо поділитися файлами.</item>
+        <item quantity="many">Неможливо поділитися файлами.</item>
+        <item quantity="other">Неможливо поділитися файлами.</item>
     </plurals>
     <!-- Navigation drawer -->
     <!-- Category -->
@@ -234,7 +234,7 @@
     <!-- Headers -->
     <string name="pref_header_appearance">Зовнішній вигляд</string>
     <string name="pref_header_behavior">Поведінка</string>
-    <string name="pref_header_limitations">Limitations</string>
+    <string name="pref_header_limitations">Обмеження</string>
     <string name="pref_header_storage">Сховище</string>
     <string name="pref_header_browser">Браузер</string>
     <!-- Appearance settings -->
@@ -284,8 +284,8 @@
     <string name="pref_max_active_downloads_title">Максимальна кількість активних завантажень</string>
     <string name="pref_max_download_retries_title">Максимальна кількість повторних спроб для завантаження</string>
     <string name="pref_max_download_retries_dialog_msg">0 - без спроб</string>
-    <string name="pref_speed_limit_title">Speed limit for one piece</string>
-    <string name="pref_speed_limit_dialog_hint">Set speed in KiB/s (0 - without limit)</string>
+    <string name="pref_speed_limit_title">Обмеження швидкості для одної частини</string>
+    <string name="pref_speed_limit_dialog_hint">Встановити швидкість у Кбіт/с (0 - без обмеження)</string>
     <!-- Storage settings -->
     <string name="pref_save_downloads_in_title">Зберігати завантаження у</string>
     <string name="pref_move_after_download_title">Переміщати після завантаження</string>

@@ -1,1 +1,1 @@
-Download Navi は無料でオープンソースの Android 4.4 以上対象のダウンロードマネージャーです
+Download Navi is a free and Open Source download manager for Android 4.4+

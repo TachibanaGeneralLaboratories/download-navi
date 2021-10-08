@@ -305,4 +305,9 @@
     Download Navi ist freie Software, veröffentlicht unter den Bedingungen der <a href="http://www.gnu.org/copyleft/gpl.html">GNU General Public License v3 (GPLv3)</a><br><br>
     <a href="https://github.com/TachibanaGeneralLaboratories/download-navi/blob/HEAD/PRIVACY.md">Datenschutz-Bestimmungen</a>]]></string>
     <string name="about_changelog">Änderungsprotokoll</string>
+    <string name="pref_header_limitations">Einschränkungen</string>
+    <string name="file_not_available">Datei nicht verfügbar!</string>
+    <string name="pref_speed_limit_dialog_hint">Geschwindigkeit in KiB/s festlegen (0 = unbeschränkt)</string>
+    <string name="pref_browser_hide_menu_icon_title">Symbol im Menü ausblenden</string>
+    <string name="pref_browser_hide_menu_icon_summary">Browser-Symbol im Hauptmenü ausblenden</string>
 </resources>

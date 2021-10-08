@@ -1,4 +1,4 @@
-# Características
+# Features
 
 * Software libre y de código abierto
 * Material Design
@@ -11,9 +11,11 @@
 * Descargas simultáneas (3 predeterminado)
 * Descarga de partes múltiples (máximo 16)
 * Descarga de archivos en segundo plano
-* Soporte solo para conexiones sin límite (ejemplo Wi-Fi)
+* Soporte solo para conexiones sin límite (ejemplo
+Wi-Fi)
 * Controles de roaming
 * Controles de agente de usuario
 * Calcular el valor hash (MD5 y SHA-256)
 * Administración de energía y control de batería
 * Diversas acciones automáticas tras finalizar la descarga
+* Límite de velocidad
