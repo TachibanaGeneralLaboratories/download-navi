@@ -1,20 +1,20 @@
-# Xüsusiyyətlər
+# Features
 
-* Ödənişsiz və Açıq Mənbə proqram təminatı (FOSS)
-* Material Dizayn
-* Çoxlu tema (Açıq, Tünd, Qara)
-* Android TV dəstəyi
-* Chrome OS dəstəyi
-* Endirmələrə fasilə vermə və davam etdirmə
-* Səyyah dəstəyi
-* Daxili səyyah
-* Eyni zamanda bir neçə endirmə (ilkin 3)
-* Hissəli endirmə (ən çox 16)
-* Faylları arxaplanda endirmə
-* Yalnız limitsiz bağlantılar dəstəyi (məs. Wi-Fi)
-* Roaminq nəzarəti
-* İstifadəçi agent nəzarəti
-* Hash dəyəri hesablama (MD5 & SHA-256)
-* Enerji İdarəsi və batareyaya nəzarət
-* Endirmədən sonra müxtəlif avtomatik hərəkətlər
+* Free and Open Source software (FOSS)
+* Material Design
+* Multiple themes (Light, Dark, Black)
+* Android TV support
+* Chrome OS support
+* Pause and resume downloads
+* Browsers support
+* Built-in browser
+* Simultaneous downloads (default 3)
+* Multi part downloading (max 16)
+* Download files in background
+* Unmetered connections only support (ex. Wi-Fi)
+* Roaming controls
+* User agent controls
+* Calculate hash value (MD5 & SHA-256)
+* Power Management and battery control
+* Various automatic actions after finishing download
 * Speed limit
