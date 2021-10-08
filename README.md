@@ -56,31 +56,9 @@ in the gift card details https://smile.amazon.com/gp/product/B004LLIKVU/
 
 ## 🌍 Translations
 
-You can help translate the app here: [https://crowdin.com/project/download-navi](https://crowdin.com/project/download-navi)
+Help translate the app at [Hosted Weblate](https://hosted.weblate.org/engage/download-navi/)
 
- - **Amharic** *(thanks dnt)*
- - **Arabic** *(thanks rex07)*
- - **Azerbaijani** *(thanks Khan27)*
- - **Bengali** *(thanks Oymate)*
- - **Brazilian Portuguese** *(thanks lu.santi.oli)*
- - **Chinese Simplified** *(thanks OR120, dwughjsd)*
- - **Chinese Traditional** *(thanks Fei1Yang)*
- - **Czech** *(thanks novas78)*
- - **English**
- - **French** *(thanks Ilith, KaKi87)*
- - **German** *(thanks noc-jfcbs, soristre)*
- - **Hindi** *(thanks imcmjha)*
- - **Indonesian** *(thanks bzntm)*
- - **Italian** *(thanks alisseo)*
- - **Japanese** *(thanks konnyaku2mc)*
- - **Persian** *(thanks Reg3xp)*
- - **Russian**
- - **Serbian** *(thanks Aimbot91)*
- - **Slovak** *(thanks kubalav)*
- - **Spanish** *(thanks c-sanchez)*
- - **Turkish** *(thanks byzlo685, muhaaliss)*
- - **Ukrainian** *(thanks Sensetivity)*
- - **Vietnamese** *(thanks pnhpnh)*
+![languages](https://hosted.weblate.org/widgets/download-navi/-/multi-auto.svg)
 
 ## 🎉 Contributors
 
