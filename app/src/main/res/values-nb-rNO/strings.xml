@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="about_title">Om Nedlastingsnavi</string>
+    <string name="about_title">Om Download Navi</string>
     <string name="pref_browser_search_engine_title">Søkemotor</string>
     <string name="pref_vibration_notify_title">Vibrasjon</string>
     <string name="pref_led_indicator_color_notify_title">LED-indikatorfarge</string>
