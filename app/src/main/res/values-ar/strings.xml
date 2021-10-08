@@ -101,7 +101,7 @@
     <string name="path">المسار</string>
     <string name="storage_free_space">المساحه الحره: %1$s</string>
     <string name="add_download_error_invalid_url">لايمكن اضافة التحميل: الرابط غير صحيح</string>
-    <string name="checksum">Checksum</string>
+    <string name="checksum">المجموع الاختباري</string>
     <string name="add_dialog_checksum_description">MD5, SHA-256</string>
     <string name="referer_description">%1$s رأس</string>
     <string name="error_invalid_checksum">المجموع الاختباري غير صالح</string>
