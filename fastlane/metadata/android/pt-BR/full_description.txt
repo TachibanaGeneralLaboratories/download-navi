@@ -1,20 +1,20 @@
-# Recursos
+# Features
 
-* Software de Código Aberto e gratuito (FOSS)
-* Design Material
-* Vários temas (Claro, Escuro, Preto)
-* Suporte a TV Android
-* Suporte ao Chrome OS
-* Pausar e retomar downloads
-* Suporte a navegadores
-* Navegador integrado
-* Downloads simultâneos (padrão 3)
-* Download de várias partes (máx. 16)
-* Baixar arquivos em segundo plano
-* Suporte a conexões não limitadas (ex. Wi-Fi)
-* Controles de roaming
-* Controles do agente do usuário
-* Calcular o valor de hash (MD5 e SHA-256)
-Gerenciamento de energia e controle de bateria
-* Várias ações automáticas após concluir o download
+* Free and Open Source software (FOSS)
+* Material Design
+* Multiple themes (Light, Dark, Black)
+* Android TV support
+* Chrome OS support
+* Pause and resume downloads
+* Browsers support
+* Built-in browser
+* Simultaneous downloads (default 3)
+* Multi part downloading (max 16)
+* Download files in background
+* Unmetered connections only support (ex. Wi-Fi)
+* Roaming controls
+* User agent controls
+* Calculate hash value (MD5 & SHA-256)
+* Power Management and battery control
+* Various automatic actions after finishing download
 * Speed limit
