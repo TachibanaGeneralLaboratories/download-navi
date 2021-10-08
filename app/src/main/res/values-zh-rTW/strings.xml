@@ -303,4 +303,13 @@
     Download Navi 是一款自由軟體，遵循 <a href="http://www.gnu.org/copyleft/gpl.html">GNU General Public License v3 (GPLv3)</a> 的許可條款發佈<br><br>
     <a href="https://github.com/TachibanaGeneralLaboratories/download-navi/blob/HEAD/PRIVACY.md">隱私政策</a>]]></string>
     <string name="about_changelog">更新日誌</string>
+    <string name="pref_speed_limit_dialog_hint">設定速度 KiB/s（0 - 無限制）</string>
+    <string name="pref_speed_limit_title">單一下載速度限制</string>
+    <plurals name="unable_sharing">
+        <item quantity="other">檔案無法分享。</item>
+    </plurals>
+    <string name="file_not_available">檔案無法使用！</string>
+    <string name="pref_header_limitations">限制</string>
+    <string name="pref_browser_hide_menu_icon_title">在選單中隱藏圖示</string>
+    <string name="pref_browser_hide_menu_icon_summary">從主螢幕選單中隱藏瀏覽器圖示</string>
 </resources>
