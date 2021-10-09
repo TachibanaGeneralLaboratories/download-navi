@@ -37,6 +37,7 @@ import com.tachibana.downloader.core.system.SystemFacadeHelper;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import io.reactivex.subjects.BehaviorSubject;
@@ -126,7 +127,7 @@ public class FileManagerViewModel extends ViewModel
             File[] files = dirFile.listFiles();
             if (files == null)
                 return items;
-            for (File file : files) {
+            for (File file : filterDirectories(files)) {
                 if (file.isDirectory())
                     items.add(new FileManagerNode(file.getName(), FileNode.Type.DIR, true));
                 else
@@ -139,6 +140,22 @@ public class FileManagerViewModel extends ViewModel
         }
 
         return items;
+    }
+
+    List<File> filterDirectories(File[] files) {
+        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.R
+                || config.showMode == FileManagerConfig.FILE_CHOOSER_MODE) {
+            return Arrays.asList(files);
+        }
+
+        var filtered = new ArrayList<File>();
+        for (var file : files) {
+            if (file.isFile() || file.canWrite()) {
+                filtered.add(file);
+            }
+        }
+
+        return filtered;
     }
 
     public boolean createDirectory(String name)
