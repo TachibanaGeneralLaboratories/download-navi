@@ -1,3 +1,17 @@
+Version 1.5 (2021-10-09)
+========================
+
+ * Android 12 support
+ * Hiding non-writable directories in the built-in file manager for Android 11+
+ * [Browser] Mixed content compatibility mode enabled
+ * Bugfixing:
+      - Google Drive downloading with progress and pausing
+      - Content-Disposition parsing and symbols escaping
+      - [Browser] Data URI handling
+      - [Browser] Redirecting to a non-valid URL
+ * Added Norwegian (Bokmål) language
+ * Updated current translations
+
 Version 1.4 (2021-07-19)
 ========================
 
