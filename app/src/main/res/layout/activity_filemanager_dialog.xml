@@ -72,7 +72,7 @@
                 android:id="@+id/file_list"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:paddingTop="@dimen/fab_size"
+                android:paddingTop="@{@dimen/fab_size + @dimen/fab_margin}"
                 android:paddingBottom="@{@dimen/fab_size + @dimen/fab_margin}"
                 android:clipToPadding="false"
                 android:background="?attr/background"
