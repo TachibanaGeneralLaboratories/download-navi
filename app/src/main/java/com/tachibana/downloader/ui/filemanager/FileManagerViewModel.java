@@ -158,7 +158,7 @@ public class FileManagerViewModel extends ViewModel
 
         if (!(dir.exists() && dir.isDirectory()))
             path = startDir;
-        else if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT && !dir.canRead())
+        else if (!dir.canRead())
             throw new SecurityException("Permission denied");
 
         updateCurDir(path);
@@ -170,7 +170,7 @@ public class FileManagerViewModel extends ViewModel
 
         if (!(dir.exists() && dir.isDirectory()))
             path = startDir;
-        else if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT && !dir.canRead())
+        else if (!dir.canRead())
             throw new SecurityException("Permission denied");
 
         updateCurDir(path);
@@ -187,11 +187,9 @@ public class FileManagerViewModel extends ViewModel
             return;
         File dir = new File(path);
 
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
-            File parentDir = dir.getParentFile();
-            if (!parentDir.canRead())
-                throw new SecurityException("Permission denied");
-        }
+        File parentDir = dir.getParentFile();
+        if (parentDir != null && !parentDir.canRead())
+            throw new SecurityException("Permission denied");
 
         updateCurDir(dir.getParent());
     }
@@ -259,9 +257,8 @@ public class FileManagerViewModel extends ViewModel
     {
         ContentResolver resolver = appContext.getContentResolver();
 
-        int takeFlags = data.getFlags() &
-                (Intent.FLAG_GRANT_READ_URI_PERMISSION |
-                 Intent.FLAG_GRANT_WRITE_URI_PERMISSION);
+        var takeFlags = data.getFlags();
+        takeFlags &= (Intent.FLAG_GRANT_READ_URI_PERMISSION | Intent.FLAG_GRANT_WRITE_URI_PERMISSION);
 
         Uri uri = data.getData();
         if (uri != null)

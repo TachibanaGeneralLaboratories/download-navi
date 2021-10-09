@@ -260,11 +260,15 @@ public class DownloadService extends Service
         startupIntent.addCategory(Intent.CATEGORY_LAUNCHER);
         startupIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP);
 
-        PendingIntent startupPendingIntent =
-                PendingIntent.getActivity(getApplicationContext(),
-                        0,
-                        startupIntent,
-                        PendingIntent.FLAG_UPDATE_CURRENT);
+        var flags = Build.VERSION.SDK_INT >= Build.VERSION_CODES.M
+                ? PendingIntent.FLAG_UPDATE_CURRENT
+                | PendingIntent.FLAG_IMMUTABLE : PendingIntent.FLAG_UPDATE_CURRENT;
+        PendingIntent startupPendingIntent = PendingIntent.getActivity(
+                getApplicationContext(),
+                0,
+                startupIntent,
+                flags
+        );
 
         foregroundNotify = new NotificationCompat.Builder(getApplicationContext(),
                 DownloadNotifier.FOREGROUND_NOTIFY_CHAN_ID)
@@ -288,12 +292,16 @@ public class DownloadService extends Service
     {
         Intent pauseButtonIntent = new Intent(getApplicationContext(), NotificationReceiver.class);
         pauseButtonIntent.setAction(NotificationReceiver.NOTIFY_ACTION_PAUSE_ALL);
+        var flags = Build.VERSION.SDK_INT >= Build.VERSION_CODES.M
+                ? PendingIntent.FLAG_UPDATE_CURRENT
+                | PendingIntent.FLAG_IMMUTABLE : PendingIntent.FLAG_UPDATE_CURRENT;
         PendingIntent pauseButtonPendingIntent =
                 PendingIntent.getBroadcast(
                         getApplicationContext(),
                         0,
                         pauseButtonIntent,
-                        PendingIntent.FLAG_UPDATE_CURRENT);
+                        flags
+                );
 
         return new NotificationCompat.Action.Builder(R.drawable.ic_pause_white_24dp,
                 getString(R.string.pause_all),
@@ -305,12 +313,16 @@ public class DownloadService extends Service
     {
         Intent resumeButtonIntent = new Intent(getApplicationContext(), NotificationReceiver.class);
         resumeButtonIntent.setAction(NotificationReceiver.NOTIFY_ACTION_RESUME_ALL);
+        var flags = Build.VERSION.SDK_INT >= Build.VERSION_CODES.M
+                ? PendingIntent.FLAG_UPDATE_CURRENT
+                | PendingIntent.FLAG_IMMUTABLE : PendingIntent.FLAG_UPDATE_CURRENT;
         PendingIntent resumeButtonPendingIntent =
                 PendingIntent.getBroadcast(
                         getApplicationContext(),
                         0,
                         resumeButtonIntent,
-                        PendingIntent.FLAG_UPDATE_CURRENT);
+                        flags
+                );
 
         return new NotificationCompat.Action.Builder(R.drawable.ic_play_arrow_white_24dp,
                 getString(R.string.resume_all),
@@ -322,12 +334,16 @@ public class DownloadService extends Service
     {
         Intent shutdownIntent = new Intent(getApplicationContext(), NotificationReceiver.class);
         shutdownIntent.setAction(NotificationReceiver.NOTIFY_ACTION_SHUTDOWN_APP);
+        var flags = Build.VERSION.SDK_INT >= Build.VERSION_CODES.M
+                ? PendingIntent.FLAG_UPDATE_CURRENT
+                | PendingIntent.FLAG_IMMUTABLE : PendingIntent.FLAG_UPDATE_CURRENT;
         PendingIntent shutdownPendingIntent =
                 PendingIntent.getBroadcast(
                         getApplicationContext(),
                         0,
                         shutdownIntent,
-                        PendingIntent.FLAG_UPDATE_CURRENT);
+                        flags
+                );
 
         return new NotificationCompat.Action.Builder(
                 R.drawable.ic_power_white_24dp,
@@ -386,12 +402,16 @@ public class DownloadService extends Service
         Intent reportIntent = new Intent(getApplicationContext(), NotificationReceiver.class);
         reportIntent.setAction(NotificationReceiver.NOTIFY_ACTION_REPORT_APPLYING_PARAMS_ERROR);
         reportIntent.putExtra(NotificationReceiver.TAG_ERR, e);
+        var flags = Build.VERSION.SDK_INT >= Build.VERSION_CODES.M
+                ? PendingIntent.FLAG_UPDATE_CURRENT
+                | PendingIntent.FLAG_IMMUTABLE : PendingIntent.FLAG_UPDATE_CURRENT;
         PendingIntent shutdownPendingIntent =
                 PendingIntent.getBroadcast(
                         getApplicationContext(),
                         0,
                         reportIntent,
-                        PendingIntent.FLAG_UPDATE_CURRENT);
+                        flags
+                );
 
         return new NotificationCompat.Action.Builder(
                 R.drawable.ic_send_white_24dp,

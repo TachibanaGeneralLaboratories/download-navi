@@ -7,9 +7,6 @@
         <variable
             name="viewModel"
             type="com.tachibana.downloader.ui.filemanager.FileManagerViewModel" />
-        <variable
-            name="enableSystemManagerButton"
-            type="java.lang.Boolean" />
         <import
             type="com.tachibana.downloader.ui.filemanager.FileManagerConfig" />
         <import
@@ -75,7 +72,7 @@
                 android:id="@+id/file_list"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:paddingTop="@{enableSystemManagerButton.booleanValue() ? @dimen/fab_size + @dimen/fab_margin : @dimen/padding_zero}"
+                android:paddingTop="@dimen/fab_size"
                 android:paddingBottom="@{@dimen/fab_size + @dimen/fab_margin}"
                 android:clipToPadding="false"
                 android:background="?attr/background"
@@ -92,7 +89,7 @@
             android:text="@string/system_manager"
             android:layout_marginTop="135dp"
             android:layout_gravity="top|start"
-            android:visibility="@{enableSystemManagerButton.booleanValue() ? View.VISIBLE : View.GONE}"
+            android:visibility="visible"
             app:backgroundTint="?attr/colorSecondary"
             app:cornerRadius="16dp"
             app:icon="@drawable/ic_folder_grey600_24dp"
@@ -107,7 +104,8 @@
             app:layout_anchor="@id/bottom_bar"
             app:layout_anchorGravity="top|end"
             app:srcCompat="@drawable/ic_add_black_24dp"
-            android:focusable="true" />
+            android:focusable="true"
+            android:contentDescription="@string/dialog_new_folder_title" />
 
         <FrameLayout
             android:id="@+id/bottom_bar"

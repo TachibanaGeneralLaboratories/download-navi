@@ -23,7 +23,6 @@ package com.tachibana.downloader.core.system;
 import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
-import android.os.Build;
 
 import androidx.activity.result.contract.ActivityResultContract;
 import androidx.activity.result.contract.ActivityResultContracts;
@@ -49,26 +48,19 @@ public final class FileSystemContracts {
         @NonNull
         @Override
         public Intent createIntent(@NonNull Context context, @Nullable Uri input) {
-            Intent i;
-            if (Build.VERSION.SDK_INT <= Build.VERSION_CODES.R) {
-                i = new Intent(context, FileManagerDialog.class);
-                String dirPath = null;
-                if (input != null && Utils.isFileSystemPath(input)) {
-                    dirPath = input.getPath();
-                }
-                FileManagerConfig config = new FileManagerConfig(
-                        dirPath,
-                        context.getString(R.string.select_folder_to_save),
-                        FileManagerConfig.DIR_CHOOSER_MODE
-                );
-                i.putExtra(FileManagerDialog.TAG_CONFIG, config);
-            } else {
-                i = super.createIntent(context, input);
-                i.setFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION |
-                        Intent.FLAG_GRANT_WRITE_URI_PERMISSION |
-                        Intent.FLAG_GRANT_PERSISTABLE_URI_PERMISSION);
+            super.createIntent(context, input);
 
+            Intent i = new Intent(context, FileManagerDialog.class);
+            String dirPath = null;
+            if (input != null && Utils.isFileSystemPath(input)) {
+                dirPath = input.getPath();
             }
+            FileManagerConfig config = new FileManagerConfig(
+                    dirPath,
+                    context.getString(R.string.select_folder_to_save),
+                    FileManagerConfig.DIR_CHOOSER_MODE
+            );
+            i.putExtra(FileManagerDialog.TAG_CONFIG, config);
             return i;
         }
     }
@@ -83,23 +75,16 @@ public final class FileSystemContracts {
         @NonNull
         @Override
         public Intent createIntent(@NonNull Context context, @NonNull String[] input) {
-            Intent i;
-            if (Build.VERSION.SDK_INT <= Build.VERSION_CODES.R) {
-                i = new Intent(context, FileManagerDialog.class);
-                FileManagerConfig config = new FileManagerConfig(
-                        null,
-                        null,
-                        FileManagerConfig.FILE_CHOOSER_MODE
-                );
-                config.mimeType = input.length > 0 ? input[0] : null;
-                i.putExtra(FileManagerDialog.TAG_CONFIG, config);
-            } else {
-                i = super.createIntent(context, input);
-                i.setFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION |
-                        Intent.FLAG_GRANT_WRITE_URI_PERMISSION |
-                        Intent.FLAG_GRANT_PERSISTABLE_URI_PERMISSION);
+            super.createIntent(context, input);
 
-            }
+            Intent i = new Intent(context, FileManagerDialog.class);
+            FileManagerConfig config = new FileManagerConfig(
+                    null,
+                    null,
+                    FileManagerConfig.FILE_CHOOSER_MODE
+            );
+            config.mimeType = input.length > 0 ? input[0] : null;
+            i.putExtra(FileManagerDialog.TAG_CONFIG, config);
             return i;
         }
     }

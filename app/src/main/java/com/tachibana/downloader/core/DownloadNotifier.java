@@ -33,6 +33,7 @@ import android.util.ArrayMap;
 import android.util.Log;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.RequiresApi;
 import androidx.core.app.NotificationCompat;
 import androidx.core.content.ContextCompat;
 
@@ -333,12 +334,16 @@ public class DownloadNotifier
             pauseResumeButtonIntent.putExtra(NotificationReceiver.TAG_ID, info.id);
             int icon = (isStopped ? R.drawable.ic_play_arrow_white_24dp : R.drawable.ic_pause_white_24dp);
             String text = (isStopped ? appContext.getString(R.string.resume) : appContext.getString(R.string.pause));
+            var flags = Build.VERSION.SDK_INT >= Build.VERSION_CODES.M
+                    ? PendingIntent.FLAG_UPDATE_CURRENT
+                    | PendingIntent.FLAG_IMMUTABLE : PendingIntent.FLAG_UPDATE_CURRENT;
             PendingIntent pauseResumeButtonPendingIntent =
                     PendingIntent.getBroadcast(
                             appContext,
                             tag.hashCode(),
                             pauseResumeButtonIntent,
-                            PendingIntent.FLAG_UPDATE_CURRENT);
+                            flags
+                    );
 
             builder.addAction(new NotificationCompat.Action.Builder(
                     icon, text, pauseResumeButtonPendingIntent).build());
@@ -351,7 +356,8 @@ public class DownloadNotifier
                             appContext,
                             tag.hashCode(),
                             stopButtonIntent,
-                            PendingIntent.FLAG_UPDATE_CURRENT);
+                            flags
+                    );
 
             builder.addAction(new NotificationCompat.Action.Builder(
                     R.drawable.ic_stop_white_24dp,
@@ -369,7 +375,8 @@ public class DownloadNotifier
                     PendingIntent.getActivity(appContext,
                             tag.hashCode(),
                             startupIntent,
-                            PendingIntent.FLAG_UPDATE_CURRENT);
+                            flags
+                    );
 
             builder.setContentIntent(startupPendingIntent);
 
@@ -382,8 +389,16 @@ public class DownloadNotifier
                         appContext.getString(R.string.open_using));
                 i.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
 
-                PendingIntent openPendingIntent = PendingIntent.getActivity(
-                        appContext, tag.hashCode(), i, PendingIntent.FLAG_UPDATE_CURRENT);
+                var flags = Build.VERSION.SDK_INT >= Build.VERSION_CODES.M
+                        ? PendingIntent.FLAG_UPDATE_CURRENT
+                        | PendingIntent.FLAG_IMMUTABLE : PendingIntent.FLAG_UPDATE_CURRENT;
+                PendingIntent openPendingIntent =
+                        PendingIntent.getActivity(
+                            appContext,
+                            tag.hashCode(),
+                            i,
+                            flags
+                        );
 
                 builder.setContentIntent(openPendingIntent);
             }
