@@ -14,25 +14,25 @@
     <string name="elapsed_time_format_mm_ss">%1$d دقیقه. %2$d ثانیه</string>
     <!-- 1 s -->
     <string name="elapsed_time_format_ss">%1$d ثانیه</string>
-    <string name="ok">خوب</string>
+    <string name="ok">تأیید</string>
     <string name="cancel">لغو</string>
     <!-- A synonym for word "unmetered" - unlimited-->
-    <string name="unmetered_connections_only">فقط اتصال‌های بدون محدودیت حجم</string>
-    <string name="connect">اتصال</string>
+    <string name="unmetered_connections_only">فقط اتّصال‌های بدون محدودیت</string>
+    <string name="connect">اتّصال</string>
     <string name="add">افزودن</string>
     <string name="not_available">در دسترس نیست</string>
-    <string name="open_navigation_drawer">بازکردن کشوی جهت‌یابی</string>
+    <string name="open_navigation_drawer">گشودن کشوی جهت‌یابی</string>
     <string name="close_navigation_drawer">بستن کشوی جهت‌یابی</string>
     <string name="error_template">خطا: %1$s</string>
     <string name="pause">درنگ</string>
-    <string name="resume">ادامه</string>
-    <string name="stop">توقف</string>
-    <string name="stopped">متوقف شده</string>
-    <string name="pending">در حال انتظار</string>
+    <string name="resume">از سرگیری</string>
+    <string name="stop">توقّف</string>
+    <string name="stopped">متوقّف شده</string>
+    <string name="pending">در انتظار</string>
     <string name="delete">حذف</string>
-    <string name="share">همرسانی</string>
+    <string name="share">هم‌رسانی</string>
     <string name="menu">فهرست</string>
-    <string name="select_all">انتخاب همه</string>
+    <string name="select_all">گزینش همه</string>
     <string name="share_via">هم‌رسانی با</string>
     <string name="no">نه</string>
     <string name="yes">بله</string>
@@ -41,7 +41,7 @@
     <string name="folder">پوشه</string>
     <string name="downloading_metadata">در حال بارگیری فراداده</string>
     <string name="all">همه</string>
-    <string name="search">جستجو</string>
+    <string name="search">جست‌وجو</string>
     <string name="settings">تنظیمات</string>
     <string name="about">درباره</string>
     <string name="close">بستن</string>
@@ -51,7 +51,7 @@
     <string name="apply">اعمال</string>
     <string name="report">گزارش</string>
     <string name="more_details">جزئیات بیشتر</string>
-    <string name="clipboard">بریده‌دان</string>
+    <string name="clipboard">تخته‌گیره</string>
     <string name="verify">تأیید</string>
     <!-- Permission dialog -->
     <string name="perm_denied_title">دسترسی رد شد</string>
@@ -60,15 +60,15 @@
     <string name="download_ticker_notify">در حال بارگیری %1$s</string>
     <!-- Foreground notification -->
     <string name="app_running_in_the_background">Download Navi در پس‌زمینه در حال اجرا است</string>
-    <string name="pause_all">توقف همه</string>
-    <string name="resume_all">ادامه‌ همه</string>
+    <string name="pause_all">درنگ همه</string>
+    <string name="resume_all">از سرگیری همه</string>
     <!-- Finish notification -->
     <string name="download_finished_notify">بارگیری پایان یافت</string>
-    <string name="open_using">بازکردن با</string>
+    <string name="open_using">گشودن با</string>
     <!-- Pending notification -->
     <string name="download_in_queue_ticker_notify">%1$s در صف</string>
     <string name="waiting_for_network">در انتظار شبکه</string>
-    <string name="waiting_for_retry">در حال انتظار برای تلاش دوباره</string>
+    <string name="waiting_for_retry">در انتظار برای تلاش دوباره</string>
     <!-- Error notification -->
     <string name="download_error_notify_title">خطای بارگیری</string>
     <!-- Applying params notification -->
@@ -83,18 +83,18 @@
     <string name="download_retry">تلاش دوباره</string>
     <string name="download_advanced">پیشرفته</string>
     <string name="download_user_agent">عامل کاربر</string>
-    <string name="download_error_empty_link">لطفا پیوند را وارد کنید</string>
+    <string name="download_error_empty_link">لطفاً پیوند را وارد کنید</string>
     <string name="download_error_empty_name">لطفا نام را وارد کنید</string>
     <string name="download_error_no_enough_free_space">فضا کافی نیست: %1$s خالی می‌باشد، ولی اندازه پرونده %2$s است</string>
-    <string name="download_error_name_is_not_correct">نام درست \"%1$s\" است</string>
+    <string name="download_error_name_is_not_correct">نام درست «%1$s» است</string>
     <string name="fetch_error_default_fmt">خطا: %1$s</string>
     <string name="fetch_error_invalid_url">پیوند نامعتبر: %1$s</string>
     <string name="fetch_error_network_disconnected">شبکه جدا شد</string>
     <string name="fetch_error_http_response">خطا: سرور کد HTTP %1$d را برگرداند</string>
     <string name="fetch_error_io">خطای ورودی/خروجی: %1$s</string>
-    <string name="unable_to_open_folder">نمی‌توان پوشه انتخابی را باز کرد. لطفا پوشه دیگری را انتخاب کنید</string>
-    <string name="unable_to_create_file">نمی‌توان پرونده را ایجاد کرد. لطفا پوشه دیگری را انتخاب کنید</string>
-    <string name="partial_download_not_supported">این بارگیری، از مکث و بارگیری تکه تکه پشتیبانی نمی‌کند</string>
+    <string name="unable_to_open_folder">نمی‌توان پوشهٔ انتخابی را گشود. لطفاً پوشه دیگری را انتخاب کنید</string>
+    <string name="unable_to_create_file">نمی‌توان پرونده را ایجاد کرد. لطفاً پوشه دیگری را انتخاب کنید</string>
+    <string name="partial_download_not_supported">این بارگیری، از درنگ و بارگیری چند تکه پشتیبانی نمی‌کند</string>
     <string name="download_pieces_number_title">شمار تکه‌ها</string>
     <string name="download_description">توضیحات</string>
     <string name="select_folder_to_save">انتخاب پوشه برای ذخیره</string>
