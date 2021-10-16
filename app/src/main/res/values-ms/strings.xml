@@ -1,2 +1,56 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+    <string name="ok">OK</string>
+    <string name="warning">Amaran</string>
+    <string name="about">Mengenai</string>
+    <string name="close">Tutup</string>
+    <string name="redownload">Muat turun semula</string>
+    <string name="apply">Tetapkan</string>
+    <string name="report">Lapor</string>
+    <string name="more_details">Maklumat lanjut</string>
+    <string name="clipboard">Papan klip</string>
+    <string name="app_running_in_the_background">Download Navi sedang berjalan di latar belakang</string>
+    <string name="pause_all">Jeda semua</string>
+    <string name="resume_all">Sambung semula semua</string>
+    <string name="download_finished_notify">Muat turun selesai</string>
+    <string name="perm_denied_title">Kebenaran ditolak</string>
+    <string name="elapsed_time_format_ss">%1$d s</string>
+    <string name="cancel">Batal</string>
+    <string name="not_available">T/A</string>
+    <string name="resume">Sambung</string>
+    <string name="stop">Berhenti</string>
+    <string name="share">Kongsi</string>
+    <string name="download_ticker_notify">Memuat turun%1$s</string>
+    <string name="app_name">Download Navi</string>
+    <string name="shutdown">Matikan</string>
+    <string name="unmetered_connections_only">Sambungan tanpa had sahaja</string>
+    <string name="connect">Sambung</string>
+    <string name="add">Tambah</string>
+    <string name="pause">Jeda</string>
+    <string name="stopped">Dihentikan</string>
+    <string name="delete">Padam</string>
+    <string name="menu">Menu</string>
+    <string name="foreground_notification">Notifikasi latar depan</string>
+    <string name="download_running">Sedang berjalan</string>
+    <string name="finished">Selesai</string>
+    <string name="elapsed_time_format_d_h_mm">%1$d h. %2$d j. %3$d m</string>
+    <string name="elapsed_time_format_h_mm_ss">%1$d h. %2$d m. %3$d s</string>
+    <string name="elapsed_time_format_mm_ss">%1$d m. %2$d s</string>
+    <string name="error_template">Ralat:%1$s</string>
+    <string name="pending">Ditunda</string>
+    <string name="select_all">Pilih semua</string>
+    <string name="share_via">Kongsi melalui</string>
+    <string name="yes">Ya</string>
+    <string name="error">Ralat</string>
+    <string name="folder">Folder</string>
+    <string name="Default">Lalai</string>
+    <string name="verify">Sahkan</string>
+    <string name="open_using">Buka menggunakan</string>
+    <string name="no">Tidak</string>
+    <string name="file">Fail</string>
+    <string name="downloading_metadata">Memuat turun metadata</string>
+    <string name="all">Semua</string>
+    <string name="search">Cari</string>
+    <string name="settings">Tetapan</string>
+    <string name="perm_denied_warning">Tanpa kebenaran ini aplikasi tidak dapat menyimpan fail dalam memori pada beberapa peranti dan versi Android. Aplikasi tidak akan berfungsi dengan baik. Adakah anda pasti mahu menolak kebenaran ini\?</string>
+</resources>
