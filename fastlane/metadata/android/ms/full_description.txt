@@ -1,20 +1,20 @@
 # Features
 
-* Perisian percuma dan Sumber Terbuka (FOSS)
-* Rekaan Material 
-* Pelbagai tema(Terang, Gelap, Hitam)
-* Sokongan Android TV 
-* Sokongan Chrome OS
+* Free and Open Source software (FOSS)
+* Material Design
+* Multiple themes (Light, Dark, Black)
+* Android TV support
+* Chrome OS support
 * Pause and resume downloads
-* Sokongan pelayar
-* Pelayar terbina dalam
-* Muat turun serentak (lalai 3)
-* Muat turun pelbagai bahagian (maks 16)
-* Muat turun fail di latar belakang
-* Rangkaian tanpa had hanya menyokong (mis. Wi-Fi)
-* Kawalan perayauan
-* Kawalan ejen pengguna
-* Hitung nilai hash (MD5 & SHA-256)
-* Pengurusan Kuasa dan kawalan bateri
-* Pelbagai tindakan automatik setelah selesai memuat turun
-* Had laju
+* Browsers support
+* Built-in browser
+* Simultaneous downloads (default 3)
+* Multi part downloading (max 16)
+* Download files in background
+* Unmetered connections only support (ex. Wi-Fi)
+* Roaming controls
+* User agent controls
+* Calculate hash value (MD5 & SHA-256)
+* Power Management and battery control
+* Various automatic actions after finishing download
+* Speed limit
