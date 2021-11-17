@@ -1,4 +1,4 @@
-# Features
+# Özəlliklər
 
 * Free and Open Source software (FOSS)
 * Material Design
