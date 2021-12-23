@@ -23,7 +23,7 @@
     <string name="not_available">N/A</string>
     <string name="open_navigation_drawer">打开导航抽屉</string>
     <string name="close_navigation_drawer">关闭导航抽屉</string>
-    <string name="error_template">错误： %1$s</string>
+    <string name="error_template">错误: %1$s</string>
     <string name="pause">暂停</string>
     <string name="resume">恢复</string>
     <string name="stop">停止</string>
@@ -55,7 +55,7 @@
     <string name="verify">验证</string>
     <!-- Permission dialog -->
     <string name="perm_denied_title">权限不足</string>
-    <string name="perm_denied_warning">如果没有此权限，应用无法在某些设备和Android版本的内存中保存文件。该应用程序将无法正常工作。您确定要拒绝此权限吗？</string>
+    <string name="perm_denied_warning">如果没有此权限，应用无法在某些设备和 Android 版本的内存中保存文件。该应用程序将无法正常工作。您确定要拒绝此权限吗？</string>
     <!-- Download progress notification -->
     <string name="download_ticker_notify">正在下载 %1$s</string>
     <!-- Foreground notification -->
@@ -85,13 +85,13 @@
     <string name="download_user_agent">用户代理</string>
     <string name="download_error_empty_link">请输入链接</string>
     <string name="download_error_empty_name">请输入名称</string>
-    <string name="download_error_no_enough_free_space">可用空间不足： %1$s 可用，但文件大小为 %2$s</string>
+    <string name="download_error_no_enough_free_space">可用空间不足: %1$s 可用，但文件大小为 %2$s</string>
     <string name="download_error_name_is_not_correct">正确的名称是 \"%1$s\"</string>
     <string name="fetch_error_default_fmt">错误: %1$s</string>
     <string name="fetch_error_invalid_url">网址无效: %1$s</string>
     <string name="fetch_error_network_disconnected">网络已断开</string>
     <string name="fetch_error_http_response">错误：服务器返回 HTTP %1$d 错误代码</string>
-    <string name="fetch_error_io">IO 错误： %1$s</string>
+    <string name="fetch_error_io">IO 错误: %1$s</string>
     <string name="unable_to_open_folder">无法打开所选文件夹。请尝试选择其他文件夹</string>
     <string name="unable_to_create_file">无法创建文件。请尝试选择其他文件夹</string>
     <string name="partial_download_not_supported">此次下载不支持暂停和多线程分段下载</string>
@@ -193,7 +193,7 @@
     <!-- Browser -->
     <string name="browser">浏览器</string>
     <string name="browser_app">Navi 浏览器</string>
-    <string name="webview_is_required">需要WebView才能工作</string>
+    <string name="webview_is_required">需要 WebView 才能工作</string>
     <string name="browser_forward_arrow">前进</string>
     <string name="browser_desktop_version">桌面版本</string>
     <string name="browser_address_bar_hint">输入网站地址或搜索词</string>
@@ -209,7 +209,7 @@
     <!-- Edit bookmark dialog -->
     <string name="browser_bookmark_name">名称</string>
     <string name="browser_bookmark_url">URL</string>
-    <string name="browser_bookmark_error_empty_url">请输入URL</string>
+    <string name="browser_bookmark_error_empty_url">请输入 URL</string>
     <string name="browser_bookmark_error_empty_name">请输入名称</string>
     <plurals name="browser_bookmark_deleted">
         <item quantity="other">书签已删除</item>
@@ -241,7 +241,7 @@
     <string name="pref_pending_notify_title">待下载通知</string>
     <string name="pref_play_sound_notify_title">播放声音</string>
     <string name="pref_notify_sound_title">通知声音</string>
-    <string name="pref_led_indicator_notify_title">LED指示灯</string>
+    <string name="pref_led_indicator_notify_title">LED 指示灯</string>
     <string name="pref_led_indicator_color_notify_title">LED指示灯颜色</string>
     <string name="pref_vibration_notify_title">振动</string>
     <string name="theme_settings_apply_after_reboot">主题设置将在重新启动软件后生效</string>
@@ -250,7 +250,7 @@
     <string name="pref_autostart_summary">启动设备后运行应用程序并开始下载未被手动暂停的任务</string>
     <!-- A synonym for word "unmetered" - unlimited-->
     <string name="pref_umnetered_connections_only_title">只使用不按流量计费的连接</string>
-    <string name="pref_umnetered_connections_only_summary">仅允许未计量的连接下载(例如Wi-Fi或以太网)</string>
+    <string name="pref_umnetered_connections_only_summary">仅允许未计量的连接下载（例如 Wi-Fi 或以太网）</string>
     <string name="pref_power_management_category">电源管理</string>
     <string name="pref_cpu_do_not_sleep_title">保持 CPU 唤醒</string>
     <string name="pref_cpu_do_not_sleep_summary">启用此功能会增加电池使用量。如果屏幕关闭时下载速度降低，请启用此选项</string>
@@ -265,7 +265,7 @@
     <string name="pref_enable_roaming_title">允许漫游</string>
     <string name="pref_enable_roaming_summary">仅在设备未漫游时下载</string>
     <string name="pref_replace_duplicate_downloads_title">替换重复下载</string>
-    <string name="pref_replace_duplicate_downloads_summary">替换已添加到列表中的重复下载（使用相同的URL）</string>
+    <string name="pref_replace_duplicate_downloads_summary">替换已添加到列表中的重复下载（使用相同的 URL）</string>
     <string name="pref_auto_connect_title">自动连接</string>
     <string name="pref_auto_connect_summary">在打开添加下载对话框时自动连接下载地址</string>
     <string name="pref_timeout_title">超时</string>
@@ -273,7 +273,7 @@
     <!-- Limitation settings -->
     <string name="pref_max_active_downloads_title">最大同时下载任务</string>
     <string name="pref_max_download_retries_title">最大下载重试次数</string>
-    <string name="pref_max_download_retries_dialog_msg">0  - 不重试</string>
+    <string name="pref_max_download_retries_dialog_msg">0 - 不重试</string>
     <string name="pref_speed_limit_title">单个下载速度限制</string>
     <string name="pref_speed_limit_dialog_hint">设置速度，单位 KiB/s (0 代表无限制)</string>
     <!-- Storage settings -->
@@ -287,21 +287,21 @@
     <string name="pref_browser_bottom_address_bar_title">地址栏在底部</string>
     <string name="pref_browser_bottom_address_bar_summary">地址栏将位于屏幕底部</string>
     <string name="pref_browser_start_page_title">起始页</string>
-    <string name="pref_browser_allow_java_script_title">允许Java Script</string>
+    <string name="pref_browser_allow_java_script_title">允许 JavaScript</string>
     <string name="pref_browser_allow_popup_windows_title">允许弹出窗口</string>
     <string name="pref_browser_cache_category">缓存</string>
     <string name="pref_browser_cookies_category">Cookies</string>
     <string name="pref_browser_enable_caching_title">启用缓存</string>
     <string name="pref_browser_enable_cookies_title">启用 Cookies</string>
-    <string name="pref_browser_delete_cookies_title">删除 cookies</string>
-    <string name="pref_browser_delete_cookies_done">删除所有 cookies</string>
+    <string name="pref_browser_delete_cookies_title">删除 Cookies</string>
+    <string name="pref_browser_delete_cookies_done">删除所有 Cookies</string>
     <string name="pref_browser_clear_cache_title">清除缓存</string>
     <string name="pref_browser_clear_cache_done">缓存已清除</string>
     <string name="pref_browser_do_not_track_title">不要跟踪</string>
     <string name="pref_browser_do_not_track_summary">向您访问的网站发送“不要跟踪”请求</string>
     <string name="pref_browser_launcher_icon_title">启动器中的浏览器图标</string>
     <string name="pref_browser_disable_from_system_title">从系统中禁用浏览器</string>
-    <string name="pref_browser_disable_from_system_summary">将无法使用Navi浏览器打开链接</string>
+    <string name="pref_browser_disable_from_system_summary">将无法使用 Navi 浏览器打开链接</string>
     <string name="pref_browser_search_engine_title">搜索引擎</string>
     <string name="pref_browser_hide_menu_icon_title">在菜单中隐藏图标</string>
     <string name="pref_browser_hide_menu_icon_summary">在主屏幕菜单中隐藏浏览器图标</string>
@@ -309,7 +309,7 @@
     <string name="about_title">关于 Download Navi</string>
     <string name="about_description"><![CDATA[    访问此网站获取更多信息或者帮助项目: <a href="https://github.com/TachibanaGeneralLaboratories/download-navi">https://github.com/TachibanaGeneralLaboratories/download-navi</a><br><br>
     Download Navi 是适用于 Android 4.4 及以上版本的免费且开源的下载管理器<br><br>
-    Download Navi 是一款自由软件，遵循许可 <a href="http://www.gnu.org/copyleft/gpl.html">GNU General Public License v3 (GPLv3)</a> 的条款发布<br><br>
+    Download Navi 是一款自由软件，遵循 <a href="http://www.gnu.org/copyleft/gpl.html">GNU General Public License v3 (GPLv3)</a> 许可证的条款发布<br><br>
     <a href="https://github.com/TachibanaGeneralLaboratories/download-navi/blob/HEAD/PRIVACY.md">隐私政策</a>]]></string>
     <string name="about_changelog">更新日志</string>
 </resources>
