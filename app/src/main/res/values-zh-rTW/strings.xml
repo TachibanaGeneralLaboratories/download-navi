@@ -237,7 +237,7 @@
     <string name="pref_play_sound_notify_title">播放音效</string>
     <string name="pref_notify_sound_title">通知音效</string>
     <string name="pref_led_indicator_notify_title">LED 指示燈</string>
-    <string name="pref_led_indicator_color_notify_title">LEF 指示燈顏色</string>
+    <string name="pref_led_indicator_color_notify_title">LED 指示燈顏色</string>
     <string name="pref_vibration_notify_title">震動</string>
     <string name="theme_settings_apply_after_reboot">主題設定將在重新啓動應用程式後套用</string>
     <!-- Behavior settings -->
