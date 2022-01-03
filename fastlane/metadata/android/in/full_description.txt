@@ -1,21 +1,20 @@
-# Features
+# Fitur
 
-* Aplikasi Bebas dan Bersumber Terbuka (FOSS)
-* Desain Material
-* Tema Khusus (Terang, Gelap, Hitam)
-* Dukungan Android TV
+* Perangkat lunak Sumber Terbuka dan Bebas(FOSS)
+* Material Design
+* Pilihan tema (Terang, Gelap, Hitam)
+* Dukungan TV Android
 * Dukungan Chrome OS
 * Jeda dan lanjutkan unduhan
-* Dukungan peramban
-* Peramban bawaan
+* Dukungan browser
+* Browser bawaan
 * Unduhan simultan (default 3)
-* Unduhan berjenjang (maks 16)
-* Unduh berkas di latar belakang
-* Dukungan untuk hanya menggunakan koneksi tak terbatas (mis.
-Wi-Fi)
-* Pengaturan Roaming
-* Pengaturan user agent
-* Kalkulasi nilai hash (MD5 & SHA-256)
-* Manajemen daya dan pengaturan baterai
-* Tindakan otomatis setelah unduhan selesai
-* Speed limit
+* Pengunduhan multi bagian (maks 16)
+* Unduh file di latar belakang
+* Hanya mendukung koneksi tanpa meteran (mis. Wi-Fi)
+* Kontrol jelajah
+* Kontrol agen pengguna
+* Hitung nilai hash (MD5 & SHA-256)
+* Manajemen Daya dan kontrol baterai
+* Berbagai tindakan otomatis setelah selesai mengunduh
+* Batas kecepatan
