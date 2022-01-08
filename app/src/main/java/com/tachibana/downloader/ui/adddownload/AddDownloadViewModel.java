@@ -413,7 +413,7 @@ public class AddDownloadViewModel extends AndroidViewModel
                     conn.getHeaderField("Content-Range")
             );
             params.setTotalBytes(bytes);
-        };
+        }
         params.setPartialSupport(
                 "bytes".equalsIgnoreCase(conn.getHeaderField("Accept-Ranges")) ||
                 conn.getHeaderField("Content-Range") != null

@@ -1,6 +1,6 @@
 /*
- * Copyright (C) 2018-2021 Tachibana General Laboratories, LLC
- * Copyright (C) 2018-2021 Yaroslav Pronin <proninyaroslav@mail.ru>
+ * Copyright (C) 2018-2022 Tachibana General Laboratories, LLC
+ * Copyright (C) 2018-2022 Yaroslav Pronin <proninyaroslav@mail.ru>
  * Copyright (C) 2020 8176135 <elsecaller@8176135.xyz>
  *
  * This file is part of Download Navi.
@@ -112,6 +112,7 @@ public class HttpConnection implements Runnable
                 conn.setInstanceFollowRedirects(false);
                 conn.setConnectTimeout(timeout);
                 conn.setReadTimeout(timeout);
+                conn.setRequestProperty("Accept-Encoding", "identity");
 
                 // Get the cookies for the current domain.
                 var cookiesString = CookieManager.getInstance().getCookie(url.toString());
