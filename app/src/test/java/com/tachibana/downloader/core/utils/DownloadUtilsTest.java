@@ -120,6 +120,8 @@ public class DownloadUtilsTest {
         assertUrlFilename("file.txt", "http://example.org/file.txt;somedata");
         assertUrlFilename("file.tar.gz", "http://example.org/file.tar.gz;somedata");
         assertUrlFilename("file.txt", "http://example.org/file.txt&query");
+        assertUrlFilename("[example.org] file.txt", "http://example.org/[example.org] file.txt");
+        assertUrlFilename("[example.org] file.tar.gz", "http://example.org/[example.org] file.tar.gz");
     }
 
     private void assertContentDisposition(String expected, String contentDisposition) {

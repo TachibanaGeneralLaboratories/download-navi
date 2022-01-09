@@ -220,8 +220,15 @@ public class DownloadUtils {
          * Split filename between base and extension.
          * Add an extension if filename does not have one
          */
-        var originExtensionMatcher = extensionWithDot.matcher(filename);
-        if (!originExtensionMatcher.find()) {
+        var m = extensionWithDot.matcher(filename);
+        String originExtension = null;
+        int extensionStart = -1;
+        while (m.find()) {
+            originExtension = m.group();
+            extensionStart = m.start();
+        }
+
+        if (originExtension == null) {
             if (mimeType != null) {
                 extension = MimeTypeUtils.getExtensionFromMimeType(mimeType);
                 if (extension != null)
@@ -238,7 +245,7 @@ public class DownloadUtils {
                 }
             }
         } else {
-            var originExtension = originExtensionMatcher.group().substring(1);
+            originExtension = originExtension.substring(1);
             if (mimeType != null) {
                 /*
                  * Compare the last segment of the extension against the mime type.
@@ -254,7 +261,7 @@ public class DownloadUtils {
             if (extension == null)
                 extension = originExtension;
 
-            filename = filename.substring(0, originExtensionMatcher.start() + 1);
+            filename = filename.substring(0, extensionStart + 1);
         }
 
         /*
