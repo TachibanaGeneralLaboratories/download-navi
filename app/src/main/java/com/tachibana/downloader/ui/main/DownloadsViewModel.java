@@ -46,17 +46,17 @@ import io.reactivex.subjects.PublishSubject;
 
 public class DownloadsViewModel extends AndroidViewModel
 {
-    private DataRepository repo;
-    private DownloadEngine engine;
+    private final DataRepository repo;
+    private final DownloadEngine engine;
     private DownloadSortingComparator sorting = new DownloadSortingComparator(
             new DownloadSorting(DownloadSorting.SortingColumns.none, DownloadSorting.Direction.ASC));
     private DownloadFilter categoryFilter = DownloadFilterCollection.all();
     private DownloadFilter statusFilter = DownloadFilterCollection.all();
     private DownloadFilter dateAddedFilter = DownloadFilterCollection.all();
-    private PublishSubject<Boolean> forceSortAndFilter = PublishSubject.create();
+    private final PublishSubject<Boolean> forceSortAndFilter = PublishSubject.create();
 
     private String searchQuery;
-    private DownloadFilter searchFilter = (infoAndPieces) -> {
+    private final DownloadFilter searchFilter = (infoAndPieces) -> {
       if (TextUtils.isEmpty(searchQuery))
           return true;
 

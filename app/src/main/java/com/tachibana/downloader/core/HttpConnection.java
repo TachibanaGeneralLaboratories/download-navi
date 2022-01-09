@@ -46,10 +46,10 @@ public class HttpConnection implements Runnable
     private static final int MAX_REDIRECTS = 5;
     public static final int DEFAULT_TIMEOUT = (int)(20 * SECOND_IN_MILLIS);
     public static final int HTTP_TEMPORARY_REDIRECT = 307;
-    public static final int HTTP_PERMANENT_REDIRECT =  308;
+    public static final int HTTP_PERMANENT_REDIRECT = 308;
 
     private URL url;
-    private TLSSocketFactory socketFactory;
+    private final TLSSocketFactory socketFactory;
     private Listener listener;
     private int timeout = DEFAULT_TIMEOUT;
     private String referer;

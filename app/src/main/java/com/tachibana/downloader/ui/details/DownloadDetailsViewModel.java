@@ -61,9 +61,9 @@ public class DownloadDetailsViewModel extends AndroidViewModel
     @SuppressWarnings("unused")
     private static final String TAG = DownloadDetailsViewModel.class.getSimpleName();
 
-    private DataRepository repo;
-    private DownloadEngine engine;
-    private CompositeDisposable disposables = new CompositeDisposable();
+    private final DataRepository repo;
+    private final DownloadEngine engine;
+    private final CompositeDisposable disposables = new CompositeDisposable();
     public DownloadDetailsInfo info = new DownloadDetailsInfo();
     public DownloadDetailsMutableParams mutableParams = new DownloadDetailsMutableParams();
     public ObservableBoolean showClipboardButton = new ObservableBoolean(false);

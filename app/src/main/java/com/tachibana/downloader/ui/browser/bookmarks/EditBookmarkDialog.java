@@ -64,7 +64,7 @@ public class EditBookmarkDialog extends DialogFragment
     private AppCompatActivity activity;
     private DialogEditBookmarkBinding binding;
     private EditBookmarkViewModel viewModel;
-    private CompositeDisposable disposables = new CompositeDisposable();
+    private final CompositeDisposable disposables = new CompositeDisposable();
 
     public static EditBookmarkDialog newInstance(@NonNull BrowserBookmark bookmark)
     {

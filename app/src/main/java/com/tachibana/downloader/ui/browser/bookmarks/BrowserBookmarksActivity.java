@@ -79,7 +79,7 @@ public class BrowserBookmarksActivity extends AppCompatActivity
     private Parcelable bookmarksListState;
     private ActionMode actionMode;
     private SelectionTracker<BrowserBookmarkItem> selectionTracker;
-    private CompositeDisposable disposables = new CompositeDisposable();
+    private final CompositeDisposable disposables = new CompositeDisposable();
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState)

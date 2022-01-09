@@ -31,7 +31,7 @@ public class NestedWebView extends WebView implements NestedScrollingChild2 {
 
 
     // The nested scrolling child helper is used throughout the class.
-    private NestedScrollingChildHelper nestedScrollingChildHelper;
+    private final NestedScrollingChildHelper nestedScrollingChildHelper;
 
     // The previous Y position needs to be tracked between motion events.
     private int previousYPosition;

@@ -92,7 +92,7 @@ public class BrowserActivity extends AppCompatActivity
     private boolean doubleBackPressed = false;
     private boolean hideMenuButtons = false;
     private boolean isCurrentPageBookmarked = false;
-    private CompositeDisposable disposables = new CompositeDisposable();
+    private final CompositeDisposable disposables = new CompositeDisposable();
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState)

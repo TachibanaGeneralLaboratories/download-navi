@@ -63,7 +63,7 @@ public class DownloadScheduler
      */
     private static final int RETRY_FIRST_DELAY = 30;
 
-    private static Random random = new Random();
+    private static final Random random = new Random();
 
     /*
      * Run unique work for starting download.

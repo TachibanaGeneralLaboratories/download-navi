@@ -37,7 +37,7 @@ import java.io.IOException;
 
 class SafFsModule implements FsModule
 {
-    private Context appContext;
+    private final Context appContext;
 
     public SafFsModule(@NonNull Context appContext)
     {

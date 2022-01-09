@@ -73,7 +73,7 @@ public class DownloadService extends Service
     private SettingsRepository pref;
     private PowerManager.WakeLock wakeLock;
     private boolean downloadsApplyingParams;
-    private CompositeDisposable disposables = new CompositeDisposable();
+    private final CompositeDisposable disposables = new CompositeDisposable();
 
     @Override
     public void onCreate()
@@ -99,7 +99,7 @@ public class DownloadService extends Service
         makeForegroundNotify();
     }
 
-    private DownloadEngineListener listener = new DownloadEngineListener()
+    private final DownloadEngineListener listener = new DownloadEngineListener()
     {
         @Override
         public void onDownloadsCompleted()

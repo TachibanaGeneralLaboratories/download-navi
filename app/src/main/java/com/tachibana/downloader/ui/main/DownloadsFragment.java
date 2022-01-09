@@ -94,7 +94,7 @@ public abstract class DownloadsFragment extends Fragment
     protected CompositeDisposable disposables = new CompositeDisposable();
     private BaseAlertDialog deleteDownloadsDialog;
     private BaseAlertDialog.SharedViewModel dialogViewModel;
-    private DownloadFilter fragmentDownloadsFilter;
+    private final DownloadFilter fragmentDownloadsFilter;
 
     public DownloadsFragment(DownloadFilter fragmentDownloadsFilter)
     {

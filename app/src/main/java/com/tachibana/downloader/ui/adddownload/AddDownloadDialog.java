@@ -103,7 +103,7 @@ public class AddDownloadDialog extends DialogFragment {
     private BaseAlertDialog addUserAgentDialog;
     private BaseAlertDialog.SharedViewModel dialogViewModel;
     private DialogAddDownloadBinding binding;
-    private CompositeDisposable disposables = new CompositeDisposable();
+    private final CompositeDisposable disposables = new CompositeDisposable();
     private ClipboardDialog clipboardDialog;
     private ClipboardDialog.SharedViewModel clipboardViewModel;
     private String curClipboardTag;
@@ -201,7 +201,7 @@ public class AddDownloadDialog extends DialogFragment {
         clipboard.removePrimaryClipChangedListener(clipListener);
     }
 
-    private ClipboardManager.OnPrimaryClipChangedListener clipListener = this::switchClipboardButton;
+    private final ClipboardManager.OnPrimaryClipChangedListener clipListener = this::switchClipboardButton;
 
     private void switchClipboardButton()
     {

@@ -50,8 +50,8 @@ class FileSystemFacadeImpl implements FileSystemFacade
     /* The file copy buffer size (30 MB) */
     private static final long FILE_COPY_BUFFER_SIZE = 1024 * 1024 * 30;
 
-    private SysCall sysCall;
-    private FsModuleResolver fsResolver;
+    private final SysCall sysCall;
+    private final FsModuleResolver fsResolver;
 
     public FileSystemFacadeImpl(@NonNull SysCall sysCall,
                                 @NonNull FsModuleResolver fsResolver)

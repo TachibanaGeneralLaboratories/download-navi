@@ -51,7 +51,7 @@ public class BehaviorSettingsFragment extends PreferenceFragmentCompat
     private static final String TAG_CUSTOM_BATTERY_DIALOG = "custom_battery_dialog";
 
     private SettingsRepository pref;
-    private CompositeDisposable disposables = new CompositeDisposable();
+    private final CompositeDisposable disposables = new CompositeDisposable();
     private BaseAlertDialog.SharedViewModel dialogViewModel;
 
     public static BehaviorSettingsFragment newInstance()

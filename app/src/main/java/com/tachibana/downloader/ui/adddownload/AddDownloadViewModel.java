@@ -78,16 +78,16 @@ public class AddDownloadViewModel extends AndroidViewModel
     private static final String TAG = AddDownloadViewModel.class.getSimpleName();
 
     private FetchLinkTask fetchTask;
-    private DataRepository repo;
+    private final DataRepository repo;
     public SettingsRepository pref;
-    private DownloadEngine engine;
+    private final DownloadEngine engine;
     public AddDownloadParams params = new AddDownloadParams();
     public MutableLiveData<FetchState> fetchState = new MutableLiveData<>();
     public ObservableInt maxNumPieces = new ObservableInt(DownloadInfo.MAX_PIECES);
     public ObservableBoolean showClipboardButton = new ObservableBoolean(false);
     public SystemFacade systemFacade;
     public FileSystemFacade fs;
-    private CompositeDisposable disposables = new CompositeDisposable();
+    private final CompositeDisposable disposables = new CompositeDisposable();
 
     public enum Status
     {
@@ -158,19 +158,13 @@ public class AddDownloadViewModel extends AndroidViewModel
                 Uri.fromFile(new File(fs.getDefaultDownloadPath())) :
                 initParams.dirPath);
         params.setUnmeteredConnectionsOnly(
-                initParams.unmeteredConnectionsOnly == null ?
-                        false :
-                        initParams.unmeteredConnectionsOnly
+                initParams.unmeteredConnectionsOnly != null && initParams.unmeteredConnectionsOnly
         );
         params.setRetry(
-                initParams.retry == null ?
-                        false :
-                        initParams.retry
+                initParams.retry != null && initParams.retry
         );
         params.setReplaceFile(
-                initParams.replaceFile == null ?
-                        false :
-                        initParams.replaceFile
+                initParams.replaceFile != null && initParams.replaceFile
         );
         params.setNumPieces(
                 initParams.numPieces == null ?

@@ -32,7 +32,7 @@ import androidx.annotation.NonNull;
 
 class SystemFacadeImpl implements SystemFacade
 {
-    private Context context;
+    private final Context context;
 
     public SystemFacadeImpl(@NonNull Context context)
     {

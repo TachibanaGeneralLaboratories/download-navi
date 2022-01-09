@@ -48,10 +48,10 @@ public class DataRepositoryImpl implements DataRepository
     @SuppressWarnings("unused")
     private static final String TAG = DataRepositoryImpl.class.getSimpleName();
 
-    private Context appContext;
-    private AppDatabase db;
-    private MediatorLiveData<List<UserAgent>> userAgents;
-    private FileSystemFacade fs;
+    private final Context appContext;
+    private final AppDatabase db;
+    private final MediatorLiveData<List<UserAgent>> userAgents;
+    private final FileSystemFacade fs;
 
     public DataRepositoryImpl(@NonNull Context appContext, @NonNull AppDatabase db)
     {

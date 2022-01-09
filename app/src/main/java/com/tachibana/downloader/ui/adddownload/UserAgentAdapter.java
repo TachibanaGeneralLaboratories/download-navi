@@ -35,7 +35,7 @@ import com.tachibana.downloader.core.model.data.entity.UserAgent;
 
 public class UserAgentAdapter extends ArrayAdapter<UserAgent>
 {
-    private DeleteListener deleteListener;
+    private final DeleteListener deleteListener;
 
     public UserAgentAdapter(@NonNull Context context, DeleteListener deleteListener)
     {

@@ -44,8 +44,8 @@ public class BaseSorting
         String name();
     }
 
-    private Direction direction;
-    private String columnName;
+    private final Direction direction;
+    private final String columnName;
 
     public BaseSorting(String columnName, Direction direction)
     {

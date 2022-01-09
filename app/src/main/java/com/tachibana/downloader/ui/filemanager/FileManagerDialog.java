@@ -99,7 +99,7 @@ public class FileManagerDialog extends AppCompatActivity
     private BaseAlertDialog inputNameDialog;
     private ErrorReportDialog errorReportDialog;
     private BaseAlertDialog.SharedViewModel dialogViewModel;
-    private CompositeDisposable disposable = new CompositeDisposable();
+    private final CompositeDisposable disposable = new CompositeDisposable();
     private SharedPreferences pref;
 
     @Override

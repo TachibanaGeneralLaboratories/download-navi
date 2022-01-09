@@ -52,8 +52,8 @@ public class FileManagerAdapter extends ListAdapter<FileManagerNode, FileManager
     @SuppressWarnings("unused")
     private static final String TAG = FileManagerAdapter.class.getSimpleName();
 
-    private ViewHolder.ClickListener clickListener;
-    private List<String> highlightFileTypes;
+    private final ViewHolder.ClickListener clickListener;
+    private final List<String> highlightFileTypes;
 
     private static final Comparator<FileManagerNode> directoryFirstCmp = (n1, n2) -> {
         int byName = n1.compareTo(n2);
@@ -113,8 +113,8 @@ public class FileManagerAdapter extends ListAdapter<FileManagerNode, FileManager
 
     public static class ViewHolder extends RecyclerView.ViewHolder
     {
-        private TextView fileName;
-        private ImageView fileIcon;
+        private final TextView fileName;
+        private final ImageView fileIcon;
 
         public ViewHolder(View itemView)
         {

@@ -50,7 +50,7 @@ import java.util.List;
 public class BrowserBookmarksAdapter extends ListAdapter<BrowserBookmarkItem, BrowserBookmarksAdapter.ViewHolder>
         implements Selectable<BrowserBookmarkItem>
 {
-    private ClickListener listener;
+    private final ClickListener listener;
     private SelectionTracker<BrowserBookmarkItem> selectionTracker;
 
     protected BrowserBookmarksAdapter(@NonNull ClickListener listener)
@@ -129,7 +129,7 @@ public class BrowserBookmarksAdapter extends ListAdapter<BrowserBookmarkItem, Br
             implements ViewHolderWithDetails
     {
         /* For selection support */
-        private ItemBrowserBookmarksListBinding binding;
+        private final ItemBrowserBookmarksListBinding binding;
         private BrowserBookmarkItem selectionKey;
         private boolean isSelected;
 
@@ -216,7 +216,7 @@ public class BrowserBookmarksAdapter extends ListAdapter<BrowserBookmarkItem, Br
 
     public static final class KeyProvider extends ItemKeyProvider<BrowserBookmarkItem>
     {
-        private Selectable<BrowserBookmarkItem> selectable;
+        private final Selectable<BrowserBookmarkItem> selectable;
 
         KeyProvider(Selectable<BrowserBookmarkItem> selectable)
         {
@@ -241,8 +241,8 @@ public class BrowserBookmarksAdapter extends ListAdapter<BrowserBookmarkItem, Br
 
     public static final class ItemDetails extends ItemDetailsLookup.ItemDetails<BrowserBookmarkItem>
     {
-        private BrowserBookmarkItem selectionKey;
-        private int adapterPosition;
+        private final BrowserBookmarkItem selectionKey;
+        private final int adapterPosition;
 
         ItemDetails(BrowserBookmarkItem selectionKey, int adapterPosition)
         {

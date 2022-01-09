@@ -28,7 +28,7 @@ import java.util.Comparator;
 
 public class DownloadSortingComparator implements Comparator<DownloadItem>
 {
-    private DownloadSorting sorting;
+    private final DownloadSorting sorting;
 
     public DownloadSortingComparator(@NonNull DownloadSorting sorting)
     {

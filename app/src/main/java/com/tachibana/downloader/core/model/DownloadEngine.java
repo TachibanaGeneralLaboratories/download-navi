@@ -69,18 +69,18 @@ public class DownloadEngine
     @SuppressWarnings("unused")
     private static final String TAG = DownloadEngine.class.getSimpleName();
 
-    private Context appContext;
-    private DataRepository repo;
-    private SettingsRepository pref;
-    private FileSystemFacade fs;
-    private CompositeDisposable disposables = new CompositeDisposable();
-    private HashMap<UUID, DownloadThread> activeDownloads = new HashMap<>();
-    private ConcurrentLinkedQueue<DownloadEngineListener> listeners = new ConcurrentLinkedQueue<>();
-    private HashMap<UUID, ChangeableParams> duringChange = new HashMap<>();
-    private DownloadQueue queue = new DownloadQueue();
+    private final Context appContext;
+    private final DataRepository repo;
+    private final SettingsRepository pref;
+    private final FileSystemFacade fs;
+    private final CompositeDisposable disposables = new CompositeDisposable();
+    private final HashMap<UUID, DownloadThread> activeDownloads = new HashMap<>();
+    private final ConcurrentLinkedQueue<DownloadEngineListener> listeners = new ConcurrentLinkedQueue<>();
+    private final HashMap<UUID, ChangeableParams> duringChange = new HashMap<>();
+    private final DownloadQueue queue = new DownloadQueue();
 
-    private PowerReceiver powerReceiver = new PowerReceiver();
-    private ConnectionReceiver connectionReceiver = new ConnectionReceiver();
+    private final PowerReceiver powerReceiver = new PowerReceiver();
+    private final ConnectionReceiver connectionReceiver = new ConnectionReceiver();
 
     private static volatile DownloadEngine INSTANCE;
 
@@ -307,7 +307,7 @@ public class DownloadEngine
             return false;
         }
 
-        return (hash != null && hash.toLowerCase().equals(info.checksum.toLowerCase()));
+        return (hash != null && hash.equalsIgnoreCase(info.checksum));
     }
 
     private String calcHashSum(DownloadInfo info, boolean sha256Hash) throws IOException

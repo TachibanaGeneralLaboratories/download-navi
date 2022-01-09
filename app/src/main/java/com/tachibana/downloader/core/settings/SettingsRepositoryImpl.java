@@ -40,8 +40,8 @@ import io.reactivex.disposables.Disposables;
 
 public class SettingsRepositoryImpl implements SettingsRepository
 {
-    private Context appContext;
-    private SharedPreferences pref;
+    private final Context appContext;
+    private final SharedPreferences pref;
 
     private static class Default
     {

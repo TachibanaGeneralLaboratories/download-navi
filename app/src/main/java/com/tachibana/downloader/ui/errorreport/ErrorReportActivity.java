@@ -50,7 +50,7 @@ public class ErrorReportActivity extends AppCompatActivity
     private static final String TAG_ERROR_DIALOG = "error_dialog";
     private ErrorReportDialog errDialog;
     private BaseAlertDialog.SharedViewModel dialogViewModel;
-    private CompositeDisposable disposables = new CompositeDisposable();
+    private final CompositeDisposable disposables = new CompositeDisposable();
     private CrashReportDialogHelper helper;
 
     @Override

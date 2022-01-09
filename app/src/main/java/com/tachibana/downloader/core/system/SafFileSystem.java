@@ -66,7 +66,7 @@ public class SafFileSystem
     private static final int CACHE_MAX_SIZE = 1000;
 
     private static volatile SafFileSystem INSTANCE;
-    private Context appContext;
+    private final Context appContext;
     private static final LruCache<String, DocumentFile> CACHE = new LruCache<>(CACHE_MAX_SIZE);
 
     public static SafFileSystem getInstance(@NonNull Context appContext)
@@ -92,8 +92,8 @@ public class SafFileSystem
         private static final String SAF_ROOT_TAG_CLOSE = ");";
         private static final String SCHEME = "content://";
 
-        private Uri safRoot;
-        private String relativePath;
+        private final Uri safRoot;
+        private final String relativePath;
 
         public FakePath(@NonNull Uri safRoot, @NonNull String relativePath)
         {

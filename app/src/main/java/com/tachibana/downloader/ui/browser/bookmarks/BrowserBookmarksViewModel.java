@@ -36,7 +36,7 @@ import io.reactivex.Single;
 
 public class BrowserBookmarksViewModel extends AndroidViewModel
 {
-    private BrowserRepository repo;
+    private final BrowserRepository repo;
 
     public BrowserBookmarksViewModel(@NonNull Application application)
     {

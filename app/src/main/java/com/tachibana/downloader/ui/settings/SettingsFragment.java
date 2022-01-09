@@ -113,7 +113,7 @@ public class SettingsFragment extends PreferenceFragmentCompat
         limitations.setOnPreferenceClickListener(prefClickListener);
     }
 
-    private Preference.OnPreferenceClickListener prefClickListener = (preference) -> {
+    private final Preference.OnPreferenceClickListener prefClickListener = (preference) -> {
         openPreference(preference.getKey());
         return true;
     };

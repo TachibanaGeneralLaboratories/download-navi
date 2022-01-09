@@ -90,16 +90,16 @@ class DownloadThreadImpl implements DownloadThread
     private static final String TAG = DownloadThreadImpl.class.getSimpleName();
 
     private DownloadInfo info;
-    private UUID id;
+    private final UUID id;
     /* Stop and delete */
     private boolean stop;
     private boolean pause;
     private boolean running;
     private ExecutorService exec;
-    private DataRepository repo;
-    private SettingsRepository pref;
-    private FileSystemFacade fs;
-    private SystemFacade systemFacade;
+    private final DataRepository repo;
+    private final SettingsRepository pref;
+    private final FileSystemFacade fs;
+    private final SystemFacade systemFacade;
     private int networkType;
 
     private class ExecDownloadResult
@@ -582,7 +582,7 @@ class DownloadThreadImpl implements DownloadThread
             info.totalBytes = DownloadUtils.parseContentRangeFullSize(
                     conn.getHeaderField("Content-Range")
             );
-        };
+        }
         info.partialSupport = "bytes".equalsIgnoreCase(conn.getHeaderField("Accept-Ranges")) ||
                 conn.getHeaderField("Content-Range") != null;
 

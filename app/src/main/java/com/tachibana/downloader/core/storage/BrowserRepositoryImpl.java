@@ -31,7 +31,7 @@ import io.reactivex.Single;
 
 public class BrowserRepositoryImpl implements BrowserRepository
 {
-    private AppDatabase db;
+    private final AppDatabase db;
 
     public BrowserRepositoryImpl(@NonNull AppDatabase db)
     {

@@ -51,9 +51,9 @@ public class DrawerExpandableAdapter extends AbstractExpandableItemAdapter<
         DrawerExpandableAdapter.GroupViewHolder,
         DrawerExpandableAdapter.ItemViewHolder>
 {
-    private List<DrawerGroup> groups;
-    private SelectionListener listener;
-    private RecyclerViewExpandableItemManager drawerItemManager;
+    private final List<DrawerGroup> groups;
+    private final SelectionListener listener;
+    private final RecyclerViewExpandableItemManager drawerItemManager;
 
     public DrawerExpandableAdapter(@NonNull List<DrawerGroup> groups,
                                    RecyclerViewExpandableItemManager drawerItemManager,
@@ -190,7 +190,7 @@ public class DrawerExpandableAdapter extends AbstractExpandableItemAdapter<
 
     public static class GroupViewHolder extends AbstractExpandableItemViewHolder
     {
-        private ExpansionHeader groupHeader;
+        private final ExpansionHeader groupHeader;
 
         GroupViewHolder(View itemView)
         {
@@ -211,8 +211,8 @@ public class DrawerExpandableAdapter extends AbstractExpandableItemAdapter<
 
     public static class ItemViewHolder extends AbstractExpandableItemViewHolder
     {
-        private ImageView icon;
-        private TextView name;
+        private final ImageView icon;
+        private final TextView name;
 
         ItemViewHolder(View itemView)
         {

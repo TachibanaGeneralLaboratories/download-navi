@@ -60,7 +60,7 @@ public class DownloadListAdapter extends ListAdapter<DownloadItem, DownloadListA
     private static final int VIEW_FINISH = 1;
     private static final int VIEW_ERROR = 2;
 
-    private ClickListener listener;
+    private final ClickListener listener;
     private SelectionTracker<DownloadItem> selectionTracker;
 
     public DownloadListAdapter(ClickListener listener)
@@ -201,12 +201,12 @@ public class DownloadListAdapter extends ListAdapter<DownloadItem, DownloadListA
 
     public static class QueueViewHolder extends ViewHolder
     {
-        private ImageButton pauseButton;
-        private AnimatedVectorDrawableCompat playToPauseAnim;
-        private AnimatedVectorDrawableCompat pauseToPlayAnim;
+        private final ImageButton pauseButton;
+        private final AnimatedVectorDrawableCompat playToPauseAnim;
+        private final AnimatedVectorDrawableCompat pauseToPlayAnim;
         private AnimatedVectorDrawableCompat currAnim;
-        private ProgressBar progressBar;
-        private ImageButton cancelButton;
+        private final ProgressBar progressBar;
+        private final ImageButton cancelButton;
 
         QueueViewHolder(View itemView)
         {
@@ -311,8 +311,8 @@ public class DownloadListAdapter extends ListAdapter<DownloadItem, DownloadListA
 
     public static class FinishViewHolder extends ViewHolder
     {
-        private ImageView icon;
-        private ImageButton menu;
+        private final ImageView icon;
+        private final ImageButton menu;
 
         FinishViewHolder(View itemView)
         {
@@ -375,9 +375,9 @@ public class DownloadListAdapter extends ListAdapter<DownloadItem, DownloadListA
 
     public static class ErrorViewHolder extends ViewHolder
     {
-        private ImageButton resumeButton;
-        private ImageButton menu;
-        private TextView error;
+        private final ImageButton resumeButton;
+        private final ImageButton menu;
+        private final TextView error;
 
         ErrorViewHolder(View itemView)
         {
@@ -472,7 +472,7 @@ public class DownloadListAdapter extends ListAdapter<DownloadItem, DownloadListA
 
     public static final class KeyProvider extends ItemKeyProvider<DownloadItem>
     {
-        private Selectable<DownloadItem> selectable;
+        private final Selectable<DownloadItem> selectable;
 
         KeyProvider(Selectable<DownloadItem> selectable)
         {
@@ -497,8 +497,8 @@ public class DownloadListAdapter extends ListAdapter<DownloadItem, DownloadListA
 
     public static final class ItemDetails extends ItemDetailsLookup.ItemDetails<DownloadItem>
     {
-        private DownloadItem selectionKey;
-        private int adapterPosition;
+        private final DownloadItem selectionKey;
+        private final int adapterPosition;
 
         ItemDetails(DownloadItem selectionKey, int adapterPosition)
         {

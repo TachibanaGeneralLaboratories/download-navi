@@ -86,8 +86,8 @@ class PieceThreadImpl extends Thread implements PieceThread
     private static final long MILLIS_IN_SEC = 1000;
 
     private DownloadPiece piece;
-    private UUID infoId;
-    private int pieceIndex;
+    private final UUID infoId;
+    private final int pieceIndex;
     private long startPos, endPos;
     /* Details from the last time we pushed a database update */
     private long lastUpdateBytes = 0;
@@ -98,11 +98,11 @@ class PieceThreadImpl extends Thread implements PieceThread
     private long speedSampleStart;
     /* Bytes transferred since current sample started */
     private long speedSampleBytes;
-    private DataRepository repo;
-    private FileSystemFacade fs;
-    private SystemFacade systemFacade;
-    private SettingsRepository pref;
-    private PieceResult result;
+    private final DataRepository repo;
+    private final FileSystemFacade fs;
+    private final SystemFacade systemFacade;
+    private final SettingsRepository pref;
+    private final PieceResult result;
 
     private FileDescriptor outFd;
     private FileOutputStream fout;

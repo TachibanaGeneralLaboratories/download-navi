@@ -36,7 +36,7 @@ class DownloadQueue
     @SuppressWarnings("unused")
     private static final String TAG = DownloadQueue.class.getSimpleName();
 
-    private ArrayDeque<UUID> queue = new ArrayDeque<>();
+    private final ArrayDeque<UUID> queue = new ArrayDeque<>();
 
     public void push(@NonNull UUID downloadId)
     {

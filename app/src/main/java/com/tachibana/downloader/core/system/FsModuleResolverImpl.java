@@ -29,9 +29,9 @@ import com.tachibana.downloader.core.utils.Utils;
 
 class FsModuleResolverImpl implements FsModuleResolver
 {
-    private Context appContext;
-    private SafFsModule safModule;
-    private DefaultFsModule defaultModule;
+    private final Context appContext;
+    private final SafFsModule safModule;
+    private final DefaultFsModule defaultModule;
 
     public FsModuleResolverImpl(@NonNull Context appContext)
     {

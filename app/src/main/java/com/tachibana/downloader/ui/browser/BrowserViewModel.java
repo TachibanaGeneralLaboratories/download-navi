@@ -70,7 +70,7 @@ public class BrowserViewModel extends AndroidViewModel
 
     public SettingsRepository pref;
     public BrowserRepository repo;
-    private MutableLiveData<UrlFetchState> urlFetchState =
+    private final MutableLiveData<UrlFetchState> urlFetchState =
             new MutableLiveData<>(UrlFetchState.UNKNOWN);
     public ObservableField<String> url = new ObservableField<>();
     public ObservableField<String> title = new ObservableField<>();
@@ -80,7 +80,7 @@ public class BrowserViewModel extends AndroidViewModel
     private String mobileUserAgent;
     private String desktopUserAgent;
     private boolean isDesktopMode = false;
-    private HashMap<String, String> requestHeaders;
+    private final HashMap<String, String> requestHeaders;
 
     public enum UrlFetchState
     {
@@ -393,7 +393,7 @@ public class BrowserViewModel extends AndroidViewModel
 
     public static class DownloadRequest
     {
-        private String url;
+        private final String url;
 
         private DownloadRequest(@NonNull String url)
         {

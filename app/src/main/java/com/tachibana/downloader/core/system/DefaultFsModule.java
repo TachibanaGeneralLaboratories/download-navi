@@ -31,7 +31,7 @@ import java.io.IOException;
 
 class DefaultFsModule implements FsModule
 {
-    private Context appContext;
+    private final Context appContext;
 
     public DefaultFsModule(@NonNull Context appContext)
     {

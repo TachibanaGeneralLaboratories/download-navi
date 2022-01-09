@@ -47,7 +47,7 @@ public class FileManagerViewModel extends ViewModel
     @SuppressWarnings("unused")
     private static final String TAG = FileManagerViewModel.class.getSimpleName();
 
-    private Context appContext;
+    private final Context appContext;
     public String startDir;
     /* Current directory */
     public ObservableField<String> curDir = new ObservableField<>();

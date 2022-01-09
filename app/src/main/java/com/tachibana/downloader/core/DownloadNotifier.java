@@ -92,17 +92,17 @@ public class DownloadNotifier
 
     private static volatile DownloadNotifier INSTANCE;
 
-    private Context appContext;
-    private NotificationManager notifyManager;
+    private final Context appContext;
+    private final NotificationManager notifyManager;
     /*
      * Currently active notifications, mapped from clustering tag to timestamp
      * when first shown
      */
     private final ArrayMap<UUID, Notification> activeNotifs = new ArrayMap<>();
-    private DataRepository repo;
-    private SettingsRepository pref;
-    private CompositeDisposable disposables = new CompositeDisposable();
-    private FileSystemFacade fs;
+    private final DataRepository repo;
+    private final SettingsRepository pref;
+    private final CompositeDisposable disposables = new CompositeDisposable();
+    private final FileSystemFacade fs;
 
     private class Notification
     {
