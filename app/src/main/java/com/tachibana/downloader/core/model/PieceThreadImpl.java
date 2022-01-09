@@ -270,7 +270,7 @@ class PieceThreadImpl extends Thread implements PieceThread
             }
 
             @Override
-            public void onMovedPermanently(String newUrl)
+            public void onMoved(String newUrl, boolean permanently)
             {
                 /* Ignore */
             }

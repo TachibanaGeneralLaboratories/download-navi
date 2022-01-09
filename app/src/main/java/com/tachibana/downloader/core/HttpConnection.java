@@ -46,6 +46,7 @@ public class HttpConnection implements Runnable
     private static final int MAX_REDIRECTS = 5;
     public static final int DEFAULT_TIMEOUT = (int)(20 * SECOND_IN_MILLIS);
     public static final int HTTP_TEMPORARY_REDIRECT = 307;
+    public static final int HTTP_PERMANENT_REDIRECT =  308;
 
     private URL url;
     private TLSSocketFactory socketFactory;
@@ -60,7 +61,7 @@ public class HttpConnection implements Runnable
 
         void onResponseHandle(HttpURLConnection conn, int code, String message);
 
-        void onMovedPermanently(String newUrl);
+        void onMoved(String newUrl, boolean permanently);
 
         void onIOException(IOException e);
 
@@ -142,10 +143,15 @@ public class HttpConnection implements Runnable
                     case HTTP_MOVED_TEMP:
                     case HTTP_SEE_OTHER:
                     case HTTP_TEMPORARY_REDIRECT:
+                    case HTTP_PERMANENT_REDIRECT:
                         String location = conn.getHeaderField("Location");
                         url = new URL(url, location);
-                        if (responseCode == HTTP_MOVED_PERM && listener != null)
-                            listener.onMovedPermanently(url.toString());
+                        if (listener != null)
+                            listener.onMoved(
+                                    url.toString(),
+                                    responseCode == HTTP_MOVED_PERM
+                                            || responseCode == HTTP_PERMANENT_REDIRECT
+                            );
                         continue;
                     default:
                         if (requestContentRange) {

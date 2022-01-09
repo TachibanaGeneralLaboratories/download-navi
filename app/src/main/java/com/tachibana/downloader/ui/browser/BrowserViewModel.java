@@ -325,7 +325,6 @@ public class BrowserViewModel extends AndroidViewModel
 
         private boolean validateAndLoad(WebView view, String url) {
             if (Patterns.WEB_URL.matcher(url).matches()) {
-                Log.e(TAG, url);
                 view.loadUrl(url);
                 return true;
             } else {

@@ -486,7 +486,7 @@ class DownloadThreadImpl implements DownloadThread
                 }
 
                 @Override
-                public void onMovedPermanently(String newUrl)
+                public void onMoved(String newUrl, boolean permanently)
                 {
                     info.url = newUrl;
                 }

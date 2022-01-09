@@ -308,7 +308,7 @@ public class AddDownloadViewModel extends AndroidViewModel
                     }
 
                     @Override
-                    public void onMovedPermanently(String newUrl)
+                    public void onMoved(String newUrl, boolean permanently)
                     {
                         if (viewModel.get() == null)
                             return;
