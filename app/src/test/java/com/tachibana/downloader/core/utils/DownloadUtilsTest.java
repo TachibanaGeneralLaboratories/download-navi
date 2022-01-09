@@ -7,7 +7,6 @@ import com.tachibana.downloader.core.system.FileSystemFacade;
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.Mockito;
-import org.mockito.invocation.InvocationOnMock;
 import org.mockito.stubbing.Answer;
 
 public class DownloadUtilsTest {
@@ -108,10 +107,32 @@ public class DownloadUtilsTest {
         }
     }
 
+    @Test
+    public void getHttpFileName_urlFilename() {
+        Mockito.when(mockFs.buildValidFatFilename(Mockito.anyString()))
+                .thenAnswer((Answer<String>) invocation -> invocation.getArgument(0));
+
+        // Default file name
+        assertContentDisposition("downloadfile.bin", "");
+
+        assertUrlFilename("file.txt", "http://example.org/file.txt");
+        assertUrlFilename("file.tar.gz", "http://example.org/file.tar.gz");
+        assertUrlFilename("file.txt", "http://example.org/file.txt;somedata");
+        assertUrlFilename("file.tar.gz", "http://example.org/file.tar.gz;somedata");
+        assertUrlFilename("file.txt", "http://example.org/file.txt&query");
+    }
+
     private void assertContentDisposition(String expected, String contentDisposition) {
         assertEquals(
                 expected,
                 DownloadUtils.getHttpFileName(mockFs, "", contentDisposition, null, null)
+        );
+    }
+
+    private void assertUrlFilename(String expected, String decodedUrl) {
+        assertEquals(
+                expected,
+                DownloadUtils.getHttpFileName(mockFs, decodedUrl, null, null, null)
         );
     }
 }

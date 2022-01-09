@@ -151,6 +151,9 @@ public class DownloadUtils {
             Pattern.CASE_INSENSITIVE
     );
 
+    private static final Pattern extensionWithDot =
+            Pattern.compile("(\\.\\w+)+", Pattern.CASE_INSENSITIVE);
+
     public static final String[] CONTENT_DISPOSITION_TYPES = new String[]{"attachment", "inline"};
 
     public static String getHttpFileName(@NonNull FileSystemFacade fs,
@@ -217,8 +220,8 @@ public class DownloadUtils {
          * Split filename between base and extension.
          * Add an extension if filename does not have one
          */
-        int dotIndex = filename.indexOf('.');
-        if (dotIndex < 0) {
+        var originExtensionMatcher = extensionWithDot.matcher(filename);
+        if (!originExtensionMatcher.find()) {
             if (mimeType != null) {
                 extension = MimeTypeUtils.getExtensionFromMimeType(mimeType);
                 if (extension != null)
@@ -235,13 +238,13 @@ public class DownloadUtils {
                 }
             }
         } else {
+            var originExtension = originExtensionMatcher.group().substring(1);
             if (mimeType != null) {
                 /*
                  * Compare the last segment of the extension against the mime type.
                  * If there's a mismatch, discard the entire extension.
                  */
-                int lastDotIndex = filename.lastIndexOf('.');
-                String typeFromExt = MimeTypeUtils.getMimeTypeFromExtension(filename.substring(lastDotIndex + 1));
+                String typeFromExt = MimeTypeUtils.getMimeTypeFromExtension(originExtension);
                 if (typeFromExt != null && !typeFromExt.equalsIgnoreCase(mimeType)) {
                     extension = MimeTypeUtils.getExtensionFromMimeType(mimeType);
                     if (extension != null)
@@ -249,9 +252,9 @@ public class DownloadUtils {
                 }
             }
             if (extension == null)
-                extension = filename.substring(dotIndex);
+                extension = originExtension;
 
-            filename = filename.substring(0, dotIndex);
+            filename = filename.substring(0, originExtensionMatcher.start() + 1);
         }
 
         /*
