@@ -74,6 +74,7 @@ import static com.tachibana.downloader.core.model.data.StatusCode.STATUS_UNHANDL
 import static com.tachibana.downloader.core.model.data.StatusCode.STATUS_UNKNOWN_ERROR;
 import static com.tachibana.downloader.core.model.data.StatusCode.STATUS_WAITING_FOR_NETWORK;
 import static com.tachibana.downloader.core.model.data.StatusCode.STATUS_WAITING_TO_RETRY;
+import static com.tachibana.downloader.core.model.data.entity.DownloadInfo.VISIBILITY_VISIBLE_NOTIFY_COMPLETED;
 import static java.net.HttpURLConnection.HTTP_INTERNAL_ERROR;
 import static java.net.HttpURLConnection.HTTP_OK;
 import static java.net.HttpURLConnection.HTTP_PARTIAL;
@@ -171,6 +172,7 @@ class DownloadThreadImpl implements DownloadThread
             else
                 info.statusCode = STATUS_RUNNING;
             info.statusMsg = null;
+            info.visibility = VISIBILITY_VISIBLE_NOTIFY_COMPLETED;
             writeToDatabase(false);
             /*
              * Remember which network this download started on;
