@@ -88,7 +88,7 @@ public class DownloadNotifier
     private static final int TYPE_PENDING = 2;
     private static final int TYPE_COMPLETE = 3;
     /* The minimum amount of time that has to elapse before the progress bar gets updated, ms */
-    private static final long MIN_PROGRESS_TIME = 2000;
+    private static final long MIN_PROGRESS_TIME = 500;
 
     private static volatile DownloadNotifier INSTANCE;
 
