@@ -7,13 +7,13 @@
     <string name="finished">Completato</string>
     <string name="shutdown">Esci</string>
     <!-- 1 d. 1 h. 1 m -->
-    <string name="elapsed_time_format_d_h_mm">%1$d g. %2$d h. %3$d m</string>
+    <string name="elapsed_time_format_d_h_mm">%1$d g. %2$d h %3$d min</string>
     <!-- 1 h. 1 m. 1 s -->
-    <string name="elapsed_time_format_h_mm_ss">%1$d h. %2$d m. %3$d s</string>
+    <string name="elapsed_time_format_h_mm_ss">%1$d h %2$d min %3$d s</string>
     <!-- 1 m. 1 s -->
-    <string name="elapsed_time_format_mm_ss">%1$d m. %2$d s</string>
+    <string name="elapsed_time_format_mm_ss">%1$d min %2$d s</string>
     <!-- 1 s -->
-    <string name="elapsed_time_format_ss">%1$d s</string>
+    <string name="elapsed_time_format_ss">%1$d s</string>
     <string name="ok">OK</string>
     <string name="cancel">Annulla</string>
     <!-- A synonym for word "unmetered" - unlimited-->
@@ -100,17 +100,17 @@
     <string name="select_folder_to_save">Selezionare cartella di salvataggio</string>
     <string name="path">Percorso</string>
     <string name="storage_free_space">Spazio libero: %1$s</string>
-    <string name="add_download_error_invalid_url">Impossibile aggiungere il download: URL non valido</string>
+    <string name="add_download_error_invalid_url">Impossibile aggiungere lo scaricamento: URL non valido</string>
     <string name="checksum">Checksum</string>
     <string name="add_dialog_checksum_description">MD5, SHA-256</string>
-    <string name="referer_description">%1$s header</string>
-    <string name="error_invalid_checksum">Invalid checksum</string>
+    <string name="referer_description">Intestazione %1$s</string>
+    <string name="error_invalid_checksum">Checksum non valido</string>
     <!-- Add user agent dialog -->
-    <string name="dialog_add_user_agent_title">Aggiungi user agent</string>
+    <string name="dialog_add_user_agent_title">Aggiungi un agente utente</string>
     <!-- Main activity -->
     <string name="fragment_title_queued">In coda</string>
     <string name="fragment_title_completed">Completato</string>
-    <string name="download_list_empty">Nessun download</string>
+    <string name="download_list_empty">Nessuno scaricamento</string>
     <string name="share_url">Condividi URL</string>
     <!-- Navigation drawer -->
     <!-- Category -->
@@ -152,7 +152,7 @@
     <string name="delete_selected_download">Eliminare il download selezionato? Questa operazione non può essere annullata</string>
     <string name="delete_selected_downloads">Eliminare i download selezionati? Questa operazione non può essere annullata</string>
     <string name="delete_with_downloaded_file">Elimina con il file scaricato</string>
-    <string name="error_verify_checksum">Invalid file checksum</string>
+    <string name="error_verify_checksum">Checksum del file non valido</string>
     <!-- Filemanager dialog -->
     <string name="dir_chooser_title">Selezione cartella</string>
     <string name="file_chooser_title">Selezione file</string>
@@ -190,7 +190,7 @@
     <string name="browser">Browser</string>
     <string name="browser_app">Navi Browser</string>
     <string name="webview_is_required">WebView è necessario per funzionare</string>
-    <string name="browser_forward_arrow">Forward</string>
+    <string name="browser_forward_arrow">Inoltra</string>
     <string name="browser_desktop_version">Versione desktop</string>
     <string name="browser_address_bar_hint">Enter address or query</string>
     <string name="browser_back_pressed">Premi di nuovo per chiudere</string>
@@ -268,7 +268,7 @@
     <string name="pref_replace_duplicate_downloads_summary">Sostituisci i download duplicati (con lo stesso URL) quando sono già nella lista</string>
     <string name="pref_auto_connect_title">Connessione Automatica</string>
     <string name="pref_auto_connect_summary">Connetti automaticamente quando si apre la finestra di aggiunta</string>
-    <string name="pref_timeout_title">Timeout</string>
+    <string name="pref_timeout_title">Tempo scaduto</string>
     <string name="pref_timeout_summary">Il numero di millisecondi da attendere prima che la connessione sia scaduta. Lo zero viene interpretato come un timeout infinito</string>
     <!-- Storage settings -->
     <string name="pref_save_downloads_in_title">Salva download in</string>
@@ -278,30 +278,40 @@
     <string name="pref_preallocate_disk_space_title">Pre-allocare lo spazio su disco per il file</string>
     <string name="pref_preallocate_disk_space_summary">Disponibile per Android 5.0 Lollipop e superiore</string>
     <!-- Browser settings -->
-    <string name="pref_browser_bottom_address_bar_title">Address bar at the bottom</string>
-    <string name="pref_browser_bottom_address_bar_summary">The address bar will be located at the bottom of the screen</string>
+    <string name="pref_browser_bottom_address_bar_title">Barra degli indirizzi in basso</string>
+    <string name="pref_browser_bottom_address_bar_summary">La barra degli indirizzi si trova nella parte inferiore dello schermo</string>
     <string name="pref_browser_start_page_title">Pagina iniziale</string>
     <string name="pref_browser_allow_java_script_title">Permetti Script Java</string>
-    <string name="pref_browser_allow_popup_windows_title">Allow popup windows</string>
+    <string name="pref_browser_allow_popup_windows_title">Permetti le finestre popup</string>
     <string name="pref_browser_cache_category">Cache</string>
     <string name="pref_browser_cookies_category">Cookie</string>
-    <string name="pref_browser_enable_caching_title">Enable caching</string>
-    <string name="pref_browser_enable_cookies_title">Enable cookies</string>
-    <string name="pref_browser_delete_cookies_title">Delete cookies</string>
-    <string name="pref_browser_delete_cookies_done">Deleted all the cookies</string>
-    <string name="pref_browser_clear_cache_title">Clear cache</string>
-    <string name="pref_browser_clear_cache_done">The cache is cleared</string>
+    <string name="pref_browser_enable_caching_title">Abilita la cache</string>
+    <string name="pref_browser_enable_cookies_title">Abilita i cookie</string>
+    <string name="pref_browser_delete_cookies_title">Elimina i cookie</string>
+    <string name="pref_browser_delete_cookies_done">Tutti i cookie sono stati eliminati</string>
+    <string name="pref_browser_clear_cache_title">Svuota la cache</string>
+    <string name="pref_browser_clear_cache_done">La cache è stata svuotata</string>
     <string name="pref_browser_do_not_track_title">Non tracciare</string>
     <string name="pref_browser_do_not_track_summary">Invia una richiesta «Non tracciare» ai siti web visitati</string>
-    <string name="pref_browser_launcher_icon_title">Browser icon in the launcher</string>
-    <string name="pref_browser_disable_from_system_title">Disable browser from the system</string>
-    <string name="pref_browser_disable_from_system_summary">Browser will not be available for opening links</string>
-    <string name="pref_browser_search_engine_title">Search engine</string>
+    <string name="pref_browser_launcher_icon_title">Icona del browser nel programma di avvio</string>
+    <string name="pref_browser_disable_from_system_title">Disabilita il browser dal sistema</string>
+    <string name="pref_browser_disable_from_system_summary">Il browser non sarà disponibile per aprire i collegamenti</string>
+    <string name="pref_browser_search_engine_title">Motore di ricerca</string>
     <!-- About dialog -->
     <string name="about_title">Info su Download Navi</string>
     <string name="about_description"><![CDATA[Maggiori informazioni ed anche per contribuire al progetto: <a href="https://github.com/TachibanaGeneralLaboratories/download-navi">https://github.com/TachibanaGeneralLaboratories/download-navi</a><br><br>
     Download Navi is a free and Open Source download manager for Android 4.4+<br><br>
     Download Navi is free software, rilasciato sotto licenza <a href="http://www.gnu.org/copyleft/gpl.html">GNU General Public License v3 (GPLv3)</a><br><br>
     <a href="https://github.com/TachibanaGeneralLaboratories/download-navi/blob/HEAD/PRIVACY.md">Privacy Policy</a>]]></string>
-    <string name="about_changelog">Changelog</string>
+    <string name="about_changelog">Registro delle modifiche</string>
+    <string name="file_not_available">file non disponibile!</string>
+    <string name="pref_header_limitations">Limitazioni</string>
+    <plurals name="unable_sharing">
+        <item quantity="one">Il file non può essere condiviso.</item>
+        <item quantity="other">I file non possono essere condivisi.</item>
+    </plurals>
+    <string name="pref_speed_limit_title">Limite di velocità per un pezzo</string>
+    <string name="pref_speed_limit_dialog_hint">Imposta la velocità in KiB/s (0 = senza limite)</string>
+    <string name="pref_browser_hide_menu_icon_title">Nascondi l\'icona dal menù</string>
+    <string name="pref_browser_hide_menu_icon_summary">Nascondi l\'icona del browser dal menù della schermata principale</string>
 </resources>

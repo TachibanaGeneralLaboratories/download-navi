@@ -7,13 +7,13 @@
     <string name="finished">Fertig</string>
     <string name="shutdown">Beenden</string>
     <!-- 1 d. 1 h. 1 m -->
-    <string name="elapsed_time_format_d_h_mm">%1$d d. %2$d h. %3$d m</string>
+    <string name="elapsed_time_format_d_h_mm">%1$d T. %2$d h %3$d min</string>
     <!-- 1 h. 1 m. 1 s -->
-    <string name="elapsed_time_format_h_mm_ss">%1$d h. %2$d m. %3$d s</string>
+    <string name="elapsed_time_format_h_mm_ss">%1$d h %2$d min %3$d s</string>
     <!-- 1 m. 1 s -->
-    <string name="elapsed_time_format_mm_ss">%1$d m. %2$d s</string>
+    <string name="elapsed_time_format_mm_ss">%1$d min %2$d s</string>
     <!-- 1 s -->
-    <string name="elapsed_time_format_ss">%1$d s</string>
+    <string name="elapsed_time_format_ss">%1$d s</string>
     <string name="ok">OK</string>
     <string name="cancel">Abbrechen</string>
     <!-- A synonym for word "unmetered" - unlimited-->
@@ -309,4 +309,9 @@
     <string name="pref_speed_limit_dialog_hint">Geschwindigkeit in KiB/s festlegen (0 = unbeschränkt)</string>
     <string name="pref_browser_hide_menu_icon_title">Symbol im Menü ausblenden</string>
     <string name="pref_browser_hide_menu_icon_summary">Browser-Symbol im Hauptmenü ausblenden</string>
+    <plurals name="unable_sharing">
+        <item quantity="one">Die Datei kann nicht geteilt werden.</item>
+        <item quantity="other">Die Dateien können nicht geteilt werden.</item>
+    </plurals>
+    <string name="pref_speed_limit_title">Geschwindigkeitsbegrenzung für ein Stück</string>
 </resources>

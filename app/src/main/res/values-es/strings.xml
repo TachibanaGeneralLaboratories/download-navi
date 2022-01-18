@@ -93,17 +93,17 @@
     <string name="fetch_error_http_response">Error: el servidor devolvió código HTTP %1$d</string>
     <string name="fetch_error_io">Error de ES: %1$s</string>
     <string name="unable_to_open_folder">No se pudo abrir la carpeta seleccionada. Intenta seleccionar otra carpeta</string>
-    <string name="unable_to_create_file">No se puede crear el archivo. Intenta seleccionar otra carpeta</string>
+    <string name="unable_to_create_file">No se pudo crear el archivo. Intenta seleccionar otra carpeta</string>
     <string name="partial_download_not_supported">Esta descarga no admite la pausa y la descarga por partes</string>
     <string name="download_pieces_number_title">Número de partes</string>
     <string name="download_description">Descripción</string>
-    <string name="select_folder_to_save">Seleccione la carpeta para guardar</string>
+    <string name="select_folder_to_save">Seleccionar carpeta para guardar</string>
     <string name="path">Ruta</string>
     <string name="storage_free_space">Espacio libre: %1$s</string>
-    <string name="add_download_error_invalid_url">No se puede añadir la descarga: URL no válida</string>
+    <string name="add_download_error_invalid_url">No se pudo añadir la descarga: URL no válida</string>
     <string name="checksum">Suma de verificación</string>
     <string name="add_dialog_checksum_description">MD5, SHA-256</string>
-    <string name="referer_description">Cabecera %1$s</string>
+    <string name="referer_description">Encabezado %1$s</string>
     <string name="error_invalid_checksum">Suma de verificación no válida</string>
     <!-- Add user agent dialog -->
     <string name="dialog_add_user_agent_title">Añadir agente de usuario</string>
@@ -112,10 +112,10 @@
     <string name="fragment_title_completed">Completado</string>
     <string name="download_list_empty">No hay descargas</string>
     <string name="share_url">Compartir URL</string>
-    <string name="file_not_available">¡fichero no disponible!</string>
+    <string name="file_not_available">¡archivo no disponible!</string>
     <plurals name="unable_sharing">
-        <item quantity="one">El fichero no se puede compartir.</item>
-        <item quantity="other">Los ficheros no se pueden compartir.</item>
+        <item quantity="one">El archivo no se puede compartir.</item>
+        <item quantity="other">Los archivos no se pueden compartir.</item>
     </plurals>
     <!-- Navigation drawer -->
     <!-- Category -->
@@ -162,8 +162,8 @@
     <string name="dir_chooser_title">Selección de carpeta</string>
     <string name="file_chooser_title">Selección de archivo</string>
     <string name="dialog_new_folder_title">Nueva carpeta</string>
-    <string name="error_dialog_new_folder">No se puede crear una nueva carpeta</string>
-    <string name="error_open_dir">No se puede abrir la carpeta</string>
+    <string name="error_dialog_new_folder">No se pudo crear una nueva carpeta</string>
+    <string name="error_open_dir">No se pudo abrir la carpeta</string>
     <string name="home_directory">Inicio</string>
     <!-- name (size) -->
     <string name="permission_denied">Permiso denegado</string>
@@ -239,8 +239,8 @@
     <string name="pref_theme_entries_1">Oscuro</string>
     <string name="pref_theme_entries_2">Negro</string>
     <string name="pref_notification_category">Ajustes de notificaciones</string>
-    <string name="pref_progress_notify_title">Notificación de progreso</string>
-    <string name="pref_finish_notify_title">Notificación de finalización de descarga</string>
+    <string name="pref_progress_notify_title">Notificación de descarga en progreso</string>
+    <string name="pref_finish_notify_title">Notificación de descarga finalizada</string>
     <string name="pref_pending_notify_title">Notificación de descarga pendiente</string>
     <string name="pref_play_sound_notify_title">Reproducir sonido</string>
     <string name="pref_notify_sound_title">Sonido de notificación</string>
@@ -250,7 +250,7 @@
     <string name="theme_settings_apply_after_reboot">Los ajustes del tema serán aplicados después de reiniciar la aplicación</string>
     <!-- Behavior settings -->
     <string name="pref_autostart_title">Inicio automático</string>
-    <string name="pref_autostart_summary">Iniciar la aplicación después de encender el dispositivo y comenzar las descargas, si no se detuvieron manualmente</string>
+    <string name="pref_autostart_summary">Iniciar la aplicación después de encender el dispositivo y iniciar las descargas, si no se pausaron manualmente</string>
     <!-- A synonym for word "unmetered" - unlimited-->
     <string name="pref_umnetered_connections_only_title">Solo conexiones sin límite</string>
     <string name="pref_umnetered_connections_only_summary">Descarga solo a través de conexiones sin límite (por ejemplo, Wi-Fi o Ethernet)</string>
@@ -287,7 +287,7 @@
     <string name="pref_preallocate_disk_space_title">Reservar espacio en disco para el archivo</string>
     <string name="pref_preallocate_disk_space_summary">Disponible para Android 5.0 Lollipop y posterior</string>
     <!-- Browser settings -->
-    <string name="pref_browser_bottom_address_bar_title">Barra de direcciones abajo</string>
+    <string name="pref_browser_bottom_address_bar_title">Barra de direcciones en la parte inferior</string>
     <string name="pref_browser_bottom_address_bar_summary">La barra de direcciones será ubicada en la parte inferior de la pantalla</string>
     <string name="pref_browser_start_page_title">Página de inicio</string>
     <string name="pref_browser_allow_java_script_title">Permitir JavaScript</string>
@@ -303,7 +303,7 @@
     <string name="pref_browser_do_not_track_title">No rastrear</string>
     <string name="pref_browser_do_not_track_summary">Envía una petición de \"No rastrear\" a los sitios web que visitas</string>
     <string name="pref_browser_launcher_icon_title">Icono del navegador en el lanzador</string>
-    <string name="pref_browser_disable_from_system_title">Deshabilitar el navegador del sistema</string>
+    <string name="pref_browser_disable_from_system_title">Deshabilitar navegador del sistema</string>
     <string name="pref_browser_disable_from_system_summary">El navegador no estará disponible para abrir enlaces</string>
     <string name="pref_browser_search_engine_title">Motor de búsqueda</string>
     <string name="pref_browser_hide_menu_icon_title">Ocultar icono del menú</string>

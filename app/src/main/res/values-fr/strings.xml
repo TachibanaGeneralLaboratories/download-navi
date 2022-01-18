@@ -7,14 +7,14 @@
     <string name="finished">Terminé</string>
     <string name="shutdown">Fermeture</string>
     <!-- 1 d. 1 h. 1 m -->
-    <string name="elapsed_time_format_d_h_mm">%1$d j. %2$d h. %3$d m</string>
+    <string name="elapsed_time_format_d_h_mm">%1$d j. %2$d h %3$d min</string>
     <!-- 1 h. 1 m. 1 s -->
-    <string name="elapsed_time_format_h_mm_ss">%1$d h. %2$d mn. %3$d s</string>
+    <string name="elapsed_time_format_h_mm_ss">%1$d h %2$d min %3$d s</string>
     <!-- 1 m. 1 s -->
-    <string name="elapsed_time_format_mm_ss">%1$d mn. %2$d s</string>
+    <string name="elapsed_time_format_mm_ss">%1$d min %2$d s</string>
     <!-- 1 s -->
-    <string name="elapsed_time_format_ss">%1$d s</string>
-    <string name="ok">Ok</string>
+    <string name="elapsed_time_format_ss">%1$d s</string>
+    <string name="ok">OK</string>
     <string name="cancel">Annuler</string>
     <!-- A synonym for word "unmetered" - unlimited-->
     <string name="unmetered_connections_only">Connexions Internet illimité uniquement</string>
@@ -23,7 +23,7 @@
     <string name="not_available">N/A</string>
     <string name="open_navigation_drawer">Ouvrir le panneau de navigation</string>
     <string name="close_navigation_drawer">Fermer le panneau de navigation</string>
-    <string name="error_template">Erreur: %1$s</string>
+    <string name="error_template">Erreur : %1$s</string>
     <string name="pause">Suspendre</string>
     <string name="resume">Reprendre</string>
     <string name="stop">Arrêt</string>
@@ -55,7 +55,7 @@
     <string name="verify">Vérifier</string>
     <!-- Permission dialog -->
     <string name="perm_denied_title">Permission refusée</string>
-    <string name="perm_denied_warning">Sans cette autorisation l\'application ne peut pas enregistrer des fichiers dans la mémoire de certains périphériques ainsi que certaines versions d’Android. L’application risque de ne pas fonctionner correctement. Êtes-vous certain de vouloir refuser cette autorisation?</string>
+    <string name="perm_denied_warning">Sans cette autorisation l\'application ne peut pas enregistrer des fichiers dans la mémoire de certains périphériques ainsi que certaines versions d’Android. L’application risque de ne pas fonctionner correctement. Êtes-vous certain de vouloir refuser cette autorisation \?</string>
     <!-- Download progress notification -->
     <string name="download_ticker_notify">Télécharger à %1$s</string>
     <!-- Foreground notification -->
@@ -79,7 +79,7 @@
     <string name="add_download">Ajouter le téléchargement</string>
     <string name="download_link">Lien</string>
     <string name="download_name">Nom</string>
-    <string name="download_size">Taille: %1$s</string>
+    <string name="download_size">Taille : %1$s</string>
     <string name="download_retry">Réessayer</string>
     <string name="download_advanced">Avancé</string>
     <string name="download_user_agent">Agent utilisateur</string>
@@ -87,11 +87,11 @@
     <string name="download_error_empty_name">Veuillez saisir un nom</string>
     <string name="download_error_no_enough_free_space">Espace libre insuffisant : %1$s libre, mais la taille du fichier est de %2$s</string>
     <string name="download_error_name_is_not_correct">Un nom correct est \"%1$s\"</string>
-    <string name="fetch_error_default_fmt">Erreur: %1$s</string>
-    <string name="fetch_error_invalid_url">URL invalide: %1$s</string>
+    <string name="fetch_error_default_fmt">Erreur : %1$s</string>
+    <string name="fetch_error_invalid_url">URL invalide : %1$s</string>
     <string name="fetch_error_network_disconnected">le réseau est déconnecté</string>
-    <string name="fetch_error_http_response">Erreur: le serveur a retourné le code HTTP %1$d</string>
-    <string name="fetch_error_io">Erreur I/O: %1$s</string>
+    <string name="fetch_error_http_response">Erreur : le serveur a retourné le code HTTP %1$d</string>
+    <string name="fetch_error_io">Erreur I/O : %1$s</string>
     <string name="unable_to_open_folder">Impossible d\'ouvrir le dossier sélectionné. Veuillez essayer de sélectionner un autre dossier</string>
     <string name="unable_to_create_file">Impossible de créer le fichier. Veuillez essayer de sélectionner un autre dossier</string>
     <string name="partial_download_not_supported">Ce téléchargement ne supporte pas la pause ni le téléchargement par morceaux</string>
@@ -99,7 +99,7 @@
     <string name="download_description">Description</string>
     <string name="select_folder_to_save">Sélectionnez le dossier à enregistrer</string>
     <string name="path">Chemin d\'accès</string>
-    <string name="storage_free_space">Espace libre: %1$s</string>
+    <string name="storage_free_space">Espace libre : %1$s</string>
     <string name="add_download_error_invalid_url">Impossible d\'ajouter le téléchargement : l\'URL est invalide</string>
     <string name="checksum">Somme de contrôle</string>
     <string name="add_dialog_checksum_description">MD5, SHA-256</string>
@@ -112,10 +112,10 @@
     <string name="fragment_title_completed">Complété</string>
     <string name="download_list_empty">Aucun téléchargement</string>
     <string name="share_url">Partager l\'URL</string>
-    <string name="file_not_available">file not available!</string>
+    <string name="file_not_available">le fichier n\'est pas disponible !</string>
     <plurals name="unable_sharing">
-        <item quantity="one">The file cannot be shared.</item>
-        <item quantity="other">The files cannot be shared.</item>
+        <item quantity="one">Le fichier ne peut pas être partagé.</item>
+        <item quantity="other">Les fichiers ne peuvent pas être partagés.</item>
     </plurals>
     <!-- Navigation drawer -->
     <!-- Category -->
@@ -154,8 +154,8 @@
     <string name="download_finished_template">%1$s \u2022 %2$s</string>
     <string name="download_details">Détails</string>
     <string name="deleting">Suppression</string>
-    <string name="delete_selected_download">Supprimer le téléchargement sélectionné? Cette opération ne peut pas être annulée</string>
-    <string name="delete_selected_downloads">Supprimer le téléchargement sélectionné? Cette opération ne peut pas être annulée</string>
+    <string name="delete_selected_download">Supprimer le téléchargement sélectionné \? Cette opération ne peut pas être annulée</string>
+    <string name="delete_selected_downloads">Supprimer le téléchargement sélectionné \? Cette opération ne peut pas être annulée</string>
     <string name="delete_with_downloaded_file">Supprimer aussi le fichier téléchargé</string>
     <string name="error_verify_checksum">Somme de contrôle de fichier invalide</string>
     <!-- Filemanager dialog -->
@@ -169,7 +169,7 @@
     <string name="permission_denied">Permission refusée</string>
     <string name="save_file">Sauvegarder le fichier</string>
     <string name="file_name">Nom de fichier</string>
-    <string name="error_file_exists">Le fichier existe déjà. Le remplacer?</string>
+    <string name="error_file_exists">Le fichier existe déjà. Le remplacer \?</string>
     <string name="file_name_is_empty">Un nom de fichier ne peut être vide</string>
     <string name="system_manager">Gestionnaire système</string>
     <string name="device_does_not_support_this_feature">Votre appareil ne supporte pas cette fonctionnalité</string>
@@ -187,7 +187,7 @@
     <string name="calculate">Calculer</string>
     <!-- Error report -->
     <string name="app_error_occurred">Un bog s\'est produite dans l\'application . Vous pouvez envoyer le rapport aux développeurs</string>
-    <string name="error_comment_prompt">Vous pouvez ajouter des informations et commentaires supplémentaires ici:</string>
+    <string name="error_comment_prompt">Vous pouvez ajouter des informations et commentaires supplémentaires ici :</string>
     <!-- Send text to clipboard -->
     <string name="send_text_to_clipboard">Copier</string>
     <string name="text_copied_to_clipboard">Le texte a été copié dans le presse-papier</string>
@@ -277,8 +277,8 @@
     <string name="pref_max_active_downloads_title">Nombre maximum de téléchargements actifs</string>
     <string name="pref_max_download_retries_title">Nombre maximum de tentatives de téléchargements</string>
     <string name="pref_max_download_retries_dialog_msg">0 - aucune tentatives</string>
-    <string name="pref_speed_limit_title">Speed limit for one piece</string>
-    <string name="pref_speed_limit_dialog_hint">Set speed in KiB/s (0 - without limit)</string>
+    <string name="pref_speed_limit_title">Limite de vitesse pour un morceau</string>
+    <string name="pref_speed_limit_dialog_hint">Définir la vitesse en Kio/s (0 = sans limite)</string>
     <!-- Storage settings -->
     <string name="pref_save_downloads_in_title">Enregistrer les téléchargements dans</string>
     <string name="pref_move_after_download_title">Déplacer après téléchargement</string>
@@ -310,9 +310,6 @@
     <string name="pref_browser_hide_menu_icon_summary">Masquer l\'icône du navigateur dans le menu de l\'écran principal</string>
     <!-- About dialog -->
     <string name="about_title">À propos du gestionnaire de Download Navi</string>
-    <string name="about_description"><![CDATA[Plus d\'informations et aussi pour aider le projet: <a href="https://github.com/TachibanaGeneralLaboratories/download-navi">https://github.com/TachibanaGeneralLaboratories/download-navi</a><br><br>
-    Download Navi est un gestionnaire de téléchargement gratuit et Open Source pour Android 4.4+<br><br>
-    Download Navi est un logiciel gratuit, publié selon les termes de la <a href="http://www.gnu.org/copyleft/gpl.html">GNU General Public License v3 (GPLv3)</a><br><br>
-    <a href="https://github.com/TachibanaGeneralLaboratories/download-navi/blob/HEAD/PRIVACY.md">Politique de confidentialité</a>]]></string>
+    <string name="about_description">Plus d\'informations et aussi pour aider le projet : &lt;a href=https://github.com/TachibanaGeneralLaboratories/download-navi&gt;https://github.com/TachibanaGeneralLaboratories/download-navi&lt;/a&gt;&lt;br&gt;&lt;br&gt; Download Navi est un gestionnaire de téléchargement gratuit et Open Source pour Android 4.4+&lt;br&gt;&lt;br&gt; Download Navi est un logiciel gratuit, publié selon les termes de la &lt;a href=http://www.gnu.org/copyleft/gpl.html&gt;GNU General Public License v3 (GPLv3)&lt;/a&gt;&lt;br&gt;&lt;br&gt; &lt;a href=https://github.com/TachibanaGeneralLaboratories/download-navi/blob/HEAD/PRIVACY.md&gt;Politique de confidentialité&lt;/a&gt;</string>
     <string name="about_changelog">Journal des modifications</string>
 </resources>

@@ -1,21 +1,20 @@
-# Features
+# Caratteristiche
 
-* Software libero e con codice sorgente aperto (FOSS)
+* Software libero
 * Material Design
 * Temi multipli (chiaro, scuro, nero)
 * Supporto Android TV
 * Supporto per Chrome OS
-* Pausa e riprendi download
-* Supporto Browser
+* Metti in pausa e riprendi gli scaricamenti
+* Supporto dei browser
 * Browser incorporato
-* Download simultanei (predefinito 3)
-* Download multi parti (max 16)
-* Scarica in background
-* Sono supportate solo le connessioni illimitate (es.
-Wi-Fi)
+* Scaricamenti simultanei (3 per impostazione predefinita)
+* Scaricamenti multi parti (max 16)
+* Scarica in sfondo
+* Supporto allo scaricamento solo da connessioni illimitate (es. Wi-Fi)
 * Controllo roaming
-* Controlli user agent
+* Controlli gli agenti utenti
 * Calcola hash (MD5 & SHA-256)
 * Gestione alimentazione e controllo batteria
-* Varie azioni automatiche dopo aver terminato il download
-* Speed limit
+* Varie azioni automatiche dopo aver terminato lo scaricamento
+* Velocità limitabile
