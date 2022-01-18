@@ -1,6 +1,6 @@
 /*
- * Copyright (C) 2019-2021 Tachibana General Laboratories, LLC
- * Copyright (C) 2019-2021 Yaroslav Pronin <proninyaroslav@mail.ru>
+ * Copyright (C) 2019-2022 Tachibana General Laboratories, LLC
+ * Copyright (C) 2019-2022 Yaroslav Pronin <proninyaroslav@mail.ru>
  *
  * This file is part of Download Navi.
  *
@@ -32,6 +32,7 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.preference.Preference;
+import androidx.preference.PreferenceFragmentCompat;
 
 import com.tachibana.downloader.R;
 import com.tachibana.downloader.core.utils.Utils;
@@ -40,7 +41,6 @@ import com.tachibana.downloader.ui.settings.sections.BehaviorSettingsFragment;
 import com.tachibana.downloader.ui.settings.sections.BrowserSettingsFragment;
 import com.tachibana.downloader.ui.settings.sections.LimitationsSettingsFragment;
 import com.tachibana.downloader.ui.settings.sections.StorageSettingsFragment;
-import com.takisoft.preferencex.PreferenceFragmentCompat;
 
 import static com.tachibana.downloader.ui.settings.SettingsActivity.AppearanceSettings;
 import static com.tachibana.downloader.ui.settings.SettingsActivity.BehaviorSettings;
@@ -170,7 +170,7 @@ public class SettingsFragment extends PreferenceFragmentCompat
     }
 
     @Override
-    public void onCreatePreferencesFix(Bundle savedInstanceState, String rootKey)
+    public void onCreatePreferences(Bundle savedInstanceState, String rootKey)
     {
         setPreferencesFromResource(R.xml.pref_headers, rootKey);
     }

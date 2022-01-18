@@ -1,6 +1,6 @@
 /*
- * Copyright (C) 2019-2021 Tachibana General Laboratories, LLC
- * Copyright (C) 2019-2021 Yaroslav Pronin <proninyaroslav@mail.ru>
+ * Copyright (C) 2019-2022 Tachibana General Laboratories, LLC
+ * Copyright (C) 2019-2022 Yaroslav Pronin <proninyaroslav@mail.ru>
  *
  * This file is part of Download Navi.
  *
@@ -26,6 +26,7 @@ import android.view.MenuItem;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.preference.PreferenceFragmentCompat;
 
 import com.tachibana.downloader.R;
 import com.tachibana.downloader.core.utils.Utils;
@@ -34,7 +35,6 @@ import com.tachibana.downloader.ui.settings.sections.BehaviorSettingsFragment;
 import com.tachibana.downloader.ui.settings.sections.BrowserSettingsFragment;
 import com.tachibana.downloader.ui.settings.sections.LimitationsSettingsFragment;
 import com.tachibana.downloader.ui.settings.sections.StorageSettingsFragment;
-import com.takisoft.preferencex.PreferenceFragmentCompat;
 
 public class PreferenceActivity extends AppCompatActivity
 {

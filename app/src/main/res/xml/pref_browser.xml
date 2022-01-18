@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <SwitchPreferenceCompat
         android:key="@string/pref_key_browser_bottom_address_bar"
@@ -10,7 +11,7 @@
     <ListPreference
         android:key="@string/pref_key_browser_search_engine"
         android:title="@string/pref_browser_search_engine_title"
-        android:summary="%s"
+        app:useSimpleSummaryProvider="true"
         android:entries="@array/pref_browser_search_engine_entries"
         android:entryValues="@array/pref_browser_search_engine_entry_values" />
 

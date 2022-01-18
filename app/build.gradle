@@ -88,6 +88,7 @@ dependencies {
     implementation 'androidx.work:work-runtime:2.7.1'
     implementation 'androidx.multidex:multidex:2.0.1'
     implementation 'androidx.viewpager2:viewpager2:1.0.0'
+    implementation "androidx.preference:preference:1.1.1"
 
     /* ReactiveX */
     implementation 'io.reactivex.rxjava2:rxjava:2.2.21'
@@ -98,9 +99,8 @@ dependencies {
     implementation "ch.acra:acra-dialog:$ACRA_VERSION"
 
     /* Other */
-    implementation 'net.cachapa.expandablelayout:expandablelayout:2.9.2'
+    implementation 'com.github.cachapa:ExpandableLayout:2.9.2'
     implementation 'com.h6ah4i.android.widget.advrecyclerview:advrecyclerview:1.0.0'
-    implementation 'com.takisoft.preferencex:preferencex:1.1.0'
     implementation 'com.jaredrummler:colorpicker:1.1.0'
     implementation 'com.github.anthonynsimon:jurl:v0.4.2'
     implementation 'net.yslibrary.keyboardvisibilityevent:keyboardvisibilityevent:3.0.0-RC3'

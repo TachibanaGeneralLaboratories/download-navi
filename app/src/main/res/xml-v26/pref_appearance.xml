@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <PreferenceCategory
         android:title="@string/pref_theme_category">
@@ -7,7 +8,7 @@
         <ListPreference
             android:key="@string/pref_key_theme"
             android:title="@string/pref_theme_title"
-            android:summary="%s"
+            app:useSimpleSummaryProvider="true"
             android:entries="@array/pref_theme_entries"
             android:entryValues="@array/pref_theme_entries_value"
             android:persistent="false" />
