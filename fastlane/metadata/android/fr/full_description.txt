@@ -1,21 +1,20 @@
-# Features
+# Caractéristiques
 
-* Logiciel libre et Open Source (FOSS)
+* Logiciel libre et à code source ouvert
 * Material Design
-* Plusieurs thèmes disponible (Clair, Sombre, Noir)
-* Supporte Android TV
-* Supporte Chrome OS
+* Multiples thèmes (Clair, Foncé, Noir)
+* Prise en charge d'Android TV
+* Prise en charge de Chrome OS
 * Pause et reprise des téléchargements
-Navigateurs supportés
+* Prise en charge des navigateurs
 * Navigateur intégré
-* Téléchargements simultanés (par défaut 3)
-* Téléchargement multi parties (max 16)
-Téléchargement en arrière plan
-* Support des connexions limitées en data (ex.
-Wi-Fi)
-Contrôle des connexions en itinérance
+* Téléchargements simultanés (3 par défaut)
+* Téléchargement de plusieurs parties (max 16)
+* Téléchargement de fichiers en arrière-plan
+* Prise en charge des connexions non mesurées uniquement (ex. Wi-Fi)
+* Contrôle de l'itinérance
 * Contrôles de l'agent utilisateur
-* Calculer la valeur du hash (MD5 & SHA-256)
+* Calcul de la valeur de hachage (MD5 & SHA-256)
 * Gestion de l'énergie et contrôle de la batterie
-* Multiples actions programmable après la fin du téléchargement
-* Speed limit
+* Diverses actions automatiques après la fin du téléchargement
+* Limite de vitesse

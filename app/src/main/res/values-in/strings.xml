@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <!-- Global string -->
-    <string name="app_name">Download Navi</string>
+    <string name="app_name">Unduh Navi</string>
     <string name="foreground_notification">Notifikasi latar depan</string>
     <string name="download_running">Sedang berjalan</string>
     <string name="finished">Selesai</string>
@@ -18,7 +18,7 @@
     <string name="cancel">Batal</string>
     <!-- A synonym for word "unmetered" - unlimited-->
     <string name="unmetered_connections_only">Hanya koneksi tidak terbatas</string>
-    <string name="connect">Sambung</string>
+    <string name="connect">Hubungkan</string>
     <string name="add">Tambah</string>
     <string name="not_available">T/A</string>
     <string name="open_navigation_drawer">Buka laci navigasi</string>
@@ -33,7 +33,7 @@
     <string name="share">Bagikan</string>
     <string name="menu">Menu</string>
     <string name="select_all">Pilih semua</string>
-    <string name="share_via">Bagikan via</string>
+    <string name="share_via">Bagikan melalui</string>
     <string name="no">Tidak</string>
     <string name="yes">Ya</string>
     <string name="error">Kesalahan</string>
@@ -54,7 +54,7 @@
     <string name="verify">Verifikasi</string>
     <!-- Permission dialog -->
     <string name="perm_denied_title">Izin ditolak</string>
-    <string name="perm_denied_warning">Tanpa izin ini aplikasi tidak bisa menyimpan berkas pada beberapa perangkat dan versi Android. Aplikasi tidak akan berfungsi dengan baik. Apakah anda yakin ingin tetap menolak izin ini?</string>
+    <string name="perm_denied_warning">Tanpa izin ini aplikasi tidak bisa menyimpan berkas pada memori di beberapa perangkat dan versi Android. Aplikasi tidak akan berfungsi dengan baik. Apakah anda yakin ingin tetap menolak izin ini\?</string>
     <!-- Download progress notification -->
     <string name="download_ticker_notify">Mengunduh %1$s</string>
     <!-- Foreground notification -->
@@ -67,7 +67,7 @@
     <!-- Pending notification -->
     <string name="download_in_queue_ticker_notify">%1$s dalam antrean</string>
     <string name="waiting_for_network">Menunggu jaringan</string>
-    <string name="waiting_for_retry">Menunggu mengulangi</string>
+    <string name="waiting_for_retry">Menunggu untuk mengulangi</string>
     <!-- Error notification -->
     <string name="download_error_notify_title">Unduhan gagal</string>
     <!-- Applying params notification -->
@@ -84,15 +84,15 @@
     <string name="download_user_agent">Agen pengguna</string>
     <string name="download_error_empty_link">Silakan masukkan tautan</string>
     <string name="download_error_empty_name">Silakan masukkan nama</string>
-    <string name="download_error_no_enough_free_space">Ruang penyimpanan tidak cukup: %1$s tersisa, ukuran berkas %2$s</string>
+    <string name="download_error_no_enough_free_space">Ruang penyimpanan tidak cukup: %1$s tersisa, tetapi ukuran berkas %2$s</string>
     <string name="download_error_name_is_not_correct">Nama yang benar adalah \"%1$s\"</string>
-    <string name="fetch_error_default_fmt">Galat: %1$s</string>
+    <string name="fetch_error_default_fmt">Kesalahan: %1$s</string>
     <string name="fetch_error_invalid_url">URL tidak valid: %1$s</string>
     <string name="fetch_error_network_disconnected">jaringan terputus</string>
-    <string name="fetch_error_http_response">Galat: server merespons dengan kode HTTP %1$d</string>
-    <string name="fetch_error_io">Galat IO: %1$s</string>
-    <string name="unable_to_open_folder">Tidak bisa membuka folder yang dipilih. Silakan pilih folder lainnya</string>
-    <string name="unable_to_create_file">Tidak bisa menyimpan berkas. Silakan pilih folder lainnya</string>
+    <string name="fetch_error_http_response">Kesalahan: server merespons dengan kode HTTP %1$d</string>
+    <string name="fetch_error_io">Kesalahan IO: %1$s</string>
+    <string name="unable_to_open_folder">Tidak bisa membuka folder yang dipilih. Silakan coba pilih folder lainnya</string>
+    <string name="unable_to_create_file">Tidak bisa menyimpan berkas. Silakan coba pilih folder lainnya</string>
     <string name="partial_download_not_supported">Unduhan ini tidak mendukung jeda dan pengunduhan secara parsial</string>
     <string name="download_pieces_number_title">Jumlah bagian</string>
     <string name="download_description">Deskripsi</string>
@@ -101,13 +101,13 @@
     <string name="storage_free_space">Ruang kosong: %1$s</string>
     <string name="add_download_error_invalid_url">Tidak bisa menambahkan unduhan: URL tidak valid</string>
     <string name="add_dialog_checksum_description">MD5, SHA-256</string>
-    <string name="referer_description">%1$s tajuk</string>
+    <string name="referer_description">Tajuk %1$s</string>
     <string name="error_invalid_checksum">Checksum tidak valid</string>
     <!-- Add user agent dialog -->
     <string name="dialog_add_user_agent_title">Tambah agen pengguna</string>
     <!-- Main activity -->
     <string name="fragment_title_queued">Diantrekan</string>
-    <string name="fragment_title_completed">Komplet</string>
+    <string name="fragment_title_completed">Selesai</string>
     <string name="download_list_empty">Tidak ada unduhan</string>
     <string name="share_url">Bagikan URL</string>
     <string name="file_not_available">berkas tidak tersedia!</string>
@@ -127,7 +127,7 @@
     <!-- Status -->
     <string name="drawer_status">Status</string>
     <string name="drawer_status_running">Berjalan</string>
-    <string name="drawer_status_stopped">Berhenti</string>
+    <string name="drawer_status_stopped">Dihentikan</string>
     <!-- Date added -->
     <string name="drawer_date_added">Tanggal ditambahkan</string>
     <string name="drawer_date_added_today">Hari ini</string>
@@ -169,7 +169,7 @@
     <string name="error_file_exists">Berkas sudah ada. Ganti?</string>
     <string name="file_name_is_empty">Nama berkas tidak boleh kosong</string>
     <string name="system_manager">Pengelola sistem</string>
-    <string name="device_does_not_support_this_feature">Perangkat anda tidak mendukung fitur ini</string>
+    <string name="device_does_not_support_this_feature">Perangkat Anda tidak mendukung fitur ini</string>
     <string name="system_file_manager_not_found">Pengelola berkas sistem tidak ditemukan</string>
     <string name="replace_file">Ganti berkas</string>
     <!-- Details download dialog -->
@@ -191,7 +191,7 @@
     <!-- Browser -->
     <string name="browser">Peramban</string>
     <string name="browser_app">Navi Browser</string>
-    <string name="webview_is_required">Membutuhkan WebView untuk bisa bekerja</string>
+    <string name="webview_is_required">WebView diperlukan untuk dapat bekerja</string>
     <string name="browser_forward_arrow">Maju</string>
     <string name="browser_desktop_version">Versi desktop</string>
     <string name="browser_address_bar_hint">Masukkan alamat atau kueri</string>
@@ -236,7 +236,7 @@
     <string name="pref_notification_category">Pengaturan notifikasi</string>
     <string name="pref_progress_notify_title">Notifikasi laju</string>
     <string name="pref_finish_notify_title">Notifikasi saat selesai</string>
-    <string name="pref_pending_notify_title">Notifikasi saat dijeda</string>
+    <string name="pref_pending_notify_title">Notifikasi saat jeda</string>
     <string name="pref_play_sound_notify_title">Putar suara</string>
     <string name="pref_notify_sound_title">Suara notifikasi</string>
     <string name="pref_led_indicator_notify_title">Indikator LED</string>
@@ -310,4 +310,6 @@
     Download Navi adalah perangkat lunak bebas, dirilis dibawah perlindungan <a href="http://www.gnu.org/copyleft/gpl.html">Lisensi Publik Umum GNU v3 (GPLv3)</a><br><br>
     <a href="https://github.com/TachibanaGeneralLaboratories/download-navi/blob/HEAD/PRIVACY.md">Kebijakan Privasi</a>]]></string>
     <string name="about_changelog">Catatan perubahan</string>
+    <string name="checksum">Checksums</string>
+    <string name="folder">Folders</string>
 </resources>
