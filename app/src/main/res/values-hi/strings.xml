@@ -304,4 +304,5 @@
     Download Navi मुफ्त सॉफ्टवेयर है, की शर्तों के तहत जारी <a href="http://www.gnu.org/copyleft/gpl.html">GNU General Public License v3 (GPLv3)</a><br><br>
     <a href="https://github.com/TachibanaGeneralLaboratories/download-navi/blob/HEAD/PRIVACY.md">गोपनीयता नीति</a>]]></string>
     <string name="about_changelog">परिवर्तन लॉग</string>
+    <string name="file_not_available">File Nahi available hai</string>
 </resources>

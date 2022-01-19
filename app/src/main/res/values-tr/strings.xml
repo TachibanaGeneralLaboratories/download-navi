@@ -20,7 +20,7 @@
     <string name="unmetered_connections_only">Yalnızca kotasız bağlantılar</string>
     <string name="connect">Bağlan</string>
     <string name="add">Ekle</string>
-    <string name="not_available">N/A</string>
+    <string name="not_available">Yok</string>
     <string name="open_navigation_drawer">Gezinme çekmecesini aç</string>
     <string name="close_navigation_drawer">Gezinme çekmecesini kapat</string>
     <string name="error_template">Hata: %1$s</string>
@@ -281,7 +281,7 @@
     <string name="pref_browser_bottom_address_bar_title">Alttaki adres çubuğu</string>
     <string name="pref_browser_bottom_address_bar_summary">Adres çubuğu ekranın altında yer alır</string>
     <string name="pref_browser_start_page_title">Başlangıç sayfası</string>
-    <string name="pref_browser_allow_java_script_title">Java Script\'e izin ver</string>
+    <string name="pref_browser_allow_java_script_title">JavaScript\'e izin ver</string>
     <string name="pref_browser_allow_popup_windows_title">Açılır pencerelere izin ver</string>
     <string name="pref_browser_cache_category">Önbellek</string>
     <string name="pref_browser_cookies_category">Çerezler</string>

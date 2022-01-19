@@ -290,7 +290,7 @@
     <string name="pref_browser_bottom_address_bar_title">Barra de endereço na parte inferior</string>
     <string name="pref_browser_bottom_address_bar_summary">A barra de endereço estará localizada na parte inferior da tela</string>
     <string name="pref_browser_start_page_title">Página inicial</string>
-    <string name="pref_browser_allow_java_script_title">Permitir Java Script</string>
+    <string name="pref_browser_allow_java_script_title">Permitir JavaScript</string>
     <string name="pref_browser_allow_popup_windows_title">Permitir janelas popup</string>
     <string name="pref_browser_cache_category">Cache</string>
     <string name="pref_browser_cookies_category">Cookies</string>

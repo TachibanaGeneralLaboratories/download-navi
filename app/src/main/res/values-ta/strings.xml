@@ -189,7 +189,7 @@
     <string name="about_changelog">சேஞ்ச்லாக்</string>
     <string name="stopped">நிறுத்தப்பட்டது</string>
     <string name="stop">நிறுத்து</string>
-    <string name="close_navigation_drawer">வழிசெலுத்தல் இழுப்பறையை மூடு</string>
+    <string name="close_navigation_drawer">வழிசெலுத்தல் இழுப்பறையை மூடவும்</string>
     <string name="pending">நிலுவையில் உள்ளது</string>
     <string name="pref_preallocate_disk_space_title">கோப்பிற்கான வட்டு இடத்தை முன்கூட்டியே ஒதுக்கவும்</string>
     <string name="pref_browser_clear_cache_title">தேக்ககத்தை அழிக்கவும்</string>
