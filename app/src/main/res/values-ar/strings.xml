@@ -302,7 +302,7 @@
     <string name="pref_browser_bottom_address_bar_title">شريط العنوان في الأسفل</string>
     <string name="pref_browser_bottom_address_bar_summary">سيتم وضع شريط العنوان في الجزء السفلي من الشاشة</string>
     <string name="pref_browser_start_page_title">صفحة البداية</string>
-    <string name="pref_browser_allow_java_script_title">السماح بجافا بسكريبت</string>
+    <string name="pref_browser_allow_java_script_title">السماح لجافا سكريبت</string>
     <string name="pref_browser_allow_popup_windows_title">السماح بالنوافذ المنبثقة</string>
     <string name="pref_browser_cache_category">التخزين مؤقت</string>
     <string name="pref_browser_cookies_category">ملفات تعريف الارتباط</string>
