@@ -1,6 +1,6 @@
 /*
- * Copyright (C) 2018, 2019 Tachibana General Laboratories, LLC
- * Copyright (C) 2018, 2019 Yaroslav Pronin <proninyaroslav@mail.ru>
+ * Copyright (C) 2018-2022 Tachibana General Laboratories, LLC
+ * Copyright (C) 2018-2022 Yaroslav Pronin <proninyaroslav@mail.ru>
  *
  * This file is part of Download Navi.
  *
@@ -64,8 +64,7 @@ import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.schedulers.Schedulers;
 
-public class DownloadEngine
-{
+public class DownloadEngine {
     @SuppressWarnings("unused")
     private static final String TAG = DownloadEngine.class.getSimpleName();
 
@@ -84,8 +83,7 @@ public class DownloadEngine
 
     private static volatile DownloadEngine INSTANCE;
 
-    public static DownloadEngine getInstance(@NonNull Context appContext)
-    {
+    public static DownloadEngine getInstance(@NonNull Context appContext) {
         if (INSTANCE == null) {
             synchronized (DownloadEngine.class) {
                 if (INSTANCE == null)
@@ -96,8 +94,7 @@ public class DownloadEngine
         return INSTANCE;
     }
 
-    private DownloadEngine(Context appContext)
-    {
+    private DownloadEngine(Context appContext) {
         this.appContext = appContext;
         repo = RepositoryHelper.getDataRepository(appContext);
         pref = RepositoryHelper.getSettingsRepository(appContext);
@@ -110,28 +107,23 @@ public class DownloadEngine
                 .subscribe(this::handleSettingsChanged));
     }
 
-    public void addListener(DownloadEngineListener listener)
-    {
+    public void addListener(DownloadEngineListener listener) {
         listeners.add(listener);
     }
 
-    public void removeListener(DownloadEngineListener listener)
-    {
+    public void removeListener(DownloadEngineListener listener) {
         listeners.remove(listener);
     }
 
-    public void runDownload(@NonNull DownloadInfo info)
-    {
+    public void runDownload(@NonNull DownloadInfo info) {
         DownloadScheduler.run(appContext, info);
     }
 
-    public void runDownload(@NonNull UUID id)
-    {
+    public void runDownload(@NonNull UUID id) {
         DownloadScheduler.run(appContext, id);
     }
 
-    public void reschedulePendingDownloads()
-    {
+    public void reschedulePendingDownloads() {
         DownloadScheduler.rescheduleAll(appContext);
     }
 
@@ -139,16 +131,14 @@ public class DownloadEngine
      * Exclude pending downloads
      */
 
-    public void rescheduleDownloads()
-    {
+    public void rescheduleDownloads() {
         if (checkStopDownloads())
             stopDownloads();
         else
             resumeDownloads(true);
     }
 
-    public void pauseResumeDownload(@NonNull UUID id)
-    {
+    public void pauseResumeDownload(@NonNull UUID id) {
         disposables.add(repo.getInfoByIdSingle(id)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
@@ -171,8 +161,7 @@ public class DownloadEngine
         );
     }
 
-    public void resumeIfError(@NonNull UUID id)
-    {
+    public void resumeIfError(@NonNull UUID id) {
         disposables.add(repo.getInfoByIdSingle(id)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
@@ -190,8 +179,7 @@ public class DownloadEngine
         );
     }
 
-    public synchronized void pauseAllDownloads()
-    {
+    public synchronized void pauseAllDownloads() {
         for (Map.Entry<UUID, DownloadThread> entry : activeDownloads.entrySet()) {
             if (duringChange.containsKey(entry.getKey()))
                 continue;
@@ -202,18 +190,15 @@ public class DownloadEngine
         }
     }
 
-    public void resumeDownloads(boolean ignorePaused)
-    {
+    public void resumeDownloads(boolean ignorePaused) {
         DownloadScheduler.runAll(appContext, ignorePaused);
     }
 
-    public void restoreDownloads()
-    {
+    public void restoreDownloads() {
         DownloadScheduler.restoreDownloads(appContext);
     }
 
-    public synchronized void stopDownloads()
-    {
+    public synchronized void stopDownloads() {
         for (Map.Entry<UUID, DownloadThread> entry : activeDownloads.entrySet()) {
             if (duringChange.containsKey(entry.getKey()))
                 continue;
@@ -223,8 +208,7 @@ public class DownloadEngine
         }
     }
 
-    public void deleteDownloads(boolean withFile, @NonNull UUID... idList)
-    {
+    public void deleteDownloads(boolean withFile, @NonNull UUID... idList) {
         String[] strIdList = new String[idList.length];
         for (int i = 0; i < idList.length; i++) {
             if (idList[i] != null)
@@ -234,8 +218,7 @@ public class DownloadEngine
         runDeleteDownloadsWorker(strIdList, withFile);
     }
 
-    public void deleteDownloads(boolean withFile, @NonNull DownloadInfo... infoList)
-    {
+    public void deleteDownloads(boolean withFile, @NonNull DownloadInfo... infoList) {
         String[] strIdList = new String[infoList.length];
         for (int i = 0; i < infoList.length; i++) {
             if (infoList[i] != null)
@@ -245,14 +228,12 @@ public class DownloadEngine
         runDeleteDownloadsWorker(strIdList, withFile);
     }
 
-    public boolean hasActiveDownloads()
-    {
+    public boolean hasActiveDownloads() {
         return !activeDownloads.isEmpty();
     }
 
     public void changeParams(@NonNull UUID id,
-                             @NonNull ChangeableParams params)
-    {
+                             @NonNull ChangeableParams params) {
         Intent i = new Intent(appContext, DownloadService.class);
         i.setAction(DownloadService.ACTION_CHANGE_PARAMS);
         i.putExtra(DownloadService.TAG_DOWNLOAD_ID, id);
@@ -261,36 +242,28 @@ public class DownloadEngine
         appContext.startService(i);
     }
 
-    public void verifyChecksum(@NonNull UUID id)
-    {
-        disposables.add(repo.getInfoByIdSingle(id)
-                .subscribeOn(Schedulers.io())
-                .filter((info) -> info != null)
-                .subscribe((info) -> {
-                            if (verifyChecksumSync(info)) {
-                                info.statusCode = StatusCode.STATUS_SUCCESS;
-                                info.statusMsg = null;
-                            } else {
-                                info.statusCode = StatusCode.STATUS_CHECKSUM_ERROR;
-                                info.statusMsg = appContext.getString(R.string.error_verify_checksum);
-                            }
-
-                            repo.updateInfo(info, false, false);
-                        },
-                        (Throwable t) -> {
-                            Log.e(TAG, "Getting info " + id + " error: " +
-                                    Log.getStackTraceString(t));
-                            if (checkNoDownloads())
-                                notifyListeners(DownloadEngineListener::onDownloadsCompleted);
-                        })
-        );
+    private void verifyChecksum(@NonNull UUID id) {
+        DownloadInfo info;
+        try {
+            info = repo.getInfoById(id);
+        } catch (Exception e) {
+            Log.e(TAG, "Getting info " + id + " error: " + Log.getStackTraceString(e));
+            return;
+        }
+        if (doVerifyChecksum(info)) {
+            info.statusCode = StatusCode.STATUS_SUCCESS;
+            info.statusMsg = null;
+        } else {
+            info.statusCode = StatusCode.STATUS_CHECKSUM_ERROR;
+            info.statusMsg = appContext.getString(R.string.error_verify_checksum);
+        }
+        repo.updateInfo(info, false, false);
     }
 
-    private boolean verifyChecksumSync(DownloadInfo info)
-    {
-        if (TextUtils.isEmpty(info.checksum))
+    private boolean doVerifyChecksum(DownloadInfo info) {
+        if (TextUtils.isEmpty(info.checksum)) {
             return true;
-
+        }
         String hash;
         try {
             if (DigestUtils.isMd5Hash(info.checksum)) {
@@ -302,16 +275,13 @@ public class DownloadEngine
             } else {
                 throw new IllegalArgumentException("Unknown checksum type:" + info.checksum);
             }
-
         } catch (IOException e) {
             return false;
         }
-
         return (hash != null && hash.equalsIgnoreCase(info.checksum));
     }
 
-    private String calcHashSum(DownloadInfo info, boolean sha256Hash) throws IOException
-    {
+    private String calcHashSum(DownloadInfo info, boolean sha256Hash) throws IOException {
         Uri filePath = fs.getFileUri(info.dirPath, info.fileName);
         if (filePath == null)
             return null;
@@ -328,8 +298,7 @@ public class DownloadEngine
      * Do not call directly
      */
 
-    public synchronized void doRunDownload(@NonNull UUID id)
-    {
+    public synchronized void doRunDownload(@NonNull UUID id) {
         if (duringChange.containsKey(id))
             return;
 
@@ -347,8 +316,10 @@ public class DownloadEngine
         activeDownloads.put(id, task);
         disposables.add(Observable.fromCallable(task)
                 .subscribeOn(Schedulers.io())
+                .filter((result) -> result != null)
+                .doOnNext(this::onBeforeDownloadCompleted)
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(this::observeDownloadResult,
+                .subscribe(this::onDownloadCompleted,
                         (Throwable t) -> {
                             Log.e(TAG, Log.getStackTraceString(t));
                             if (checkNoDownloads())
@@ -362,8 +333,7 @@ public class DownloadEngine
      * Do not call directly
      */
 
-    public synchronized void doDeleteDownload(@NonNull DownloadInfo info, boolean withFile)
-    {
+    public synchronized void doDeleteDownload(@NonNull DownloadInfo info, boolean withFile) {
         if (duringChange.containsKey(info.id))
             return;
 
@@ -377,8 +347,7 @@ public class DownloadEngine
             notifyListeners(DownloadEngineListener::onDownloadsCompleted);
     }
 
-    private void runDeleteDownloadsWorker(String[] idList, boolean withFile)
-    {
+    private void runDeleteDownloadsWorker(String[] idList, boolean withFile) {
         Data data = new Data.Builder()
                 .putStringArray(DeleteDownloadsWorker.TAG_ID_LIST, idList)
                 .putBoolean(DeleteDownloadsWorker.TAG_WITH_FILE, withFile)
@@ -394,8 +363,7 @@ public class DownloadEngine
      */
 
     public synchronized void doChangeParams(@NonNull UUID id,
-                                            @NonNull ChangeableParams params)
-    {
+                                            @NonNull ChangeableParams params) {
         if (duringChange.containsKey(id))
             return;
 
@@ -409,8 +377,7 @@ public class DownloadEngine
             applyParams(id, params, false);
     }
 
-    private void applyParams(UUID id, ChangeableParams params, boolean runAfter)
-    {
+    private void applyParams(UUID id, ChangeableParams params, boolean runAfter) {
         disposables.add(repo.getInfoByIdSingle(id)
                 .subscribeOn(Schedulers.io())
                 .subscribe((info) -> {
@@ -441,8 +408,7 @@ public class DownloadEngine
         );
     }
 
-    private boolean doApplyParams(DownloadInfo info, ChangeableParams params)
-    {
+    private boolean doApplyParams(DownloadInfo info, ChangeableParams params) throws IOException, FileAlreadyExistsException {
         boolean changed = false;
         if (params.url != null) {
             changed = true;
@@ -465,38 +431,29 @@ public class DownloadEngine
             info.checksum = params.checksum;
         }
 
-        Exception err = null;
         boolean nameChanged = params.fileName != null;
         boolean dirChanged = params.dirPath != null;
         boolean urlChanged = params.url != null;
         boolean checksumChanged = params.checksum != null;
-        if (nameChanged || dirChanged) {
-            changed = true;
-            try {
-                fs.moveFile(info.dirPath, info.fileName,
-                        (dirChanged ? params.dirPath : info.dirPath),
-                        (nameChanged ? params.fileName : info.fileName),
-                        true);
-
-            } catch (IOException | FileAlreadyExistsException e) {
-                err = new Exception(e);
-            }
-
-            if (err == null) {
-                if (nameChanged)
-                    info.fileName = params.fileName;
-                if (dirChanged)
-                    info.dirPath = params.dirPath;
-            }
-        }
         if (checksumChanged) {
-            if (verifyChecksumSync(info)) {
+            if (doVerifyChecksum(info)) {
                 info.statusCode = StatusCode.STATUS_SUCCESS;
                 info.statusMsg = null;
             } else {
                 info.statusCode = StatusCode.STATUS_CHECKSUM_ERROR;
                 info.statusMsg = appContext.getString(R.string.error_verify_checksum);
             }
+        }
+        if (nameChanged || dirChanged) {
+            changed = true;
+            fs.moveFile(info.dirPath, info.fileName,
+                    (dirChanged ? params.dirPath : info.dirPath),
+                    (nameChanged ? params.fileName : info.fileName),
+                    true);
+            if (nameChanged)
+                info.fileName = params.fileName;
+            if (dirChanged)
+                info.dirPath = params.dirPath;
         }
 
         if (changed)
@@ -505,73 +462,54 @@ public class DownloadEngine
         return urlChanged;
     }
 
-    private interface CallListener
-    {
+    private interface CallListener {
         void apply(DownloadEngineListener listener);
     }
 
-    private void notifyListeners(@NonNull CallListener l)
-    {
+    private void notifyListeners(@NonNull CallListener l) {
         for (DownloadEngineListener listener : listeners) {
             if (listener != null)
                 l.apply(listener);
         }
     }
 
-    private boolean checkNoDownloads()
-    {
+    private boolean checkNoDownloads() {
         return activeDownloads.isEmpty();
     }
 
-    private void observeDownloadResult(DownloadResult result)
-    {
-        if (result == null)
-            return;
-
-        activeDownloads.remove(result.infoId);
-        scheduleWaitingDownload();
-
-        switch (result.status) {
-            case FINISHED:
-                onFinished(result.infoId);
-                break;
-            case PAUSED:
-            case STOPPED:
-                onCancelled(result.infoId);
-                break;
+    private void onBeforeDownloadCompleted(DownloadResult result) throws IOException, FileAlreadyExistsException {
+        if (result.status == DownloadResult.Status.FINISHED) {
+            onFinished(result.infoId);
         }
     }
 
-    private void onFinished(UUID id)
-    {
-        disposables.add(repo.getInfoByIdSingle(id)
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .filter((info) -> info != null)
-                .subscribe((info) -> {
-                            handleInfoStatus(info);
-                            if (checkNoDownloads())
-                                notifyListeners(DownloadEngineListener::onDownloadsCompleted);
+    private void onDownloadCompleted(DownloadResult result) {
+        activeDownloads.remove(result.infoId);
+        scheduleWaitingDownload();
 
-                            if (!TextUtils.isEmpty(info.checksum))
-                                verifyChecksum(id);
-                        },
-                        (Throwable t) -> {
-                            Log.e(TAG, "Getting info " + id + " error: " +
-                                    Log.getStackTraceString(t));
-                            if (checkNoDownloads())
-                                notifyListeners(DownloadEngineListener::onDownloadsCompleted);
-                        })
-        );
+        var id = result.infoId;
+        var params = duringChange.get(id);
+        if (params == null) {
+            if (checkNoDownloads())
+                notifyListeners(DownloadEngineListener::onDownloadsCompleted);
+        } else {
+            applyParams(id, params, true);
+        }
     }
 
-    private void handleInfoStatus(DownloadInfo info)
-    {
-        if (info == null)
+    private void onFinished(UUID id) throws IOException, FileAlreadyExistsException {
+        DownloadInfo info;
+        try {
+            info = repo.getInfoById(id);
+        } catch (Exception e) {
+            Log.e(TAG, "Getting info " + id + " error: " + Log.getStackTraceString(e));
             return;
-
+        }
         switch (info.statusCode) {
             case StatusCode.STATUS_SUCCESS:
+                if (!TextUtils.isEmpty(info.checksum)) {
+                    verifyChecksum(id);
+                }
                 checkMoveAfterDownload(info);
                 break;
             case StatusCode.STATUS_WAITING_TO_RETRY:
@@ -587,38 +525,24 @@ public class DownloadEngine
         }
     }
 
-    private void checkMoveAfterDownload(DownloadInfo info)
-    {
-        if (!pref.moveAfterDownload())
+    private void checkMoveAfterDownload(DownloadInfo info) throws IOException, FileAlreadyExistsException {
+        if (!pref.moveAfterDownload()) {
             return;
-
-        Uri movePath = Uri.parse(pref.moveAfterDownloadIn());
-        if (movePath == null)
-            return;
-
-        ChangeableParams params = new ChangeableParams();
-        params.dirPath = movePath;
-        changeParams(info.id, params);
-    }
-
-    private void onCancelled(UUID id)
-    {
-        ChangeableParams params = duringChange.get(id);
-        if (params == null) {
-            if (checkNoDownloads())
-                notifyListeners(DownloadEngineListener::onDownloadsCompleted);
-        } else {
-            applyParams(id, params, true);
         }
+        var movePath = Uri.parse(pref.moveAfterDownloadIn());
+        if (movePath == null) {
+            return;
+        }
+        fs.moveFile(info.dirPath, info.fileName, movePath, info.fileName, true);
+        info.dirPath = movePath;
+        repo.updateInfo(info, true, false);
     }
 
-    private boolean isMaxActiveDownloads()
-    {
+    private boolean isMaxActiveDownloads() {
         return activeDownloads.size() == pref.maxActiveDownloads();
     }
 
-    private void scheduleWaitingDownload()
-    {
+    private void scheduleWaitingDownload() {
         if (isMaxActiveDownloads())
             return;
 
@@ -629,17 +553,16 @@ public class DownloadEngine
         runDownload(id);
     }
 
-    private void handleSettingsChanged(String key)
-    {
+    private void handleSettingsChanged(String key) {
         boolean reschedule = false;
 
         if (key.equals(appContext.getString(R.string.pref_key_umnetered_connections_only)) ||
-            key.equals(appContext.getString(R.string.pref_key_enable_roaming))) {
+                key.equals(appContext.getString(R.string.pref_key_enable_roaming))) {
             reschedule = true;
             switchConnectionReceiver();
 
         } else if (key.equals(appContext.getString(R.string.pref_key_download_only_when_charging)) ||
-                   key.equals(appContext.getString(R.string.pref_key_battery_control))) {
+                key.equals(appContext.getString(R.string.pref_key_battery_control))) {
             reschedule = true;
             switchPowerReceiver();
 
@@ -653,8 +576,7 @@ public class DownloadEngine
         }
     }
 
-    private void switchPowerReceiver()
-    {
+    private void switchPowerReceiver() {
         boolean batteryControl = pref.batteryControl();
         boolean customBatteryControl = pref.customBatteryControl();
         boolean onlyCharging = pref.onlyCharging();
@@ -674,8 +596,7 @@ public class DownloadEngine
         }
     }
 
-    private void switchConnectionReceiver()
-    {
+    private void switchConnectionReceiver() {
         boolean unmeteredOnly = pref.unmeteredConnectionsOnly();
         boolean roaming = pref.enableRoaming();
 
@@ -689,8 +610,7 @@ public class DownloadEngine
             appContext.registerReceiver(connectionReceiver, ConnectionReceiver.getFilter());
     }
 
-    private boolean checkStopDownloads()
-    {
+    private boolean checkStopDownloads() {
         boolean batteryControl = pref.batteryControl();
         boolean customBatteryControl = pref.customBatteryControl();
         int customBatteryControlValue = pref.customBatteryControlValue();
