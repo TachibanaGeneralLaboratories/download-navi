@@ -1,1 +1,1 @@
-Download Navi یک مدیر بارگیری آزاد و متن‌باز برای اندروید بالاتر از ۴.۴ است
+Download Navi is a free and Open Source download manager for Android 4.4+
