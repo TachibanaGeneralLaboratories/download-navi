@@ -92,8 +92,8 @@
     <string name="fetch_error_network_disconnected">ağ bağlantısı kesildi</string>
     <string name="fetch_error_http_response">Hata: sunucu HTTP %1$d kodu döndürdü</string>
     <string name="fetch_error_io">GÇ hatası: %1$s</string>
-    <string name="unable_to_open_folder">Seçilen klasör açılamıyor. Lütfen başka bir klasör seçmeyi deneyin</string>
-    <string name="unable_to_create_file">Dosya oluşturulamıyor. Lütfen başka bir klasör seçmeyi deneyin</string>
+    <string name="unable_to_open_folder">Seçilen klasör açılamadı. Lütfen başka bir klasör seçmeyi deneyin</string>
+    <string name="unable_to_create_file">Dosya oluşturulamadı. Lütfen başka bir klasör seçmeyi deneyin</string>
     <string name="partial_download_not_supported">Bu indirme işlemi duraklatma ve parça indirme işlemini desteklemiyor</string>
     <string name="download_pieces_number_title">Parça sayısı</string>
     <string name="download_description">Açıklama</string>
@@ -157,7 +157,7 @@
     <string name="dir_chooser_title">Klasör seç</string>
     <string name="file_chooser_title">Dosya seç</string>
     <string name="dialog_new_folder_title">Yeni klasör</string>
-    <string name="error_dialog_new_folder">Yeni klasör oluşturulamıyor</string>
+    <string name="error_dialog_new_folder">Yeni klasör oluşturulamadı</string>
     <string name="error_open_dir">Klasör açılamadı</string>
     <string name="home_directory">Ana sayfa</string>
     <!-- name (size) -->
@@ -311,4 +311,9 @@
         <item quantity="other">Dosyalar paylaşılamıyor.</item>
     </plurals>
     <string name="file_not_available">dosya kullanılamıyor!</string>
+    <string name="uncompress_archive_error_unknown_type">Arşiv açılamadı: bilinmeyen tür veya bozuk dosya</string>
+    <string name="move_file_error">Dosya taşınamadı</string>
+    <string name="move_file_error_already_exists">Dosya taşınamadı: zaten var</string>
+    <string name="uncompress_archive_error">Arşiv açılamadı</string>
+    <string name="uncompress_archive">Arşivi aç</string>
 </resources>
