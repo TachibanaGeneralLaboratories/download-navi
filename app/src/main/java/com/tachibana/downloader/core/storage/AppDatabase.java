@@ -52,7 +52,7 @@ import io.reactivex.schedulers.Schedulers;
         Header.class,
         UserAgent.class,
         BrowserBookmark.class},
-        version = 5)
+        version = 6)
 @TypeConverters({UUIDConverter.class})
 public abstract class AppDatabase extends RoomDatabase
 {

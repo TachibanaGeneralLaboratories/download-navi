@@ -1,6 +1,6 @@
 /*
- * Copyright (C) 2019-2021 Tachibana General Laboratories, LLC
- * Copyright (C) 2019-2021 Yaroslav Pronin <proninyaroslav@mail.ru>
+ * Copyright (C) 2019-2022 Tachibana General Laboratories, LLC
+ * Copyright (C) 2019-2022 Yaroslav Pronin <proninyaroslav@mail.ru>
  *
  * This file is part of Download Navi.
  *
@@ -53,21 +53,35 @@ class DefaultFsModule implements FsModule
     @Override
     public Uri getFileUri(@NonNull Uri dir, @NonNull String fileName, boolean create) throws IOException
     {
-        File f = new File(dir.getPath(), fileName);
-        if (create)
+        var dirFile = new File(dir.getPath());
+        var f = new File(dirFile, fileName);
+        if (create) {
+            dirFile.mkdirs();
             f.createNewFile();
+        }
 
-        return (f.exists() ? Uri.fromFile(f) : null);
+        return f.exists() ? Uri.fromFile(f) : null;
     }
 
     @Override
-    public Uri getFileUri(@NonNull String relativePath, @NonNull Uri dir)
-    {
-        if (!relativePath.startsWith(File.separator))
+    public Uri getFileUri(@NonNull String relativePath, @NonNull Uri dir, boolean create) throws IOException {
+        if (!relativePath.startsWith(File.separator)) {
             relativePath = File.separator + relativePath;
-        File f = new File(dir.getPath() + relativePath);
+        }
+        var pos = relativePath.lastIndexOf(File.separator);
+        if (pos < 0 || pos + 1 > relativePath.length()) {
+            return null;
+        }
+        var fileName = relativePath.substring(pos + 1);
+        var dirPath = dir.getPath() + relativePath.substring(0, pos);
+        var d = new File(dirPath);
+        var f = new File(d, fileName);
+        if (create) {
+            d.mkdirs();
+            f.createNewFile();
+        }
 
-        return (f.exists() ? Uri.fromFile(f) : null);
+        return f.exists() ? Uri.fromFile(f) : null;
     }
 
     @Override
@@ -118,5 +132,10 @@ class DefaultFsModule implements FsModule
     @Override
     public String getDirPath(@NonNull Uri dir) {
         return dir.getPath();
+    }
+
+    @Override
+    public boolean mkdirs(@NonNull Uri dir, @NonNull String relativePath) {
+        return new File(dir.getPath(), relativePath).mkdirs();
     }
 }

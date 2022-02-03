@@ -196,6 +196,14 @@
                     android:checked="@={viewModel.params.replaceFile}" />
 
                 <CheckBox
+                    android:id="@+id/uncompress_archive"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/uncompress_archive"
+                    android:visibility="@{viewModel.enableUncompressArchive ? View.VISIBLE : View.GONE}"
+                    android:checked="@={viewModel.params.uncompressArchive}" />
+
+                <CheckBox
                     android:id="@+id/unmetered_connections_only"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"

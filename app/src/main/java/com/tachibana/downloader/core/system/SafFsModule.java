@@ -1,6 +1,6 @@
 /*
- * Copyright (C) 2019-2021 Tachibana General Laboratories, LLC
- * Copyright (C) 2019-2021 Yaroslav Pronin <proninyaroslav@mail.ru>
+ * Copyright (C) 2019-2022 Tachibana General Laboratories, LLC
+ * Copyright (C) 2019-2022 Yaroslav Pronin <proninyaroslav@mail.ru>
  *
  * This file is part of Download Navi.
  *
@@ -68,10 +68,10 @@ class SafFsModule implements FsModule
     }
 
     @Override
-    public Uri getFileUri(@NonNull String relativePath, @NonNull Uri dir)
+    public Uri getFileUri(@NonNull String relativePath, @NonNull Uri dir, boolean create)
     {
         return SafFileSystem.getInstance(appContext)
-                .getFileUri(new SafFileSystem.FakePath(dir, relativePath), false);
+                .getFileUri(new SafFileSystem.FakePath(dir, relativePath), create);
     }
 
     @Override
@@ -155,5 +155,11 @@ class SafFsModule implements FsModule
         } catch (Exception e) {
             throw new IOException(e);
         }
+    }
+
+    @Override
+    public boolean mkdirs(@NonNull Uri dir, @NonNull String relativePath) {
+        var fs = SafFileSystem.getInstance(appContext);
+        return fs.mkdirs(new SafFileSystem.FakePath(dir, relativePath));
     }
 }

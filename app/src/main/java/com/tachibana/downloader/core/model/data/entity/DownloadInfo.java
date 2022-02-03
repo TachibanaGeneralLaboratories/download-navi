@@ -1,6 +1,6 @@
 /*
- * Copyright (C) 2018, 2019 Tachibana General Laboratories, LLC
- * Copyright (C) 2018, 2019 Yaroslav Pronin <proninyaroslav@mail.ru>
+ * Copyright (C) 2018-2022 Tachibana General Laboratories, LLC
+ * Copyright (C) 2018-2022 Yaroslav Pronin <proninyaroslav@mail.ru>
  *
  * This file is part of Download Navi.
  *
@@ -111,6 +111,7 @@ public class DownloadInfo implements Parcelable, Comparable<DownloadInfo>
     public long lastModify;
     /* MD5, SHA-256 */
     public String checksum;
+    public boolean uncompressArchive = false;
 
     public DownloadInfo(@NonNull Uri dirPath,
                         @NonNull String url,
@@ -145,6 +146,7 @@ public class DownloadInfo implements Parcelable, Comparable<DownloadInfo>
         retryAfter = source.readInt();
         lastModify = source.readLong();
         checksum = source.readString();
+        uncompressArchive = source.readByte() > 0;
     }
 
     @Override
@@ -176,6 +178,7 @@ public class DownloadInfo implements Parcelable, Comparable<DownloadInfo>
         dest.writeInt(retryAfter);
         dest.writeLong(lastModify);
         dest.writeString(checksum);
+        dest.writeByte((byte)(uncompressArchive ? 1 : 0));
     }
 
     public static final Parcelable.Creator<DownloadInfo> CREATOR =
@@ -298,7 +301,8 @@ public class DownloadInfo implements Parcelable, Comparable<DownloadInfo>
                 numFailed == info.numFailed &&
                 retryAfter == info.retryAfter &&
                 lastModify == info.lastModify &&
-                (checksum == null || checksum.equals(info.checksum));
+                (checksum == null || checksum.equals(info.checksum)) &&
+                uncompressArchive == info.uncompressArchive;
     }
 
     @Override
@@ -326,6 +330,7 @@ public class DownloadInfo implements Parcelable, Comparable<DownloadInfo>
                 ", retryAfter=" + retryAfter +
                 ", lastModify=" + lastModify +
                 ", checksum=" + checksum +
+                ", uncompressArchive=" + uncompressArchive +
                 '}';
     }
 }

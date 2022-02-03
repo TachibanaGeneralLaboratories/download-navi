@@ -1,6 +1,6 @@
 /*
- * Copyright (C) 2018, 2019 Tachibana General Laboratories, LLC
- * Copyright (C) 2018, 2019 Yaroslav Pronin <proninyaroslav@mail.ru>
+ * Copyright (C) 2018-2022 Tachibana General Laboratories, LLC
+ * Copyright (C) 2018-2022 Yaroslav Pronin <proninyaroslav@mail.ru>
  *
  * This file is part of Download Navi.
  *
@@ -101,6 +101,12 @@ public class AddDownloadActivity extends AppCompatActivity
             params.numPieces = localPref.getInt(
                     getString(R.string.add_download_num_pieces),
                     DownloadInfo.MIN_PIECES
+            );
+        }
+        if (params.uncompressArchive == null) {
+            params.uncompressArchive = localPref.getBoolean(
+                    getString(R.string.add_download_uncompress_archive_flag),
+                    false
             );
         }
     }

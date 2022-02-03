@@ -1,7 +1,7 @@
 /*
- * Copyright (C) 2018, 2019 Tachibana General Laboratories, LLC
- * Copyright (C) 2018, 2019 Yaroslav Pronin <proninyaroslav@mail.ru>
- * Copyright (C) 2020, 8176135 <elsecaller@8176135.xyz>
+ * Copyright (C) 2018-2022 Tachibana General Laboratories, LLC
+ * Copyright (C) 2018-2022 Yaroslav Pronin <proninyaroslav@mail.ru>
+ * Copyright (C) 2020 8176135 <elsecaller@8176135.xyz>
  *
  * This file is part of Download Navi.
  *
@@ -50,6 +50,7 @@ public class AddDownloadParams extends BaseObservable
     private boolean retry;
     private boolean replaceFile;
     private String checksum;
+    private boolean uncompressArchive;
 
     @Bindable
     public String getUrl()
@@ -247,9 +248,18 @@ public class AddDownloadParams extends BaseObservable
         notifyPropertyChanged(BR.checksum);
     }
 
+    @Bindable
+    public boolean isUncompressArchive() {
+        return uncompressArchive;
+    }
+
+    public void setUncompressArchive(boolean uncompressArchive) {
+        this.uncompressArchive = uncompressArchive;
+        notifyPropertyChanged(BR.uncompressArchive);
+    }
+
     @Override
-    public String toString()
-    {
+    public String toString() {
         return "AddDownloadParams{" +
                 "url='" + url + '\'' +
                 ", dirPath=" + dirPath +
@@ -259,6 +269,7 @@ public class AddDownloadParams extends BaseObservable
                 ", description='" + description + '\'' +
                 ", mimeType='" + mimeType + '\'' +
                 ", etag='" + etag + '\'' +
+                ", referer='" + referer + '\'' +
                 ", userAgent='" + userAgent + '\'' +
                 ", numPieces=" + numPieces +
                 ", totalBytes=" + totalBytes +
@@ -267,6 +278,7 @@ public class AddDownloadParams extends BaseObservable
                 ", retry=" + retry +
                 ", replaceFile=" + replaceFile +
                 ", checksum='" + checksum + '\'' +
+                ", uncompressArchive=" + uncompressArchive +
                 '}';
     }
 }

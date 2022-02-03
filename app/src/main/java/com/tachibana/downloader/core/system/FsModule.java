@@ -1,6 +1,6 @@
 /*
- * Copyright (C) 2019-2021 Tachibana General Laboratories, LLC
- * Copyright (C) 2019-2021 Yaroslav Pronin <proninyaroslav@mail.ru>
+ * Copyright (C) 2019-2022 Tachibana General Laboratories, LLC
+ * Copyright (C) 2019-2022 Yaroslav Pronin <proninyaroslav@mail.ru>
  *
  * This file is part of Download Navi.
  *
@@ -53,7 +53,7 @@ interface FsModule
      * from the pointed directory
      */
 
-    Uri getFileUri(@NonNull String relativePath, @NonNull Uri dir);
+    Uri getFileUri(@NonNull String relativePath, @NonNull Uri dir, boolean create) throws IOException;
 
     boolean delete(@NonNull Uri filePath) throws FileNotFoundException;
 
@@ -77,4 +77,6 @@ interface FsModule
      */
 
     String getDirPath(@NonNull Uri dir);
+
+    boolean mkdirs(@NonNull Uri dir, @NonNull String relativePath);
 }

@@ -19,6 +19,7 @@
     <string name="add_download_replace_file_flag" translatable="false">add_download_replace_file_flag</string>
     <string name="add_download_unmetered_only_flag" translatable="false">add_download_unmetered_only_flag</string>
     <string name="add_download_num_pieces" translatable="false">add_download_num_pieces</string>
+    <string name="add_download_uncompress_archive_flag" translatable="false">add_download_uncompress_archive_flag</string>
 
     <!-- Appearance settings -->
     <string name="pref_key_theme" translatable="false">pref_key_theme</string>

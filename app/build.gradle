@@ -105,4 +105,7 @@ dependencies {
     implementation 'com.github.anthonynsimon:jurl:v0.4.2'
     implementation 'net.yslibrary.keyboardvisibilityevent:keyboardvisibilityevent:3.0.0-RC3'
     implementation 'com.github.albfernandez:juniversalchardet:2.4.0'
+    implementation 'org.apache.commons:commons-compress:1.21'
+    implementation 'org.tukaani:xz:1.9'
+    implementation 'com.github.junrar:junrar:7.4.1'
 }

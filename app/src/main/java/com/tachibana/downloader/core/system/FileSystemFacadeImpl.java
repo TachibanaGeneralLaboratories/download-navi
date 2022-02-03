@@ -20,6 +20,7 @@
 
 package com.tachibana.downloader.core.system;
 
+import android.content.Context;
 import android.net.Uri;
 import android.os.Environment;
 import android.text.TextUtils;
@@ -30,6 +31,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
 import com.tachibana.downloader.core.exception.FileAlreadyExistsException;
+import com.tachibana.downloader.core.utils.MimeTypeUtils;
 
 import java.io.Closeable;
 import java.io.File;
@@ -38,8 +40,11 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
 import java.nio.channels.FileChannel;
 import java.nio.charset.StandardCharsets;
+import java.util.UUID;
 
 class FileSystemFacadeImpl implements FileSystemFacade
 {
@@ -49,15 +54,20 @@ class FileSystemFacadeImpl implements FileSystemFacade
     private static final String EXTENSION_SEPARATOR = ".";
     /* The file copy buffer size (30 MB) */
     private static final long FILE_COPY_BUFFER_SIZE = 1024 * 1024 * 30;
+    private static final int COPY_BUF_SIZE = 8024;
 
     private final SysCall sysCall;
     private final FsModuleResolver fsResolver;
+    private Context appContext;
 
-    public FileSystemFacadeImpl(@NonNull SysCall sysCall,
-                                @NonNull FsModuleResolver fsResolver)
-    {
+    public FileSystemFacadeImpl(
+            @NonNull SysCall sysCall,
+            @NonNull FsModuleResolver fsResolver,
+            @NonNull Context appContext
+    ) {
         this.sysCall = sysCall;
         this.fsResolver = fsResolver;
+        this.appContext = appContext;
     }
 
     /*
@@ -212,7 +222,7 @@ class FileSystemFacadeImpl implements FileSystemFacade
                 long count;
                 while (pos < size) {
                     long remain = size - pos;
-                    count = (remain > FILE_COPY_BUFFER_SIZE ? FILE_COPY_BUFFER_SIZE : remain);
+                    count = Math.min(remain, FILE_COPY_BUFFER_SIZE);
                     long bytesCopied = output.transferFrom(input, pos, count);
                     if (bytesCopied == 0)
                         break;
@@ -333,12 +343,17 @@ class FileSystemFacadeImpl implements FileSystemFacade
      */
 
     @Override
-    public Uri getFileUri(@NonNull String relativePath,
-                          @NonNull Uri dir)
-    {
-        FsModule fsModule = fsResolver.resolveFsByUri(dir);
+    public Uri getFileUri(@NonNull String relativePath, @NonNull Uri dir) {
+        var fsModule = fsResolver.resolveFsByUri(dir);
+        Uri path = null;
+        try {
+            path = fsModule.getFileUri(relativePath, dir, false);
 
-        return fsModule.getFileUri(relativePath, dir);
+        } catch (IOException e) {
+            Log.e(TAG, Log.getStackTraceString(e));
+        }
+
+        return path;
     }
 
     /*
@@ -362,6 +377,35 @@ class FileSystemFacadeImpl implements FileSystemFacade
             }
 
             return fsModule.getFileUri(dir, fileName, true);
+
+        } catch (SecurityException e) {
+            throw new IOException(e);
+        }
+    }
+
+    /*
+     * Returns Uri of created file.
+     * Note: if replace == false, doesn't replace file if it exists and returns its Uri.
+     */
+
+    @Override
+    public Uri createFile(
+            @NonNull String relativePath,
+            @NonNull Uri dir,
+            boolean replace
+    ) throws IOException {
+        var fsModule = fsResolver.resolveFsByUri(dir);
+        try {
+            var path = fsModule.getFileUri(relativePath, dir, false);
+            if (path != null) {
+                if (!replace) {
+                    return path;
+                } else if (!fsModule.delete(path)) {
+                    return null;
+                }
+            }
+
+            return fsModule.getFileUri(relativePath, dir, true);
 
         } catch (SecurityException e) {
             throw new IOException(e);
@@ -404,6 +448,30 @@ class FileSystemFacadeImpl implements FileSystemFacade
             return "";
         else
             return fileName.substring(index + 1);
+    }
+
+    public String getNameWithoutExtension(String fileName) {
+        if (fileName == null) {
+            return null;
+        }
+        String name = fileName;
+        String extension;
+        do {
+            extension = getExtension(name);
+            var mimeType = MimeTypeUtils.getMimeTypeFromExtension(extension);
+            if (mimeType == null) {
+                break;
+            } else {
+                var extensionPos = name.lastIndexOf(extension) - 1;
+                if (extensionPos < 0 || extensionPos + 1 > name.length()) {
+                    break;
+                } else {
+                    name = name.substring(0, extensionPos);
+                }
+            }
+        } while (!TextUtils.isEmpty(extension));
+
+        return name;
     }
 
     /*
@@ -527,5 +595,44 @@ class FileSystemFacadeImpl implements FileSystemFacade
         FsModule fsModule = fsResolver.resolveFsByUri(filePath);
 
         return fsModule.exists(filePath);
+    }
+
+    @Override
+    public boolean mkdirs(@NonNull Uri dir, @NonNull String relativePath) {
+        var fsModule = fsResolver.resolveFsByUri(dir);
+
+        return fsModule.mkdirs(dir, relativePath);
+    }
+
+    @Override
+    public File createTmpFile(String suffix) throws IOException {
+        return File.createTempFile(UUID.randomUUID().toString(), suffix, appContext.getCacheDir());
+    }
+
+    /*
+     * Copies the content of a InputStream into an OutputStream.
+     * Uses a default buffer size of 8024 bytes.
+     */
+    @Override
+    public long copy(final InputStream input, final OutputStream output) throws IOException {
+        return copy(input, output, COPY_BUF_SIZE);
+    }
+
+    /*
+     * Copies the content of a InputStream into an OutputStream
+     */
+    @Override
+    public long copy(final InputStream input, final OutputStream output, final int buffersize) throws IOException {
+        if (buffersize < 1) {
+            throw new IllegalArgumentException("Buffer size must be bigger than 0");
+        }
+        var buffer = new byte[buffersize];
+        int n;
+        long count = 0;
+        while ((n = input.read(buffer)) != -1) {
+            output.write(buffer, 0, n);
+            count += n;
+        }
+        return count;
     }
 }

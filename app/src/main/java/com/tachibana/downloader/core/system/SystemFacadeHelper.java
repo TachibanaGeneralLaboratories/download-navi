@@ -1,6 +1,6 @@
 /*
- * Copyright (C) 2019 Tachibana General Laboratories, LLC
- * Copyright (C) 2019 Yaroslav Pronin <proninyaroslav@mail.ru>ru>
+ * Copyright (C) 2019-2022 Tachibana General Laboratories, LLC
+ * Copyright (C) 2019-2022 Yaroslav Pronin <proninyaroslav@mail.ru>ru>
  *
  * This file is part of Download Navi.
  *
@@ -41,7 +41,7 @@ public class SystemFacadeHelper
     {
         if (fileSystemFacade == null)
             fileSystemFacade = new FileSystemFacadeImpl(new SysCallImpl(),
-                    new FsModuleResolverImpl(appContext));
+                    new FsModuleResolverImpl(appContext), appContext);
 
         return fileSystemFacade;
     }

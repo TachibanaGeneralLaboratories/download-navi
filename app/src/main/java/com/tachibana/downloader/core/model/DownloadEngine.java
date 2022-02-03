@@ -23,6 +23,7 @@ package com.tachibana.downloader.core.model;
 import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
+import android.os.Build;
 import android.text.TextUtils;
 import android.util.Log;
 
@@ -32,6 +33,9 @@ import androidx.work.OneTimeWorkRequest;
 import androidx.work.WorkManager;
 
 import com.tachibana.downloader.R;
+import com.tachibana.downloader.core.DownloadNotifier;
+import com.tachibana.downloader.core.archive.ArchiveExtractor;
+import com.tachibana.downloader.core.exception.UnknownArchiveFormatException;
 import com.tachibana.downloader.core.RepositoryHelper;
 import com.tachibana.downloader.core.exception.FileAlreadyExistsException;
 import com.tachibana.downloader.core.model.data.DownloadResult;
@@ -44,6 +48,7 @@ import com.tachibana.downloader.core.system.FileSystemFacade;
 import com.tachibana.downloader.core.system.SystemFacade;
 import com.tachibana.downloader.core.system.SystemFacadeHelper;
 import com.tachibana.downloader.core.utils.DigestUtils;
+import com.tachibana.downloader.core.utils.MimeTypeUtils;
 import com.tachibana.downloader.core.utils.Utils;
 import com.tachibana.downloader.receiver.ConnectionReceiver;
 import com.tachibana.downloader.receiver.PowerReceiver;
@@ -52,6 +57,7 @@ import com.tachibana.downloader.service.DownloadService;
 
 import java.io.FileDescriptor;
 import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.net.HttpURLConnection;
 import java.util.HashMap;
@@ -62,6 +68,7 @@ import java.util.concurrent.ConcurrentLinkedQueue;
 import io.reactivex.Observable;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.CompositeDisposable;
+import io.reactivex.functions.Consumer;
 import io.reactivex.schedulers.Schedulers;
 
 public class DownloadEngine {
@@ -77,6 +84,7 @@ public class DownloadEngine {
     private final ConcurrentLinkedQueue<DownloadEngineListener> listeners = new ConcurrentLinkedQueue<>();
     private final HashMap<UUID, ChangeableParams> duringChange = new HashMap<>();
     private final DownloadQueue queue = new DownloadQueue();
+    private DownloadNotifier notifier;
 
     private final PowerReceiver powerReceiver = new PowerReceiver();
     private final ConnectionReceiver connectionReceiver = new ConnectionReceiver();
@@ -99,6 +107,7 @@ public class DownloadEngine {
         repo = RepositoryHelper.getDataRepository(appContext);
         pref = RepositoryHelper.getSettingsRepository(appContext);
         fs = SystemFacadeHelper.getFileSystemFacade(appContext);
+        notifier = DownloadNotifier.getInstance(appContext);
 
         switchConnectionReceiver();
         switchPowerReceiver();
@@ -242,13 +251,13 @@ public class DownloadEngine {
         appContext.startService(i);
     }
 
-    private void verifyChecksum(@NonNull UUID id) {
+    private boolean verifyChecksum(@NonNull UUID id) {
         DownloadInfo info;
         try {
             info = repo.getInfoById(id);
         } catch (Exception e) {
             Log.e(TAG, "Getting info " + id + " error: " + Log.getStackTraceString(e));
-            return;
+            return false;
         }
         if (doVerifyChecksum(info)) {
             info.statusCode = StatusCode.STATUS_SUCCESS;
@@ -258,6 +267,7 @@ public class DownloadEngine {
             info.statusMsg = appContext.getString(R.string.error_verify_checksum);
         }
         repo.updateInfo(info, false, false);
+        return info.statusCode == StatusCode.STATUS_SUCCESS;
     }
 
     private boolean doVerifyChecksum(DownloadInfo info) {
@@ -319,12 +329,8 @@ public class DownloadEngine {
                 .filter((result) -> result != null)
                 .doOnNext(this::onBeforeDownloadCompleted)
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(this::onDownloadCompleted,
-                        (Throwable t) -> {
-                            Log.e(TAG, Log.getStackTraceString(t));
-                            if (checkNoDownloads())
-                                notifyListeners(DownloadEngineListener::onDownloadsCompleted);
-                        }
+                .subscribe((result) -> onDownloadCompleted(result.infoId),
+                        (Throwable t) -> handleDownloadError(id, t)
                 )
         );
     }
@@ -403,6 +409,9 @@ public class DownloadEngine {
                                     Log.getStackTraceString(t));
                             duringChange.remove(id);
                             notifyListeners((listener) -> listener.onParamsApplied(id, null, t));
+                            if (checkNoDownloads()) {
+                                notifyListeners(DownloadEngineListener::onDownloadsCompleted);
+                            }
                         }
                 )
         );
@@ -477,27 +486,56 @@ public class DownloadEngine {
         return activeDownloads.isEmpty();
     }
 
-    private void onBeforeDownloadCompleted(DownloadResult result) throws IOException, FileAlreadyExistsException {
+    private void onBeforeDownloadCompleted(DownloadResult result) throws MoveException, UncompressArchiveException {
         if (result.status == DownloadResult.Status.FINISHED) {
             onFinished(result.infoId);
         }
     }
 
-    private void onDownloadCompleted(DownloadResult result) {
-        activeDownloads.remove(result.infoId);
+    private void onDownloadCompleted(UUID infoId) {
+        activeDownloads.remove(infoId);
         scheduleWaitingDownload();
 
-        var id = result.infoId;
-        var params = duringChange.get(id);
+        var params = duringChange.get(infoId);
         if (params == null) {
-            if (checkNoDownloads())
+            if (checkNoDownloads()) {
                 notifyListeners(DownloadEngineListener::onDownloadsCompleted);
+            }
         } else {
-            applyParams(id, params, true);
+            applyParams(infoId, params, true);
         }
     }
 
-    private void onFinished(UUID id) throws IOException, FileAlreadyExistsException {
+    private void handleDownloadError(UUID id, Throwable t) {
+        Log.e(TAG, "An error occurred while downloading", t);
+
+        onDownloadCompleted(id);
+
+        if (t instanceof MoveFileAlreadyExistsException) {
+            getInfoByIdSingle(id, (info) ->
+                    notifier.makeMoveErrorAlreadyExistsNotify(id, info.fileName));
+        } else if (t instanceof MoveException) {
+            getInfoByIdSingle(id, (info) -> notifier.makeMoveErrorNotify(id, info.fileName));
+        } else if (t instanceof UncompressArchiveFormatException) {
+            getInfoByIdSingle(id, (info) ->
+                    notifier.makeUncompressArchiveUnknownTypeNotify(id, info.fileName));
+        }  else if (t instanceof UncompressArchiveException) {
+            getInfoByIdSingle(id, (info) ->
+                    notifier.makeUncompressArchiveErrorNotify(id, info.fileName));
+        }
+    }
+
+    private void getInfoByIdSingle(UUID id, Consumer<DownloadInfo> onSuccess) {
+        disposables.add(repo.getInfoByIdSingle(id)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .filter((info) -> info != null)
+                .subscribe(onSuccess,
+                        (Throwable t) -> Log.e(TAG, "Getting info " + id + " error", t))
+        );
+    }
+
+    private void onFinished(UUID id) throws MoveException, UncompressArchiveException {
         DownloadInfo info;
         try {
             info = repo.getInfoById(id);
@@ -507,10 +545,14 @@ public class DownloadEngine {
         }
         switch (info.statusCode) {
             case StatusCode.STATUS_SUCCESS:
+                var verified = true;
                 if (!TextUtils.isEmpty(info.checksum)) {
-                    verifyChecksum(id);
+                    verified = verifyChecksum(id);
                 }
-                checkMoveAfterDownload(info);
+                if (verified) {
+                    checkMoveAfterDownload(info);
+                    checkUncompressArchive(info);
+                }
                 break;
             case StatusCode.STATUS_WAITING_TO_RETRY:
             case StatusCode.STATUS_WAITING_FOR_NETWORK:
@@ -525,7 +567,7 @@ public class DownloadEngine {
         }
     }
 
-    private void checkMoveAfterDownload(DownloadInfo info) throws IOException, FileAlreadyExistsException {
+    private void checkMoveAfterDownload(DownloadInfo info) throws MoveException {
         if (!pref.moveAfterDownload()) {
             return;
         }
@@ -533,9 +575,47 @@ public class DownloadEngine {
         if (movePath == null) {
             return;
         }
-        fs.moveFile(info.dirPath, info.fileName, movePath, info.fileName, true);
+        try {
+            fs.moveFile(info.dirPath, info.fileName, movePath, info.fileName, true);
+        } catch (IOException e) {
+            throw new MoveException(e);
+        } catch (FileAlreadyExistsException e) {
+            throw new MoveFileAlreadyExistsException(e);
+        }
         info.dirPath = movePath;
         repo.updateInfo(info, true, false);
+    }
+
+    private void checkUncompressArchive(DownloadInfo info) throws UncompressArchiveException {
+        if (!info.uncompressArchive || Build.VERSION.SDK_INT < Build.VERSION_CODES.O) {
+            return;
+        }
+        var fileCategory = MimeTypeUtils.getCategory(info.mimeType);
+        var isPossiblyArchive = fileCategory == MimeTypeUtils.Category.ARCHIVE
+                || "application/octet-stream".equals(info.mimeType);
+        if (!isPossiblyArchive) {
+            return;
+        }
+        var path = fs.getFileUri(info.dirPath, info.fileName);
+        if (path == null) {
+            return;
+        }
+        try (var w = fs.getFD(path)) {
+            var inFd = w.open("r");
+            try (var is = new FileInputStream(inFd)) {
+                new ArchiveExtractor(fs, is, info.fileName, info.mimeType)
+                        .uncompress(info.dirPath, true);
+            } catch (UnknownArchiveFormatException e) {
+                throw new UncompressArchiveFormatException(e);
+            }
+            try {
+                fs.deleteFile(path);
+            } catch (FileNotFoundException e) {
+                Log.e(TAG, "Unable to delete archive file", e);
+            }
+        } catch (IOException e) {
+            throw new UncompressArchiveException(e);
+        }
     }
 
     private boolean isMaxActiveDownloads() {
@@ -633,5 +713,29 @@ public class DownloadEngine {
             stop |= Utils.isBatteryLow(appContext);
 
         return stop;
+    }
+}
+
+class UncompressArchiveException extends Exception {
+    UncompressArchiveException(Throwable cause) {
+        super(cause);
+    }
+}
+
+class UncompressArchiveFormatException extends UncompressArchiveException {
+    UncompressArchiveFormatException(Throwable cause) {
+        super(cause);
+    }
+}
+
+class MoveException extends Exception {
+    MoveException(Throwable cause) {
+        super(cause);
+    }
+}
+
+class MoveFileAlreadyExistsException extends MoveException {
+    MoveFileAlreadyExistsException(Throwable cause) {
+        super(cause);
     }
 }

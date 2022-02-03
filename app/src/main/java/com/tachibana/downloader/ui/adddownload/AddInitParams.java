@@ -1,6 +1,6 @@
 /*
- * Copyright (C) 2019, 2020 Tachibana General Laboratories, LLC
- * Copyright (C) 2019, 2020 Yaroslav Pronin <proninyaroslav@mail.ru>
+ * Copyright (C) 2019-2022 Tachibana General Laboratories, LLC
+ * Copyright (C) 2019-2022 Yaroslav Pronin <proninyaroslav@mail.ru>
  *
  * This file is part of Download Navi.
  *
@@ -44,6 +44,8 @@ public class AddInitParams implements Parcelable
     public Boolean replaceFile;
     @Nullable
     public Integer numPieces;
+    @Nullable
+    public Boolean uncompressArchive;
 
     public AddInitParams() {}
 
@@ -69,6 +71,10 @@ public class AddInitParams implements Parcelable
         int numPiecesVal = source.readInt();
         if (numPiecesVal != -1) {
             numPieces = numPiecesVal;
+        }
+        int uncompressArchiveVal = source.readInt();
+        if (uncompressArchiveVal != -1) {
+            uncompressArchive = uncompressArchiveVal > 0;
         }
     }
 
@@ -106,6 +112,11 @@ public class AddInitParams implements Parcelable
         } else {
             dest.writeInt(numPieces);
         }
+        if (uncompressArchive == null) {
+            dest.writeByte((byte)-1);
+        } else {
+            dest.writeByte((byte)(uncompressArchive ? 1 : 0));
+        }
     }
 
     public static final Parcelable.Creator<AddInitParams> CREATOR =
@@ -125,8 +136,7 @@ public class AddInitParams implements Parcelable
             };
 
     @Override
-    public String toString()
-    {
+    public String toString() {
         return "AddInitParams{" +
                 "url='" + url + '\'' +
                 ", fileName='" + fileName + '\'' +
@@ -137,6 +147,7 @@ public class AddInitParams implements Parcelable
                 ", retry=" + retry +
                 ", replaceFile=" + replaceFile +
                 ", numPieces=" + numPieces +
+                ", uncompressArchive=" + uncompressArchive +
                 '}';
     }
 }

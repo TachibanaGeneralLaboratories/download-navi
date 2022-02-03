@@ -20,6 +20,7 @@
 
 package com.tachibana.downloader.core;
 
+import android.app.Notification;
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
@@ -77,6 +78,9 @@ public class DownloadNotifier
 {
     @SuppressWarnings("unused")
     private static final String TAG = DownloadNotifier.class.getSimpleName();
+
+    private static final String MOVE_ERROR_TAG = "move_error";
+    private static final String UNCOMPRESS_ARCHIVE_ERROR_TAG = "uncompress_archive_error";
 
     public static final String DEFAULT_NOTIFY_CHAN_ID = "com.tachibana.downloader.DEFAULT_NOTIFY_CHAN";
     public static final String FOREGROUND_NOTIFY_CHAN_ID = "com.tachibana.downloader.FOREGROUND_NOTIFY_CHAN";
@@ -180,6 +184,78 @@ public class DownloadNotifier
     public void stopUpdate()
     {
         disposables.clear();
+    }
+
+    public void makeMoveErrorNotify(@NonNull UUID id, @NonNull String fileName) {
+        NotificationCompat.Builder builder = new NotificationCompat.Builder(appContext,
+                DEFAULT_NOTIFY_CHAN_ID)
+                .setSmallIcon(R.drawable.ic_error_white_24dp)
+                .setColor(ContextCompat.getColor(appContext, R.color.primary))
+                .setContentTitle(fileName)
+                .setTicker(appContext.getString(R.string.error))
+                .setContentText(appContext.getString(R.string.move_file_error))
+                .setAutoCancel(true)
+                .setWhen(System.currentTimeMillis());
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            builder.setCategory(android.app.Notification.CATEGORY_ERROR);
+        }
+
+        notifyManager.notify(MOVE_ERROR_TAG, id.hashCode(), builder.build());
+    }
+
+    public void makeMoveErrorAlreadyExistsNotify(@NonNull UUID id, @NonNull String fileName) {
+        NotificationCompat.Builder builder = new NotificationCompat.Builder(appContext,
+                DEFAULT_NOTIFY_CHAN_ID)
+                .setSmallIcon(R.drawable.ic_error_white_24dp)
+                .setColor(ContextCompat.getColor(appContext, R.color.primary))
+                .setContentTitle(fileName)
+                .setTicker(appContext.getString(R.string.error))
+                .setContentText(appContext.getString(R.string.move_file_error_already_exists))
+                .setAutoCancel(true)
+                .setWhen(System.currentTimeMillis());
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            builder.setCategory(android.app.Notification.CATEGORY_ERROR);
+        }
+
+        notifyManager.notify(MOVE_ERROR_TAG, id.hashCode(), builder.build());
+    }
+
+    public void makeUncompressArchiveErrorNotify(@NonNull UUID id, @NonNull String fileName) {
+        NotificationCompat.Builder builder = new NotificationCompat.Builder(appContext,
+                DEFAULT_NOTIFY_CHAN_ID)
+                .setSmallIcon(R.drawable.ic_error_white_24dp)
+                .setColor(ContextCompat.getColor(appContext, R.color.primary))
+                .setContentTitle(fileName)
+                .setTicker(appContext.getString(R.string.error))
+                .setContentText(appContext.getString(R.string.uncompress_archive_error))
+                .setAutoCancel(true)
+                .setWhen(System.currentTimeMillis());
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            builder.setCategory(android.app.Notification.CATEGORY_ERROR);
+        }
+
+        notifyManager.notify(UNCOMPRESS_ARCHIVE_ERROR_TAG, id.hashCode(), builder.build());
+    }
+
+    public void makeUncompressArchiveUnknownTypeNotify(@NonNull UUID id, @NonNull String fileName) {
+        NotificationCompat.Builder builder = new NotificationCompat.Builder(appContext,
+                DEFAULT_NOTIFY_CHAN_ID)
+                .setSmallIcon(R.drawable.ic_error_white_24dp)
+                .setColor(ContextCompat.getColor(appContext, R.color.primary))
+                .setContentTitle(fileName)
+                .setTicker(appContext.getString(R.string.error))
+                .setContentText(appContext.getString(R.string.uncompress_archive_error_unknown_type))
+                .setAutoCancel(true)
+                .setWhen(System.currentTimeMillis());
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            builder.setCategory(android.app.Notification.CATEGORY_ERROR);
+        }
+
+        notifyManager.notify(UNCOMPRESS_ARCHIVE_ERROR_TAG, id.hashCode(), builder.build());
     }
 
     private void update(@NonNull List<InfoAndPieces> infoAndPiecesList)

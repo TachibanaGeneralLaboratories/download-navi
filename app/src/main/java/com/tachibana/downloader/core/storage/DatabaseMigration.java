@@ -33,6 +33,7 @@ class DatabaseMigration
                 MIGRATION_2_3,
                 MIGRATION_3_4,
                 MIGRATION_4_5,
+                MIGRATION_5_6,
         };
     }
 
@@ -77,6 +78,13 @@ class DatabaseMigration
         public void migrate(@NonNull SupportSQLiteDatabase database)
         {
             database.execSQL("CREATE TABLE IF NOT EXISTS `BrowserBookmark` (`url` TEXT NOT NULL, `name` TEXT NOT NULL, `dateAdded` INTEGER NOT NULL, PRIMARY KEY(`url`))");
+        }
+    };
+
+    static final Migration MIGRATION_5_6 = new Migration(5, 6) {
+        @Override
+        public void migrate(@NonNull SupportSQLiteDatabase database) {
+            database.execSQL("ALTER TABLE `DownloadInfo` ADD COLUMN `uncompressArchive` INTEGER NOT NULL DEFAULT 0");
         }
     };
 }

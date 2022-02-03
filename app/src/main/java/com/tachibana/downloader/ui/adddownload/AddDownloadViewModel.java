@@ -1,6 +1,6 @@
 /*
- * Copyright (C) 2019 Tachibana General Laboratories, LLC
- * Copyright (C) 2019, 2021 Yaroslav Pronin <proninyaroslav@mail.ru>
+ * Copyright (C) 2019-2022 Tachibana General Laboratories, LLC
+ * Copyright (C) 2019-2022 Yaroslav Pronin <proninyaroslav@mail.ru>
  * Copyright (C) 2020 8176135 <elsecaller@8176135.xyz>
  *
  * This file is part of Download Navi.
@@ -26,6 +26,7 @@ import android.content.Intent;
 import android.net.NetworkInfo;
 import android.net.Uri;
 import android.os.AsyncTask;
+import android.os.Build;
 import android.text.TextUtils;
 import android.util.Log;
 
@@ -88,6 +89,7 @@ public class AddDownloadViewModel extends AndroidViewModel
     public SystemFacade systemFacade;
     public FileSystemFacade fs;
     private final CompositeDisposable disposables = new CompositeDisposable();
+    public ObservableBoolean enableUncompressArchive = new ObservableBoolean();
 
     public enum Status
     {
@@ -123,6 +125,7 @@ public class AddDownloadViewModel extends AndroidViewModel
         fs = SystemFacadeHelper.getFileSystemFacade(application);
         engine = DownloadEngine.getInstance(application);
         fetchState.setValue(new FetchState(Status.UNKNOWN));
+        enableUncompressArchive.set(Build.VERSION.SDK_INT >= Build.VERSION_CODES.O);
         params.addOnPropertyChangedCallback(paramsCallback);
     }
 
@@ -170,6 +173,9 @@ public class AddDownloadViewModel extends AndroidViewModel
                 initParams.numPieces == null ?
                         DownloadInfo.MIN_PIECES :
                         initParams.numPieces
+        );
+        params.setUncompressArchive(
+                initParams.uncompressArchive != null && initParams.uncompressArchive
         );
     }
 
@@ -504,6 +510,7 @@ public class AddDownloadViewModel extends AndroidViewModel
                 DownloadInfo.MIN_PIECES));
         info.retry = params.isRetry();
         info.userAgent = params.getUserAgent();
+        info.uncompressArchive = params.isUncompressArchive();
 
         String checksum = params.getChecksum();
         if (isChecksumValid(checksum))

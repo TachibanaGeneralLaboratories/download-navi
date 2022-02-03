@@ -1,6 +1,6 @@
 /*
- * Copyright (C) 2018-2021 Tachibana General Laboratories, LLC
- * Copyright (C) 2018-2021 Yaroslav Pronin <proninyaroslav@mail.ru>
+ * Copyright (C) 2018-2022 Tachibana General Laboratories, LLC
+ * Copyright (C) 2018-2022 Yaroslav Pronin <proninyaroslav@mail.ru>
  *
  * This file is part of Download Navi.
  *
@@ -28,10 +28,13 @@ import androidx.annotation.Nullable;
 import com.tachibana.downloader.core.exception.FileAlreadyExistsException;
 
 import java.io.Closeable;
+import java.io.File;
 import java.io.FileDescriptor;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
 
 public interface FileSystemFacade
 {
@@ -78,9 +81,15 @@ public interface FileSystemFacade
                    @NonNull String fileName,
                    boolean replace) throws IOException;
 
+    Uri createFile(@NonNull String relativePath,
+                   @NonNull Uri dir,
+                   boolean replace) throws IOException;
+
     long getDirAvailableBytes(@NonNull Uri dir);
 
     String getExtension(String fileName);
+
+    String getNameWithoutExtension(String fileName);
 
     boolean isValidFatFilename(String name);
 
@@ -97,4 +106,19 @@ public interface FileSystemFacade
     String getDirPath(@NonNull Uri dir);
 
     boolean exists(@NonNull Uri filePath);
+
+    boolean mkdirs(@NonNull Uri dir, @NonNull String relativePath);
+
+    File createTmpFile(String suffix) throws IOException;
+
+    /*
+     * Copies the content of a InputStream into an OutputStream.
+     * Uses a default buffer size of 8024 bytes.
+     */
+    long copy(final InputStream input, final OutputStream output) throws IOException;
+
+    /*
+     * Copies the content of a InputStream into an OutputStream
+     */
+    long copy(final InputStream input, final OutputStream output, final int buffersize) throws IOException;
 }

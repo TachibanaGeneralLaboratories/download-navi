@@ -71,6 +71,10 @@
     <string name="waiting_for_retry">Waiting for retry</string>
     <!-- Error notification -->
     <string name="download_error_notify_title">Download error</string>
+    <string name="move_file_error">Unable to move the file</string>
+    <string name="move_file_error_already_exists">Unable to move the file: already exists</string>
+    <string name="uncompress_archive_error">Unable to uncompress the archive</string>
+    <string name="uncompress_archive_error_unknown_type">Unable to uncompress the archive: unknown type or corrupted file</string>
     <!-- Applying params notification -->
     <string name="applying_params_title">Applying params</string>
     <string name="applying_params_for_downloads">Applying params for downloads</string>
@@ -105,6 +109,7 @@
     <string name="add_dialog_checksum_description">MD5, SHA-256</string>
     <string name="referer_description">%1$s header</string>
     <string name="error_invalid_checksum">Invalid checksum</string>
+    <string name="uncompress_archive">Uncompress archive</string>
     <!-- Add user agent dialog -->
     <string name="dialog_add_user_agent_title">Add user agent</string>
     <!-- Main activity -->

@@ -305,6 +305,12 @@ public class AddDownloadDialog extends DialogFragment {
                                     viewModel.params.getNumPieces())
                             .apply();
                     break;
+                case BR.uncompressArchive:
+                    localPref.edit()
+                            .putBoolean(getString(R.string.add_download_uncompress_archive_flag),
+                                    viewModel.params.isUncompressArchive())
+                            .apply();
+                    break;
             }
         }
     };
