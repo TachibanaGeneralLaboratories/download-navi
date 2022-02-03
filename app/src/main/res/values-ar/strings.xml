@@ -329,4 +329,9 @@ href="http://www.gnu.org/copyleft/gpl.html">
 جنو العمومية الإصدارv3 (GPLv3)</a><br><br>
    <a href="https://github.com/TachibanaGeneralLaboratories/download-navi/blob/HEAD/PRIVACY.md">سياسة الخصوصية</a>]]></string>
     <string name="about_changelog">سِجل التغييرات</string>
+    <string name="move_file_error">لا يمكن نقل الملف</string>
+    <string name="uncompress_archive_error_unknown_type">غير قادر على إلغاء ضغط الأرشيف: نوع غير معروف أو ملف تالف</string>
+    <string name="uncompress_archive_error">تعذر فك ضغط الأرشيف</string>
+    <string name="move_file_error_already_exists">غير قادر على نقل الملف: موجود مسبقا</string>
+    <string name="uncompress_archive">فك ضغط الأرشيف</string>
 </resources>
