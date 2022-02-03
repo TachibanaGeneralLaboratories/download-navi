@@ -296,7 +296,7 @@
     <string name="pref_browser_bottom_address_bar_title">Адресная строка внизу</string>
     <string name="pref_browser_bottom_address_bar_summary">Адресная строка будет расположена внизу экрана</string>
     <string name="pref_browser_start_page_title">Домашняя страница</string>
-    <string name="pref_browser_allow_java_script_title">Разрешить Java Script</string>
+    <string name="pref_browser_allow_java_script_title">Разрешить JavaScript</string>
     <string name="pref_browser_allow_popup_windows_title">Разрешить всплывающие окна</string>
     <string name="pref_browser_cache_category">Кеш</string>
     <string name="pref_browser_cookies_category">Файлы cookies</string>
