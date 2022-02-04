@@ -281,7 +281,7 @@
     <string name="pref_browser_bottom_address_bar_title">Adressleiste unten</string>
     <string name="pref_browser_bottom_address_bar_summary">Die Adressleiste wird am unteren Bildschirmrand plaziert</string>
     <string name="pref_browser_start_page_title">Startseite</string>
-    <string name="pref_browser_allow_java_script_title">Java-Skript erlauben</string>
+    <string name="pref_browser_allow_java_script_title">JavaScript erlauben</string>
     <string name="pref_browser_allow_popup_windows_title">Popup-Fenster erlauben</string>
     <string name="pref_browser_cache_category">Zwischenspeicher</string>
     <string name="pref_browser_cookies_category">Cookies</string>
@@ -314,4 +314,9 @@
         <item quantity="other">Die Dateien können nicht geteilt werden.</item>
     </plurals>
     <string name="pref_speed_limit_title">Geschwindigkeitsbegrenzung für ein Stück</string>
+    <string name="uncompress_archive_error_unknown_type">Das Archiv kann nicht dekomprimiert werden: unbekannter Typ oder beschädigte Datei</string>
+    <string name="move_file_error">Die Datei kann nicht verschoben werden</string>
+    <string name="move_file_error_already_exists">Die Datei kann nicht verschoben werden: sie existiert bereits</string>
+    <string name="uncompress_archive_error">Das Archiv kann nicht dekomprimiert werden</string>
+    <string name="uncompress_archive">Archiv entkomprimieren</string>
 </resources>
