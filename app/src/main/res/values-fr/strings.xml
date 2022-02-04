@@ -312,4 +312,9 @@
     <string name="about_title">À propos du gestionnaire de Download Navi</string>
     <string name="about_description">Plus d\'informations et aussi pour aider le projet : &lt;a href=https://github.com/TachibanaGeneralLaboratories/download-navi&gt;https://github.com/TachibanaGeneralLaboratories/download-navi&lt;/a&gt;&lt;br&gt;&lt;br&gt; Download Navi est un gestionnaire de téléchargement gratuit et Open Source pour Android 4.4+&lt;br&gt;&lt;br&gt; Download Navi est un logiciel gratuit, publié selon les termes de la &lt;a href=http://www.gnu.org/copyleft/gpl.html&gt;GNU General Public License v3 (GPLv3)&lt;/a&gt;&lt;br&gt;&lt;br&gt; &lt;a href=https://github.com/TachibanaGeneralLaboratories/download-navi/blob/HEAD/PRIVACY.md&gt;Politique de confidentialité&lt;/a&gt;</string>
     <string name="about_changelog">Journal des modifications</string>
+    <string name="move_file_error">Impossible de déplacer le fichier</string>
+    <string name="move_file_error_already_exists">Impossible de déplacer le fichier : il existe déjà</string>
+    <string name="uncompress_archive_error">Impossible de décompresser l\'archive</string>
+    <string name="uncompress_archive_error_unknown_type">Impossible de décompresser l\'archive : type inconnu ou fichier endommagé</string>
+    <string name="uncompress_archive">Décompresser l\'archive</string>
 </resources>
