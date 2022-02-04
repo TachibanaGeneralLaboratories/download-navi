@@ -290,7 +290,7 @@
     <string name="pref_browser_bottom_address_bar_title">Barre d\'adresse en-bas</string>
     <string name="pref_browser_bottom_address_bar_summary">La barre d\'adresse sera située en-bas de l\'écran</string>
     <string name="pref_browser_start_page_title">Page d\'accueil</string>
-    <string name="pref_browser_allow_java_script_title">Autoriser Java Script</string>
+    <string name="pref_browser_allow_java_script_title">Autoriser JavaScript</string>
     <string name="pref_browser_allow_popup_windows_title">Autoriser les fenêtres contextuelles</string>
     <string name="pref_browser_cache_category">Mémoire cache</string>
     <string name="pref_browser_cookies_category">Cookies</string>

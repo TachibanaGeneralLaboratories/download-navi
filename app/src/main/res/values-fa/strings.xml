@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <!-- Global string -->
-    <string name="app_name">Download Navi</string>
+    <string name="app_name">دانلود Navi</string>
     <string name="foreground_notification">آگاهی پیش‌زمینه</string>
     <string name="download_running">در حال پیشرفت</string>
     <string name="finished">پایان یافت</string>
@@ -281,7 +281,7 @@
     <string name="pref_browser_bottom_address_bar_title">نوار نشانی در پایین</string>
     <string name="pref_browser_bottom_address_bar_summary">نوار نشانی در زیر صفحه قرار خواهد گرفت</string>
     <string name="pref_browser_start_page_title">صفحهٔ آغاز</string>
-    <string name="pref_browser_allow_java_script_title">اجازه به جاوااسکریپت</string>
+    <string name="pref_browser_allow_java_script_title">اجازه به جاوا-اسکریپت</string>
     <string name="pref_browser_allow_popup_windows_title">اجازه به پنجره‌های واشو</string>
     <string name="pref_browser_cache_category">انباره</string>
     <string name="pref_browser_cookies_category">کوکی‌ها</string>
