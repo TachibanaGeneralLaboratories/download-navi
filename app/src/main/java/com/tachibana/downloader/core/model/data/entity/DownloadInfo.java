@@ -124,6 +124,32 @@ public class DownloadInfo implements Parcelable, Comparable<DownloadInfo>
     }
 
     @Ignore
+    public DownloadInfo(@NonNull DownloadInfo other) {
+        id = other.id;
+        dirPath = other.dirPath;
+        url = other.url;
+        fileName = other.fileName;
+        description = other.description;
+        mimeType = other.mimeType;
+        totalBytes = other.totalBytes;
+        statusCode = other.statusCode;
+        unmeteredConnectionsOnly = other.unmeteredConnectionsOnly;
+        numPieces = other.numPieces;
+        retry = other.retry;
+        statusMsg = other.statusMsg;
+        dateAdded = other.dateAdded;
+        visibility = other.visibility;
+        hasMetadata = other.hasMetadata;
+        userAgent = other.userAgent;
+        numFailed = other.numFailed;
+        retryAfter = other.retryAfter;
+        lastModify = other.lastModify;
+        checksum = other.checksum;
+        uncompressArchive = other.uncompressArchive;
+        partialSupport = other.partialSupport;
+    }
+
+    @Ignore
     public DownloadInfo(@NonNull Parcel source)
     {
         id = (UUID)source.readSerializable();

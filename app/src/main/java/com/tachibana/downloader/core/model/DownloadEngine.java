@@ -38,7 +38,6 @@ import com.tachibana.downloader.core.archive.ArchiveExtractor;
 import com.tachibana.downloader.core.exception.UnknownArchiveFormatException;
 import com.tachibana.downloader.core.RepositoryHelper;
 import com.tachibana.downloader.core.exception.FileAlreadyExistsException;
-import com.tachibana.downloader.core.model.data.DownloadResult;
 import com.tachibana.downloader.core.model.data.StatusCode;
 import com.tachibana.downloader.core.model.data.entity.DownloadInfo;
 import com.tachibana.downloader.core.settings.SettingsRepository;
@@ -251,14 +250,7 @@ public class DownloadEngine {
         appContext.startService(i);
     }
 
-    private boolean verifyChecksum(@NonNull UUID id) {
-        DownloadInfo info;
-        try {
-            info = repo.getInfoById(id);
-        } catch (Exception e) {
-            Log.e(TAG, "Getting info " + id + " error: " + Log.getStackTraceString(e));
-            return false;
-        }
+    private boolean verifyChecksum(DownloadInfo info) {
         if (doVerifyChecksum(info)) {
             info.statusCode = StatusCode.STATUS_SUCCESS;
             info.statusMsg = null;
@@ -266,7 +258,6 @@ public class DownloadEngine {
             info.statusCode = StatusCode.STATUS_CHECKSUM_ERROR;
             info.statusMsg = appContext.getString(R.string.error_verify_checksum);
         }
-        repo.updateInfo(info, false, false);
         return info.statusCode == StatusCode.STATUS_SUCCESS;
     }
 
@@ -322,12 +313,12 @@ public class DownloadEngine {
             return;
 
         task = new DownloadThreadImpl(id, repo, pref, fs,
-                SystemFacadeHelper.getSystemFacade(appContext));
+                SystemFacadeHelper.getSystemFacade(appContext),
+                this::onBeforeFinished);
         activeDownloads.put(id, task);
         disposables.add(Observable.fromCallable(task)
                 .subscribeOn(Schedulers.io())
                 .filter((result) -> result != null)
-                .doOnNext(this::onBeforeDownloadCompleted)
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe((result) -> onDownloadCompleted(result.infoId),
                         (Throwable t) -> handleDownloadError(id, t)
@@ -486,13 +477,8 @@ public class DownloadEngine {
         return activeDownloads.isEmpty();
     }
 
-    private void onBeforeDownloadCompleted(DownloadResult result) throws MoveException, UncompressArchiveException {
-        if (result.status == DownloadResult.Status.FINISHED) {
-            onFinished(result.infoId);
-        }
-    }
-
     private void onDownloadCompleted(UUID infoId) {
+        handleStatusCode(infoId);
         activeDownloads.remove(infoId);
         scheduleWaitingDownload();
 
@@ -504,6 +490,23 @@ public class DownloadEngine {
         } else {
             applyParams(infoId, params, true);
         }
+    }
+
+    private void handleStatusCode(UUID infoId) {
+        getInfoByIdSingle(infoId, (info) -> {
+            switch (info.statusCode) {
+                case StatusCode.STATUS_WAITING_TO_RETRY:
+                case StatusCode.STATUS_WAITING_FOR_NETWORK:
+                    runDownload(info);
+                    break;
+                case HttpURLConnection.HTTP_UNAUTHORIZED:
+                    /* TODO: request authorization from user */
+                    break;
+                case HttpURLConnection.HTTP_PROXY_AUTH:
+                    /* TODO: proxy support */
+                    break;
+            }
+        });
     }
 
     private void handleDownloadError(UUID id, Throwable t) {
@@ -535,36 +538,18 @@ public class DownloadEngine {
         );
     }
 
-    private void onFinished(UUID id) throws MoveException, UncompressArchiveException {
-        DownloadInfo info;
-        try {
-            info = repo.getInfoById(id);
-        } catch (Exception e) {
-            Log.e(TAG, "Getting info " + id + " error: " + Log.getStackTraceString(e));
-            return;
+    @NonNull
+    private DownloadInfo onBeforeFinished(DownloadInfo info) throws MoveException, UncompressArchiveException {
+        var newInfo = new DownloadInfo(info);
+        var verified = true;
+        if (!TextUtils.isEmpty(info.checksum)) {
+            verified = verifyChecksum(newInfo);
         }
-        switch (info.statusCode) {
-            case StatusCode.STATUS_SUCCESS:
-                var verified = true;
-                if (!TextUtils.isEmpty(info.checksum)) {
-                    verified = verifyChecksum(id);
-                }
-                if (verified) {
-                    checkMoveAfterDownload(info);
-                    checkUncompressArchive(info);
-                }
-                break;
-            case StatusCode.STATUS_WAITING_TO_RETRY:
-            case StatusCode.STATUS_WAITING_FOR_NETWORK:
-                runDownload(info);
-                break;
-            case HttpURLConnection.HTTP_UNAUTHORIZED:
-                /* TODO: request authorization from user */
-                break;
-            case HttpURLConnection.HTTP_PROXY_AUTH:
-                /* TODO: proxy support */
-                break;
+        if (verified) {
+            checkMoveAfterDownload(newInfo);
+            checkUncompressArchive(newInfo);
         }
+        return newInfo;
     }
 
     private void checkMoveAfterDownload(DownloadInfo info) throws MoveException {
@@ -583,7 +568,6 @@ public class DownloadEngine {
             throw new MoveFileAlreadyExistsException(e);
         }
         info.dirPath = movePath;
-        repo.updateInfo(info, true, false);
     }
 
     private void checkUncompressArchive(DownloadInfo info) throws UncompressArchiveException {

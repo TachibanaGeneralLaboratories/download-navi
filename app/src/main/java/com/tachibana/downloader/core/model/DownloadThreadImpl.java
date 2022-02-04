@@ -102,6 +102,7 @@ class DownloadThreadImpl implements DownloadThread
     private final FileSystemFacade fs;
     private final SystemFacade systemFacade;
     private int networkType;
+    private final OnBeforeFinishedCallback onBeforeFinishedCallback;
 
     private class ExecDownloadResult
     {
@@ -116,17 +117,33 @@ class DownloadThreadImpl implements DownloadThread
         }
     }
 
+    interface OnBeforeFinishedCallback {
+        @NonNull
+        DownloadInfo onBeforeFinished(@NonNull DownloadInfo info) throws Throwable;
+    }
+
     public DownloadThreadImpl(@NonNull UUID id,
                               @NonNull DataRepository repo,
                               @NonNull SettingsRepository pref,
                               @NonNull FileSystemFacade fs,
                               @NonNull SystemFacade systemFacade)
     {
+        this(id, repo, pref, fs, systemFacade, null);
+    }
+
+    public DownloadThreadImpl(@NonNull UUID id,
+                              @NonNull DataRepository repo,
+                              @NonNull SettingsRepository pref,
+                              @NonNull FileSystemFacade fs,
+                              @NonNull SystemFacade systemFacade,
+                              OnBeforeFinishedCallback onBeforeFinishedCallback)
+    {
         this.id = id;
         this.repo = repo;
         this.pref = pref;
         this.fs = fs;
         this.systemFacade = systemFacade;
+        this.onBeforeFinishedCallback = onBeforeFinishedCallback;
     }
 
     @Override
@@ -192,6 +209,10 @@ class DownloadThreadImpl implements DownloadThread
             }
 
             checkPiecesStatus(res.pieceResultList);
+
+            if (onBeforeFinishedCallback != null) {
+                info = onBeforeFinishedCallback.onBeforeFinished(info);
+            }
 
         } catch (Throwable t) {
             Log.e(TAG, Log.getStackTraceString(t));
