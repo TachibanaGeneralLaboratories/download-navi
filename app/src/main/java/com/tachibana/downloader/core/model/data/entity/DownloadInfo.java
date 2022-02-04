@@ -147,6 +147,7 @@ public class DownloadInfo implements Parcelable, Comparable<DownloadInfo>
         lastModify = source.readLong();
         checksum = source.readString();
         uncompressArchive = source.readByte() > 0;
+        partialSupport = source.readByte() > 0;
     }
 
     @Override
@@ -179,10 +180,10 @@ public class DownloadInfo implements Parcelable, Comparable<DownloadInfo>
         dest.writeLong(lastModify);
         dest.writeString(checksum);
         dest.writeByte((byte)(uncompressArchive ? 1 : 0));
+        dest.writeByte((byte)(partialSupport ? 1 : 0));
     }
 
-    public static final Parcelable.Creator<DownloadInfo> CREATOR =
-            new Parcelable.Creator<DownloadInfo>()
+    public static final Parcelable.Creator<DownloadInfo> CREATOR = new Parcelable.Creator<>()
             {
                 @Override
                 public DownloadInfo createFromParcel(Parcel source)
