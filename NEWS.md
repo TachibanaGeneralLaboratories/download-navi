@@ -1,3 +1,21 @@
+Version 1.6 (2021-02-05)
+========================
+
+ * Added:
+      - Auto-uncompress archive option (Android 8.0+)
+      - Notifications about the file moving and checksum validation error
+ * Improved filename parsing from URL
+ * Temporary HTTP redirects are now saved as permanent
+ * Bugfixing:
+      - Android 10 storage access
+      - Getting the gzip archives length
+      - Progress notification visibility after re-running
+ * New translations:
+      - Malay
+      - Swedish
+      - Tamil
+ * Updated current translations
+
 Version 1.5 (2021-10-09)
 ========================
 
