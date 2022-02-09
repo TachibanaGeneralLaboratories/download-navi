@@ -105,6 +105,7 @@
     <string name="add_dialog_checksum_description">MD5 和 SHA 256</string>
     <string name="referer_description">%1$s 标头</string>
     <string name="error_invalid_checksum">无效校验和</string>
+    <string name="uncompress_archive">解压压缩包</string>
     <!-- Add user agent dialog -->
     <string name="dialog_add_user_agent_title">添加用户代理</string>
     <!-- Main activity -->
