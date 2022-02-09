@@ -302,7 +302,8 @@
     <string name="pref_browser_search_engine_title">搜尋引擎</string>
     <!-- About dialog -->
     <string name="about_title">關於 Download Navi</string>
-    <string name="about_description"><![CDATA[    訪問此網站以獲取更多資訊或取得幫助：<a href="https://github.com/TachibanaGeneralLaboratories/download-navi">https://github.com/TachibanaGeneralLaboratories/download-navi</a><br><br>
+    <string name="about_description"><![CDATA[
+    訪問此網站以獲取更多資訊或取得幫助：<a href="https://github.com/TachibanaGeneralLaboratories/download-navi">https://github.com/TachibanaGeneralLaboratories/download-navi</a><br><br>
     Download Navi 是一款適用於 Android 4.4 及以上版本的免費且開源的下載管理員<br><br>
     Download Navi 是一款自由軟體，遵循 <a href="http://www.gnu.org/copyleft/gpl.html">GNU General Public License v3 (GPLv3)</a> 的許可條款發佈<br><br>
     <a href="https://github.com/TachibanaGeneralLaboratories/download-navi/blob/HEAD/PRIVACY.md">隱私政策</a>]]></string>
