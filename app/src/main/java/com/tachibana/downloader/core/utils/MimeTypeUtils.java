@@ -20,7 +20,6 @@
 
 package com.tachibana.downloader.core.utils;
 
-import android.content.Intent;
 import android.webkit.MimeTypeMap;
 
 import java.util.HashMap;
@@ -71,6 +70,7 @@ public class MimeTypeUtils
         mimeToCategory.put("application/hta", Category.DOCUMENT);
         mimeToCategory.put("application/java-archive", Category.ARCHIVE);
         mimeToCategory.put("application/javascript", Category.DOCUMENT);
+        mimeToCategory.put("application/x-javascript", Category.DOCUMENT);
         mimeToCategory.put("application/json", Category.DOCUMENT);
         mimeToCategory.put("application/mpegurl", Category.VIDEO);
         mimeToCategory.put("application/msword", Category.DOCUMENT);
@@ -211,6 +211,7 @@ public class MimeTypeUtils
     private static final HashMap<String, String> extensionToMime = new HashMap<>();
     static {
         extensionToMime.put("php", "application/php");
+        extensionToMime.put("json", "application/json");
     }
 
     private static final HashMap<String, String> mimeToExtension = new HashMap<>();
@@ -221,6 +222,7 @@ public class MimeTypeUtils
         mimeToExtension.put("application/x-php", "php");
         mimeToExtension.put("application/x-httpd-php", "php");
         mimeToExtension.put("application/x-httpd-php-source", "php");
+        mimeToExtension.put("application/json", "json");
     }
 
     public static String getExtensionFromMimeType(String mimeType)
