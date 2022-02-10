@@ -70,4 +70,6 @@
 
     <!-- Filemanager settings -->
     <string name="pref_key_filemanager_last_dir" translatable="false">pref_key_filemanager_last_dir</string>
+
+    <string name="pref_key_ask_disable_battery_optimization" translatable="false">pref_key_ask_disable_battery_optimization</string>
 </resources>

@@ -29,13 +29,19 @@ import android.preference.PreferenceManager;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.FragmentManager;
+import androidx.lifecycle.ViewModelProvider;
 
 import com.tachibana.downloader.R;
 import com.tachibana.downloader.core.RepositoryHelper;
 import com.tachibana.downloader.core.model.data.entity.DownloadInfo;
 import com.tachibana.downloader.core.settings.SettingsRepository;
 import com.tachibana.downloader.core.utils.Utils;
+import com.tachibana.downloader.ui.BaseAlertDialog;
+import com.tachibana.downloader.ui.BatteryOptimizationDialog;
 import com.tachibana.downloader.ui.FragmentCallback;
+
+import io.reactivex.disposables.CompositeDisposable;
+import io.reactivex.disposables.Disposable;
 
 public class AddDownloadActivity extends AppCompatActivity
     implements FragmentCallback
@@ -43,14 +49,23 @@ public class AddDownloadActivity extends AppCompatActivity
     public static final String TAG_INIT_PARAMS = "init_params";
 
     private static final String TAG_DOWNLOAD_DIALOG = "add_download_dialog";
+    private static final String TAG_BATTERY_DIALOG = "battery_dialog";
 
     private AddDownloadDialog addDownloadDialog;
+    private BatteryOptimizationDialog batteryDialog;
+    private CompositeDisposable disposables = new CompositeDisposable();
+    private BaseAlertDialog.SharedViewModel dialogViewModel;
+    private SettingsRepository pref;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState)
     {
         setTheme(Utils.getTranslucentAppTheme(getApplicationContext()));
         super.onCreate(savedInstanceState);
+
+        pref = RepositoryHelper.getSettingsRepository(getApplicationContext());
+        ViewModelProvider provider = new ViewModelProvider(this);
+        dialogViewModel = provider.get(BaseAlertDialog.SharedViewModel.class);
 
         FragmentManager fm = getSupportFragmentManager();
         addDownloadDialog = (AddDownloadDialog)fm.findFragmentByTag(TAG_DOWNLOAD_DIALOG);
@@ -66,6 +81,44 @@ public class AddDownloadActivity extends AppCompatActivity
             addDownloadDialog = AddDownloadDialog.newInstance(initParams);
             addDownloadDialog.show(fm, TAG_DOWNLOAD_DIALOG);
         }
+        batteryDialog = (BatteryOptimizationDialog)fm.findFragmentByTag(TAG_BATTERY_DIALOG);
+        if (Utils.shouldShowBatteryOptimizationDialog(this)) {
+            showBatteryOptimizationDialog();
+        }
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+
+        subscribeAlertDialog();
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+
+        disposables.clear();
+    }
+
+    private void subscribeAlertDialog()
+    {
+        Disposable d = dialogViewModel.observeEvents()
+                .subscribe((event) -> {
+                    if (event.dialogTag == null) {
+                        return;
+                    }
+                    if (event.dialogTag.equals(TAG_BATTERY_DIALOG)) {
+                        if (event.type != BaseAlertDialog.EventType.DIALOG_SHOWN) {
+                            batteryDialog.dismiss();
+                            pref.askDisableBatteryOptimization(false);
+                        }
+                        if (event.type == BaseAlertDialog.EventType.POSITIVE_BUTTON_CLICKED) {
+                            Utils.requestDisableBatteryOptimization(this);
+                        }
+                    }
+                });
+        disposables.add(d);
     }
 
     private void fillInitParams(AddInitParams params)
@@ -122,6 +175,16 @@ public class AddDownloadActivity extends AppCompatActivity
         }
 
         return null;
+    }
+
+    private void showBatteryOptimizationDialog() {
+        var fm = getSupportFragmentManager();
+        if (fm.findFragmentByTag(TAG_BATTERY_DIALOG) == null) {
+            batteryDialog = BatteryOptimizationDialog.newInstance();
+            var ft = fm.beginTransaction();
+            ft.add(batteryDialog, TAG_BATTERY_DIALOG);
+            ft.commitAllowingStateLoss();
+        }
     }
 
     @Override

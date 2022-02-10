@@ -1,6 +1,6 @@
 /*
- * Copyright (C) 2019 Tachibana General Laboratories, LLC
- * Copyright (C) 2019 Yaroslav Pronin <proninyaroslav@mail.ru>
+ * Copyright (C) 2019-2022 Tachibana General Laboratories, LLC
+ * Copyright (C) 2019-2022 Yaroslav Pronin <proninyaroslav@mail.ru>
  *
  * This file is part of Download Navi.
  *
@@ -209,4 +209,8 @@ public interface SettingsRepository
     boolean browserHideMenuIcon();
 
     void browserHideMenuIcon(boolean val);
+
+    void askDisableBatteryOptimization(boolean val);
+
+    boolean askDisableBatteryOptimization();
 }

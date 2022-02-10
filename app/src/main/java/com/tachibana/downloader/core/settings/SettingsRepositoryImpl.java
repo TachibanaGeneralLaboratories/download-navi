@@ -1,6 +1,6 @@
 /*
- * Copyright (C) 2019 Tachibana General Laboratories, LLC
- * Copyright (C) 2019 Yaroslav Pronin <proninyaroslav@mail.ru>
+ * Copyright (C) 2019-2022 Tachibana General Laboratories, LLC
+ * Copyright (C) 2019-2022 Yaroslav Pronin <proninyaroslav@mail.ru>
  *
  * This file is part of Download Navi.
  *
@@ -108,6 +108,7 @@ public class SettingsRepositoryImpl implements SettingsRepository
         static final boolean browserDoNotTrack = true;
         static final String browserSearchEngine = "https://duckduckgo.com/?q={searchTerms}";
         static final boolean browserHideMenuIcon = false;
+        static final boolean askDisableBatteryOptimization = true;
     }
 
     public SettingsRepositoryImpl(@NonNull Context appContext)
@@ -731,5 +732,18 @@ public class SettingsRepositoryImpl implements SettingsRepository
         pref.edit()
                 .putBoolean(appContext.getString(R.string.pref_key_browser_hide_menu_icon), val)
                 .apply();
+    }
+
+    @Override
+    public void askDisableBatteryOptimization(boolean val) {
+        pref.edit()
+                .putBoolean(appContext.getString(R.string.pref_key_ask_disable_battery_optimization), val)
+                .apply();
+    }
+
+    @Override
+    public boolean askDisableBatteryOptimization() {
+        return pref.getBoolean(appContext.getString(R.string.pref_key_ask_disable_battery_optimization),
+                Default.askDisableBatteryOptimization);
     }
 }

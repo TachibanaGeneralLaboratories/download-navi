@@ -1,6 +1,6 @@
 /*
- * Copyright (C) 2018-2021 Tachibana General Laboratories, LLC
- * Copyright (C) 2018-2021 Yaroslav Pronin <proninyaroslav@mail.ru>
+ * Copyright (C) 2018-2022 Tachibana General Laboratories, LLC
+ * Copyright (C) 2018-2022 Yaroslav Pronin <proninyaroslav@mail.ru>
  *
  * This file is part of Download Navi.
  *
@@ -59,6 +59,7 @@ import com.google.android.material.tabs.TabLayoutMediator;
 import com.h6ah4i.android.widget.advrecyclerview.animator.GeneralItemAnimator;
 import com.h6ah4i.android.widget.advrecyclerview.animator.RefactoredDefaultItemAnimator;
 import com.h6ah4i.android.widget.advrecyclerview.expandable.RecyclerViewExpandableItemManager;
+import com.tachibana.downloader.ui.BatteryOptimizationDialog;
 import com.tachibana.downloader.ui.PermissionDeniedDialog;
 import com.tachibana.downloader.R;
 import com.tachibana.downloader.core.RepositoryHelper;
@@ -87,6 +88,7 @@ public class MainActivity extends AppCompatActivity
 
     private static final String TAG_ABOUT_DIALOG = "about_dialog";
     private static final String TAG_PERM_DENIED_DIALOG = "perm_denied_dialog";
+    private static final String TAG_BATTERY_DIALOG = "battery_dialog";
 
     /* Android data binding doesn't work with layout aliases */
     private CoordinatorLayout coordinatorLayout;
@@ -113,6 +115,7 @@ public class MainActivity extends AppCompatActivity
     private BaseAlertDialog.SharedViewModel dialogViewModel;
     private BaseAlertDialog aboutDialog;
     private PermissionDeniedDialog permDeniedDialog;
+    private BatteryOptimizationDialog batteryDialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -132,6 +135,7 @@ public class MainActivity extends AppCompatActivity
         FragmentManager fm = getSupportFragmentManager();
         aboutDialog = (BaseAlertDialog)fm.findFragmentByTag(TAG_ABOUT_DIALOG);
         permDeniedDialog = (PermissionDeniedDialog)fm.findFragmentByTag(TAG_PERM_DENIED_DIALOG);
+        batteryDialog = (BatteryOptimizationDialog)fm.findFragmentByTag(TAG_BATTERY_DIALOG);
 
         if (!Utils.checkStoragePermission(this) && permDeniedDialog == null) {
             storagePermission.launch(Manifest.permission.WRITE_EXTERNAL_STORAGE);
@@ -147,6 +151,10 @@ public class MainActivity extends AppCompatActivity
 
         initLayout();
         engine.restoreDownloads();
+
+        if (Utils.shouldShowBatteryOptimizationDialog(this)) {
+            showBatteryOptimizationDialog();
+        }
     }
 
     private final ActivityResultLauncher<String> storagePermission = registerForActivityResult(
@@ -293,12 +301,30 @@ public class MainActivity extends AppCompatActivity
                         if (event.type == BaseAlertDialog.EventType.NEGATIVE_BUTTON_CLICKED) {
                             storagePermission.launch(Manifest.permission.WRITE_EXTERNAL_STORAGE);
                         }
+                    } else if (event.dialogTag.equals(TAG_BATTERY_DIALOG)) {
+                        if (event.type != BaseAlertDialog.EventType.DIALOG_SHOWN) {
+                            batteryDialog.dismiss();
+                            pref.askDisableBatteryOptimization(false);
+                        }
+                        if (event.type == BaseAlertDialog.EventType.POSITIVE_BUTTON_CLICKED) {
+                            Utils.requestDisableBatteryOptimization(this);
+                        }
                     }
                 });
         disposables.add(d);
     }
 
-    void subscribeSettingsChanged() {
+    private void showBatteryOptimizationDialog() {
+        var fm = getSupportFragmentManager();
+        if (fm.findFragmentByTag(TAG_BATTERY_DIALOG) == null) {
+            batteryDialog = BatteryOptimizationDialog.newInstance();
+            var ft = fm.beginTransaction();
+            ft.add(batteryDialog, TAG_BATTERY_DIALOG);
+            ft.commitAllowingStateLoss();
+        }
+    }
+
+    private void subscribeSettingsChanged() {
         invalidateOptionsMenu();
         disposables.add(pref.observeSettingsChanged()
                 .subscribe((key) -> {

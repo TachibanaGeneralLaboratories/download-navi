@@ -53,6 +53,7 @@
     <string name="more_details">More details</string>
     <string name="clipboard">Clipboard</string>
     <string name="verify">Verify</string>
+    <string name="disable">Disable</string>
     <!-- Permission dialog -->
     <string name="perm_denied_title">Permission denied</string>
     <string name="perm_denied_warning">Without this permission app can\'t save files in memory on some devices and versions of Android. The app will not work properly. Are you sure you want to deny this permission?</string>
@@ -229,6 +230,9 @@
     <string name="browser_bookmark_added">Bookmark added</string>
     <string name="browser_bookmark_add_failed">Failed to add bookmark</string>
     <string name="browser_bookmark_edit_menu">Edit</string>
+    <!-- Battery optimization dialog -->
+    <string name="battery_optimization">Battery optimization</string>
+    <string name="disable_battery_optimization_summary">To correct work in the background, it is necessary to disable battery optimization in the battery settings.</string>
     <!-- Settings -->
     <!-- Headers -->
     <string name="pref_header_appearance">Appearance</string>

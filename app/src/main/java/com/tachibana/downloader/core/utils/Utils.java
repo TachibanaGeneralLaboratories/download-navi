@@ -20,8 +20,17 @@
 
 package com.tachibana.downloader.core.utils;
 
+import static android.content.Context.POWER_SERVICE;
+import static com.tachibana.downloader.core.model.data.StatusCode.STATUS_FILE_ERROR;
+import static com.tachibana.downloader.core.model.data.StatusCode.STATUS_HTTP_DATA_ERROR;
+import static com.tachibana.downloader.core.utils.MimeTypeUtils.DEFAULT_MIME_TYPE;
+import static com.tachibana.downloader.core.utils.MimeTypeUtils.MIME_TYPE_DELIMITER;
+import static java.net.HttpURLConnection.HTTP_INTERNAL_ERROR;
+import static java.net.HttpURLConnection.HTTP_UNAVAILABLE;
+
 import android.Manifest;
 import android.app.Activity;
+import android.app.ForegroundServiceStartNotAllowedException;
 import android.content.ClipData;
 import android.content.ClipboardManager;
 import android.content.ComponentName;
@@ -38,18 +47,19 @@ import android.net.NetworkInfo;
 import android.net.Uri;
 import android.os.BatteryManager;
 import android.os.Build;
+import android.os.PowerManager;
+import android.provider.Settings;
 import android.text.TextUtils;
+import android.util.Log;
 import android.util.Patterns;
 import android.util.TypedValue;
 import android.webkit.CookieManager;
 import android.webkit.URLUtil;
 import android.widget.ProgressBar;
 
-import androidx.activity.result.ActivityResultLauncher;
-import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.appcompat.app.AppCompatActivity;
+import androidx.annotation.RequiresApi;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 import androidx.core.content.FileProvider;
@@ -73,29 +83,15 @@ import com.tachibana.downloader.ui.main.drawer.DrawerGroupItem;
 
 import org.acra.ACRA;
 import org.acra.ReportField;
-import org.mozilla.universalchardet.UniversalDetector;
 
-import java.io.ByteArrayOutputStream;
 import java.io.File;
-import java.io.UnsupportedEncodingException;
 import java.net.MalformedURLException;
 import java.net.URL;
-import java.nio.ByteBuffer;
-import java.nio.charset.CharacterCodingException;
-import java.nio.charset.CharsetDecoder;
-import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
-
-import static com.tachibana.downloader.core.model.data.StatusCode.STATUS_FILE_ERROR;
-import static com.tachibana.downloader.core.model.data.StatusCode.STATUS_HTTP_DATA_ERROR;
-import static com.tachibana.downloader.core.utils.MimeTypeUtils.DEFAULT_MIME_TYPE;
-import static com.tachibana.downloader.core.utils.MimeTypeUtils.MIME_TYPE_DELIMITER;
-import static java.net.HttpURLConnection.HTTP_INTERNAL_ERROR;
-import static java.net.HttpURLConnection.HTTP_UNAVAILABLE;
 
 public class Utils {
     public static final String INFINITY_SYMBOL = "\u221e";
@@ -665,6 +661,26 @@ public class Utils {
      */
     public static boolean needsReferer(@Nullable String mimeType, @Nullable String extension) {
         return "text/html".equals(mimeType) || "html".equals(extension) || "htm".equals(extension);
+    }
+
+    public static boolean shouldShowBatteryOptimizationDialog(@NonNull Context appContext) {
+        var pref = RepositoryHelper.getSettingsRepository(appContext);
+        return Build.VERSION.SDK_INT >= Build.VERSION_CODES.S
+                && pref.askDisableBatteryOptimization()
+                && !isBatteryOptimizationEnabled(appContext);
+    }
+
+    @RequiresApi(api = Build.VERSION_CODES.M)
+    public static boolean isBatteryOptimizationEnabled(@NonNull Context context) {
+        var packageName = context.getPackageName();
+        var pm = (PowerManager) context.getSystemService(POWER_SERVICE);
+        return pm.isIgnoringBatteryOptimizations(packageName);
+    }
+
+    public static void requestDisableBatteryOptimization(@NonNull Context context) {
+        var uri = Uri.fromParts("package", context.getPackageName(), null);
+        var i = new Intent(Settings.ACTION_APPLICATION_DETAILS_SETTINGS, uri);
+        context.startActivity(i);
     }
 
     public static List<DrawerGroup> getNavigationDrawerItems(@NonNull Context context,
