@@ -1,3 +1,23 @@
+/*
+ * Copyright (C) 2021-2022 Tachibana General Laboratories, LLC
+ * Copyright (C) 2021-2022 Yaroslav Pronin <proninyaroslav@mail.ru>
+ *
+ * This file is part of Download Navi.
+ *
+ * Download Navi is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * Download Navi is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with Download Navi.  If not, see <http://www.gnu.org/licenses/>.
+ */
+
 package com.tachibana.downloader.core.utils;
 
 import static org.junit.Assert.*;
@@ -104,6 +124,10 @@ public class DownloadUtilsTest {
 
             assertContentDisposition("success.html", contentDisposition + "; filename*=utf-8''success.html; foo");
             assertContentDisposition("success.html", contentDisposition + "; filename*=utf-8''success.html");
+
+            // Multibyte characters
+            assertContentDisposition("şıö.txt", contentDisposition + "; filename=\"şıö.txt\"");
+            assertContentDisposition("şıö.txt", contentDisposition + "; filename=\"%C5%9F%C4%B1%C3%B6.txt\"");
         }
     }
 
@@ -122,6 +146,10 @@ public class DownloadUtilsTest {
         assertUrlFilename("file.txt", "http://example.org/file.txt&query");
         assertUrlFilename("[example.org] file.txt", "http://example.org/[example.org] file.txt");
         assertUrlFilename("[example.org] file.tar.gz", "http://example.org/[example.org] file.tar.gz");
+
+        // Multibyte characters
+        assertUrlFilename("şıö.txt", "http://example.org/şıö.txt");
+        assertUrlFilename("şıö.txt", "http://example.org/%C5%9F%C4%B1%C3%B6.txt");
     }
 
     private void assertContentDisposition(String expected, String contentDisposition) {

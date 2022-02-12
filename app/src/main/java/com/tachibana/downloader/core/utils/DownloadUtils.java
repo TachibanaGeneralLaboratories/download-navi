@@ -21,6 +21,7 @@
 package com.tachibana.downloader.core.utils;
 
 import android.net.Uri;
+import android.util.Log;
 
 import androidx.annotation.NonNull;
 
@@ -29,6 +30,7 @@ import com.tachibana.downloader.core.system.FileSystemFacade;
 import org.mozilla.universalchardet.UniversalDetector;
 
 import java.io.ByteArrayOutputStream;
+import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.util.Locale;
 import java.util.regex.Matcher;
@@ -359,7 +361,11 @@ public class DownloadUtils {
             if (symbol.startsWith("%")) {
                 stream.write(Integer.parseInt(symbol.substring(1), 16));
             } else {
-                stream.write(symbol.charAt(0));
+                try {
+                    stream.write(symbol.getBytes());
+                } catch (IOException e) {
+                    // Ignore
+                }
             }
         }
 

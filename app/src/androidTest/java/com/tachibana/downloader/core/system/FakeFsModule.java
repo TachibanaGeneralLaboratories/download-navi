@@ -1,6 +1,6 @@
 /*
- * Copyright (C) 2019-2021 Tachibana General Laboratories, LLC
- * Copyright (C) 2019-2021 Yaroslav Pronin <proninyaroslav@mail.ru>
+ * Copyright (C) 2019-2022 Tachibana General Laboratories, LLC
+ * Copyright (C) 2019-2022 Yaroslav Pronin <proninyaroslav@mail.ru>
  *
  * This file is part of Download Navi.
  *
@@ -25,6 +25,7 @@ import android.net.Uri;
 import androidx.annotation.NonNull;
 
 import java.io.FileDescriptor;
+import java.io.IOException;
 import java.util.List;
 
 public class FakeFsModule implements FsModule
@@ -72,10 +73,9 @@ public class FakeFsModule implements FsModule
     }
 
     @Override
-    public Uri getFileUri(@NonNull String relativePath, @NonNull Uri dir)
-    {
+    public Uri getFileUri(@NonNull String relativePath, @NonNull Uri dir, boolean create) {
         String fileName = relativePath.substring(relativePath.lastIndexOf("/") + 1);
-        if (!existsFileNames.contains(fileName))
+        if (!create && !existsFileNames.contains(fileName))
             return null;
 
         return Uri.parse("file://" + dir.getPath() + "/" + relativePath);
@@ -117,5 +117,10 @@ public class FakeFsModule implements FsModule
     @Override
     public String getDirPath(@NonNull Uri dir) {
         return dir.getPath();
+    }
+
+    @Override
+    public boolean mkdirs(@NonNull Uri dir, @NonNull String relativePath) {
+        return true;
     }
 }
