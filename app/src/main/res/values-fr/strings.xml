@@ -317,4 +317,7 @@
     <string name="uncompress_archive_error">Impossible de décompresser l\'archive</string>
     <string name="uncompress_archive_error_unknown_type">Impossible de décompresser l\'archive : type inconnu ou fichier endommagé</string>
     <string name="uncompress_archive">Décompresser l\'archive</string>
+    <string name="battery_optimization">Optimisation de la batterie</string>
+    <string name="disable_battery_optimization_summary">Pour un travail correct en arrière-plan, il est nécessaire de désactiver l\'optimisation de la batterie dans les paramètres de la batterie.</string>
+    <string name="disable">Désactiver</string>
 </resources>
