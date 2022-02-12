@@ -318,4 +318,9 @@
     Download Navi 是一款自由软件，遵循 <a href="http://www.gnu.org/copyleft/gpl.html">GNU General Public License v3 (GPLv3)</a> 许可证的条款发布<br><br>
     <a href="https://github.com/TachibanaGeneralLaboratories/download-navi/blob/HEAD/PRIVACY.md">隐私政策</a>]]></string>
     <string name="about_changelog">更新日志</string>
+    <string name="move_file_error">无法移动文件</string>
+    <string name="uncompress_archive_error_unknown_type">无法解压缩存档：未知类型或损坏的文件</string>
+    <string name="uncompress_archive">解压缩存档</string>
+    <string name="move_file_error_already_exists">无法移动文件：已存在</string>
+    <string name="uncompress_archive_error">无法解压缩存档</string>
 </resources>

@@ -1,4 +1,4 @@
-# Features
+# Özellikler
 
 * Özgür ve Açık Kaynaklı yazılım (FOSS)
 * Material Tasarımı
@@ -7,14 +7,15 @@
 * Chrome OS desteği
 * İndirmeleri duraklatın ve devam ettirin
 * Tarayıcı desteği
-* Yerleşik tarayıcı
+* Dahili tarayıcı
 * Eşzamanlı indirmeler (öntanımlı olarak 3)
 * Çok parçalı indirme (en fazla 16)
 * Dosyaları arka planda indirin
-* Yalnızca kotasız bağlantı desteği (örn. Wi-Fi)
+* Yalnızca kotalı bağlantı desteği (örn. Wi-Fi)
 * Dolaşım denetimleri
 * Kullanıcı aracısı denetimleri
 * Sağlama toplamı değerini hesaplayın (MD5 ve SHA-256)
 * Güç Yönetimi ve pil denetimi
 * İndirmeyi bitirdikten sonra çeşitli otomatik eylemler
 * Hız sınırı
+* [Android 8.0+] Arşivi otomatik olarak çıkart. Arşivleyici biçimleri: zip, tar, 7z, ar, cpio, dump, rar (< v5). Sıkıştırıcı biçimleri: gzip, bzip2, xz, lzma, Pack200, DEFLATE, DEFLATE64, Z

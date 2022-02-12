@@ -1,4 +1,4 @@
-# Features
+# Características
 
 * Software libre y de código abierto (FOSS)
 * Material Design
@@ -18,3 +18,4 @@
 * Administración de energía y control de batería
 * Varias acciones automáticas después de finalizar la descarga
 * Límite de velocidad
+* [Android 8.0+] Descompresión automática de archivos. Formatos de archivado: zip, tar, 7z, ar, cpio, dump, rar (< v5). Formatos de compresión: gzip, bzip2, xz, lzma, Pack200, DEFLATE, DEFLATE64, Z

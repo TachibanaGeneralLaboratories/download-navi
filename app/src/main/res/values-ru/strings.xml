@@ -321,4 +321,9 @@
     Download Navi является свободным программным обеспечением, выпущенным в соответствии с условиями лицензииe <a href="http://www.gnu.org/copyleft/gpl.html">GNU General Public License v3 (GPLv3)</a><br><br>
     <a href="https://github.com/TachibanaGeneralLaboratories/download-navi/blob/HEAD/PRIVACY.md">Политика конфидециальности</a>]]></string>
     <string name="about_changelog">Изменения</string>
+    <string name="move_file_error">Не удалось перместить файл</string>
+    <string name="uncompress_archive_error">Не удалось распаковать архив</string>
+    <string name="move_file_error_already_exists">Не удалось переместить файл: уже существует</string>
+    <string name="uncompress_archive_error_unknown_type">Не удалось распаковать архив: неизвестный тип или повреждённый файл</string>
+    <string name="uncompress_archive">Распаковать архив</string>
 </resources>

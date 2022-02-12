@@ -281,7 +281,7 @@
     <string name="pref_browser_bottom_address_bar_title">Barra degli indirizzi in basso</string>
     <string name="pref_browser_bottom_address_bar_summary">La barra degli indirizzi si trova nella parte inferiore dello schermo</string>
     <string name="pref_browser_start_page_title">Pagina iniziale</string>
-    <string name="pref_browser_allow_java_script_title">Permetti Script Java</string>
+    <string name="pref_browser_allow_java_script_title">Permetti JavaScript</string>
     <string name="pref_browser_allow_popup_windows_title">Permetti le finestre popup</string>
     <string name="pref_browser_cache_category">Cache</string>
     <string name="pref_browser_cookies_category">Cookie</string>
@@ -314,4 +314,9 @@
     <string name="pref_speed_limit_dialog_hint">Imposta la velocità in KiB/s (0 = senza limite)</string>
     <string name="pref_browser_hide_menu_icon_title">Nascondi l\'icona dal menù</string>
     <string name="pref_browser_hide_menu_icon_summary">Nascondi l\'icona del browser dal menù della schermata principale</string>
+    <string name="move_file_error">Impossibile spostare il file</string>
+    <string name="uncompress_archive">Decomprimi l\'archivio</string>
+    <string name="uncompress_archive_error">Impossibile decomprimere l\'archivio</string>
+    <string name="move_file_error_already_exists">Impossibile spostare il file: esiste già</string>
+    <string name="uncompress_archive_error_unknown_type">Impossibile decomprimere l\'archivio: tipo sconosciuto o file corrotto</string>
 </resources>
