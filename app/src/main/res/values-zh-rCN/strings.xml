@@ -71,6 +71,10 @@
     <string name="waiting_for_retry">等待重试</string>
     <!-- Error notification -->
     <string name="download_error_notify_title">下载出错</string>
+    <string name="move_file_error">无法移动文件</string>
+    <string name="move_file_error_already_exists">无法移动文件：文件已存在</string>
+    <string name="uncompress_archive_error">无法解压压缩包</string>
+    <string name="uncompress_archive_error_unknown_type">无法解压压缩包：未知格式或者文件损坏</string>
     <!-- Applying params notification -->
     <string name="applying_params_title">应用参数</string>
     <string name="applying_params_for_downloads">应用参数进行下载</string>
@@ -105,6 +109,7 @@
     <string name="add_dialog_checksum_description">MD5 和 SHA 256</string>
     <string name="referer_description">%1$s 标头</string>
     <string name="error_invalid_checksum">无效校验和</string>
+    <string name="uncompress_archive">解压压缩包</string>
     <!-- Add user agent dialog -->
     <string name="dialog_add_user_agent_title">添加用户代理</string>
     <!-- Main activity -->
@@ -242,7 +247,7 @@
     <string name="pref_play_sound_notify_title">播放声音</string>
     <string name="pref_notify_sound_title">通知声音</string>
     <string name="pref_led_indicator_notify_title">LED 指示灯</string>
-    <string name="pref_led_indicator_color_notify_title">LED指示灯颜色</string>
+    <string name="pref_led_indicator_color_notify_title">LED 指示灯颜色</string>
     <string name="pref_vibration_notify_title">振动</string>
     <string name="theme_settings_apply_after_reboot">主题设置将在重新启动软件后生效</string>
     <!-- Behavior settings -->
@@ -307,7 +312,8 @@
     <string name="pref_browser_hide_menu_icon_summary">在主屏幕菜单中隐藏浏览器图标</string>
     <!-- About dialog -->
     <string name="about_title">关于 Download Navi</string>
-    <string name="about_description"><![CDATA[    访问此网站获取更多信息或者帮助项目: <a href="https://github.com/TachibanaGeneralLaboratories/download-navi">https://github.com/TachibanaGeneralLaboratories/download-navi</a><br><br>
+    <string name="about_description"><![CDATA[
+    访问此网站获取更多信息或者帮助项目: <a href="https://github.com/TachibanaGeneralLaboratories/download-navi">https://github.com/TachibanaGeneralLaboratories/download-navi</a><br><br>
     Download Navi 是适用于 Android 4.4 及以上版本的免费且开源的下载管理器<br><br>
     Download Navi 是一款自由软件，遵循 <a href="http://www.gnu.org/copyleft/gpl.html">GNU General Public License v3 (GPLv3)</a> 许可证的条款发布<br><br>
     <a href="https://github.com/TachibanaGeneralLaboratories/download-navi/blob/HEAD/PRIVACY.md">隐私政策</a>]]></string>
