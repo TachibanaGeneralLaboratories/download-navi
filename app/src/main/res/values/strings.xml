@@ -232,7 +232,7 @@
     <string name="browser_bookmark_edit_menu">Edit</string>
     <!-- Battery optimization dialog -->
     <string name="battery_optimization">Battery optimization</string>
-    <string name="disable_battery_optimization_summary">To correct work in the background, it is necessary to disable battery optimization in the battery settings.</string>
+    <string name="disable_battery_optimization_summary">For correct work in the background, it is necessary to disable battery optimization in the battery settings.</string>
     <!-- Settings -->
     <!-- Headers -->
     <string name="pref_header_appearance">Appearance</string>
