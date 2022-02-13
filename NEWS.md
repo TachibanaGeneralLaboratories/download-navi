@@ -1,3 +1,12 @@
+Version 1.6.1 (2022-02-13)
+==========================
+
+ * Bugfixing:
+      - Background work on Android 12 (requires disabling battery optimization for the app)
+      - Decoding multibyte characters in the filename (like ş or ö)
+      - JSON type recognition on Android 9 and below
+ * Updated current translations
+
 Version 1.6 (2022-02-05)
 ========================
 

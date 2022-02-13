@@ -1,0 +1,5 @@
+* Bugfixing:
+     - Background work on Android 12 (requires disabling battery optimization for the app)
+     - Decoding multibyte characters in the filename (like ş or ö)
+     - JSON type recognition on Android 9 and below
+* Updated current translations

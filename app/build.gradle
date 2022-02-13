@@ -6,12 +6,12 @@ android {
         applicationId 'com.tachibana.downloader'
         minSdkVersion 19
         targetSdkVersion 31
-        versionCode 13
+        versionCode 14
         /*
          * Convection:
          *  major.minor.[revision][-some_info]
          */
-        versionName '1.6'
+        versionName '1.6.1'
         testInstrumentationRunner 'androidx.test.runner.AndroidJUnitRunner'
         vectorDrawables.useSupportLibrary = true
         multiDexEnabled true
