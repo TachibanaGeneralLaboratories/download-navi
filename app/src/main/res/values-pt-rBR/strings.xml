@@ -320,4 +320,7 @@
     <string name="uncompress_archive_error_unknown_type">Não é possível descompactar o arquivo: tipo desconhecido ou arquivo corrompido</string>
     <string name="uncompress_archive_error">Não foi possível descompactar o arquivo</string>
     <string name="move_file_error">Não foi possível mover o arquivo</string>
+    <string name="battery_optimization">Otimização da bateria</string>
+    <string name="disable_battery_optimization_summary">Para um trabalho correto em segundo plano, é necessário desativar a otimização da bateria nas configurações da bateria.</string>
+    <string name="disable">Desativar</string>
 </resources>
