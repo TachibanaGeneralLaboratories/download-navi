@@ -319,4 +319,7 @@
     <string name="move_file_error_already_exists">Die Datei kann nicht verschoben werden: sie existiert bereits</string>
     <string name="uncompress_archive_error">Das Archiv kann nicht dekomprimiert werden</string>
     <string name="uncompress_archive">Archiv entkomprimieren</string>
+    <string name="disable">Deaktivieren</string>
+    <string name="disable_battery_optimization_summary">Für die korrekte Arbeit im Hintergrund ist es notwendig, die Akkuoptimierung in den Akkueinstellungen zu deaktivieren.</string>
+    <string name="battery_optimization">Batterieoptimierung</string>
 </resources>

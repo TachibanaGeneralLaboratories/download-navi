@@ -319,4 +319,7 @@
     <string name="uncompress_archive_error">Impossibile decomprimere l\'archivio</string>
     <string name="move_file_error_already_exists">Impossibile spostare il file: esiste già</string>
     <string name="uncompress_archive_error_unknown_type">Impossibile decomprimere l\'archivio: tipo sconosciuto o file corrotto</string>
+    <string name="disable">Disabilita</string>
+    <string name="battery_optimization">Ottimizzazione della batteria</string>
+    <string name="disable_battery_optimization_summary">Per un corretto lavoro in sfondo, è necessario disabilitare l\'ottimizzazione della batteria nelle impostazioni della batteria.</string>
 </resources>

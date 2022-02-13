@@ -318,4 +318,7 @@
     Download Navi 是一款自由软件，遵循 <a href="http://www.gnu.org/copyleft/gpl.html">GNU General Public License v3 (GPLv3)</a> 许可证的条款发布<br><br>
     <a href="https://github.com/TachibanaGeneralLaboratories/download-navi/blob/HEAD/PRIVACY.md">隐私政策</a>]]></string>
     <string name="about_changelog">更新日志</string>
+    <string name="disable_battery_optimization_summary">为了在后台正常工作，需要在电池设置中禁用电池优化。</string>
+    <string name="disable">禁用</string>
+    <string name="battery_optimization">电池优化</string>
 </resources>

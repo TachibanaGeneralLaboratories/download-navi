@@ -326,4 +326,7 @@
     <string name="move_file_error_already_exists">Не удалось переместить файл: уже существует</string>
     <string name="uncompress_archive_error_unknown_type">Не удалось распаковать архив: неизвестный тип или повреждённый файл</string>
     <string name="uncompress_archive">Распаковать архив</string>
+    <string name="battery_optimization">Экономия батареи</string>
+    <string name="disable">Отключить</string>
+    <string name="disable_battery_optimization_summary">Для корректной работы в фоне, необходимо отключить экономию батареи в настройках батареи.</string>
 </resources>
