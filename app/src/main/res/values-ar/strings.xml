@@ -334,4 +334,7 @@ href="http://www.gnu.org/copyleft/gpl.html">
     <string name="uncompress_archive_error">تعذر فك ضغط الأرشيف</string>
     <string name="move_file_error_already_exists">غير قادر على نقل الملف: موجود مسبقا</string>
     <string name="uncompress_archive">فك ضغط الأرشيف</string>
+    <string name="disable_battery_optimization_summary">ولأجل العمل بشكل سليم في الخلفية، من الضروري تعطيل تحسين البطارية.</string>
+    <string name="disable">تعطيل</string>
+    <string name="battery_optimization">تحسين البطارية</string>
 </resources>
