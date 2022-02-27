@@ -311,4 +311,12 @@
     <string name="pref_browser_hide_menu_icon_title">مخفی کردن نقشک از منو</string>
     <string name="pref_speed_limit_dialog_hint">تنظیم سرعت در کیبی‌بایت/ثانیه (۰ - بدون محدودیت)</string>
     <string name="pref_browser_hide_menu_icon_summary">مخفی کردن نقشک مرورگر از منوی صفحهٔ اصلی</string>
+    <string name="move_file_error">نمی‌توان پرونده را جابه‌جا کرد</string>
+    <string name="move_file_error_already_exists">نمی‌توان پرونده را جابه‌جا کرد: هم‌اکنون موجود است</string>
+    <string name="disable">از کار انداختن</string>
+    <string name="uncompress_archive_error_unknown_type">نمی‌توان بایگانی را استخراج کرد: گونهٔ ناشناخته یا پرونده خراب است</string>
+    <string name="uncompress_archive">استخراج بایگانی</string>
+    <string name="battery_optimization">بهینه‌سازی باتری</string>
+    <string name="disable_battery_optimization_summary">برای درست کار کردن در پس‌زمینه، باید بهینه‌سازی باتری را در تنظیمات باتری از کار بیاندازید.</string>
+    <string name="uncompress_archive_error">نمی‌توان بایگانی را استخراج کرد</string>
 </resources>
