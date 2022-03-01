@@ -1,20 +1,21 @@
-# Features
+# Ciri-ciri
 
-* Free and Open Source software (FOSS)
-* Material Design
-* Multiple themes (Light, Dark, Black)
-* Android TV support
-* Chrome OS support
-* Pause and resume downloads
-* Browsers support
-* Built-in browser
-* Simultaneous downloads (default 3)
-* Multi part downloading (max 16)
-* Download files in background
-* Unmetered connections only support (ex. Wi-Fi)
-* Roaming controls
-* User agent controls
-* Calculate hash value (MD5 & SHA-256)
-* Power Management and battery control
-* Various automatic actions after finishing download
-* Speed limit
+* Perisian Percuma dan Sumber Terbuka (FOSS)
+* Reka Bentuk Material
+* Pelbagai tema (Terang, Gelap, Hitam)
+* Sokongan Android TV
+* Sokongan OS Chrome
+* Jeda dan sambung semula muat turun
+* Sokongan pelayar
+* Pelayar terbina dalam
+* Muat turun serentak (lalai 3)
+* Muat turun berbilang bahagian (maks 16)
+* Muat turun fail di latar belakang
+* Sambungan tidak bermeter hanya menyokong (cth. Wi-Fi)
+* Kawalan perayauan
+* Kawalan ejen pengguna
+* Kira nilai hash (MD5 & SHA-256)
+* Pengurusan Kuasa dan kawalan bateri
+* Pelbagai tindakan automatik selepas selesai memuat turun
+* Had laju
+* [Android 8.0+] Autonyahmampatkan arkib. Format arkib: zip, tar, 7z, ar, cpio, dump, rar (< v5). Format pemampat: gzip, bzip2, xz, lzma, Pack200, DEFLATE, DEFLATE64, Z
