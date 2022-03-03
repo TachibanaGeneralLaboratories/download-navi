@@ -69,4 +69,13 @@
     <string name="elapsed_time_format_ss">%1$d s</string>
     <string name="folder">Mapp</string>
     <string name="redownload">Ladda ned igen</string>
+    <string name="select_all">Välj alla</string>
+    <string name="share_via">Dela via</string>
+    <string name="download_finished_notify">Nedladdning klar</string>
+    <string name="shutdown">Stäng av</string>
+    <string name="download_error_notify_title">Nedladdningsfel</string>
+    <string name="Default">Standard</string>
+    <string name="open_using">Öppna med</string>
+    <string name="move_file_error">Kan inte flytta filen</string>
+    <string name="move_file_error_already_exists">Kan inte flytta filen: den finns redan</string>
 </resources>
