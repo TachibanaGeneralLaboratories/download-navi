@@ -90,8 +90,8 @@
     <string name="drawer_date_added_week">Vecka</string>
     <string name="download_name">Namn</string>
     <string name="drawer_category_archives">Arkiv</string>
-    <string name="perm_denied_warning">Utan denna behörighet kan appen inte spara filer i minnet på vissa enheter och versioner av Android. Appen kommer inte fungera korrekt. Är du säker på att du vill neka denna behörighet\?</string>
-    <string name="perm_denied_title">Behörighet nekad</string>
+    <string name="perm_denied_warning">Utan den här åtkomsten kan inte appen spara filer i lagringen på denna enhet eller visa versioner av Android. Appen kommer inte att fungera korrekt. Är du säker på att du vill neka åtkomsten\?</string>
+    <string name="perm_denied_title">Tillåtelse nekad</string>
     <string name="add_dialog_checksum_description">MD5, SHA-256</string>
     <string name="download_advanced">Avancerat</string>
     <string name="path">Sökväg</string>
@@ -128,4 +128,12 @@
     <string name="send_text_to_clipboard">Kopiera</string>
     <string name="browser_download_from_link">Ladda ned</string>
     <string name="browser_bookmarks">Bokmärken</string>
+    <string name="waiting_for_retry">Väntar på att försöka igen</string>
+    <string name="waiting_for_network">Väntar på nätverket</string>
+    <string name="download_error_empty_link">Var vänlig att ange länken</string>
+    <string name="download_error_empty_name">Var vänlig att ange namnet</string>
+    <string name="uncompress_archive_error">Kan inte extrahera arkivet</string>
+    <string name="uncompress_archive_error_unknown_type">Kan inte extrahera arkivet: okänd typ eller korrupt fil</string>
+    <string name="download_error_no_enough_free_space">Inte tillräckligt med utrymme: %1$s ledigt, men filen är %2$s</string>
+    <string name="download_error_name_is_not_correct">Korrekta namnet är \"%1$s\"</string>
 </resources>
