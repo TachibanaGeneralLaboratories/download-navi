@@ -132,7 +132,7 @@
     <string name="drawer_status_running">Em execução</string>
     <string name="drawer_status_stopped">Parado</string>
     <!-- Date added -->
-    <string name="drawer_date_added">Data adicionada</string>
+    <string name="drawer_date_added">Data de adição</string>
     <string name="drawer_date_added_today">Hoje</string>
     <string name="drawer_date_added_yesterday">Ontem</string>
     <string name="drawer_date_added_week">Semana</string>
@@ -140,7 +140,7 @@
     <string name="drawer_date_added_year">Ano</string>
     <!-- Sorting -->
     <string name="drawer_sorting">Ordenar</string>
-    <string name="drawer_sorting_date_added">Data adicionada</string>
+    <string name="drawer_sorting_date_added">Data de adição</string>
     <string name="drawer_sorting_name">Nome</string>
     <string name="drawer_sorting_size">Tamanho</string>
     <string name="drawer_sorting_category">Categoria</string>
@@ -180,7 +180,7 @@
     <!-- downloaded/total (percent) -->
     <string name="detail_downloaded_format">%1$s/%2$s (%3$d%%)</string>
     <string name="detail_pieces">Partes</string>
-    <string name="detail_date_added">Data adicionada</string>
+    <string name="detail_date_added">Data de adição</string>
     <string name="detail_user_agent">Agente de usuário</string>
     <string name="detail_md5_hash_sum">MD5</string>
     <string name="detail_sha256_hash_sum">SHA-256</string>
@@ -228,7 +228,7 @@
     <!-- Headers -->
     <string name="pref_header_appearance">Aparência</string>
     <string name="pref_header_behavior">Comportamento</string>
-    <string name="pref_header_limitations">Limitações</string>
+    <string name="pref_header_limitations">Limites</string>
     <string name="pref_header_storage">Armazenamento</string>
     <string name="pref_header_browser">Navegador</string>
     <!-- Appearance settings -->
@@ -256,14 +256,14 @@
     <string name="pref_umnetered_connections_only_summary">Download somente em conexões não monitoradas (por exemplo, Wi-Fi ou Ethernet)</string>
     <string name="pref_power_management_category">Gerenciamento de energia</string>
     <string name="pref_cpu_do_not_sleep_title">Manter CPU ativa</string>
-    <string name="pref_cpu_do_not_sleep_summary">Habilitando isto aumentará o uso da bateria. Use esta opção se a velocidade de download reduzir quando a tela desligar</string>
+    <string name="pref_cpu_do_not_sleep_summary">Habilitar isto aumentará o uso da bateria. Use esta opção se a velocidade de download reduzir quando a tela desligar</string>
     <string name="pref_download_only_when_charging_title">Baixar somente quando carregando</string>
     <string name="pref_download_only_when_charging_summary">Se ativado, o download ocorrerá somente durante o carregamento. Todos os downloads serão suspensos quando não estiver conectado ao carregador</string>
     <string name="pref_battery_control_title">Controle de bateria</string>
     <string name="pref_custom_battery_control_title">Percentagem de bateria personalizada</string>
     <string name="pref_custom_battery_control_value_title">Porcentagem de controle de bateria</string>
     <string name="pref_battery_control_summary">Todos os downloads serão suspensos se o nível da bateria for abaixo de %1$d%%. O limite não se aplica no momento do carregamento</string>
-    <string name="pref_custom_battery_control_summary">Defina uma porcentagem personalizada para pausar downloads se a bateria cair abaixo do limite determinado. Habilitando isto irá ignorar o limite padrão de %1$d%%</string>
+    <string name="pref_custom_battery_control_summary">Defina uma porcentagem personalizada para pausar downloads se a bateria cair abaixo do limite determinado. Habilitar isto irá ignorar o limite padrão de %1$d%%</string>
     <string name="pref_custom_battery_control_dialog_summary">Definir uma porcentagem de bateria personalizada para o aplicativo a ser observado causará um impacto negativo na duração da bateria enquanto os downloads estiverem ocorrendo. Tem certeza de que deseja ativar isso?</string>
     <string name="pref_enable_roaming_title">Ativar roaming</string>
     <string name="pref_enable_roaming_summary">Baixar apenas se o dispositivo não estiver em roaming</string>
@@ -271,7 +271,7 @@
     <string name="pref_replace_duplicate_downloads_summary">Substituir downloads duplicados (com a mesma URL) quando adicionado que já estão na lista</string>
     <string name="pref_auto_connect_title">Conectar automaticamente</string>
     <string name="pref_auto_connect_summary">Conexão automática ao abrir o diálogo de adicionar</string>
-    <string name="pref_timeout_title">Tempo Esgotado</string>
+    <string name="pref_timeout_title">Tempo de espera</string>
     <string name="pref_timeout_summary">O número de milissegundos a aguardar antes que a conexão atingisse o tempo limite. Zero é interpretado como um tempo limite infinito</string>
     <!-- Limitation settings -->
     <string name="pref_max_active_downloads_title">Máximo de downloads ativos</string>
@@ -320,4 +320,7 @@
     <string name="uncompress_archive_error_unknown_type">Não é possível descompactar o arquivo: tipo desconhecido ou arquivo corrompido</string>
     <string name="uncompress_archive_error">Não foi possível descompactar o arquivo</string>
     <string name="move_file_error">Não foi possível mover o arquivo</string>
+    <string name="battery_optimization">Otimização da bateria</string>
+    <string name="disable_battery_optimization_summary">Para um trabalho correto em segundo plano, é necessário desativar a otimização da bateria nas configurações da bateria.</string>
+    <string name="disable">Desativar</string>
 </resources>

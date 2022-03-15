@@ -265,4 +265,12 @@
     <string name="app_error_occurred">Ralat aplikasi berlaku. Anda boleh menghantar laporan kepada pembangun</string>
     <string name="pref_header_appearance">Penampilan</string>
     <string name="pref_browser_bottom_address_bar_title">Bar alamat di bahagian bawah</string>
+    <string name="disable">Lumpuhkan</string>
+    <string name="move_file_error">Tidak dapat mengalihkan fail</string>
+    <string name="move_file_error_already_exists">Tidak dapat mengalihkan fail: sudah wujud</string>
+    <string name="uncompress_archive_error">Tidak dapat menyahmampatkan arkib</string>
+    <string name="uncompress_archive_error_unknown_type">Tidak dapat menyahmampatkan arkib: jenis tidak diketahui atau fail rosak</string>
+    <string name="uncompress_archive">Nyahmampatkan arkib</string>
+    <string name="battery_optimization">Pengoptimuman bateri</string>
+    <string name="disable_battery_optimization_summary">Untuk kerja yang betul di latar belakang, adalah perlu untuk melumpuhkan pengoptimuman bateri dalam tetapan bateri.</string>
 </resources>

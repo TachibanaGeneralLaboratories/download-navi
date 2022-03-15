@@ -317,4 +317,7 @@
     <string name="move_file_error_already_exists">No se pudo mover el archivo: ya existe</string>
     <string name="uncompress_archive_error">No se pudo descomprimir el archivo</string>
     <string name="uncompress_archive">Descomprimir archivo</string>
+    <string name="disable">Deshabilitar</string>
+    <string name="battery_optimization">Optimización de batería</string>
+    <string name="disable_battery_optimization_summary">Para que funcione correctamente en segundo plano, es necesario deshabilitar la optimización de batería en los ajustes de la batería.</string>
 </resources>
