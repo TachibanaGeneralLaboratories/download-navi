@@ -1,0 +1,1 @@
+Download Navi always strives to be completely free (libre) software, so RAR decompression support has been removed due to a nonfree license.

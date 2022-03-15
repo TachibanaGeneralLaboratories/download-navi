@@ -1,3 +1,8 @@
+Version 1.6.2 (2022-03-15)
+==========================
+
+Download Navi always strives to be completely free (libre) software, so RAR decompression support has been removed due to a nonfree license.
+
 Version 1.6.1 (2022-02-13)
 ==========================
 
