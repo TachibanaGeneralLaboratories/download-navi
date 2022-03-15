@@ -87,16 +87,9 @@ public class ArchiveExtractor {
             case sevenZ:
                 uncompress7z(source, outputDir, subDirName);
                 break;
-            case rar:
-                uncompressRar(source, outputDir, subDirName);
-                break;
             case other:
                 try (var bufIs = new BufferedInputStream(source)) {
-                    if (RarFile.RAR.equals(RarFile.detect(bufIs))) {
-                        uncompressRar(bufIs, outputDir, subDirName);
-                    } else {
-                        defaultUncompress(bufIs, outputDir, subDirName);
-                    }
+                    defaultUncompress(bufIs, outputDir, subDirName);
                 }
                 break;
         }
@@ -170,24 +163,6 @@ public class ArchiveExtractor {
         }
     }
 
-    private void uncompressRar(InputStream is, Uri outputDir, String subDirName) throws IOException, UnknownArchiveFormatException {
-        var tmpFile = fs.createTmpFile(".rar");
-        copyToTmpFile(is, tmpFile);
-        try (var file = new RarFile(tmpFile)) {
-            RarArchiveEntry entry;
-            while ((entry = file.getNextEntry()) != null) {
-                try (var fileIs = file.getInputStream(entry)) {
-                    uncompressEntry(entry, outputDir, subDirName, (path) -> saveStream(fileIs, path));
-                }
-            }
-        } catch (ArchiveException e) {
-            Log.e(TAG, "Unknown RAR archive format", e);
-            throw new UnknownArchiveFormatException();
-        } finally {
-            tmpFile.delete();
-        }
-    }
-
     private void uncompressEntry(
             ArchiveEntry entry,
             Uri outputDir,
@@ -240,18 +215,12 @@ public class ArchiveExtractor {
 
     private enum ArchiveType {
         other,
-        sevenZ,
-        rar;
+        sevenZ;
 
         static ArchiveType getByMimeType(String mimeType) {
             switch (mimeType) {
                 case "application/x-7z-compressed":
                     return ArchiveType.sevenZ;
-                case "application/x-rar-compressed":
-                case "application/x-rar":
-                case "application/rar":
-                case "application/vnd.rar":
-                    return ArchiveType.rar;
             }
             return ArchiveType.other;
         }

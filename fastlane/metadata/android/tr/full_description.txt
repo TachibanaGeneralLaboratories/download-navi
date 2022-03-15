@@ -18,4 +18,4 @@
 * Güç Yönetimi ve pil denetimi
 * İndirmeyi bitirdikten sonra çeşitli otomatik eylemler
 * Hız sınırı
-* [Android 8.0+] Arşivi otomatik olarak çıkart. Arşivleyici biçimleri: zip, tar, 7z, ar, cpio, dump, rar (< v5). Sıkıştırıcı biçimleri: gzip, bzip2, xz, lzma, Pack200, DEFLATE, DEFLATE64, Z
+* [Android 8.0+] Arşivi otomatik olarak çıkart. Arşivleyici biçimleri: zip, tar, 7z, ar, cpio, dump. Sıkıştırıcı biçimleri: gzip, bzip2, xz, lzma, Pack200, DEFLATE, DEFLATE64, Z

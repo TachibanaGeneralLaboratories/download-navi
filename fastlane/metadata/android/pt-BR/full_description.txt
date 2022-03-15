@@ -18,4 +18,4 @@
 * Gerenciamento de energia e controle de bateria
 * Várias ações automáticas após terminar o download
 * Limite de velocidade
-* [Android 8.0+] Arquivo de descompactação automática. Formatos do arquivador: zip, tar, 7z, ar, cpio, dump, rar (< v5). Formatos de compressor: gzip, bzip2, xz, lzma, Pack200, DEFLATE, DEFLATE64, Z
+* [Android 8.0+] Arquivo de descompactação automática. Formatos do arquivador: zip, tar, 7z, ar, cpio, dump. Formatos de compressor: gzip, bzip2, xz, lzma, Pack200, DEFLATE, DEFLATE64, Z

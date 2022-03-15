@@ -38,7 +38,7 @@ Download Navi is a free and Open Source download manager for Android 4.4+.
  - Power Management and battery control
  - Various automatic actions after finishing download
  - Speed limit
- - [Android 8.0+] Auto-uncompress archive. Archiver formats: zip, tar, 7z, ar, cpio, dump, rar (< v5). Compressor formats: gzip, bzip2, xz, lzma, Pack200, DEFLATE, DEFLATE64, Z
+ - [Android 8.0+] Auto-uncompress archive. Archiver formats: zip, tar, 7z, ar, cpio, dump. Compressor formats: gzip, bzip2, xz, lzma, Pack200, DEFLATE, DEFLATE64, Z
 
 ## Donation
 
