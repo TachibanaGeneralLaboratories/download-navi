@@ -10,7 +10,7 @@
 * Navegador embutido
 * Downloads simultâneos (padrão 3)
 * Download de várias partes (máximo de 16)
-* Baixe arquivos em segundo plano 
+* Baixe arquivos em segundo plano
 * Suporte apenas para conexões ilimitadas (ex. Wi-Fi)
 * Controles de roaming
 * Controles do agente do usuário
