@@ -1,2 +1,39 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+    <string name="drawer_date_added_today">Бүгін</string>
+    <string name="cancel">Болдырмау</string>
+    <string name="delete">Жою</string>
+    <string name="error">Қате</string>
+    <string name="folder">Бума</string>
+    <string name="close">Жабу</string>
+    <string name="drawer_category_apk">APK</string>
+    <string name="drawer_date_added_month">Ай</string>
+    <string name="drawer_date_added_year">Жыл</string>
+    <string name="calculate">Есептеу</string>
+    <string name="browser_download_from_link">Жүктеп алу</string>
+    <string name="pref_theme_entries_1">Қараңғы</string>
+    <string name="error_template">Қате: %1$s</string>
+    <string name="add">Қосу</string>
+    <string name="share">Бөлісу</string>
+    <string name="menu">Мәзір</string>
+    <string name="no">Жоқ</string>
+    <string name="yes">Иә</string>
+    <string name="file">Файл</string>
+    <string name="Default">Әдепкі</string>
+    <string name="download_link">Сілтеме</string>
+    <string name="fetch_error_default_fmt">Қате: %1$s</string>
+    <string name="search">Іздеу</string>
+    <string name="settings">Баптаулар</string>
+    <string name="storage_free_space">Бос орын: %1$s</string>
+    <string name="share_url">URL бөлісу</string>
+    <string name="drawer_category_images">Суреттер</string>
+    <string name="drawer_date_added_yesterday">Кеше</string>
+    <string name="drawer_date_added_week">Апта</string>
+    <string name="dialog_new_folder_title">Жаңа бума</string>
+    <string name="detail_sha256_hash_sum">SHA-256</string>
+    <string name="detail_md5_hash_sum">MD5</string>
+    <string name="app_name">Download Navi</string>
+    <string name="pref_header_limitations">Шектеулер</string>
+    <string name="pref_theme_entries_2">Қара</string>
+    <string name="about_title">Download Navi туралы</string>
+</resources>
