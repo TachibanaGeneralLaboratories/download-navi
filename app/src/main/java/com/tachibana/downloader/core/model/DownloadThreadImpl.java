@@ -209,8 +209,8 @@ class DownloadThreadImpl implements DownloadThread
             }
 
             checkPiecesStatus(res.pieceResultList);
-
-            if (onBeforeFinishedCallback != null) {
+            StopRequest result = checkPauseStop();
+            if ((result == null ) && onBeforeFinishedCallback != null) {
                 info = onBeforeFinishedCallback.onBeforeFinished(info);
             }
 
