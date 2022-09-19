@@ -319,4 +319,5 @@
     <string name="uncompress_archive">アーカイブ解凍</string>
     <string name="battery_optimization">電池最適化</string>
     <string name="disable_battery_optimization_summary">バックグラウンドで正しく機能するためには、電池設定内の電池最適化を無効化する必要があります。</string>
+    <string name="disable">無効化</string>
 </resources>
