@@ -305,4 +305,21 @@
     <a href="https://github.com/TachibanaGeneralLaboratories/download-navi/blob/HEAD/PRIVACY.md">गोपनीयता नीति</a>]]></string>
     <string name="about_changelog">परिवर्तन लॉग</string>
     <string name="file_not_available">File Nahi available hai</string>
+    <string name="disable">अक्षम करें</string>
+    <string name="move_file_error">फ़ाइल को स्थानांतरित करने में असमर्थ</string>
+    <string name="uncompress_archive_error">संग्रह को अनकंप्रेस करने में असमर्थ</string>
+    <string name="battery_optimization">बैटरी ऑप्टिमाइज़ेशन</string>
+    <string name="pref_header_limitations">सीमाएं</string>
+    <string name="pref_speed_limit_title">एक खंड के लिए गति सीमा</string>
+    <string name="pref_speed_limit_dialog_hint">KiB/s में गति निर्धारित करें (0 - बिना सीमा के)</string>
+    <string name="uncompress_archive">संग्रह को अनकंप्रेस करें</string>
+    <plurals name="unable_sharing">
+        <item quantity="one">फ़ाइल साझा नहीं की जा सकती।</item>
+        <item quantity="other">फ़ाइलें साझा नहीं की जा सकतीं।</item>
+    </plurals>
+    <string name="move_file_error_already_exists">फ़ाइल को स्थानांतरित करने में असमर्थ: पहले से मौजूद है</string>
+    <string name="uncompress_archive_error_unknown_type">संग्रह को अनकंप्रैस करने में असमर्थ: अज्ञात प्रकार या दूषित फ़ाइल</string>
+    <string name="disable_battery_optimization_summary">पृष्ठभूमि में सही काम करने के लिए, बैटरी सेटिंग में बैटरी ऑप्टिमाइज़ेशन को अक्षम करना आवश्यक है।</string>
+    <string name="pref_browser_hide_menu_icon_title">मेनू से आइकन छुपाएं</string>
+    <string name="pref_browser_hide_menu_icon_summary">मुख्य स्क्रीन मेनू से ब्राउज़र आइकन छुपाएं</string>
 </resources>
