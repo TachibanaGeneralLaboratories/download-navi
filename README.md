@@ -13,7 +13,6 @@ Download Navi
 [<img alt="Get it on F-Droid" height="80" src="https://tachibanagenerallaboratories.github.io/images/badges/F-Droid/get-it-on.png">](https://f-droid.org/en/packages/com.tachibana.downloader/)
 [<img alt="Get it on GitHub" height="80" src="https://tachibanagenerallaboratories.github.io/images/badges/GitHub/get-it-on-github.png">](https://github.com/TachibanaGeneralLaboratories/download-navi/releases)
 [<img alt="Get it on Android File Host" height="80" src="https://tachibanagenerallaboratories.github.io/images/badges/Android%20File%20Host/android-file-host-badge.png">](https://www.androidfilehost.com/?w=files&flid=292947)
-[<img alt="Get it on Coolapk" height="80" src="https://tachibanagenerallaboratories.github.io/images/badges/Coolapk/coolapk.png">](https://coolapk.com/apk/com.tachibana.downloader)
 [<img alt="Direct APK Download" height="80" src="https://tachibanagenerallaboratories.github.io/images/badges/Direct%20Download/direct-apk-download.png">](https://proninyaroslav.ru/ftp/download_navi/)
 
 Download Navi is a free and Open Source download manager for Android 4.4+.
