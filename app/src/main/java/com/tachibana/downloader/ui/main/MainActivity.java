@@ -69,6 +69,7 @@ import com.tachibana.downloader.core.utils.Utils;
 import com.tachibana.downloader.receiver.NotificationReceiver;
 import com.tachibana.downloader.service.DownloadService;
 import com.tachibana.downloader.ui.BaseAlertDialog;
+import com.tachibana.downloader.ui.PermissionManager;
 import com.tachibana.downloader.ui.adddownload.AddDownloadActivity;
 import com.tachibana.downloader.ui.browser.BrowserActivity;
 import com.tachibana.downloader.ui.main.drawer.DrawerExpandableAdapter;
@@ -116,6 +117,7 @@ public class MainActivity extends AppCompatActivity
     private BaseAlertDialog aboutDialog;
     private PermissionDeniedDialog permDeniedDialog;
     private BatteryOptimizationDialog batteryDialog;
+    private PermissionManager permissionManager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -137,9 +139,24 @@ public class MainActivity extends AppCompatActivity
         permDeniedDialog = (PermissionDeniedDialog)fm.findFragmentByTag(TAG_PERM_DENIED_DIALOG);
         batteryDialog = (BatteryOptimizationDialog)fm.findFragmentByTag(TAG_BATTERY_DIALOG);
 
-        if (!Utils.checkStoragePermission(this) && permDeniedDialog == null) {
-            storagePermission.launch(Manifest.permission.WRITE_EXTERNAL_STORAGE);
-        }
+        permissionManager = new PermissionManager(this, new PermissionManager.Callback() {
+            @Override
+            public void onStorageResult(boolean isGranted, boolean shouldRequestStoragePermission) {
+                if (!isGranted && shouldRequestStoragePermission) {
+                    if (fm.findFragmentByTag(TAG_PERM_DENIED_DIALOG) == null) {
+                        permDeniedDialog = PermissionDeniedDialog.newInstance();
+                        FragmentTransaction ft = fm.beginTransaction();
+                        ft.add(permDeniedDialog, TAG_PERM_DENIED_DIALOG);
+                        ft.commitAllowingStateLoss();
+                    }
+                }
+            }
+
+            @Override
+            public void onNotificationResult(boolean isGranted, boolean shouldRequestNotificationPermission) {
+                permissionManager.setDoNotAskNotifications(!isGranted);
+            }
+        });
 
         setContentView(R.layout.activity_main);
 
@@ -152,24 +169,14 @@ public class MainActivity extends AppCompatActivity
         initLayout();
         engine.restoreDownloads();
 
+        if (!permissionManager.checkPermissions() && permDeniedDialog == null) {
+            permissionManager.requestPermissions();
+        }
+
         if (Utils.shouldShowBatteryOptimizationDialog(this)) {
             showBatteryOptimizationDialog();
         }
     }
-
-    private final ActivityResultLauncher<String> storagePermission = registerForActivityResult(
-            new ActivityResultContracts.RequestPermission(),
-            isGranted -> {
-                if (!isGranted && Utils.shouldRequestStoragePermission(this)) {
-                    FragmentManager fm = getSupportFragmentManager();
-                    if (fm.findFragmentByTag(TAG_PERM_DENIED_DIALOG) == null) {
-                        permDeniedDialog = PermissionDeniedDialog.newInstance();
-                        FragmentTransaction ft = fm.beginTransaction();
-                        ft.add(permDeniedDialog, TAG_PERM_DENIED_DIALOG);
-                        ft.commitAllowingStateLoss();
-                    }
-                }
-            });
 
     private void initLayout()
     {
@@ -299,7 +306,7 @@ public class MainActivity extends AppCompatActivity
                             permDeniedDialog.dismiss();
                         }
                         if (event.type == BaseAlertDialog.EventType.NEGATIVE_BUTTON_CLICKED) {
-                            storagePermission.launch(Manifest.permission.WRITE_EXTERNAL_STORAGE);
+                            permissionManager.requestPermissions();
                         }
                     } else if (event.dialogTag.equals(TAG_BATTERY_DIALOG)) {
                         if (event.type != BaseAlertDialog.EventType.DIALOG_SHOWN) {

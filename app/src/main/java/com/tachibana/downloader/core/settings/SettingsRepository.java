@@ -213,4 +213,8 @@ public interface SettingsRepository
     void askDisableBatteryOptimization(boolean val);
 
     boolean askDisableBatteryOptimization();
+
+    boolean askNotificationPermission();
+
+    void askNotificationPermission(boolean val);
 }

@@ -125,7 +125,6 @@ public class BrowserViewModel extends AndroidViewModel
         settings.setAllowUniversalAccessFromFileURLs(false);
         settings.setAllowFileAccess(true);
         settings.setAllowContentAccess(true);
-        settings.setAppCachePath(getApplication().getCacheDir().getAbsolutePath());
         settings.setLayoutAlgorithm(WebSettings.LayoutAlgorithm.NORMAL);
         settings.setSupportZoom(true);
         settings.setBuiltInZoomControls(true);
@@ -189,12 +188,10 @@ public class BrowserViewModel extends AndroidViewModel
 
         if (enable) {
             settings.setCacheMode(WebSettings.LOAD_DEFAULT);
-            settings.setAppCacheEnabled(true);
             settings.setDatabaseEnabled(true);
             settings.setDomStorageEnabled(true);
         } else {
             settings.setCacheMode(WebSettings.LOAD_NO_CACHE);
-            settings.setAppCacheEnabled(false);
             settings.setDatabaseEnabled(false);
             settings.setDomStorageEnabled(false);
             WebStorage.getInstance().deleteAllData();

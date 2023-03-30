@@ -73,6 +73,7 @@ import com.tachibana.downloader.ui.BaseAlertDialog;
 import com.tachibana.downloader.ui.ClipboardDialog;
 import com.tachibana.downloader.ui.FragmentCallback;
 import com.tachibana.downloader.ui.PermissionDeniedDialog;
+import com.tachibana.downloader.ui.PermissionManager;
 
 import java.io.IOException;
 import java.net.ConnectException;
@@ -109,6 +110,7 @@ public class AddDownloadDialog extends DialogFragment {
     private String curClipboardTag;
     private SharedPreferences localPref;
     private PermissionDeniedDialog permDeniedDialog;
+    private PermissionManager permissionManager;
 
     public static AddDownloadDialog newInstance(@NonNull AddInitParams initParams)
     {
@@ -239,7 +241,7 @@ public class AddDownloadDialog extends DialogFragment {
                 permDeniedDialog.dismiss();
             }
             if (event.type == BaseAlertDialog.EventType.NEGATIVE_BUTTON_CLICKED) {
-                storagePermission.launch(Manifest.permission.WRITE_EXTERNAL_STORAGE);
+                permissionManager.requestPermissions();
             }
         }
     }
@@ -332,16 +334,11 @@ public class AddDownloadDialog extends DialogFragment {
         if (initParams != null)
             viewModel.initParams(initParams);
 
-        if (!Utils.checkStoragePermission(activity) && permDeniedDialog == null) {
-            storagePermission.launch(Manifest.permission.WRITE_EXTERNAL_STORAGE);
-        }
-    }
-
-    private final ActivityResultLauncher<String> storagePermission = registerForActivityResult(
-            new ActivityResultContracts.RequestPermission(),
-            isGranted -> {
-                if (!isGranted && Utils.shouldRequestStoragePermission(activity)) {
-                    FragmentManager fm = getChildFragmentManager();
+        FragmentManager fm = getChildFragmentManager();
+        permissionManager = new PermissionManager(activity, new PermissionManager.Callback() {
+            @Override
+            public void onStorageResult(boolean isGranted, boolean shouldRequestStoragePermission) {
+                if (!isGranted && shouldRequestStoragePermission) {
                     if (fm.findFragmentByTag(TAG_PERM_DENIED_DIALOG) == null) {
                         permDeniedDialog = PermissionDeniedDialog.newInstance();
                         FragmentTransaction ft = fm.beginTransaction();
@@ -349,7 +346,18 @@ public class AddDownloadDialog extends DialogFragment {
                         ft.commitAllowingStateLoss();
                     }
                 }
-            });
+            }
+
+            @Override
+            public void onNotificationResult(boolean isGranted, boolean shouldRequestNotificationPermission) {
+                permissionManager.setDoNotAskNotifications(!isGranted);
+            }
+        });
+
+        if (!permissionManager.checkPermissions() && permDeniedDialog == null) {
+            permissionManager.requestPermissions();
+        }
+    }
 
     @NonNull
     @Override

@@ -109,6 +109,7 @@ public class SettingsRepositoryImpl implements SettingsRepository
         static final String browserSearchEngine = "https://duckduckgo.com/?q={searchTerms}";
         static final boolean browserHideMenuIcon = false;
         static final boolean askDisableBatteryOptimization = true;
+        static final boolean askNotificationPermission = true;
     }
 
     public SettingsRepositoryImpl(@NonNull Context appContext)
@@ -745,5 +746,18 @@ public class SettingsRepositoryImpl implements SettingsRepository
     public boolean askDisableBatteryOptimization() {
         return pref.getBoolean(appContext.getString(R.string.pref_key_ask_disable_battery_optimization),
                 Default.askDisableBatteryOptimization);
+    }
+
+    @Override
+    public boolean askNotificationPermission() {
+        return pref.getBoolean(appContext.getString(R.string.pref_key_ask_notification_permission),
+                Default.askNotificationPermission);
+    }
+
+    @Override
+    public void askNotificationPermission(boolean val) {
+        pref.edit()
+                .putBoolean(appContext.getString(R.string.pref_key_ask_notification_permission), val)
+                .apply();
     }
 }
