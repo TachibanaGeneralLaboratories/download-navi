@@ -1,21 +1,21 @@
-# Features
+خصوصیت
 
-* Free and Open Source software (FOSS)
-* Material Design
-* Multiple themes (Light, Dark, Black)
-* Android TV support
-* Chrome OS support
-* Pause and resume downloads
-* Browsers support
-* Built-in browser
-* Simultaneous downloads (default 3)
-* Multi part downloading (max 16)
-* Download files in background
-* Unmetered connections only support (ex. Wi-Fi)
-* Roaming controls
-* User agent controls
-* Calculate hash value (MD5 & SHA-256)
-* Power Management and battery control
-* Various automatic actions after finishing download
-* Speed limit
-* [Android 8.0+] Auto-uncompress archive. Archiver formats: zip, tar, 7z, ar, cpio, dump. Compressor formats: gzip, bzip2, xz, lzma, Pack200, DEFLATE, DEFLATE64, Z
+* مفت اور اوپن سورس سافٹ ویئر (FOSS)
+* مواد ڈیزائن
+* متعدد تھیمز (سفید، گہرا، سیاہ)
+*اینڈرائیڈ ٹی وی حمایت
+ *کروم آپریٹنگ سسٹم سپورٹ
+* موقوف کریں اور ڈاؤن لوڈز کو دوبارہ شروع کریں۔
+* براؤزر سپورٹ
+* بلٹ ان براؤزر
+* بیک وقت ڈاؤن لوڈز (پہلے سے طے شدہ 3)
+* ملٹی پارٹ ڈاؤن لوڈنگ (زیادہ سے زیادہ 16)
+* پس منظر میں فائلیں ڈاؤن لوڈ کریں۔
+* بغیر میٹر والے کنکشن صرف سپورٹ کرتے ہیں (مثال کے طور پر Wi-Fi)
+* رومنگ کنٹرولز
+* صارف ایجنٹ کنٹرولز
+* ہیش ویلیو کا حساب لگائیں (MD5 اور SHA-256)
+* پاور مینجمنٹ اور بیٹری کنٹرول
+* ڈاؤن لوڈ مکمل کرنے کے بعد مختلف خودکار کارروائیاں
+* رفتار کی حد
+* [Android 8.0+] محفوظ شدہ دستاویزات کو خودکار طور پر غیر کمپریس کریں۔ آرکائیور فارمیٹس: زپ، ٹار، 7 زیڈ، اے آر، سی پی آئی او، ڈمپ۔ کمپریسر فارمیٹس: gzip، bzip2، xz، lzma، Pack200، DEFLATE، DEFLATE64، Z
