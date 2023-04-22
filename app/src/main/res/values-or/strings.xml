@@ -1,2 +1,49 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+    <string name="error">ତ୍ରୁଟି</string>
+    <string name="file">ଫାଇଲ୍</string>
+    <string name="about">ଵିଷୟରେ</string>
+    <string name="folder">ଫୋଲ୍ଡର୍</string>
+    <string name="all">ସବୁ</string>
+    <string name="search">ସନ୍ଧାନ</string>
+    <string name="settings">ସେଟିଂ</string>
+    <string name="Default">ଡିଫଲ୍ଟ</string>
+    <string name="warning">ଚେତାଵନୀ</string>
+    <string name="more_details">ଅଧିକ ଵିଵରଣୀ</string>
+    <string name="download_running">ଚାଲିଛି</string>
+    <string name="finished">ସରିଲା</string>
+    <string name="ok">ଠିକ୍ ଅଛି</string>
+    <string name="connect">ସଂଯୋଗ କରିବା</string>
+    <string name="download_name">ନାମ</string>
+    <string name="download_size">ଆକାର: %1$s</string>
+    <string name="download_advanced">ଵିକଶିତ</string>
+    <string name="download_description">ଵର୍ଣ୍ଣନା</string>
+    <string name="path">ପଥ</string>
+    <string name="fetch_error_default_fmt">ତ୍ରୁଟି: %s</string>
+    <string name="download_retry">ପୁନଃଚେଷ୍ଟା</string>
+    <string name="file_not_available">ଫାଇଲ୍ ଉପଲବ୍ଧ ନାହିଁ!</string>
+    <string name="drawer_category">ଵର୍ଗ</string>
+    <string name="drawer_category_others">ଅନ୍ୟାନ୍ୟ</string>
+    <string name="drawer_category_documents">କାଗଜପତ୍ର</string>
+    <string name="drawer_category_images">ପ୍ରତିଛଵି</string>
+    <string name="drawer_category_video">ଵିଡ଼ିଓ</string>
+    <string name="drawer_category_audio">ଅଡ଼ିଓ</string>
+    <string name="drawer_status">ସ୍ଥିତି</string>
+    <string name="drawer_status_running">ଚାଲୁଛି</string>
+    <string name="drawer_date_added_today">ଆଜି</string>
+    <string name="drawer_date_added_yesterday">ଗତକାଲି</string>
+    <string name="drawer_date_added_week">ସପ୍ତାହ</string>
+    <string name="drawer_date_added_month">ମାସ</string>
+    <string name="drawer_date_added_year">ଵର୍ଷ</string>
+    <string name="drawer_sorting">ସଜାଣି</string>
+    <string name="drawer_sorting_name">ନାମ</string>
+    <string name="drawer_sorting_category">ଵର୍ଗ</string>
+    <string name="drawer_date_added">ଯୋଡ଼ାଯିବା ତାରିଖ</string>
+    <string name="drawer_sorting_date_added">ଯୋଡ଼ାଯିବା ତାରିଖ</string>
+    <string name="drawer_sorting_no_sorting">କିଛି ସଜାଅନି</string>
+    <string name="no">ନାହିଁ</string>
+    <string name="yes">ହଁ</string>
+    <string name="drawer_sorting_size">ଆକାର</string>
+    <string name="add">ଯୋଡ଼ନ୍ତୁ</string>
+    <string name="not_available">ଅପ୍ରଜୁଯ୍ୟ</string>
+</resources>
