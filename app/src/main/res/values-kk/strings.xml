@@ -38,4 +38,16 @@
     <string name="about_title">Download Navi туралы</string>
     <string name="finished">Аяқталды</string>
     <string name="pause">Үзіліс</string>
+    <string name="resume">Жалғастыру</string>
+    <string name="stop">Тоқтату</string>
+    <string name="stopped">Тоқтатылды</string>
+    <string name="select_all">Барлығын таңдау</string>
+    <string name="downloading_metadata">Метадеректер жүктелуде</string>
+    <string name="verify">Растау</string>
+    <string name="pause_all">Барлығын тоқтату</string>
+    <string name="resume_all">Барлығын жалғастыру</string>
+    <string name="move_file_error">Файлды жылжыту мүмкін емес</string>
+    <string name="fetch_error_io">Енгізу-шығару қатесі: %1$s</string>
+    <string name="dialog_add_user_agent_title">User agent қосу</string>
+    <string name="drawer_category_documents">Құжаттар</string>
 </resources>
