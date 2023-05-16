@@ -46,4 +46,5 @@
     <string name="drawer_sorting_size">ଆକାର</string>
     <string name="add">ଯୋଡ଼ନ୍ତୁ</string>
     <string name="not_available">ଅପ୍ରଜୁଯ୍ୟ</string>
+    <string name="error_template">ତ୍ରୁଟି: %1$s</string>
 </resources>
