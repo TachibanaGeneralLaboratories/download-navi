@@ -380,19 +380,6 @@ public class BrowserActivity extends AppCompatActivity
     }
 
     // fix the error crashing on searchbar input clicked it crashes 
-    /**
-     * Crash logs comment can be removed 
-     * 
-     * 2023-05-28 16:09:19.725 15414-15414/com.tachibana.downloader E/ACRA: ACRA caught a NullPointerException for com.tachibana.downloader
-    java.lang.NullPointerException: Attempt to invoke interface method 'android.view.MenuItem android.view.MenuItem.setVisible(boolean)' on a null object reference
-        at com.tachibana.downloader.ui.browser.BrowserActivity.onPrepareOptionsMenu(BrowserActivity.java:350)
-        at android.app.Activity.onPreparePanel(Activity.java:4334)
-        at androidx.activity.ComponentActivity.onPreparePanel(ComponentActivity.java:512)
-        at androidx.fragment.app.FragmentActivity.onPrepareOptionsPanel(FragmentActivity.java:485)
-        at androidx.fragment.app.FragmentActivity.onPreparePanel(FragmentActivity.java:470)
-        at androidx.appcompat.view.WindowCallbackWrapper.onPreparePanel(WindowCallbackWrapper.java:100)
-        at 
-     */
     @Override
     public boolean onPrepareOptionsMenu(Menu menu) {
         BrowserViewModel.UrlFetchState state = viewModel.observeUrlFetchState().getValue();
