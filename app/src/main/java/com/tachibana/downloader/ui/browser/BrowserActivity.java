@@ -217,7 +217,7 @@ public class BrowserActivity extends AppCompatActivity
                     DataBindingUtil.setContentView(this, R.layout.activity_browser_bottom_app_bar);
             binding.setLifecycleOwner(this);
             binding.setViewModel(viewModel);
-            setSupportActionBar(binding.bottomBar);
+            setSupportActionBar(binding.toolbar); // change this to toolbar instead of bottomBar
             webView = binding.webView;
             addressLayout = binding.addressBar.addressLayout;
             addressInput = binding.addressBar.addressInput;
@@ -379,34 +379,43 @@ public class BrowserActivity extends AppCompatActivity
         return true;
     }
 
+    // fix the error crashing on searchbar input clicked it crashes 
     @Override
-    public boolean onPrepareOptionsMenu(Menu menu)
-    {
+    public boolean onPrepareOptionsMenu(Menu menu) {
         BrowserViewModel.UrlFetchState state = viewModel.observeUrlFetchState().getValue();
+
         MenuItem refresh = menu.findItem(R.id.refresh_menu);
         MenuItem stop = menu.findItem(R.id.stop_menu);
-        boolean fetching = state == BrowserViewModel.UrlFetchState.FETCHING ||
-                state == BrowserViewModel.UrlFetchState.PAGE_STARTED;
-        refresh.setVisible(!fetching);
-        stop.setVisible(fetching);
+        if (refresh != null && stop != null) {
+            boolean fetching = state == BrowserViewModel.UrlFetchState.FETCHING ||
+                    state == BrowserViewModel.UrlFetchState.PAGE_STARTED;
+            refresh.setVisible(!fetching);
+            stop.setVisible(!fetching);
+        }
 
         MenuItem forward = menu.findItem(R.id.forward_menu);
-        forward.setVisible(webView.canGoForward());
+        if (forward != null) {
+            forward.setVisible(webView.canGoForward());
+        }
 
         MenuItem desktopVersion = menu.findItem(R.id.desktop_version_menu);
-        desktopVersion.setChecked(viewModel.isDesktopMode());
+        if (desktopVersion != null) {
+            desktopVersion.setChecked(viewModel.isDesktopMode());
+        }
 
         MenuItem addBookmark = menu.findItem(R.id.add_bookmark_menu);
         MenuItem editBookmark = menu.findItem(R.id.edit_bookmark_menu);
-        addBookmark.setVisible(!isCurrentPageBookmarked);
-        editBookmark.setVisible(isCurrentPageBookmarked);
+        if (addBookmark != null && editBookmark != null) {
+            addBookmark.setVisible(!isCurrentPageBookmarked);
+            editBookmark.setVisible(isCurrentPageBookmarked);
+        }
 
         return true;
     }
 
+    // edited for go measure nothing wrong with it 
     @Override
-    public boolean onOptionsItemSelected(MenuItem item)
-    {
+    public boolean onOptionsItemSelected(MenuItem item) {
         int itemId = item.getItemId();
         if (itemId == R.id.forward_menu) {
             if (webView.canGoForward())
@@ -442,7 +451,6 @@ public class BrowserActivity extends AppCompatActivity
 
         return true;
     }
-
     private void makeShareDialog(String url)
     {
         if (url == null)

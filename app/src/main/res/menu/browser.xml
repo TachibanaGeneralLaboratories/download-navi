@@ -1,16 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
+<!-- changed for the concept to fix the overlaping search bottom bar view -->
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <item android:id="@+id/refresh_menu"
         android:icon="@drawable/ic_refresh_menu_24dp"
-        android:title=""
-        app:showAsAction="always" />
+        android:title="refresh"
+        app:showAsAction="ifRoom" />
 
     <item android:id="@+id/stop_menu"
         android:icon="@drawable/ic_close_menu_24dp"
-        android:title=""
-        app:showAsAction="always" />
+        android:title="close"
+        app:showAsAction="ifRoom" />
 
     <item android:id="@+id/forward_menu"
         android:title="@string/browser_forward_arrow"
