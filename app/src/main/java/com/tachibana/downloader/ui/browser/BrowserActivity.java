@@ -379,34 +379,56 @@ public class BrowserActivity extends AppCompatActivity
         return true;
     }
 
+    // fix the error crashing on searchbar input clicked it crashes 
+    /**
+     * Crash logs comment can be removed 
+     * 
+     * 2023-05-28 16:09:19.725 15414-15414/com.tachibana.downloader E/ACRA: ACRA caught a NullPointerException for com.tachibana.downloader
+    java.lang.NullPointerException: Attempt to invoke interface method 'android.view.MenuItem android.view.MenuItem.setVisible(boolean)' on a null object reference
+        at com.tachibana.downloader.ui.browser.BrowserActivity.onPrepareOptionsMenu(BrowserActivity.java:350)
+        at android.app.Activity.onPreparePanel(Activity.java:4334)
+        at androidx.activity.ComponentActivity.onPreparePanel(ComponentActivity.java:512)
+        at androidx.fragment.app.FragmentActivity.onPrepareOptionsPanel(FragmentActivity.java:485)
+        at androidx.fragment.app.FragmentActivity.onPreparePanel(FragmentActivity.java:470)
+        at androidx.appcompat.view.WindowCallbackWrapper.onPreparePanel(WindowCallbackWrapper.java:100)
+        at 
+     */
     @Override
-    public boolean onPrepareOptionsMenu(Menu menu)
-    {
+    public boolean onPrepareOptionsMenu(Menu menu) {
         BrowserViewModel.UrlFetchState state = viewModel.observeUrlFetchState().getValue();
+
         MenuItem refresh = menu.findItem(R.id.refresh_menu);
         MenuItem stop = menu.findItem(R.id.stop_menu);
-        boolean fetching = state == BrowserViewModel.UrlFetchState.FETCHING ||
-                state == BrowserViewModel.UrlFetchState.PAGE_STARTED;
-        refresh.setVisible(!fetching);
-        stop.setVisible(fetching);
+        if (refresh != null && stop != null) {
+            boolean fetching = state == BrowserViewModel.UrlFetchState.FETCHING ||
+                    state == BrowserViewModel.UrlFetchState.PAGE_STARTED;
+            refresh.setVisible(!fetching);
+            stop.setVisible(!fetching);
+        }
 
         MenuItem forward = menu.findItem(R.id.forward_menu);
-        forward.setVisible(webView.canGoForward());
+        if (forward != null) {
+            forward.setVisible(webView.canGoForward());
+        }
 
         MenuItem desktopVersion = menu.findItem(R.id.desktop_version_menu);
-        desktopVersion.setChecked(viewModel.isDesktopMode());
+        if (desktopVersion != null) {
+            desktopVersion.setChecked(viewModel.isDesktopMode());
+        }
 
         MenuItem addBookmark = menu.findItem(R.id.add_bookmark_menu);
         MenuItem editBookmark = menu.findItem(R.id.edit_bookmark_menu);
-        addBookmark.setVisible(!isCurrentPageBookmarked);
-        editBookmark.setVisible(isCurrentPageBookmarked);
+        if (addBookmark != null && editBookmark != null) {
+            addBookmark.setVisible(!isCurrentPageBookmarked);
+            editBookmark.setVisible(isCurrentPageBookmarked);
+        }
 
         return true;
     }
 
+    // edited for go measure nothing wrong with it 
     @Override
-    public boolean onOptionsItemSelected(MenuItem item)
-    {
+    public boolean onOptionsItemSelected(MenuItem item) {
         int itemId = item.getItemId();
         if (itemId == R.id.forward_menu) {
             if (webView.canGoForward())
@@ -442,7 +464,6 @@ public class BrowserActivity extends AppCompatActivity
 
         return true;
     }
-
     private void makeShareDialog(String url)
     {
         if (url == null)
