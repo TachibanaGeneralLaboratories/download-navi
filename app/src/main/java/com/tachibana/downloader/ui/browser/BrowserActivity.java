@@ -217,7 +217,7 @@ public class BrowserActivity extends AppCompatActivity
                     DataBindingUtil.setContentView(this, R.layout.activity_browser_bottom_app_bar);
             binding.setLifecycleOwner(this);
             binding.setViewModel(viewModel);
-            setSupportActionBar(binding.bottomBar);
+            setSupportActionBar(binding.toolbar); // change this to toolbar instead of bottomBar
             webView = binding.webView;
             addressLayout = binding.addressBar.addressLayout;
             addressInput = binding.addressBar.addressInput;
