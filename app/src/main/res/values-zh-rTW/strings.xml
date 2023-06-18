@@ -33,7 +33,7 @@
     <string name="share">分享</string>
     <string name="menu">選單</string>
     <string name="select_all">選取全部</string>
-    <string name="share_via">分享方式：</string>
+    <string name="share_via">分享方式</string>
     <string name="no">取消</string>
     <string name="yes">完成</string>
     <string name="error">錯誤</string>
@@ -317,4 +317,7 @@
     <string name="pref_header_limitations">限制</string>
     <string name="pref_browser_hide_menu_icon_title">在選單中隱藏圖示</string>
     <string name="pref_browser_hide_menu_icon_summary">從主螢幕選單中隱藏瀏覽器圖示</string>
+    <string name="disable">禁用</string>
+    <string name="battery_optimization">電池優化</string>
+    <string name="disable_battery_optimization_summary">為了在後臺正常工作，請在電池設置中禁用電池優化。</string>
 </resources>
