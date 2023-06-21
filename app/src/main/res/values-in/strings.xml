@@ -312,4 +312,12 @@
     <string name="about_changelog">Catatan perubahan</string>
     <string name="checksum">Checksums</string>
     <string name="folder">Folders</string>
+    <string name="uncompress_archive_error_unknown_type">Tidak dapat mengurai berkas: berkas rusak atau tidak dikenal</string>
+    <string name="uncompress_archive">Mengurai berkas</string>
+    <string name="disable_battery_optimization_summary">Untuk dapat bekerja dengan baik, harap matikan optimasi baterai di pengaturan.</string>
+    <string name="battery_optimization">Optimasi baterai</string>
+    <string name="move_file_error_already_exists">Tidak dapat dipindahkan: berkas sudah ada</string>
+    <string name="uncompress_archive_error">Tidak dapat menguarai berkas</string>
+    <string name="move_file_error">Tidak dapat memindahkan berkas</string>
+    <string name="disable">Nonaktifkan</string>
 </resources>
