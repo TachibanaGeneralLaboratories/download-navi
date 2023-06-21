@@ -1,20 +1,21 @@
 # Fitur
 
-* Perangkat lunak Sumber Terbuka dan Bebas(FOSS)
-* Material Design
-* Pilihan tema (Terang, Gelap, Hitam)
-* Dukungan TV Android
+* Software gratis dan open source(FOSS)
+* Desain material
+* Beragam tema (Terang,Gelap, Hitam)
+* Dukungan android TV 
 * Dukungan Chrome OS
-* Jeda dan lanjutkan unduhan
-* Dukungan browser
+* Jeda dan mulai unduhan
+* Dukungan berbagai browser
 * Browser bawaan
-* Unduhan simultan (default 3)
-* Pengunduhan multi bagian (maks 16)
-* Unduh file di latar belakang
-* Hanya mendukung koneksi tanpa meteran (mis. Wi-Fi)
-* Kontrol jelajah
-* Kontrol agen pengguna
-* Hitung nilai hash (MD5 & SHA-256)
-* Manajemen Daya dan kontrol baterai
-* Berbagai tindakan otomatis setelah selesai mengunduh
-* Batas kecepatan
+* Unduh sekaligus (Bawaan 3)
+* Unduh dalam beberapa bagian (max 16)
+* Unduh berkas di latar belakang
+* Dukungan untuk konetksi tak tepantau (Wi-Fi)
+* Kontrol dimanapun
+* Ubah user agent
+* Menghitung jumlah hash (MD5 & SHA-256)
+* pengaturan daya dan kontrol baterai
+* Aksi automatis setelah mengunduh
+* Dapat mengatur batas kecepatan
+* [Android 8.0+] Mengurai berkas secara automatis. format berkas: zip, tar, 7z, ar, cpio, dump. format kompressor: gzip, bzip2, xz, lzma, Pack200, DEFLATE, DEFLATE64, Z
