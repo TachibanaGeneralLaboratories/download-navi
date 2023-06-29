@@ -312,4 +312,12 @@
     Download Navi là phần mềm tự do, được phân phối theo <a href="http://www.gnu.org/copyleft/gpl.html">Giấy phép công cộng GNU phiên bản 3 (GPLv3)</a><br><br>
     <a href="https://github.com/TachibanaGeneralLaboratories/download-navi/blob/HEAD/PRIVACY.md">Chính sách quyền riêng tư</a>]]></string>
     <string name="about_changelog">Nhật kí thay đổi</string>
+    <string name="move_file_error_already_exists">Không thể di chuyển tệp: đã tồn tại</string>
+    <string name="uncompress_archive_error_unknown_type">Không thể giải nén kho lưu trữ: loại không xác định hoặc tệp bị hỏng</string>
+    <string name="move_file_error">Không thể di chuyển tệp</string>
+    <string name="battery_optimization">Tối ưu hóa pin</string>
+    <string name="uncompress_archive">Giải nén kho lưu trữ</string>
+    <string name="disable">Vô hiệu hóa</string>
+    <string name="uncompress_archive_error">Không thể giải nén kho lưu trữ</string>
+    <string name="disable_battery_optimization_summary">Để hoạt động chính xác trong nền, cần phải tắt tối ưu hóa pin trong cài đặt pin.</string>
 </resources>
