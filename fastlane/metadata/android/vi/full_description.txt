@@ -1,20 +1,21 @@
-# Features
+# Các tính năng
 
-* Free and Open Source software (FOSS)
-* Material Design
-* Multiple themes (Light, Dark, Black)
-* Android TV support
-* Chrome OS support
-* Pause and resume downloads
-* Browsers support
-* Built-in browser
-* Simultaneous downloads (default 3)
-* Multi part downloading (max 16)
-* Download files in background
-* Unmetered connections only support (ex. Wi-Fi)
-* Roaming controls
-* User agent controls
-* Calculate hash value (MD5 & SHA-256)
-* Power Management and battery control
-* Various automatic actions after finishing download
-* Speed limit
+* Phần mềm nguồn mở và miễn phí (FOSS)
+* Thiết kế Material
+* Nhiều chủ đề (Sáng, Tối, Đen)
+* Hỗ trợ Android TV
+* Hỗ trợ Chrome OS
+* Tạm dừng và tiếp tục tải xuống
+* Hỗ trợ trình duyệt
+* Trình duyệt tích hợp
+* Tải xuống đồng thời (mặc định 3)
+* Tải xuống nhiều phần (tối đa 16)
+* Tải xuống tệp ở chế độ nền
+* Hỗ trợ chỉ dùng kết nối không mất phí (ví dụ: Wi-Fi)
+* Điều khiển chuyển vùng
+* Kiểm soát tác nhân người dùng
+* Tính toán giá trị băm (MD5 & SHA-256)
+* Quản lý năng lượng và kiểm soát pin
+* Nhiều hành động tự động khác nhau sau khi tải xuống xong
+* Giới hạn tốc độ
+* [Android 8.0+] Tự động giải nén kho lưu trữ. Các định dạng trình lưu trữ: zip, tar, 7z, ar, cpio, dump. Định dạng nén: gzip, bzip2, xz, lzma, Pack200, DEFLATE, DEFLATE64, Z
