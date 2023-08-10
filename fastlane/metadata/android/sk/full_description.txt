@@ -1,20 +1,21 @@
 # Funkcie
 
-* Slobodný a open source softvér (FOSS)
-* Material dizajn
-* Viaceré motívy (svetlý, tmavý, čierny)
+* Voľný a Open Source softvér (FOSS)
+* Materiál Design
+* Viac tém (Light, Dark, Black)
 * Podpora Android TV
 * Podpora Chrome OS
-* Pozastavenie a pokračovanie sťahovania
+* Pauza a obnoviť sťahovanie
 * Podpora prehliadačov
 * Vstavaný prehliadač
-* Simultánne sťahovanie (predvolené 3)
-* Sťahovanie viacerých častí naraz (max. 16)
-* Sťahovanie súborov na pozadí
-* Podpora iba neobmedzených pripojení (napr. Wi-Fi)
-* Nastavenie roamingu
-* Nastavenie používateľského agenta
-* Výpočet hašu (MD5 & SHA-256)
-* Správa napájania a kontrola stavu batérie
-* Viaceré automatické akcie pre ukončené sťahovania
-* Obmedzenie rýchlosti
+* Simultanálne sťahovanie (predvolené 3)
+* Multi časť sťahovania (max 16)
+* Stiahnite si súbory na pozadí
+* Neblokované spojenie len podpora (ex. Wi-Fi)
+* Ovládanie Roaming
+* Užívateľské kontroly
+* Kalculate hash hodnota (MD5 & SHA-256)
+* Riadenie napájania a riadenie batérie
+* Rôzne automatické akcie po dokončení sťahovania
+* Limit rýchlosti
+* [Android 8.0+] Archív Auto-uncompress. Archívne formáty: zips, decht, 7z, ar, cpio, skládka. Kompresorové formáty: gzip, bzip2, xzma, Pack200, DEFLATE, DEFLATE64, Z
