@@ -304,4 +304,7 @@
     Download Navi is free software, released under the terms of the <a href="http://www.gnu.org/copyleft/gpl.html">GNU General Public License v3 (GPLv3)</a><br><br>
     <a href="https://github.com/TachibanaGeneralLaboratories/download-navi/blob/HEAD/PRIVACY.md">Privacy Policy</a>]]></string>
     <string name="about_changelog">পরিবর্তনসূচী</string>
+    <string name="disable">নিষ্ক্রিয়</string>
+    <string name="move_file_error">নথি সরাতে ব্যর্থ</string>
+    <string name="move_file_error_already_exists">নথি সরাতে ব্যর্থ: আগে থেকেই বিদ্যমান</string>
 </resources>
