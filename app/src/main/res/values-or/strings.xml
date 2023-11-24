@@ -2,7 +2,7 @@
 <resources>
     <string name="error">ତ୍ରୁଟି</string>
     <string name="file">ଫାଇଲ୍</string>
-    <string name="about">ଵିଷୟରେ</string>
+    <string name="about">ସମ୍ବନ୍ଧରେ</string>
     <string name="folder">ଫୋଲ୍ଡର୍</string>
     <string name="all">ସବୁ</string>
     <string name="search">ସନ୍ଧାନ</string>
@@ -47,4 +47,6 @@
     <string name="add">ଯୋଡ଼ନ୍ତୁ</string>
     <string name="not_available">ଅପ୍ରଜୁଯ୍ୟ</string>
     <string name="error_template">ତ୍ରୁଟି: %1$s</string>
+    <string name="about_changelog">ପରିବର୍ତ୍ତନ ପୋଥି</string>
+    <string name="about_title">Download Navi ସମ୍ବନ୍ଧରେ</string>
 </resources>
