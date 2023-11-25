@@ -89,7 +89,7 @@
     <string name="download_error_name_is_not_correct">सही नाम \"%1$s\" है</string>
     <string name="fetch_error_default_fmt">त्रुटि: %1$s</string>
     <string name="fetch_error_invalid_url">अमान्य URL:%1$s</string>
-    <string name="fetch_error_network_disconnected">नेटवर्क कनेक्ट नहीं है।</string>
+    <string name="fetch_error_network_disconnected">संजाल वियोग हो गया है</string>
     <string name="fetch_error_http_response">त्रुटि: सर्वर ने HTTP %1$d कोड लौटा दिया</string>
     <string name="fetch_error_io">IO त्रुटि: %1$s</string>
     <string name="unable_to_open_folder">चयनित फ़ोल्डर खोलने में असमर्थ। कृपया किसी अन्य फ़ोल्डर का चयन करने का प्रयास करें</string>
@@ -134,7 +134,7 @@
     <string name="drawer_date_added_month">माह</string>
     <string name="drawer_date_added_year">वर्ष</string>
     <!-- Sorting -->
-    <string name="drawer_sorting">क्रमित हो रही है...</string>
+    <string name="drawer_sorting">छंटाई</string>
     <string name="drawer_sorting_date_added">जोड़ने की तिथि</string>
     <string name="drawer_sorting_name">नाम</string>
     <string name="drawer_sorting_size">आकार</string>
@@ -304,5 +304,22 @@
     Download Navi मुफ्त सॉफ्टवेयर है, की शर्तों के तहत जारी <a href="http://www.gnu.org/copyleft/gpl.html">GNU General Public License v3 (GPLv3)</a><br><br>
     <a href="https://github.com/TachibanaGeneralLaboratories/download-navi/blob/HEAD/PRIVACY.md">गोपनीयता नीति</a>]]></string>
     <string name="about_changelog">परिवर्तन लॉग</string>
-    <string name="file_not_available">File Nahi available hai</string>
+    <string name="file_not_available">फाइल उपलब्ध नहीं है!</string>
+    <string name="disable">बंद करें</string>
+    <string name="move_file_error">फ़ाइल को स्थानांतरित करने में असमर्थ</string>
+    <string name="uncompress_archive_error">संग्रह को अनकंप्रेस करने में असमर्थ</string>
+    <string name="battery_optimization">बैटरी ऑप्टिमाइज़ेशन</string>
+    <string name="pref_header_limitations">सीमाएं</string>
+    <string name="pref_speed_limit_title">एक खंड के लिए गति सीमा</string>
+    <string name="pref_speed_limit_dialog_hint">KiB/s में गति निर्धारित करें (0 - बिना सीमा के)</string>
+    <string name="uncompress_archive">संग्रह को अनकंप्रेस करें</string>
+    <plurals name="unable_sharing">
+        <item quantity="one">फ़ाइल साझा नहीं की जा सकती।</item>
+        <item quantity="other">फ़ाइलें साझा नहीं की जा सकतीं।</item>
+    </plurals>
+    <string name="move_file_error_already_exists">फ़ाइल को स्थानांतरित करने में असमर्थ: पहले से मौजूद है</string>
+    <string name="uncompress_archive_error_unknown_type">संग्रह को अनकंप्रैस करने में असमर्थ: अज्ञात प्रकार या दूषित फ़ाइल</string>
+    <string name="disable_battery_optimization_summary">पृष्ठभूमि में सही काम करने के लिए, बैटरी सेटिंग में बैटरी ऑप्टिमाइज़ेशन को अक्षम करना आवश्यक है।</string>
+    <string name="pref_browser_hide_menu_icon_title">मेनू से आइकन छुपाएं</string>
+    <string name="pref_browser_hide_menu_icon_summary">मुख्य स्क्रीन मेनू से ब्राउज़र आइकन छुपाएं</string>
 </resources>
