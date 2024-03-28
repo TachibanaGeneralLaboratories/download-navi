@@ -192,8 +192,8 @@
     <string name="send_text_to_clipboard">Kopyala</string>
     <string name="text_copied_to_clipboard">Mətn lövhəyə kopyalandı</string>
     <!-- Browser -->
-    <string name="browser">Səyyah</string>
-    <string name="browser_app">Navi Səyyahı</string>
+    <string name="browser">Brauzer</string>
+    <string name="browser_app">Navi Brauzeri</string>
     <string name="webview_is_required">İşləməsi üçün WebView lazımdır</string>
     <string name="browser_forward_arrow">Yönləndir</string>
     <string name="browser_desktop_version">Masaüstü versiyası</string>
@@ -230,7 +230,7 @@
     <string name="pref_header_behavior">Davranış</string>
     <string name="pref_header_limitations">Məhdudiyyətlər</string>
     <string name="pref_header_storage">Anbar</string>
-    <string name="pref_header_browser">Səyyah</string>
+    <string name="pref_header_browser">Brauzer</string>
     <!-- Appearance settings -->
     <string name="pref_theme_category">Tema tənzimləmələri</string>
     <string name="pref_theme_title">Tema</string>
@@ -301,13 +301,13 @@
     <string name="pref_browser_clear_cache_title">Keşi təmizlə</string>
     <string name="pref_browser_clear_cache_done">Keş təmizləndi</string>
     <string name="pref_browser_do_not_track_title">İzləmə</string>
-    <string name="pref_browser_do_not_track_summary">Ziyarət etdiyiniz veb saytlara \"İzləmə\" sorğusu göndər</string>
-    <string name="pref_browser_launcher_icon_title">Başladıcıda səyyah nişanı</string>
-    <string name="pref_browser_disable_from_system_title">Sistemdə səyyahı sıradan çıxart</string>
-    <string name="pref_browser_disable_from_system_summary">Səyyah, açılan bağlantılar üçün əlçatmaz olacaq</string>
+    <string name="pref_browser_do_not_track_summary">Ziyarət etdiyiniz veb saytlara \"İzlənilməsin\" tələbi göndər</string>
+    <string name="pref_browser_launcher_icon_title">Başladıcıda brauzer nişanı</string>
+    <string name="pref_browser_disable_from_system_title">Sistemdə brauzeri sıradan çıxart</string>
+    <string name="pref_browser_disable_from_system_summary">Brauzer, açılan keçidlər üçün əlçatmaz olacaq</string>
     <string name="pref_browser_search_engine_title">Axtarış mühərriki</string>
-    <string name="pref_browser_hide_menu_icon_title">Nişan menyudan gizlət</string>
-    <string name="pref_browser_hide_menu_icon_summary">Əsas ekran menyusundan səyyah nişanını gizlət</string>
+    <string name="pref_browser_hide_menu_icon_title">Nişanı menyudan gizlət</string>
+    <string name="pref_browser_hide_menu_icon_summary">Əsas ekran menyusundan brauzer nişanını gizlət</string>
     <!-- About dialog -->
     <string name="about_title">Download Navi Haqqında</string>
     <string name="about_description"><![CDATA[    Layihəyə kömək etmək üçün ətraflı məlumat: <a href="https://github.com/TachibanaGeneralLaboratories/download-navi">https://github.com/TachibanaGeneralLaboratories/download-navi</a><br><br>
