@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <!-- Global string -->
-    <string name="app_name">دانلود Navi</string>
+    <string name="app_name">دانلود ناوی</string>
     <string name="foreground_notification">اعلان پیش‌زمینه</string>
     <string name="download_running">در حال پیشرفت</string>
     <string name="finished">پایان یافت</string>
@@ -188,7 +188,7 @@
     <string name="text_copied_to_clipboard">نوشته در تخته‌گیره رونوشت شد</string>
     <!-- Browser -->
     <string name="browser">مرورگر</string>
-    <string name="browser_app">مرورگر ناوی</string>
+    <string name="browser_app">مرورگر Navi</string>
     <string name="webview_is_required">برای کار کردن به WebView نیاز است</string>
     <string name="browser_forward_arrow">هدایت</string>
     <string name="browser_desktop_version">نگارش میزکار</string>
