@@ -43,17 +43,15 @@ Download Navi is a free and Open Source download manager for Android 4.4+.
 
 If you like Download Navi you can support developer with these methods. If you have problems with payment or you want to donate in another way, contact me: `proninyaroslav@mail.ru`. Thank you!
 
- - **PayPal**: [![paypal](https://www.paypalobjects.com/en_US/i/btn/btn_donateCC_LG.gif)](https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=G62LXDZPCPFEU)
- - **Yandex Money (YooMoney)**: `410011738561939`
- - **WebMoney**:
-     - **WMZ**: `Z335461926163`
-     - **WMR**: `R151579576467`
- - **Amazon.com eGift Cards**: just choose your amount and type e-mail `proninyaroslav@mail.ru`
-in the gift card details https://smile.amazon.com/gp/product/B004LLIKVU/
- - **Liberapay**: [![liberapay](https://liberapay.com/assets/widgets/donate.svg)](https://liberapay.com/proninyaroslav/donate)
- - **Bitcoin**: `1Af9DgxtWvVp6bFiYQw2MeWtRzTXshRYpB`
- - **Nano**: `nano_1jtaa1njf3pn66pi48uqbak3rpbn373px6xeugynwxm1yb5hyfb6ure15pyy`
+ - **Bitcoin**: `12isaLkH8nZ4DkFguVFeYrGHqQi7EEgUrM `
+ - **USDT TRC20**: `TK79fzUYwRtmANuLjk1Zzhz3hjTaFQbxfg`
  - **Monero**: `48j4Mo7J7t51EeBf35Lpdmehmi9chUwzSXxHrnjpRJ6fPQafPWvSCdFafw3rA5ZRWievfYEDToNso8VppbJf2RVH9cdZmHa`
+ - **YooMoney (ЮMoney)**: `410011738561939`
+ - **Patreon**: [patreon.com/YaroslavPronin](https://patreon.com/YaroslavPronin)
+ - **Boosty**: [boosty.to/yaroslavpronin/donate](https://boosty.to/yaroslavpronin/donate)
+ - **Amazon.com eGift Cards**: just choose your amount and type e-mail `proninyaroslav@mail.ru`
+in the gift card details [smile.amazon.com/gp/product/B004LLIKVU](https://smile.amazon.com/gp/product/B004LLIKVU)
+ - **Liberapay**: [![liberapay](https://liberapay.com/assets/widgets/donate.svg)](https://liberapay.com/proninyaroslav/donate)
 
 ## 🌍 Translations
 
