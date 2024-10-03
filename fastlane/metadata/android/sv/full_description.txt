@@ -1,20 +1,21 @@
-# Features
+# Funktioner
 
-* Free and Open Source software (FOSS)
-* Material Design
-* Multiple themes (Light, Dark, Black)
-* Android TV support
-* Chrome OS support
-* Pause and resume downloads
-* Browsers support
-* Built-in browser
-* Simultaneous downloads (default 3)
-* Multi part downloading (max 16)
-* Download files in background
-* Unmetered connections only support (ex. Wi-Fi)
-* Roaming controls
-* User agent controls
-* Calculate hash value (MD5 & SHA-256)
-* Power Management and battery control
-* Various automatic actions after finishing download
-* Speed limit
+* Mjukvara med fri och öppen källkod (FOSS)
+* Material-design
+* Flera teman (Ljust, Mörkt, Svart)
+* Stöd för Android TV
+* Stöd för Chrome OS
+* Pausa och återuppta hämtningar
+* Stöd för webbläsare
+* Inbyggd webbläsare
+* Flera hämtningar samtidigt (standard 3)
+* Hämtningar i flera delar (max 16)
+* Hämta filer i bakgrunden
+* Obegränsade anslutningar stödjer enbart (exempelvis Wi-Fi)
+* Roaming-kontroller
+* Användaragent-kontroller
+* Beräkna hash-värde (MD5 & SHA-256)
+* Strömhantering och batteri-kontroll
+* Diverse automatiska åtgärden när hämtningen har slutförts
+* Hastighetsgräns
+* [Android 8.0+] Automatisk avkomprimering av arkiv. Format för arkivering: zip, tar, 7z, ar, cpio, dump. Kompressor-format: gzip, bzip2, x2, lzma, Pack200, DEFLATE, DEFLATE64, Z
