@@ -4,7 +4,7 @@
     <string name="app_name">Download Navi</string>
     <string name="foreground_notification">Notifica in primo piano</string>
     <string name="download_running">In corso</string>
-    <string name="finished">Completato</string>
+    <string name="finished">Finito</string>
     <string name="shutdown">Esci</string>
     <!-- 1 d. 1 h. 1 m -->
     <string name="elapsed_time_format_d_h_mm">%1$d g. %2$d h %3$d min</string>
@@ -48,7 +48,7 @@
     <string name="redownload">Scarica di nuovo</string>
     <string name="Default">Default</string>
     <string name="warning">Attenzione</string>
-    <string name="apply">Applica</string>
+    <string name="apply">Applicare</string>
     <string name="report">Riporta</string>
     <string name="more_details">Mostra dettagli</string>
     <string name="clipboard">Appunti</string>

@@ -84,7 +84,7 @@
     <string name="download_advanced">高度な設定</string>
     <string name="download_user_agent">ユーザーエージェント</string>
     <string name="download_error_empty_link">リンクを入力して下さい</string>
-    <string name="download_error_empty_name">名前を入力してください。</string>
+    <string name="download_error_empty_name">名前を入力して下さい</string>
     <string name="download_error_no_enough_free_space">十分な空き容量がありません: %1$s 空き, %2$s ファイルサイズ</string>
     <string name="download_error_name_is_not_correct">正しい名前は \"%1$s\" です</string>
     <string name="fetch_error_default_fmt">エラー: %1$s</string>
@@ -253,15 +253,15 @@
     <string name="pref_umnetered_connections_only_summary">従量課金ではない接続 (Wi-Fiやイーサネットなど) のみを通してダウンロードする</string>
     <string name="pref_power_management_category">電源管理</string>
     <string name="pref_cpu_do_not_sleep_title">CPU をスリープモードにしない</string>
-    <string name="pref_cpu_do_not_sleep_summary">これを有効にするとバッテリーの使用量が増えます。画面消灯時にダウンロード速度が遅くなる場合はこのオプションを使用してください。</string>
+    <string name="pref_cpu_do_not_sleep_summary">これを有効にすると電池の使用量が増えます。画面消灯時にダウンロード速度が遅くなる場合はこのオプションを使用してください。</string>
     <string name="pref_download_only_when_charging_title">充電時のみダウンロード</string>
     <string name="pref_download_only_when_charging_summary">有効にするとダウンロードは充電中にのみ行われます。充電器に接続されていない場合、全てのダウンロードは一時停止します。</string>
-    <string name="pref_battery_control_title">バッテリー制御</string>
-    <string name="pref_custom_battery_control_title">カスタムバッテリー残量</string>
-    <string name="pref_custom_battery_control_value_title">バッテリー制御の残量</string>
-    <string name="pref_battery_control_summary">バッテリー残量が%1$d%%を下回ると全てのダウンロードが一時停止されます。充電時に制限は適用されません。</string>
-    <string name="pref_custom_battery_control_summary">バッテリーが所定のしきい値を下回った場合にダウンロードを一時停止する指定残量を設定します。 これを有効にすると、規定の%1$d%%しきい値が無視されます。</string>
-    <string name="pref_custom_battery_control_dialog_summary">アプリが監視するカスタムバッテリー残量を設定すると、ダウンロード中のバッテリー寿命に悪影響があります。有効にしてもよろしいですか?</string>
+    <string name="pref_battery_control_title">電池制御</string>
+    <string name="pref_custom_battery_control_title">カスタム電池残量</string>
+    <string name="pref_custom_battery_control_value_title">電池制御の残量</string>
+    <string name="pref_battery_control_summary">電池残量が%1$d%%を下回ると全てのダウンロードが一時停止されます。充電時に制限は適用されません。</string>
+    <string name="pref_custom_battery_control_summary">電池が所定のしきい値を下回った場合にダウンロードを一時停止する指定残量を設定します。 これを有効にすると、規定の%1$d%%しきい値が無視されます。</string>
+    <string name="pref_custom_battery_control_dialog_summary">アプリが監視するカスタム電池残量を設定すると、ダウンロード中の電池寿命に悪影響があります。有効にしてもよろしいですか\?</string>
     <string name="pref_enable_roaming_title">ローミングの有効化</string>
     <string name="pref_enable_roaming_summary">端末がローミングしていない場合にのみダウンロードする</string>
     <string name="pref_replace_duplicate_downloads_title">重複ダウンロードを置き換える</string>
@@ -287,7 +287,7 @@
     <string name="pref_browser_bottom_address_bar_title">下部のアドレスバー</string>
     <string name="pref_browser_bottom_address_bar_summary">アドレスバーは画面下部に配置されます</string>
     <string name="pref_browser_start_page_title">スタートページ</string>
-    <string name="pref_browser_allow_java_script_title">Java スクリプトを許可</string>
+    <string name="pref_browser_allow_java_script_title">JavaScriptを許可</string>
     <string name="pref_browser_allow_popup_windows_title">ポップアップウィンドウを許可</string>
     <string name="pref_browser_cache_category">キャッシュ</string>
     <string name="pref_browser_cookies_category">Cookies</string>
@@ -312,4 +312,12 @@
     Download Navi は <a href="http://www.gnu.org/copyleft/gpl.html">GNU General Public License v3 (GPLv3)</a> の条件の下でリリースされたフリーソフトウェアです<br><br>
     <a href="https://github.com/TachibanaGeneralLaboratories/download-navi/blob/HEAD/PRIVACY.md">個人情報保護方針</a>]]></string>
     <string name="about_changelog">更新履歴</string>
+    <string name="move_file_error">ファイルを移動できません</string>
+    <string name="move_file_error_already_exists">ファイルを移動できません: すでに存在します</string>
+    <string name="uncompress_archive_error">アーカイブを解凍できません</string>
+    <string name="uncompress_archive_error_unknown_type">アーカイブを解凍できません: 未知の種類または欠損したファイル</string>
+    <string name="uncompress_archive">アーカイブ解凍</string>
+    <string name="battery_optimization">電池最適化</string>
+    <string name="disable_battery_optimization_summary">バックグラウンドで正しく機能するためには、電池設定内の電池最適化を無効化する必要があります。</string>
+    <string name="disable">無効化</string>
 </resources>
