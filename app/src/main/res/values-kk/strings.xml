@@ -115,4 +115,8 @@
     <string name="pref_browser_search_engine_title">Іздеу жүйесі</string>
     <string name="about_changelog">Өзгеріс тізімі</string>
     <string name="browser_bookmark_error_empty_url">URL енгізіңіз</string>
+    <string name="pref_cpu_do_not_sleep_title">Ұйқы режіміне ауысуға жол бермеу</string>
+    <string name="pref_preallocate_disk_space_summary">Android 5.0 Lollipop не одан кейінгі нұсқалар үшін қолжетімді</string>
+    <string name="pref_delete_file_if_error_title">Қате орын алса, файлды жою</string>
+    <string name="pref_move_after_download_title">Жүктелгеннен кейін жылжыту</string>
 </resources>
