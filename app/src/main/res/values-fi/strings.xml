@@ -1,2 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+    <string name="pref_custom_battery_control_summary">Aseta mukautettu prosenttiosuus, jolla lataukset keskeytetään, jos akun varaus laskee alle annetun kynnyksen. Tämän ottaminen käyttöön ohittaa oletus- %1$d %%:n kynnyksen</string>
+    <string name="detail_downloaded_format">%1$s/%2$s (%3$d %%)</string>
+    <string name="pref_battery_control_summary">Kaikki lataukset keskeytetään, jos akun varaustaso laskee alle %1$d %%. Rajaa ei sovelleta lataushetkellä</string>
+</resources>
