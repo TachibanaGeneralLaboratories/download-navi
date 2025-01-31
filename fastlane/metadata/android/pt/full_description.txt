@@ -1,21 +1,21 @@
-# Features
+# Características
 
-* Free and Open Source software (FOSS)
-* Material Design
-* Multiple themes (Light, Dark, Black)
-* Android TV support
-* Chrome OS support
-* Pause and resume downloads
-* Browsers support
-* Built-in browser
-* Simultaneous downloads (default 3)
-* Multi part downloading (max 16)
-* Download files in background
-* Unmetered connections only support (ex. Wi-Fi)
-* Roaming controls
-* User agent controls
-* Calculate hash value (MD5 & SHA-256)
-* Power Management and battery control
-* Various automatic actions after finishing download
-* Speed limit
-* [Android 8.0+] Auto-uncompress archive. Archiver formats: zip, tar, 7z, ar, cpio, dump. Compressor formats: gzip, bzip2, xz, lzma, Pack200, DEFLATE, DEFLATE64, Z
+* Software livre e de código aberto (FOSS)
+* Design material
+* Vários temas (Claro, Escuro, Preto)
+* Suporte para Android TV
+* Suporte Chrome OS
+* Pausar e retomar downloads
+* Suporte a navegadores
+* Navegador embutido
+* Downloads simultâneos (padrão 3)
+* Download de várias partes (máximo de 16)
+* Download de arquivos em segundo plano
+* Suporte para apenas utilizar para conexões ilimitadas (ex. Wi-Fi)
+* Controlos de roaming
+* Controlos do agente do utilizador
+* Calcular valor de hash (MD5 e SHA-256)
+* Gestão de energia e controlo de bateria
+* Várias ações automáticas após terminar o download
+* Limite de velocidade
+* [Android 8.0+] Arquivo de descompactação automática. Formatos do arquivador: zip, tar, 7z, ar, cpio, dump. Formatos de compressor: gzip, bzip2, xz, lzma, Pack200, DEFLATE, DEFLATE64, Z
