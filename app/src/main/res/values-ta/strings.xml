@@ -196,7 +196,7 @@
     <string name="search">தேடு</string>
     <string name="folder">கோப்புறை</string>
     <string name="downloading_metadata">மெட்டாடேட்டாவைப் பதிவிறக்குகிறது</string>
-    <string name="redownload">Redownload</string>
+    <string name="redownload">மறுபதிவிறக்கு</string>
     <string name="yes">ஆம்</string>
     <string name="all">அனைத்து</string>
     <string name="Default">இயல்புநிலை</string>
@@ -222,7 +222,7 @@
     <string name="drawer_category_video">ஒளிதோற்றம்</string>
     <string name="drawer_category_archives">காப்பகங்கள்</string>
     <string name="drawer_sorting_date_added">தேதி சேர்க்கப்பட்டது</string>
-    <string name="download_queued_progress_template">%1$s/ %2$s • %3$s • %4 $ s/s</string>
+    <string name="download_queued_progress_template">%1$s/%2$s • %3$s • %4$s/s</string>
     <string name="partial_download_not_supported">இந்த பதிவிறக்கம் இடைநிறுத்தம் மற்றும் துண்டுகள் மூலம் பதிவிறக்குவதை ஆதரிக்காது</string>
     <string name="add_download_error_invalid_url">பதிவிறக்கத்தைச் சேர்க்க முடியவில்லை: தவறான URL</string>
     <string name="dialog_add_user_agent_title">பயனர் முகவரைச் சேர்க்கவும்</string>
@@ -257,13 +257,13 @@
     <string name="pref_custom_battery_control_dialog_summary">பயன்பாட்டைக் காண தனிப்பயன் பேட்டரி சதவீதத்தை அமைப்பது பதிவிறக்கங்கள் நிகழும் போது பேட்டரி ஆயுள் எதிர்மறையான தாக்கத்தை ஏற்படுத்தும். இதை இயக்க விரும்புகிறீர்களா?</string>
     <string name="pref_save_downloads_in_title">பதிவிறக்கங்களை சேமிக்கவும்</string>
     <string name="pref_speed_limit_title">ஒரு துண்டுக்கான வேக வரம்பு</string>
-    <string name="pref_move_after_download_title">பதிவிறக்கிய பிறகு நகர்த்தவும்</string>
+    <string name="pref_move_after_download_title">பதிவிறக்கிய பிறகு நகர்த்து</string>
     <string name="pref_move_after_download_in_title">பதிவிறக்கிய பிறகு நகர்த்தவும்</string>
     <string name="pref_timeout_summary">இணைப்பு நேரம் முடிவதற்கு முன் காத்திருக்க வேண்டிய மில்லி விநாடிகளின் எண்ணிக்கை. பூஜ்ஜியம் ஒரு முடிவற்ற காலக்கெடுவாக விளக்கப்படுகிறது</string>
     <string name="pref_max_download_retries_title">பதிவிறக்க முயற்சிகளின் அதிகபட்ச எண்ணிக்கை</string>
     <string name="pref_browser_do_not_track_summary">நீங்கள் பார்வையிடும் வலைத்தளங்களுக்கு “கண்காணிக்க வேண்டாம்” கோரிக்கையை அனுப்பவும்</string>
     <string name="pref_browser_hide_menu_icon_summary">முதன்மையான திரை மெனுவிலிருந்து உலாவி ஐகானை மறைக்கவும்</string>
-    <string name="about_description">மேலும் செய்தி மற்றும் திட்டத்திற்கு உதவவும்: &lt;a href = https: //github.com/tachibanagenerallaboratories/download-navi&gt; https://github.com/tachibanagenerallaboratories/download-navi &lt;/a&gt; &lt;br&gt; பதிவிறக்கம் NAVI என்பது ஆண்ட்ராய்டு 4.4+ க்கான இலவச மற்றும் திறந்த மூல பதிவிறக்க மேலாளராகும் &lt;br&gt; &lt;br&gt; பதிவிறக்கம் Navi என்பது இலவச மென்பொருளாகும், இது &lt;a href = http: //www.gnu.org/copyleft/gpl இன் விதிமுறைகளின் கீழ் வெளியிடப்பட்டது. html&gt; குனு பொது பொது உரிமம் V3 (gplv3) &lt;/a&gt; &lt;br&gt; &lt;br&gt; &lt;a href = https: //github.com/tachibanagenerallaboratories/download-navi/blob/head/privacy.md&gt; தனியுரிமைக் கொள்கை &lt;/ a&gt;</string>
+    <string name="about_description">மேலும் செய்தி மற்றும் திட்டத்திற்கு உதவவும்: &lt;a href = https: //github.com/tachibanagenerallaboratories/download-navi&gt; https://github.com/tachibanagenerallaboratories/download-navi &lt;/a&gt; &lt;br&gt; பதிவிறக்கம் NAVI என்பது ஆண்ட்ராய்டு 4.4+ க்கான இலவச மற்றும் திறந்த மூல பதிவிறக்க மேலாளராகும் &lt;br&gt; &lt;br&gt; பதிவிறக்கம் Navi என்பது இலவச மென்பொருளாகும், இது &lt;a href = http: //www.gnu.org/copyleft/gpl இன் விதிமுறைகளின் கீழ் வெளியிடப்பட்டது. html&gt; குனு பொது பொதுமக்கள் உரிமம் V3 (gplv3) &lt;/a&gt; &lt;br&gt; &lt;br&gt; &lt;a href = https: //github.com/tachibanagenerallaboratories/download-navi/blob/head/privacy.md&gt; தனியுரிமைக் கொள்கை &lt;/ a&gt;</string>
     <string name="disable">முடக்கு</string>
     <string name="move_file_error">கோப்பை நகர்த்த முடியவில்லை</string>
     <string name="move_file_error_already_exists">கோப்பை நகர்த்த முடியவில்லை: ஏற்கனவே உள்ளது</string>
