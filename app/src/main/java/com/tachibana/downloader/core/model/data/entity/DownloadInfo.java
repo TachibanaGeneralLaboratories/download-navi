@@ -49,7 +49,7 @@ public class DownloadInfo implements Parcelable, Comparable<DownloadInfo>
     /* Piece number can't be less or equal zero */
     public static final int MIN_PIECES = 1;
     /* Recommended max number of pieces */
-    public static final int MAX_PIECES = 16;
+    public static final int MAX_PIECES = 256;
     /*
      * This download is visible but only shows in the notifications
      * while it's in progress
