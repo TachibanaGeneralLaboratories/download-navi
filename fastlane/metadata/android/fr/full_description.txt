@@ -1,20 +1,21 @@
-# Caractéristiques
+# Features
 
-* Logiciel libre et à code source ouvert
+*Logiciel gratuit et à code source ouvert (FOSS)
 * Material Design
-* Multiples thèmes (Clair, Foncé, Noir)
+* Plusieurs thèmes (Clair, Sombre, Noir)
 * Prise en charge d'Android TV
 * Prise en charge de Chrome OS
 * Pause et reprise des téléchargements
 * Prise en charge des navigateurs
 * Navigateur intégré
 * Téléchargements simultanés (3 par défaut)
-* Téléchargement de plusieurs parties (max 16)
-* Téléchargement de fichiers en arrière-plan
-* Prise en charge des connexions non mesurées uniquement (ex. Wi-Fi)
-* Contrôle de l'itinérance
-* Contrôles de l'agent utilisateur
-* Calcul de la valeur de hachage (MD5 & SHA-256)
-* Gestion de l'énergie et contrôle de la batterie
+* Téléchargement en plusieurs parties (16 max)
+* Téléchargement en arrière-plan
+* Prise en charge des connexions illimitées uniquement (ex. Wi-Fi)
+* Contrôle sur l'itinérance
+* Contrôle sur les user agent
+* Calculer la valeur de hachage (MD5 & SHA-256)
+* Gestion de l'alimentation et contrôle de la batterie
 * Diverses actions automatiques après la fin du téléchargement
 * Limite de vitesse
+* [Android 8.0+] Décompression automatique des archives. Format d'archiveur : zip, tar, 7z, ar, cpio, dump. Format du compresseur : gzip, bzip2, xz, lzma, Pack200, DEFLATE, DEFLATE64, Z

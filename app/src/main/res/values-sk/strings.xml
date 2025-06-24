@@ -321,4 +321,12 @@
     Download Navi je bezplatný softvér vydaný za podmienok <a href="http://www.gnu.org/copyleft/gpl.html">GNU General Public License v3 (GPLv3)</a><br><br>
     <a href="https://github.com/TachibanaGeneralLaboratories/download-navi/blob/HEAD/PRIVACY.md">Zásady ochrany osobných údajov</a>]]></string>
     <string name="about_changelog">Zoznam zmien</string>
+    <string name="disable">Prenos</string>
+    <string name="move_file_error">Nedá sa presunúť súbor</string>
+    <string name="move_file_error_already_exists">Nemožno presunúť súbor: už existuje</string>
+    <string name="uncompress_archive_error">Nie je možné zrušiť archív</string>
+    <string name="uncompress_archive_error_unknown_type">Nie je možné zrušiť archív: neznámy typ alebo poškodený súbor</string>
+    <string name="uncompress_archive">Uncompress archív</string>
+    <string name="battery_optimization">Optimalizácia batérie</string>
+    <string name="disable_battery_optimization_summary">Pre správnu prácu na pozadí je potrebné vypnúť optimalizáciu batérie v nastavení batérie.</string>
 </resources>

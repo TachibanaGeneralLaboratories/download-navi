@@ -296,7 +296,7 @@
     <string name="pref_browser_bottom_address_bar_title">Рядок адреси внизу</string>
     <string name="pref_browser_bottom_address_bar_summary">Рядок адреси буде розташований внизу екрана</string>
     <string name="pref_browser_start_page_title">Початкова сторінка</string>
-    <string name="pref_browser_allow_java_script_title">Дозволити Java Script</string>
+    <string name="pref_browser_allow_java_script_title">Дозволити JavaScript</string>
     <string name="pref_browser_allow_popup_windows_title">Дозволити виринаючі вікна</string>
     <string name="pref_browser_cache_category">Кеш</string>
     <string name="pref_browser_cookies_category">Файли Cookies</string>
@@ -321,4 +321,12 @@
     Download Navi це вільне програмне забезпечення випущене на умовах ліцензії <a href="http://www.gnu.org/copyleft/gpl.html">GNU General Public License v3 (GPLv3)</a><br><br>
     <a href="https://github.com/TachibanaGeneralLaboratories/download-navi/blob/HEAD/PRIVACY.md">Політика конфіденційності</a>]]></string>
     <string name="about_changelog">Журнал змін</string>
+    <string name="move_file_error_already_exists">Не вдалося перемістити файл: він уже існує</string>
+    <string name="uncompress_archive_error">Не вдалося розпакувати архів</string>
+    <string name="disable">Вимкнути</string>
+    <string name="move_file_error">Не вдалося перемістити файл</string>
+    <string name="uncompress_archive_error_unknown_type">Не вдалося розпакувати архів: невідомий тип або пошкоджений файл</string>
+    <string name="uncompress_archive">Розпакувати архів</string>
+    <string name="battery_optimization">Оптимізація акумулятора</string>
+    <string name="disable_battery_optimization_summary">Для коректної роботи у фоновому режимі необхідно вимкнути оптимізацію акумулятора в налаштуваннях.</string>
 </resources>

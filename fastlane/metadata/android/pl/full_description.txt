@@ -1,0 +1,21 @@
+# Funkcje
+
+* Darmowe i otwarte oprogramowanie (FOSS)
+* Interfejs typu Material Design
+* Wiele motywów (jasny, ciemny, czarny)
+* Wsparcie Android TV
+* Wsparcie Chrome OS
+* Zatrzymywanie i wznawianie pobierania
+* Wsparcie przeglądarek
+* Wbudowana przeglądarka
+* Pobieranie symultaniczne (domyślnie 3)
+* Pobieranie w wielu częściach (maksymalnie 16)
+* Pobieranie plików w tle
+* Możliwość pobierania tylko przez bezpłatne połączenie (np. Wi-Fi)
+* Kontrola roamingu
+* Kontrola nagłówka user agent
+* Obliczanie wartości hasza (MD5 i SHA-256)
+* Zarządzanie energią i kontrola baterii
+* Wiele automatycznych czynności po zakończeniu pobierania
+* Limitowanie prędkości pobierania
+* [Android 8.0+] Automatyczne odpakowanie archiwów. Formaty archiwów: zip, tar, 7z, ar, cpio, dump. Formaty kompresji: gzip, bzip2, xz, lzma, Pack200, DEFLATE, DEFLATE64, Z
