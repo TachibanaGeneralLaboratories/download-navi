@@ -113,4 +113,15 @@
     <string name="applying_params_for_downloads">Stosowanie parametrów do pobierania</string>
     <string name="applying_params_error_title">Błąd stosowania parametrów dla %1$s</string>
     <string name="add_download">Dodaj pobieranie</string>
+    <string name="download_size">Rozmiar%1$s</string>
+    <string name="download_user_agent">Wybór użytkownika</string>
+    <string name="download_error_empty_link">Proszę wpisać link</string>
+    <string name="download_error_empty_name">Proszę podać imię</string>
+    <string name="download_error_no_enough_free_space">Za mało wolnego miejsca: %1$s wolnego miejsca, ale rozmiar pliku to %2$s</string>
+    <string name="download_error_name_is_not_correct">Prawidłowa nazwa to „%1$s”</string>
+    <string name="fetch_error_default_fmt">Błąd: %1$s</string>
+    <string name="fetch_error_invalid_url">Nieprawidłowy adres URL: %1$s</string>
+    <string name="fetch_error_network_disconnected">sieć jest rozłączona</string>
+    <string name="fetch_error_http_response">Błąd: serwer zwrócił kod HTTP %1$d</string>
+    <string name="fetch_error_io">Błąd wejścia/wyjścia: %1$s</string>
 </resources>
