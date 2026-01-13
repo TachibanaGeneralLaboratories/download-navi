@@ -37,4 +37,11 @@
     <string name="all">Όλα</string>
     <string name="search">Αναζήτηση</string>
     <string name="settings">ρυθμίσεις</string>
+    <string name="about">Αναφορά</string>
+    <string name="close">Κλείσιμο</string>
+    <string name="redownload">επανάληψη λήψης</string>
+    <string name="Default">προεπιλογή</string>
+    <string name="warning">προειδοποίηση</string>
+    <string name="apply">Εφαρμογή</string>
+    <string name="report">αναφορά</string>
 </resources>
