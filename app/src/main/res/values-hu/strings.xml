@@ -1,2 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+    <string name="app_name">Download Navi</string>
+    <string name="foreground_notification">Előtérben lévő értesítés</string>
+    <string name="download_running">Folyamatban</string>
+    <string name="finished">Befejezett</string>
+    <string name="shutdown">Leállítás</string>
+    <string name="elapsed_time_format_d_h_mm">%1$d n. %2$d ó. %3$d p.</string>
+    <string name="elapsed_time_format_h_mm_ss">%1$d ó. %2$d p. %3$d mp.</string>
+    <string name="elapsed_time_format_mm_ss">%1$d p. %2$d mp.</string>
+    <string name="elapsed_time_format_ss">%1$d mp.</string>
+    <string name="ok">OK</string>
+    <string name="cancel">Mégsem</string>
+    <string name="connect">Csatlakozás</string>
+    <string name="add">Hozzáadás</string>
+    <string name="not_available">N/A</string>
+</resources>
