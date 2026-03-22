@@ -192,8 +192,8 @@
     <string name="send_text_to_clipboard">Kopyala</string>
     <string name="text_copied_to_clipboard">Mətn lövhəyə kopyalandı</string>
     <!-- Browser -->
-    <string name="browser">Səyyah</string>
-    <string name="browser_app">Navi Səyyahı</string>
+    <string name="browser">Brauzer</string>
+    <string name="browser_app">Navi Brauzeri</string>
     <string name="webview_is_required">İşləməsi üçün WebView lazımdır</string>
     <string name="browser_forward_arrow">Yönləndir</string>
     <string name="browser_desktop_version">Masaüstü versiyası</string>
@@ -230,7 +230,7 @@
     <string name="pref_header_behavior">Davranış</string>
     <string name="pref_header_limitations">Məhdudiyyətlər</string>
     <string name="pref_header_storage">Anbar</string>
-    <string name="pref_header_browser">Səyyah</string>
+    <string name="pref_header_browser">Brauzer</string>
     <!-- Appearance settings -->
     <string name="pref_theme_category">Tema tənzimləmələri</string>
     <string name="pref_theme_title">Tema</string>
@@ -256,14 +256,14 @@
     <string name="pref_umnetered_connections_only_summary">Yalnız limitsiz bağlantılarda endir (Wi-Fi və ya Ethernet)</string>
     <string name="pref_power_management_category">Enerji idarəsi</string>
     <string name="pref_cpu_do_not_sleep_title">CPU-nu oyaq saxla</string>
-    <string name="pref_cpu_do_not_sleep_summary">Bunu fəallaşdırmaq batareya istifadəsini artırar. Ekran sönəndə endirmə sürəti azalsa bu seçimi istifadə edin</string>
-    <string name="pref_download_only_when_charging_title">Yalnız batereya doldurularkən endir</string>
+    <string name="pref_cpu_do_not_sleep_summary">Bunu fəallaşdırmaq batareya istifadəsini artırır. Ekran sönəndə, endirmə sürəti azalsa bu seçimi istifadə edin</string>
+    <string name="pref_download_only_when_charging_title">Yalnız enerji yığarkən endir</string>
     <string name="pref_download_only_when_charging_summary">Fəallaşdırılsa, endirmə yalnız enerji yığımı zamanı həyata keçiriləcək. Enerji yükləyici cihazdan ayrılanda bütün endirmələrə fasilə verilər</string>
     <string name="pref_battery_control_title">Batareyaya nəzarət</string>
     <string name="pref_custom_battery_control_title">Özəl batareya faizi</string>
     <string name="pref_custom_battery_control_value_title">Batareyaya nəzarət faizi</string>
-    <string name="pref_battery_control_summary">Batareya səviyyəsi %1$d%% altında olanda bütün endirmələrə fasilə verilər. Limit enerji yığımı zamanı tətbiq edilmir</string>
-    <string name="pref_custom_battery_control_summary">Batareya səviyyəsi müəyyən bir dəyərdən az olsa, endirməyə fasilə vermək üçün bir faiz müəyyən edin. Bu seçimin fəallaşdırılması, ilkin %1$d%% dəyərini əhəmiyyətsiz edər</string>
+    <string name="pref_battery_control_summary">Batareya səviyyəsi %1$d%% altında olanda bütün endirmələrə fasilə veriləcək. Limit enerji yığımı zamanı tətbiq edilmir</string>
+    <string name="pref_custom_battery_control_summary">Batareya səviyyəsi müəyyən bir dəyərdən az olsa, endirməyə fasilə vermək üçün bir faiz müəyyən edin. Bu seçimin fəallaşdırılması, ilkin %1$d%% dəyərini yox sayacaq</string>
     <string name="pref_custom_battery_control_dialog_summary">Endirmə ərzində tətbiqetmə üçün özəl batareya faizi tənzimləmək, batareya ömrünə mənfi yöndə təsir edir. Fəallaşdırmaq istədiyinizə əminsiniz?</string>
     <string name="pref_enable_roaming_title">Roaminqi fəallaşdır</string>
     <string name="pref_enable_roaming_summary">Cihaz roaminqdə olmayanda endir</string>
@@ -290,7 +290,7 @@
     <string name="pref_browser_bottom_address_bar_title">Ünvan sətri yuxarıda</string>
     <string name="pref_browser_bottom_address_bar_summary">Ünvan sətri ekranın üst hissəsinə yerləşdirilər</string>
     <string name="pref_browser_start_page_title">Açılış səhifəsi</string>
-    <string name="pref_browser_allow_java_script_title">Java Script-ə icazə ver</string>
+    <string name="pref_browser_allow_java_script_title">JavaScript-ə icazə ver</string>
     <string name="pref_browser_allow_popup_windows_title">Açılan pəncərələrə icazə ver</string>
     <string name="pref_browser_cache_category">Keş</string>
     <string name="pref_browser_cookies_category">Çərəzlər</string>
@@ -301,13 +301,13 @@
     <string name="pref_browser_clear_cache_title">Keşi təmizlə</string>
     <string name="pref_browser_clear_cache_done">Keş təmizləndi</string>
     <string name="pref_browser_do_not_track_title">İzləmə</string>
-    <string name="pref_browser_do_not_track_summary">Ziyarət etdiyiniz veb saytlara \"İzləmə\" sorğusu göndər</string>
-    <string name="pref_browser_launcher_icon_title">Başladıcıda səyyah nişanı</string>
-    <string name="pref_browser_disable_from_system_title">Sistemdə səyyahı sıradan çıxart</string>
-    <string name="pref_browser_disable_from_system_summary">Səyyah, açılan bağlantılar üçün əlçatmaz olacaq</string>
+    <string name="pref_browser_do_not_track_summary">Ziyarət etdiyiniz veb saytlara \"İzlənilməsin\" tələbi göndər</string>
+    <string name="pref_browser_launcher_icon_title">Başladıcıda brauzer nişanı</string>
+    <string name="pref_browser_disable_from_system_title">Sistemdə brauzeri sıradan çıxart</string>
+    <string name="pref_browser_disable_from_system_summary">Brauzer, açılan keçidlər üçün əlçatmaz olacaq</string>
     <string name="pref_browser_search_engine_title">Axtarış mühərriki</string>
-    <string name="pref_browser_hide_menu_icon_title">Nişan menyudan gizlət</string>
-    <string name="pref_browser_hide_menu_icon_summary">Əsas ekran menyusundan səyyah nişanını gizlət</string>
+    <string name="pref_browser_hide_menu_icon_title">Nişanı menyudan gizlət</string>
+    <string name="pref_browser_hide_menu_icon_summary">Əsas ekran menyusundan brauzer nişanını gizlət</string>
     <!-- About dialog -->
     <string name="about_title">Download Navi Haqqında</string>
     <string name="about_description"><![CDATA[    Layihəyə kömək etmək üçün ətraflı məlumat: <a href="https://github.com/TachibanaGeneralLaboratories/download-navi">https://github.com/TachibanaGeneralLaboratories/download-navi</a><br><br>
@@ -315,4 +315,12 @@
     Download Navi ödənişsiz proqram təminatıdır,<a href="http://www.gnu.org/copyleft/gpl.html">GNU Ümumi İctimai Lisenziyası v3 (GPLv3)</a><br><br>
     <a href="https://github.com/TachibanaGeneralLaboratories/download-navi/blob/HEAD/PRIVACY.md">Gizlilik siyasəti</a> şərtləri altında buraxılıb]]></string>
     <string name="about_changelog">Dəyişiklik jurnalı</string>
+    <string name="disable">Sıradan çıxart</string>
+    <string name="move_file_error">Bu fayl daşına bilmir</string>
+    <string name="uncompress_archive_error">Arxiv açıla bilmir</string>
+    <string name="uncompress_archive_error_unknown_type">Arxiv açıla bilmir: bilinməyən növ və ya zədəli fayl</string>
+    <string name="uncompress_archive">Arxiv açıla bilmir</string>
+    <string name="battery_optimization">Batareya optimallaşdırması</string>
+    <string name="move_file_error_already_exists">Bu fayl daşına bilmir: artıq mövcuddur</string>
+    <string name="disable_battery_optimization_summary">Arxaplanda düzgün işləməsi üçün, batareya tənzimləmələrində batareya optimallaşdırmasını sıradan çıxartmaq lazımdır.</string>
 </resources>

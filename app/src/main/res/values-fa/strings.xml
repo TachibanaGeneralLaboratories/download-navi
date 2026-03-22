@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <!-- Global string -->
-    <string name="app_name">دانلود Navi</string>
-    <string name="foreground_notification">آگاهی پیش‌زمینه</string>
+    <string name="app_name">دانلود ناوی</string>
+    <string name="foreground_notification">اعلان پیش‌زمینه</string>
     <string name="download_running">در حال پیشرفت</string>
     <string name="finished">پایان یافت</string>
     <string name="shutdown">خاموش کردن</string>
@@ -188,7 +188,7 @@
     <string name="text_copied_to_clipboard">نوشته در تخته‌گیره رونوشت شد</string>
     <!-- Browser -->
     <string name="browser">مرورگر</string>
-    <string name="browser_app">مرورگر ناوی</string>
+    <string name="browser_app">مرورگر Navi</string>
     <string name="webview_is_required">برای کار کردن به WebView نیاز است</string>
     <string name="browser_forward_arrow">هدایت</string>
     <string name="browser_desktop_version">نگارش میزکار</string>
@@ -308,7 +308,7 @@
     </plurals>
     <string name="pref_header_limitations">محدودیت‌ها</string>
     <string name="pref_speed_limit_title">محدودیت سرعت برای یک تکه</string>
-    <string name="pref_browser_hide_menu_icon_title">مخفی کردن نقشک از منو</string>
+    <string name="pref_browser_hide_menu_icon_title">مخفی کردن آیکون از منو</string>
     <string name="pref_speed_limit_dialog_hint">تنظیم سرعت در کیبی‌بایت/ثانیه (۰ - بدون محدودیت)</string>
     <string name="pref_browser_hide_menu_icon_summary">مخفی کردن نقشک مرورگر از منوی صفحهٔ اصلی</string>
     <string name="move_file_error">نمی‌توان پرونده را جابه‌جا کرد</string>

@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="foreground_notification">Meldingen op de voorgrond</string>
+    <string name="shutdown">Uitschakelen</string>
+    <string name="app_name">Download Navi</string>
+    <string name="download_running">Bezig</string>
+    <string name="finished">Klaar</string>
+    <string name="elapsed_time_format_d_h_mm">%1$d d. %2$d h. %3$d m</string>
+    <string name="elapsed_time_format_h_mm_ss">%1$d h. %2$d m. %3$d s</string>
+    <string name="elapsed_time_format_mm_ss">%1$d m. %2$d s</string>
+    <string name="elapsed_time_format_ss">%1$d s</string>
+    <string name="ok">Oké</string>
+    <string name="cancel">Annuleren</string>
+    <string name="unmetered_connections_only">Enkel ongelimiteerde verbindingen</string>
+    <string name="connect">Verbinden</string>
+    <string name="add">Toevoegen</string>
+    <string name="not_available">Niet beschikbaar</string>
+    <string name="open_navigation_drawer">Open bedieningspaneel</string>
+    <string name="close_navigation_drawer">Sluit bedieningspaneel</string>
+</resources>

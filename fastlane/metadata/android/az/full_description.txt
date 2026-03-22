@@ -1,20 +1,21 @@
 # Features
 
-* Sərbəst və açıq mənbə tətbiq (FOSS)
-* Material Dizayn
-* Müxtəlif temalar (Açıq, Tünd, Qara)
-* Android TV dəstəyi
-* Chrome OS dəstəyi
-* Endirmələrin dayandırılıb davam etdirilməsi
-* Brauzer dəstəyi
-* Daxili brauzer
-* Eynizamanlı endirmələr (defolt 3)
-* Çoxhissəli endirmə (max 16)
-* Arxa planda faylların endirilməsi
-* Yalnız limitsiz əlaqə dəstəyi (məs. Wi-Fi)
-* Roaming idarəetmələri
-* İstifadəçi agenti idarəetməsi
-* Həş qiymətini hesabla (MD5 & SHA-256)
-* Enerjiyə qənaət və akkumulyator idarəsi
-* Endirməni tamamlayandan sonra müxtəlif avtomatik funksiyalar
-* Sürət limiti
+* Ödənişsiz və Açıq Mənbəli proqram təminatı (FOSS) 
+* Material dizayn 
+* Çoxlu temalar (Açıq, Tünd, Qara) 
+* Android TV dəstəyi 
+* Chrome OS dəstəyi 
+* Endirmələrə fasilə vermə və davam etdirmə 
+* Brauzer dəstəyi 
+* Daxili brauzer 
+* Eyni anda bir neçə endirmə (ilkin olaraq 3) 
+* Çox hissəli endirmə (ən çox 16) 
+* Faylları arxaplanda endirmə 
+* Yalnız limitsiz bağlantıları dəstəkləmə (məs. Wi-Fi) 
+* Rouminq kontrolları 
+* İstifadəçi agent kontrolları 
+* Hash dəyərini hesablama (MD5 & SHA-256) 
+* Enerji idarəetməsi və batareyaya nəzarət 
+* Endirmə bitdikdən sonra müxtəlif əməliyyatların avto-icrası 
+* Sürət limiti 
+* [Android 8.0+] Arxivi avtomatik açma. Arxivləmə formatları: zip, tar, 7z, ar, cpio, dump. Sıxışdırma formatları: gzip, bzip2, xz, lzma, Pack200, DEFLATE, DEFLATE64, Z
